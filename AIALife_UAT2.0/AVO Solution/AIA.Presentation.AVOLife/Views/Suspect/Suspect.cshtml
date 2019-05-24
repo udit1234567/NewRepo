@@ -1,0 +1,160 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userName = HttpContext.Current.User.Identity.Name;
+    List<int?> lstPermissions = HelperMethods.GetPermissions(userName);
+}
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important; /*#D31145 !important;*/
+    }
+
+    .block-content {
+        background-color: #46b2b5;
+        padding: 2em 1em;
+        width: 200px;
+        height: 150px;
+        color: white;
+        padding-top: 15px;
+    }
+
+    @@media screen and (min-width: 320px) and (max-width: 768px) {
+        .navbar-collapse.collapse {
+            display: block !important;
+            margin-left: 20px;
+        }
+
+        .nav > li {
+            display: inline-block;
+        }
+
+        .dashboard-stat .details {
+            right: 20px;
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .btn-breadcrumb {
+            margin-left: 10px;
+            margin-right: 10px;
+            width: calc(100% - 20px) !important;
+        }
+    }
+</style>
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+      
+        <div class="btn btn-info"><b>@Resources.GetLabelName("Lead")</b></div>
+    </div>
+</div>
+@*<div class="panel panel-default">
+        <div class="panel-body" style="color: white;
+        font-weight: 600;">@Resources.GetLabelName("New Business - Suspect")</div>
+    </div>*@
+<br />
+<div id="navContainer">
+    <div class="collapse navbar-collapse Main-collapse" id="navbar-collapse-1">
+        <div class="navbar-nav list" id="divNav">
+            <ul class="nav navbar-nav">
+                @if (lstPermissions.Contains(18))
+                {
+                    <li class="dropdown liClass">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light green-soft"
+                           data-toggle="dropdown" style="margin-right: 20px;border-color:#ad0c3c" onclick="ShowNewSuspect()">
+                            <img src="~/Content/Images/Create Lead1.png" />
+                            <p><b>@Resources.GetLabelName("Create Lead")</b></p>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 count-of-created">
+                                &nbsp;
+                            </div>
+                            @*<div class="visual">
+
+                                </div>
+                                <div class="details col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                    <div class="desc  col-md-12 col-sm-12 col-xs-12 col-lg-12" style="width:40%;font-size:21px"></div>
+                                    @*<div class="number col-sm-4" style="padding-top: 0px">1</div>*@
+                            @*</div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 count-of-created">
+                                    &nbsp;
+                                </div>*@
+                        </a>
+
+                    </li>
+                }
+
+                @if (lstPermissions.Contains(19))
+                {
+                    <li class="dropdown liClass">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light red-soft"
+                           data-toggle="dropdown" style="margin-right: 20px;border-top: 4px solid #97cb5d;" onclick="ShowAllocateSuspect()">
+                            <img src="~/Content/Images/LeadAllocation.png" />
+                            <p><b>@Resources.GetLabelName("Allocate Lead")</b></p>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 count-of-created">
+                                @ViewBag.SuspectPoolCount
+                            </div>
+
+    @*<div class="visual">
+                                    <img src="~/Content/Images/Suspect Pool.png" />
+                                </div>
+                                <div class="details col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                    <div class="desc  col-md-12 col-sm-12 col-xs-12 col-lg-12" style="width:40%;font-size:21px"><b>@Resources.GetLabelName("Allocate Lead")</b></div>*@
+                            @*<div class="number col-sm-4" style="padding-top: 0px">1</div>*@
+            @*</div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 count-of-created">
+                                @ViewBag.SuspectPoolCount
+                            </div>*@
+                        </a>
+                    </li>
+                }
+                @if (lstPermissions.Contains(20))
+                {
+                    <li class="dropdown liClass">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light blue-soft"
+                           data-toggle="dropdown" data-hover="dropdown" style="margin-right: 20px;" onclick="ShowModifySuspect()">
+                            <img src="~/Content/Images/Lead Pool1.png" />
+                            <p><b>@Resources.GetLabelName("Lead Pool")</b></p>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 count-of-created">
+                                @ViewBag.SuspectPoolCount
+                            </div>
+    @*<div class="visual">
+                                <img src="~/Content/Images/Lead Pool1.png" />
+                            </div>
+                            <div class="details col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="desc  col-md-12 col-sm-12 col-xs-12 col-lg-12" style="width:40%;font-size:21px"><b>@Resources.GetLabelName("Lead Pool")</b></div>*@
+                                @*<div class="number col-sm-4" style="padding-top: 0px">1</div>*@
+                            @*</div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 count-of-created">
+                                @ViewBag.SuspectPoolCount
+                            </div>*@
+                        </a>
+                    </li>
+                }
+                </ul>
+            </div>
+    </div>
+</div>
+<script>
+    function ShowNewSuspect() {
+        window.location.href = "/Suspect/NewSuspect";
+    };
+    function ShowModifySuspect() {
+        window.location.href = "/Suspect/SuspectPool";
+    };
+    function ShowAllocateSuspect() {
+        window.location.href = "/Suspect/Allocate";
+    };
+</script>
+

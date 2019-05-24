@@ -1,0 +1,134 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers;
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Retrigger Mail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    td {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 10%;
+    }
+
+    .text {
+        width: 140px;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-body" style="background-color: orangered;color:white;font-size:large;padding: 10px;" align="center">PREMIUM CALCULATOR</div>
+</div>
+<table style="width:100%">
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">DOB</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.objNomineeInfo.NomineeNicNoDOB, new { @class = "form-control text" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Agent Next Birthday</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.objLifeAssuredMemberInfo.AgeNextBirthday, new { @class = "form-control text" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Gender</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.objLifeAssuredMemberInfo.Gender, new { @class = "form-control text" })
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">Plan</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.PlanName, new { @class = "form-control text" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Policy Term</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.PolicyTerm, new { @class = "form-control text" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Premium Paying Term</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.Premium, new { @class = "form-control text" })
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">Sum Assured</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.Suminsured, new { @class = "form-control text" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Benefit Info</label>
+        </td>
+        <td colspan="4">
+            @Html.TextArea("BenefitInfo", new { @class = "form-control" })
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <input type="submit" class="form-control" value="CALCULATE" style="background-color:orange;color:white;" />
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">Annual</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.AnnualPremium, new { @class = "form-control" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Half Yearly</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.HalfYearlyPremium, new { @class = "form-control" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Quarterly</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.QuaterlyPremium, new { @class = "form-control" })
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">Monthly</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.MonthlyPremium, new { @class = "form-control" })
+        </td>
+        <td></td>
+    </tr>
+</table>

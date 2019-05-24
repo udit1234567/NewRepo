@@ -1,0 +1,95 @@
+﻿
+@model AIA.Life.Models.Payment.PaymentModel
+@using GridMvc.Html
+
+@*@if (System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT")
+{
+   
+}*@
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 iGrid form-group">
+    <input class="btn btn-default" id="btnPolicySchedulePDF" type="button" onclick="TestPolicy()" value="Download Policy Schedule PDF">
+</div>
+<div class="clearfix"></div>
+
+
+<div id="gridproposalpayment" class="col-lg-12">
+
+@(Html.Grid(Model.lstPaymentItems).Named("GridProposalPaymentDetails").Columns(columns =>
+{
+    columns.Add(a => a.IsSelected).Titled("Select").Encoded(false).Sanitized(false).RenderValueAs(a => Html.CheckBoxFor(b => b.lstPaymentItems[a.Index].IsSelected, new { @id = "ChkIsSelected" + a.Index, @onclick = "SetProposalInfo('ChkIsSelected"+ a.Index + "','" + a.ProposalNo + "','" + a.Premium + "', '" + a.InsuredName + "', '" + a.CustomerMobile + "')", @class = "form-control isSelect", Style = "height:14px;width:14px" }));
+
+    columns.Add(a => a.ProposalNo).Titled("Proposal No").Encoded(false).Sanitized(false);
+    columns.Add(a => a.InsuredName).Titled("Insured Name").Encoded(false).Sanitized(false);
+    columns.Add(a => a.PlanName).Titled("Plan Name").Encoded(false).Sanitized(false);
+    columns.Add(a => a.PolicyTerm).Titled("Policy Term").Encoded(false).Sanitized(false);
+    columns.Add(a => a.IssueDate).Format("{0:dd/MM/yyyy}").Titled("Issue Date").Encoded(false).Sanitized(false);
+    columns.Add(a => a.Premium).Titled("Premium (LKR)").Encoded(false).Sanitized(false);
+    columns.Add(a => a.CustomerMobile).Titled("Mobile").Encoded(false).Sanitized(false);
+    columns.Add(a => a.Mobile,true).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].ProductCode)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].Email)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].PrefferedMode)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].PreferredLanguage)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].Salutation)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].PolicyStartDate)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].PolicyEndDate)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].ProductName)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].IsAfc));
+}).WithPaging(5))
+</div>
+
+
+<style type="text/css">
+    .table th {
+    color: white !important;
+    text-align: center;
+}
+    .table td
+    {
+    text-align:center;
+}
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+        $('#gridproposalpayment').find('.grid-scroll').addClass('col-lg-12');
+    })
+    function TestPolicy() {
+        debugger;
+    var checkboxcount = $('#gridproposalpayment').find('input[type=checkbox]:checked').length;
+    if (checkboxcount > 0) {
+        var ProductCode="";
+        var ProductID = '@Model.lstPaymentItems[0].ProductID';
+        if (ProductID == 1 ) {
+            ProductCode = "PPG";
+        }
+        if (ProductID == 2) {
+            ProductCode = "SMG";
+        }
+        if (ProductID == 3) {
+            ProductCode = "PHP";
+        }
+        if (ProductID == 4) {
+            ProductCode = "PSP";
+        }
+        if (ProductID == 5) {
+            ProductCode = "PPV";
+        }
+        if (ProductID == 6) {
+            ProductCode = "PSB";
+        }
+        if (ProductID == 7) {
+            ProductCode = "PEP";
+        }
+        var ISAfc = '@Model.lstPaymentItems[0].IsAfc';
+            @*window.location.href = "/Reports/ReportForPolicySchedule?PolicyNo=" + '@Model.lstPaymentItems[0].ProposalNo' + "&ProductCode=" + '@Model.lstPaymentItems[0].ProductCode' + "&PreferredLanguage=" + '@Model.lstPaymentItems[0].PreferredLanguage' + "&context=" + null;*@
+            @*window.location.href = "/Reports/ReportForPolicySchedule?PolicyNo=" + '@Model.lstPaymentItems[0].ProposalNo' + "&ProductCode=" + ProductCode + "&PreferredLanguage=" + '@Model.lstPaymentItems[0].PreferredLanguage' + "&context=" + null;*@
+           window.location.href = "/Payment/TestPDF?QuoteNo=" + '@Model.lstPaymentItems[0].QuoteNo' + "&PolicyNo=" + '@Model.lstPaymentItems[0].ProposalNo' + "&ProductCode=" + ProductCode + "&PreferredLanguage=" + '@Model.lstPaymentItems[0].PreferredLanguage' + "&ISAfc=" + ISAfc + "&context=" + null;
+        //window.location.href = "/Reports/CLADocumentTest?QuoteNo=" + '@Model.lstPaymentItems[0].QuoteNo' + "&PolicyNo=" + '@Model.lstPaymentItems[0].ProposalNo';// + "&ProductCode=" + ProductCode + "&PreferredLanguage=" + '@Model.lstPaymentItems[0].PreferredLanguage' + "&ISAfc=" + ISAfc + "&context=" + null;
+        //window.location.href = "/Reports/GenererateUWReports1?QuoteNo=" + '@Model.lstPaymentItems[0].QuoteNo' + "&PolicyNo=" + '@Model.lstPaymentItems[0].ProposalNo';// + "&ProductCode=" + ProductCode + "&PreferredLanguage=" + '@Model.lstPaymentItems[0].PreferredLanguage' + "&ISAfc=" + ISAfc + "&context=" + null;
+
+        writeMultipleMessage("error", "", "IsSelected");
+        }
+        else {
+            writeMultipleMessage("error", "Please Select Records.", "IsSelected");
+            return false;
+        }
+    }
+
+
+
+</script>

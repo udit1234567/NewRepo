@@ -1,0 +1,2397 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using GridMvc.Html
+
+@Html.HiddenFor(a => a.objProspectDetails.IsSpouseCoverd, new { @id = "hdnIsSpouseCovered" })
+@Html.HiddenFor(a => a.objProspectDetails.IsSelfCovered, new { @id = "hdnIsSelfCovered" })
+@Html.HiddenFor(a => a.objProspectDetails.NoofChilds, new { @id = "hdnNoOfChild" })
+
+@Html.Grid(Model.objMemberDetails).Named("GridLifeAssuredMemberDetails").Columns(columns =>
+{
+columns.Add(a => a.IsOCRImageRecognition, true).Titled("IsOCRImageRecognition").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.Hidden("objMemberDetails[" + a.Index + "].IsOCRImageRecognition", a.IsOCRImageRecognition, new { @id = "hdnIsOCRImageRecognitionFailure" + a.Index }));
+columns.Add(a => a.IsOCRSeleted, true).Titled("IsOCRSeleted").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.Hidden("objMemberDetails[" + a.Index + "].IsOCRSeleted", a.IsOCRSeleted, new { @id = "hdnIsOCRSeleted" + a.Index }));
+columns.Add(a => a.IsLifeAssuredSeleted, true).Titled("LifeAssuredSeleted").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.Hidden("objMemberDetails[" + a.Index + "].IsLifeAssuredSeleted", a.IsLifeAssuredSeleted, new { @id = "hdnIsLifeAssuredSeleted" + a.Index }));
+columns.Add(a => a.SAR, true).Titled("SAR").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].SAR", a.SAR, new { @id = "hdnSAR" + a.Index }));
+columns.Add(a => a.Memberpremium, true).Titled("Member Premium").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Memberpremium", a.Memberpremium, new { @id = "hdnMemberpremium" + a.Index }));
+columns.Add(a => a.ClientCode, true).Titled("Client Code").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].ClientCode", a.ClientCode, new { @id = "hdnMemberClientCode" + a.Index }));
+columns.Add(a => a.SAM, true).Titled("SAM").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].SAM", a.SAM, new { @id = "hdnMemberSAM" + a.Index }));
+columns.Add(a => a.FirstName).Titled("First Name").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].FirstName", a.FirstName, new { @readonly = "readonly", @id = "txtFirstName" + a.Index, @class = "form-control" }));
+columns.Add(a => a.LastName).Titled("Last Name").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].LastName", a.LastName, new { @readonly = "readonly", @id = "txtLastName" + a.Index, @class = "form-control" }));
+columns.Add(a => a.RelationShipWithPropspectID, true).Titled("Relationship").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].RelationShipWithPropspectID", a.RelationShipWithPropspect, new { @id = "RelationShipWithPropspect" + a.Index, @class = "form-control" }));
+columns.Add(a => a.RelationShipWithPropspect).Titled("Relationship").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objMemberDetails[" + a.Index + "].RelationShipWithPropspect", new SelectList(Model.lstRelations, "ID", "Value", a.RelationShipWithPropspect), "Select", new { @readonly = "readonly", @id = "ddlRelationWithProposer" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Age).Titled("Age Next Birthday").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Age", a.Age, new { @readonly = "readonly", @id = "txtAgeNextBirthday" + a.Index, @class = "form-control" }));
+columns.Add(a => a.GenderText, true).Titled("Gender").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].GenderText", a.GenderText, new { @readonly = "readonly", @id = "GenderText" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Gender).Titled("Gender").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objMemberDetails[" + a.Index + "].Gender", new SelectList(Model.lstGender, "Value", "Text", a.Gender), "Select", new { @readonly = "readonly", @id = "ddlGender" + a.Index, @class = "form-control" }));
+
+columns.Add(a => a.Salutation, true).Titled("Salutation").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Salutation", a.Salutation, new { @id = "TxtProposerSalutation" + a.Index, @class = "form-control" }));
+columns.Add(a => a.MaritialStatus, true).Titled("MaritialStatus").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].MaritialStatus", a.MaritialStatus, new { @id = "ddlMaritalStatus" + a.Index, @class = "form-control" }));
+columns.Add(a => a.NameWithInitial, true).Titled("NameWithInitial").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].NameWithInitial", a.NameWithInitial, new { @id = "txtNameWithInitials" + a.Index, @class = "form-control" }));
+columns.Add(a => a.MiddleName, true).Titled("MiddleName").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].MiddleName", a.MiddleName, new { @id = "txtMiddleName" + a.Index, @class = "form-control" }));
+columns.Add(a => a.DateOfBirth, true).Titled("DateOfBirth").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].DateOfBirth", a.DateOfBirth, new { @id = "dtDOB" + a.Index, @class = "form-control" }));
+columns.Add(a => a.OLDNICNo, true).Titled("OLDNICNo").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].OLDNICNo", a.OLDNICNo, new { @id = "txtOldNicNo" + a.Index, @class = "form-control" }));
+columns.Add(a => a.NewNICNO, true).Titled("NewNICNO").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].NewNICNO", a.NewNICNO, new { @id = "txtNewNicNo" + a.Index, @class = "form-control" }));
+columns.Add(a => a.OccupationID, true).Titled("OccupationID").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].OccupationID", a.OccupationID, new { @id = "ddlOccupation" + a.Index, @class = "form-control" })); ;
+columns.Add(a => a.CompanyName, true).Titled("Name of the Employer").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].CompanyName", a.CompanyName, new { @id = "txtCompanyName" + a.Index, @class = "form-control" }));
+columns.Add(a => a.NameOfDuties, true).Titled("NameOfDuties").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].NameOfDuties", a.NameOfDuties, new { @id = "txtNatureOfDuties" + a.Index, @class = "form-control" }));
+columns.Add(a => a.MonthlyIncome, true).Titled("MonthlyIncome").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].MonthlyIncome", a.MonthlyIncome, new { @id = "ddlMemMonthlyIncome" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Nationality, true).Titled("Nationality").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objMemberDetails[" + a.Index + "].Nationality", new SelectList(Model.Nationalities, "Value", "Text", a.Nationality), "Select", new { @id = "ddlNationality" + a.Index, @class = "form-control" }));
+
+columns.Add(a => a.SpecifyNationality, true).Titled("Specify Nationality").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].SpecifyNationality", a.SpecifyNationality, new { @id = "txtNationalitySpecify" + a.Index, @class = "form-control" }));
+columns.Add(a => a.USTaxpayerId, true).Titled("USTaxpayerId").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].USTaxpayerId", a.USTaxpayerId, new { @id = "txtUSTaxpayerId" + a.Index, @class = "form-control" }));
+columns.Add(a => a.DrivingLicense, true).Titled("Driving License").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objMemberDetails[" + a.Index + "].DrivingLicense", new SelectList(Model.LstAgeProof, "Value", "Text", a.DrivingLicense), "Select", new { @id = "txtDrivingLicense" + a.Index, @class = "form-control" }));
+// a => Html.DropDownList("objMemberDetails[" + a.Index + "].DrivingLicense", new SelectList(Model.LstAgeProof, "Value", "Text", a.DrivingLicense), "Select", new { @id = "txtDrivingLicense" + a.Index, @class = "form-control" })
+//columns.Add(a => a.DrivingLicense, true).Titled("Driving License").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].DrivingLicense", a.DrivingLicense, new { @id = "txtDrivingLicense" + a.Index, @class = "form-control" }));
+columns.Add(a => a.PassportNumber, true).Titled("Passport Number").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].PassportNumber", a.PassportNumber, new { @id = "txtPassportNumber" + a.Index, @class = "form-control" }));
+columns.Add(a => a.OccupationHazardousWork, true).Titled("Occupation Hazardous Work").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.RadioButton("objMemberDetails[" + a.Index + "].OccupationHazardousWork", true, new { @id = "chkOccupationHazardousWork" + a.Index, @class = "form-control" }));
+// columns.Add(a => a.OccupationHazardousWork, true).Titled("Occupation Hazardous Work").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.RadioButton("objMemberDetails[" + a.Index + "].OccupationHazardousWork", false, new { @id = "rbnNoOccupationHazardousWork" + a.Index, @class = "form-control" }));
+columns.Add(a => a.SpecifiyOccupationHazardousWork, true).Titled("Specify Occupation Hazardous Work").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].SpecifiyOccupationHazardousWork", a.SpecifiyOccupationHazardousWork, new { @id = "txtOccupationHazardousWork" + a.Index, @class = "form-control" }));
+columns.Add(a => a.ResidentialStatus, true).Titled("Residential Status").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objMemberDetails[" + a.Index + "].ResidentialStatus", new SelectList(Model.LstResidentialStatus, "Value", "Text", a.ResidentialStatus), "Select", new { @id = "ddlResidentialStatus" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Residential, true).Titled("Specify Residential").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Residential", a.Residential, new { @id = "txtFillMemberResidential" + a.Index, @class = "form-control" }));
+columns.Add(a => a.CountryofOccupation, true).Titled("Country of Occupation").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objMemberDetails[" + a.Index + "].CountryofOccupation", new SelectList(Model.LstFillMemberCountryofOccupation, "Value", "Text", a.CountryofOccupation), "Select", new { @id = "ddlCountryofOccupation" + a.Index, @class = "form-control" }));
+columns.Add(a => a.CitizenShip, true).Titled("CitizenShip").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.CheckBox("objMemberDetails[" + a.Index + "].CitizenShip", a.CitizenShip, new { @id = "chkCitizenship" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Citizenship1, true).Titled("Citizenship1").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Citizenship1", a.Citizenship1, new { @id = "txtCitizenship1" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Citizenship2, true).Titled("Citizenship2").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Citizenship2", a.Citizenship2, new { @id = "txtCitizenship2" + a.Index, @class = "form-control" }));
+
+columns.Add(a => a.HomeNumber, true).Titled("HomeNumber").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].HomeNumber", a.HomeNumber, new { @id = "txtLandlinePhone" + a.Index, @class = "form-control" }));
+columns.Add(a => a.WorkNumber, true).Titled("WorkNumber").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].WorkNumber", a.WorkNumber, new { @id = "txtWorkNumber" + a.Index, @class = "form-control" }));
+columns.Add(a => a.MobileNo, true).Titled("MobileNo").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].MobileNo", a.MobileNo, new { @id = "txtMobileNo" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Email, true).Titled("Email").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Email", a.Email, new { @id = "txtEmail" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Height, true).Titled("Height").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Height", a.Height, new { @id = "ddlHeight" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Weight, true).Titled("Weight").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Weight", a.Weight, new { @id = "ddlWeight" + a.Index, @class = "form-control" }));
+columns.Add(a => a.OtherMobileNo, true).Titled("OtherMobileNo").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].OtherMobileNo", a.OtherMobileNo, new { @id = "txtOtherMobile" + a.Index, @class = "form-control" }));
+columns.Add(a => a.WeddingAnniversaryDate, true).Titled("WeddingAnniversaryDate").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].WeddingAnniversaryDate", a.WeddingAnniversaryDate, new { @id = "WedDate" + a.Index, @class = "form-control" }));
+columns.Add(a => a.IsSameasProposerAddress, true).Titled("IsSameasProposerAddress").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].IsSameasProposerAddress", a.IsSameasProposerAddress, new { @id = "txtIsSameasProposerAddress" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objCommunicationAddress.Address1, true).Titled("Address1").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objCommunicationAddress.Address1", a.objCommunicationAddress.Address1, new { @id = "txtComAddress1" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objCommunicationAddress.Address2, true).Titled("Address2").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objCommunicationAddress.Address2", a.objCommunicationAddress.Address2, new { @id = "txtComAddress2" + a.Index, @class = "form-control" }));
+
+columns.Add(a => a.objCommunicationAddress.Address3, true).Titled("Address3").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objCommunicationAddress.Address3", a.objCommunicationAddress.Address3, new { @id = "txtComAddress3" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objCommunicationAddress.State, true).Titled("State").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objCommunicationAddress.State", a.objCommunicationAddress.State, new { @id = "txtComState" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objCommunicationAddress.District, true).Titled("District").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objCommunicationAddress.District", a.objCommunicationAddress.District, new { @id = "txtComDistrict" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objCommunicationAddress.City, true).Titled("City").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objCommunicationAddress.City", a.objCommunicationAddress.City, new { @id = "txtComCity" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objCommunicationAddress.Pincode, true).Titled("Pincode").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objCommunicationAddress.Pincode", a.objCommunicationAddress.Pincode, new { @id = "txtComPincode" + a.Index, @class = "form-control" }));
+
+columns.Add(a => a.IsRegAsCommunication, true).Titled("IsRegAsCommunication").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].IsRegAsCommunication", a.IsRegAsCommunication, new { @id = "txtIsRegAsCommunication" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objPermenantAddress.Address1, true).Titled("Address1").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objPermenantAddress.Address1", a.objPermenantAddress.Address1, new { @id = "txtPerAddress1" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objPermenantAddress.Address2, true).Titled("Address2").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objPermenantAddress.Address2", a.objPermenantAddress.Address2, new { @id = "txtPerAddress2" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objPermenantAddress.Address3, true).Titled("Address3").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objPermenantAddress.Address3", a.objPermenantAddress.Address3, new { @id = "txtPerAddress3" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objPermenantAddress.Province, true).Titled("State").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objPermenantAddress.State", a.objPermenantAddress.State, new { @id = "txtPerState" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objPermenantAddress.District, true).Titled("District").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objPermenantAddress.District", a.objPermenantAddress.District, new { @id = "txtPerDistrict" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objPermenantAddress.City, true).Titled("City").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objPermenantAddress.City", a.objPermenantAddress.City, new { @id = "txtPerCity" + a.Index, @class = "form-control" }));
+columns.Add(a => a.objPermenantAddress.Pincode, true).Titled("Pincode").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].objPermenantAddress.Pincode", a.objPermenantAddress.Pincode, new { @id = "txtPerPincode" + a.Index, @class = "form-control" }));
+columns.Add(a => a.QuoteMemberID, true).Titled("QuoteMemberID").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].QuoteMemberID", a.QuoteMemberID, new { @class = "form-control" }));
+columns.Add(a => a.AssuredName, true).Titled("AssuredName").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].AssuredName", a.AssuredName, new { @class = "form-control", @id = "hdnAssuredName" + a.Index }));
+columns.Add(a => a.MemberID, true).Titled("MemberID").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].MemberID", a.MemberID, new { @class = "form-control" }));
+columns.Add(a => a.IsUpdate, true).Titled("IsUpdate").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].IsUpdate", a.IsUpdate, new { @id = "txtIsUpdate" + a.Index, @class = "form-control" }));
+columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(o => @<span class="fa fa-pencil" onclick="EditRow(@o.Index)" style="color:#e86487;"></span>);
+})
+
+<style type="text/css">
+    .table th {
+        /*background-color: #fbd99d;*/
+        /*color: white !important;*/
+        text-align: center;
+    }
+
+    .not-selected .fa fa-pencil-square-o {
+        color: red;
+    }
+</style>
+
+<script>
+
+    $(document).ready(function () {
+        //$("#EditRowMainLife 0").prop('disabled', true);
+        // $("#EditRowMainLife 0").hide();
+        var NicChecked=true;
+        var CheckingNIC=true
+
+    });
+
+    var AssuredMenberDetils = @Model.objMemberDetails.Count();
+
+    var Memberlength = 0;
+    function AddRow() {
+
+        if (Memberlength == 0) {
+            $("#divMemberDetails tbody").find("tr").each(function (index) {
+                $(this).remove();
+            });
+        }
+
+        var RowID = "RowMember" + Memberlength;
+        var jsonObj = [];
+        var Relation = parseInt($('#ddlRelationWithProposer').val());
+        var Salutation = $('#TxtProposerSalutation').val();
+        var FirstName = $('#txtFirstName').val();
+        var NameWithInitial = $('#txtNameWithInitials').val();
+        var MiddleName = $('#txtMiddleName').val();
+        var LastName = $('#txtLastName').val();
+
+        var AgeNextBirthday = $('#txtAgeNextBirthday').val();
+        var Gender = $('#ddlGender').val();
+        var MaritalStatus = parseInt($('#ddlMaritalStatus').val());
+        var OldNicNo = $('#txtOldNicNo').val();
+        var NewNicNo = $('#txtNewNicNo').val();
+        var Occupation = parseInt($('#ddlOccupation').val());
+        var CompanyName = $('#txtCompanyName').val();
+        var NatureOfDuties = $('#txtNatureOfDuties').val();
+        var MonthlyIncome = $('#ddlMemMonthlyIncome').val();
+        var Nationality = parseInt($('#ddlNationality').val());
+        var LandlinePhone = $('#txtLandlinePhone').val();
+        var MobileNo = $('#txtMobileNo').val();
+        var Email = $('#txtEmail').val();
+        var Height = parseInt($('#ddlHeight').val());
+        var Weight = parseInt($('#ddlWeight').val());
+        var Address1 = $('#txtComAddress1').val();
+        var Address2 = $('#txtComAddress2').val();
+        var Address3 = $('#txtComAddress3').val();
+        var PostalCode = $('#txtComPincode').val();
+        var District = $('#txtComDistrict').val();
+        var City = parseInt($('#txtComCity').val());
+        var DOB = $('#dtDOB').val();
+
+
+        var OtherMobile = $('#txtOtherMobile').val();
+        var WedDate = $('#WedDate').val();
+        var SpecifyNationality = $('#txtNationalitySpecify').val();
+        var SpecifyUSNationality = $('#txtUSTaxpayerId').val();
+        var DrivingLicense = $('#txtDrivingLicense').val();
+        var PassportNumber = $('#txtPassportNumber').val();
+
+        var rbnOccupationHazardousWork = $('#chkOccupationHazardousWork').val();
+        var OccupationHazardousWork = $('#txtMemberOccupationHazardousWork').val();
+        var ResidentialStatus = parseInt($('#ddlResidentialStatus').val());
+        var Residential = $('#txtFillMemberResidential').val();
+
+        var CountryofOccupation = parseInt($('#ddlCountryofOccupation').val());
+        var Citizenship = $('#chkCitizenship').val();
+        var Citizenship1 = $('#txtCitizenship1').val();
+        var Citizenship2 = $('#txtCitizenship2').val();
+
+        newRow = " <tr class='grid-row' id='" + RowID + "'><td class='grid-cell' data-name='FirstName'><input name='objMemberDetails[" + Memberlength + "].FirstName' type='text' class='form-control'  value='" + FirstName + "' id=\'txtFirstName" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell text-center' data-name='Relation' >" + "<select name='objMemberDetails[" + Memberlength + "].RelationShipWithPropspect' onblur = 'ValidateRelationship(this)' id='ddlRelationWithProposer" + Memberlength + "' class='form-control'> <option>Select</option></select>" +
+            "<td class='grid-cell' data-name='AgeNextBirthday'><input name='objMemberDetails[" + Memberlength + "].Age' type='text' class='form-control'    value='" + AgeNextBirthday + "' id=\'txtAgeNextBirthday" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell text-center' data-name='Gender' >" + "<select name='objMemberDetails[" + Memberlength + "].Gender' onblur = 'ValidateRelationship(this)' id='ddlGender" + Memberlength + "' value='" + Gender + "' class='form-control'> <option>Select</option></select>" +
+            "<td class='grid-cell'   data-name='Salutation'><input name='objMemberDetails[" + Memberlength + "].Salutation' type='hidden' class='form-control'  value='" + Salutation + "'  id=\'TxtProposerSalutation" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='MaritalStatus'><input name='objMemberDetails[" + Memberlength + "].MaritialStatus' class='form-control'  value='" + MaritalStatus + "'  id=\'ddlMaritalStatus" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='Occupation'><input name='objMemberDetails[" + Memberlength + "].OccupationID'  class='form-control'  value='" + Occupation + "'  id=\'ddlOccupation" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='Nationality'><input name='objMemberDetails[" + Memberlength + "].Nationality' ' class='form-control'  value='" + Nationality + "'  id=\'ddlNationality" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='DOB'><input name='objMemberDetails[" + Memberlength + "].DateOfBirth' type='hidden' class='form-control'  value='" + DOB + "'  id=\'dtDOB" + Memberlength + "\'></input></td>" +
+
+            "<td class='grid-cell'   data-name='Height'><input name='objMemberDetails[" + Memberlength + "].Height' class='form-control'  value='" + Height + "'  id=\'ddlHeight" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='Weight'><input name='objMemberDetails[" + Memberlength + "].Weight' class='form-control'  value='" + Weight + "'  id=\'ddlWeight" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='NameWithInitial'><input name='objMemberDetails[" + Memberlength + "].NameWithInitial' type='hidden' class='form-control'  value='" + NameWithInitial + "'  id=\'txtNameWithInitials" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='MiddleName'><input name='objMemberDetails[" + Memberlength + "].MiddleName' type='hidden' class='form-control'  value='" + MiddleName + "'  id=\'txtMiddleName" + Memberlength + "\'></input></td>" +
+
+             "<td class='grid-cell'  data-name='LastName'><input name='objMemberDetails[" + Memberlength + "].LastName' type='hidden' class='form-control'  value='" + LastName + "'  id=\'txtLastName" + Memberlength + "\'></input></td>" +
+
+            "<td class='grid-cell'   data-name='OldNicNo'><input name='objMemberDetails[" + Memberlength + "].OLDNICNo' type='hidden' class='form-control'  value='" + OldNicNo + "'  id=\'txtOldNicNo" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='NewNicNo'><input name='objMemberDetails[" + Memberlength + "].NewNICNO'  class='form-control'  value='" + NewNicNo + "'  id=\'txtNewNicNo" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='CompanyName'><input name='objMemberDetails[" + Memberlength + "].CompanyName' type='hidden' class='form-control'  value='" + CompanyName + "'  id=\'txtCompanyName" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='NatureOfDuties'><input name='objMemberDetails[" + Memberlength + "].NameOfDuties' type='hidden' class='form-control'  value='" + NatureOfDuties + "'  id=\'txtNatureOfDuties" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='MonthlyIncome'><input name='objMemberDetails[" + Memberlength + "].MonthlyIncome' type='hidden' class='form-control'  value='" + MonthlyIncome + "'  id=\'ddlMemMonthlyIncome" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='LandlinePhone'><input name='objMemberDetails[" + Memberlength + "].HomeNumber' type='hidden' class='form-control'  value='" + LandlinePhone + "'  id=\'txtLandlinePhone" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='MobileNo'><input name='objMemberDetails[" + Memberlength + "].MobileNo' type='hidden' class='form-control'  value='" + MobileNo + "'  id=\'txtMobileNo" + Memberlength + "\'></input></td>" +
+
+            "<td class='grid-cell'   data-name='SpecifyNationality'><input name='objMemberDetails[" + Memberlength + "].SpecifyNationality' type='hidden' class='form-control'  value='" + SpecifyNationality + "'  id=\'txtNationalitySpecify" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='USTaxpayerId'><input name='objMemberDetails[" + Memberlength + "].USTaxpayerId' type='hidden' class='form-control'  value='" + SpecifyUSNationality + "'  id=\'txtUSTaxpayerId" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='DrivingLicense'><input name='objMemberDetails[" + Memberlength + "].DrivingLicense' type='hidden' class='form-control'  value='" + DrivingLicense + "'  id=\'txtDrivingLicense" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='PassportNumber'><input name='objMemberDetails[" + Memberlength + "].PassportNumber' type='hidden' class='form-control'  value='" + PassportNumber + "'  id=\'txtPassportNumber" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='ResidentialStatus'><input name='objMemberDetails[" + Memberlength + "].ResidentialStatus' type='hidden' class='form-control'  value='" + ResidentialStatus + "'  id=\'ddlResidentialStatus" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='Residential'><input name='objMemberDetails[" + Memberlength + "].Residential' type='hidden' class='form-control'  value='" + Residential + "'  id=\'txtFillMemberResidential" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='OccupationHazardousWork'><input name='objMemberDetails[" + Memberlength + "].OccupationHazardousWork' type='hidden' class='form-control'  value='" + rbnOccupationHazardousWork + "'  id=\'chkOccupationHazardousWork" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='SpecifiyOccupationHazardousWork'><input name='objMemberDetails[" + Memberlength + "].SpecifiyOccupationHazardousWork' type='hidden' class='form-control'  value='" + OccupationHazardousWork + "'  id=\'txtOccupationHazardousWork" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='CountryofOccupation'><input name='objMemberDetails[" + Memberlength + "].CountryofOccupation' type='hidden' class='form-control'  value='" + CountryofOccupation + "'  id=\'ddlCountryofOccupation" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='CitizenShip'><input name='objMemberDetails[" + Memberlength + "].CitizenShip' type='hidden' class='form-control'  value='" + Citizenship + "'  id=\'chkCitizenship" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='Citizenship1'><input name='objMemberDetails[" + Memberlength + "].Citizenship1' type='hidden' class='form-control'  value='" + Citizenship1 + "'  id=\'txtCitizenship1" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='Citizenship2'><input name='objMemberDetails[" + Memberlength + "].Citizenship2' type='hidden' class='form-control'  value='" + Citizenship2 + "'  id=\'txtCitizenship2" + Memberlength + "\'></input></td>" +
+
+            "<td class='grid-cell'   data-name='OtherMobileNo'><input name='objMemberDetails[" + Memberlength + "].OtherMobileNo' type='hidden' class='form-control'  value='" + OtherMobile + "'  id=\'txtOtherMobile" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='WeddingAnniversaryDate'><input name='objMemberDetails[" + Memberlength + "].WeddingAnniversaryDate' type='hidden' class='form-control'  value='" + WedDate + "'  id=\'WedDate" + Memberlength + "\'></input></td>" +
+
+            "<td class='grid-cell'   data-name='Email'><input name='objMemberDetails[" + Memberlength + "].Email' type='hidden' class='form-control'  value='" + Email + "'  id=\'txtEmail" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='Address1'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.Address1' type='hidden' class='form-control'  value='" + Address1 + "'  id=\'txtComAddress1" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='Address2'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.Address2' type='hidden' class='form-control'  value='" + Address2 + "'  id=\'txtComAddress2" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='Address3'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.Address3' type='hidden' class='form-control'  value='" + Address2 + "'  id=\'txtComAddress3" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='PostalCode'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.Pincode' type='hidden' class='form-control'  value='" + PostalCode + "'  id=\'txtComPincode" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='District'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.District' type='hidden' class='form-control'  value='" + District + "'  id=\'txtComDistrict" + Memberlength + "\'></input></td>" +
+            "<td class='grid-cell'   data-name='City'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.City' type='hidden' class='form-control'  value='" + City + "'  id=\'txtComCity" + Memberlength + "\'></input></td>" +
+
+            "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'deleteGridRow" + Memberlength + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteRow(\"" + RowID + "\")' /></td>" +
+            "<td class='grid-cell text-center' data-name='Edit'><span class='fa fa-pencil-square-o' onclick='EditRow(\"" + Memberlength + "\")' style='color:#fbb055;'></span></td></tr>";
+
+        $('#divMemberDetails tbody:last').append(newRow);
+
+
+        var lstRelation = @(Html.Raw(Json.Encode(Model.lstRelations)));
+        var Relations = "";
+        $.each(lstRelation, function (ID, option) {
+            Relations += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+        });
+        $("#ddlRelationWithProposer" + Memberlength).append(Relations);
+        $("#ddlRelationWithProposer" + Memberlength).val(Relation);
+        if( Relation =='267')
+        {
+            IsSelf=true;
+        }
+        else if(Relation=='268')
+        {
+            IsSpouse=true;
+        }
+
+        var lstGender = @(Html.Raw(Json.Encode(Model.lstGender)));
+        var Genders = "";
+        $.each(lstGender, function (Value, option) {
+            Genders += '<option Value='+ option.Value + '>'+option.Text + '</option>';
+        });
+
+        $("#ddlGender" + Memberlength).append(Genders);
+        $("#ddlGender" + Memberlength).val(Gender);
+
+        RefreshData();
+        Memberlength = Memberlength + 1;
+        IsSelfAndSpouseCoverd();
+    }
+
+    var updateID = 0;
+    function EditRow(id) {
+        updateID = id;
+        var Relation = $('#ddlRelationWithProposer' + id).val() ;
+
+        var Gender = $('#ddlGender' + id).val();
+        var Name = '@Model.AssuredName';
+        var PolicyID = '@Model.PolicyID';
+
+        if ($("input[id='yesbtnProposerLifeAssured']").is(':checked') == true) {
+            if (Relation=="267") {
+                if (PolicyID == 0) {
+                    var ProposercountryofOccupation = $("#ddlProposerCountryofOccupation").val();
+                    $('#ddlFillMemberCountryofOccupation').val(ProposercountryofOccupation);
+                    var Salutation = $('#TxtProposerSalutation' + id).val();
+                    $('#TxtMemberSalutation').val(Salutation);
+                    $('#TxtMemberSalutation').attr('readonly', 'readonly');
+                    $('#txtMemberNewNicNo').attr('readonly', 'readonly');
+                    // $('#TxtMemberSalutation').val(Salutation);
+                    $("#ddlMemberNationality").val($("#ddlNationality").val());
+                    var NationalityValue= $("#ddlMemberNationality").val();
+                    if (NationalityValue == "Select") {
+                        $("#divMemberUSTaxpayerId").hide();
+                        $("#divFillMember").hide();
+                    }
+                    if (NationalityValue != "USA") {
+                        $("#divMemberUSTaxpayerId").hide();
+                        $("#divFillMember").hide();
+                    }
+                    if (NationalityValue == "USA") {
+                        $("#divMemberUSTaxpayerId").show();
+                        $("#divFillMember").hide();
+                        $("#txtMemberUSTaxPayerID").val($("#txtUSTaxpayerId").val());
+                    }
+                    if (NationalityValue == "Others") {
+                        $("#divFillMember").show();
+                        $("#divMemberUSTaxpayerId").hide();
+                        $("#txtMemberSpecifyNationality").val($("#txtNationalitySpecify").val());
+                    }
+                    $("#ddlFillMemberResidentialStatus").val($("#ddlResidentialStatus").val());
+
+                    var ResidentialStatusValue = $("#ddlFillMemberResidentialStatus").val();
+                    if (ResidentialStatusValue == "Select" || ResidentialStatusValue == "SLK" )
+                    {
+                        $("#divFillMemberResidentialStatus").hide();
+                    }
+                    if (ResidentialStatusValue !="SLK" && ResidentialStatusValue =="NSLK" || ResidentialStatusValue =="Others" ) {
+                        $("#divFillMemberResidentialStatus").show();
+                        $("#txtFillMemberResidential").val($("#txtResidential").val());
+                    }
+
+                    $("#txtFillMemberPassportNumber").val($("#txtPassportNumber").val());
+                    $("#txtFillMemberDrivingLicense").val($("#txtDrivingLicense").val());
+                    $("#txtMemberCompanyName").val($("#txtCompanyName").val());
+
+                    if ($("input[id='yesbtnOccupation']").is(':checked') == true)
+                    {
+
+                        $("#yesbtnMemberOccupation").prop("checked", true);
+                        if ($("input[id='yesbtnMemberOccupation']").is(':checked') == true) {
+                            $("#DivMemberOccupationHazardousWork").show();
+                            var OccupationHazardousWork = $('#txtProposerOccupationHazardousWork').val();
+                            $("#txtMemberOccupationHazardousWork").val(OccupationHazardousWork);
+                        }
+                    }
+                    else if($("input[id='yesbtnOccupation']").is(':checked') == false)
+                    {
+                        $("#yesbtnMemberOccupation").prop("checked", false);
+                        if ($("input[id='yesbtnMemberOccupation']").is(':checked') == false) {
+                            $("#DivMemberOccupationHazardousWork").hide();
+                        }
+                    }
+
+                    if ($("input[id='NobtnOccupation']").is(':checked') == true)
+                    {
+                        $("#NobtnMemberOccupation").prop("checked", true);
+                        $("#DivMemberOccupationHazardousWork").hide();
+                    }
+
+                    if ($("input[id='chkDueyouhaveCitizenShip']").is(':checked') == true)
+                    {
+                        $("#chkMemberCitizenShip").prop("checked", true);
+                        $('.invisiblemem').addClass("checkboxactive");
+                        if ($("input[id='chkMemberCitizenShip']").is(':checked') == true) {
+                            $("#DivMemberCitizenShip1").show();
+                            $("#DivMemberCitizenShip2").show();
+                            var Citizenship1 = $('#txtCitizenship1').val();
+                            var Citizenship2 = $('#txtCitizenship2').val();
+                            $('#txtMemberCitizenship1').val(Citizenship1)
+                            $('#txtMemberCitizenship2').val(Citizenship2)
+                        }
+                    }
+
+                    else if($("input[id='chkDueyouhaveCitizenShip']").is(':checked') == false){
+                        $("#chkMemberCitizenShip").prop("checked", false);
+                        $('.invisiblemem').removeClass("checkboxactive");
+                        if ($("input[id='chkMemberCitizenShip']").is(':checked') == false) {
+                            $("#DivMemberCitizenShip1").hide();
+                            $("#DivMemberCitizenShip2").hide();
+                        }
+                    }
+                    $("#txtMemberMobileNo").val($("#txtMobileNo").val());
+                    $("#txtMemberOtherMobileNo").val($("#txtOtherMobileNo").val());
+                    $("#txtMemberHomeNo").val($("#txtHomeNumber").val());
+                    $("#txtmemberWorkNumber").val($("#txtproposerOfficeNo").val());
+                    $("#txtMemberEmail").val($("#txtproposerEmail").val());
+
+                }
+                if (PolicyID > 0) {
+                    var Salutation = $('#TxtProposerSalutation' + id).val();
+                    var MaritalStatus = $('#ddlMaritalStatus' + id).val();
+                    var PassportNumber = $('#txtPassportNumber' + id).val();
+                    var DrivingLicense = $('#txtDrivingLicense' + id).val();
+                    var CompanyName = $('#txtCompanyName' + id).val();
+                    var NatureOfDuties = $('#txtNatureOfDuties' + id).val();
+                    var Nationality = $('#ddlNationality').val();
+
+                    //var AgeProof = $('#txtDrivingLicense' + id).val();
+                    //if (AgeProof == "" || AgeProof == "Select") {
+
+                    //}
+                    $('#txtFillMemberDrivingLicense').val(DrivingLicense);
+                    $("#txtFillMemberDrivingLicense").val($("#txtDrivingLicense").val());
+
+                    $("#txtMemberSpecifyNationality").val($("#txtNationalitySpecify").val());
+                    $("#ddlFillMemberResidentialStatus").val($("#ddlResidentialStatus").val());
+                    $("#txtFillMemberResidential").val($("#txtResidential").val());
+                    debugger;
+                    $('#TxtMemberSalutation').attr('readonly', 'readonly');
+                    $('#txtMemberNewNicNo').attr('readonly', 'readonly');
+                    if (Nationality == "Select" || Nationality == "") {
+                        $('#ddlMemberNationality').val('SL');
+                        $("#divMemberUSTaxpayerId").hide();
+                        $("#divFillMember").hide();
+                    }
+                    else
+                    {
+                        $('#ddlMemberNationality').val(Nationality);
+
+                    }
+
+                    if (Nationality != "USA") {
+                        $("#divMemberUSTaxpayerId").hide();
+                        $("#divFillMember").hide();
+                    }
+                    if (Nationality == "USA") {
+                        $("#divMemberUSTaxpayerId").show();
+                        $("#divFillMember").hide();
+                        $("#txtMemberUSTaxPayerID").val($("#txtUSTaxpayerId").val());
+                    }
+                    if (Nationality == "Others") {
+                        $("#divFillMember").show();
+                        $("#divMemberUSTaxpayerId").hide();
+                        $("#txtMemberSpecifyNationality").val($("#txtNationalitySpecify").val());
+                    }
+                    var ResidentialStatus = $('#ddlResidentialStatus' + id).val();
+                    if (ResidentialStatus == "Select" || ResidentialStatus == "") {
+                        $('#ddlFillMemberResidentialStatus').val('SL');
+                    }
+                    else
+                    {
+                        $('#ddlFillMemberResidentialStatus').val(ResidentialStatus);
+
+                    }
+                    var CountryofOccupation = $('#ddlCountryofOccupation' + id).val();
+                    if (CountryofOccupation == "Select" || CountryofOccupation == "") {
+                        $('#ddlFillMemberCountryofOccupation').val('SL');
+                    }
+                    else
+                    {
+                        $('#ddlFillMemberCountryofOccupation').val(CountryofOccupation);
+                    }
+                    var MobileNo = $('#txtMobileNo' + id).val();
+                    var MobileNo1 = $('#txtOtherMobile' + id).val();
+                    var HomeNo = $('#txtLandlinePhone' + id).val();
+                    var WorkNo = $('#txtWorkNumber' + id).val();
+                    var Email = $('#txtEmail' + id).val();
+                    var OccupationHazardousWork = $('#txtOccupationHazardousWork' + id).val();
+                    var Citizenship1 = $('#txtCitizenship1' + id).val();
+                    var Citizenship2 = $('#txtCitizenship2' + id).val();
+
+                    var OccupationHazardousWorkValue = '@Model.objMemberDetails[Model.AssuredIndex].OccupationHazardousWork';
+                    // $("#chkOccupationHazardousWork" + id).is(":checked")==true
+                    if(OccupationHazardousWorkValue == "True")
+                    {
+                        $("input[id='yesbtnMemberOccupation']").prop("checked",true);
+                        $("#DivMemberOccupationHazardousWork").show();
+                        $('#txtMemberOccupationHazardousWork').val(OccupationHazardousWork);
+                    }
+                    if(OccupationHazardousWorkValue=="False")
+                    {
+                        $("input[id='yesbtnMemberOccupation']").prop("checked",false);
+                        $("#DivMemberOccupationHazardousWork").hide();
+                        $("input[id='NobtnMemberOccupation']").prop("checked",true);
+                        //$('#txtOccupationHazardousWork').val(OccupationHazardousWork);
+                    }
+
+                    var CitizenshipValue = '@Model.objMemberDetails[Model.AssuredIndex].CitizenShip';
+                    if(CitizenshipValue=="True")
+                    {
+                        $("input[id='chkMemberCitizenShip']").prop("checked",true);
+                        $('.invisiblemem').addClass('checkboxactive');
+                        $("#DivMemberCitizenShip1").show();
+                        $("#DivMemberCitizenShip2").show();
+                        $('#txtMemberCitizenship1').val(Citizenship1);
+                        $('#txtMemberCitizenship2').val(Citizenship2);
+                        // $('#chkMemberCitizenShip').val();
+                    }
+
+                    if(CitizenshipValue=="False")
+                    {
+                        $("input[id='chkMemberCitizenShip']").prop("checked",false);
+                        $('.invisiblemem').removeClass('checkboxactive');
+                        $("#DivMemberCitizenShip1").hide();
+                        $("#DivMemberCitizenShip2").hide();
+                        // $('#chkMemberCitizenShip').val();
+                    }
+
+
+                    $('#TxtMemberSalutation').val(Salutation);
+                    if (Salutation == "Individual") {
+                        $('#TxtMemberSalutation').val('');
+                        $('#TxtMemberSalutation').attr('readonly', false);
+
+                    }
+                    $('#ddlMemberMaritalStatus').val(MaritalStatus);
+                    $('#txtFillMemberPassportNumber').val(PassportNumber);
+
+                    $('#txtMemberCompanyName').val(CompanyName);
+                    $('#txtMemberNatureOfDuties').val(NatureOfDuties);
+                    //$('#ddlMemberNationality').val(Nationality);
+                    //$('#ddlFillMemberResidentialStatus').val(ResidentialStatus);
+                    // $('#ddlFillMemberCountryofOccupation').val(CountryofOccupation)
+                    $("#txtMemberMobileNo").val(MobileNo);
+                    $('#txtMemberOtherMobileNo').val(MobileNo1);
+                    $('#txtMemberHomeNo').val(HomeNo);
+                    $('#txtmemberWorkNumber').val(WorkNo);
+                    $('#txtMemberEmail').val(Email);
+
+                    $("#txtFillMemberPassportNumber").val($("#txtPassportNumber").val());
+                    $("#txtFillMemberDrivingLicense").val($("#txtDrivingLicense").val());
+                    $("#txtMemberCompanyName").val($("#txtCompanyName").val());
+
+                    if ($("input[id='yesbtnOccupation']").is(':checked') == true)
+                    {
+
+                        $("#yesbtnMemberOccupation").prop("checked", true);
+                        if ($("input[id='yesbtnMemberOccupation']").is(':checked') == true) {
+                            $("#DivMemberOccupationHazardousWork").show();
+                            var OccupationHazardousWork = $('#txtProposerOccupationHazardousWork').val();
+                            $("#txtMemberOccupationHazardousWork").val(OccupationHazardousWork);
+                        }
+                    }
+                    else if($("input[id='yesbtnOccupation']").is(':checked') == false)
+                    {
+                        $("#yesbtnMemberOccupation").prop("checked", false);
+                        if ($("input[id='yesbtnMemberOccupation']").is(':checked') == false) {
+                            $("#DivMemberOccupationHazardousWork").hide();
+                        }
+                    }
+
+                    if ($("input[id='NobtnOccupation']").is(':checked') == true)
+                    {
+                        $("#NobtnMemberOccupation").prop("checked", true);
+                        $("#DivMemberOccupationHazardousWork").hide();
+                    }
+
+                    if ($("input[id='chkDueyouhaveCitizenShip']").is(':checked') == true)
+                    {
+                        $("#chkMemberCitizenShip").prop("checked", true);
+                        $('.invisiblemem').addClass('checkboxactive');
+
+                        if ($("input[id='chkMemberCitizenShip']").is(':checked') == true) {
+                            $('.invisiblemem').addClass("checkboxactive");
+                            $("#DivMemberCitizenShip1").show();
+                            $("#DivMemberCitizenShip2").show();
+                            var Citizenship1 = $('#txtCitizenship1').val();
+                            var Citizenship2 = $('#txtCitizenship2').val();
+                            $('#txtMemberCitizenship1').val(Citizenship1)
+                            $('#txtMemberCitizenship2').val(Citizenship2)
+                        }
+                    }
+
+                    else if($("input[id='chkDueyouhaveCitizenShip']").is(':checked') == false){
+                        $("#chkMemberCitizenShip").prop("checked", false);
+                        $('.invisiblemem').removeClass('checkboxactive');
+                        if ($("input[id='chkMemberCitizenShip']").is(':checked') == false) {
+                            $("#DivMemberCitizenShip1").hide();
+                            $("#DivMemberCitizenShip2").hide();
+                        }
+                    }
+                    $("#ddlMemberNationality").val($("#ddlNationality").val());
+
+                    $("#ddlFillMemberResidentialStatus").val($("#ddlResidentialStatus").val());
+                    $("#ddlFillMemberCountryofOccupation").val($("#ddlProposerCountryofOccupation").val());
+                    $("#txtMemberMobileNo").val($("#txtMobileNo").val());
+                    $("#txtMemberOtherMobileNo").val($("#txtOtherMobileNo").val());
+                    $("#txtMemberHomeNo").val($("#txtHomeNumber").val());
+                    $("#txtmemberWorkNumber").val($("#txtproposerOfficeNo").val());
+                    $("#txtMemberEmail").val($("#txtproposerEmail").val());
+
+                    $('#TxtMemberSalutation').val($('#TxtProposerSalutation' + id).val());
+
+                    $('#txtMemberNameWithInitials').attr('readonly', true);
+                    $('#txtMemberFirstName').attr('readonly', true);
+                    $('#txtMemberLastName').attr('readonly', true);
+                    $('#ddlMemberMonthlyIncome').attr('readonly', true);
+                    $('#txtFillMemberPassportNumber').attr('readonly', true);
+                    $('#txtMemberCompanyName').attr('readonly', true);
+                    $('#ddlMemberNationality').attr('readonly', true);
+                    $('#txtMemberUSTaxPayerID').attr('readonly', true);
+                    $('#ddlFillMemberResidentialStatus').attr('readonly', true);
+                    $('#txtFillMemberDrivingLicense').attr('readonly', true);
+                    $('#ddlFillMemberCountryofOccupation').attr('readonly', true);
+                    $('#yesbtnMemberOccupation').attr('readonly', true);
+                    $('#NobtnMemberOccupation').attr('readonly', true);
+                    $('#txtMemberOccupationHazardousWork').attr('readonly', true);
+                    $('#chkMemberCitizenShip').attr('readonly', true);
+                    $('#txtMemberCitizenship1').attr('readonly', true);
+                    $('#txtMemberCitizenship2').attr('readonly', true);
+                    $('#txtMemberMobileNo').attr('readonly', true);
+                    $('#txtMemberOtherMobileNo').attr('readonly', true);
+                    $('#txtMemberHomeNo').attr('readonly', true);
+                    $('#txtmemberWorkNumber').attr('readonly', true);
+                    $('#txtMemberEmail').attr('readonly', true);
+                }
+            }
+            else
+            {
+                $("#divMemberUSTaxpayerId").hide();
+            }
+        }
+
+        if (Relation=="268") {
+            var NewNicNo = $('#txtNewNicNo' + id).val();
+            $('#txtMemberNewNicNo').val(NewNicNo);
+            if (NewNicNo != "" && NewNicNo != null && NewNicNo != undefined) {
+                $('#txtMemberNewNicNo').attr('readonly', true);
+            }
+            else {
+                $('#txtMemberNewNicNo').attr('readonly', false);
+            }
+            var Salutation = $('#TxtProposerSalutation' + id).val();
+            var MaritalStatus = $('#ddlMaritalStatus' + id).val('M');
+            var Nationality = $('#ddlNationality' + id).val();
+            $('#TxtMemberSalutation').attr('readonly', false);
+            $('#txtMemberNameWithInitials').attr('readonly', false);
+            $('#txtMemberFirstName').attr('readonly', false);
+            $('#txtMemberLastName').attr('readonly', false);
+            $('#ddlMemberMonthlyIncome').attr('readonly', false);
+            $('#txtFillMemberPassportNumber').attr('readonly', false);
+            $('#txtMemberCompanyName').attr('readonly', false);
+            $('#ddlMemberNationality').attr('readonly', false);
+            $('#txtMemberUSTaxPayerID').attr('readonly', false);
+            $('#ddlFillMemberResidentialStatus').attr('readonly', false);
+            $('#txtFillMemberDrivingLicense').attr('readonly', false);
+            $('#ddlFillMemberCountryofOccupation').attr('readonly', false);
+            $('#yesbtnMemberOccupation').attr('readonly', false);
+            $('#NobtnMemberOccupation').attr('readonly', false);
+            $('#txtMemberOccupationHazardousWork').attr('readonly', false);
+            $('#chkMemberCitizenShip').attr('readonly', false);
+            $('#txtMemberCitizenship1').attr('readonly', false);
+            $('#txtMemberCitizenship2').attr('readonly', false);
+            $('#txtMemberMobileNo').attr('readonly', false);
+            $('#txtMemberOtherMobileNo').attr('readonly', false);
+            $('#txtMemberHomeNo').attr('readonly', false);
+            $('#txtmemberWorkNumber').attr('readonly', false);
+            $('#txtMemberEmail').attr('readonly', false);
+            if (Nationality == "Select" || Nationality == "") {
+                $('#ddlMemberNationality').val('SL');
+            }
+            else
+            {
+                $('#ddlMemberNationality').val(Nationality);
+            }
+            var SpecifyNationality   = $('#txtNationalitySpecify' + id).val();
+            var SpecifyUSNationality = $('#txtUSTaxpayerId' + id).val();
+            var DrivingLicense   = $('#txtDrivingLicense' + id).val();
+            var PassportNumber   = $('#txtPassportNumber' + id).val();
+            var OccupationHazardousWork = $('#txtOccupationHazardousWork' + id).val();
+            var ResidentialStatus  = $('#ddlResidentialStatus' + id).val();
+            if (ResidentialStatus == "Select" || ResidentialStatus == "") {
+                $('#ddlFillMemberResidentialStatus').val('SL');
+            }
+            else
+            {
+                $('#ddlFillMemberResidentialStatus').val(ResidentialStatus);
+            }
+            var Residential  = $('#txtFillMemberResidential' + id).val();
+            var CountryofOccupation = $('#ddlCountryofOccupation' + id).val();
+            if (CountryofOccupation == "Select" || CountryofOccupation == "") {
+                $('#ddlFillMemberCountryofOccupation').val('SL');
+            }
+            else
+            {
+                $('#ddlFillMemberCountryofOccupation').val(CountryofOccupation);
+            }
+
+            //$('#ddlFillMemberResidentialStatus').val(ResidentialStatus);
+            $('#txtFillMemberResidential').val(Residential);
+            //$('#ddlFillMemberCountryofOccupation').val(CountryofOccupation);
+            var Citizenship1 = $('#txtCitizenship1' + id).val();
+            var Citizenship2 = $('#txtCitizenship2' + id).val();
+            var CompanyName = $('#txtCompanyName' + id).val();
+
+            var MobileNo1 = $('#txtOtherMobile' + id).val();
+            var HomeNo = $('#txtLandlinePhone' + id).val();
+            var WorkNo = $('#txtWorkNumber' + id).val();
+            var Email = $('#txtEmail' + id).val();
+
+            $('#TxtMemberSalutation').val(Salutation);
+            if (Salutation == "Individual") {
+                $('#TxtMemberSalutation').val('');
+            }
+            $("#txtMemberMobileNo").val($("#txtMobileNo").val());
+
+            $('#txtMemberOtherMobileNo').val(MobileNo1);
+            $('#txtMemberHomeNo').val(HomeNo);
+            $('#txtmemberWorkNumber').val(WorkNo);
+            $('#txtMemberEmail').val(Email);
+
+            $('#txtMemberCompanyName').val(CompanyName);
+
+            $('#txtMemberSpecifyNationality').val(SpecifyNationality);
+            $('#txtMemberUSTaxPayerID').val(SpecifyUSNationality);
+            $('#txtFillMemberDrivingLicense').val(DrivingLicense);
+            $('#txtFillMemberPassportNumber').val(PassportNumber);
+
+            if (PolicyID  == 0) {
+                if($("#chkOccupationHazardousWork" + id).is(":checked")==true)
+                {
+                    $("input[id='yesbtnMemberOccupation']").prop("checked",true);
+                    $("#DivMemberOccupationHazardousWork").show();
+                    $('#txtMemberOccupationHazardousWork').val(OccupationHazardousWork);
+                }
+                if($("#chkOccupationHazardousWork" + id).is(":checked")==false)
+                {
+                    $("input[id='yesbtnMemberOccupation']").prop("checked",false);
+                    $("#DivMemberOccupationHazardousWork").hide();
+                    $("input[id='NobtnMemberOccupation']").prop("checked",true);
+                    //$('#txtOccupationHazardousWork').val(OccupationHazardousWork);
+                }
+
+                if($("#chkCitizenship" + id).is(":checked")==true)
+                {
+                    $("input[id='chkMemberCitizenShip']").prop("checked",true);
+                    $('.invisiblemem ').addClass('checkboxactive')
+                    $("#DivMemberCitizenShip1").show();
+                    $("#DivMemberCitizenShip2").show();
+                    $('#txtMemberCitizenship1').val(Citizenship1);
+                    $('#txtMemberCitizenship2').val(Citizenship2);
+                }
+                if($("#chkCitizenship" + id).is(":checked")==false)
+                {
+                    $("input[id='chkMemberCitizenShip']").prop("checked",false);
+                    $('.invisiblemem ').removeClass('checkboxactive')
+                    $("#DivMemberCitizenShip1").hide();
+                    $("#DivMemberCitizenShip2").hide();
+                    //$('#txtOccupationHazardousWork').val(OccupationHazardousWork);
+                }
+
+            }
+
+            if (PolicyID > 0) {
+                var OccupationHazardousWorkValue = '@Model.objMemberDetails[Model.AssuredIndex].OccupationHazardousWork';
+                // $("#chkOccupationHazardousWork" + id).is(":checked")==true
+                if(OccupationHazardousWorkValue == "True")
+                {
+                    $("input[id='yesbtnMemberOccupation']").prop("checked",true);
+                    $("#DivMemberOccupationHazardousWork").show();
+                    $('#txtMemberOccupationHazardousWork').val(OccupationHazardousWork);
+                }
+                if(OccupationHazardousWorkValue=="False")
+                {
+                    $("input[id='yesbtnMemberOccupation']").prop("checked",false);
+                    $("#DivMemberOccupationHazardousWork").hide();
+                    $("input[id='NobtnMemberOccupation']").prop("checked",true);
+                    //$('#txtOccupationHazardousWork').val(OccupationHazardousWork);
+                }
+
+                var CitizenshipValue = '@Model.objMemberDetails[Model.AssuredIndex].CitizenShip';
+                if(CitizenshipValue=="True")
+                {
+                    $("input[id='chkMemberCitizenShip']").prop("checked",true);
+                    $('.invisiblemem').addClass('checkboxactive');
+                    $("#DivMemberCitizenShip1").show();
+                    $("#DivMemberCitizenShip2").show();
+                    $('#txtMemberCitizenship1').val(Citizenship1);
+                    $('#txtMemberCitizenship2').val(Citizenship2);
+                    // $('#chkMemberCitizenShip').val();
+                }
+
+                if(CitizenshipValue=="False")
+                {
+                    $("input[id='chkMemberCitizenShip']").prop("checked",false);
+                    $('.invisiblemem').removeClass('checkboxactive');
+                    $("#DivMemberCitizenShip1").hide();
+                    $("#DivMemberCitizenShip2").hide();
+                    // $('#chkMemberCitizenShip').val();
+                }
+            }
+
+
+        }
+        else{
+            var MaritalStatus = $('#ddlMaritalStatus' + id).val() ;
+        }
+        if (Relation=="269") {
+            var Salutation = $('#TxtProposerSalutation' + id).val();
+            $('#TxtMemberSalutation').val(Salutation);
+            if (Salutation == "Individual") {
+                $('#TxtMemberSalutation').val('');
+            }
+            $('#TxtMemberSalutation').attr('readonly', false);
+            $('#txtMemberNewNicNo').attr('readonly', false);
+            $('#txtMemberNameWithInitials').attr('readonly', false);
+            $('#txtMemberFirstName').attr('readonly', false);
+            $('#txtMemberLastName').attr('readonly', false);
+            $('#ddlMemberMonthlyIncome').attr('readonly', false);
+            $('#txtFillMemberPassportNumber').attr('readonly', false);
+            $('#txtMemberCompanyName').attr('readonly', false);
+            $('#ddlMemberNationality').attr('readonly', false);
+            $('#txtMemberUSTaxPayerID').attr('readonly', false);
+            $('#ddlFillMemberResidentialStatus').attr('readonly', false);
+            $('#txtFillMemberDrivingLicense').attr('readonly', false);
+            $('#ddlFillMemberCountryofOccupation').attr('readonly', false);
+            $('#yesbtnMemberOccupation').attr('readonly', false);
+            $('#NobtnMemberOccupation').attr('readonly', false);
+            $('#txtMemberOccupationHazardousWork').attr('readonly', false);
+            $('#chkMemberCitizenShip').attr('readonly', false);
+            $('#txtMemberCitizenship1').attr('readonly', false);
+            $('#txtMemberCitizenship2').attr('readonly', false);
+            $('#txtMemberMobileNo').attr('readonly', false);
+            $('#txtMemberOtherMobileNo').attr('readonly', false);
+            $('#txtMemberHomeNo').attr('readonly', false);
+            $('#txtmemberWorkNumber').attr('readonly', false);
+            $('#txtMemberEmail').attr('readonly', false);
+        }
+        if (Relation=="270") {
+            var Salutation = $('#TxtProposerSalutation' + id).val();
+            $('#TxtMemberSalutation').val(Salutation);
+            if (Salutation == "Individual") {
+                $('#TxtMemberSalutation').val('');
+            }
+            $('#TxtMemberSalutation').attr('readonly', false);
+            $('#txtMemberNewNicNo').attr('readonly', false);
+            $('#txtMemberNameWithInitials').attr('readonly', false);
+            $('#txtMemberFirstName').attr('readonly', false);
+            $('#txtMemberLastName').attr('readonly', false);
+            $('#ddlMemberMonthlyIncome').attr('readonly', false);
+            $('#txtFillMemberPassportNumber').attr('readonly', false);
+            $('#txtMemberCompanyName').attr('readonly', false);
+            $('#ddlMemberNationality').attr('readonly', false);
+            $('#txtMemberUSTaxPayerID').attr('readonly', false);
+            $('#ddlFillMemberResidentialStatus').attr('readonly', false);
+            $('#txtFillMemberDrivingLicense').attr('readonly', false);
+            $('#ddlFillMemberCountryofOccupation').attr('readonly', false);
+            $('#yesbtnMemberOccupation').attr('readonly', false);
+            $('#NobtnMemberOccupation').attr('readonly', false);
+            $('#txtMemberOccupationHazardousWork').attr('readonly', false);
+            $('#chkMemberCitizenShip').attr('readonly', false);
+            $('#txtMemberCitizenship1').attr('readonly', false);
+            $('#txtMemberCitizenship2').attr('readonly', false);
+            $('#txtMemberMobileNo').attr('readonly', false);
+            $('#txtMemberOtherMobileNo').attr('readonly', false);
+            $('#txtMemberHomeNo').attr('readonly', false);
+            $('#txtmemberWorkNumber').attr('readonly', false);
+            $('#txtMemberEmail').attr('readonly', false);
+        }
+
+        var FirstName = $('#txtFirstName' + id).val();
+        var LastName = $('#txtLastName' + id).val();
+
+        var  names = "";
+        var name = FirstName.split(" ");
+        for(var i =0;i<name.length;i++)
+        {
+            if (name.length > 1)
+            {
+                names = names + " " + name[i].charAt(0);
+            }
+            else
+            {
+                names = names + name[i].charAt(0);
+            }
+        }
+
+        var NameWithInitials = names+ " " + LastName;
+
+        var AgeNextBirthday = $('#txtAgeNextBirthday' + id).val();
+        var MiddleName = $('#txtMiddleName' + id).val();
+        var OldNicNo = $('#txtOldNicNo' + id).val();
+        var NewNicNo = $('#txtNewNicNo' + id).val();
+        var NatureOfDuties = $('#txtNatureOfDuties' + id).val();
+        var MonthlyIncome = $('#ddlMemMonthlyIncome' + id).val();
+        var LandlinePhone = $('#txtLandlinePhone' + id).val();
+        //var CountryofOccupation = $('#ddlCountryofOccupation' + id).val();
+        var MaritalStatus = $('#ddlMaritalStatus' + id).val();
+        var Occupation = $('#ddlOccupation' + id).val();
+        var Height = $('#ddlHeight' + id).val();
+        var Weight = $('#ddlWeight' + id).val();
+
+        var  dateofbirth = $('#dtDOB' + id).val().split(" ")[0];
+        if (dateofbirth != "" && dateofbirth != undefined && dateofbirth !=null) {
+            var DateOfBirth = dateofbirth.split(' ')[0];
+            var dateArr;
+            if(DateOfBirth.split('-')[1] != undefined)
+            {
+                dateArr = DateOfBirth.split('-');
+            }
+            else
+                dateArr = DateOfBirth.split('/');
+            var DOB = dateArr[0] + '/' + dateArr[1] + '/' + dateArr[2];
+        }
+        var WedDate = $('#WedDate' + id).val();
+        var IssameasProposer =$('#txtIsSameasProposerAddress' + id).val();
+        var IsRegAddress =$('#txtIsRegAsCommunication' + id).val();
+        //$('#ddlFillMemberCountryofOccupation').val(CountryofOccupation);
+        $('#ddlMemberGender').val(Gender);
+        $('#ddlMemberRelationWithProposer').val(Relation);
+        $('#txtMemberFirstName').val(FirstName);
+        $('#ddlMemberGender option[value="'+Gender+'"]').attr("selected",true);
+        $('#txtMemberAgeNextBirthdayMember').val(AgeNextBirthday);
+        $('#txtMemberNameWithInitials').val(NameWithInitials);
+        $('#txtMemberMiddleName').val(MiddleName);
+        $('#txtMemberLastName').val(LastName);
+        $('#txtMemberOldNicNo').val(OldNicNo);
+        $('#txtMemberNewNicNo').val(NewNicNo);
+        $('#ddlMemberOccupation').val(Occupation);
+        $('#txtMemberNatureOfDuties').val(NatureOfDuties);
+        $('#ddlMemberMonthlyIncome').val(MonthlyIncome);
+        f1('ddlMemberMonthlyIncome');
+        if(id==0){
+            if($("input[id='yesbtnProposerLifeAssured']").is(':checked') == true){
+                $('#chkMemberAddrSameasProposerAdrr').prop('checked', true);
+                $('.invisiblecomadd').addClass('checkboxactive')
+                FetchProposalAddressToRegAddr();
+                $('#chkMemberIsPermanentAddrSame').prop('checked', true);
+                $('.invisibleperadd').addClass('checkboxactive')
+                FetchPermAddressToRegAddr();
+            }
+            else{
+                $('#chkMemberAddrSameasProposerAdrr').prop('checked', false);
+                $('.invisiblecomadd').removeClass('checkboxactive')
+                $('.invisibleperadd').removeClass('checkboxactive')
+                var Salutation = $('#TxtProposerSalutation' + id).val();
+                var MaritalStatus = $('#ddlMaritalStatus' + id).val();
+                var PassportNumber = $('#txtPassportNumber' + id).val();
+                var DrivingLicense = $('#txtDrivingLicense' + id).val();
+                var CompanyName = $('#txtCompanyName' + id).val();
+                var NatureOfDuties = $('#txtNatureOfDuties' + id).val();
+                var MobileNo = $('#txtMobileNo' + id).val();
+                var MobileNo1 = $('#txtOtherMobile' + id).val();
+                var HomeNo = $('#txtLandlinePhone' + id).val();
+                var WorkNo = $('#txtWorkNumber' + id).val();
+                var Email = $('#txtEmail' + id).val();
+
+
+                $('#TxtMemberSalutation').val(Salutation);
+                $('#TxtMemberSalutation').val($('#TxtProposerSalutation' + id).val());
+                $('#ddlMemberMaritalStatus').val(MaritalStatus);
+                $('#txtFillMemberPassportNumber').val(PassportNumber);
+                $('#txtFillMemberDrivingLicense').val(DrivingLicense);
+                $('#txtMemberCompanyName').val(CompanyName);
+                $('#txtMemberNatureOfDuties').val(NatureOfDuties);
+                $("#txtMemberMobileNo").val(MobileNo);
+                $('#txtMemberOtherMobileNo').val(MobileNo1);
+                $('#txtMemberHomeNo').val(HomeNo);
+                $('#txtmemberWorkNumber').val(WorkNo);
+                $('#txtMemberEmail').val(Email);
+
+
+                // Communication Address
+                var ComAddress1 = $('#txtComAddress1' + id).val();
+                var ComAddress2 = $('#txtComAddress2' + id).val();
+                var ComAddress3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val();
+
+                var State = $('#txtComState' + id).val();
+                var District = $('#txtComDistrict' + id).val();
+                var City = $('#txtComCity' + id).val() ;
+                var PostalCode = $('#txtComPincode' + id).val();
+                $('#chkMemberIsPermanentAddrSame').prop('checked', false);
+                // permanant Address
+                var PerAddress1 = $('#txtPerAddress1' + id).val();
+                var PerAddress2 = $('#txtPerAddress2' + id).val();
+                var PerAddress3 = $('#txtPerAddress3' + id).val();
+                var PerState = $('#txtPerState' + id).val();
+                var PerDistrict = $('#txtPerDistrict' + id).val();
+                var PerCity = $('#txtPerCity' + id).val() ;
+                var PerPostalCode = $('#txtPerPincode' + id).val();
+                //New var PerAddress1 = $('#txtPerAddress1' + id).val();
+                var Nationality = $('#ddlNationality' + id).val();
+                if (Nationality == "Select" || Nationality == "") {
+                    $('#ddlMemberNationality').val('SL');
+                }
+                else
+                {
+                    $('#ddlMemberNationality').val(Nationality);
+                }
+
+                var ResidentialStatus  = $('#ddlResidentialStatus' + id).val();
+                if (ResidentialStatus == "Select" || ResidentialStatus == "") {
+                    $('#ddlFillMemberResidentialStatus').val('SL');
+                }
+                else
+                {
+                    $('#ddlFillMemberResidentialStatus').val(ResidentialStatus);
+                }
+
+                var CountryofOccupation = $('#ddlCountryofOccupation' + id).val();
+                if (CountryofOccupation == "Select" || CountryofOccupation == "") {
+                    $('#ddlFillMemberCountryofOccupation').val('SL');
+                }
+                else
+                {
+                    $('#ddlFillMemberCountryofOccupation').val(CountryofOccupation);
+                }
+                //$('#ddlMemberNationality').val('SL');
+                //$('#ddlFillMemberResidentialStatus').val('SL');
+                // $('#ddlFillMemberCountryofOccupation').val('2652');
+                $('#objFillMemberDetialsobjCommunicationAddressAddress1').val(ComAddress1);
+                $('#objFillMemberDetialsobjCommunicationAddressAddress2').val(ComAddress2);
+                $('#objFillMemberDetialsobjCommunicationAddressAddress3').val(ComAddress3);
+                $('#objFillMemberDetialsobjCommunicationAddressPincode').val(PostalCode);
+                $('#objFillMemberDetialsobjCommunicationAddressddlDistrict').val(District);
+                $('#objFillMemberDetialsobjCommunicationAddressddlProvince').val(State);
+                $('#objFillMemberDetialsobjPermenantAddressAddress1').val(PerAddress1);
+                $('#objFillMemberDetialsobjPermenantAddressAddress2').val(PerAddress2);
+                $('#objFillMemberDetialsobjPermenantAddressAddress3').val(PerAddress3);
+                $('#objFillMemberDetialsobjPermenantAddressPincode').val(PerPostalCode);
+                $('#objFillMemberDetialsobjPermenantAddressddlDistrict').val(PerDistrict);
+                $('#objFillMemberDetialsobjPermenantAddressddlProvince').val(PerState);
+
+            }
+        }
+        else{
+
+
+            if ($("input[id='chkMemberAddrSameasProposerAdrr']").is(':checked') == true) {
+                $('#chkMemberAddrSameasProposerAdrr').prop('checked', true);
+                $('.invisiblecomadd').addClass('checkboxactive');
+                FetchProposalAddressToRegAddr();
+            }
+
+            if ($("input[id='chkMemberIsPermanentAddrSame']").is(':checked') == true) {
+                $('#chkMemberIsPermanentAddrSame').prop('checked', true);
+                $('.invisibleperadd').addClass('checkboxactive')
+                FetchPermAddressToRegAddr();
+            }
+            else{
+                $('#chkMemberAddrSameasProposerAdrr').prop('checked', false);
+                $('.invisiblecomadd').removeClass('checkboxactive')
+
+
+                // Communication Address
+                var ComAddress1 = $('#txtComAddress1' + id).val();
+                var ComAddress2 = $('#txtComAddress2' + id).val();
+                var ComAddress3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val();
+
+
+
+                var State = $('#txtComState' + id).val();
+                var District = $('#txtComDistrict' + id).val();
+                var City = $('#txtComCity' + id).val() ;
+                var PostalCode = $('#txtComPincode' + id).val();
+                $('#chkMemberIsPermanentAddrSame').prop('checked', false);
+                // permanant Address
+                var PerAddress1 = $('#txtPerAddress1' + id).val();
+                var PerAddress2 = $('#txtPerAddress2' + id).val();
+                var PerAddress3 = $('#txtPerAddress3' + id).val();
+                var PerState = $('#txtPerState' + id).val();
+                var PerDistrict = $('#txtPerDistrict' + id).val();
+                var PerCity = $('#txtPerCity' + id).val() ;
+                var PerPostalCode = $('#txtPerPincode' + id).val();
+                $('#objFillMemberDetialsobjCommunicationAddressAddress1').val(ComAddress1);
+                $('#objFillMemberDetialsobjCommunicationAddressAddress2').val(ComAddress2);
+                $('#objFillMemberDetialsobjCommunicationAddressAddress3').val(ComAddress3);
+                $('#objFillMemberDetialsobjCommunicationAddressPincode').val(PostalCode);
+                $('#objFillMemberDetialsobjCommunicationAddressddlDistrict').val(District);
+                $('#objFillMemberDetialsobjCommunicationAddressddlProvince').val(State);
+                $('#objFillMemberDetialsobjPermenantAddressAddress1').val(PerAddress1);
+                $('#objFillMemberDetialsobjPermenantAddressAddress2').val(PerAddress2);
+                $('#objFillMemberDetialsobjPermenantAddressAddress3').val(PerAddress3);
+                $('#objFillMemberDetialsobjPermenantAddressPincode').val(PerPostalCode);
+                $('#objFillMemberDetialsobjPermenantAddressddlDistrict').val(PerDistrict);
+                $('#objFillMemberDetialsobjPermenantAddressddlProvince').val(PerState);
+
+            }
+        }
+        if (id == 1 || id == 2 || id == 3 || id==4 || id == 5 || id == 6 || id == 7 || id == 8 || id == 9 || id == 10) {
+            if($("input[id='yesbtnProposerLifeAssured']").is(':checked') == true){
+                $('#chkMemberAddrSameasProposerAdrr').prop('checked', true);
+                $('.invisiblecomadd').addClass('checkboxactive');
+                FetchProposalAddressToRegAddr();
+                $('#chkMemberIsPermanentAddrSame').prop('checked', true);
+                $('.invisibleperadd').addClass('checkboxactive');
+                FetchPermAddressToRegAddr();
+            }
+        }
+        $('#ddlMemberMaritalStatus').val(MaritalStatus);
+        $('#ddlMemberMaritalStatus option[value="'+MaritalStatus+'"]').attr("selected",true);
+        $('#ddlMemberOccupation option[value="'+Occupation+'"]').attr("selected",true);
+
+        $('#ddlHeight').val(Height);
+        $('#ddlWeight').val(Weight);
+        $('#txtComCity').val(City);
+        $('#txtMemberFillDateOfBirth').val(DOB);
+
+        $('#WedDate').val(WedDate);
+
+        if(Relation == "269" || Relation == "270" || Relation == "271")
+        {
+            $('#DivOldNicNo').hide();
+            $('#DivOtherMemberDetails').hide();
+            $('#DivOtherMemberDetails').find('input:text').val('');
+            $('#mandatoryNicNumber').hide();
+            $('#divchildremoveMartialstatus').hide();
+            $('#divchildremoveOccupation').hide();
+            $('#divchildremoveAnnualIncome').hide();
+            $('#divchildremoveCompanyName').hide();
+            $('#divchildremoveNameOfDuties').hide();
+            $('#DivMemberCountryofOccupation').hide();
+            //$('#divMemberUSTaxpayerId').hide();
+            var Nationality = $('#ddlNationality' + id).val();
+            if (Nationality == "Select" || Nationality == "") {
+                $('#ddlMemberNationality').val('SL');
+            }
+            else
+            {
+                $('#ddlMemberNationality').val(Nationality);
+            }
+            var ResidentialStatus  = $('#ddlResidentialStatus' + id).val();
+            if (ResidentialStatus == "Select" || ResidentialStatus == "") {
+                $('#ddlFillMemberResidentialStatus').val('SL');
+            }
+            else
+            {
+                $('#ddlFillMemberResidentialStatus').val(ResidentialStatus);
+            }
+
+            var CountryofOccupation = $('#ddlCountryofOccupation' + id).val();
+            if (CountryofOccupation == "Select" || CountryofOccupation == "") {
+                $('#ddlFillMemberCountryofOccupation').val('SL');
+            }
+            else
+            {
+                $('#ddlFillMemberCountryofOccupation').val(CountryofOccupation);
+            }
+
+            //var CountryofOccupation = $('#ddlCountryofOccupation' + id).val();
+            var Residential  = $('#txtFillMemberResidential' + id).val();
+            //$('#ddlFillMemberCountryofOccupation').val(CountryofOccupation);
+            //var Nationality = $('#ddlNationality' + id).val();
+            var Email = $('#txtEmail' + id).val();
+            var WorkNo = $('#txtWorkNumber' + id).val();
+            var SpecifyNationality   = $('#txtNationalitySpecify' + id).val();
+            var SpecifyUSNationality = $('#txtUSTaxpayerId' + id).val();
+            var DrivingLicense   = $('#txtDrivingLicense' + id).val();
+            var PassportNumber   = $('#txtPassportNumber' + id).val();
+
+            var OccupationHazardousWork = $('#txtOccupationHazardousWork' + id).val();
+            //var ResidentialStatus  = $('#ddlResidentialStatus' + id).val();
+            var Residential  = $('#txtFillMemberResidential' + id).val();
+            var Citizenship1 = $('#txtCitizenship1' + id).val();
+            var Citizenship2 = $('#txtCitizenship2' + id).val();
+            var MobileNo1 = $('#txtOtherMobile' + id).val();
+            var HomeNo = $('#txtLandlinePhone' + id).val();
+            var OfficeNo = $('#txtWorkNumber' + id).val();
+            var Email = $('#txtEmail' + id).val();
+            var MobileNo = $('#txtMobileNo' + id).val();
+            if($("#chkOccupationHazardousWork" + id).is(":checked")==true)
+            {
+                $("input[id='yesbtnMemberOccupation']").prop("checked",true);
+                $("#DivMemberOccupationHazardousWork").show();
+                $('#txtMemberOccupationHazardousWork').val(OccupationHazardousWork);
+            }
+            if($("#chkOccupationHazardousWork" + id).is(":checked")==false)
+            {
+                $("input[id='yesbtnMemberOccupation']").prop("checked",false);
+                $("#DivMemberOccupationHazardousWork").hide();
+                $("input[id='NobtnMemberOccupation']").prop("checked",true);
+
+            }
+
+            if($("#chkCitizenship" + id).is(":checked")==true)
+            {
+                $("input[id='chkMemberCitizenShip']").prop("checked",true);
+                $('.invisiblemem').addClass('checkboxactive');
+                $("#DivMemberCitizenShip1").show();
+                $("#DivMemberCitizenShip2").show();
+                $('#txtMemberCitizenship1').val(Citizenship1);
+                $('#txtMemberCitizenship2').val(Citizenship2);
+            }
+
+            if($("#chkCitizenship" + id).is(":checked")==false)
+            {
+                $("input[id='chkMemberCitizenShip']").prop("checked",false);
+                $('.invisiblemem').removeClass('checkboxactive');
+                $("#DivMemberCitizenShip1").hide();
+                $("#DivMemberCitizenShip2").hide();
+            }
+
+            if (MobileNo == '' || MobileNo == null) {
+                $("#txtMemberMobileNo").val($("#txtMobileNo").val());
+
+            }
+            else {
+                $("#txtMemberMobileNo").val(MobileNo);
+
+            }
+            $('#txtMemberOtherMobileNo').val(MobileNo1);
+            $('#txtMemberHomeNo').val(HomeNo);
+            $('#txtmemberWorkNumber').val(OfficeNo);
+            $('#txtMemberEmail').val(Email);
+            //$('#ddlMemberNationality').val(Nationality);
+            $('#txtMemberSpecifyNationality').val(SpecifyNationality);
+            $('#txtMemberUSTaxPayerID').val(SpecifyUSNationality);
+            $('#txtFillMemberDrivingLicense').val(DrivingLicense);
+            $('#txtFillMemberPassportNumber').val(PassportNumber);
+            //$('#txtOccupationHazardousWork').val(OccupationHazardousWork);
+            //$('#ddlFillMemberResidentialStatus').val(ResidentialStatus);
+            $('#txtFillMemberResidential').val(Residential);
+            // $('#ddlFillMemberCountryofOccupation').val(CountryofOccupation);
+            //$('#txtMemberCitizenship1').val(Citizenship1);
+            //$('#txtMemberCitizenship2').val(Citizenship2);
+
+        }
+        else
+        {
+            $('#DivOldNicNo').show();
+            $('#MobileNo').hide();
+            $('#mandatoryNicNumber').show();
+            $('#mandatoryNicNumber').show();
+            $('#divchildremoveOccupation').show();
+            $('#DivOtherMemberDetails').show();
+            $('#divchildremoveMartialstatus').show();
+            $('#divchildremoveAnnualIncome').show();
+            $('#divchildremoveCompanyName').show();
+            $('#divchildremoveNameOfDuties').show();
+            $('#DivMemberCountryofOccupation').show();
+            //$('#divMemberUSTaxpayerId').show();
+
+        }
+
+        $('#divProposalMemberDetailsUpdateButton').show();
+
+    }
+
+    function DeleteRow(id) {
+
+        var jsonMemberObj = [];
+        var _PrevMemberIndex = Memberlength;
+        var _PrevRowID='RowMember' + _PrevNomineeIndex;
+        if (id == _PrevRowID) {
+            $('#' + id).remove();
+        }
+        else {
+            $('#' + id).remove();
+
+            // For getting Current Data  in Grid post Deletion
+            var _index =0
+            $("#divMemberDetails tbody").find("tr").each(function (index) {
+                _Index = _index;
+                FirstName = $(this).find("[data-name=FirstName]").find("input[type=text]").val();
+                RelationshipWithProspect = $(this).find("[data-name=Relation]").find("option:selected").val();
+                AgeNextBirthday= $(this).find("[data-name=AgeNextBirthday]").find("input[type=text]").val();
+                Gender= $(this).find("[data-name=Gender]").find("option:selected").val();
+                Salutation= $(this).find("[data-name=Salutation]").find("input[type=text]").val();
+                MaritalStatus= $(this).find("[data-name=MaritalStatus]").find("input[type=text]").val();
+                Occupation= $(this).find("[data-name=Occupation]").find("input[type=text]").val();
+                Nationality= $(this).find("[data-name=Nationality]").find("input[type=text]").val();
+                Height= $(this).find("[data-name=Height]").find("input[type=text]").val();
+                Weight= $(this).find("[data-name=Weight]").find("input[type=text]").val();
+                NameWithInitial= $(this).find("[data-name=NameWithInitial]").find("input[type=text]").val();
+                MiddleName= $(this).find("[data-name=MiddleName]").find("input[type=text]").val();
+                LastName= $(this).find("[data-name=LastName]").find("input[type=text]").val();
+
+                OldNicNo= $(this).find("[data-name=OldNicNo]").find("input[type=text]").val();
+                NewNicNo= $(this).find("[data-name=NewNicNo]").find("input[type=text]").val();
+                NatureOfDuties= $(this).find("[data-name=NatureOfDuties]").find("input[type=text]").val();
+                MonthlyIncome= $(this).find("[data-name=MonthlyIncome]").find("input[type=text]").val();
+                LandlinePhone= $(this).find("[data-name=LandlinePhone]").find("input[type=text]").val();
+                MobileNo= $(this).find("[data-name=MobileNo]").find("input[type=text]").val();
+                Email= $(this).find("[data-name=Email]").find("input[type=text]").val();
+                Address1= $(this).find("[data-name=Address1]").find("input[type=text]").val();
+                Address2= $(this).find("[data-name=Address2]").find("input[type=text]").val();
+                //Address3= $(this).find("[data-name=Address3]").find("input[type=text]").val();
+                PostalCode= $(this).find("[data-name=PostalCode]").find("input[type=text]").val();
+                District= $(this).find("[data-name=District]").find("input[type=text]").val();
+                City= $(this).find("[data-name=City]").find("input[type=text]").val();
+                DOB= $(this).find("[data-name=DOB]").find("input[type=text]").val();
+
+                SpecifyNationality= $(this).find("[data-name=Nationality]").find("input[type=text]").val();
+                SpecifyUSNationality= $(this).find("[data-name=USTaxpayerId]").find("input[type=text]").val();
+                DrivingLicense= $(this).find("[data-name=DrivingLicense]").find("input[type=text]").val();
+                PassportNumber= $(this).find("[data-name=PassportNumber]").find("input[type=text]").val();
+                OccupationHazardousWork= $(this).find("[data-name=OccupationHazardousWork]").find("input[type=text]").val();
+                ResidentialStatus= $(this).find("[data-name=ResidentialStatus]").find("input[type=text]").val();
+                Residential= $(this).find("[data-name=Residential]").find("input[type=text]").val();
+                CountryofOccupation= $(this).find("[data-name=CountryOccupation]").find("input[type=text]").val();
+                Citizenship1= $(this).find("[data-name=Citizenship1]").find("input[type=text]").val();
+                Citizenship2= $(this).find("[data-name=Citizenship2]").find("input[type=text]").val();
+
+                OtherMobile= $(this).find("[data-name=OtherMobileNo]").find("input[type=text]").val();
+                WedDate= $(this).find("[data-name=WeddingAnniversaryDate]").find("input[type=text]").val();
+
+                jsonMemberObj.push({_Index:_Index, RelationshipWithProspect: RelationshipWithProspect, FirstName: FirstName, AgeNextBirthday: AgeNextBirthday,
+                    Gender: Gender,Salutation:Salutation, MaritalStatus:MaritalStatus,Occupation:Occupation,Nationality:Nationality,Height:Height,
+                    Weight:Weight,NameWithInitial:NameWithInitial,MiddleName:MiddleName,LastName:LastName,OldNicNo:OldNicNo,NewNicNo:NewNicNo,NatureOfDuties:NatureOfDuties,
+                    SpecifyUSNationality:SpecifyUSNationality,DrivingLicense:DrivingLicense,PassportNumber:PassportNumber,OccupationHazardousWork:OccupationHazardousWork,ResidentialStatus:ResidentialStatus,Residential:Residential,CountryofOccupation:CountryofOccupation,Citizenship1:Citizenship1,Citizenship2:Citizenship2,
+                    MonthlyIncome:MonthlyIncome,LandlinePhone:LandlinePhone,MobileNo:MobileNo,OtherMobile:OtherMobile,WedDate:WedDate,Email:Email,Address1:Address1,Address2:Address2,PostalCode:PostalCode,
+                    District:District,City:City,DOB:DOB});
+                _index = _index + 1;
+            })
+            // Emptying Grid
+            $("#divMemberDetails tbody").find("tr").each(function (index) {
+                $(this).remove();
+            });
+
+            // Rearranging Grid Content For Model Binding
+
+            $.each(jsonMemberObj, function (index, value) {
+                var i = index;
+                var _RowID = 'RowMember' + jsonMemberObj[i]._Index;
+
+                Memberlength = jsonMemberObj[i]._Index ;
+
+                newRow = " <tr class='grid-row' id='" + RowID + "'><td class='grid-cell' data-name='FirstName'><input name='objMemberDetails[" + Memberlength + "].FirstName' type='text' class='form-control'  value='" + jsonMemberObj[i].FirstName + "' id=\'txtFirstName" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell text-center' data-name='Relation' >" + "<select name='objMemberDetails[" + Memberlength + "].RelationShipWithPropspect' onblur = 'ValidateRelationship(this)' id='ddlRelationWithProposer" + Memberlength + "' class='form-control'> <option>Select</option></select>" +
+         "<td class='grid-cell' data-name='AgeNextBirthday'><input name='objMemberDetails[" + Memberlength + "].Age' type='text' class='form-control'  value='" + jsonMemberObj[i].AgeNextBirthday + "' id=\'txtAgeNextBirthday" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell text-center' data-name='Gender' >" + "<select name='objMemberDetails[" + Memberlength + "].Gender' onblur = 'ValidateRelationship(this)' id='ddlGender" + Memberlength + "' class='form-control'> <option>Select</option></select>" +
+         "<td class='grid-cell' style='display:none'  data-name='Salutation'><input name='objMemberDetails[" + Memberlength + "].Salutation' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Salutation + "'  id=\'TxtProposerSalutation" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='MaritalStatus'><input name='objMemberDetails[" + Memberlength + "].MaritialStatus' type='hidden' class='form-control'  value='" + jsonMemberObj[i].MaritalStatus + "'  id=\'ddlMaritalStatus" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='Occupation'><input name='objMemberDetails[" + Memberlength + "].OccupationID' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Occupation + "'  id=\'ddlOccupation" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='Nationality'><input name='objMemberDetails[" + Memberlength + "].Nationality' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Nationality + "'  id=\'ddlNationality" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='DOB'><input name='objMemberDetails[" + Memberlength + "].DateOfBirth' type='hidden' class='form-control'  value='" + jsonMemberObj[i].DOB + "'  id=\'dtDOB" + Memberlength + "\'></input></td>" +
+
+        "<td class='grid-cell' style='display:none'  data-name='Height'><input name='objMemberDetails[" + Memberlength + "].Height' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Height + "'  id=\'ddlHeight" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='Weight'><input name='objMemberDetails[" + Memberlength + "].Weight' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Weight + "'  id=\'ddlWeight" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='NameWithInitial'><input name='objMemberDetails[" + Memberlength + "].NameWithInitial' type='hidden' class='form-control'  value='" + jsonMemberObj[i].NameWithInitial + "'  id=\'txtNameWithInitials" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='MiddleName'><input name='objMemberDetails[" + Memberlength + "].MiddleName' type='hidden' class='form-control'  value='" + jsonMemberObj[i].MiddleName + "'  id=\'txtMiddleName" + Memberlength + "\'></input></td>" +
+
+      "<td class='grid-cell' style='display:none'  data-name='LastName'><input name='objMemberDetails[" + Memberlength + "].LastName' type='hidden' class='form-control'  value='" + jsonMemberObj[i].LastName + "'  id=\'txtLastName" + Memberlength + "\'></input></td>" +
+
+       "<td class='grid-cell' style='display:none'  data-name='OldNicNo'><input name='objMemberDetails[" + Memberlength + "].OLDNICNo' type='hidden' class='form-control'  value='" + jsonMemberObj[i].OldNicNo + "'  id=\'txtOldNicNo" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='NewNicNo'><input name='objMemberDetails[" + Memberlength + "].NewNICNO' type='hidden' class='form-control'  value='" + jsonMemberObj[i].NewNicNo + "'  id=\'txtNewNicNo" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='CompanyName'><input name='objMemberDetails[" + Memberlength + "].CompanyName' type='hidden' class='form-control'  value='" + jsonMemberObj[i].CompanyName + "'  id=\'txtCompanyName" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='NatureOfDuties'><input name='objMemberDetails[" + Memberlength + "].NameOfDuties' type='hidden' class='form-control'  value='" + jsonMemberObj[i].NatureOfDuties + "'  id=\'txtNatureOfDuties" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='MonthlyIncome'><input name='objMemberDetails[" + Memberlength + "].MonthlyIncome' type='hidden' class='form-control'  value='" + jsonMemberObj[i].MonthlyIncome + "'  id=\'ddlMemberMonthlyIncome" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='LandlinePhone'><input name='objMemberDetails[" + Memberlength + "].HomeNumber' type='hidden' class='form-control'  value='" + jsonMemberObj[i].LandlinePhone + "'  id=\'txtLandlinePhone" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='MobileNo'><input name='objMemberDetails[" + Memberlength + "].MobileNo' type='hidden' class='form-control'  value='" + jsonMemberObj[i].MobileNo + "'  id=\'txtMobileNo" + Memberlength + "\'></input></td>" +
+
+         "<td class='grid-cell' style='display:none'  data-name='Nationality'><input name='objMemberDetails[" + Memberlength + "].SpecifyNationality' type='hidden' class='form-control'  value='" + jsonMemberObj[i].SpecifyNationality + "'  id=\'txtNationalitySpecify" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='USTaxpayerId'><input name='objMemberDetails[" + Memberlength + "].USTaxpayerId' type='hidden' class='form-control'  value='" + jsonMemberObj[i].USTaxpayerId + "'  id=\'txtUSTaxpayerId" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='DrivingLicense'><input name='objMemberDetails[" + Memberlength + "].DrivingLicense' type='hidden' class='form-control'  value='" + jsonMemberObj[i].DrivingLicense + "'  id=\'txtDrivingLicense" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='PassportNumber'><input name='objMemberDetails[" + Memberlength + "].PassportNumber' type='hidden' class='form-control'  value='" + jsonMemberObj[i].PassportNumber + "'  id=\'txtPassportNumber" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='OccupationHazardousWork'><input name='objMemberDetails[" + Memberlength + "].OccupationHazardousWork' type='hidden' class='form-control'  value='" + jsonMemberObj[i].OccupationHazardousWork + "'  id=\'txtOccupationHazardousWork" + Memberlength + "\'></input></td>" +
+          "<td class='grid-cell' style='display:none'  data-name='ResidentialStatus'><input name='objMemberDetails[" + Memberlength + "].ResidentialStatus' type='hidden' class='form-control'  value='" + jsonMemberObj[i].ResidentialStatus + "'  id=\'ddlResidentialStatus" + Memberlength + "\'></input></td>" +
+          "<td class='grid-cell' style='display:none'  data-name='Residential'><input name='objMemberDetails[" + Memberlength + "].Residential' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Residential + "'  id=\'txtFillMemberResidential" + Memberlength + "\'></input></td>" +
+          "<td class='grid-cell' style='display:none'  data-name='Residential'><input name='objMemberDetails[" + Memberlength + "].CountryOccupation' type='hidden' class='form-control'  value='" + jsonMemberObj[i].CountryofOccupation + "'  id=\'ddlFillMemberCountryofOccupation" + Memberlength + "\'></input></td>" +
+          "<td class='grid-cell' style='display:none'  data-name='Citizenship1'><input name='objMemberDetails[" + Memberlength + "].Citizenship1' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Citizenship1 + "'  id=\'txtCitizenship1" + Memberlength + "\'></input></td>" +
+          "<td class='grid-cell' style='display:none'  data-name='Citizenship2'><input name='objMemberDetails[" + Memberlength + "].Citizenship2' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Citizenship2 + "'  id=\'txtCitizenship2" + Memberlength + "\'></input></td>" +
+             "<td class='grid-cell' style='display:none'  data-name='OtherMobileNo'><input name='objMemberDetails[" + Memberlength + "].OtherMobileNo' type='hidden' class='form-control'  value='" + jsonMemberObj[i].OtherMobile + "'  id=\'txtOtherMobile" + Memberlength + "\'></input></td>" +
+           "<td class='grid-cell' style='display:none'  data-name='WeddingAnniversaryDate'><input name='objMemberDetails[" + Memberlength + "].WeddingAnniversaryDate' type='hidden' class='form-control'  value='" + jsonMemberObj[i].WedDate + "'  id=\'WedDate" + Memberlength + "\'></input></td>" +
+        "<td class='grid-cell' style='display:none'  data-name='Email'><input name='objMemberDetails[" + Memberlength + "].Email' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Email + "'  id=\'txtEmail" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='Address1'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.Address1' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Address1 + "'  id=\'txtComAddress1" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='Address2'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.Address2' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Address2 + "'  id=\'txtComAddress2" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='Address2'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.Address3' type='hidden' class='form-control'  value='" + jsonMemberObj[i].Address3 + "'  id=\'txtComAddress3" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='PostalCode'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.Pincode' type='hidden' class='form-control'  value='" + jsonMemberObj[i].PostalCode + "'  id=\'txtComPincode" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='District'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.District' type='hidden' class='form-control'  value='" + jsonMemberObj[i].District + "'  id=\'txtComDistrict" + Memberlength + "\'></input></td>" +
+         "<td class='grid-cell' style='display:none'  data-name='City'><input name='objMemberDetails[" + Memberlength + "].objCommunicationAddress.City' type='hidden' class='form-control'  value='" + jsonMemberObj[i].City + "'  id=\'txtComCity" + Memberlength + "\'></input></td>" +
+
+         "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'deleteGridRow" + Memberlength + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteRow(\"" + RowID + "\")' /></td>" +
+         "<td class='grid-cell text-center' data-name='Edit'><input class='btn btn-default' id=\'EditGridRow" + Memberlength + "\' style='margin-top: 3px;' type='button' value='Edit' onclick='EditRow(\"" + Memberlength + "\")' /></td></tr>";
+                $('#divMemberDetails tbody:last').append(newRow);
+                var lstRelation = @(Html.Raw(Json.Encode(Model.lstRelations)));
+                var Relations = "";
+                $.each(lstRelation, function (ID, option) {
+                    Relations += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+                });
+                $("#ddlRelationWithProposer" + Memberlength).append(Relations);
+                $("#ddlRelationWithProposer" + Memberlength).val(jsonMemberObj[i].RelationshipWithProspect);
+                var lstGender = @(Html.Raw(Json.Encode(Model.lstGender)));
+                var Genders = "";
+                $.each(lstGender, function (ID, option) {
+                    Genders += '<option Value='+ option.Value + '>'+option.Text + '</option>';
+                });
+
+                $("#ddlGender" + Memberlength).append(Genders);
+                $("#ddlGender" + Memberlength).val(jsonMemberObj[i].Gender);
+                Memberlength = Memberlength + 1;
+
+            });
+
+        }
+        IsSelfAndSpouseCoverd();
+    }
+    function Cancel() {
+        $('#divProposalMemberDetailsUpdateButton').hide();
+        RefreshData();
+    }
+
+    var NicChecked;
+    function UpdateRow() {
+        debugger
+        $("#checkboxDeclaration").attr("class", "invisibledelc");
+        var Relationship = $('#ddlMemberRelationWithProposer option:selected').text();
+        if (Relationship == 'Spouse' || Relationship == 'Self') {
+            if (CheckingNIC) {
+                FetchProposalDOBGenderfromNIC('txtMemberNewNicNo', 'txtMemberFillDateOfBirth', 'ddlMemberGender', 'txtMemberAgeNextBirthdayMember', 'ddlMemberRelationWithProposer', 'Update')
+            }
+
+            if (NicChecked) {
+
+                debugger;
+                $("#chkMemberAddrSameasProposerAdrr").prop("checked", false);
+                $("#chkMemberIsPermanentAddrSame").prop("checked", false);
+                $('.invisiblecomadd').removeClass('checkboxactive')
+                $('.invisibleperadd').removeClass('checkboxactive')
+                writeMultipleMessage("error", "", "ddlRelationWithProposer" + updateID +"");
+                writeMultipleMessage("error", "", "txtNameWithInitials" + updateID +"");
+                writeMultipleMessage("error", "", "dtDOB" + updateID +"");
+                writeMultipleMessage("error", "", "ddlGender" + updateID +"");
+                writeMultipleMessage("error", "", "ddlNationality" + updateID +"");
+                writeMultipleMessage("error", "", "ddlResidentialStatus" + updateID +"");
+                writeMultipleMessage("error", "", "txtCitizenship1" + updateID +"");
+                writeMultipleMessage("error", "", "txtCitizenship2" + updateID +"");
+                writeMultipleMessage("error", "", "txtNewNicNo" + updateID +"");
+                writeMultipleMessage("error", "", "ddlOccupation" + updateID +"");
+                writeMultipleMessage("error", "", "txtCompanyName" + updateID +"");
+                writeMultipleMessage("error", "", "txtNatureOfDuties" + updateID +"");
+                writeMultipleMessage("error", "", "ddlMemberMonthlyIncome" + updateID +"");
+                writeMultipleMessage("error", "", "txtComAddress1" + updateID +"");
+                writeMultipleMessage("error", "", "txtComAddress2" + updateID +"");
+                writeMultipleMessage("error", "", "txtComPincode" + updateID +"");
+                writeMultipleMessage("error", "", "txtComDistrict" + updateID +"");
+                writeMultipleMessage("error", "", "txtComCity" + updateID +"");
+
+                var IsMemberValidated = ValidateAssuredMemberDetails();
+
+                if(!IsMemberValidated){
+                    return false;
+
+                }
+
+                if ($('#ddlRelationWithProposer' + updateID).val() == '267') {
+                    $('#hdnMemberClientCode' + updateID).val($('#hdnProspectClientCode').val());
+                }
+                $('#hdnMemberSAM' + updateID).val($('#hdnProspectSAM').val());
+                $('#ddlRelationWithProposer' + updateID).val($('#ddlMemberRelationWithProposer').val()) ;
+                $('#TxtProposerSalutation' + updateID).val( $('#TxtMemberSalutation').val()) ;
+                $('#ddlGender' + updateID).val($('#ddlMemberGender').val()) ;
+                $('#txtFirstName' + updateID).val($('#txtMemberFirstName').val());
+                $('#txtAgeNextBirthday' + updateID).val($('#txtMemberAgeNextBirthdayMember').val());
+                $('#txtNameWithInitials' + updateID).val($('#txtMemberNameWithInitials').val());
+                $('#txtMiddleName' + updateID).val($('#txtMemberMiddleName').val());
+                $('#txtLastName' + updateID).val( $('#txtMemberLastName').val());
+                $('#txtNewNicNo' + updateID).val( $('#txtMemberNewNicNo').val());
+                $('#txtCompanyName' + updateID).val( $('#txtMemberCompanyName').val());
+                $('#txtNatureOfDuties' + updateID).val( $('#txtMemberNatureOfDuties').val());
+                $('#ddlMemMonthlyIncome' + updateID).val($('#ddlMemberMonthlyIncome').val().replace(/,/g, ''));
+                $('#txtLandlinePhone' + updateID).val($('#txtMemberHomeNo').val());
+                $('#txtWorkNumber' + updateID).val($('#txtmemberWorkNumber').val());
+                $('#txtMobileNo' + updateID).val($('#txtMemberMobileNo').val());
+                $('#txtOtherMobile' + updateID).val($('#txtMemberOtherMobileNo').val());
+                $('#txtEmail' + updateID).val($('#txtMemberEmail').val());
+                $('#txtNationalitySpecify' + updateID).val($('#txtMemberSpecifyNationality').val()) ;
+                $('#txtUSTaxpayerId' + updateID).val($('#txtMemberUSTaxPayerID').val()) ;
+
+                $('#txtDrivingLicense' + updateID).val($('#txtFillMemberDrivingLicense').val()) ;
+                $('#txtPassportNumber' + updateID).val($('#txtFillMemberPassportNumber').val()) ;
+                var MemberOccupationHazardousWork;
+                if ($("input[id='yesbtnMemberOccupation']").is(':checked') == true) {
+                    // $("#yesbtnMemberOccupation").prop("checked", true);
+                    //$("input[id='yesbtnMemberOccupation']").is(':checked') == true;
+                    //MemberOccupationHazardousWork = $("#yesbtnMemberOccupation").val();
+                    if($("#yesbtnMemberOccupation").is(":checked")==true)
+                        $("input[id='chkOccupationHazardousWork"+updateID+"']").prop("checked",true);
+                    MemberOccupationHazardousWork = true;
+                    $('#txtOccupationHazardousWork' + updateID).val($('#txtMemberOccupationHazardousWork').val());
+                    $("#chkOccupationHazardousWork" + updateID).prop("checked",true);
+                }
+                if ($("input[id='NobtnMemberOccupation']").is(':checked') == true) {
+                    // $("#yesbtnMemberOccupation").prop("checked", true);
+                    if($("#NobtnMemberOccupation").is(":checked")==true){
+                        $("input[id='chkOccupationHazardousWork"+updateID+"']").prop("checked",false);
+                        MemberOccupationHazardousWork = false;
+                        $("#chkOccupationHazardousWork" + updateID).prop("checked",false);
+                        //$('#txtOccupationHazardousWork' + updateID).val($('#txtOccupationHazardousWork').val());
+                    }
+                    // $('#chkOccupationHazardousWork' + updateID).val(MemberOccupationHazardousWork);
+                }
+                //$('#chkOccupationHazardousWork' + updateID).val($('#yesbtnMemberOccupation').val());
+
+                $('#ddlResidentialStatus' + updateID).val($('#ddlFillMemberResidentialStatus').val()) ;
+                $('#txtFillMemberResidential' + updateID).val($('#txtFillMemberResidential').val()) ;
+                $('#ddlCountryofOccupation' + updateID).val($('#ddlFillMemberCountryofOccupation').val());
+
+                if($("#chkMemberCitizenShip").is(":checked")==true)
+                {
+                    //var Xyz = true;
+                    $("input[id='chkCitizenship"+updateID+"']").prop("checked",true);
+                    $("#chkCitizenship" + updateID).prop("checked",true);
+
+                    //$("input[id='chkCitizenship"+updateID+"']").val(Xyz);
+
+                    $("#DivMemberCitizenShip1").show();
+                    $("#DivMemberCitizenShip2").show();
+                    $('#txtCitizenship1' + updateID).val($('#txtMemberCitizenship1').val()) ;
+                    $('#txtCitizenship2' + updateID).val($('#txtMemberCitizenship2').val()) ;
+                    // $('#chkMemberCitizenShip').val();
+                }
+                if($("#chkMemberCitizenShip").is(":checked")==false)
+                {
+                    //$("input[id='chkCitizenship"+updateID+"']").prop("checked",false);
+                    $("#chkCitizenship" + updateID).prop("checked",false);
+                    $("#DivMemberCitizenShip1").hide();
+                    $("#DivMemberCitizenShip2").hide();
+                    //$('#txtCitizenship1' + updateID).val($('#txtMemberCitizenship1').val()) ;
+                    //$('#txtCitizenship2' + updateID).val($('#txtMemberCitizenship2').val()) ;
+                    // $('#chkMemberCitizenShip').val();
+                }
+
+                //$('#txtCitizenship1' + updateID).val($('#txtMemberCitizenship1').val()) ;
+                //$('#txtCitizenship2' + updateID).val($('#txtMemberCitizenship2').val()) ;
+
+                $('#txtComAddress1' + updateID).val( $('#objFillMemberDetialsobjCommunicationAddressAddress1').val());
+                $('#txtComAddress2' + updateID).val( $('#objFillMemberDetialsobjCommunicationAddressAddress2').val());
+                $('#txtComAddress3' + updateID).val( $('#objFillMemberDetialsobjCommunicationAddressAddress3').val());
+                var ComState=$('#objFillMemberDetialsobjCommunicationAddressddlProvince').val();
+                $('#txtComState' + updateID).val(ComState);
+                $("#txtComState"+ updateID).attr("value",ComState);
+                $('#txtComPincode' + updateID).val($('#objFillMemberDetialsobjCommunicationAddressPincode').val());
+                $('#txtComDistrict' + updateID).val($('#objFillMemberDetialsobjCommunicationAddressddlDistrict').val());
+                $('#txtComCity' + updateID).val($('#objFillMemberDetialsobjCommunicationAddressddlCity').val()) ;
+                $('#txtPerAddress1' + updateID).val( $('#objFillMemberDetialsobjPermenantAddressAddress1').val());
+                $('#txtPerAddress2' + updateID).val( $('#objFillMemberDetialsobjPermenantAddressAddress2').val());
+                $('#txtPerAddress3' + updateID).val( $('#objFillMemberDetialsobjPermenantAddressAddress3').val());
+                var PermState=$('#objFillMemberDetialsobjPermenantAddressddlProvince').val();
+                $('#txtPerState' + updateID).val(PermState);
+                $("#txtPerState"+ updateID).attr("value",PermState);
+                $('#txtPerCity' + updateID).val($('#objFillMemberDetialsobjPermenantAddressddlCity').val());
+                $('#txtPerDistrict' + updateID).val($('#objFillMemberDetialsobjPermenantAddressddlDistrict').val());
+                $('#txtPerPincode' + updateID).val($('#objFillMemberDetialsobjPermenantAddressPincode').val());
+                $('#ddlMaritalStatus' + updateID).val($('#ddlMemberMaritalStatus').val()) ;
+                $('#ddlOccupation' + updateID).val($('#ddlMemberOccupation').val()) ;
+                $('#ddlNationality' + updateID).val($('#ddlMemberNationality').val()) ;
+                $('#dtDOB' + updateID).val($('#txtMemberFillDateOfBirth').val());
+                $('#WedDate' + updateID).val($('#txtMemberWeddingAnniversaryDate').val());
+                if($("#chkMemberAddrSameasProposerAdrr").is(':checked'))
+                {
+                    $('#txtIsSameasProposerAddress' + updateID).val(true);
+                }
+                else{
+                    $('#txtIsSameasProposerAddress' + updateID).val(false);
+                }
+                if($("#chkMemberIsPermanentAddrSame").is(':checked'))
+                {
+                    $('#txtIsRegAsCommunication' + updateID).val(true);
+                }
+                else{
+                    $('#txtIsRegAsCommunication' + updateID).val(false);
+                }
+
+                Cancel();
+
+                $('#chkMemberCitizenShip').prop("checked", false);
+                $('.invisiblemem').removeClass('checkboxactive');
+                $('#DivMemberCitizenShip1').hide();
+                $('#DivMemberCitizenShip2').hide();
+                $('#yesbtnMemberOccupation').prop("checked", false);
+                $('#DivMemberOccupationHazardousWork').hide();
+                $('#NobtnMemberOccupation').prop("checked", false);
+
+                $('#objFillMemberDetialsobjCommunicationAddressAddress1').prop("readonly", false);
+                $('#objFillMemberDetialsobjCommunicationAddressAddress2').prop("readonly", false);
+                $('#objFillMemberDetialsobjCommunicationAddressAddress3').prop("readonly", false);
+                $('#objFillMemberDetialsobjCommunicationAddressPincode').prop("readonly", false);
+                $('#objFillMemberDetialsobjPermenantAddressAddress1').prop("readonly", false);
+                $('#objFillMemberDetialsobjPermenantAddressAddress2').prop("readonly", false);
+                $('#objFillMemberDetialsobjPermenantAddressAddress3').prop("readonly", false);
+                $('#objFillMemberDetialsobjPermenantAddressPincode').prop("readonly", false);
+
+                $('#divFillMemberResidentialStatus').hide();
+                $('#divMemberUSTaxpayerId').hide();
+                $('#divFillMember').hide();
+                $('#divNationalityStatus').hide();
+                $('#divMemberUSTaxpayerId').hide();
+
+                // RefreshData();
+
+                var  MemberAssuredIndex ;
+                if ($('#ddlRelationWithProposer' + updateID).val() == '267') {
+                    MemberAssuredIndex = 0;
+                }
+                if ($('#ddlRelationWithProposer' + updateID).val() == '268') {
+                    MemberAssuredIndex = 1;
+                }
+
+                var ResidentialStatus = $('#ddlResidentialStatus' + updateID).val();
+
+                var NationalityStatus = $('#ddlNationality' + updateID).val();
+
+                var OccuID = $('#ddlOccupation' + updateID).val();
+
+                var SAR = $('#hdnSAR' + updateID).val().split('.')[0];
+                //var OccuID = $('#ddlOccupation' + updateID).val();
+                var ResidentialStatusID = $("#ddlResidentialStatus" + updateID).val();
+                if ($('#ddlRelationWithProposer' + updateID).val() == '267' || $('#ddlRelationWithProposer' + updateID).val() == '268') {
+
+                    $.post("../Policy/ProposalResidentialStatusQuestions?ResidentialStatusID=" + ResidentialStatusID + "&OccuPationID=" + OccuID +"&MemberAssuredIndex=" + MemberAssuredIndex + "&MemberOccupationHazardousWork=" + MemberOccupationHazardousWork+ "&SAR=" + SAR, $("#fromProposalPage").serialize(), function (data) {
+                        debugger;
+                        if ($('#ddlRelationWithProposer' + updateID).val() == '267') {
+                            $(".occupationquestions").html(data);
+                        }
+                        else if ($('#ddlRelationWithProposer' + updateID).val() == '268') {
+                            $(".occupationquestionssub").html(data);
+                        }
+                        else {
+
+                        }
+                    });
+                }
+                $("#divBusyIndicator").hide();
+
+                IsSelfAndSpouseCoverd();
+                $('.invisiblemem').removeClass('checkboxactive');
+                $("#divMemberDetails tbody").find("tr").each(function (index) {
+                    
+                    if (index == updateID) {
+                        $('#txtIsUpdate' + index).val(true);
+                    }
+                    else {
+                        $('#txtIsUpdate' + index).val(false);
+                    }
+                });
+                EnableRiskInformation();
+                $.post("../Policy/InvokeILClientCreation", $("#fromProposalPage").serialize(), function (data) {
+                DisableRiskInformation();
+                    $("#divMemberDetails tbody").find("tr").each(function (index) {
+                    
+                    $('#hdnMemberClientCode' + index).val(data[index].ClientCode);
+                });
+                });
+            }
+        }
+        else
+        {
+            $("#chkMemberAddrSameasProposerAdrr").prop("checked", false);
+            $("#chkMemberIsPermanentAddrSame").prop("checked", false);
+            $('.invisiblecomadd').removeClass('checkboxactive')
+            $('.invisibleperadd').removeClass('checkboxactive')
+            writeMultipleMessage("error", "", "ddlRelationWithProposer" + updateID +"");
+            writeMultipleMessage("error", "", "txtNameWithInitials" + updateID +"");
+            writeMultipleMessage("error", "", "dtDOB" + updateID +"");
+            writeMultipleMessage("error", "", "ddlGender" + updateID +"");
+            writeMultipleMessage("error", "", "ddlNationality" + updateID +"");
+            writeMultipleMessage("error", "", "ddlResidentialStatus" + updateID +"");
+            writeMultipleMessage("error", "", "txtCitizenship1" + updateID +"");
+            writeMultipleMessage("error", "", "txtCitizenship2" + updateID +"");
+            writeMultipleMessage("error", "", "txtNewNicNo" + updateID +"");
+            writeMultipleMessage("error", "", "ddlOccupation" + updateID +"");
+            writeMultipleMessage("error", "", "txtCompanyName" + updateID +"");
+            writeMultipleMessage("error", "", "txtNatureOfDuties" + updateID +"");
+            writeMultipleMessage("error", "", "ddlMemberMonthlyIncome" + updateID +"");
+            writeMultipleMessage("error", "", "txtComAddress1" + updateID +"");
+            writeMultipleMessage("error", "", "txtComAddress2" + updateID +"");
+            writeMultipleMessage("error", "", "txtComPincode" + updateID +"");
+            writeMultipleMessage("error", "", "txtComDistrict" + updateID +"");
+            writeMultipleMessage("error", "", "txtComCity" + updateID +"");
+
+            var IsMemberValidated = ValidateAssuredMemberDetails();
+
+            if(!IsMemberValidated){
+                return false;
+
+            }
+
+            if ($('#ddlRelationWithProposer' + updateID).val() == '267') {
+                $('#hdnMemberClientCode' + updateID).val($('#hdnProspectClientCode').val());
+            }
+            $('#hdnMemberSAM' + updateID).val($('#hdnProspectSAM').val());
+            $('#ddlRelationWithProposer' + updateID).val($('#ddlMemberRelationWithProposer').val()) ;
+            $('#TxtProposerSalutation' + updateID).val( $('#TxtMemberSalutation').val()) ;
+            $('#ddlGender' + updateID).val($('#ddlMemberGender').val()) ;
+            $('#txtFirstName' + updateID).val($('#txtMemberFirstName').val());
+            $('#txtAgeNextBirthday' + updateID).val($('#txtMemberAgeNextBirthdayMember').val());
+            $('#txtNameWithInitials' + updateID).val($('#txtMemberNameWithInitials').val());
+            $('#txtMiddleName' + updateID).val($('#txtMemberMiddleName').val());
+            $('#txtLastName' + updateID).val( $('#txtMemberLastName').val());
+            $('#txtNewNicNo' + updateID).val( $('#txtMemberNewNicNo').val());
+            $('#txtCompanyName' + updateID).val( $('#txtMemberCompanyName').val());
+            $('#txtNatureOfDuties' + updateID).val( $('#txtMemberNatureOfDuties').val());
+            $('#ddlMemMonthlyIncome' + updateID).val($('#ddlMemberMonthlyIncome').val().replace(/,/g, ''));
+            $('#txtLandlinePhone' + updateID).val($('#txtMemberHomeNo').val());
+            $('#txtWorkNumber' + updateID).val($('#txtmemberWorkNumber').val());
+            $('#txtMobileNo' + updateID).val($('#txtMemberMobileNo').val());
+            $('#txtOtherMobile' + updateID).val($('#txtMemberOtherMobileNo').val());
+            $('#txtEmail' + updateID).val($('#txtMemberEmail').val());
+            $('#txtNationalitySpecify' + updateID).val($('#txtMemberSpecifyNationality').val()) ;
+            $('#txtUSTaxpayerId' + updateID).val($('#txtMemberUSTaxPayerID').val()) ;
+
+            $('#txtDrivingLicense' + updateID).val($('#txtFillMemberDrivingLicense').val()) ;
+            $('#txtPassportNumber' + updateID).val($('#txtFillMemberPassportNumber').val()) ;
+            var MemberOccupationHazardousWork;
+            if ($("input[id='yesbtnMemberOccupation']").is(':checked') == true) {
+                // $("#yesbtnMemberOccupation").prop("checked", true);
+                //$("input[id='yesbtnMemberOccupation']").is(':checked') == true;
+                //MemberOccupationHazardousWork = $("#yesbtnMemberOccupation").val();
+                if($("#yesbtnMemberOccupation").is(":checked")==true)
+                    $("input[id='chkOccupationHazardousWork"+updateID+"']").prop("checked",true);
+                MemberOccupationHazardousWork = true;
+                $('#txtOccupationHazardousWork' + updateID).val($('#txtMemberOccupationHazardousWork').val());
+                $("#chkOccupationHazardousWork" + updateID).prop("checked",true);
+            }
+            if ($("input[id='NobtnMemberOccupation']").is(':checked') == true) {
+                // $("#yesbtnMemberOccupation").prop("checked", true);
+                if($("#NobtnMemberOccupation").is(":checked")==true){
+                    $("input[id='chkOccupationHazardousWork"+updateID+"']").prop("checked",false);
+                    MemberOccupationHazardousWork = false;
+                    $("#chkOccupationHazardousWork" + updateID).prop("checked",false);
+                    //$('#txtOccupationHazardousWork' + updateID).val($('#txtOccupationHazardousWork').val());
+                }
+                // $('#chkOccupationHazardousWork' + updateID).val(MemberOccupationHazardousWork);
+            }
+            //$('#chkOccupationHazardousWork' + updateID).val($('#yesbtnMemberOccupation').val());
+
+            $('#ddlResidentialStatus' + updateID).val($('#ddlFillMemberResidentialStatus').val()) ;
+            $('#txtFillMemberResidential' + updateID).val($('#txtFillMemberResidential').val()) ;
+            $('#ddlCountryofOccupation' + updateID).val($('#ddlFillMemberCountryofOccupation').val());
+
+            if($("#chkMemberCitizenShip").is(":checked")==true)
+            {
+                //var Xyz = true;
+                $("input[id='chkCitizenship"+updateID+"']").prop("checked",true);
+                $("#chkCitizenship" + updateID).prop("checked",true);
+
+                //$("input[id='chkCitizenship"+updateID+"']").val(Xyz);
+
+                $("#DivMemberCitizenShip1").show();
+                $("#DivMemberCitizenShip2").show();
+                $('#txtCitizenship1' + updateID).val($('#txtMemberCitizenship1').val()) ;
+                $('#txtCitizenship2' + updateID).val($('#txtMemberCitizenship2').val()) ;
+                // $('#chkMemberCitizenShip').val();
+            }
+            if($("#chkMemberCitizenShip").is(":checked")==false)
+            {
+                //$("input[id='chkCitizenship"+updateID+"']").prop("checked",false);
+                $("#chkCitizenship" + updateID).prop("checked",false);
+                $("#DivMemberCitizenShip1").hide();
+                $("#DivMemberCitizenShip2").hide();
+                //$('#txtCitizenship1' + updateID).val($('#txtMemberCitizenship1').val()) ;
+                //$('#txtCitizenship2' + updateID).val($('#txtMemberCitizenship2').val()) ;
+                // $('#chkMemberCitizenShip').val();
+            }
+
+            //$('#txtCitizenship1' + updateID).val($('#txtMemberCitizenship1').val()) ;
+            //$('#txtCitizenship2' + updateID).val($('#txtMemberCitizenship2').val()) ;
+
+            $('#txtComAddress1' + updateID).val( $('#objFillMemberDetialsobjCommunicationAddressAddress1').val());
+            $('#txtComAddress2' + updateID).val( $('#objFillMemberDetialsobjCommunicationAddressAddress2').val());
+            $('#txtComAddress3' + updateID).val( $('#objFillMemberDetialsobjCommunicationAddressAddress3').val());
+            var ComState=$('#objFillMemberDetialsobjCommunicationAddressddlProvince').val();
+            $('#txtComState' + updateID).val(ComState);
+            $("#txtComState"+ updateID).attr("value",ComState);
+            $('#txtComPincode' + updateID).val($('#objFillMemberDetialsobjCommunicationAddressPincode').val());
+            $('#txtComDistrict' + updateID).val($('#objFillMemberDetialsobjCommunicationAddressddlDistrict').val());
+            $('#txtComCity' + updateID).val($('#objFillMemberDetialsobjCommunicationAddressddlCity').val()) ;
+            $('#txtPerAddress1' + updateID).val( $('#objFillMemberDetialsobjPermenantAddressAddress1').val());
+            $('#txtPerAddress2' + updateID).val( $('#objFillMemberDetialsobjPermenantAddressAddress2').val());
+            $('#txtPerAddress3' + updateID).val( $('#objFillMemberDetialsobjPermenantAddressAddress3').val());
+            var PermState=$('#objFillMemberDetialsobjPermenantAddressddlProvince').val();
+            $('#txtPerState' + updateID).val(PermState);
+            $("#txtPerState"+ updateID).attr("value",PermState);
+            $('#txtPerCity' + updateID).val($('#objFillMemberDetialsobjPermenantAddressddlCity').val());
+            $('#txtPerDistrict' + updateID).val($('#objFillMemberDetialsobjPermenantAddressddlDistrict').val());
+            $('#txtPerPincode' + updateID).val($('#objFillMemberDetialsobjPermenantAddressPincode').val());
+            $('#ddlMaritalStatus' + updateID).val($('#ddlMemberMaritalStatus').val()) ;
+            $('#ddlOccupation' + updateID).val($('#ddlMemberOccupation').val()) ;
+            $('#ddlNationality' + updateID).val($('#ddlMemberNationality').val()) ;
+            $('#dtDOB' + updateID).val($('#txtMemberFillDateOfBirth').val());
+            $('#WedDate' + updateID).val($('#txtMemberWeddingAnniversaryDate').val());
+            if($("#chkMemberAddrSameasProposerAdrr").is(':checked'))
+            {
+                $('#txtIsSameasProposerAddress' + updateID).val(true);
+            }
+            else{
+                $('#txtIsSameasProposerAddress' + updateID).val(false);
+            }
+            if($("#chkMemberIsPermanentAddrSame").is(':checked'))
+            {
+                $('#txtIsRegAsCommunication' + updateID).val(true);
+            }
+            else{
+                $('#txtIsRegAsCommunication' + updateID).val(false);
+            }
+
+            Cancel();
+
+            $('#chkMemberCitizenShip').prop("checked", false);
+            $('.invisiblemem').removeClass('checkboxactive');
+            $('#DivMemberCitizenShip1').hide();
+            $('#DivMemberCitizenShip2').hide();
+            $('#yesbtnMemberOccupation').prop("checked", false);
+            $('#DivMemberOccupationHazardousWork').hide();
+            $('#NobtnMemberOccupation').prop("checked", false);
+
+            $('#objFillMemberDetialsobjCommunicationAddressAddress1').prop("readonly", false);
+            $('#objFillMemberDetialsobjCommunicationAddressAddress2').prop("readonly", false);
+            $('#objFillMemberDetialsobjCommunicationAddressAddress3').prop("readonly", false);
+            $('#objFillMemberDetialsobjCommunicationAddressPincode').prop("readonly", false);
+            $('#objFillMemberDetialsobjPermenantAddressAddress1').prop("readonly", false);
+            $('#objFillMemberDetialsobjPermenantAddressAddress2').prop("readonly", false);
+            $('#objFillMemberDetialsobjPermenantAddressAddress3').prop("readonly", false);
+            $('#objFillMemberDetialsobjPermenantAddressPincode').prop("readonly", false);
+
+            $('#divFillMemberResidentialStatus').hide();
+            $('#divMemberUSTaxpayerId').hide();
+            $('#divFillMember').hide();
+            $('#divNationalityStatus').hide();
+            $('#divMemberUSTaxpayerId').hide();
+
+            // RefreshData();
+
+            var  MemberAssuredIndex ;
+            if ($('#ddlRelationWithProposer' + updateID).val() == '267') {
+                MemberAssuredIndex = 0;
+            }
+            if ($('#ddlRelationWithProposer' + updateID).val() == '268') {
+                MemberAssuredIndex = 1;
+            }
+
+            var ResidentialStatus = $('#ddlResidentialStatus' + updateID).val();
+
+            var NationalityStatus = $('#ddlNationality' + updateID).val();
+
+            var OccuID = $('#ddlOccupation' + updateID).val();
+
+            var SAR = $('#hdnSAR' + updateID).val().split('.')[0];
+            //var OccuID = $('#ddlOccupation' + updateID).val();
+            var ResidentialStatusID = $("#ddlResidentialStatus" + updateID).val();
+            if ($('#ddlRelationWithProposer' + updateID).val() == '267' || $('#ddlRelationWithProposer' + updateID).val() == '268') {
+
+                $.post("../Policy/ProposalResidentialStatusQuestions?ResidentialStatusID=" + ResidentialStatusID + "&OccuPationID=" + OccuID +"&MemberAssuredIndex=" + MemberAssuredIndex + "&MemberOccupationHazardousWork=" + MemberOccupationHazardousWork+ "&SAR=" + SAR, $("#fromProposalPage").serialize(), function (data) {
+                    debugger;
+                    if ($('#ddlRelationWithProposer' + updateID).val() == '267') {
+                        $(".occupationquestions").html(data);
+                    }
+                    else if ($('#ddlRelationWithProposer' + updateID).val() == '268') {
+                        $(".occupationquestionssub").html(data);
+                    }
+                    else {
+
+                    }
+                });
+            }
+            $("#divBusyIndicator").hide();
+
+            IsSelfAndSpouseCoverd();
+            $('.invisiblemem').removeClass('checkboxactive');
+            $("#divMemberDetails tbody").find("tr").each(function (index) {
+                
+                    if (index == updateID) {
+                        $('#txtIsUpdate' + index).val(true);
+                    }
+                    else {
+                        $('#txtIsUpdate' + index).val(false);
+                    }
+            });
+            EnableRiskInformation();
+            $.post("../Policy/InvokeILClientCreation", $("#fromProposalPage").serialize(), function (data) {
+            $("#divMemberDetails tbody").find("tr").each(function (index) {
+                    DisableRiskInformation();
+                    $('#hdnMemberClientCode' + index).val(data[index].ClientCode);
+                });
+            });
+        }
+
+    }
+
+
+    function RefreshData() {
+
+        $('#ddlMemberRelationWithProposer').val('Select');
+        $('#txtMemberFirstName').val('');
+        $('#ddlMemberGender').val('Select');
+        $('#txtMemberAgeNextBirthday').val('');
+        $('#txtMemberAgeNextBirthdayMember').val('');
+        $('#TxtMemberSalutation').val('');
+        $('#txtMemberNameWithInitials').val('');
+        $('#txtMemberMiddleName').val('');
+        $('#txtMemberLastName').val('');
+        $('#txtMemberNewNicNo').val('');
+        $('#txtMemberCompanyName').val('');
+        $('#txtMemberNatureOfDuties').val('');
+        $('#ddlMemberMonthlyIncome').val('');
+        $('#txtMemberLandlinePhone').val('');
+        $('#txtMemberMobileNo').val('');
+        $('#txtmemberWorkNumber').val('');
+        $('#txtMemberOtherMobileNo').val('');
+        $('#txtMemberEmail').val('');
+        $('#txtMemberAddress1').val('');
+        $('#txtMemberAddress2').val('');
+        $('#txtMemberPostCode').val('');
+        $('#txtMemberComDistrict').val('');
+        $('#ddlMemberMaritalStatus').val('Select');
+        $('#ddlMemberOccupation').val('Select');
+        $('#ddlMemberNationality').val('Select');
+        $('#ddlMemberHeight').val('');
+        $('#ddlMemberWeight').val('');
+        $('#txtMemberComCity').val('');
+
+        $('#txtMemberFillDateOfBirth').val('');
+
+        $('#txtMemberSpecifyNationality').val('');
+        $('#txtMemberUSTaxPayerID').val('');
+        $('#txtFillMemberDrivingLicense').val('');
+        $('#txtFillMemberPassportNumber').val('');
+        $('#txtOccupationHazardousWork').val('');
+        $('#ddlFillMemberResidentialStatus').val('Select');
+        $('#txtFillMemberResidential').val('');
+        $('#ddlFillMemberCountryofOccupation').val('Select');
+        $('#txtMemberCitizenship1').val('');
+        $('#txtMemberCitizenship2').val('');
+
+        $('#objFillMemberDetialsobjCommunicationAddressAddress1').val('');
+        $('#objFillMemberDetialsobjCommunicationAddressAddress2').val('');
+        $('#objFillMemberDetialsobjPermenantAddressAddress3').val('');
+        $('#objFillMemberDetialsobjCommunicationAddressddlProvince').val('');
+        $('#objFillMemberDetialsobjCommunicationAddressddlDistrict').val('');
+        $('#objFillMemberDetialsobjCommunicationAddressddlCity').val('');
+        $('#objFillMemberDetialsobjCommunicationAddressPincode').val('');
+        $('#objFillMemberDetialsobjPermenantAddressAddress1').val('');
+        $('#objFillMemberDetialsobjPermenantAddressAddress2').val('');
+        $('#objFillMemberDetialsobjCommunicationAddressAddress3').val('');
+        $('#objFillMemberDetialsobjPermenantAddressddlProvince').val('');
+        $('#objFillMemberDetialsobjPermenantAddressddlDistrict').val('');
+        $('#objFillMemberDetialsobjPermenantAddressddlCity').val('');
+        $('#objFillMemberDetialsobjPermenantAddressPincode').val('');
+        $('#txtMemberHomeNo').val('');
+
+        $("#chkMemberIsPermanentAddrSame").attr('checked', false);
+        $("#chkMemberAddrSameasProposerAdrr").attr('checked', false);
+    }
+
+    function IsSelfAndSpouseCoverd()
+    {
+        $('#hdnIsSelfCovered').val(false);
+        $('#hdnIsSpouseCovered').val(false);
+        var ChildCount =0;
+        $("#divMemberDetails tbody").find("tr").each(function (index) {
+            RelationshipWithProspect = $(this).find("[data-name=Relation]").find("option:selected").val();
+            if(RelationshipWithProspect =='267'){
+                $('#hdnIsSelfCovered').val(true);
+            }
+            else if(RelationshipWithProspect =='268'){
+                $('#hdnIsSpouseCovered').val(true);
+            }
+            else{
+                ChildCount =ChildCount+1;
+            }
+        })
+        $('#hdnNoOfChild').val(ChildCount);
+
+    }
+
+    function ValidateAssuredMemberDetails()
+    {
+        writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress1");
+        writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress2");
+        writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress3");
+        writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressAddress1");
+        writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressAddress2");
+        writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressAddress3");
+
+        if ($("#ddlMemberRelationWithProposer option:selected").text() == "Select") {
+            writeMultipleMessage("error", "Please Select Relation with Proposer.", "ddlMemberRelationWithProposer");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ddlMemberRelationWithProposer");
+        }
+
+        if ($("#TxtMemberSalutation").val() == "") {
+            writeMultipleMessage("error", "Please Enter Salutation.", "TxtMemberSalutation");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "TxtMemberSalutation");
+        }
+        var Salutation = $('#TxtMemberSalutation').val();
+        var Gender = $('#ddlMemberGender').val();
+        if (Salutation == "Al Haj" || Salutation == "Ayur Dr Mr" || Salutation == "Father" || Salutation == "Master" || Salutation == "Mr" || Salutation == "Rector" || Salutation == "Reverent" || Salutation == "Reverent Father" || Salutation == "Sir") {
+            if (Gender == "F") {
+                writeMultipleMessage("error", "Salutation does not match with the Gender", 'ddlGender');
+                return false;
+
+            }
+            else {
+                writeMultipleMessage("error", "", "TxtMemberSalutation");
+            }
+        }
+        else if (Salutation == "Ayur Dr Mrs" || Salutation == "Ayur Dr Ms" || Salutation == "Dame" || Salutation == "Dr Mrs" || Salutation == "Dr Ms" || Salutation == "Lady" || Salutation == "Madam" || Salutation == "Miss" || Salutation == "Mrs" || Salutation == "Ms" || Salutation == "Reverent Sister") {
+            if (Gender == "M") {
+                writeMultipleMessage("error", "Salutation does not match with the Gender", 'ddlGender');
+                return false;
+
+            }
+            else {
+                writeMultipleMessage("error", "", "TxtMemberSalutation");
+            }
+        }
+        if ($("#ddlMemberNationality option:selected").text() == "Sri lanka") {
+            if ($("#txtMemberNewNicNo").val() == "") {
+                writeMultipleMessage("error", "Please Enter New NIC Number.", "txtMemberNewNicNo");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtMemberNewNicNo");
+            }
+        }
+
+        if ($("#txtMemberFirstName").val() == "") {
+            writeMultipleMessage("error", "Please Enter First Name .", "txtMemberFirstName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtMemberFirstName");
+        }
+
+        if ($("#txtMemberLastName").val() == "") {
+            writeMultipleMessage("error", "Please Enter Last Name .", "txtMemberLastName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtMemberLastName");
+        }
+
+        if ($("#txtMemberFillDateOfBirth").val() == "") {
+            writeMultipleMessage("error", "Please Enter Date of Birth.", "txtMemberFillDateOfBirth");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtMemberFillDateOfBirth");
+        }
+
+
+        if ($("#objFillMemberDetialsobjCommunicationAddressAddress1").val() == "") {
+            writeMultipleMessage("error", "Please Enter Communication Address1.", "objFillMemberDetialsobjCommunicationAddressAddress1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress1");
+        }
+
+        if ($("#objFillMemberDetialsobjCommunicationAddressAddress2").val() == "") {
+            writeMultipleMessage("error", "Please Enter Communication Address2.", "objFillMemberDetialsobjCommunicationAddressAddress2");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress2");
+        }
+
+        if ($("#objFillMemberDetialsobjCommunicationAddressPincode").val() == "") {
+            writeMultipleMessage("error", "Please Enter CommunicationAddress Postal Code|City.", "objFillMemberDetialsobjCommunicationAddressPincode");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressPincode");
+        }
+        if ($("#objFillMemberDetialsobjCommunicationAddressPincode").val() != "YYYYY|") {
+            if ($("#objFillMemberDetialsobjCommunicationAddressddlDistrict").val() == "0") {
+                writeMultipleMessage("error", "Please Enter CommunicationAddress District.", "objFillMemberDetialsobjCommunicationAddressddlDistrict");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressddlDistrict");
+            }
+            if ($("#objFillMemberDetialsobjCommunicationAddressddlProvince").val() == "") {
+                writeMultipleMessage("error", "Please Enter CommunicationAddress Province.", "objFillMemberDetialsobjCommunicationAddressddlProvince");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressddlProvince");
+            }
+        }
+
+        if ($("#objFillMemberDetialsobjPermenantAddressAddress1").val() == "") {
+            writeMultipleMessage("error", "Please Enter Permenant Address1.", "objFillMemberDetialsobjPermenantAddressAddress1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressAddress1");
+        }
+        if ($("#objFillMemberDetialsobjPermenantAddressAddress2").val() == "") {
+            writeMultipleMessage("error", "Please Enter Permenant Address2.", "objFillMemberDetialsobjCommunicationAddressAddress2");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressAddress2");
+        }
+
+        if ($("#objFillMemberDetialsobjPermenantAddressPincode").val() == "") {
+            writeMultipleMessage("error", "Please Enter PermenantAddress Postal Code|City.", "objFillMemberDetialsobjPermenantAddressPincode");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressPincode");
+        }
+        if ($("#objFillMemberDetialsobjPermenantAddressPincode").val() != "YYYYY|") {
+            if ($("#objFillMemberDetialsobjPermenantAddressddlDistrict").val() == "0") {
+                writeMultipleMessage("error", "Please Enter PermenantAddress District.", "objFillMemberDetialsobjPermenantAddressddlDistrict");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressddlDistrict");
+            }
+            if ($("#objFillMemberDetialsobjPermenantAddressddlProvince").val() == "") {
+                writeMultipleMessage("error", "Please Enter PermenantAddress Province.", "objFillMemberDetialsobjPermenantAddressddlProvince");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressddlProvince");
+            }
+        }
+
+        var Address1 = $('#objFillMemberDetialsobjCommunicationAddressAddress1').val();
+        var res = ValidateAddress(Address1)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address1 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objFillMemberDetialsobjCommunicationAddressAddress1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress1");
+        }
+
+        var Address2 = $('#objFillMemberDetialsobjCommunicationAddressAddress2').val();
+        var res = ValidateAddress(Address2)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address2 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objFillMemberDetialsobjCommunicationAddressAddress2");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress2");
+        }
+
+        var Address3 = $('#objFillMemberDetialsobjCommunicationAddressAddress3').val();
+        var res = ValidateAddress(Address3)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address3 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objFillMemberDetialsobjCommunicationAddressAddress3");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress3");
+        }
+
+        var Address1 = $('#objFillMemberDetialsobjPermenantAddressAddress1').val();
+        var res = ValidateAddress(Address3)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address1 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objFillMemberDetialsobjPermenantAddressAddress1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressAddress1");
+        }
+
+
+        var Address2 = $('#objFillMemberDetialsobjPermenantAddressAddress2').val();
+        var res = ValidateAddress(Address3)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address2 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objFillMemberDetialsobjPermenantAddressAddress2");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress2");
+        }
+
+        var Address3 = $('#objFillMemberDetialsobjPermenantAddressAddress3').val();
+        var res = ValidateAddress(Address3)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address3 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objFillMemberDetialsobjPermenantAddressAddress3");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressAddress3");
+        }
+
+
+
+        if ($("#ddlMemberRelationWithProposer option:selected").text() != "Daughter" && $("#ddlMemberRelationWithProposer option:selected").text() != "Son" && $("#ddlMemberRelationWithProposer option:selected").text() != "Child")
+        {
+
+            if($('#ddlMemberGender option:selected').text()== "Select")
+            {
+                writeMultipleMessage("error", "Please Select Gender.", "ddlMemberGender");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlMemberGender");
+            }
+
+            if($('#ddlMemberMonthlyIncome').val() == "NaN")
+            {
+                writeMultipleMessage("error", "Please Select Annual Income.", "ddlMemberMonthlyIncome");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlMemberMonthlyIncome");
+            }
+
+            if($('#ddlMemberNationality option:selected').text()== "Select")
+            {
+                writeMultipleMessage("error", "Please Select Nationality.", "ddlMemberNationality");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlMemberNationality");
+            }
+
+            if($('#txtFillMemberDrivingLicense option:selected').text()== "Select")
+            {
+                writeMultipleMessage("error", "Please Select Age Proof.", "txtFillMemberDrivingLicense");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtFillMemberDrivingLicense");
+            }
+
+            //
+
+            if ($("#ddlMemberNationality option:selected").text() == "Others") {
+                if ($("#txtMemberSpecifyNationality").val() == "") {
+                    writeMultipleMessage("error", "Please Specify Nationality .", "txtMemberSpecifyNationality");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtMemberSpecifyNationality");
+                }
+            }
+
+            if ($("#ddlMemberNationality option:selected").text() == "US") {
+                if ($("#txtMemberUSTaxPayerID").val() == "") {
+                    writeMultipleMessage("error", "Please Specify USTaxpayerId.", "txtMemberUSTaxPayerID");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtMemberUSTaxPayerID");
+                }
+            }
+
+            if ($("#ddlMemberNationality option:selected").text() == "Sri lanka") {
+                if ($("#txtMemberNewNicNo").val() == "") {
+                    writeMultipleMessage("error", "Please Enter New NIC Number.", "txtMemberNewNicNo");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtMemberNewNicNo");
+                }
+            }
+
+            //if ($("#ddlMemberNationality option:selected").text() != "Sri lanka") {
+            //    if ($("#txtFillMemberPassportNumber").val() == "") {
+            //        writeMultipleMessage("error", "Please Enter Passport Number.", "txtFillMemberPassportNumber");
+            //        return false;
+            //    }
+            //    else {
+            //        writeMultipleMessage("error", "", "txtFillMemberPassportNumber");
+            //    }
+            //}
+
+            if($('#ddlFillMemberCountryofOccupation option:selected').text()== "Select")
+            {
+                writeMultipleMessage("error", "Please Select Country of Occupation.", "ddlFillMemberCountryofOccupation");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlFillMemberCountryofOccupation");
+            }
+
+
+            if ($("#ddlMemberMonthlyIncome").val() == "") {
+                writeMultipleMessage("error", "Please Enter Annual Income.", "ddlMemberMonthlyIncome");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlMemberMonthlyIncome");
+            }
+
+            if ($("#ddlFillMemberResidentialStatus option:selected").text() == "Select") {
+                writeMultipleMessage("error", "Please Enter Residential Status.", "ddlFillMemberResidentialStatus");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlFillMemberResidentialStatus");
+            }
+            if ($("#txtFillMemberDrivingLicense option:selected").text() == "Select") {
+                writeMultipleMessage("error", "Please Select Age Proof.", "txtFillMemberDrivingLicense");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtFillMemberDrivingLicense");
+            }
+
+            if ($("#ddlFillMemberResidentialStatus option:selected").text() == "Non SriLanka") {
+                if ($("#txtFillMemberResidential").val() == "") {
+                    writeMultipleMessage("error", "Please Specify Residential .", "txtFillMemberResidential");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtFillMemberResidential");
+                }
+            }
+
+            if ($("#ddlFillMemberResidentialStatus option:selected").text() == "Others") {
+                if ($("#txtFillMemberResidential").val() == "") {
+                    writeMultipleMessage("error", "Please Specify Residential .", "txtFillMemberResidential");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtFillMemberResidential");
+                }
+            }
+
+            if ($("input[id='chkMemberCitizenShip']").is(':checked') == false) {
+                if ($("#chkMemberCitizenShip").val() == "") {
+                    writeMultipleMessage("error", "Please Enter CitizenShip.", "chkMemberCitizenShip");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "chkMemberCitizenShip");
+                }
+
+            }
+
+            if ($("input[id='yesbtnMemberOccupation']").is(':checked') == true) {
+                if ($("#txtOccupationHazardousWork").val() == "") {
+                    writeMultipleMessage("error", "Please Specify OccupationHazardousWork.", "txtOccupationHazardousWork");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtOccupationHazardousWork");
+                }
+            }
+
+            if ($("input[id='chkMemberCitizenShip']").is(':checked') == true) {
+                if ($("#txtMemberCitizenship1").val() == "") {
+                    writeMultipleMessage("error", "Please Specify CitizenShip1.", "txtMemberCitizenship1");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtMemberCitizenship1");
+                }
+                if ($("#txtMemberCitizenship2").val() == "") {
+                    writeMultipleMessage("error", "Please Specify CitizenShip2.", "txtMemberCitizenship2");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtMemberCitizenship2");
+                }
+            }
+
+            // Communication Address
+            if ($("#objFillMemberDetialsobjCommunicationAddressAddress1").val() == "") {
+                writeMultipleMessage("error", "Please Enter Address1", "objFillMemberDetialsobjCommunicationAddressAddress1");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress1");
+            }
+            if ($("#objFillMemberDetialsobjCommunicationAddressPincode").val() == "") {
+                writeMultipleMessage("error", "Please Enter Pincode.", "objFillMemberDetialsobjCommunicationAddressPincode");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressPincode");
+            }
+
+            var pincodeValue = $("#objFillMemberDetialsobjCommunicationAddressPincode").val();
+            if (pincodeValue != "YYYYY|"){
+                if ($("#objFillMemberDetialsobjCommunicationAddressddlProvince").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Province.", "objFillMemberDetialsobjCommunicationAddressddlProvince");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressddlProvince");
+                }
+                if ($("#objFillMemberDetialsobjCommunicationAddressddlDistrict").val() == "" || $("#objFillMemberDetialsobjCommunicationAddressddlDistrict").val() == "0") {
+                    writeMultipleMessage("error", "Please Enter District.", "objFillMemberDetialsobjCommunicationAddressddlDistrict");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressddlDistrict");
+                }
+            }
+
+
+            // permanent Address
+
+            if ($("#objFillMemberDetialsobjPermenantAddressAddress1").val() == "") {
+                writeMultipleMessage("error", "Please Enter Address1", "objFillMemberDetialsobjPermenantAddressAddress1");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressAddress1");
+            }
+            if ($("#objFillMemberDetialsobjPermenantAddressPincode").val() == "") {
+                writeMultipleMessage("error", "Please Enter Pincode.", "objFillMemberDetialsobjPermenantAddressPincode");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressPincode");
+                return true;
+            }
+            var pincodeValue = $("#objFillMemberDetialsobjPermenantAddressPincode").val();
+            if (pincodeValue != "YYYYY|"){
+                if ($("#objFillMemberDetialsobjPermenantAddressddlProvince").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Province.", "objFillMemberDetialsobjPermenantAddressddlProvince");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressddlProvince");
+                }
+                if ($("#objFillMemberDetialsobjPermenantAddressddlDistrict").val() == "") {
+                    writeMultipleMessage("error", "Please Enter District.", "objFillMemberDetialsobjPermenantAddressddlDistrict");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "objFillMemberDetialsobjPermenantAddressddlDistrict");
+                }
+            }
+
+        }
+        else if($("#ddlMemberNationality").val() == "Select")
+        {
+            writeMultipleMessage("error", "Please Enter Nationality.", "ddlMemberNationality");
+            return false;
+        }
+        else{
+            writeMultipleMessage("error", "", "ddlMemberNationality");
+            return true;
+        }
+    }
+</script>

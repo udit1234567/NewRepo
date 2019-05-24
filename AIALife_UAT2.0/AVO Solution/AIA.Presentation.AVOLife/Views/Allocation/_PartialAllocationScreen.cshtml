@@ -1,0 +1,296 @@
+﻿@model AIA.Life.Models.Allocation.AllocationModel
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{ 
+    int UWCount = 0;
+    int ChannelCount = 0;
+    if (Model.objUWdetails != null)
+    { UWCount = Model.objUWdetails.Count(); }
+    if (Model.objChannelDetails != null)
+    { ChannelCount = Model.objChannelDetails.Count(); }
+
+}
+
+<style>
+    .allocate-details {
+        border: 1px solid #eee;
+        float: left;
+        width: 92%;
+        margin-bottom: 20px;
+    }
+
+        .allocate-details p {
+            text-align: left;
+            display: flex;
+            align-content: left;
+            justify-content: left;
+        }
+
+    .allocate-heading {
+        background-color: #C36418;
+        width: 10%;
+        padding: 7px;
+        color: #fff;
+    }
+</style>
+
+
+<div class="panel panel-default" id="pnlProposalForm">
+    <div class="panel-heading backgroundclr" role="tab" id="headingOne">
+        <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                @Resources.GetLabelName("Allocate")
+                <img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+            </a>
+        </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+            <form id="formAllocate">
+
+                <h3 class="allocate-heading">UnderWriter</h3>
+
+                @if (Model.objUWdetails != null)
+            {
+                for (int i = 0; i < Model.objUWdetails.Count(); i++)
+                {
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="allocate-details">
+                                <p class="col-lg-7 col-md-7 col-sm-7 col-xs-6" style="padding-top:7%">
+                                    
+                                    @Model.objUWdetails[i].UWName
+                                    @Html.HiddenFor(a => a.objUWdetails[i].UWName, new { })
+                                    @Html.HiddenFor(a => a.objUWdetails[i].Availabiliy, new { @id = "hdnUWAvailability" + i })
+                                </p>
+                                <p class="col-lg-5 col-md-5 col-sm-5 col-xs-6">
+                                    <label class="switch switch-slide">
+                                        <input class="switch-input switchUW" type="checkbox" id="ChkUW_@i" />
+                                        <span class="switch-label" data-on="Available" data-off="Not Available"></span>
+                                        <span class="switch-handle"></span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+
+
+                    }
+                }
+
+
+
+                <br />
+                <br />
+                <div class="clearfix"></div>
+                <h3 class="allocate-heading">Channel</h3>
+                @if (Model.objUWdetails != null)
+                {
+                    for (int i = 0; i < Model.objChannelDetails.Count(); i++)
+                    {
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="allocate-details">
+                                <p class="col-lg-7 col-md-7 col-sm-7 col-xs-6" style="padding-top:7%">
+                                    @Model.objChannelDetails[i].ChannelName
+                                    @Html.HiddenFor(a => a.objChannelDetails[i].ChannelName, new { })
+                                    @Html.HiddenFor(a => a.objChannelDetails[i].Availabiliy, new { @id = "hdnChannelAvailability" + i })
+                                </p>
+                                <p class="col-lg-5 col-md-5 col-sm-5 col-xs-6">
+                                    <label class="switch switch-slide">
+                                        <input class="switch-input switchCH" type="checkbox" id="ChkChannel_@i" />
+                                        <span class="switch-label" data-on="Available" data-off="Not Available"></span>
+                                        <span class="switch-handle"></span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+
+
+                    }
+                }
+
+
+
+
+
+                <br />
+                <br />
+                <div class="clearfix"></div>
+            </form>
+            <br />
+            <div class="text-center">
+                <input type="button" class="btn btn-default uwbtn" id="allocatebtn" value="Allocate" onclick="AllocateProposals()">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-default" id="pnlProposalDetails">
+    <div class="panel-heading backgroundclr" role="tab" id="headingTwo">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+                @Resources.GetLabelName("Reset")
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+
+            </a>
+        </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="panel-body">
+            <form id="formReset">
+
+                <h3 class="allocate-heading">UnderWriter</h3>
+
+                @if (Model.objUWdetails != null)
+                {
+                for (int i = 0; i < Model.objUWdetails.Count(); i++)
+                {
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="allocate-details">
+                                <p class="col-lg-7 col-md-7 col-sm-7 col-xs-6" style="padding-top:7%">
+                                    @Html.CheckBoxFor(a => a.objUWdetails[i].IsChecked, new { @id="ResetUWCheck"+i})
+                                    @Model.objUWdetails[i].UWName
+                                    @Html.HiddenFor(a => a.objUWdetails[i].UWName, new { })
+                                    
+                                </p>
+                                
+                            </div>
+                        </div>
+
+
+                }
+                }         
+                <div class="clearfix"></div>
+            </form>
+            <br />
+           
+            <div class="text-center">
+               
+                <input type="button" class="btn btn-default uwbtn" id="allocatebtn" value="ReSet" onclick="ResetProposals()">
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    var _UWCount = parseInt('@UWCount');
+    var _ChannelCount = parseInt('@ChannelCount');
+    (function () {
+        $(document).ready(function () {
+            $('.switchCH').on('change', function () {
+                var isChecked = $(this).is(':checked');
+                var selectedData;
+                var $switchLabel = $('.switch-label');
+               // console.log('isChecked: ' + isChecked);
+                var IDval = $(this).attr('id');
+                var _Array = IDval.split('_');
+                var index = parseInt(_Array[1]);
+                if (isChecked) {
+                    selectedData = $switchLabel.attr('data-on');
+                    $('#hdnChannelAvailability' + index).val('True');
+                } else {
+                    selectedData = $switchLabel.attr('data-off');
+                    $('#hdnChannelAvailability' + index).val('False');
+                }
+
+               // console.log('Selected data: ' + selectedData);
+
+            });
+
+            $('.switchUW').on('change', function () {
+                var isChecked = $(this).is(':checked');
+                var selectedData;
+                var $switchLabel = $('.switch-label');
+                // console.log('isChecked: ' + isChecked);
+                var IDval = $(this).attr('id');
+                var _Array = IDval.split('_');
+                var index = parseInt(_Array[1]);
+                if (isChecked) {
+                    selectedData = $switchLabel.attr('data-on');
+                    $('#hdnUWAvailability' + index).val('True');
+                } else {
+                    selectedData = $switchLabel.attr('data-off');
+                    $('#hdnUWAvailability' + index).val('False');
+                }
+
+                // console.log('Selected data: ' + selectedData);
+
+            });
+        });
+
+    })();
+
+
+    function AllocateProposals() {
+
+        clearAllErrors();
+
+        var UWSelected = false;
+        var ChannelSelected = false;
+        for (var i = 0 ; i < _UWCount; i++) {
+
+            if ($('#hdnUWAvailability' + i).val() == 'True') {
+                UWSelected = true;
+            }
+        }
+        if (!UWSelected) {
+            writeMultipleMessage("error", "Please select  altleast one Under Writer Availability.", "AutoAllocation");
+           return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "AutoAllocation");
+        }
+
+        for (var i = 0 ; i < _ChannelCount; i++) {
+            if ($('#hdnChannelAvailability' + i).val() == 'True') {
+                ChannelSelected = true;
+            }         
+        }
+        if (!ChannelSelected) {
+            writeMultipleMessage("error", "Please select  altleast one Channel.", "AutoChannelAllocation");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "AutoChannelAllocation");
+        }       
+        $.post("../Allocation/SaveAllocation", $("#formAllocate").serialize(), function (data) {
+            $("#divAllocate").html(data);
+        });
+
+    }
+
+    function ResetProposals() {
+
+        clearAllErrors();
+        var UWSelected = false;
+        for (var i = 0 ; i < _UWCount; i++) {
+            if ($('#ResetUWCheck' + i).is(":checked")) {
+                UWSelected = true;
+            }
+        }
+        if (!UWSelected) {
+            writeMultipleMessage("error", "Please select  altleast one Under Writer.", "AutoResetAllocation");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "AutoResetAllocation");
+        }
+        $.post("../Allocation/ResetAllocation", $("#formReset").serialize(), function (data) {
+            $('#AllocationModalBody').empty();
+            var Image = '<img class="Img-align" src="../Images/checked1.png" />'
+            var Message = '<p class="text-center"> Updated Successfully</p>';
+            $('#AllocationModalBody').append(Image);
+            $('#AllocationModalBody').append(Message);
+            $("#AllocationModal").modal("show");
+
+        });
+
+    }
+</script>

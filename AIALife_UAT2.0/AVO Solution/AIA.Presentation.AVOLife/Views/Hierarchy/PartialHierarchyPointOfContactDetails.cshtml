@@ -1,0 +1,112 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using AIA.Presentation.Helpers
+@using GridMvc.Html
+@{
+
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse28" href="#collapseTweentyEighteen" id="pnlPointOfContact" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                Point Of Contact
+            </a>
+        </h4>
+    </div>
+    <div id="collapse28" class="panel-collapse in">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divMiddleName">
+                    <div class="form-group">
+                        <label>Position<span class="mandatory">*</span></label>
+                        @Html.TextBoxFor(a => a.Position, new { @class = "form-control", @id = "txtPointPosition", @maxlength = "30", @onchange = "ClearErrOnChange()" })
+                        @*@Html.DropDownListFor(a => a.Position, new SelectList(Model.LstPosition, "ID", "Value"), "Select", new { @id = "ddlPosition", @class = "form-control", @onchange = "getSelectedValue()" })*@
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divSalutation">
+                    <div class="form-group">
+                        <label>Salutation<span class="mandatory">*</span></label>
+                        @Html.DropDownListFor(a => a.Salutation, new SelectList(Model.LstSalutation, "Text", "Value"), "Select", new { @id = "ddlPointSalutation", @class = "form-control", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divFirstName">
+                    <div class="form-group">
+                        <label>First Name<span class="mandatory">*</span></label>
+                        @Html.TextBoxFor(a => a.Firstname, new { @class = "form-control", @id = "txtPointFirstName", @onkeypress = "return onlyAlphabets(event)",@maxlength = "25", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divMiddleName">
+                    <div class="form-group">
+                        <label>Middle Name</label>
+                        @Html.TextBoxFor(a => a.Middlename, new { @id = "txtPointMiddleName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @maxlength = "25" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divLastName">
+                    <div class="form-group">
+                        <label>Last Name<span class="mandatory">*</span></label>
+                        @Html.TextBoxFor(a => a.Lastname, new { @id = "txtPointLastName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @maxlength = "25", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divSLIIRegNo">
+                    <div class="form-group">
+                        <label>SLII Reg No</label>
+                        @Html.TextBoxFor(a => a.SLIIRegNo, new { @id = "txtPointSLIIRegNo", @class = "form-control", @maxlength = "20",@onkeypress= "return isNumberKey(event)" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divMobileno">
+                    <div class="form-group">
+                        <label>Mobile No 1<span class="mandatory">*</span></label>
+                        @Html.TextBoxFor(a => a.Mobile1, new { @id = "txtPointMobile1", @class = "form-control", @maxlength = "10", @onkeypress = "return isNumberKey(event)", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAltMobileno">
+                    <div class="form-group">
+                        <label>Mobile No 2</label>
+                        @Html.TextBoxFor(a => a.Mobile2, new { @id = "txtPointMobile2", @class = "form-control", @maxlength = "10", @onkeypress = "return isNumberKey(event)" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyOfficePhone">
+                    <div class="form-group">
+                        <label>Office Phone No</label>
+                        @Html.TextBoxFor(a => a.OfficePhone, new { @class = "form-control", @id = "txtPointOfficePhone", @maxlength = "10", @onkeypress = "return isNumberKey(event)" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divResidencephone">
+                    <div class="form-group">
+                        <label>Residence Phone</label>
+                        @Html.TextBoxFor(a => a.ResidencePhone, new { @class = "form-control", @id = "txtPointResidencePhone", @maxlength = "10", @onkeypress = "return isNumberKey(event)" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divEmail">
+                    <div class="form-group">
+                        <label>Email</label>
+                        @Html.TextBoxFor(a => a.Email, new { @class = "form-control", @id = "txtPointofEmail", @maxlength = "25" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-bottom:2%" id="divAddRow">
+                <div style="margin:3% 2% 0% 0%; padding:1% 3% 1% 3%;" class="btn btn-default" onclick="ValidateHierarchyPointOfContactDetails(),AddRow()" id="addRow" type="button">Add</div>
+            </div>
+            <div id="divUpdateRow" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" style="display:none; text-align: center;margin-top: 20px; margin-bottom:2%">
+                <input type="button" class="btn btn-default" id="btnUpdate" value="Update" onclick="UpdateRow()" style="padding-left:20px;padding-right:20px;" />
+                <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" onclick="Cancel()" style="padding-left:20px;padding-right:20px;" />
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-bottom:3%" id="divPointOfContactDetailsGrid">
+                @Html.Partial("~/Views/Hierarchy/PartialHierarchyPointOfContactGridDetails.cshtml", Model)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <br />
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <input type="button" value="Save" id="btnSavePrincipalDetails" class="btn btn-default" style="width:100px" onclick="SaveHierarchyPrincipalDetails()">
+            <input type="button" value="Cancel" id="btnCancelPrincipalDetails" class="btn btn-default" style="width:100px" onclick="return location.href = '../Home/Index'">
+        </div>
+    </div>
+</div>
+

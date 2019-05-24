@@ -1,0 +1,1901 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string UserType = Model.Underwriter;
+
+}
+
+
+<style>
+    /*Added for responsiness datapicker in iGrid same datalist available input Newlayout.css*/
+    /*@@media only screen and (max-width: 800px) {
+       .iGrid .bootstrap-datetimepicker-widget table td .date .form-control{
+            width:271px !important;
+        }
+
+        .iGrid .bootstrap-datetimepicker-widget table{
+           display:table !important;
+        }
+        .iGrid .bootstrap-datetimepicker-widget thead,
+        .iGrid .bootstrap-datetimepicker-widget tbody,
+        .iGrid .bootstrap-datetimepicker-widget tr{
+            display:table-row !important;
+        }
+        .iGrid .bootstrap-datetimepicker-widget th,
+        .iGrid .bootstrap-datetimepicker-widget td
+         {
+            display: table-cell !important;
+        }
+
+            .iGrid .bootstrap-datetimepicker-widget thead tr, .iGrid .bootstrap-datetimepicker-widget tbody tr {
+                position: relative;
+                top: 0px;
+                left: 0px;
+            }
+
+        .iGrid .bootstrap-datetimepicker-widget td, .iGrid .bootstrap-datetimepicker-widget th {
+            border:none;
+        }
+        .iGrid .bootstrap-datetimepicker-widget tr{
+            border:none !important;
+        }
+        .iGrid .bootstrap-datetimepicker-widget table td:before{
+            position:relative !important;
+            content:none;
+        }
+        .iGrid .bootstrap-datetimepicker-widget table tbody tr td,.iGrid .bootstrap-datetimepicker-widget table thead tr th{
+            padding-left:0;
+            width:38px;
+        }
+
+
+    }*/
+
+    @@media only screen and (max-width: 800px) {
+        #divNomineeDetailsGrid .grid-mvc td:before {
+            content: attr(data-label);
+        }
+    }
+
+    #applyLoading .modal-content {
+        width: 1054px;
+        margin-left: -21%;
+    }
+
+    .nav-pills > li.active > a {
+        /*background-color: #D31145 !important;*/
+    }
+
+    .nav > li > a:hover, .nav > li > a:focus {
+        text-decoration: none;
+        background-color: #eee;
+    }
+
+    .nav-tabs > li > a, .nav-pills > li > a {
+        font-size: 18px;
+        /*background-color: #D31145 !important;*/
+        color: #fff;
+    }
+
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+
+    .backgroundclr {
+        color: #ffffff !important;
+        background-color: #a1a1a1;
+        border: none !important;
+    }
+
+    .marginTop {
+        margin-top: 30px;
+    }
+
+    .displayNone {
+        display: none;
+    }
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+        color: #000 !important;
+        /*background-color: #fbb055 !important;*/
+    }
+
+        .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+            /*background-color: #fff;*/
+            border: 1px solid #e86487;
+        }
+
+    .nav-tabs > li > a, .nav-pills > li > a {
+        color: #000;
+    }
+
+    .textAlign {
+        text-align: center !important;
+    }
+
+    .thQuestions {
+        border-bottom-color: snow !important;
+        padding-top: 40px !important;
+        padding-left: 350px !important;
+        font-weight: bold !important;
+    }
+
+    .thBold {
+        font-weight: bold !important;
+    }
+
+    .star-imp {
+        color: #fbb055;
+    }
+
+    .style-table {
+        width: 98%;
+        overflow-x: auto;
+        margin-top: 20px;
+    }
+
+        .style-table tr th {
+            color: #fff;
+            background-color: #fbb055;
+            border: 1px solid #eee;
+            width: 20%;
+        }
+
+        .style-table tr td {
+            border: 1px solid #eee;
+        }
+
+    .exercise-table > tbody > tr > td {
+        border-top: none;
+    }
+
+        .exercise-table > tbody > tr > td:nth-child(2) {
+            width: 75%;
+        }
+</style>
+<br />
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "fromProposalPage" }))
+    {<div>
+
+        <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+            <div>
+                @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+            </div>
+            <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+
+            <a href="/Policy/proposalHome" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Proposal")</a>
+
+            <div class="btn btn-info"><b>@Resources.GetLabelName("Modify Proposal")</b></div>
+
+        </div>
+    </div>
+    <br />
+    <div id="DivBasicDetails">
+        @*Proposal Form*@
+        <div class="panel panel-default" id="pnlProposalForm" onchange="SetMandatoryHighlightBlank('pnlProposalForm', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        @Resources.GetLabelName("Proposal Form")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    @Html.HiddenFor(a => a.PolicyID, new { @id = "hdnPolicyID" })
+                    @Html.HiddenFor(a => a.ProcceedToPayment, new { @id = "hdnProcceedToPayment" })
+                    @Html.HiddenFor(a => a.ContactID, new { @id = "hdnContactID" })
+                    @Html.HiddenFor(a => a.AdditionalPremium, new { @id = "hdnAdditionalPremium" })
+                    @Html.HiddenFor(a => a.Premium, new { @id = "hdnPremium" })
+                    @Html.HiddenFor(a => a.PlanCode, new { @id = "hdnPlanCode" })
+                    @Html.HiddenFor(a => a.IsAfc, new { @id = "hdnAfc" })
+                    @Html.HiddenFor(a => a.MainLifeAdditionalQuestion, new { @id = "hdnMainAddition" })
+                    @Html.HiddenFor(a => a.SpouseAdditionalQuestion, new { @id = "hdnSpouseAddition" })
+                    @Html.HiddenFor(a => a.IsLoading, new { @id = "hdnIsApplyLoading" })
+                    @Html.HiddenFor(a => a.IsClaGenerateQuote, new { @id = "hdnIsClaGenerateQuote" })
+                    @Html.Partial("~/Views/Policy/_PartialProposalForm.cshtml", Model)
+                </div>
+            </div>
+        </div>
+
+        @*Proposer Details*@
+        <div class="panel panel-default" id="pnlProposalDetails" onchange="SetMandatoryHighlightBlank('pnlProposalDetails', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        @Resources.GetLabelName("Policy Owner Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Policy/_PartialProposerDetails.cshtml", Model)
+                </div>
+            </div>
+        </div>
+
+
+        @*Life to be Assured*@
+        <div class="panel panel-default" id="pnlLifetobeAssuredDetails" onchange="SetMandatoryHighlightBlank('pnlLifetobeAssuredDetails', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingN">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseN" aria-expanded="false" aria-controls="collapseTwo">
+                        @Resources.GetLabelName("Life to be Assured")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseN" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingN">
+                <div class="panel-body">
+
+                    @Html.Partial("~/Views/Policy/_PartialMemberDetails.cshtml", Model)
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+
+        @*Questionnaire*@
+        <div class="panel panel-default" id="pnlQuestionnaire" onchange="SetMandatoryHighlightBlank('pnlQuestionnaire', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingQuestionnaire">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseQuestionnaire" aria-expanded="true" aria-controls="collapseBenefitOverView">
+                        @Resources.GetLabelName("Questionnaires")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseQuestionnaire" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingQuestionnaire">
+                <div class="panel-body">
+                    <div id="DivQuestionnaireDetails">
+                        @Html.Partial("~/Views/Policy/_PartialQuestionnaire.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" id="pnlBenefitOverView" onchange="SetMandatoryHighlightBlank('pnlBenefitOverView', false)">
+        <div class="panel-heading backgroundclr" role="tab" id="headingBenefitOverView">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseBenefitOverView" aria-expanded="true" aria-controls="collapseBenefitOverView">
+                    @Resources.GetLabelName("Premium and Benefit Coverage Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseBenefitOverView" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBenefitOverView">
+            <div class="panel-body">
+
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    @Html.Partial("~/Views/Policy/PartialGetDynamicTabs.cshtml", Model)
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="DivOtherDetails">
+        <div class="panel panel-default" id="pnlNomineeDetails" onchange="SetMandatoryHighlightBlank('pnlNomineeDetails', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingFour">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                        @Resources.GetLabelName("Beneficiary Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                <div class="panel-body" onchange="SetMandatoryHighlightBlank('DivNomineeDetailsGridView', false)">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <p>@Resources.GetLabelName("Beneficiary(s)Details: (Please indicate Date Of Birth if Beneficiary does not have NIC)")</p>
+                    </div>
+                    <div class="form-group benficiary-btn">
+                        <input class="btn btn-default" id="btnAddGridRow" type="button" onclick="AddNomineeRow()" value="Add Beneficiary Details" style="padding-left:25px;padding-right:25px;">
+                    </div>
+                    <div class="iGrid" id="divNomineeDetailsGrid">
+                        @Html.Partial("~/Views/Policy/PartialNomineeDetailsGrid.cshtml", Model)
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default" id="pnldocumentupload" onchange="SetMandatoryHighlightBlank('pnldocumentupload', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingEight">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                        @Resources.GetLabelName("Declaration And Documents")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                            @Html.Partial("~/Views/Policy/DeclarationAndDocuments.cshtml", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+        @if (Model.Underwriter == "UW")
+        {
+            <div id="divPartialUnderwriterReview">
+                @Html.Partial("~/Views/Policy/PartialUnderwriterReview.cshtml", Model)
+            </div>
+        }
+
+        <br />
+        <br />
+        <br />
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" style="text-align:center;margin-top:3%;" id="DivFinalbutton">
+        @{
+            if (Model.PolicyStageStatusID == AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusOutStandingReq)
+            {
+                <input class="btn btn-default" id="btnSaveProposal" type="button" onclick="SubmitPolicyDocuments()" value="Submit" style="padding-left:25px;padding-right:25px;">
+            }
+            else if (Model.PolicyStageStatusID == AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer && Model.AdditionalPremium > 0)
+            {
+                <input class="btn btn-default" id="btnPayment" type="button" onclick="PartialPayment()" value="Proceed To Payment" style="padding-left:25px;padding-right:25px;">
+            }
+            else if (Model.PolicyStageStatusID == AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer && (Model.AdditionalPremium <= 0 || Model.AdditionalPremium == null))
+            {
+                <input class="btn btn-default" id="btnSaveProposal" type="button" onclick="SubmitPolicyDocuments()" value="Submit" style="padding-left:25px;padding-right:25px;">
+            }
+            else
+            {
+                <input class="btn btn-default" id="btnSaveProposal" type="button" onclick="SaveProposal()" value="Save Proposal" style="padding-left:25px;padding-right:25px;">
+                <input class="btn btn-default" id="btnPayment" type="button" onclick="Payment()" value="Proceed To Payment" style="padding-left:25px;padding-right:25px;">
+                <input class="btn btn-default" id="btnQuotePDF" type="button" onclick="QuotePDF()" value="Download Quotation PDF">
+            }
+        }
+    </div>
+
+    <div class="modal fade" id="ProposerSignatureModal" tabindex="-2" role="dialog" aria-labelledby="ProposerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ProposerModalLabel">@Resources.GetLabelName("Tap to add Proposer Signature")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        @Html.Partial("~/Views/Shared/AddSignature.cshtml")
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="SpouseSignatureModal" tabindex="-1" role="dialog" aria-labelledby="SpouseModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SpouseModalLabel">@Resources.GetLabelName("Tap to add Spouse Signature")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        @Html.Partial("~/Views/Shared/AddSpouseSignature.cshtml")
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="WPSignatureModal" tabindex="-2" role="dialog" aria-labelledby="WPProposerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="WPProposerModalLabel">@Resources.GetLabelName("Tap to add WP Proposer Signature")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        @Html.Partial("~/Views/Shared/AddWPSignature.cshtml")
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+            }
+</div> <!-- panel-group -->
+<div class="modal fade" id="QuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body" id="QuoteModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadHomePage()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="GenerateQuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="GenerateQuoteModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ContinueGenerateQuoteForCounterOffer('@AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt(Model.QuoteNo)')">Continue</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="AgeChangeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="AgeChangeModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="SubmitProposal()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="applyLoading" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Apply Loading</h4>
+            </div>
+            <div class="modal-body" id="DivLoading">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default uwbtn" onclick="CalculateOnLoading()" id="btnLoadingCalc">Calculate</button>
+                <button type="button" class="btn btn-default uwbtn" onclick="SaveLoading()" style="display:none" id="btnLoadingSave">Save</button>
+                <button type="button" class="btn btn-default uwbtn" data-dismiss="modal" onclick="CancelModal()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="NomineeDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Resources.GetLabelName("Beneficiary Life Assured Details")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="NomineeDetailsModalBody">
+                <div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary"  onclick="SaveNomineeDetails(this)">Save</button>*@
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/ProductFlow/PropoalScript.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        debugger;
+        $('.reqFieldProposal').on("change",function(){
+            $("#checkboxDeclaration").attr("class", "invisibledelc");
+        })
+        $('#chkIsPermanentAddrSame').on("change",function(){
+            $("#checkboxDeclaration").attr("class", "invisibledelc");
+        })
+        $('#clientAddress').find('input').on("change",function(){
+            $("#checkboxDeclaration").attr("class", "invisibledelc");
+        })
+        $('#DivQuestionnaireDetails').find('input').on("change",function(){
+            $("#checkboxDeclaration").attr("class", "invisibledelc");
+        })
+    })
+    function CallFunction(ID){
+        $('#NomineeDOB' + ID).focus();
+    } 
+
+    function DisableRiskInformation() {
+        debugger;
+        // Proposer Details
+        $('#TxtSalutation').prop('readonly', true);
+        $('#txtProposalTotalAnnualPremiumContribution').prop('readonly', true);
+        $('#ddlGender').prop('disabled', true);
+        $('#ddlMaritalStatus').prop('disabled', true);
+        $('#ddlOccupation').prop('disabled', true);
+        $('#ddlEasyPesnsionPolicyTerm').prop('disabled', true);
+        $('#ddlLstPaymentfrequency').prop('disabled', true);
+
+        if($("#ddlLstSmartBuilderGoldMaturityBenefit").val()=='2380'||$("#ddlLstSmartBuilderGoldMaturityBenefit").val()=='2381')
+        {
+            $('#ddlLstSmartBuilderGoldMaturityBenefit').prop('disabled', true);
+            $('#ddlProposalFormSmartBuilderGoldBenefitYears').prop('disabled', true);
+        }
+        if($("#ddlLstSmartBuilderMaturityBenefit").val()=='2380'||$("#ddlLstSmartBuilderMaturityBenefit").val()=='2381')
+        {
+            $('#ddlLstSmartBuilderMaturityBenefit').prop('disabled', true);
+            $('#ddlProposalFormSmartBuilderGoldBenefitYears').prop('disabled', true);
+
+        }
+        $('#txtEducationPlanPolicyTerm').prop('disabled', true);
+        $('#txtEducationPlanPremiumPaymentTerm').prop('disabled', true);
+        $('#txtHealthProtectorPolicyTerm').prop('disabled', true);
+        $('#txtHealthProtectorPremiumPaymentTerm').prop('disabled', true);
+        $('#ddlProposalSmartBuilderPolicyTerm').prop('disabled', true);
+        $('#txtSmartBuilderPremiumPaymentTerm').prop('disabled', true);
+        $('#ddlProposalSmartBuilderGoldPolicyTerm').prop('disabled', true);
+        $('#txtSmartBuilderGoldPremiumPaymentTerm').prop('disabled', true);
+        $('#ddlProposalPriorityValuePolicyTerm').prop('disabled', true);
+        $('#txtPriorityValuePremiumPaymentTerm').prop('disabled', true);
+        $('#ddlProposalSmartPensionReceivingPeriod').prop('disabled', true);
+        //$('#txtUWMemberLevelMonth'+index).prop("disabled", false);
+
+        // Memeber Details
+
+        $('#ddlMemberGender').prop('disabled', true);
+        $('#ddlMemberOccupation').prop('disabled', true);
+        $('#ddlMemberMaritalStatus').prop('disabled', true);
+        $('#ddlMemberRelationWithProposer').prop('disabled', true);
+        if ('@Model.UserType' == 'UW') 
+        { 
+            $('#DivBasicDetails').find(':input','textarea','select').prop('disabled',true);
+            //$('#DivOtherDetails').find(':input','textarea','select').prop('disabled',true);
+            $('#DivOtherDetails').attr('disabled', true);
+            $('#Proposerwealthplanner').prop('disabled',false);
+            $('#btnQuotePDF').prop('disabled',false);
+            $('#btnProposalPDF').prop('disabled',false);
+            $('#DivProposerWealthPlannerSave').prop('disabled', true);
+            $("#ProposerModalBody").find($("input[type=Radio]").attr('disabled', true))
+            $("#ProposerModalBody").find($("input[type=Text]").attr('disabled', true))
+            $("#ProposerModalBody").find($("input[type=CheckBox]").attr('disabled', true))
+            $('#divNomineeDetailsGrid').find(':input','text','select').prop('disabled',true);
+            $("#btnAddGridRow").prop("disabled", true);
+            $("#btnAddDocument").prop("disabled", true);
+            $("#ddldocLanguage").prop("disabled", true);
+            $("#ddlmodeofcom").prop("disabled", true);
+            $("#ddlPaymentMethod").prop("disabled", true);
+            $("#ddlPaymentPaidBy").prop("disabled", true);
+            $("#ddlPaymentReceiptPrefferdBy").prop("disabled", true);
+
+            $('#DivProposerWealthPlannerPolicyDateClose').prop('disabled', false);
+            $('#ddlUWMemberRelationWithProposer').prop('disabled', true);
+            // Set UW Decisions
+            try {
+                var AssuredMenberDetils = @Model.objMemberDetails.Count;
+                var _PolicyLevelDecision=  $('#ddlPolicylevelDecision').val();
+                for(var i= 0; i<AssuredMenberDetils; i++)
+                {
+                    var _memberLevelDecision=  $('#ddlUWMemberlevelDecision'+i).val();
+                    UpdateMemberDecisionOptions(i);
+                    if( _memberLevelDecision != '' || _memberLevelDecision != undefined)
+                    {
+                        $('#ddlUWMemberlevelDecision'+i).val(_memberLevelDecision);
+                    }
+                    $('#MedicalFeePaidByCustomer' + i).prop("disabled",false);
+                    $('#MedicalFeePaidByAIA' + i).prop("disabled",false);
+                }
+                DerivePolicylevelDecision(-1);
+                // Set Policy level Decision
+                if( _PolicyLevelDecision != '' || _PolicyLevelDecision != undefined)
+                {
+                    $('#ddlPolicylevelDecision').val(_PolicyLevelDecision);
+                }
+            } catch (e) {
+
+            }
+        } 
+
+        if ('@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusOutStandingReq' || '@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer')
+        {
+            $('#DivBasicDetails').find(':input','textarea','select').prop('disabled',true);
+            $('#DivOtherDetails').find(':input','textarea','select').prop('disabled',true);
+            // $('.multiselect-container li input').prop('disabled',false);
+            $('#DocAndDeclaration').find(':input','textarea','select').prop('disabled',false);
+        }
+        if ('@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusOutStandingReq')
+        {
+
+            $('#DocAndDeclaration').find('input[type="button"][value="Delete"]').css({
+                "background-color":" #E86487"
+            });
+            $('#DocAndDeclaration').find(':input','textarea','select').prop('disabled',true);
+            $('#DocAndDeclaration').find('input[type="button"][value="Add "]').prop('disabled', false);
+            $('#DocAndDeclaration').find('input[type="File"]').prop('disabled', false);
+            $('#Proposerwealthplanner').prop('disabled',false);
+            $('#btnQuotePDF').prop('disabled',false);
+            $('#btnProposalPDF').prop('disabled',false);
+            $('#DivProposerWealthPlannerPolicyDateClose').prop('disabled',false);
+            // $('#DocAndDeclaration').find('input[type="button"][value="Delete"]').val('Delete');
+            $('#btnGenMedLetter').removeAttr('disabled');
+            $('#ddlMedicalLabs').removeAttr('disabled');
+        }
+        $("#dtRiskCommencementDate").removeAttr('disabled');
+    }
+    function SetDecisionBasedOnSubDecisions() {
+    }
+    function EnableRiskInformation() {
+        $('#txtProposalNo').prop('disabled', false);
+        $('#TxtSalutation').prop('readonly', false);
+        $('#ddlGender').prop('disabled', false);
+        $('#ddlMaritalStatus').prop('disabled', false);
+        $('#ddlOccupation').prop('disabled', false);
+        $('#ddlEasyPesnsionPolicyTerm').prop('disabled', false);
+        $('#ddlLstPaymentfrequency').prop('disabled', false);
+        $('#ddlLstSmartBuilderMaturityBenefit').prop('disabled', false);
+        $('#ddlProposalFormSmartBuilderGoldBenefitYears').prop('disabled', false);
+        $('#ddlLstSmartBuilderGoldMaturityBenefit').prop('disabled', false);
+        $('#ddlProposalFormSmartBuilderGoldBenefitYears').prop('disabled', false);
+        $('#ddlProposalSmartPensionPolicyTerm').prop('disabled', false);
+        $('#txtSmartPensionPremiumPaymentTerm').prop('disabled', false);
+        $('#txtEducationPlanPolicyTerm').prop('disabled', false);
+        $('#txtEducationPlanPremiumPaymentTerm').prop('disabled', false);
+        $('#txtHealthProtectorPolicyTerm').prop('disabled', false);
+        $('#txtHealthProtectorPremiumPaymentTerm').prop('disabled', false);
+        $('#ddlProposalSmartBuilderPolicyTerm').prop('disabled', false);
+        $('#txtSmartBuilderPremiumPaymentTerm').prop('disabled', false);
+        $('#ddlProposalSmartBuilderGoldPolicyTerm').prop('disabled', false);
+        $('#txtSmartBuilderGoldPremiumPaymentTerm').prop('disabled', false);
+        $('#ddlProposalPriorityValuePolicyTerm').prop('disabled', false);
+        $('#txtPriorityValuePremiumPaymentTerm').prop('disabled', false);
+        $('#ddlProposalSmartPensionReceivingPeriod').prop('disabled', false);
+        $('#objProspectDetailsobjPermenantAddressddlProvince').prop('disabled', false);
+        $('#objProspectDetailsobjPermenantAddressddlDistrict').prop('disabled', false);
+        $('#objProspectDetailsobjPermenantAddressddlCity').prop('disabled', false);
+
+        //Memeber Details
+        $('#ddlMemberGender').prop('disabled', false);
+        $('#ddlMemberMaritalStatus').prop('disabled', false);
+        $('#ddlMemberOccupation').prop('disabled', false);
+        $('#ddlMemberRelationWithProposer').prop('disabled', false);
+
+        if ('@Model.UserType' == 'UW') 
+        { 
+            $('#DivBasicDetails').find(':input','textarea','select').prop('disabled',false);
+            $('#DivOtherDetails').find(':input','textarea','select').prop('disabled',false);
+
+            try {
+                var _MemberCount = @Model.objMemberDetails.Count;
+                for(var i= 0; i<_MemberCount; i++)
+                {
+                    $('#dtDecisionDt'+i).prop('disabled', false);
+                }
+            } catch (e) {
+
+            }
+
+
+        }
+        if ('@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusOutStandingReq' || '@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer')
+        {
+            $('#DivBasicDetails').find(':input','textarea','select').prop('disabled',false);
+            $('#DivOtherDetails').find(':input','textarea','select').prop('disabled',false);
+        }
+    }
+    $(document).ready(function () {
+        SetMandatoryHighlightBlank('pnlProposalForm', true);
+        SetMandatoryHighlightBlank('pnlProposalDetails', true);
+        SetMandatoryHighlightBlank('pnlLifetobeAssuredDetails', true);
+        SetMandatoryHighlightBlank('pnlQuestionnaire', true);
+        SetMandatoryHighlightBlank('pnlBenefitOverView', true);
+        SetMandatoryHighlightBlank('pnlPremiumOverView', true);
+        SetMandatoryHighlightBlank('pnlNomineeDetails', true);
+        SetMandatoryHighlightBlank('DivNomineeDetailsGridView', true);
+        SetMandatoryHighlightBlank('pnldocumentupload', true);
+        SetMandatoryHighlightBlank('DivQuestionnaireDetails', true);
+        var Status = $("#ddlProposerRelationship option:selected").text();
+        if('@Model.Declaration'=='True'){
+            DisableProposalPage();
+        }
+
+        if ('@Model.UserType' != 'UW') 
+        {
+            if (Status != "Holding Company (Corporation)")
+            {
+                DisableRiskInformation();
+
+
+            }
+            else if (Status == "Holding Company (Corporation)")
+            {
+                $('#txtFirstName').prop("readonly", false);
+                $('#txtLastName').prop('readonly', false);
+                $('#txtPropspectDOB').prop('readonly', false);
+                $('#TxtSalutation').prop('readyonly', false);
+                $('#ddlGender').prop('disabled', false);
+                $('#ddlMaritalStatus').prop('disabled', false);
+                $('#txtnewNic').prop('readonly', false);
+                $('#ddlOccupation').prop('disabled', false);
+                $('#ddlMonthlyIncome').prop('readonly', false);
+            }
+        }
+        else if ('@Model.UserType' == 'UW') 
+        {
+            DisableRiskInformation();
+        }
+
+
+
+        if ('@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusOutStandingReq' || ('@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer' @*&& ('@Model.AdditionalPremium' != '')*@))
+        {
+            $('#btnSaveProposal').prop('disabled', false);
+            $('#btnPayment').prop('disabled', false);
+
+        }
+        if('@Model.Declaration'=='True')
+        {
+
+            $("#checkboxDeclaration").prop("checked", true);
+            $('.invisibledelc').addClass('checkboxactive');
+        }
+        if ('@Model.UserType' != 'UW') 
+        {
+            $('#btnModalSave').prop('disabled', false);
+            $('#btnModalClear').prop('disabled', false);
+            $('#btnSpouseSave').prop('disabled', false);
+            $('#btnSpouseClose').prop('disabled', false);
+            $('#btnWPModalSave').prop('disabled', false);
+            $('#btnWPModalClose').prop('disabled', false);
+
+
+
+        }
+        else if ('@Model.UserType' == 'UW') {
+            $('#btnModalSave').prop('disabled', true);
+            $('#btnModalClear').prop('disabled', true);
+            $('#btnSpouseSave').prop('disabled', true);
+            $('#btnSpouseClose').prop('disabled', true);
+            $('#btnWPModalSave').prop('disabled', true);
+            $('#btnWPModalClose').prop('disabled', true);
+        }
+        $('#btnModalClose').prop('disabled', false);
+
+    });
+
+    function LoadHomePage()
+    {
+        if('@UserType'=='UW'){
+            window.location.href = '/Home/UnderwriterHome';
+        }
+        else{
+            window.location.href = '/Policy/ProposalHome';
+        }
+
+    }
+
+    var SaveProposalCount=0;
+    function PostInfotoSaveproposal() {
+        debugger;
+        EnableProposalPage();
+        $("#divBusyIndicator").show();
+        var AssuredMenberDetils = @Model.objMemberDetails.Count;
+        for(var i= 0; i<AssuredMenberDetils; i++)
+        {
+            $('#ddlGender'+i+'').attr("disabled", false);
+            $('#ddlRelationWithProposer'+i+'').attr("disabled", false);
+        }
+
+        EnableRiskInformation();
+        if(SaveProposalCount ==0)
+        {
+            SaveProposalCount = SaveProposalCount + 1;
+            if ($("input[id='yesbtnMemberOccupation']").is(':checked') == true && $("input[id='yesbtnOccupation']").is(':checked') == true ) {
+                $("#DivMemberOccupationHazardousWork").show();
+            }
+
+            $("#hdnMainAddition").val(JSON.stringify($("#DivAdditionalQA0 :input").serializeArray()))
+            $("#hdnSpouseAddition").val(JSON.stringify($("#DivAdditionalQA01 :input").serializeArray()))
+            $.post("../Policy/SaveProposal", $("#fromProposalPage").serialize()).done(function (data) {
+                debugger;
+                if (data.Message == 'Success') {
+                    $('#hdnPolicyID').val(data.PolicyID);
+                    $("#divBusyIndicator").hide();
+                    $('#QuoteModalBody').empty();
+                    var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                    var Message = '<p class="text-center"> Data Saved Successfully </p>';
+                    $('#QuoteModalBody').append(Image);
+                    $('#QuoteModalBody').append(Message);
+
+                    $("#QuoteModal").modal("show");
+                }
+                else {
+                    $('#QuoteModalBody').empty();
+                    var Image = '<img class="Img-align" src="../Images/cancel1.png" />'
+                    var Message = data.Message;
+                    $('#QuoteModalBody').append(Image);
+                    $('#QuoteModalBody').append(Message);
+                    $("#divBusyIndicator").hide();
+                    $("#QuoteModal").modal("show");
+                }
+                for(var i= 0; i<AssuredMenberDetils; i++)
+                {
+                    $('#ddlGender'+i+'').attr("disabled", true);
+                    $('#ddlRelationWithProposer'+i+'').attr("disabled", true);
+                }
+                $("#divBusyIndicator").hide();
+            });
+
+        }
+    }
+    function validateDocumentsuploadingAndDeclarationDetails()
+    {
+
+        var ProposerSign = '@Model.ProposerSignPath';
+        if (ProposerSign == "") {
+            if ( $('#SignatureValue').val() == "" ) {  //$('#UploadSignature').val()=="" && && $('#HdnUploadSignPath').val()==""
+                writeMultipleMessage("error", "Please  Add Proposer Signature", "SignatureID");
+                //$("#checkboxDeclaration").prop("checked", false);
+                //$(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "SignatureID");
+            }
+        }
+
+
+        var SpouseSign = '@Model.SpouseSignPath';
+        if (SpouseSign == "") {
+            var SpouseCovered =  '@Model.IsSpouseCovered';
+            if (SpouseCovered == "True") {
+                if ( $('#SpouseSignatureValue').val() == "" ) {  //$('#UploadSignature').val()=="" && && $('#HdnUploadSignPath').val()==""
+                    writeMultipleMessage("error", "Please  Spouse Proposer Signature", "SpouseSignatureID");
+                    //$("#checkboxDeclaration").prop("checked", false);
+                    //$(".invisibledelc").removeClass('checkboxactive')
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "SpouseSignatureID");
+                }
+            }
+        }
+        var WPProposerSign = '@Model.WPProposerSignPath';
+        if (WPProposerSign == "") {
+            if ( $('#WPSignatureValue').val() == "" ) {  //$('#UploadSignature').val()=="" && && $('#HdnUploadSignPath').val()==""
+                writeMultipleMessage("error", "Please  Add Wealth Planner Signature", "WPSignatureID");
+                //$("#checkboxDeclaration").prop("checked", false);
+                //$(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "WPSignatureID");
+            }
+        }
+
+
+
+
+        if ($("#txtProposerPlace").val() == "") {
+            writeMultipleMessage("error", "Please Select Proposer Place.", "txtProposerPlace");
+            //$("#checkboxDeclaration").prop("checked", false);
+            //$(".invisibledelc").removeClass('checkboxactive')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtProposerPlace");
+        }
+
+
+        var WealthPlannerquestionalert = 0,  WealthPlannersubques = 0;
+
+        $('#fromProposalPage').children().find('.WealthPlanner-questions').each(function () {
+
+            if ($(this).children().find("input:radio[class='WealthPlanner-radio-button']:checked").length == 0) {
+
+                WealthPlannerquestionalert = 1;
+            }
+            else {
+                WealthPlannerquestionalert = 0;
+            }
+
+            $(this).siblings('.WealthPlanner-subquestion-txt').each(function () {
+
+                if ($(this).css('display') != 'none') {
+
+                    var txt = $(this).children().find('input:text');
+
+                    if (txt.val() != null && txt.val() != '') {
+                        WealthPlannersubques = 0;
+                    }
+                    else {
+                        WealthPlannersubques = 1;
+                    }
+                }
+            })
+
+        })
+
+        if (WealthPlannerquestionalert == 1) {
+
+            writeMultipleMessage("error", "All Proposer Wealth Planner and specific answers are mandatory.", 'WealthPlannerQuestions');
+            //$("#checkboxDeclaration").prop("checked", false);
+            //$(".invisibledelc").removeClass('checkboxactive')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'WealthPlannerQuestions');
+        }
+        if (WealthPlannersubques == 1) {
+
+            writeMultipleMessage("error", "All Proposer Wealth Planner and specific answers are mandatory.", 'WealthPlannerQuestions');
+            //$("#checkboxDeclaration").prop("checked", false);
+            //$(".invisibledelc").removeClass('checkboxactive')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'WealthPlannerQuestions');
+        }
+
+
+        //if ($("input[id='yesrbtnProposerWealthPlannerPolicyDateing']").is(':checked') == true) {
+        //    if ($("#txtProposerWealthPlannerDate").val() == "" || $("#txtProposerWealthPlannerDate").val() == null) {
+        //        writeMultipleMessage("error", "Please Select Proposer Wealth Planner Back Date.", "txtProposerWealthPlannerDate");
+        //        return false;
+        //    }
+        //    else {
+        //        writeMultipleMessage("error", "", "txtProposerWealthPlannerDate");
+        //    }
+        //}
+    }
+
+    function DisableProposalPage()
+    {
+        $('#collapseOne :input').attr('disabled', true);
+        $('#collapseTwo :input').attr('disabled', true);
+        $('#collapseN :input').attr('disabled', true);
+        $('#collapseQuestionnaire :input').attr('disabled', true);
+        $('#collapseFour :input').attr('disabled', true);
+        $('#collapsePremiumpayingDetails :input').attr('disabled', true);
+        $('#pnlModeofCommunication :input').attr('disabled', true);
+        $('#divDocumentUploads :input').attr('disabled', true);
+        $('#btnAddDocument').attr('disabled', true);
+        var Length=parseInt($("#divDocumentUploads").find('tr').length)-1;
+        for ( i = 0; i < Length; i++)
+        {
+            $("#delete-link_"+i).hide()
+
+        }
+
+
+        $('#checkboxDeclaration :input').attr('disabled', false);
+
+    }
+    function EnableProposalPage()
+    {
+        $('#collapseOne :input').attr('disabled', false);
+        $('#collapseTwo :input').attr('disabled', false);
+        $('#collapseN :input').attr('disabled', false);
+        $('#collapseQuestionnaire :input').attr('disabled', false);
+        $('#collapseFour :input').attr('disabled', false);
+        $('#collapsePremiumpayingDetails :input').attr('disabled', false);
+        $('#pnlModeofCommunication :input').attr('disabled', false);
+        $('#divDocumentUploads :input').attr('disabled', false);
+        $('#btnAddDocument').attr('disabled', false);
+        var Length=parseInt($("#divDocumentUploads").find('tr').length)-1;
+        for ( i = 0; i < Length; i++)
+        {
+            $("#delete-link_"+i).show()
+            if($("#ddlDocumentType"+i).val()=="Age Proof")
+            {
+                $('#btnDelete'+i).attr('disabled', true);  
+                $('#ddlDocumentType'+i).attr('disabled', true); 
+                $('#ddlMemberType'+i).attr('disabled', true);               
+                              
+            }
+
+        }
+        $('#checkboxDeclaration :input').attr('disabled', false);
+
+    }
+
+    function chkboxDeclaration(){
+        debugger;
+        if($('#checkboxDeclaration').hasClass('checkboxactive')){
+            $('#checkboxDeclaration').attr("class", "invisibledelc");
+            $('#checkboxDeclaration').val("False");
+            EnableProposalPage();
+            DisableRiskInformation();
+            if($("#ProposerSignPath").val()!="")
+            {
+                $("#ProposerSignPath").val("");
+                $("#SignatureImgProposer").hide();
+                $("#PropserDigitalSign").show();
+
+            }
+            if($("#hdnSpouseSignPath").val()!="")
+            {
+                $("#hdnSpouseSignPath").val("");
+                $("#SignatureImgSpouse").hide();
+                $("#SpouseSignatureUpload").show();
+
+            }
+            if($("#WPProposerSignPath").val()!="")
+            {
+                $("#WPProposerSignPath").val("");
+                $("#SignatureImgWp").hide();
+                $("#WPPropserDigitalSign").show();
+            }
+            if($("#SignatureValue").val()!="")
+            {
+                $("#btnModalClear").trigger("click");
+            }
+            if($("#SpouseSignatureValue").val()!="")
+            {
+                $("#btnSpouseModalClear").trigger("click");
+            }
+            if($("#WPSignatureValue").val()!="")
+            {
+                $("#btnWPModalClear").trigger("click");
+            }
+
+        }
+        else{
+            $('#checkboxDeclaration').addClass('checkboxactive');
+            $('#checkboxDeclaration').val("true");
+
+        }
+
+        if ($("input[id='checkboxDeclaration']").hasClass('checkboxactive')) {
+
+            clearAllErrors();
+
+            $('#ddlMemberRelationWithProposer').removeAttr('disabled');
+            if ($("#ddlProposalNeed").val() == "" || $('#ddlProposalNeed :selected').text() == "Select") {
+                writeMultipleMessage("error", "Please Select Proposer Need.", "ddlProposalNeed");
+                $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
+                return;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlProposalNeed");
+            }
+            //var checkboxwp=ValidateCheck();
+            //if(checkboxwp== false)
+            //{
+            //    //$(".invisibledelc").removeClass('checkboxactive')
+            //    //chkboxDeclaration()
+            //    return;
+            //}
+            // validate proposal form
+            var ProposalformReturnValue = ValidatePropsalForm();
+            if (ProposalformReturnValue == false)
+            {
+                return;
+            }
+
+            // validate Proposer Details
+            var ProposerDetailsReturnValue = ValidateProposerDetails();
+            if (ProposerDetailsReturnValue == false)
+            {
+                $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
+                //chkboxDeclaration()
+                return;
+            }
+
+
+            // validate Life to be Assured
+            var AssuredMenberDetils = @Model.objMemberDetails.Count;
+
+            for(var i= 0; i<AssuredMenberDetils; i++)
+            {
+                var LifeTobeAssuredReturnValue =  ValidateAssuredMemberGrid(i);
+                if (LifeTobeAssuredReturnValue == false)
+                {
+                    $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
+                    return ;
+                }
+                // Validate Life Style Details
+                if(! ValidateLifeStyleDetails(i))
+                {
+                    $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
+                    return;
+                }
+
+                // Validate LifeStyle Questions
+                var LifeStyleQuestionsResult = lifestylequestionCheck(i);
+                if (LifeStyleQuestionsResult == false) {
+                    $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
+                    return;
+                }
+
+
+                // Validate Medical Questions
+                var MedicalQuestionsResult = medquestionCheck(i);
+                if (MedicalQuestionsResult == false) {
+                    $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
+                    return;
+                }
+
+                // Validate  Additional Questions
+                var AdditionalQuestionsResult = addquestionCheck(i);
+                if (AdditionalQuestionsResult == false) {
+                    $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
+                    return;
+                }
+            }
+
+
+            //  FamiyHistory Questions
+            var FamiyHistoryDetailsQuestionsResult = ValidateFamiyHistoryDetails(i);
+            if (FamiyHistoryDetailsQuestionsResult == false) {
+                $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
+                return;
+                //$("#checkboxDeclaration").prop("checked", false);
+            }
+            //ValidateInsuranceDetails
+            var ValidateInsuranceDetailsQuestionsResult = ValidateInsuranceDetails();
+            if (ValidateInsuranceDetailsQuestionsResult == false) {
+                $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
+                return;
+                //$("#checkboxDeclaration").prop("checked", false);
+            }
+
+            //Validate Nominee Details
+            var NomineeDetailsResult = validateNomineeDetails();
+            if (NomineeDetailsResult == false) {
+                $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
+                return;
+                // $("#checkboxDeclaration").prop("checked", false);
+            }
+
+            //Premium Paying Details
+            var PremiumPayingDetailsResult = validatePremiumPayingDetails();
+            if (PremiumPayingDetailsResult == false) {
+                $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
+                $("#divBusyIndicator").hide();
+                return;
+                // $("#checkboxDeclaration").prop("checked", false);
+            }
+
+            // Preferred Communication Method Details
+            var PreferredCommunicationMethodDetailsResult = PreferredCommunicationMethodDetails();
+            if (PreferredCommunicationMethodDetailsResult == false) {
+                $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
+                return;
+                //$("#checkboxDeclaration").prop("checked", false);
+            }
+
+            //Documents uploading And Declaration Details Grid View
+            if (ValidateDocumentUploads() == false) {
+                $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
+                return;
+            }
+
+            var uploadAccepted=localStorage.getItem('compare');
+            if(uploadAccepted == "false"){
+                $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
+                writeMultipleMessage("error", "File Size should be less than 3 MB", "divDocumentUploads");
+                return;
+            }
+            DisableProposalPage();
+
+        }
+    }
+    function ValidateDocumentUploads() {
+        var NoofListAssured = '@Model.ListAssured.Count()';
+        // var  NoofListAssured = 2;
+        var ReturnError = true;
+        var isProposalFormUploaded = false;
+        var isAgeProofUploaded = false;
+        var isDisclaimerletter = false;
+        writeMultipleMessage("error", "", "DummyMandatoryFile");
+        var NoOfDocumentUploadRows = $("#divDocumentUploads  tbody tr").length;
+        if (NoOfDocumentUploadRows == 0) {
+            writeMultipleMessage("error", "Please Add Document Uploads", "divDocumentUploads");
+            $("#checkboxDeclaration").prop("checked", false);
+            $(".invisibledelc").removeClass('checkboxactive')
+        }
+        else {
+            writeMultipleMessage("error", "", "divDocumentUploads");
+        }
+        for (var i = 0; i < @Model.ListAssured.Count(); i++) {
+            if (i == 0) {
+                if (i > NoOfDocumentUploadRows) {
+                    writeMultipleMessage("error", "Please Add Member of Document Uploads", "divDocumentUploads");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    $(".invisibledelc").removeClass('checkboxactive')
+                }
+                else {
+                    writeMultipleMessage("error", "", "divDocumentUploads");
+                }
+            }
+            if (i == 1) {
+                if (i > NoOfDocumentUploadRows) {
+                    writeMultipleMessage("error", "Please Add Member of Document Uploads", "divDocumentUploads");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    $(".invisibledelc").removeClass('checkboxactive')
+                }
+                else {
+                    writeMultipleMessage("error", "", "divDocumentUploads");
+                }
+            }
+
+        }
+        if ('@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer') {
+            var isCLA = false;
+            $("#divDocumentUploads tbody").find("tr").each(function (index) {
+
+                var documentName = $(this).find("[data-name=Document_Name]").find("option:selected").val();
+                if (documentName != undefined) {
+                    if (documentName == "" || documentName == undefined || documentName == "Select") {
+                        writeMultipleMessage("error", "Please Provide a Document Type", "DummDoctype" + index);
+                        $("#checkboxDeclaration").prop("checked", false);
+                        $(".invisibledelc").removeClass('checkboxactive')
+                        ReturnError = false;
+                        return false;
+                    }
+                    else {
+                        if (documentName == "CLA Letter") {
+                            isCLA = true;
+                        }
+                        writeMultipleMessage("error", "", "DummDoctype" + index);
+                    }
+
+                    var FileNameId = $(this).find("[data-name=FileName]").find("input[type=file]").val();
+                    if (FileNameId == "") {
+                        var FileVal = $(this).find("[data-name=Link]").find("input[type=hidden]").val();
+                        if (FileVal == undefined || FileVal == '') {
+                            writeMultipleMessage("error", "Please Provide a file to upload", "txtFileName" + index);
+                            $("#checkboxDeclaration").prop("checked", false);
+                            $(".invisibledelc").removeClass('checkboxactive')
+                            ReturnError = false;
+                            return false;
+                        }
+                        else {
+                            writeMultipleMessage("error", "", "txtFileName" + index);
+                        }
+                    }
+
+                    var MemberType = $(this).find("[data-name=MemberType]").find("option:selected").val();
+                    if (MemberType == "" || MemberType == "Select") {
+                        writeMultipleMessage("error", "Please Select MemberType", "ddlMemberType" + index);
+                        $("#checkboxDeclaration").prop("checked", false);
+                        $(".invisibledelc").removeClass('checkboxactive')
+                        ReturnError = false;
+                        return false;
+                    }
+                    else {
+                        writeMultipleMessage("error", "", "ddlMemberType" + index);
+                    }
+                }
+
+            });
+            if (!isCLA) {
+                writeMultipleMessage("error", "Please Upload CLA Letter", "divDocumentUploads");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+            }
+        }
+        else {
+            $("#divDocumentUploads tbody").find("tr").each(function (index) {
+                var documentName = $(this).find("[data-name=Document_Name]").find("option:selected").val();
+                if (documentName != undefined) {
+                    if (documentName == "" || documentName == undefined || documentName == "Select") {
+                        writeMultipleMessage("error", "Please Provide a Document Type", "DummDoctype" + index);
+                        $("#checkboxDeclaration").prop("checked", false);
+                        $(".invisibledelc").removeClass('checkboxactive')
+                        ReturnError = false;
+                        return false;
+                    }
+                    else {
+                        if (documentName == "Age Proof") {
+                            isAgeProofUploaded = true;
+                        }
+                        writeMultipleMessage("error", "", "DummDoctype" + index);
+                    }
+
+                    var FileNameId = $(this).find("[data-name=FileName]").find("input[type=file]").val();
+                    if (FileNameId == "") {
+                        //if ($(this).find("[data-name=HiddenFilePath]") == null || $(this).find("[data-name=HiddenFilePath]") == undefined) {
+                        //    writeMultipleMessage("error", "Please Provide a file to upload", "txtFileName" + index);
+                        //    $("#checkboxDeclaration").prop("checked", false);
+                        //    ReturnError = false;
+                        //    return false;
+                        //}
+                        //else {
+                        //    writeMultipleMessage("error", "", "txtFileName" + index);
+                        //}
+                        var FileVal = $(this).find("[data-name=Link]").find("input[type=hidden]").val();
+                        if (FileVal == undefined || FileVal == '') {
+                            writeMultipleMessage("error", "Please Provide a file to upload", "txtFileName" + index);
+                            $("#checkboxDeclaration").prop("checked", false);
+                            $(".invisibledelc").removeClass('checkboxactive')
+                            ReturnError = false;
+                            return false;
+                        }
+                        else {
+                            writeMultipleMessage("error", "", "txtFileName" + index);
+                        }
+                    }
+
+                    var MemberType = $(this).find("[data-name=MemberType]").find("option:selected").val();
+                    if (MemberType == "" || MemberType == "Select") {
+                        writeMultipleMessage("error", "Please Select MemberType", "ddlMemberType" + index);
+                        $("#checkboxDeclaration").prop("checked", false);
+                        $(".invisibledelc").removeClass('checkboxactive')
+                        ReturnError = false;
+                        return false;
+                    }
+                    else {
+                        writeMultipleMessage("error", "", "ddlMemberType" + index);
+                    }
+                }
+
+
+            });
+
+            //if (isProposalFormUploaded == false) {
+            //    writeMultipleMessage("error", "Please Provide Proposal form  in Document Section", "DummyMandatoryFile");
+            //    ReturnError = false;
+            //}
+            if (isAgeProofUploaded == false) {
+                writeMultipleMessage("error", "Please Provide  Member Level Age Proof in Document Type Section", "DummyMandatoryFile");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                ReturnError = false;
+            }
+        }
+        return ReturnError;
+
+    }
+
+    var SubmitProposalCount=0;
+    function Payment() {
+        clearAllErrors();
+        EnableProposalPage();
+        $('#ddlMemberRelationWithProposer').removeAttr('disabled');
+        if (!$("input[id='checkboxDeclaration']").hasClass('checkboxactive')) {
+            if ($("#checkboxDeclaration").val() == "true") {
+                writeMultipleMessage("error", "Please Select Declaration Check Box.", "checkboxDeclaration");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "checkboxDeclaration");
+            }
+        }
+
+        var checkboxwp=ValidateCheck();
+        if(checkboxwp== false)
+        {
+            //$(".invisibledelc").removeClass('checkboxactive')
+            //chkboxDeclaration()
+            return;
+        }
+
+        var DocumentsuploadingAndDeclarationResult = validateDocumentsuploadingAndDeclarationDetails();
+        if (DocumentsuploadingAndDeclarationResult == false) {
+            return false;
+        }
+        $('#hdnProcceedToPayment').val(true);
+        var count;
+        var jsonDocumentUpload = [];
+        var data = new FormData();
+        GetDocuments(jsonDocumentUpload, data);
+
+        // Proposer Image
+        if( $("#ProposerPhotoUpload").length >0)
+        {
+            var _ArrayIndex=0;
+            var FileName = $("#ProposerPhotoUpload").val();
+            if (FileName != "") {
+
+                if(jsonDocumentUpload.length>1)
+                {
+                    _ArrayIndex=jsonDocumentUpload.length-1;
+                }
+                else  if(jsonDocumentUpload.length == 1)
+                {
+                    _ArrayIndex=1;
+                }
+                var ext = FileName.substring(FileName.lastIndexOf('.') + 1);
+                if (ext != "") {
+                    ext = ext.toLowerCase();
+
+                    if (ext == "pdf" || ext == "jpeg" || ext == "jpg" || ext == "png") {
+                        var isAppend = true;
+                        if (typeof FormData == "undefined") {
+                            isAppend = false;
+                        }
+                        else {
+                        }
+                        var files = $('#ProposerPhotoUpload').get(0).files;
+                        data.append('file_'+_ArrayIndex, $('input[id="ProposerPhotoUpload"]')[0].files[0]);
+                    }
+                    else {
+                        ErrorCode = false;
+                    }
+                }
+            }
+            if (FileName != "") {
+                jsonDocumentUpload.push({
+                    DocName: 'ProposerImage', FileName: FileName, FilePath: '', Key: 'file_' + _ArrayIndex, ItemType:'ProposerImage'
+                });
+            }
+            else {
+
+                if( $('#hdnProspectImagePath').length>0)
+                {
+                    if(jsonDocumentUpload.length>1)
+                    {
+                        _ArrayIndex=jsonDocumentUpload.length-1;
+                    }
+                    else  if(jsonDocumentUpload.length == 1)
+                    {
+                        _ArrayIndex=1;
+                    }
+                    jsonDocumentUpload.push({
+                        DocName: 'ProposerImage', FileName: '', FilePath:  $('#hdnProspectImagePath').val(), Key: 'file_' + _ArrayIndex, ItemType:'ProposerImage', DocumentType:'Proposer Photograph'
+                    });
+                } 
+
+            }
+        }
+        // till here
+        if ($("#SpousePictureUpload").length > 0) {
+
+            writeMultipleMessage("error", "", 'SpousePictureUpload');
+            var _ArrayIndex = 0;
+            var FileName = $("#SpousePictureUpload").val();
+            if (FileName != "") {
+
+                if (jsonDocumentUpload.length > 1) {
+                    _ArrayIndex = jsonDocumentUpload.length - 1;
+                }
+                else if (jsonDocumentUpload.length == 1) {
+                    _ArrayIndex = 1;
+                }
+                var ext = FileName.substring(FileName.lastIndexOf('.') + 1);
+                if (ext != "") {
+                    ext = ext.toLowerCase();
+
+                    if (ext == "pdf" || ext == "jpeg" || ext == "jpg" || ext == "png") {
+                        var isAppend = true;
+                        if (typeof FormData == "undefined") {
+                            isAppend = false;
+                        }
+                        else {
+                        }
+                        writeMultipleMessage("error", "", 'SpousePictureUpload');
+                        var files = $('#SpousePictureUpload').get(0).files;
+                        data.append('file_' + _ArrayIndex, $('input[id="SpousePictureUpload"]')[0].files[0]);
+                    }
+                    else {
+                        writeMultipleMessage("error", "Please Provide a valid format file", 'SpousePictureUpload');
+                        return;
+                    }
+                }
+            }
+
+            if (FileName != "") {
+
+                jsonDocumentUpload.push({
+                    DocName: 'SpouseImage', FileName: FileName, FilePath: '', Key: 'file_' + _ArrayIndex, ItemType: 'SpouseImage', DocumentType: 'Spouse Photograph'
+
+                });
+            }
+            else {
+
+                if ($('#SpouseImagePath').length > 0) {
+
+                    if (jsonDocumentUpload.length > 1) {
+                        _ArrayIndex = jsonDocumentUpload.length - 1;
+                    }
+                    else if (jsonDocumentUpload.length == 1) {
+                        _ArrayIndex = 1;
+                    }
+
+                    jsonDocumentUpload.push({
+                        DocName: 'SpouseImage', FileName: '', FilePath: $('#SpouseImagePath').val(), Key: 'file_' + _ArrayIndex, ItemType: 'SpouseImage', DocumentType: 'Spouse Photograph'
+
+                    });
+                }
+            }
+        }
+
+        var AssuredMenberDetils = @Model.objMemberDetails.Count;
+        for(var i= 0; i<AssuredMenberDetils; i++)
+        {
+            $('#ddlGender'+i+'').attr("disabled", false);
+            $('#ddlRelationWithProposer'+i+'').attr("disabled", false);
+        }
+
+        var docData = JSON.stringify(jsonDocumentUpload);
+        var ContactID= $('#hdnContactID').val();
+
+        var AgentCode= $('#hdnAgentCode').val();
+
+        var ProposalNo = $("#txtProposalNo").val();
+        data.append("objLstDoc", docData);
+
+        $.ajax({
+            type: "POST",
+            url: "/Utility/SavePolicyDocuments?ContactID=" + ContactID + "&ProposalNo=" + ProposalNo,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                if (data.StrWriteException != "") {
+                    return false;
+                }
+                else {
+                    $('#HdnDocumentDetails').val(data.DocData);
+                    EnableRiskInformation();
+                    if( SubmitProposalCount == 0)
+                    {
+                        SubmitProposalCount = SubmitProposalCount + 1;
+                        $.post("../Policy/SaveProposal", $("#fromProposalPage").serialize()).done(function (data) {
+                            debugger
+                            if (data.Message == "Success") {
+                                $("#fromProposalPage").attr('action', '/Policy/ProcessProposal');
+                                document.forms["fromProposalPage"].submit();
+                            }
+                            else {
+                                $('#QuoteModalBody').empty();
+                                var Image = '<img class="Img-align" src="../Images/cancel1.png" />'
+                                var Message = data.Message;
+                                $('#QuoteModalBody').append(Image);
+                                $('#QuoteModalBody').append(Message);
+                                $("#divBusyIndicator").hide();
+                                $("#QuoteModal").modal("show");
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+    function SaveProposal() {
+        $("#divBusyIndicator").show();
+        $('#ddlMemberRelationWithProposer').removeAttr('disabled');
+        clearAllErrors();
+        EnableProposalPage();
+
+        var count;
+        var jsonDocumentUpload = [];
+        var data = new FormData();
+        GetDocuments(jsonDocumentUpload, data);
+        // Proposer Image
+
+        if ($("#ProposerPhotoUpload").length > 0) {
+
+            writeMultipleMessage("error", "", 'ProposerPhotoUpload');
+            var _ArrayIndex = 0;
+            var FileName = $("#ProposerPhotoUpload").val();
+            if (FileName != "") {
+
+                if (jsonDocumentUpload.length > 1) {
+                    _ArrayIndex = jsonDocumentUpload.length - 1;
+                }
+                else if (jsonDocumentUpload.length == 1) {
+                    _ArrayIndex = 1;
+                }
+                var ext = FileName.substring(FileName.lastIndexOf('.') + 1);
+                if (ext != "") {
+                    ext = ext.toLowerCase();
+
+                    if (ext == "pdf" || ext == "jpeg" || ext == "jpg" || ext == "png") {
+                        var isAppend = true;
+                        if (typeof FormData == "undefined") {
+                            isAppend = false;
+                        }
+                        else {
+                        }
+                        writeMultipleMessage("error", "", 'ProposerPhotoUpload');
+                        var files = $('#ProposerPhotoUpload').get(0).files;
+                        data.append('file_' + _ArrayIndex, $('input[id="ProposerPhotoUpload"]')[0].files[0]);
+                    }
+                    else {
+                        writeMultipleMessage("error", "Please Provide a valid format file", 'ProposerPhotoUpload');
+                        return;
+                    }
+                }
+            }
+
+            if (FileName != "") {
+
+                jsonDocumentUpload.push({
+                    DocName: 'ProposerImage', FileName: FileName, FilePath: '', Key: 'file_' + _ArrayIndex, ItemType: 'ProposerImage', DocumentType: 'Proposer Photograph'
+
+                });
+            }
+            else {
+
+                if ($('#hdnProspectImagePath').length > 0) {
+
+                    if (jsonDocumentUpload.length > 1) {
+                        _ArrayIndex = jsonDocumentUpload.length - 1;
+                    }
+                    else if (jsonDocumentUpload.length == 1) {
+                        _ArrayIndex = 1;
+                    }
+
+                    jsonDocumentUpload.push({
+                        DocName: 'ProposerImage', FileName: '', FilePath: $('#hdnProspectImagePath').val(), Key: 'file_' + _ArrayIndex, ItemType: 'ProposerImage', DocumentType: 'Proposer Photograph'
+
+                    });
+                }
+            }
+        }
+        if ($("#SpousePictureUpload").length > 0) {
+
+            writeMultipleMessage("error", "", 'SpousePictureUpload');
+            var _ArrayIndex = 0;
+            var FileName = $("#SpousePictureUpload").val();
+            if (FileName != "") {
+
+                if (jsonDocumentUpload.length > 1) {
+                    _ArrayIndex = jsonDocumentUpload.length - 1;
+                }
+                else if (jsonDocumentUpload.length == 1) {
+                    _ArrayIndex = 1;
+                }
+                var ext = FileName.substring(FileName.lastIndexOf('.') + 1);
+                if (ext != "") {
+                    ext = ext.toLowerCase();
+
+                    if (ext == "pdf" || ext == "jpeg" || ext == "jpg" || ext == "png") {
+                        var isAppend = true;
+                        if (typeof FormData == "undefined") {
+                            isAppend = false;
+                        }
+                        else {
+                        }
+                        writeMultipleMessage("error", "", 'SpousePictureUpload');
+                        var files = $('#SpousePictureUpload').get(0).files;
+                        data.append('file_' + _ArrayIndex, $('input[id="SpousePictureUpload"]')[0].files[0]);
+                    }
+                    else {
+                        writeMultipleMessage("error", "Please Provide a valid format file", 'SpousePictureUpload');
+                        return;
+                    }
+                }
+            }
+
+            if (FileName != "") {
+
+                jsonDocumentUpload.push({
+                    DocName: 'SpouseImage', FileName: FileName, FilePath: '', Key: 'file_' + _ArrayIndex, ItemType: 'SpouseImage', DocumentType: 'Spouse Photograph'
+
+                });
+            }
+            else {
+
+                if ($('#SpouseImagePath').length > 0) {
+
+                    if (jsonDocumentUpload.length > 1) {
+                        _ArrayIndex = jsonDocumentUpload.length - 1;
+                    }
+                    else if (jsonDocumentUpload.length == 1) {
+                        _ArrayIndex = 1;
+                    }
+
+                    jsonDocumentUpload.push({
+                        DocName: 'SpouseImage', FileName: '', FilePath: $('#SpouseImagePath').val(), Key: 'file_' + _ArrayIndex, ItemType: 'SpouseImage', DocumentType: 'Spouse Photograph'
+
+                    });
+                }
+            }
+        }
+        // till here
+
+        var docData = JSON.stringify(jsonDocumentUpload);
+
+        var ContactID = $('#hdnContactID').val();
+        var ProposalNo = $("#txtProposalNo").val();
+        data.append("objLstDoc", docData);
+        $.ajax({
+            type: "POST",
+            url: "/Utility/SavePolicyDocuments?ContactID=" + ContactID + "&ProposalNo=" + ProposalNo,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                $("#divBusyIndicator").show();
+                if (data.StrWriteException != "") {
+                    return false;
+                    $("#divBusyIndicator").hide();
+                }
+                else {
+                    $("#divBusyIndicator").show();
+                    $('#HdnDocumentDetails').val(data.DocData);
+                    PostInfotoSaveproposal();
+                }
+            }
+
+        });
+        $('#hdnProcceedToPayment').val(false);
+        $("#divBusyIndicator").hide();
+    }
+    var DocSubmitCount = 0;
+    function SubmitPolicyDocuments() {
+        clearAllErrors();
+        //EnableProposalPage();
+        $('#ddlMemberRelationWithProposer').removeAttr('disabled');
+        if ('@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer') {
+            if ($("input[id='checkboxDeclaration']").is(':checked') == false) {
+                if ($("#checkboxDeclaration").val() == "true") {
+                    writeMultipleMessage("error", "Please Select Declaration Check Box.", "checkboxDeclaration");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "checkboxDeclaration");
+                }
+            }
+            if (ValidateDocumentUploads() == false) {
+                return false;
+            }
+        }
+
+        var count;
+        var jsonDocumentUpload = [];
+        var data = new FormData();
+        GetDocuments(jsonDocumentUpload, data);
+
+        var docData = JSON.stringify(jsonDocumentUpload);
+        var ContactID = $('#hdnContactID').val();
+        var ProposalNo = $("#txtProposalNo").val();
+        data.append("objLstDoc", docData);
+        $.ajax({
+            type: "POST",
+            url: "/Utility/SavePolicyDocuments?ContactID=" + ContactID + "&ProposalNo=" + ProposalNo,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                if (data.StrWriteException != "") {
+                    return false;
+                }
+                else {
+                    $('#HdnDocumentDetails').val(data.DocData);
+                    if (DocSubmitCount == 0) {
+                        DocSubmitCount = DocSubmitCount + 1;
+                        EnableRiskInformation();
+                        $("#fromProposalPage").attr('action', '/Policy/SubmitPolicyDocuments');
+                        document.forms["fromProposalPage"].submit();
+                    }
+
+                }
+            }
+
+        });
+    }
+    var PartialPaymentCount = 0;
+    function PartialPayment() {
+
+        $('#ddlMemberRelationWithProposer').removeAttr('disabled');
+        clearAllErrors();
+        if ('@Model.PolicyStageStatusID' == '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer') {
+            if ($("input[id='checkboxDeclaration']").is(':checked') == false) {
+                if ($("#checkboxDeclaration").val() == "true") {
+                    writeMultipleMessage("error", "Please Select Declaration Check Box.", "checkboxDeclaration");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "checkboxDeclaration");
+                }
+            }
+            if (ValidateDocumentUploads() == false) {
+                return false;
+            }
+        }
+        var count;
+        var jsonDocumentUpload = [];
+        var data = new FormData();
+        GetDocuments(jsonDocumentUpload, data);
+        var docData = JSON.stringify(jsonDocumentUpload);
+        var ContactID = $('#hdnContactID').val();
+        var ProposalNo = $("#txtProposalNo").val();
+        $('#hdnProcceedToPayment').val(true);
+        $.ajax({
+            type: "POST",
+            url: "/Utility/SavePolicyDocuments?objLstDoc=" + docData + "&ContactID=" + ContactID + "&ProposalNo=" + ProposalNo,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                if (data.StrWriteException != "") {
+                    return false;
+                }
+                else {
+                    $('#HdnDocumentDetails').val(data.DocData);
+                    EnableRiskInformation();
+                    if (PartialPaymentCount == 0) {
+                        PartialPaymentCount = PartialPaymentCount + 1;
+                        $("#fromProposalPage").attr('action', '/Policy/SubmitPolicyDocuments');
+                        document.forms["fromProposalPage"].submit();
+                    }
+                }
+            }
+        });
+
+    }
+    function ValidateCheck() {
+
+        if ($("input[id='checkboxWPDeclaration']").is(':checked') == false) {
+            //if ($("#checkboxWPDeclaration").val() == "false") {
+            writeMultipleMessage("error", "Please Select Welth planners's Confidential Report Check box in Welth planner Section.", "checkboxWPDeclaration");
+            $("#checkboxWPDeclaration").prop("checked", false);
+            //$(".invisibledelc").removeClass('checkboxactive')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "checkboxWPDeclaration");
+            //$(".invisibledelcwp").addClass('checkboxactive')
+        }
+        //}
+    }
+
+
+</script>

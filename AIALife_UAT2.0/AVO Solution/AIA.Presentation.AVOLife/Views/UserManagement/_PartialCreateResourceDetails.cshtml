@@ -1,0 +1,78 @@
+﻿@model AIA.Life.Models.UserManagement.ContentManagement
+@using AIA.Presentation.Helpers
+@using GridMvc.Html;
+@using Grid.Mvc.Ajax.GridExtensions
+@using AIAResources;
+@Html.HiddenFor(x => x.objContentManagementDeatils.FileName, new { @id = "hdnFileName" })
+@Html.HiddenFor(x => x.objContentManagementDeatils.ImgName, new { @id = "hdnImgName" })
+<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Content Type")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(a => a.objContentManagementDeatils.ContentType, new SelectList(Model.objContentManagementDeatils.lstContentType, "ID", "Value"), "Select", new { @id = "ddlContentType", @class = "form-control", @onchange = "ChangeType()" })
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Content Language")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(a => a.objContentManagementDeatils.ContentLanguage, new SelectList(Model.objContentManagementDeatils.lstContentLanguage, "ID", "Value"), "Select", new { @id = "ddlContentLanguage", @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Statt Date")<span class="mandatory">*</span></label>
+            @Html.iNubeDatePickerFor(a => a.objContentManagementDeatils.EffectiveDate, new { @class = "form-control ", @id = "idEffectiveDate1" })
+        </div>
+    </div>
+
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Expiry Date")<span class="mandatory">*</span></label>
+            @Html.iNubeDatePickerFor(a => a.objContentManagementDeatils.ExpiryDate, new { @class = "form-control ", @id = "idExpiryDate1" })
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+    </div>
+
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("File Description")<span class="mandatory">*</span></label>
+            @(Html.TextBoxFor(a => a.objContentManagementDeatils.FileDescription, new { @class = "form-control", @id = "idFileDescription" }))
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        @Html.TextBoxFor(x => x.objContentManagementDeatils.Link, new { @id = "file_name", @class = "form-control", @placeholder = "Attach File" })
+        <input type="file" name="img1" id="idUploadProposalForm" style="display:none" onchange="document.getElementById('file_name').value = this.value">
+        <input type="button" name="" class="btn Browse-btn" id="btnBrowse" value="Browse" onclick="document.getElementById('idUploadProposalForm').click(); return false;">
+    </div>
+
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        @Html.TextBoxFor(x => x.objContentManagementDeatils.ImgLink, new { @id = "file_name1", @class = "form-control", @placeholder = "Image Attach File" })
+        <input type="file" name="img1" id="idUploadProposalForm1" style="display:none" onchange="document.getElementById('file_name1').value = this.value">
+        <input type="button" name="" class="btn Browse-btn" value="Browse" onclick="document.getElementById('idUploadProposalForm1').click(); return false;">
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <input type="button" value="Add" id="btnaddContent" onclick="AddContent()" />
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        ChangeType();
+    })
+    function ChangeType() {
+        if ($("#ddlContentType").val() == "2878") {
+            $("#btnBrowse").show();
+        }
+        else {
+            $("#btnBrowse").hide();
+        }
+    }
+</script>

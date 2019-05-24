@@ -1,0 +1,90 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+    @*Grid.Mvc.Ajax.GridExtensions.AjaxGrid<AIA.Life.Models.UserManagement.CreateUserModel>*@
+@using GridMvc.Html
+@{
+
+    Layout = null;
+}
+
+@Html.Grid(Model.LstCreateUserModel).Named("GridUserPartialDetails").Columns(columns =>
+{
+columns.Add(a => a.IMDCode).Titled("User Code").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.UserName).Titled("User Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.DeviceID).Titled("Device ID").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.DeviceName).Titled("Device Name ").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.NodeID).Titled("").Encoded(false).Sanitized(false).Css("text-center").SetWidth("10%").RenderValueAs(@<text>
+        <input type="button" id="btnEditRow" value="View" style="padding:8px;" class="btn btn-default " onclick="EditRow(@Model.NodeID)" /></text>);
+
+        })
+@*.WithPaging(5).WithMultipleFilters()*@
+
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+@Scripts.Render("~/bundles/GridMVC")
+<style>
+    .panel-default {
+        border-color: #eee !important;
+        margin-bottom: 5px;
+    }
+
+    /*.panel {
+        background-color: #B8123E !important;
+    }*/
+
+    @@media screen and (min-width:320px) and (max-width:768px) {
+        .no-more-tables table, thead, tbody, th, td, tr {
+            float: none;
+        }
+    }
+</style>
+<script type="text/javascript">
+    @*$(document).ready(function ()
+    {
+        //$(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: true
+            });
+            pageGrids.GridUWPoolDetails.ajaxify({
+                getData: '../Policy/SearchUWPoolDetails',
+                getPagedData: '../Policy/SearchUWPoolDetails',
+            });
+        }
+    });*@
+    function EditRow(NodeID) {
+     
+      var UserName=$("#txtUserName").val();
+      var  UserCode=$("#txtUsercode").val();
+      var  DeviceId=$("#DeviceID").val();
+        $.ajax({
+            url: "../../UserManagement/PartialUserDetails",
+            data: { UserName: UserName, UserCode: UserCode, DeviceId: DeviceId,NodeId:1 },
+            type: "POST",
+            success: function (data) {
+
+                debugger;
+                $("#divUserSearchDetail").html('');
+                $("#divUserSearchDetail").show();
+                $("#divUserSearchDetail").html(data);
+            },
+            error: function () {
+                $("#divUserSearchDetail").html("No record found. Try after some Time");
+            }
+        });
+    }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

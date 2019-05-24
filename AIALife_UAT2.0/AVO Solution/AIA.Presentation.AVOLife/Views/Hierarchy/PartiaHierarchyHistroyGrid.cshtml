@@ -1,0 +1,28 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+    @using GridMvc.Html
+@{ 
+
+}
+@Html.Grid(Model.ObjHeirarchyHistroyDetails).Named("GridHierarchyHistoryDetails").Columns(columns =>
+{
+    columns.Add(a => a.Code).Titled("Code").Encoded(false).Sanitized(false);/*.RenderValueAs(a => @Html.TextBox("DateOfBirth" + a.StartDate, a.StartDate, new { @class = "form-control", @onchange = "ValidateAgeNew(this)", @onblur = "ValidateDateOfBirth(this)", @id = "txtStartDOB" + a.TrainingID }));*/
+    columns.Add(a => a.EntityType).Titled("Entity Type").Encoded(false).Sanitized(false);/*.RenderValueAs(a => @Html.TextBox("DateOfBirth" + a.EndDate, a.EndDate, new { @class = "form-control", @onchange = "ValidateAgeNew(this)", @onblur = "ValidateDateOfBirth(this)", @id = "txtEndDOB" + a.TrainingID }));*/
+    columns.Add(a => a.StartDate).Titled("Start Date").Encoded(false).Sanitized(false);/*.RenderValueAs(a => Html.TextBox("Mode" + a.Mode, a.Mode, new { @id = "txtMode" + a.TrainingID, @class = "form-control numeric" }));*/
+    columns.Add(a => a.EndDate).Titled("End Date").Encoded(false).Sanitized(false);/*.RenderValueAs(a => Html.TextBox("CandiateNo" + a.CandiateNo, a.CandiateNo, new { @id = "txtCandiateNo" + a.TrainingID, @class = "form-control numeric" }));*/
+    columns.Add(a => a.Repository).Titled("Report To").Encoded(false).Sanitized(false);/*.RenderValueAs(a => Html.TextBox("place" + a.Place, a.Place, new { @id = "txtplace" + a.Place, @class = "form-control numeric" }));*/
+    columns.Add(a => a.DateMode).Titled("Last Updated").Encoded(false).Sanitized(false);/*.RenderValueAs(a => @Html.DropDownList(a.Status, new SelectList(Model.LstPosition, "ID", "Value", a.Status), new { @class = "form-control", @name = "ddlTrainingStatus", @id = "ddlTrainingStatus" + a.TrainingID }));*/
+    columns.Add(a => a.User).Titled("User").Encoded(false).Sanitized(false);
+}).WithPaging(9).WithMultipleFilters()
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: false
+            });
+            pageGrids.GridHierarchyHistoryDetails.ajaxify({
+
+            });
+        }
+    });
+</script>

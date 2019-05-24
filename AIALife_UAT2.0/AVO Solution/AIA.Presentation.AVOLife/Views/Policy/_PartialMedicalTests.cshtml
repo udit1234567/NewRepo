@@ -1,0 +1,71 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+
+@{
+    Model.objMemberDetails.Count();
+
+}
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+    @for (int i = 0; i < Model.objMemberDetails.Count(); i++)
+    {
+
+
+
+        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+            <h2 style="text-align:center">@Model.objMemberDetails[i].AssuredName</h2>
+
+            @for (int j = 0; j < Model.objMemberDetails[i].objMedicalTests.Count(); j++)
+                {
+                @Html.HiddenFor(a => a.objMemberDetails[i].objMedicalTests[j])
+                <label>
+                    @Model.objMemberDetails[i].objMedicalTests[j]
+                </label>
+                <br />
+                }
+        </div>
+    }
+</div>
+
+
+
+<div class="col-lg-12 form-group">
+    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+        <label>Please select Doctor for Medical examination</label>
+        @Html.DropDownListFor(m => m.DoctorName, new SelectList(Model.lstDoctorNames, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlDoctorName" })
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+        <label>Payment will be made by</label>
+        @Html.RadioButtonFor(m => m.PaymentMadeByForDoctor, "Company", new { @id = "CompanyforDoctorbtn" })<span class="checkboxtext">Company</span>
+        @Html.RadioButtonFor(m => m.PaymentMadeByForDoctor, "Customer", new { @id = "CustomerforDoctorbtn" })<span class="checkboxtext">Customer</span>
+    </div>
+</div>
+<div class="col-lg-12 form-group">
+    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+        <label>Please select Lab for Medical Tests</label>
+        @Html.DropDownListFor(m => m.LabName, new SelectList(Model.lstLabNames, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlLabName" })
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+        <label>Payment will be made by</label>
+        @Html.RadioButtonFor(m => m.PaymentMadeByForLab, "Company", new { @id = "CompanyforLabbtn" })<span class="checkboxtext">Company</span>
+        @Html.RadioButtonFor(m => m.PaymentMadeByForLab, "Customer", new { @id = "Customerforlabbtn" })<span class="checkboxtext">Customer</span>
+    </div>
+</div>
+<div class="form-group col-lg-12" style="margin-top: 3%;">
+    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+
+        <label>Reports should be send to</label>
+        @Html.RadioButtonFor(m => m.ReportsTobeSendTo, "HeadOffice", new { @id = "rdbHeadOffice" })<span class="checkboxtext">Head Office</span>
+        @Html.RadioButtonFor(m => m.ReportsTobeSendTo, "BranchOffice", new { @id = "rdbBranchOffice" })<span class="checkboxtext">Branch Office</span>
+</div>
+    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+        <label>Requisition Letter</label>
+        <input type="submit" class="btn btn-default" value="Print" />
+        <input type="submit" class="btn btn-default" value="Email" />
+    </div>
+</div>
+
+

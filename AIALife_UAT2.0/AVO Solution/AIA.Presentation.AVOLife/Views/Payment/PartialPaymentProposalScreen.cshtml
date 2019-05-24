@@ -1,0 +1,20 @@
+﻿@model AIA.Life.Models.Integration.Payment.PaymentServiceModel
+@using GridMvc.Html
+
+@Html.Grid(Model.ObjPaymentProposalPool).Named("GridPaymentProposalDetails").Columns(columns =>
+{
+    columns.Add(a => a.PaymentProposalNumber).Titled("Proposal Number").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.PaymentProposalFirstName).Titled("First Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.PaymentProposalLastName).Titled("Last Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.PaymentProposalActualPremiumAmt).Titled("Actual Premium Amount").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.PaymentProposalDepositPaid).Titled("Deposit Paid").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.PaymentProposalAmountPayable).Titled("Amount Payable").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.PaymentProposalDaysLeft).Titled("Days Left for Cancellation").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+}).WithPaging(5).WithMultipleFilters()
+
+<style type="text/css">
+    .table th {
+        color: white !important;
+        text-align: center;
+    }
+</style>

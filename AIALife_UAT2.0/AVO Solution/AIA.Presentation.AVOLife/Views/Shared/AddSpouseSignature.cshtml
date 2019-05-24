@@ -1,0 +1,44 @@
+﻿
+@using AIAResources;
+<script src="~/Scripts/Signature/jquery.signaturepad.min.js"></script>
+
+<div class="sigPad" id="Spousesmoothed">
+
+    @*<ul class="sigNav">
+        <li class="drawIt"><a href="#draw-it">Draw It</a></li>
+        <li class="clearButton"><a href="#clear">Clear</a></li>
+    </ul>*@
+    <div class="sig sigWrapper" style="height:auto;">
+        <div class="typed"></div>
+        <canvas class="pad" width="540" height="250" style="border: 1px solid #dbdad4;" id="SpouseSignatureID"></canvas>        
+        <input type="hidden" name="SpouseSignature" class="output" id="SpouseSignatureValue">
+    </div>
+    <div class="modal-footer">
+
+        <a href="#clear" class="btn btn-secondary clearButton btn-clear" type="button" id="btnSpouseModalClear">Clear</a>
+        <button type="button" id="btnSpouseSave" class="btn btn-secondary" data-dismiss="modal">Save</button>
+        <button type="button" id="btnSpouseClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</div>
+<script src="~/Scripts/Signature/numeric-1.2.6.min.js"></script>
+<script src="~/Scripts/Signature/bezier.js"></script>
+<script src="~/Scripts/Signature/jquery.signaturepad.min.js"></script>
+<script src="~/Scripts/Signature/json2.min.js"></script>
+
+<script>
+                $(document).ready(function() {
+                    $('#Spousesmoothed').signaturePad({
+                drawOnly:true,
+                drawBezierCurves:true,
+                lineTop:200
+                });
+                });
+
+    function getDetails() {        
+                    var canvasid = document.getElementById("SpouseSignatureID");
+                    var output = $('.output').val();
+        return { SpouseSignature: output }
+                }
+
+</script>
+

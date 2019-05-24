@@ -1,0 +1,164 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+<h2>View Hierarchy</h2>
+
+@helper GetTreeView(List<AIA.Life.Models.Hierarchy.OrgStructureTree> siteMenu, int? parentID)
+{
+if (siteMenu.Any(n => n.ParentId == parentID))
+{
+    foreach (var i in siteMenu.Where(a => a.ParentId == parentID))
+    {
+            <li class="list">
+                @{var submenu = siteMenu.Where(a => a.ParentId.Equals(i.ItemId)).Count();}
+                @if (submenu > 0)
+                {
+                    <span class="list-img collapsible">&nbsp;</span>
+                }
+                else
+                {
+                    <span class="list_lastitem" style="display:inline-block">&nbsp;</span>
+                  
+                }
+                <span style="font-weight:bold">
+                    <a href="@i.ItemNavUrl">@i.ItemDescription</a>
+                </span>
+                @if (submenu > 0)
+                {
+                    <ul>
+                        @GetTreeView(siteMenu, i.ItemId)
+                        @* Recursive  Call for Populate Sub items here*@
+                    </ul>
+                }
+            </li>
+                        }
+                 }
+}
+
+<style>
+    .list-img {
+        background-image: url('../../Images/plus-18x18.png');
+        background-repeat: no-repeat;
+        display: inline-block;
+        cursor: pointer;
+        background-size: 60%;
+    }
+
+    .expand{
+        background-image: url('../../Images/minu-12x12.png');
+        background-repeat: no-repeat;
+        display: inline-block;
+        cursor: pointer;
+        background-size: 60%;
+    }
+
+    .treeview ul {
+        font-size: 20px;
+        margin: 0px;
+        padding-left: 20px;
+        list-style: none;
+    }
+
+    .treeview > li > a {
+        font-weight: bold;
+    }
+
+    .treeview li span:nth-child(2) {
+        position: absolute;
+        top : -1px;
+        left: 15px;
+    }
+
+        .treeview li a {
+            padding: 4px;
+            font-size: 12px;
+            display: inline-block;
+            text-decoration: none;
+            width: auto;
+            color: black !important;
+        }
+
+    .treeview {
+        min-height: 20px;
+        padding: 19px;
+        margin-bottom: 20px;
+    }
+
+        .treeview li {
+            list-style-type: none;
+            margin: 0;
+            padding: 10px 5px 0 5px;
+            position: relative;
+        }
+
+            .treeview li::before, .tree li::after {
+                content: '';
+                left: -20px;
+                position: absolute;
+                right: auto;
+            }
+
+            .treeview li::before {
+                border-left: 1px solid black;
+                bottom: 50px;
+                height: 100%;
+                top: 0;
+                width: 1px;
+                position: absolute;
+                margin-top: -27px;
+            }
+
+    .list-img:before,.list_lastitem:before {
+        content: '__';
+        margin-left: -32px;
+        top: -22px;
+        position: absolute;
+    }
+    .treeview > ul > li > .list-img:before {
+        display: none;
+    }
+    .treeview li span {
+        border-radius: 5px;
+        display: inline-block;
+        padding: 0px 8px;
+        text-decoration: none;
+        position: relative;
+    }
+
+    .treeview li.parent_li > span {
+        cursor: pointer;
+    }
+
+    .treeview > ul > li::before, .treeview > ul > li::after {
+        border: 0;
+    }
+
+    .treeview li:last-child::before {
+        height: 39px;
+    }
+
+    .treeview li.parent_li > span:hover, .treeview li.parent_li > span:hover + ul li span {
+        background: #eee;
+        border: 1px solid #94a0b4;
+        color: #000;
+    }
+</style>
+<div>
+    <div class="treeview">
+        <ul>
+            @GetTreeView(Model.LstOrgStructureTree, 0)
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {        
+        $(".treeview li>ul").css('display', 'none');
+        $(".collapsible").click(function (e) {
+            e.preventDefault();
+            $(this).toggleClass("collapse expand");
+            $(this).closest('li').children('ul').slideToggle();
+        });
+    });
+</script>
+
+
+

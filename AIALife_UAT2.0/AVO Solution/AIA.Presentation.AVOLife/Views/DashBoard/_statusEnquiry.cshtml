@@ -1,0 +1,73 @@
+﻿@model AIA.Life.Models.DashBoard.statusEnquiry
+    @using AIA.Presentation.Helpers;
+    @using GridMvc.Html
+    @{
+        ViewBag.Title = "Retrigger Mail";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <style type="text/css">
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 10%;
+        }
+
+        .text {
+            width: 140px;
+        }
+    </style>
+    <div class="panel panel-default">
+        <div class="panel-body" style="background-color: orangered;color:white;font-size:large;padding: 10px;" align="center">STATUS ENQUIRY</div>
+    </div>
+    <table style="width:100%">
+        <tr>
+            <td></td>
+            <td>
+                <label><img src="~/Content/Images/pencil.png" style="height:25px;" />&nbsp;Type :</label>
+            </td>
+            <td>
+                @Html.DropDownListFor(a => a.statusType, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlstatusType", @class = "form-control text" })
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><label style="font-weight:bold;font-size:14px;">Search Using :</label></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <label style="width:135px;"><img src="~/Content/Images/Contact No@0,32x.png" style="height:20px;" />&nbsp;Contact Number :</label>
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.contactNo, new { @class = "form-control text" })
+            </td>
+            <td></td>
+            <td>
+                <label style="width:128px;"><img src="~/Content/Images/Transaction ID@0,32x.png"  style="height:22px;" />&nbsp;Transaction ID :</label>
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.transactionId, new { @class = "form-control text" })
+            </td>
+            <td></td>
+            <td>
+                <label><img src="~/Content/Images/quote-20.png" style="height:22px;" />&nbsp;NIC :</label>
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.NIC, new { @class = "form-control text" })
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <input type="submit" class="form-control" value="SUBMIT" style="background-color:orange;color:white;" />
+            </td>
+        </tr>
+        <tr></tr>
+        <tr>
+
+        </tr>
+    </table>

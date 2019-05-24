@@ -1,0 +1,125 @@
+﻿@model AIA.Life.Models.UWRules.UWRule
+@using AIA.Presentation.Helpers
+
+@{
+
+    int Count = 0;
+ }
+
+<h2 style="margin-bottom:2%">Configure Parameters</h2>
+@Html.HiddenFor(a => a.RuleID,new { })
+
+@foreach (var item in Model.LstRuleParameters)
+{
+
+    if (item.Parametertype == "ListOfValue")
+    {
+
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivList" >
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                <label>Parameter Name</label>
+                @Html.TextBoxFor(a=>a.LstRuleParameters[Count].ParameterName,new { @readonly = "readonly" , @class = "form-control" })
+                @Html.HiddenFor(a=>a.LstRuleParameters[Count].Parametertype,new { })
+                @Html.HiddenFor(a => a.LstRuleParameters[Count].ParameterID, new { })
+              
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                <label for="usr">List</label>
+                @Html.TextAreaFor(a=>a.LstRuleParameters[Count].List,new { })
+                
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                <label for="sel1"></label>
+
+            </div>
+
+        </div>
+    }
+    else if (item.Parametertype == "String")
+    {
+
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivSting" >
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                <label>Parameter Name</label>
+                @Html.TextBoxFor(a => a.LstRuleParameters[Count].ParameterName, new { @readonly = "readonly", @class = "form-control" })
+                @Html.HiddenFor(a => a.LstRuleParameters[Count].Parametertype, new { })
+                @Html.HiddenFor(a => a.LstRuleParameters[Count].ParameterID, new { })
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                <label>From</label>
+                @Html.TextBoxFor(a => a.LstRuleParameters[Count].StrFrom, new { @class = "form-control" })
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none">
+                <label>TO</label>
+                @Html.TextBoxFor(a => a.LstRuleParameters[Count].StrFrom, new { @class = "form-control" })
+
+            </div>
+            
+
+        </div>
+
+    }
+
+    else if (item.Parametertype == "Numeric")
+    {
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivNumeric" >
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                <label>Parameter Name</label>
+                @Html.TextBoxFor(a => a.LstRuleParameters[Count].ParameterName, new { @readonly = "readonly", @class = "form-control" })
+                @Html.HiddenFor(a => a.LstRuleParameters[Count].Parametertype, new { })
+                @Html.HiddenFor(a => a.LstRuleParameters[Count].ParameterID, new { })
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                <label>From</label>
+                @Html.TextBoxFor(a => a.LstRuleParameters[Count].IntFrom, new { @class = "form-control" })
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" >
+                <label>TO</label>
+                @Html.TextBoxFor(a => a.LstRuleParameters[Count].IntTo, new { @class = "form-control" })
+
+            </div>
+
+        </div>
+    }
+    else if (item.Parametertype == "Date")
+    {
+
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivDate">
+
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                <label>Parameter Name</label>
+                @Html.TextBoxFor(a => a.LstRuleParameters[Count].ParameterName, new { @readonly = "readonly", @class = "form-control" })
+                @Html.HiddenFor(a => a.LstRuleParameters[Count].Parametertype, new { })
+                @Html.HiddenFor(a => a.LstRuleParameters[Count].ParameterID, new { })
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                <label>From</label>
+                @Html.iNubeDatePickerFor(a => a.LstRuleParameters[Count].FromDT, new {@class="form-control" })
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" >
+                <label>TO</label>
+                @Html.iNubeDatePickerFor(a => a.LstRuleParameters[Count].ToDT, new { @class = "form-control" })
+
+            </div>
+
+        </div>
+
+    }
+    Count++;
+}
+
+
+
+
+
+

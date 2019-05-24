@@ -1,0 +1,812 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int Index = Model.AssuredIndex;
+    string PanleID = "DivPanelLifeStyle" + Index;
+    string PanleNavigatorheader = "#PanelLifeStyle" + Index;
+    string PanleNavigator = "PanelLifeStyle" + Index;
+    string medicalpanleID = "DivPanelMedicalHistory" + Index;
+    string medicalPanleNavigatorheader = "#PanelMedicalHistory" + Index;
+    string medicalPanleNavigator = "PanelMedicalHistory" + Index;
+    string familypanleID = "DivPanelFamilyBG" + Index;
+    string familyPanleNavigatorheader = "#DivPanelFamilyBG" + Index;
+    string familyPanleNavigator = "DivPanelFamilyBG" + Index;
+    string additionalpanleID = "DivAdditionalQA" + Index;
+    string additionalPanleNavigatorheader = "#DivAdditionalQA" + Index;
+    string additionalPanleNavigator = "DivAdditionalQA" + Index;
+    string previouspanleID = "DivPanelOtherInsurance" + Index;
+    string previousPanleNavigatorheader = "#DivPanelOtherInsurance" + Index;
+    string previousPanleNavigator = "DivPanelOtherInsurance" + Index;
+    int count = 0, tabCount = 0;
+    int MemberCount = 0;
+    if (Model.ListAssured != null && Model.ListAssured.Count() > 0)
+    {
+        MemberCount = Model.ListAssured.Count();
+    }
+
+}
+
+<style>
+    .clearfix {
+        clear: both;
+    }
+
+    .nav-tabs > li > a, .nav-stacked > li > a {
+        background-color: #b2b2b2;
+        color: #000;
+        font-size: 13px;
+        border-radius: 0;
+    }
+
+    .tab-content {
+        float: left;
+    }
+</style>
+
+
+<ul class="nav nav-pills list-add" id="tabsQuestionaries">
+    
+    @foreach (var item in Model.ListAssured)
+    {
+        if (item != null)
+        {
+            if (count == 0)
+            {
+                
+                    <li class="active width">
+                        <a class="collapsed" data-toggle="pill" href="#tab_6_@count">@Resources.GetLabelName(item)</a>
+                    </li>
+               
+
+            }
+            else
+            {
+                
+                    <li class="width"><a data-toggle="pill" href="#tab_6_@count">@Resources.GetLabelName(item)</a></li>
+                
+
+            }
+        }
+
+        count++;
+    }
+</ul>
+<div class="clearfix"></div>
+<div class="tab-content" id="collapseQ">
+
+    @foreach (var Assured in Model.ListAssured)
+    {
+        Model.AssuredName = Assured;
+        Model.AssuredIndex = Model.objMemberDetails.FindIndex(a => a.AssuredName == Assured);
+        if (tabCount == 0)
+        {
+            <div class="tab-pane fade in active" id="tab_6_@tabCount">
+
+                <ul class="nav nav-pills nav-stacked col-lg-2 col-md-3 col-sm-3 col-xs-12">
+
+                    <li class="active"><a href=@PanleNavigatorheader data-toggle="pill">@Resources.GetLabelName("Life Style")</a></li>
+                    <li><a href=@medicalPanleNavigatorheader data-toggle="pill">@Resources.GetLabelName("Medical History")</a></li>
+                    <li><a href=@familyPanleNavigatorheader data-toggle="pill"> @Resources.GetLabelName("Family BackGround")</a></li>
+                    <li><a href=@additionalPanleNavigatorheader data-toggle="pill">@Resources.GetLabelName("Additional Questionnaire")</a></li>
+                    <li><a href=@previousPanleNavigatorheader data-toggle="pill">@Resources.GetLabelName("Previous And Current Life Insurance")</a></li>
+                </ul>
+
+                <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12 QuesBox-Space1">
+                    <div class="tab-content">
+
+                        @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].Basicpremium, new { })
+                        @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].BasicSumInsured, new { })
+
+
+                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268" )
+                        {
+                        <div id=@PanleNavigator class="tab-pane fade in active row" role="tabpanel" aria-labelledby=@PanleID>
+                            @Html.Partial("~/Views/Policy/_PartialLifeStyle.cshtml", Model)
+                        </div>
+                        <div class="clearfix"></div>
+
+                        }
+
+                        <div id=@medicalPanleNavigator class="tab-pane fade row" role="tabpanel" aria-labelledby=@medicalpanleID>
+                            @Html.Partial("~/Views/Policy/PartialMedicalHistory.cshtml", Model)
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                        {
+                        <div id=@familyPanleNavigator class="tab-pane fade row" role="tabpanel" aria-labelledby=@familypanleID>
+                            @Html.Partial("~/Views/Policy/_PartialFamilyBackGround.cshtml", Model)
+
+                        </div>
+
+                        }
+
+                        <div class="clearfix"></div>
+                       @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                       {
+                        <div id=@additionalPanleNavigator class="tab-pane fade occupationquestions row" role="tabpanel" aria-labelledby=@additionalpanleID>
+                            @Html.Partial("~/Views/Policy/_PartialAdditionalQuestionnaire.cshtml", Model)
+                        </div>
+                       }
+                       
+                        <div class="clearfix"></div>
+                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                        {
+                        <div id=@previousPanleNavigator class="tab-pane fade row" role="tabpanel" aria-labelledby=@previouspanleID>
+                            @Html.Partial("~/Views/Policy/_PartialOtherInsurnceDetails.cshtml", Model)
+                        </div>
+                        }
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+                <div class="clearfix"></div>
+        }
+        else
+        {
+            <div class="tab-pane" id="tab_6_@tabCount">
+                <ul class="nav nav-pills nav-stacked col-lg-2 col-md-3 col-sm-3 col-xs-12">
+
+                    <li class="active"><a href=@PanleNavigatorheader@tabCount data-toggle="pill">@Resources.GetLabelName("Life Style")</a></li>
+                    <li><a href=@medicalPanleNavigatorheader@tabCount data-toggle="pill">@Resources.GetLabelName("Medical History")</a></li>
+                    <li><a href=@familyPanleNavigatorheader@tabCount data-toggle="pill"> @Resources.GetLabelName("Family BackGround")</a></li>
+                    <li><a href=@additionalPanleNavigatorheader@tabCount data-toggle="pill">@Resources.GetLabelName("Additional Questionnaire")</a></li>
+                    <li><a href=@previousPanleNavigatorheader@tabCount data-toggle="pill">@Resources.GetLabelName("Previous And Current Life Insurance")</a></li>
+                </ul>
+                <div class="col-lg-10 col-sm-9 col-md-9 col-xs-12 QuesBox-Space1">
+                    <div class="tab-content">
+                        @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].Basicpremium, new { })
+                        @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].BasicSumInsured, new { })                    
+                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                        {
+                            
+                            <div id=@PanleNavigator@tabCount class="tab-pane fade in active row" role="tabpanel" aria-labelledby=@PanleID>
+                                @Html.Partial("~/Views/Policy/_PartialLifeStyle.cshtml", Model)
+                                <br />
+                                <br />
+                            </div>
+                            <div class="clearfix"></div>
+                        }
+                        else
+                        {
+                            <div id=@PanleNavigator@tabCount class="tab-pane fade in active row" role="tabpanel" aria-labelledby=@PanleID>
+                               
+                            </div>
+                        }
+                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "269" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "270")
+                        {
+
+                            <div id=@medicalPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@medicalpanleID>
+
+                                @Html.Partial("~/Views/Policy/PartialMedicalHistory.cshtml", Model)
+                                <br />
+                                <br />
+                            </div>
+                            <div class="clearfix"></div>
+                        }
+                        else
+                        {
+                            <div id=@medicalPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@medicalpanleID>
+
+                             
+                            </div>
+                        }
+                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                        {
+
+                            <div id=@familyPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@familypanleID>
+
+                                @Html.Partial("~/Views/Policy/_PartialFamilyBackGround.cshtml", Model)
+                                <br />
+                                <br />
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div id=@familyPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@familypanleID>
+
+                               
+                            </div>
+                        }
+                        <div class="clearfix"></div>
+                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                        {
+                        <div id=@additionalPanleNavigator@tabCount class="tab-pane fade occupationquestionssub row" role="tabpanel" aria-labelledby=@additionalpanleID>
+                            @Html.Partial("~/Views/Policy/_PartialAdditionalQuestionnaire.cshtml", Model)
+                            <br />
+                            <br />
+                        </div>
+
+                        }
+                        else
+                        {
+                            <div id=@additionalPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@additionalpanleID>
+                               
+                            </div>
+                        }
+                        <div class="clearfix"></div>
+                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                        {
+                           
+                        <div id=@previousPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@previouspanleID>
+                            @Html.Partial("~/Views/Policy/_PartialOtherInsurnceDetails.cshtml", Model)
+                        </div>
+                        <div class="clearfix"></div>
+                        }
+                        else
+                        {
+                            <div id=@previousPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@previouspanleID>
+                            
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        }
+
+        tabCount++;
+    }
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+<script type="text/javascript">
+    
+
+    function FetchSelectedDiseases(Index) {
+
+        var Relation=$('#collapseQ ul').find('li > a')[Index].text;
+        var items = [];
+        var count = 0;
+        var ddID="ddlMultiSelect"+Index;
+        $('#'+ddID+' option:selected').each(function () {
+            count=count+1;
+            items.push($(this).val());
+        });
+        if ( count < 1 )
+        {
+
+            writeMultipleMessage("error", "Please select atleast one Disease", ddID);
+            return false;
+        }
+        else {
+
+            writeMultipleMessage("error", "", ddID);
+        }
+        var AssuredMenberDetils = @MemberCount;
+        for(var i= 0; i<AssuredMenberDetils; i++)
+        {
+            $('#ddlGender'+i+'').attr("disabled", false);
+            $('#ddlRelationWithProposer'+i+'').attr("disabled", false);
+        }
+        var FormData=  $("#fromProposalPage").serialize();
+        for(var i= 0; i<AssuredMenberDetils; i++)
+        {
+            $('#ddlGender'+i+'').attr("disabled", true);
+            $('#ddlRelationWithProposer'+i+'').attr("disabled", true);
+        }
+        $.post("../Policy/GetMHDProposal?AssuredName="+Relation, FormData, function (data) {
+            $("#DivDiseasesQuestionnaireDetails" + Index).html(data);
+        });
+    }
+    $('#tabsQuestionaries a').click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    var hash = window.location.hash;
+    $('#myTab a[href="' + hash + '"]').tab('show');
+</script>
+
+@*Family Back Ground Script*@
+<script>
+    var LstFamilyRelationship = @(Html.Raw(Json.Encode(Model.lstFamilyBackGroundRelationship)));
+    var lstStateofHealth = @(Html.Raw(Json.Encode(Model.lstSateofHealth)));
+    var lstCauseOfDeath = @(Html.Raw(Json.Encode(Model.lstCauseOfDeath)));
+    function AddFamilyBackGroundRow(DivID, MemberIndex) {
+        var Index=  GetGridIndex(DivID);
+
+        var _RowID = "FamilyRow" + MemberIndex+Index;
+        var SubGridID="DivFamilyBGSUBGrid"+MemberIndex;
+        var newRow = " <tr class='grid-row' id='" + _RowID + "' >" +
+            "<td class='grid-cell' data-name='RelationshipWithMember'><select name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + Index + "].FamilyPersonType' class='form-control'  id=\'DDLRelationShipWithMember" +MemberIndex+ Index + "\' onchange='validateFamilyHistory(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + Index + "\")'><option  Value=''>Select</option></select></td>" +
+           "<td class='grid-cell' data-name='PresentAge'><input name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + Index + "].PresentAge' type='text' class='form-control' maxlength='3' onkeypress = 'return isNumberKey(event)' id=\'PresentAge" +MemberIndex+ Index + "\'></input></td>" +
+            "<td class='grid-cell' data-name='StateOfHealth'><select name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + Index + "].StateOfHealth' class='form-control'  id=\'DDLStateOfHealth" + MemberIndex + Index + "\' onchange='AddFamilyStateOfHealthGridRow(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + Index + "\")'><option Value=''>Select</option></select></td>" +
+            "<td class='grid-cell' data-name='AgeAtDeath'><input name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + Index + "].AgeAtDeath' type='text' class='form-control' maxlength='3' onkeypress = 'return isNumberKey(event)' id=\'AgeAtDeath" + MemberIndex + Index + "\'></input></td>" +
+            "<td class='grid-cell' data-name='Cause'><select name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + Index + "].Cause' class='form-control'  id=\'DDLCause" + MemberIndex + Index + "\' onchange='AddFamilyStateOfHealthGridRow(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + Index + "\")'><option Value=''>Select</option></select></td>" +
+            "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + Index + "].Isdeleted' id=\'txtFamilyIsDeleted" + MemberIndex + Index + "' /></td>" +
+             "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'btnDeleteFamilyBackGround" + Index + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteFamilyBackGroundRow(\"" + DivID + "\",\""+MemberIndex+"\",\""+Index+"\")' /></td></tr>";
+        $('#' + DivID + ' tbody:last').append(newRow);
+
+
+        var _Items = "";
+        $.each(LstFamilyRelationship, function (ID, option) {
+            _Items += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+        });
+        $("#DDLRelationShipWithMember" + MemberIndex + Index ).append(_Items);
+        _Items = "";
+        $.each(lstStateofHealth, function (ID, option) {
+            _Items += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+        });
+        $("#DDLStateOfHealth" + MemberIndex + Index ).append(_Items);
+        _Items = "";
+        $.each(lstCauseOfDeath, function (ID, option) {
+            _Items += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+        });
+        $("#DDLCause" + MemberIndex + Index ).append(_Items);
+    }
+
+    function GetGridIndex(DivID) {
+        var _index = 0;
+        var HasData= false;
+        $("#"+DivID+" tbody").find("tr").each(function (index) {
+            _index = index;
+            HasData=true;
+        });
+        if(HasData)
+        {
+            _index=  _index+1;
+        }
+        return _index;
+    }
+
+    function DeleteFamilyBackGroundRow(DivID,MemberIndex,Index )
+    {
+       
+        var _RowId = "FamilyRow" + MemberIndex + Index;
+        $('#' + _RowId).hide();
+        $('#txtFamilyIsDeleted'+ MemberIndex + Index).val(true);
+
+
+        //txtFamilyIsDeleted
+        
+     //   var jsonFamilyBackgroundObj = [];
+     //   var SubGridID="DivFamilyBGSUBGrid"+Index;
+     //   var _rowID='FamilyRow' + MemberIndex+Index;
+
+     //   var SubGridID="DivFamilyBGSUBGrid"+MemberIndex;
+     //   var subrow =  'SubFamilyRow'+ MemberIndex+Index;
+     //   $('#' + _rowID).remove();
+     //   $('#' + subrow).remove();
+     //   // For getting Current Data in Grid
+     //   var _index =0
+     //   $("#"+DivID+" tbody").find("tr").each(function (index) {
+     //       _Index = _index;
+     //       RelationshipWithMember = $(this).find("[data-name=RelationshipWithMember]").find("option:selected").val();
+     //       PresentAge = $(this).find("[data-name=PresentAge]").find("input[type=text]").val();
+     //       StateOfHealth=$(this).find("[data-name=StateOfHealth]").find("option:selected").val();
+     //       AgeAtDeath = $(this).find("[data-name=AgeAtDeath]").find("input[type=text]").val();
+     //       Cause = $(this).find("[data-name=Cause]").find("option:selected").val();
+     //       jsonFamilyBackgroundObj.push({_Index:_Index, RelationshipWithMember: RelationshipWithMember, PresentAge: PresentAge, StateOfHealth: StateOfHealth, AgeAtDeath: AgeAtDeath,Cause:Cause });
+     //       _index = _index + 1;
+     //   })
+     //   // Emptying Grid
+     //   $("#"+DivID+" tbody").find("tr").each(function (index) {
+     //       $(this).remove();
+     //   });
+
+     //   // Rearranging Grid Content For Model Binding
+
+     //   $.each(jsonFamilyBackgroundObj, function (index, value) {
+
+     //       var _RowID='FamilyRow' + MemberIndex+index;
+     //       var newRow = " <tr class='grid-row' id='" + _RowID + "' >" +
+     //"<td class='grid-cell' data-name='RelationshipWithMember'><select name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + index + "].FamilyPersonType' class='form-control'  id=\'DDLRelationShipWithMember" +MemberIndex+ index + "\'  onchange='validateFamilyHistory(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + Index + "\")'><option Value=''>Select</option></select></td>" +
+     //"<td class='grid-cell' data-name='PresentAge'><input name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + index + "].PresentAge' type='text' class='form-control'   id=\'PresentAge" +MemberIndex+ index + "\'></input></td>" +
+     //"<td class='grid-cell' data-name='StateOfHealth'><select name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + index + "].StateOfHealth' class='form-control'  id=\'DDLStateOfHealth" + MemberIndex + index + "\'><option  onchange='AddFamilySubGridRow(\"" + SubGridID + "\",\""+MemberIndex+"\",\""+index+"\")'>Select</option></select></td>" +
+     //"<td class='grid-cell' data-name='AgeAtDeath'><input name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + index + "].AgeAtDeath' type='text' class='form-control'   id=\'AgeAtDeath" + MemberIndex + index + "\'></input></td>" +
+     //"<td class='grid-cell' data-name='Cause'><select name='objMemberDetails[" + MemberIndex + "].objLstFamilyBackground[" + index + "].Cause' class='form-control'  id=\'DDLCause" + MemberIndex + index + "\'><option>Select</option></select></td>" +
+     // "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'btnDeleteFamilyBackGround" + index + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteFamilyBackGroundRow(\"" + DivID + "\",\""+MemberIndex+"\",\""+index+"\")' /></td></tr>";
+     //       $('#' + DivID + ' tbody:last').append(newRow);
+
+
+     //       var _Items = "";
+     //       $.each(LstFamilyRelationship, function (ID, option) {
+     //           _Items += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+     //       });
+     //       $("#DDLRelationShipWithMember" + MemberIndex + index ).append(_Items);
+     //       $("#DDLRelationShipWithMember" + MemberIndex + index ).val(jsonFamilyBackgroundObj[index].RelationshipWithMember);
+     //       _Items = "";
+     //       $.each(lstStateofHealth, function (ID, option) {
+     //           _Items += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+     //       });
+     //       $("#DDLStateOfHealth" + MemberIndex + index ).append(_Items);
+     //       $("#DDLStateOfHealth" + MemberIndex + index ).val(jsonFamilyBackgroundObj[index].StateOfHealth);
+
+     //       _Items = "";
+     //       $.each(lstCauseOfDeath, function (ID, option) {
+     //           _Items += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+     //       });
+     //       $("#DDLCause" + MemberIndex + index ).append(_Items);
+     //       $("#DDLCause" + MemberIndex + index ).val(jsonFamilyBackgroundObj[index].Cause);
+     //       $("#PresentAge" + MemberIndex + index ).val(jsonFamilyBackgroundObj[index].PresentAge);
+     //       $("#AgeAtDeath" + MemberIndex + index ).val(jsonFamilyBackgroundObj[index].AgeAtDeath);
+     //      // AddFamilySubGridRow(SubGridID, MemberIndex, index);
+     //   });
+     //   var  HasData=false;
+     //   $("#"+SubGridID+" tbody").find("tr").each(function (index) {
+     //       HasData=true;
+     //   });
+     //   if(HasData)
+     //   {
+     //       $("#"+SubGridID).show();
+     //   }
+     //   else{
+     //       $("#"+SubGridID).hide();
+     //   }
+    }
+
+    function AddFamilyStateOfHealthGridRow(DivID, MemberIndex, Index) {
+        var StateofHealth = $("#DDLStateOfHealth" + MemberIndex + Index).val();
+        var DeathCause = $('#DDLCause' + MemberIndex + Index).val();
+
+        if (StateofHealth != '' && StateofHealth != null && StateofHealth != undefined)
+        {
+            $("#AgeAtDeath" + MemberIndex + Index).val('');
+            $("#AgeAtDeath" + MemberIndex + Index).attr("readonly", true);
+            $("#DDLCause" + MemberIndex + Index).val('');
+            $("#DDLCause" + MemberIndex + Index).attr("disabled", true);
+        }
+        else if(DeathCause != '' && DeathCause != null && DeathCause != undefined)
+        {
+            $("#PresentAge" + MemberIndex + Index).val('');
+            $("#PresentAge" + MemberIndex + Index).attr("readonly", true);
+            $("#DDLStateOfHealth" + MemberIndex + Index).val('');
+            $("#DDLStateOfHealth" + MemberIndex + Index).attr("disabled", true);
+        }
+    }
+
+    function validateFamilyHistory(DivID, MemberIndex, Index)
+    {
+        
+        clearAllErrors();
+        var CurrentRelation = $("#DDLRelationShipWithMember" + MemberIndex + Index).val();
+        var ID = 0;
+        var isValid = true;
+
+        writeMultipleMessage("error", "", "DDLRelationShipWithMember" + MemberIndex + Index);
+
+        $("#" + DivID + " tbody").find("tr").each(function () {
+            if (ID <= parseInt(Index) - 1) {
+                var relationship = $("#DDLRelationShipWithMember" + MemberIndex + ID.toString()).val();
+                var isDeleted = $("#txtFamilyIsDeleted"+ MemberIndex + ID.toString()).val();
+                var val = (isDeleted === "true");
+                if (relationship == CurrentRelation && (!val) && (CurrentRelation == "1201" || CurrentRelation == "1202")) {
+
+                    writeMultipleMessage("error", "Father or Mother Relationship should not add multiples times", "DDLRelationShipWithMember" + MemberIndex + Index);
+                    
+                    $("#DDLRelationShipWithMember" + MemberIndex + Index).html("");
+                    $("#DDLRelationShipWithMember" + MemberIndex + Index).append($('<option value=\'\'>Select</option>'))
+                    var LstFamilyRelationship = @(Html.Raw(Json.Encode(Model.lstFamilyBackGroundRelationship)));
+                    var _Items = "";
+                    $.each(LstFamilyRelationship, function (ID, option) {
+                        _Items += '<option Value=' + option.ID + '>' + option.Value + '</option>';
+                    });
+                    $("#DDLRelationShipWithMember" + MemberIndex + Index).append(_Items);
+                    isValid = false;
+                }
+            }
+            ID++;
+        });
+        return isValid;
+    }
+
+    $(document).ready(function(){
+        //var a= (100 / $(".list-add li").length)+ '%';
+        //var b=(parseInt(a)-1)+ '%';
+        //$('.list-add li').width(b);
+    });
+
+</script>
+
+@*LifeStyle SmokeDetails*@
+<script>
+    function AddLifeStyleSmokeRow(DivID, MemberIndex) {
+     
+        var typeSmoke="#ddlTypeSmoke"+MemberIndex;
+        var perSmoke="#ddlSmokePerDay"+MemberIndex;
+        var perQuantity="#txtSmokeQuantity"+MemberIndex;
+
+        var Typeval =$(typeSmoke).find(":selected").text();
+        var Numval = $(perQuantity).find(":selected").text();
+        var Perval = $(perSmoke).find(":selected").text();
+        var HowLongval = $('#txtSmokeDuration'+MemberIndex).val();
+
+        if (Typeval == "Select" || Typeval == "") {
+            writeMultipleMessage("error", "Please Select Type", "ddlTypeSmoke"+MemberIndex);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ddlTypeSmoke"+MemberIndex);
+        }
+
+        if (Typeval == "Select" || Numval == "") {
+            writeMultipleMessage("error", "Please Enter Number", "txtSmokeQuantity"+MemberIndex);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtSmokeQuantity"+MemberIndex);
+        }
+
+        if (HowLongval == "") {
+            writeMultipleMessage("error", "Please Enter How Long", "txtSmokeDuration"+MemberIndex);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtSmokeDuration"+MemberIndex);
+        }
+        var index = GetGridIndex(DivID);
+        var Type = 'ddlTypeSmoke' +MemberIndex+ index;
+        var Number = 'txtSmokeQuantity'+MemberIndex + index;
+        var HowLong = 'txtSmokeDuration'+MemberIndex + index;
+        var Remove = 'btnDeleteLifeStyleSmoke'+MemberIndex + index;
+        var IsDeleted = 'txtIsDeleted'+MemberIndex + index;
+
+        var _RowId = "Smoker" + MemberIndex + index;
+     
+        var ID = 0;
+        var IsvalidData = true;
+        $('#' + DivID + ' tbody').find("tr").each(function () {
+            var length = ID.toString();
+            SmokeType = $("#ddlTypeSmoke" + MemberIndex + length).val();
+            IsSmokeDeleted = $("#txtIsDeleted" + MemberIndex + length).val();
+            if (SmokeType == Typeval && IsSmokeDeleted != "true") {
+                writeMultipleMessage("error", "Tobacco Type Should not be same as existing", 'ddlTypeSmoke' + MemberIndex + index);
+                IsvalidData = false;
+            }
+            ID++;
+        });
+        if (IsvalidData) {
+            writeMultipleMessage("error", "", 'ddlTypeSmoke' + MemberIndex + index);
+            newRow = "<tr id='" + _RowId + "' >" +
+                "<td><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].SmokeType' id=\'" + Type + "'/></td>" +
+                "<td><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].SmokeQuantity' id=\'" + Number + "'/></td>" +
+                "<td><input value='' class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].SmokeDuration' id=\'" + HowLong + "'/></td>" +
+                "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].Isdeleted' id=\'" + IsDeleted + "' /></td>" +
+                "<td style='width:5%'><input value='-' type='button' style='margin-left:25%' onclick='DeleteLifeStyleQARow(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + index + "\")' id=\'" + Remove + "'/></td>" +
+                "</tr>";
+
+            $('#' + DivID + ' tbody:last').append(newRow);
+
+            
+            $('#ddlTypeSmoke' + MemberIndex + index).val(Typeval);
+            $('#txtSmokeQuantity' + MemberIndex + index).val(Numval);
+            $('#ddlSmokePerDay' + MemberIndex + index).val(Perval);
+            $('#txtSmokeDuration' + MemberIndex + index).val(HowLongval);
+           
+          
+        }
+
+        //Emptying values
+        $("#txtSmokeQuantity"+MemberIndex).val('');
+        $("#txtSmokeDuration"+MemberIndex).val('');
+        $('#txtIsDeleted'+ MemberIndex + index).val(false);
+ 
+    }
+
+    function DeleteLifeStyleQARow(DivID,MemberIndex,index)
+    {
+        var _RowId = "Smoker" + MemberIndex + index;
+        $('#' + _RowId).hide();
+        //$('#'+DivID).children('tbody').children('tr').children('td').remove()
+
+        $('#txtIsDeleted'+ MemberIndex + index).val(true);
+        
+    }
+</script>
+
+@*LifeStyle AlcoholDetails*@
+<script>
+
+    function AddLifeStyleAlcholRow(DivID, MemberIndex) {
+
+        var typeAlchol="#ddlAlcholType"+MemberIndex;
+        var perAlchol="#ddlAlcholPerDay"+MemberIndex;
+
+        var Typeval =$(typeAlchol).find(":selected").text();
+        var Numval = $('#txtAlcholQuantity'+MemberIndex).val();
+        var Perval = $(perAlchol).find(":selected").text();
+        var HowLongval = $('#txtAlcholDuration'+MemberIndex).val();
+
+        if (Typeval == "Select" || Typeval == "") {
+            writeMultipleMessage("error", "Please Select Type", "ddlAlcholType"+MemberIndex);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ddlAlcholType"+MemberIndex);
+        }
+
+        if (Numval == "") {
+            writeMultipleMessage("error", "Please Enter Quantity", "txtAlcholQuantity"+MemberIndex);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtAlcholQuantity"+MemberIndex);
+        }
+
+        if (Perval == "Select" || Perval == "") {
+            writeMultipleMessage("error", "Please Select Per", "ddlAlcholPerDay"+MemberIndex);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ddlAlcholPerDay"+MemberIndex);
+        }
+        if (HowLongval == "") {
+            writeMultipleMessage("error", "Please Enter How Long", "txtAlcholDuration"+MemberIndex);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtAlcholDuration"+MemberIndex);
+        }
+
+        var index = GetGridIndex(DivID);
+        var Type = 'ddlAlcholType'+MemberIndex + index;
+        var Number = 'txtAlcholQuantity'+MemberIndex + index;
+        var Per = 'ddlAlcholPerDay'+MemberIndex + index;
+        var HowLong = 'txtAlcholDuration'+MemberIndex + index;
+        var Remove = 'btnRemoveAlcohol'+MemberIndex + index;
+        var IsDeleted = 'txtAlIsDeleted'+MemberIndex + index;
+
+        var _RowId = "Alcohol"+MemberIndex + index;
+
+        var AlcholType;
+        var IsAlcholDeleted;
+        var ID = 0;
+        var IsvalidData = true;
+        $('#' + DivID + ' tbody').find("tr").each(function () {
+            var length = ID.toString();
+            AlcholType = $("#ddlAlcholType" + MemberIndex + length).val();
+            IsAlcholDeleted = $("#txtAlIsDeleted" + MemberIndex + length).val();
+            if (AlcholType == Typeval && IsAlcholDeleted !="true") {
+                writeMultipleMessage("error", "Alcohol Type Should not be same as existing", 'ddlAlcholType' + MemberIndex + index);
+                IsvalidData = false;
+            }
+            ID++;
+        });
+        var _RowId = "Alcohol" + MemberIndex + index;
+        if (IsvalidData) {
+            writeMultipleMessage("error", "", 'ddlAlcholType' + MemberIndex + index);
+            newRow = "<tr id='" + _RowId + "' >" +
+                "<td><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholType' id=\'" + Type + "'/></td>" +
+                "<td><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholQuantity' id=\'" + Number + "'/></td>" +
+                "<td><input value='' class='form-control' type ='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholPerDay' id=\'" + Per + "'/></td>" +
+                "<td><input value='' class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholDuration' id=\'" + HowLong + "'/></td>" +
+                "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].Isdeleted' id=\'" + IsDeleted + "' /></td>" +
+                "<td style='width:5%'><input value='-' type='button' style='margin-left: 40%; width: 18%' onclick='DeleteLifeStyleAlcholRow(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + index + "\")' class='form-control' id=\'" + Remove + "'/></td>" +
+                "</tr>";
+            $('#' + DivID + ' tbody:last').append(newRow);
+
+            $('#ddlAlcholType' + MemberIndex + index).val(Typeval);
+            $('#txtAlcholQuantity' + MemberIndex + index).val(Numval);
+            $('#ddlAlcholPerDay' + MemberIndex + index).val(Perval);
+            $('#txtAlcholDuration' + MemberIndex + index).val(HowLongval);
+        }
+
+        //Emptying the values
+        $("#txtAlcholQuantity"+MemberIndex).val('');
+        $("#txtAlcholDuration"+MemberIndex).val('');
+    }
+
+    function DeleteLifeStyleAlcholRow(DivID,MemberIndex,index)
+    {
+        
+        var _RowId = "Alcohol"+MemberIndex + index;
+        $('#' + _RowId).hide();
+        //$('#'+DivID).children('tbody').children('tr').children('td').remove()
+        $('#txtAlIsDeleted' +MemberIndex + index).val(true);
+        
+
+    }
+
+</script>
+
+@*OtherInsurence Details*@
+<script>
+
+  
+
+    
+
+    function showClaimFunction(DivID,MemberIndex) {
+
+        $("#DivHideShowClaimsInfo"+MemberIndex).show();
+    }
+    function hideClaimFunction(DivID,MemberIndex) {
+
+        $("#DivHideShowClaimsInfo"+MemberIndex).hide();
+    }
+
+    function AddLifeAssuredOtherInsurance(DivID,MemberIndex) {
+        var Index = GetGridIndex(DivID);
+
+        var CompanyName = 'txtCompanyName'+MemberIndex + Index;
+        var PolicyNo = 'txtPolicyNo'+MemberIndex + Index;
+        var SUMASSURED = 'txtDeathAmount'+MemberIndex + Index;
+        var ACCIDENTALDEATHBENEFIT = 'txtAccidentAmount'+MemberIndex + Index;
+        var TOTALPERMANENT  = 'txtCriticalAmount'+MemberIndex + Index;
+
+        var IsDeleted = 'txtAIAInsuranceWithOutIsDeleted'+MemberIndex + Index;
+        var Add = 'btnAddClaimInfo'+MemberIndex + Index;
+        var Remove = 'btnRemoveClaimInfo'+MemberIndex + Index;
+        var rowNumber = Index + 1;
+        var RowId = "Row_ClaimInfo"+ MemberIndex + Index;
+        //var z = parseInt(document.getElementById("o-policy"+MemberIndex).value);
+        //var total = 0;
+        //for (i = 0;i<=10; i++) {
+        //    var control = document.getElementById("o-policy"+i);
+        //    if(control != null)
+        //    {
+        //        var y = parseInt(document.getElementById("o-policy"+i).value);
+        //        if(y!=undefined && y !=null && y != "" )
+        //        {
+        //            if (isNaN(y) == true) { y = 0; }
+        //            total = total+y;
+        //        }
+        //    }
+        //}
+
+        if (isNaN(total) == true) { total = 0; }
+
+        var x =  total;
+        $('#' + DivID + ' tbody:last').empty();
+
+        if (x == '' || isNaN(x) == true) {
+            $("#head"+MemberIndex).hide();
+            $("#footer1"+MemberIndex).hide();
+        }
+        else {
+            $("#head"+MemberIndex).show();
+            $("#footer1"+MemberIndex).show();
+        }
+
+        //for (i = 0; i < x; i++) {
+
+            var newRowContent = '<tr>'
+                            + '<td><input type="text" class="form-control" name="objMemberDetails[' + MemberIndex + '].objLifeAssuredOtherInsurance[' + Index + '].CompanyName" id=\"' + CompanyName + '"/></td>'
+                             + '<td><input type="text" class="form-control"  name="objMemberDetails[' + MemberIndex + '].objLifeAssuredOtherInsurance[' + Index + '].PolicyNo" id=\"' + CompanyName + '"/></td>'
+                              + '<td><input type="text" maxlength="10" onkeypress="return isNumberKey(event)" id="txtDeathAmount' + MemberIndex +Index+'" class="form-control"  name="objMemberDetails[' + MemberIndex + '].objLifeAssuredOtherInsurance[' + Index + '].TotalSAAtDeath" onchange="getDeathValue(' + MemberIndex + ',this.value)" ></td>'
+                               + '<td><input type="text" maxlength="10" onkeypress="return isNumberKey(event)" id="txtAccidentAmount' + MemberIndex + Index + '" class="form-control"  name="objMemberDetails[' + MemberIndex + '].objLifeAssuredOtherInsurance[' + Index + '].AccidentalBenefitAmount" onchange="getAccidentalValue(' + MemberIndex + ',this.value)" ></td>'
+                                + '<td><input type="text" maxlength="10" onkeypress="return isNumberKey(event)" id="txtCriticalAmount' + MemberIndex + Index + '" class="form-control"  name="objMemberDetails[' + MemberIndex + '].objLifeAssuredOtherInsurance[' + Index + '].CriticalIllnessBenefit" onchange="getCriticalValue(' + MemberIndex + ',this.value)" ></td>'
+                                 +'<td style="display:none"><input value="" class="form-control" type="text" name="objMemberDetails['+MemberIndex+'].objLifeAssuredOtherInsurance['+Index+'].IsDeleted" id=\"' + IsDeleted + '" /></td>'
+                                 +'<td><input type="button" value="-" onkeypress="return isNumberKey(event)"  class="form-control"  name="objMemberDetails[' + MemberIndex + '].objLifeAssuredOtherInsurance[' + Index + '].CriticalIllnessBenefit" onclick="RemoveClaimInfo(\'' + RowId + '\',\'' + Index + '\')"  ></td>'
+                                  + '</tr>';
+
+            $('#' + DivID + ' tbody:last').append(newRowContent);
+        //}
+    }
+
+    function getValue(val) {
+        if (isNaN(val) == true) {
+            return 0;
+        }
+        else {
+            return val;
+        }
+    }
+
+    function getDeathValue(MemberIndex,value) {
+        var total = 0;
+        var a = getValue(parseInt($("#txtTotalDeathBenifit"+MemberIndex).val()));
+        var b = getValue(value);
+        var total = getValue(parseInt(a) + parseInt(b));
+        $("#txtTotalDeathBenifit"+MemberIndex).val(total);
+    }
+
+    function getAccidentalValue(MemberIndex, value) {
+        var a = getValue(parseInt($("#txtTotalAccidental"+MemberIndex).val()));
+        var b = getValue(value);
+        var total = getValue(parseInt(a) + parseInt(b));
+        $("#txtTotalAccidental"+MemberIndex).val(total);
+    }
+
+    function getCriticalValue(MemberIndex, value) {
+        var a = getValue(parseInt($("#txtTotalCritical"+MemberIndex).val()));
+        var b = getValue(value);
+        var total = getValue(parseInt(a) + parseInt(b));
+        $("#txtTotalCritical"+MemberIndex).val(total);
+    }
+
+</script>

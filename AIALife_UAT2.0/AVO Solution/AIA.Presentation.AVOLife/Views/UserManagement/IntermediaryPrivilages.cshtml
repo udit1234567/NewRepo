@@ -1,0 +1,53 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+@Styles.Render("~/Content/TreeView")
+@{
+    ViewBag.Title = "IntermediaryPrivilages";
+    if (Model.userDetails == null)
+    {
+        Model.userDetails = new AIA.Life.Models.UserManagement.UserDetails();   
+    }
+   //  Layout = "~/Views/Shared/_NewLayout.cshtml";@*---layout has to render from viewstart*@
+    //List<iNubeModels.UM.OfficeDetails> lst = new List<iNubeModels.UM.OfficeDetails>();
+    //lst.Add(new iNubeModels.UM.OfficeDetails { Office = "Office name", Channel = "channel name", SM = "sm name", Referral = "referral name" });
+}
+
+@*<script src="~/Scripts/Knockout/knockout-2.1.0.js"></script>
+<script src="~/Scripts/Knockout/ko_dataGrid.js"></script>*@
+
+<div id="PrevilagesPanels">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      
+        <div class="panel panel-default" id="pnlPaymentModes">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h5 class="panel-title text-left">
+                    <i class="icon-tag"></i>
+                    <a class="accordion-toggle" data-toggle="collapse" data-target="#collapseTwo">Product-Payment Modes <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body" id="PaymentModesPage">
+                    @(Html.Action("PaymentTree", "UserManagement", new {userId=Model.UserID }))
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-default" id="pnlMenus">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h5 class="panel-title text-left">
+                    <i class="fa fa-th"></i>
+                    <a class="accordion-toggle" data-toggle="collapse" data-target="#collapseThree">Menu <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body" id="">
+                    @Html.Action("MenuTree", "UserManagement", new {userId=Model.UserID })
+                </div>
+            </div>
+        </div>
+   
+    </div>
+</div>
+

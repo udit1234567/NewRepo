@@ -1,0 +1,72 @@
+﻿
+@model Grid.Mvc.Ajax.GridExtensions.AjaxGrid<AIA.Life.Models.Policy.InboxProposals>
+@using GridMvc.Html
+@{
+
+    Layout = null;
+
+}
+
+@Html.Grid(Model).Named("GridUWprocessedPoolDetails").Columns(columns =>
+{
+    //columns.Add(a => a.ProposalNo).Titled("ProposalNo").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(c => @Html.ActionLink(c.ProposalNo, "ModifyProposal", "Policy", new { PolicyID = c.PolicyId, userType = "UW" }, null));
+    columns.Add(a => a.ProposalNo).Titled("ProposalNo").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.QuoteNo).Titled("Quote No").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.InsuredName).Titled("Last Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+   columns.Add(a => a.PlanName).Titled("PlanName").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+  //  columns.Add(a => a.PolicyTerm).Titled("PolicyTerm").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.Premium).Titled("Premium").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    //columns.Add(a => a.IssueDate).Titled("IssueDate").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.Decision).Titled("Decision").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+
+}).WithPaging(5).WithMultipleFilters()
+
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+@Scripts.Render("~/bundles/GridMVC")
+<style>
+    .panel-default {
+        border-color: #eee !important;
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+
+    @@media screen and (min-width:320px) and (max-width:768px) {
+        .no-more-tables table, thead, tbody, th, td, tr {
+            float: none;
+        }
+    }
+</style>
+<script type="text/javascript">
+    var decision;
+    $(document).ready(function ()
+    {
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: true
+            });
+            decision = @Html.Raw(Json.Encode(ViewBag.decision))
+            pageGrids.GridUWprocessedPoolDetails.ajaxify({
+                getData: '../Policy/ProcessedPoolGridNextPage?decision=' + decision,
+                getPagedData: '../Policy/ProcessedPoolGridNextPage?decision=' + decision,
+            });
+        }
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

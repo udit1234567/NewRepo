@@ -1,0 +1,532 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int Index = Model.AssuredIndex;
+    int index = 0;
+    int QuestionCount = 0;
+    int QuestionIndex = 0;
+    //int PAQQuestionID = 0;
+    ViewBag.QuestionIndex1 = -1;
+    //ViewBag.PAQID = PAQQuestionID;
+    string PanleID = "DivAdditionalQA" + Index;
+    string PanleNavigatorheader = "#PanelAdditionalQA" + Index;
+    string PanleNavigator = "PanelAdditionalQA" + Index;
+
+}
+
+
+
+@helper CustomRowRenderingControl(List<AIA.Life.Models.Common.QuestionsList> lstAdditionalQuestions, int MemberIndex, int QuestionInd, int RowIndex, int SubRowIndex = 0, int SuperSubRowIndex = 0, string IsChild = null, string IsSubChild = null)
+{
+    <style>
+        .question-counts {
+            width: 5%;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 9px !important;
+        }
+
+        .question-text {
+            display: inline-block;
+            width: 90%;
+            vertical-align: top;
+                word-break: break-word;
+        }
+    </style>
+int QuestionIndex = QuestionInd;
+int PAQQUSID = RowIndex;
+foreach (var Questions in lstAdditionalQuestions)
+{
+    ViewBag.QuestionIndex1 = ViewBag.QuestionIndex1 + 1;
+    //int PAQID = ViewBag.PAQID + 1;
+    int i = ViewBag.QuestionIndex1;
+    string ParentId = Convert.ToString(MemberIndex) + Convert.ToString(QuestionIndex) + Convert.ToString(Questions.QuestionID);
+    string ChildID = ParentId + "C";
+
+    string Display = "none";
+    if (IsSubChild == "True")
+    {
+        SuperSubRowIndex++;
+    }
+    else if (IsChild == "True")
+    {
+        SubRowIndex++;
+    }
+    else
+    {
+        RowIndex++;
+    }
+
+
+
+    if (Questions.ControlType == "Radio")
+    {
+        string ClassName = string.Empty;
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "ChildAdditionalQuestion"; }
+        else { ClassName = "additional-questions"; }
+
+        <div class=@ClassName id=@ParentId>
+
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12 QuesBox-Space">
+                <p>
+                    @if (IsSubChild == "True")
+                    {
+                        <span class="question-counts">@RowIndex.@SubRowIndex.@SuperSubRowIndex </span>
+                    }
+                    else if (IsChild == "True")
+                    {
+                        <span class="question-counts">@RowIndex.@SubRowIndex </span>
+                    }
+                    else
+                    {
+                        <span class="question-counts">@RowIndex</span>
+                    }
+                    <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+
+                </p>
+
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].Answer", "true", Questions.Answer == "true" ? true : false, new { @class = "add-radio-button", id = "rdbtnAnswerTextYes" + MemberIndex + QuestionIndex, onchange = "HideShowChildsAdditionalRadio('" + ChildID + "','" + Questions.Value + "','" + "true" + "')" })
+                <label>@Resources.GetLabelName("Yes")</label>
+                @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].Answer", "false", Questions.Answer == "false" ? true : false, new { @class = "add-radio-button", id = "rdbtnAnswerTextNo" + MemberIndex + QuestionIndex, onchange = "HideShowChildsAdditionalRadio('" + ChildID + "','" + Questions.Value + "','" + "false" + "')" })
+                <label>@Resources.GetLabelName("No")</label>
+            </div>
+
+            <div>
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].QuestionID", @Questions.QuestionID, new { @Value = Questions.QuestionID })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+            </div>
+        </div>
+        if (Questions.LstQuestionsTypes != null)
+        {
+            if (Questions.LstQuestionsTypes.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(Questions.Answer))
+                {
+                    if (Questions.Answer == Questions.Value)
+                    { Display = "div"; }
+                }
+
+                <div class="additional-subquestion-txt" id=@ChildID style="display:@Display;">
+                    @*text-align:right">*@
+                    <div>
+
+
+                        <p>
+                            @if (IsChild == "True")
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, SubRowIndex, 0, "False", "True")
+                            }
+                            else
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, 0, 0, "True", "False")
+                            }
+                        </p>
+                    </div>
+                </div>
+                }
+            }
+        }
+        else if (Questions.ControlType == "TextBox")
+        {
+            string ClassName = string.Empty;
+        
+
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "ChildAdditionalQuestion"; }
+        else { ClassName = "additional-questions"; }
+        <div class=@ClassName id=@ParentId>
+
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+
+                <p>
+                    @if (IsSubChild == "True")
+                    {
+                        <span class="question-counts">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                    }
+                    else if (IsChild == "True")
+                    {
+                        if (Questions.QuestionID == 1234)
+                        {
+                            <span class="question-counts">@ViewBag.PQAQID.5.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                            <span class="question-counts">@RowIndex.@SubRowIndex</span>
+                        }
+                    }
+                    else if (Questions.QuestionID == 1195)
+                    {
+                    <span class="question-counts">@ViewBag.PQAQID.5</span>
+                    }
+
+                    else
+                    {
+                        <span class="question-counts">@RowIndex</span>
+                    }
+
+                    <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+
+                </p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space">
+                @Html.TextBox("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].Answer", Questions.Answer == null ? "" : Questions.Answer, new { @id = "txtTextBoxAnswer" + MemberIndex + i, @maxlength = "1000", @class = "form-control" })
+            </div>
+
+            <div>
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].QuestionID", @Questions.QuestionID, new { @Value = Questions.QuestionID })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+            </div>
+
+        </div>
+    }
+    else if (Questions.ControlType == "DropDown")
+    {
+        string ClassName = string.Empty;
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "ChildAdditionalQuestion"; }
+        else { ClassName = "additional-questions"; }
+        <div class=@ClassName id=@ParentId>
+
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+
+                <p>
+                    @if (IsSubChild == "True")
+                    {
+                        <span class="question-counts">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                    }
+                    else if (IsChild == "True")
+                    {
+                        <span class="question-counts">@RowIndex.@SubRowIndex</span>
+                    }
+                    else
+                    {
+                        <span class="question-counts">@RowIndex</span>
+                    }
+                    <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                </p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space">
+                @Html.DropDownList("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].Answer", new SelectList(Questions.LstDropDownvalues, "Value", "Value"), Questions.Answer == null ? "" : Questions.Answer, new { @id = "ddlAdditionalQuestionsDropDown" + MemberIndex + i, @class = "form-control", onchange = "HideShowChildsAdditionalDropdown('" + ChildID + "','" + Questions.QuestionText + "','" + MemberIndex + "','" + i + "')" })
+            </div>
+
+            <div>
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+            </div>
+
+        </div>
+        if (Questions.LstQuestionsTypes != null)
+        {
+            if (Questions.LstQuestionsTypes.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(Questions.Answer))
+                {
+                    if (Questions.Answer == Questions.Value)
+                    { Display = "div"; }
+                }
+                <div class="additional-subquestion-txt" id=@ChildID style="display:@Display;">
+                    @*text-align:right">*@
+                    <div>
+                        <p>
+                            @if (IsChild == "True")
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, SubRowIndex, 0, "False", "True")
+                            }
+                            else
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, 0, 0, "True", "False")
+                            }
+                        </p>
+                    </div>
+                </div>
+                }
+            }
+        }
+        else if (Questions.ControlType == "GridView")
+        {
+            string ClassName = string.Empty;
+            if (IsChild == "True" || IsSubChild == "True")
+            { ClassName = "ChildAdditionalQuestion"; }
+            else { ClassName = "additional-questions"; }
+            <div class=@ClassName id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                    <p>
+                        @if (IsSubChild == "True")
+                        {
+                            <span class="question-counts">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                            <span class="question-counts">@RowIndex.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                            <span class="question-counts">@RowIndex</span>
+                        }
+                        <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                    </p>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    @if (Questions.SubControlType == "_PartialAdditionalAviationGridView.cshtml")
+                    {
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divAdditionalAviationGridView">
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @*@if (Questions.SubControlType == "_PartialAdditionalAviationGridView.cshtml")
+                        {
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divPartialAdditionalAviationGridView">
+                                @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                            </div>
+                        }*@
+                    @if (Questions.SubControlType == "_PartialAdditionalPAQGridView1.cshtml")
+                    {
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divAdditionalPAQGridView1">
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @if (Questions.SubControlType == "_PartialAdditionalPAQGridView2.cshtml")
+                    {
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divAdditionalPAQGridView2">
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @if (Questions.SubControlType == "_PartialAdditionalPAQGridView3.cshtml")
+                    {
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divAdditionalPAQGridView3">
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @if (Questions.SubControlType == "_PartialAdditionalPAQGridView4.cshtml")
+                    {
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divAdditionalPAQGridView4">
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @*@if (Questions.SubControlType == "_PartialAdditionalAviationQuestionnairesGridView.cshtml")
+                        {
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+
+                        }*@
+                    @*GridView*@
+                </div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }
+
+    else if (Questions.ControlType == "Date")
+    {
+        string ClassName = string.Empty;
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "ChildAdditionalQuestion"; }
+        else { ClassName = "additional-questions"; }
+        <div class=@ClassName id=@ParentId>
+
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+
+                <p>
+                    @if (IsSubChild == "True")
+                    {
+                        <span class="question-counts">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                    }
+                    else if (IsChild == "True")
+                    {
+                        <span class="question-counts">@RowIndex.@SubRowIndex</span>
+                    }
+                    else
+                    {
+                        <span class="question-counts">@RowIndex</span>
+                    }
+                    <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+
+                </p>
+            </div>
+         
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space">
+                    @*@Html.TextBox("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].Answer", Questions.Answer == null ? "" : Questions.Answer, new { @maxlength = "10", @class = "form-control", @id = "txtAnswer" + MemberIndex, })*@
+                    @Html.iNubeDatePickerForGridViewNew("" + Questions.Answer, "objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].Answer", "", new { @class = "form-control datepicker", @id = "txtdateAnswer" + MemberIndex + i })
+                </div>
+          
+            <div>
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+            </div>
+
+        </div>
+    }
+
+    else if (Questions.ControlType == "CheckBox")
+    {
+        string ClassName = string.Empty;
+        int PADID = 0;
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "ChildAdditionalQuestion"; }
+        else { ClassName = "additional-questions"; }
+
+        <div class=@ClassName id=@ParentId>
+            <p>
+                @if (Questions.QuestionID == 1191)
+                {
+                    <span class="question-text" style="margin-left:15px"><span class="question-counts">@RowIndex</span>@Resources.GetLabelName("What is the reason for effecting this policy ?")</span>
+                    PADID = RowIndex;
+                    ViewBag.PQAQID = PADID;
+                }
+            </p>
+
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+
+                <p>
+
+                    @if (IsSubChild == "True")
+                    {
+                        <span class="question-counts">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                    }
+                    else if (IsChild == "True")
+                    {
+                        <span class="question-counts">@RowIndex.@SubRowIndex</span>
+                    }
+                    else if (Questions.QuestionID == 1191)
+                    {
+                        <span class="question-counts">@PADID.1</span>
+                    }
+                    else if (Questions.QuestionID == 1192)
+                    {
+                        <span class="question-counts">@ViewBag.PQAQID.2</span>
+                    }
+                    else if (Questions.QuestionID == 1193)
+                    {
+                        <span class="question-counts">@ViewBag.PQAQID.3</span>
+                    }
+                    else if (Questions.QuestionID == 1194)
+                    {
+                        <span class="question-counts">@ViewBag.PQAQID.4</span>
+                    }
+                    @*else if (Questions.QuestionID == 1195)
+                    {
+                        <span class="question-counts">@ViewBag.PQAQID.5</span>
+                    }*@
+                    else
+                    {
+                        <span class="question-counts">@RowIndex</span>
+                    }
+
+
+                    <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                </p>
+            </div>
+
+
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space">
+                @*@Html.CheckBox("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].Answer", "true", Questions.Answer == "true" ? true : false, new { @class = "add-radio-button", id = "rdchkAnswerTextYes" + MemberIndex + QuestionIndex,onchange = "CHKHideShowChildsAdditionalCheckbox('" + ChildID + "','" + Questions.QuestionText + "','" + MemberIndex + "','" + i + "','"+ Questions.Value + "')" })*@
+                @Html.CheckBox("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].Answer", Questions.Answer == "true" ? true : false, new { @id = "chkCheckBoxAnswer" + MemberIndex + i, @class = "chkadd-check-button", @onchange = "CHKHideShowChildsAdditionalCheckbox('" + ChildID + "','" + Questions.QuestionText + "','" + MemberIndex + "','" + i + "','" + Questions.Value + "')" })
+            </div>
+
+            <div>
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objAdditionalQuestions[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+            </div>
+
+
+        </div>
+
+        if (Questions.LstQuestionsTypes != null)
+        {
+            if (Questions.LstQuestionsTypes.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(Questions.Answer))
+                {
+                    if (Questions.Answer == Questions.Value)
+                    { Display = "div"; }
+                }
+
+                <div class="additional-subquestion-txt" id=@ChildID style="display:@Display;">
+                    @*text-align:right">*@
+                    <div>
+
+
+                        <p>
+                            @if (IsChild == "True")
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, SubRowIndex, 0, "False", "True")
+                            }
+                            else
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, 0, 0, "True", "False")
+                            }
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+    }
+    QuestionIndex++;
+
+}
+}
+
+<div>
+    @if (Model.objMemberDetails[Index].objAdditionalQuestions != null && Model.objMemberDetails[Index].objAdditionalQuestions.Count() > 0)
+    {
+        // Row Index
+        @CustomRowRenderingControl(Model.objMemberDetails[Index].objAdditionalQuestions.OrderBy(a => a.SequenceNo).ToList(), Index, QuestionIndex, index, 0, 0, "False", "False")
+        index = index + 1;
+        QuestionCount = QuestionCount + 1;
+    }
+</div>
+
+<script type="text/javascript">    
+
+    function HideShowChildsAdditionalRadio(ID, Value, ControlValue) {
+        if (Value == ControlValue) {
+            $('#' + ID).show();
+        }
+        else {
+            $('#' + ID).hide();
+        }
+    }
+
+    function CHKHideShowChildsAdditionalCheckbox(ID, Qtext, MemberIndex, QuestionIndex, Value) {
+        if (Qtext == "Others") {
+            var ControlValue;
+            if ($("#chkCheckBoxAnswer" + MemberIndex + QuestionIndex).is(':checked')) {
+                ControlValue = "true";
+                if (Value == ControlValue) {
+
+                    $('#' + ID).show();
+                }
+            }
+            else {
+                $('#' + ID).hide();
+            }
+        }
+        //else
+        //{
+        //    $('#' + ID).hide();
+        //}
+    }
+
+
+    function HideShowChildsAdditionalDropdown(ID, Qtext, MemberIndex, QuestionIndex, Value) {
+        debugger;
+        if (Qtext == "Type of diving :") {
+            if ($('#ddlAdditionalQuestionsDropDown' + MemberIndex + QuestionIndex).val() == "Other") {
+                $('#' + ID).show();
+            }
+            else {
+                $('#' + ID).hide();
+            }
+        }
+
+    }
+
+</script>

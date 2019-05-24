@@ -1,0 +1,101 @@
+﻿
+@using AIAResources;
+<script src="~/Scripts/Signature/jquery.signaturepad.min.js"></script>
+
+<div class="sigPad" id="smoothed" style="">
+
+    @*<ul class="sigNav">
+            <li class="drawIt"><a href="#draw-it">@Resources.GetLabelName("Draw It")</a></li>
+            <li class="clearButton"><a href="#clear">@Resources.GetLabelName("Clear")</a></li>
+        </ul>*@
+    <div class="sig sigWrapper" style="height:auto;">
+        <div class="typed"></div>@*border-style:dashed;border-color:lightgrey*@
+        <canvas class="pad" width="540" height="250" style="border: 1px solid #dbdad4;" id="SignatureID"></canvas>
+        <input type="hidden" name="Signature" class="output" id="SignatureValue">
+    </div>
+    <div class="modal-footer">
+
+        <a href="#clear" class="btn btn-secondary clearButton btn-clear" type="button" id="btnModalClear">Clear</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnModalSave">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnModalClose">Close</button>
+    </div>
+</div>
+<script src="~/Scripts/Signature/numeric-1.2.6.min.js"></script>
+<script src="~/Scripts/Signature/bezier.js"></script>
+<script src="~/Scripts/Signature/jquery.signaturepad.min.js"></script>
+<script src="~/Scripts/Signature/json2.min.js"></script>
+
+<script>
+    function CheckBoxCheck() {
+        writeMultipleMessage("error", "", 'SignatureValue');
+        clearAllErrors();
+        debugger
+        if ($("#chkconsent").prop("checked") == false) {
+            writeMultipleMessage("error", "Please select consent for product selection", 'chkconsent');
+
+            return false;
+        }
+        if ($("#chkconfirm").prop("checked") == false) {
+            writeMultipleMessage("error", "Please select consent for need identification", 'chkconfirm');
+
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'HdnSelectedProducts');
+            return true;
+        }
+    }
+    $(document).ready(function () {
+        $('#smoothed').signaturePad({
+            drawOnly: true,
+            drawBezierCurves: true,
+            lineTop: 200
+        });
+    });
+
+    $(document).ready(function () {
+        if ($(window).width() < 370) {
+            $(".pad").attr('width', '240');
+        }
+        else if ($(window).width() < 480) {
+            $(".pad").attr('width', '320');
+        }
+        else if ($(window).width() < 768) {
+            $(".pad").attr('width', '420');
+        }
+        else {
+            $(".pad").attr('width', '540');
+        }
+        $('#DigitalSign').click(function () {
+            if (!CheckBoxCheck()) {
+
+                return false;
+            }
+            $(document).load($(window).bind("resize", checkPadsize));
+
+
+        })
+    })
+    //$(document).load($(window).bind("resize", checkPosition));
+
+    function checkPadsize() {
+        if ($(window).width() < 370) {
+            $(".pad").attr('width', '240');
+        }
+        else if ($(window).width() < 480) {
+            $("#SignatureID").attr('width', '320');
+        }
+        else if ($(window).width() < 768) {
+            $("#SignatureID").attr('width', '420');
+        }
+        else {
+            $("#SignatureID").attr('width', '540');
+        }
+    }
+    function getDetails() {
+        var canvasid = document.getElementById("SignatureID");
+        var output = $('.output').val();
+        return { Signature: output }
+    }
+
+</script>

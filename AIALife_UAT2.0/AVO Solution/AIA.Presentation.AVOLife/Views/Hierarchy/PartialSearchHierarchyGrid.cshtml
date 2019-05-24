@@ -1,0 +1,88 @@
+﻿@model Grid.Mvc.Ajax.GridExtensions.AjaxGrid<AIA.Life.Models.Hierarchy.SearchHierarchy>
+@using GridMvc.Html
+@using AIAResources;
+@{
+
+    Model.AjaxGridSettings.PagePartitionSize = 15;
+    var SearchDetails = @ViewBag.Details;
+}
+@Html.Grid(Model).Named("GridSearchHierarchyCDetails").Columns(columns =>
+{
+    //columns.Add(a => a.SearchID).Titled("").Encoded(false).Sanitized(false).SetWidth("3%").RenderValueAs(a => Html.RadioButton("SearchID" + a.SearchID, a.SearchID, new { @id = "rdnSearchHierarchy" + a.SearchID, @class = "form-control numeric", Style = "height:14px;width:14px" }));
+    columns.Add(a => a.SearchID).Titled("").Encoded(false).Sanitized(false).SetWidth("3%").RenderValueAs(a => Html.RadioButton(a.SearchID.ToString(), "Hierarchy", new { @id = a.Code, @class = "form-control numeric", @onclick= "GetSearchCode(this.id)", Style = "height:14px;width:14px", SearchID = a.SearchID, SearchCode = a.Code }));
+    columns.Add(a => a.OfficeID,true).Titled("").Encoded(false).Sanitized(false).SetWidth("0%").Filterable(true);
+    columns.Add(a => a.Code).Titled("Code").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+    columns.Add(a => a.Name).Titled("Name").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+    columns.Add(a => a.EntityType).Titled("Entity Type").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+    columns.Add(a => a.ParentType).Titled("Reporting To").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+    columns.Add(a => a.Channel).Titled("Channel").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+    columns.Add(a => a.SubChannel).Titled("SubChannel").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+    columns.Add(a => a.Partner).Titled("Partner").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+    columns.Add(a => a.LastModifiedDate).Titled("Last Modified").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+    columns.Add(a => a.Status).Titled("Status").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+    columns.Add(a => a.User).Titled("User").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+}).WithPaging(5).WithMultipleFilters()
+
+<style type="text/css">
+    .table th {
+        /*background-color: #fbd99d;*/
+        color: white !important;
+        text-align: center;
+    }
+    table.grid-table tr.grid-row-selected td {
+        background: white !important;
+        color: black !important;
+    }
+</style>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<script src="~/Scripts/gridmvc.js"></script>
+<script src="~/Scripts/gridmvc-ext.js"></script>
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+<script src="~/Scripts/gridmvc.lang.fr.js"></script>
+<script src="~/Scripts/gridmvc.lang.ru.js"></script>
+<script src="~/Scripts/gridmvc.customwidgets.js"></script>
+<script src="~/Scripts/ladda-bootstrap/ladda.min.js"></script>
+<script src="~/Scripts/ladda-bootstrap/spin.min.js"></script>
+<script src="~/Scripts/URI.js"></script>
+
+<script type="text/javascript">
+    var Code;
+    var Name;
+    var Status;
+    var EntityType;
+
+    $(document).ready(function () {
+       //$(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: false
+            });
+            Code = @Html.Raw(Json.Encode(SearchDetails.SearchCode))
+            Name = @Html.Raw(Json.Encode(SearchDetails.SearchName))
+            Status = @Html.Raw(Json.Encode(SearchDetails.SearchStatus))
+            EntityType = @Html.Raw(Json.Encode(SearchDetails.SearchEntityType))
+            pageGrids.GridSearchHierarchyCDetails.ajaxify({
+                getData: '../Hierarchy/LoadNxtSearchDetailsPage?Code=' + Code + '&Name=' + Name + '&Status=' + Status + '&EntityType=' + EntityType,
+                getPagedData: '../Hierarchy/LoadNxtSearchDetailsPage?Code=' + Code + '&Name=' + Name + '&Status=' + Status + '&EntityType=' + EntityType
+            });
+        }
+
+
+    });
+    function GetSearchCode(id) {
+        $("#hdnSearchCodeGrid").val(id);
+    }
+    
+</script>
+
+
+
+
+
+
+
+
+
+
+

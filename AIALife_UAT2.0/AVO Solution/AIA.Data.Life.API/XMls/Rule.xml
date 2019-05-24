@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rule>
+  <RuleData ParameterName="Prod_Type" ParameterValue="" />
+  <RuleData ParameterName="Prod_Cls" ParameterValue="" />
+  <RuleData ParameterName="SA" ParameterValue="2000000" />
+  <RuleData ParameterName="Prem" ParameterValue="50000" />
+  <RuleData ParameterName="Occ_Cls" ParameterValue="CLS1" />
+  <RuleData ParameterName="Smoker" ParameterValue="N" />
+  <RuleData ParameterName="Gender" ParameterValue="F" />
+  <RuleData ParameterName="Health" ParameterValue="" />
+  <RuleData ParameterName="Age" ParameterValue="45" />
+  <RuleData ParameterName="Pol_Term" ParameterValue="7" />
+  <RuleData ParameterName="BMI" ParameterValue="20" />
+  <RuleData ParameterName="Fam_Hist" ParameterValue="N" />
+  <RuleData ParameterName="SAR" ParameterValue="20000000" />
+</Rule>

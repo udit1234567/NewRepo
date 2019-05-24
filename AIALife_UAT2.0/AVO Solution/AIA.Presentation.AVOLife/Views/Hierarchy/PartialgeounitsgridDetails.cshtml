@@ -1,0 +1,220 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using GridMvc.Html
+@{
+
+}
+@Html.HiddenFor(a=>a.GeoUnitData, new { id= "hdnGeoUnitData" })
+@Html.HiddenFor(a => a.GeoUnitNameGridCount, new { @id = "hdnGeoUnitNameGridCount" })
+@Html.HiddenFor(a => a.ParentEntityGridCount, new { @id = "hdnParentEntityGridCount" })
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse23" href="#collapseTwentyThree" id="pnlGeoUnitDetails" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                Geo Unit Details
+            </a>
+        </h4>
+    </div>
+    <div id="collapse23" class="panel-collapse in">
+        <div class="panel-body">
+            <div id="divGridHierarchyGEOUnits">
+                @Html.Grid(Model.ObjGEOUnitDetails).Named("GridHierarchyGEOUnits").Columns(columns =>
+{
+columns.Add(a => a.Geounitname).Titled("Geo Unit Name<span class='mandatory'>*</span>").Encoded(false).Sanitized(false).RenderValueAs(a => @Html.TextBox("Geounitname" + a.Geounitname, a.Geounitname, new { @class = "form-control clsGeoUnitName", @onchange = "ValidateParentEntities()", @id = "txtGEOUnitName" + a.GeounitID }));
+columns.Add(a => a.Parententity).Titled("Parent Entity<span class='mandatory'>*</span>").Encoded(false).Sanitized(false).RenderValueAs(a => @Html.DropDownList(a.Parententity, new SelectList(Model.LstGEOParententity, "ID", "Value", a.Parententity), new { @class = "form-control clsParentEntity", @name = "ddlParentEntity", @id = "ddlParentEntity" + a.GeounitID }));
+columns.Add().Titled("").Encoded(false).Sanitized(false).Css("text-center").SetWidth("10%").RenderValueAs(@<text>
+                    <input type="button" id="btnGEOUnitsdeleteRow" value="-" style="padding:8px;" class="btn btn-default clsbtnGeoUnitDelete" onclick="DeleteGeoUnitGridRow(this)" /></text>);
+}).WithPaging(9).WithMultipleFilters().EmptyText("")
+            </div>
+            <div>
+                <input type="button" id="btnHierarchyGeo" class="btn btn-default" style="width:100px" value="Add" onclick="ShowGeounitGriddetails()" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <br />
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <input type="button" value="Save" id="btnSaveGEOUnitDetails" class="btn btn-default" style="width:100px" onclick="SaveGeoUnitDetails()">
+            <input type="button" value="Submit" id="btnSubmitGEOUnitDetails" class="btn btn-default" style="width:100px;display:none" onclick="SubmitHierarchyDetails()">
+            <input type="button" value="Cancel" id="btnCancelGEOUnitDetails" class="btn btn-default" style="width:100px" onclick="return location.href = '../Home/Index'">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $(".grid-mvc").gridmvc().pageGrids;
+                    if ('@TempData["Load"]' == "FirstTime") {
+                        $.ajaxSetup({
+                            cache: false
+                        });
+                        pageGrids.GridHierarchyGEOUnits.ajaxify({
+
+                        });
+                    }
+                    if(@Model.ObjGEOUnitDetails.Count == 0 )
+                    {
+                        ShowGeounitGriddetails();
+                    }                  
+
+                    });
+                    var Index = 0;
+                    var count = 0;
+                    var Length = 0;
+                    function ShowGeounitGriddetails(){                                                
+                        if (Length == 0) {
+                            $("#divGridHierarchyGEOUnits tbody").find("tr").each(function (index) {
+                                $(this).remove();
+                            });
+                        }
+                        if(count==10){
+                            BootstrapDialog.alert("You Should Not Allow More than 10 Nominees.")
+                        }
+                        else{
+                            Index++;
+                            count++;
+                            Length++;
+                            var lstQualification = @(Html.Raw(Json.Encode(Model.LstGEOParententity)));
+                            $('#divGridHierarchyGEOUnits table tbody:last').append("<tr class='grid-row'>" +
+                                "<td class='grid-cell text-center' data-name='Geounitname' >" + "<input name='txtGEOUnitName' type='text' onchange='ValidateParentEntities()' id='txtGEOUnitName" + Index + "' class='form-control clsGeoUnitName'>" +
+                                "<td class='grid-cell text-center' data-name='Parententity' >" + "<select name='ddlParentEntity' id='ddlParentEntity" + Index + "' class='form-control clsParentEntity'> <option>Select</option></select>" +
+                                         "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default clsbtnGeoUnitDelete' id='btnGEOUnitsdeleteRow" + Index + "' style='margin-top: 3px; padding: 8px;' type='button' value='-' onclick='DeleteGeoUnitGridRow(this)'/></td>" +
+                                                           "</tr>")                            
+                            var Qualification = "";
+                            $.each(lstQualification, function (ID, option) {
+                                Qualification += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+                            });
+                            $("#ddlParentEntity" + Index).append(Qualification); 
+                            
+                            var EntityTyp = $("#ddlHierarchyEntityType").val();
+                            var EntityValue = $("#ddlHierarchyEntityType option:selected").text();
+                            var SubChannelCode = "";
+                            var PartnerCode = "";
+                            if (EntityTyp != '' && EntityTyp != undefined) {
+                                if (EntityTyp == "1255" || EntityValue == "Sub Channel") {
+                                    //var SubChannelCode = $("#txtHirerachyCode").val();
+                                    var SubChannelCode = $("#hdnSubChannelCode").val();
+                                }
+                                if (EntityTyp == "1256" || EntityValue == "Partner") {
+                                    //var PartnerCode = $("#txtHirerachyCode").val();
+                                    var PartnerCode = $("#hdnPartnerCode").val();
+                                }
+                            }
+                            if (SubChannelCode != '' && SubChannelCode != undefined) {
+                                LoadGeoSubChannelParentEntity(SubChannelCode);
+                            }
+                            if (PartnerCode != '' && PartnerCode != undefined) {
+                                LoadGeoPartnerParentEntity(PartnerCode);
+                            }
+                        }
+
+                    }
+                function DeleteGeoUnitGridRow(e) {
+                    var DependentGridCount = '@Model.ObjGEOUnitDetails.Count';
+                    $(e).closest("tr").remove();
+                    DependentGridCount--;
+                }
+   
+    function LoadGeoSubChannelParentEntity(SubChannelCode) {        
+        var ddlParentEntityCount = count;        
+        if (SubChannelCode != '' && SubChannelCode != undefined) {
+            $.post("../Hierarchy/LoadGeoSubChannelParentEntity?SubChannelCode=" + SubChannelCode)
+                .done(function (data) {
+                    $('#ddlParentEntity' + ddlParentEntityCount).html(""); // clear before appending new list
+                    $('#ddlParentEntity' + ddlParentEntityCount).append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#ddlParentEntity' + ddlParentEntityCount).append($('<option value=\'' + option.ID + '\'>' + option.Value + '</option>'));
+                    });
+                });           
+        }
+    }
+    function LoadGeoPartnerParentEntity(PartnerCode) {  
+        var ddlParentEntityCount = count;    
+        if (PartnerCode != '' && PartnerCode != undefined) {
+            $.post("../Hierarchy/LoadGeoPartnerParentEntity?PartnerCode=" + PartnerCode)
+                .done(function (data) {
+                    $('#ddlParentEntity'  + ddlParentEntityCount).html(""); // clear before appending new list
+                    $('#ddlParentEntity'  + ddlParentEntityCount).append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#ddlParentEntity'  + ddlParentEntityCount).append($('<option value=\'' + option.ID + '\'>' + option.Value + '</option>'));
+                    });
+                });
+        }
+    }
+                var GeoID = 0;
+                function ValidateParentEntities()
+                {                    
+                    GeoID++;
+                    var data = $("#txtGEOUnitName" + GeoID).val();
+                    var tempID = GeoID;
+                    if (GeoID != 1) {
+                        for (GeoID; GeoID > 1; GeoID--) {
+                            var data1 = $("#txtGEOUnitName" + (GeoID - 1)).val()
+                            $('#ddlParentEntity' + (tempID)).append($('<option></option>').val("").html(data1));
+                        }
+
+                        //$('#ddlParentEntity' + (tempID)).append($('<option></option>').val("").html(data));
+                    }
+                    GeoID = tempID;
+                    //if (data == "Zone") {
+                    //    $("#ddlParentEntity" + Indexs).html("");
+                    //    $('#ddlParentEntity' + Indexs).append($('<option></option>').val("").html("Select"));
+                    //    $('#ddlParentEntity' + Indexs).append($('<option></option>').val("").html("Sub Channel 1"));
+                    //}
+                    //else if (data == "Region")
+                    //{
+                    //    $("#ddlParentEntity" + Indexs).html("");
+                    //    $('#ddlParentEntity' + Indexs).append($('<option></option>').val("").html("Select"));
+                    //    $('#ddlParentEntity' + Indexs).append($('<option></option>').val("").html("Sub Channel 1"));
+                    //    $('#ddlParentEntity' + Indexs).append($('<option></option>').val("").html("Zone"));
+                    //}
+                    //else if (data == "Branch") {
+                    //    $("#ddlParentEntity" + Indexs).html("");
+                    //    $('#ddlParentEntity' + Indexs).append($('<option></option>').val("").html("Select"));
+                    //    $('#ddlParentEntity' + Indexs).append($('<option></option>').val("").html("Sub Channel 1"));
+                    //    $('#ddlParentEntity' + Indexs).append($('<option></option>').val("").html("Zone"));
+                    //    $('#ddlParentEntity' + Indexs).append($('<option></option>').val("").html("Region"));
+                    //}
+                }
+                function getGeoUnitData(Grid) {
+                    var GeoUnitname;
+                    var ParentEntity;
+                    var id = 0;
+                    $("#divGridHierarchyGEOUnits tbody").find("tr").each(function () {
+                        id++;
+                        GeoUnitname = $(this).find("[data-name=Geounitname]").find("input[type=text]").val();
+                        ParentEntity = $(this).find("[data-name=Parententity]").find("option:selected").text();
+                        if (GeoUnitname == '' || GeoUnitname == null || GeoUnitname == undefined) {
+                            writeMultipleMessage("error", "Please Enter Geo Unit Name.", "txtGEOUnitName" + id);
+                            $("#hdnGeoUnitNameGridCount").val("1");
+                        }
+                        else{
+                            writeMultipleMessage("error", "", "txtGEOUnitName" + id);
+                            $("#hdnGeoUnitNameGridCount").val("0");
+                        }
+                        if (ParentEntity == 'Select' || ParentEntity == null || ParentEntity == undefined) {
+                            writeMultipleMessage("error", "Please Select Parent Entity.", "ddlParentEntity" + id);
+                            $("#hdnParentEntityGridCount").val("1");
+                        }
+                        else{
+                            writeMultipleMessage("error", "", "ddlParentEntity" + id);
+                            $("#hdnParentEntityGridCount").val("0");
+                        }
+                        if (GeoUnitname != '' && ParentEntity != '') {
+                            Grid.push({
+                                Geounitname: GeoUnitname, Parententity: ParentEntity, GeounitID: id
+                            })
+                        }
+                        return true;
+                    });
+                    $("#hdnGeoUnitData").val(JSON.stringify(Grid))
+                }
+</script>

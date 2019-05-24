@@ -1,0 +1,109 @@
+﻿@model AIA.Life.Models.UserManagement.ImdcodeCreationModel
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+@{
+    
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#txtSearchClientcode').val($('#txtclientcode').val());
+    });
+    
+    function SearchClient() {
+        
+    $.post("../../UserManagement/SearchClientCodeView", {
+        Clientcode: $("#txtSearchClientcode").val(), ClientFirstName: $("#txtClientFirstName").val(),
+            ClientLastName: $("#txtClientLastName").val(), ClientPAN: $("#txtClientPan").val(), ClientCorporateName: $("#txtClientCorpName").val()
+        })
+        .done(function (data) {
+
+                     $("#divClientSearchDetail").html(data);
+             }).
+             fail(function () {
+                     $("#divClientSearchDetail").html("Failed to fetch data");
+             });
+    }
+
+
+   
+    function GridSelect() {  
+        //ClientID = SearchClientId
+        $.post("../../UserManagement/PartialClientView", {
+            Clientcode: SearchClientId
+                })
+           .done(function (data) {
+               $("#divClientDetailsId").empty();
+               $("#divClientDetailsId").html(data);
+               EnableDisableAllControls("divClientType", false);
+               $("#ddlsalutation").prop("disabled", true);
+               $("#txtFirstName").prop("disabled", true);
+               $("#txtLastName").prop("disabled", true);
+               $("#ddlgender").prop("disabled", true);
+           }).
+                fail(function () {
+                    //$("#divClientDetailsId").html("Failed to fetch data");
+                });          
+    }
+</script>
+
+  
+    
+@using (Html.BeginForm("", "", FormMethod.Post, new { @id = "ClientSearchId" }))
+{
+                <div class="col-lg-12 col-sm-12 form-group">
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label  text-right">Client Code</label>
+                     <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.Clientcode, new { @class = "form-control", @id = "txtSearchClientcode" }))
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label text-right">First Name</label>
+                    <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.ClientFirstName, new { @class = "form-control", @id = "txtClientFirstName" }))
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label  text-right">LastName</label>
+                    <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.ClientLastName, new { @class = "form-control", @id = "txtClientLastName" }))
+                    </div>
+                </div>
+            </div>
+                 <div class="col-lg-12 col-sm-12 form-group">
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label  text-right">PAN</label>
+                     <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.ClientPAN, new { @class = "form-control", @id = "txtClientPan" }))
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label text-right">Corporate Name</label>
+                    <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.ClientCorporateName, new { @class = "form-control", @id = "txtClientCorpName" }))
+                    </div>
+                </div>
+                
+            </div>
+               <div class="col-sm-12 form-group">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+                <div class="col-sm-3 col-sm-push-1">
+                  <input type="button" name="Search" value="Search" onclick="SearchClient()" class="btn btn-default" />
+                </div>
+                <div class="col-sm-4 "></div>
+            </div>    
+    <div class="col-lg-12 form-group" id="divClientSearchDetail">
+           
+                     
+                </div>
+    <div class="col-sm-12 form-group">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+                <div class="col-sm-3 col-sm-push-1">
+                    <input type="button" class="btn btn-default" value="OK" id="btnsearchId" data-dismiss="modal" onclick ="GridSelect()"/>
+                   
+                </div>
+                <div class="col-sm-4 "></div>
+            </div>
+}

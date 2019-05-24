@@ -1,0 +1,2492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Rectangle Name="Rectangle2">
+        <ReportItems>
+          <Textbox Name="Textbox14">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>    AIA INSURANCE PLC</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox14</rd:DefaultName>
+            <Top>0.10583cm</Top>
+            <Left>3.33058cm</Left>
+            <Height>0.6cm</Height>
+            <Width>13.45375cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox15">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>(Company No.PB 307/PQ)</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox14</rd:DefaultName>
+            <Top>0.77639cm</Top>
+            <Left>3.33058cm</Left>
+            <Height>0.49417cm</Height>
+            <Width>13.45375cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox16">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>675, Dr.Danister De Silva Mawatha, Colombo 09,SriLanka,P.O.Box 2202</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox14</rd:DefaultName>
+            <Top>1.34111cm</Top>
+            <Left>3.33058cm</Left>
+            <Height>0.49417cm</Height>
+            <Width>13.45375cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox17">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Tel: 2303303, Fax:2309799,7309398</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox14</rd:DefaultName>
+            <Top>1.90583cm</Top>
+            <Left>3.33058cm</Left>
+            <Height>0.46771cm</Height>
+            <Width>13.45375cm</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox18">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>E-mail: insurance@AIA.com</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox14</rd:DefaultName>
+            <Top>2.4441cm</Top>
+            <Left>3.33058cm</Left>
+            <Height>0.52063cm</Height>
+            <Width>13.45375cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Image2">
+            <Source>Embedded</Source>
+            <Value>logo</Value>
+            <Sizing>FitProportional</Sizing>
+            <Top>0.63528cm</Top>
+            <Left>0.52221cm</Left>
+            <Height>1.73826cm</Height>
+            <Width>1.28833cm</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>0.21167cm</Top>
+        <Left>0.26458cm</Left>
+        <Height>3.02916cm</Height>
+        <Width>19.64972cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Rectangle>
+      <Textbox Name="Textbox6">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Date :</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>3.62162cm</Top>
+        <Left>0.26458cm</Left>
+        <Height>0.49417cm</Height>
+        <Width>1.12417cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox7">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Dear</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>4.29217cm</Top>
+        <Left>0.26458cm</Left>
+        <Height>0.52063cm</Height>
+        <Width>1.12417cm</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox8">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Salutation</Value>
+                <Style>
+                  <FontFamily>times New Roman</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Top>4.29217cm</Top>
+        <Left>1.56514cm</Left>
+        <Height>0.52063cm</Height>
+        <Width>1.62688cm</Width>
+        <ZIndex>3</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox9">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>FirstName</Value>
+                <Style>
+                  <FontFamily>times New Roman</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Top>4.29217cm</Top>
+        <Left>3.6018cm</Left>
+        <Height>0.52063cm</Height>
+        <Width>2.5cm</Width>
+        <ZIndex>4</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox10">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>SurName</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Top>4.29217cm</Top>
+        <Left>6.20763cm</Left>
+        <Height>0.52063cm</Height>
+        <Width>1.67979cm</Width>
+        <ZIndex>5</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox11">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>.</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Top>4.29217cm</Top>
+        <Left>3.28021cm</Left>
+        <Height>0.52063cm</Height>
+        <Width>0.25104cm</Width>
+        <ZIndex>6</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox12">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>,</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Top>4.29217cm</Top>
+        <Left>7.95798cm</Left>
+        <Height>0.52063cm</Height>
+        <Width>0.25104cm</Width>
+        <ZIndex>7</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox13">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value />
+                <Style>
+                  <FontFamily>times New Roman</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Top>3.62162cm</Top>
+        <Left>1.56514cm</Left>
+        <Height>0.49417cm</Height>
+        <Width>3.42604cm</Width>
+        <ZIndex>8</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox19">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Medical Requirements for Life Insurance Proposal No :</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox19</rd:DefaultName>
+        <Top>4.98919cm</Top>
+        <Left>0.26458cm</Left>
+        <Height>0.52063cm</Height>
+        <Width>8.54888cm</Width>
+        <ZIndex>9</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox20">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value />
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Top>4.98919cm</Top>
+        <Left>9.1968cm</Left>
+        <Height>0.52063cm</Height>
+        <Width>3.42604cm</Width>
+        <ZIndex>10</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox21">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Please be kind enough to follow the instructions given below before proceeding for the medical tests referred overleaf.</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox21</rd:DefaultName>
+        <Top>5.58038cm</Top>
+        <Left>0.26458cm</Left>
+        <Height>0.54708cm</Height>
+        <Width>19.64972cm</Width>
+        <ZIndex>11</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Rectangle Name="Rectangle3">
+        <ReportItems>
+          <Textbox Name="Textbox24">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>1)</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox24</rd:DefaultName>
+            <Top>0.27228cm</Top>
+            <Left>0.40976cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>0.43942cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox25">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Please produce these documents at the</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox25</rd:DefaultName>
+            <Top>0.27228cm</Top>
+            <Left>1.02557cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>5.73769cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox26">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>.............................................................................</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox25</rd:DefaultName>
+            <Top>0.27229cm</Top>
+            <Left>6.86909cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>6.93589cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox27">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>laboratory/hospital.</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox25</rd:DefaultName>
+            <Top>0.27228cm</Top>
+            <Left>13.9461cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>2.90665cm</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox28">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>2)</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox24</rd:DefaultName>
+            <Top>0.99576cm</Top>
+            <Left>0.40975cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>0.43942cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox29">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Kindly note that you should refrain from doing strenuous exercises, lack of sleeping last night, taking alcohol and smoking cigarettes before doing the medicals.</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox25</rd:DefaultName>
+            <Top>0.99576cm</Top>
+            <Left>1.02557cm</Left>
+            <Height>0.99687cm</Height>
+            <Width>18.33186cm</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox30">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>3)</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox24</rd:DefaultName>
+            <Top>2.14063cm</Top>
+            <Left>0.40976cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>0.43942cm</Width>
+            <ZIndex>6</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox31">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Please follow below instructions before you go for the following medical tests;</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox25</rd:DefaultName>
+            <Top>2.16902cm</Top>
+            <Left>1.02557cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>18.33186cm</Width>
+            <ZIndex>7</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="Rectangle4">
+            <ReportItems>
+              <Textbox Name="Textbox32">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Lab Test</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>0.07056cm</Top>
+                <Left>2.31166cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>2.5cm</Width>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox33">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>What You Should Do</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>0.07056cm</Top>
+                <Left>10.4824cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>4.06104cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line1">
+                <Top>0.63528cm</Top>
+                <Left>0.00001cm</Left>
+                <Height>0cm</Height>
+                <Width>18.33186cm</Width>
+                <ZIndex>2</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="Textbox34">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>1.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>0.67056cm</Top>
+                <Left>0.27499cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>3</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox35">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>FBST (Fasting Blood Sugar Test)</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>0.67056cm</Top>
+                <Left>0.78497cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>5.51625cm</Width>
+                <ZIndex>4</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox36">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Keep fasting for 10-12 hours after a complete meal</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>0.67056cm</Top>
+                <Left>7.08515cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>10.9415cm</Width>
+                <ZIndex>5</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line2">
+                <Top>1.23528cm</Top>
+                <Left>0.00001cm</Left>
+                <Height>0cm</Height>
+                <Width>18.33186cm</Width>
+                <ZIndex>6</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="Textbox37">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>2.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>1.30584cm</Top>
+                <Left>0.27499cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>7</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox38">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Lipid Profile</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>1.30584cm</Top>
+                <Left>0.78497cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>5.51625cm</Width>
+                <ZIndex>8</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox39">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Keep fasting for 12-14 hours after a complete meal</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>1.30584cm</Top>
+                <Left>7.08515cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>10.9415cm</Width>
+                <ZIndex>9</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox40">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>3.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>1.94112cm</Top>
+                <Left>0.27499cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>10</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox41">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>PPBS (Post Prandial Blood Sugar)</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>1.94112cm</Top>
+                <Left>0.78497cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>5.51625cm</Width>
+                <ZIndex>11</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox42">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>2 hours after a complete meal</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>1.94112cm</Top>
+                <Left>7.08515cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>10.9415cm</Width>
+                <ZIndex>12</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line3">
+                <Top>1.87056cm</Top>
+                <Left>0.00001cm</Left>
+                <Height>0cm</Height>
+                <Width>18.33186cm</Width>
+                <ZIndex>13</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Line Name="Line4">
+                <Top>2.50584cm</Top>
+                <Left>0.00001cm</Left>
+                <Height>0cm</Height>
+                <Width>18.33186cm</Width>
+                <ZIndex>14</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="Textbox43">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>4.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>2.55514cm</Top>
+                <Left>0.27499cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>15</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox44">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Ultrasound Scan of Abdomen/Pelvis</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>2.55514cm</Top>
+                <Left>0.78497cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>5.51625cm</Width>
+                <ZIndex>16</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox45">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Keep fasting for 4-5 hours and drink plenty of water before the scan</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>2.55514cm</Top>
+                <Left>7.08515cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>10.9415cm</Width>
+                <ZIndex>17</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line6">
+                <Top>3.15514cm</Top>
+                <Left>0.00001cm</Left>
+                <Height>0cm</Height>
+                <Width>18.33186cm</Width>
+                <ZIndex>18</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="Textbox46">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>5.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>3.2257cm</Top>
+                <Left>0.275cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>19</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox47">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Stress ECG (Exercise ECG/Tread Mill Test)</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>3.2257cm</Top>
+                <Left>0.78498cm</Left>
+                <Height>0.94396cm</Height>
+                <Width>5.51625cm</Width>
+                <ZIndex>20</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox48">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Please consult a Cardiologist and you may have to do an Echocardiogram if the consultant so requests before carrying out the test.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>3.2257cm</Top>
+                <Left>7.08515cm</Left>
+                <Height>0.94396cm</Height>
+                <Width>10.94151cm</Width>
+                <ZIndex>21</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line8">
+                <Top>4.24022cm</Top>
+                <Left>0.00001cm</Left>
+                <Height>0cm</Height>
+                <Width>18.33186cm</Width>
+                <ZIndex>22</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="Textbox49">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>6.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>4.31077cm</Top>
+                <Left>0.27499cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>23</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox50">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Blood Picture</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>4.31077cm</Top>
+                <Left>0.78497cm</Left>
+                <Height>0.94396cm</Height>
+                <Width>5.51625cm</Width>
+                <ZIndex>24</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox51">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Please produce the Full Blood Count (FBC) along with any other blood reports available with you.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Normal</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>4.31077cm</Top>
+                <Left>7.08515cm</Left>
+                <Height>0.94396cm</Height>
+                <Width>10.9415cm</Width>
+                <ZIndex>25</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line10">
+                <Left>6.90876cm</Left>
+                <Height>5.33104cm</Height>
+                <Width>0cm</Width>
+                <ZIndex>26</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>2.79354cm</Top>
+            <Left>1.02556cm</Left>
+            <Height>5.33104cm</Height>
+            <Width>18.33187cm</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Textbox Name="Textbox52">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>4)</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox24</rd:DefaultName>
+            <Top>8.26569cm</Top>
+            <Left>0.40975cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>0.43942cm</Width>
+            <ZIndex>9</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox53">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Please note that you are entitled to reimburse the expenses incurred by you for the medical tests as follows.</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox25</rd:DefaultName>
+            <Top>8.26569cm</Top>
+            <Left>1.02557cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>18.33186cm</Width>
+            <ZIndex>10</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="Rectangle5">
+            <ReportItems>
+              <Textbox Name="Textbox55">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Condition</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox55</rd:DefaultName>
+                <Top>0.07056cm</Top>
+                <Left>1.99006cm</Left>
+                <Height>0.54708cm</Height>
+                <Width>2.05021cm</Width>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox54">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>If full/part payment is paid</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>0.07056cm</Top>
+                <Left>7.08515cm</Left>
+                <Height>0.54708cm</Height>
+                <Width>5.06398cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox56">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>No premium is paid</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox32</rd:DefaultName>
+                <Top>0.07056cm</Top>
+                <Left>13.39438cm</Left>
+                <Height>0.54708cm</Height>
+                <Width>3.55833cm</Width>
+                <ZIndex>2</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line11">
+                <Top>0.90514cm</Top>
+                <Left>0.05606cm</Left>
+                <Height>0cm</Height>
+                <Width>18.27581cm</Width>
+                <ZIndex>3</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="Textbox57">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>1.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>0.97569cm</Top>
+                <Left>0.275cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>4</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox58">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Cover postponed by the company</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>0.97569cm</Top>
+                <Left>1.14085cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>5.42497cm</Width>
+                <ZIndex>5</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox59">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Cost of medicals will be reimbursed</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>0.97569cm</Top>
+                <Left>6.90876cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>5.87065cm</Width>
+                <ZIndex>6</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line13">
+                <Top>1.57569cm</Top>
+                <Left>0.05606cm</Left>
+                <Height>0cm</Height>
+                <Width>12.99104cm</Width>
+                <ZIndex>7</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="Textbox60">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>2.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>1.64625cm</Top>
+                <Left>0.27501cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>8</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox61">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Cover postponed by the company</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>1.64625cm</Top>
+                <Left>1.14085cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>5.42496cm</Width>
+                <ZIndex>9</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox62">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Cost of medicals will be reimbursed</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>1.64625cm</Top>
+                <Left>6.90877cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>5.87065cm</Width>
+                <ZIndex>10</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line15">
+                <Top>2.24625cm</Top>
+                <Left>0.05606cm</Left>
+                <Height>0cm</Height>
+                <Width>12.99104cm</Width>
+                <ZIndex>11</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="Textbox63">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>3.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>2.31681cm</Top>
+                <Left>0.27501cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>12</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox64">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Refunded by the company due to non compliance with the requirements</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>2.31681cm</Top>
+                <Left>1.14085cm</Left>
+                <Height>1.31438cm</Height>
+                <Width>5.3689cm</Width>
+                <ZIndex>13</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox65">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Refund the premium with deduction for any costs incurred by the company</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>2.31681cm</Top>
+                <Left>6.85272cm</Left>
+                <Height>1.31438cm</Height>
+                <Width>5.87065cm</Width>
+                <ZIndex>14</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox66">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>4.</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>3.80673cm</Top>
+                <Left>0.27501cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>0.43942cm</Width>
+                <ZIndex>15</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox67">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Cancellation of proposal on your request</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>3.80673cm</Top>
+                <Left>1.14085cm</Left>
+                <Height>0.97042cm</Height>
+                <Width>5.3689cm</Width>
+                <ZIndex>16</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox68">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Refund the premium with deduction for any costs incurred by the company</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>3.80673cm</Top>
+                <Left>6.85272cm</Left>
+                <Height>0.97042cm</Height>
+                <Width>5.87065cm</Width>
+                <ZIndex>17</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Line Name="Line17">
+                <Top>3.73618cm</Top>
+                <Left>0.05606cm</Left>
+                <Height>0cm</Height>
+                <Width>12.99104cm</Width>
+                <ZIndex>18</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Line Name="Line18">
+                <Left>0.78498cm</Left>
+                <Height>4.86534cm</Height>
+                <Width>0cm</Width>
+                <ZIndex>19</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Line Name="Line19">
+                <Left>6.75001cm</Left>
+                <Height>4.86534cm</Height>
+                <Width>0cm</Width>
+                <ZIndex>20</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Line Name="Line20">
+                <Left>13.0471cm</Left>
+                <Height>4.86534cm</Height>
+                <Width>0cm</Width>
+                <ZIndex>21</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="Textbox69">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>No Reimbursement</Value>
+                        <Style>
+                          <FontFamily>Times New Roman</FontFamily>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox24</rd:DefaultName>
+                <Top>2.31681cm</Top>
+                <Left>13.22349cm</Left>
+                <Height>0.49417cm</Height>
+                <Width>4.80316cm</Width>
+                <ZIndex>22</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>8.91861cm</Top>
+            <Left>1.02556cm</Left>
+            <Height>4.86534cm</Height>
+            <Width>18.33187cm</Width>
+            <ZIndex>11</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Textbox Name="Textbox70">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>5)</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox24</rd:DefaultName>
+            <Top>13.92506cm</Top>
+            <Left>0.40975cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>0.43942cm</Width>
+            <ZIndex>12</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox71">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Please see overleaf for payment instructions.</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox25</rd:DefaultName>
+            <Top>13.92506cm</Top>
+            <Left>1.02556cm</Left>
+            <Height>0.54708cm</Height>
+            <Width>6.56581cm</Width>
+            <ZIndex>13</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>6.23329cm</Top>
+        <Left>0.26458cm</Left>
+        <Height>14.53854cm</Height>
+        <Width>19.64972cm</Width>
+        <ZIndex>12</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Rectangle>
+      <Textbox Name="Textbox73">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Yours faithfully,</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox73</rd:DefaultName>
+        <Top>21.15467cm</Top>
+        <Left>0.67434cm</Left>
+        <Height>0.6cm</Height>
+        <Width>5.42746cm</Width>
+        <ZIndex>13</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox74">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>AIA INSURANCE PLC,</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox73</rd:DefaultName>
+        <Top>21.86051cm</Top>
+        <Left>0.67433cm</Left>
+        <Height>0.6cm</Height>
+        <Width>7.12556cm</Width>
+        <ZIndex>14</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox75">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>AUTHORIZED SIGNATORY</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox73</rd:DefaultName>
+        <Top>23.39509cm</Top>
+        <Left>0.67433cm</Left>
+        <Height>0.6cm</Height>
+        <Width>7.12556cm</Width>
+        <ZIndex>15</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>9.5625in</Height>
+    <Style />
+  </Body>
+  <Width>7.88989in</Width>
+  <Page>
+    <PageHeight>28.99999cm</PageHeight>
+    <PageWidth>25cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <EmbeddedImages>
+    <EmbeddedImage Name="logo">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>iVBORw0KGgoAAAANSUhEUgAAAD8AAABUCAYAAAA1bO9GAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjQ5OTRBRjU4NUJDQTExRTNBQTJGOTJERDA4RjhERTQxIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjQ5OTRBRjU5NUJDQTExRTNBQTJGOTJERDA4RjhERTQxIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NDk5NEFGNTY1QkNBMTFFM0FBMkY5MkREMDhGOERF
+NDEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NDk5NEFGNTc1QkNBMTFFM0FBMkY5MkREMDhGOERFNDEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5O8n3TAAAZS0lEQVR42uxbeZAcV3n/ve6ea3dn79W1krWSJSFLtrCFLR/4jImh8AEEKgFDAsWVA0OKEKpyEEJVUknIVSSVVFIkJIYAIaniCjZlDmMcm8MWGF+yZEsrrVbSHtrV3rM7V/fL73v9eqZndka7suU/UqLtT/36Tb/ju49+6/mH/+Nr+sxPt+ECu1TP3ilPzxxsD47+9+4LDXkHOODgAr68+EOuoPHEsTLUijIj/6uoGe8+25CaF6SpY126wRitm/+27N0mvVpWsBNdstFDT5tqjPzguI87PjlX3aCqRyxEWfpd5YjosK0QF59ojLJvK1le2buhmg7H2d+13baOIaz5fsB7wIcg6osQqbxnx6kmBNPhzNXZFT73gVbcvjcZF/3qdWTMb4K4/U8QJTRC3DEEkWf+DmmTsiq6a9NOOBpJDkiyM+k58NhZAfaxC64rmwoI2szl2Lkdu+ZKclDZt7KMijHhiWN+c7Hfvs5tgniIKCz3IsSVpaiqqIE2xHEqHLdcls0TA8eRu2PeidYQ7sbF2/cDEY4ahTHvWKQrq3IC4W78XV2vVrKOro581VavOfIrW0hliYCKGIeIh1s3XDIECPvMXbjvKoO0KwRwlZEGx6qi8DgIrFgH2pDWl+36QaizOlyzikScy6pGBSqEsHOriJNar2zwlhspFdPXqpirOoMXESFC3BBBEJW2IMuG61LMKfYi1q4VY0HOFwIE2iDg8z0VyIxBSN5yyHFDALOGtkjV6n8kBXHux3FWSq0O+Ui84+JjRF2pZXoeEUE240JVOG30X5B0hduOaQviHn9IGCIoA7K5srYE
+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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>27c8d4ff-1df8-4287-8e60-f47d01482e55</rd:ReportID>
+</Report>

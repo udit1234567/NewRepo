@@ -1,0 +1,120 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using GridMvc.Html
+@{
+
+    int i = 0;
+}
+@Html.HiddenFor(a => a.DocumentUploadCount, new { @id = "hdnDocumentUploadCount" })
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse28" href="#collapseFityneen" id="pnltargetDocumentDetails" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                Document Details
+            </a>
+        </h4>
+    </div>
+    <div id="divHierarchyDocumentsDetails" class="panel-collapse">
+        <div class="panel-body">
+            @Html.Grid(Model.LstdocumentName).Named("GridRecruitmentDocumentsDetails").Columns(columns =>
+       {
+           columns.Add(a => a.Index, true).Encoded(false).Sanitized(false).RenderValueAs(a => Html.Hidden("RowId", a.Index, new { id = "hdnDocumentId" + a.Index }));
+           columns.Add(a => a.DocumentName).Titled("Document Name").Encoded(false).Sanitized(false).RenderValueAs(a=> Html.Label(a.DocumentName,new SelectList(Model.LstdocumentName,"","",a.DocumentName)));
+           columns.Add(a => a.FileUploadname).Encoded(false).Sanitized(false).Titled("Browse File").RenderValueAs(a => Html.TextBox("FileUploadname", a.FileUploadname, new { @id = "txtFileName" + a.DocumentID, type = "file", @class = "form-control",@style="width:300px" }));
+           if (Model.LstdocumentName.Count() > 0 && (!string.IsNullOrEmpty(Model.LstdocumentName[i].FileUploadname)))
+           {
+               columns.Add(a => a.ExistingFileName).Encoded(false).Sanitized(false).Titled("").RenderValueAs(a => Html.ActionLink(a.ExistingFileName, "DownloadUploadedfile", "Hierarchy", new { PartnerCode = Model.PartnerCode, FileName = a.ExistingFileName }, new { @id = "lnkExistingFileName" + a.Index, @class = "Id" }));
+           }
+           else
+           {
+               columns.Add(a => a.ExistingFileName, true).Encoded(false).Sanitized(false).Titled("").RenderValueAs(a => Html.Label("", new { @id = "lnkExistingFileName" + a.Index, @class = "Id" }));
+
+           }
+       }).WithPaging(9).WithMultipleFilters().EmptyText("")
+                       </div>
+        </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <br />
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <input type="button" value="Save" id="btnSaveDocumentDetails" class="btn btn-default" style="width:100px" onclick="SaveHierarchyDocumentsDetails()">
+                <input type="button" value="Submit" id="btnSubmitDocumentDetails" class="btn btn-default" style="width:100px;display:none" onclick="SubmitHierarchyPartner()">
+                <input type="button" value="Cancel" id="btnCancelDocumentDetails" class="btn btn-default" style="width:100px" onclick="return location.href = '../Home/Index'">
+            </div>
+        </div>
+    </div>
+    </div>
+<script type="text/javascript">    
+    function getDocumentsData(Grid,data){ 
+        var documents =@(Html.Raw(Json.Encode(Model.LstdocumentName)));
+        var FileUploadname;
+        $("#divHierarchyDocumentsDetails tbody").find("tr").each(function (index) {        
+            index++;            
+            FileUploadname = $(this).find("[data-name=FileUploadname]").find("input[type=file]").val();            
+            if (FileUploadname == "" && FileUploadname != undefined) {
+                writeMultipleMessage("error", "Please Provide a file to upload", "txtFileName" + index);              
+                $("#hdnDocumentUploadCount").val("1"); 
+            }
+            else{
+                writeMultipleMessage("error", "", "txtFileName" + index);  
+                $("#hdnDocumentUploadCount").val("0"); 
+            }            
+            if (FileUploadname != "" && FileUploadname != undefined) {
+                ErrorCode = true;
+                var ext = FileUploadname.substring(FileUploadname.lastIndexOf('.') + 1);
+                if (ext != "") {
+
+                    if (ext == "pdf" || ext == "docx" || ext == "xls" || ext == "xlsx" || ext == "doc" || ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif" || ext == "PDF" || ext == "DOCX" || ext == "XLS" || ext == "XLSX" || ext == "DOC" || ext == "JPEG" || ext == "JPG" || ext == "PNG" || ext == "GIF") {
+
+                        var isAppend = true;
+                        if (typeof FormData == "undefined") {
+                            isAppend = false;
+                        }
+                        else {
+
+                        }
+                        var files = $('#txtFileName' + index).get(0).files;
+                        data.append('file_' + index, $('input[id="txtFileName' + index + '"]')[0].files[0]);
+                    }
+                    else {
+                        ////var Message = '<p> File format is invalid. Please upload the proper file like pdf,doc,xls,jpeg etc.' + ' </p>';
+                        ////$('#AgentonBoardingModal').html(Message);
+                        ////$("#AgentonBoardingModal").modal("show");
+                        //BootstrapDialog.alert("File format is invalid. Please upload the proper file like pdf,doc,xls,jpeg etc.");
+                        //ErrorCode = false;
+                        var Message = '<p> File format is invalid. Please upload the proper file like pdf,doc,xls,jpeg etc.' + ' </p>';
+                        $('#HierarchyModalBody').html(Message);
+                        $("#HierarchyModal").modal("show");
+                        //BootstrapDialog.alert("File format is invalid. Please upload the proper file like pdf,doc,xls,jpeg etc.");
+                        ErrorCode = false;
+                        return false;
+                    }
+                }
+            }
+            Grid.push({
+               FileUploadname: FileUploadname,DocumentID: index
+            })            
+            //$("#hdnGetDocumentList").val(JSON.stringify(Grid))
+            return true;
+        })
+    }
+
+    @*function ValidateDocumentsData(){    
+        $("#hdnDocumentUploadCount").val("0");  
+        var documents =@(Html.Raw(Json.Encode(Model.LstdocumentName)));
+        var FileUploadname;
+        $("#divHierarchyDocumentsDetails tbody").find("tr").each(function (index) {   
+            index++;            
+            FileUploadname = $(this).find("[data-name=FileUploadname]").find("input[type=file]").val();            
+            if (FileUploadname == "") {
+                writeMultipleMessage("error", "Please Provide a file to upload", "txtFileName");
+                $("#hdnDocumentUploadCount").val("1");              
+            }        
+        })
+    }*@
+</script>

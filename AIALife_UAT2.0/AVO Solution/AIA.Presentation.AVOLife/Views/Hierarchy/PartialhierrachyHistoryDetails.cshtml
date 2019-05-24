@@ -1,0 +1,68 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using GridMvc.Html
+@{
+    
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse22" href="#collapseTwentyTwo" id="pnlHistroyDetails" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                History Details
+            </a>
+        </h4>
+    </div>
+    <div id="collapse22" class="panel-collapse in">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>Select History Details<span class="mandatory">*</span></label>
+                        @Html.DropDownListFor(a => a.HistoryDetails, new SelectList(Model.LstHistoryDetails, "ID", "Value"), "Select", new { @id = "ddlHierarchyHistroyDetails", @class = "form-control", @onchange = "ShowHierarchyHistoryDetails()" })
+                    </div>
+                </div>
+            </div>
+            <div id="divGridHierarchyHistory" style="display:none">
+@Html.Partial("~/Views/Hierarchy/PartiaHierarchyHistroyGrid.cshtml", Model)
+            </div>
+<div id="divGridHierarchyStatusHistory" style="display:none">
+ @Html.Partial("~/Views/Hierarchy/PartialHierarchyStatusGrid.cshtml",Model)
+            </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+       
+    });
+    function ShowHierarchyHistoryDetails() {        
+        var history = $("#ddlHierarchyHistroyDetails").val();
+        var data = $("#ddlHierarchyEntityType").val();       
+        if (data == "483" || data == "1254") {
+            $("#ddlHierarchyHistroyDetails").val(2);
+            $("#divGridHierarchyHistory").hide();
+            $("#divGridHierarchyStatusHistory").show();
+        }
+        else {
+            if (history == "1" && data != "1") {
+                $("#divGridHierarchyHistory").show();
+                $("#divGridHierarchyStatusHistory").hide();
+            }
+            else if (data == "1" && history == "1") {
+                $("#divGridHierarchyStatusHistory").hide();
+                $("#divGridHierarchyHistory").hide();
+            }
+            else {
+                $("#divGridHierarchyHistory").hide();
+                $("#divGridHierarchyStatusHistory").show();
+            }
+        }
+    }
+</script>

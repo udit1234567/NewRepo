@@ -1,0 +1,1045 @@
+﻿
+@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+
+<div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divMemberDetails">
+        @Html.Partial("~/Views/Policy/PartialLifeAssuredMemberDetailsGrid.cshtml", Model)
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="col-md-4  col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Relation with Proposer")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objFillMemberDetials.RelationShipWithPropspect, new SelectList(Model.lstRelations, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlMemberRelationWithProposer", @onchange = "OnSelfShowDetails()" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Salutation")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(m => m.objFillMemberDetials.Salutation, new { @class = "form-control", @id = "TxtMemberSalutation" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Name With Initials")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.NameWithInitial, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)" })
+    </div>
+
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Given Name")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.FirstName, new { id = "txtMemberFirstName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("SurName")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.LastName, new { id = "txtMemberLastName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
+    </div >
+    <div id = "NICNumber" class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("NIC")<span class="mandatory" id="mandatoryNicNumber">*</span></label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.NewNICNO, new { id = "txtMemberNewNicNo", @class = "form-control", @maxlength = "12", @onchange = "FetchProposalDOBGenderfromNIC('txtMemberNewNicNo','txtMemberFillDateOfBirth','ddlMemberGender','txtMemberAgeNextBirthdayMember','ddlMemberRelationWithProposer','Direct')", @onkeypress = "return isAlphaNumberKeyback(event)", @onkeyup = "return isAlphaNumberKeybackwithOutSymbolSpace(event)" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Date of Birth")<span class="mandatory">*</span></label>
+        @Html.iNubeDatePickerFor(a => a.objFillMemberDetials.DateOfBirth, new { @class = "form-control datepicker", @id = "txtMemberFillDateOfBirth", @readonly = "readonly", @maxlength = "10" })  @*@onblur = "ageCount()"  , @readonly = "readonly"*@
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="usr">@Resources.GetLabelName("Age at Next Birthday")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.Age, new { id = "txtMemberAgeNextBirthdayMember", @class = "form-control", @readonly = "readonly" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="sel1">@Resources.GetLabelName("Gender")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objFillMemberDetials.Gender, new SelectList(Model.lstGender, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMemberGender" })
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divchildremoveMartialstatus">
+        <label>@Resources.GetLabelName("Marital Status")</label>
+        @Html.DropDownListFor(m => m.objFillMemberDetials.MaritialStatus, new SelectList(Model.MaritalStatuslist, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMemberMaritalStatus" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divchildremoveOccupation">
+        <label>@Resources.GetLabelName("Occupation")</label>
+        @Html.DropDownListFor(m => m.objFillMemberDetials.OccupationID, new SelectList(Model.lstMemberOccupation, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMemberOccupation"  }) @*@onchange = "OccupationQuestionsFunction();"*@
+
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divchildremoveAnnualIncome">
+        <label>@Resources.GetLabelName("Annual Income")<span class="mandatory">*</span></label>
+        @Html.CurrencyTextBoxFor(a => a.objFillMemberDetials.MonthlyIncome, new { id = "ddlMemberMonthlyIncome", @class = "form-control", @onchange = "f1(id)", @maxlength = "12", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" }, Model.objFillMemberDetials.MonthlyIncome)
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Passport Number")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.PassportNumber, new { id = "txtFillMemberPassportNumber", @class = "form-control", @maxlength = "16", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divchildremoveCompanyName">
+        <label>@Resources.GetLabelName("Name of the employer")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.CompanyName, new { id = "txtMemberCompanyName", @class = "form-control" })
+
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divchildremoveNameOfDuties">
+
+        <label>@Resources.GetLabelName("Nature Of Duties")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.NameOfDuties, new { id = "txtMemberNatureOfDuties", @class = "form-control",@onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",@onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)" })
+    </div>
+
+
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Nationality")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objFillMemberDetials.Nationality, new SelectList(Model.Nationalities, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMemberNationality", @onchange = "MemberNationalityFunction();" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divFillMember">
+        <label>@Resources.GetLabelName("Specify Nationality")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.SpecifyNationality, new { @class = "form-control", @id = "txtMemberSpecifyNationality" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divMemberUSTaxpayerId" style="display:none">
+        <label>@Resources.GetLabelName("U.S Tax payer I.D")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.USTaxpayerId, new { id = "txtMemberUSTaxPayerID", @class = "form-control" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Country of Residence")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objFillMemberDetials.ResidentialStatus, new SelectList(Model.LstResidentialStatus, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlFillMemberResidentialStatus", @onchange = "FillMemberResidentialStatusFunction();" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divFillMemberResidentialStatus" style="display:none">
+        <label>@Resources.GetLabelName("Specify Residential")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.Residential, new { id = "txtFillMemberResidential", @class = "form-control" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Age Proof")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objFillMemberDetials.DrivingLicense, new SelectList(Model.LstAgeProof, "Value", "Text"), "Select", new { @class = "form-control", @id = "txtFillMemberDrivingLicense" })
+        @*@Html.TextBoxFor(a => a.objFillMemberDetials.DrivingLicense, new SelectList(Model.LstAgeProof, "Value", "Text"), "Select", new { id = "txtFillMemberDrivingLicense", @class = "form-control", @maxlength = "16" })*@
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Occupation require any Hazardous work ?")</label> <br />
+        <label class="radio-inline">
+            @Html.RadioButtonFor(a => a.objFillMemberDetials.OccupationHazardousWork, true, new { @id = "yesbtnMemberOccupation", @name = "MemberHazardouswork" })
+            @Resources.GetLabelName("Yes")
+        </label>
+        <label class="radio-inline">
+            @Html.RadioButtonFor(a => a.objFillMemberDetials.OccupationHazardousWork, false, new { @id = "NobtnMemberOccupation", @name = "MemberHazardouswork" })
+            @Resources.GetLabelName("No")
+        </label>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivMemberOccupationHazardousWork" style="display:none">
+        <label>@Resources.GetLabelName("Specify Occupation Work")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.SpecifiyOccupationHazardousWork, new { id = "txtMemberOccupationHazardousWork", @class = "form-control" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivMemberCountryofOccupation">
+        <label>@Resources.GetLabelName("Country of Occupation")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objFillMemberDetials.CountryofOccupation, new SelectList(Model.LstFillMemberCountryofOccupation, "Value", "Text", Model.objFillMemberDetials.CountryofOccupation), "Select", new { @class = "form-control", @id = "ddlFillMemberCountryofOccupation" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <div class="cntr">
+            <label class="label-cbx">
+                @Html.CheckBoxFor(a => a.objFillMemberDetials.CitizenShip, new { @id = "chkMemberCitizenShip", @class = "invisible invisiblemem", @name = "DueyouhaveCitizenShip", @style = "width:40px;height:20px;margin-top:5px" })
+               <div class="checkbox">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                        <polyline points="4 11 8 15 16 6"></polyline>
+                    </svg>
+                </div>
+                <span>@Resources.GetLabelName("Do You have Dual CitizenShip")</span>
+            </label>
+        </div>
+
+        @*<div class="cntr">
+            <div class="form-group citizen-chk label-cbx">
+                <label>@Resources.GetLabelName("Do You have Dual CitizenShip")</label>
+                <br />
+                <div class="checkbox">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                        <polyline points="4 11 8 15 16 6"></polyline>
+                    </svg>
+                </div>
+                @Html.CheckBoxFor(a => a.objFillMemberDetials.CitizenShip, new { @id = "chkMemberCitizenShip", @class = "invisible", @name = "DueyouhaveCitizenShip", @style = "width:40px;height:20px;margin-top:5px" })
+            </div>
+        </div>*@
+        </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none;" id="DivMemberCitizenShip1">
+        <label>@Resources.GetLabelName("CitizenShip1")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.Citizenship1, new { id = "txtMemberCitizenship1", @class = "form-control" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none;" id="DivMemberCitizenShip2">
+        <label>@Resources.GetLabelName("CitizenShip2")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.Citizenship2, new { id = "txtMemberCitizenship2", @class = "form-control" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="MemberAnivarsaryDate" style="display:none;">
+        <label>Wedding Anniversary Date</label>
+        @Html.iNubeDatePickerFor(a => a.objFillMemberDetials.WeddingAnniversaryDate, new { id = "txtMemberWeddingAnniversaryDate", @class = "form-control" })
+    </div>
+    @*Contact Details*@
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+        <p class="h4" style="font-weight:bold">
+            <img src="~/Content/Images/quote-contact.png" style="width:20px;" />
+        @Resources.GetLabelName("Contact Details")</p>
+    </div >
+
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Mobile No")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.MobileNo, new { id = "txtMemberMobileNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+    </div>
+    @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Mobile No 2")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.OtherMobileNo, new { id = "txtMemberOtherMobileNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)" })
+    </div>*@
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="usr">@Resources.GetLabelName("Home")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.HomeNumber, new { id = "txtMemberHomeNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Office")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.WorkNumber, new { id = "txtmemberWorkNumber", maxlength = 16, minlength = 10, @class = "form-control" ,@onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Email")</label>
+        @Html.TextBoxFor(a => a.objFillMemberDetials.Email, new { @class = "form-control", id = "txtMemberEmail", @style = "text-transform:none", @onkeypress = " return isSpace(event)", @onkeyup = " return isSpace(event)" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label></label>
+
+    </div>
+
+    @*Communication Address*@
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <p class="h4" style="font-weight:bold;">
+            <img src="~/Content/Images/quote-19.png" style="width:20px;" />
+        @Resources.GetLabelName("Communication Address")</p>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+        <div class="cntr">
+            <label class="label-cbx">
+                @Html.CheckBoxFor(a => a.objFillMemberDetials.IsSameasProposerAddress, new { @id = "chkMemberAddrSameasProposerAdrr", @class = "invisible invisiblecomadd", @onclick = "FetchProposalAddressToRegAddr()" })
+                <div class="checkbox">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                        <polyline points="4 11 8 15 16 6"></polyline>
+                    </svg>
+                </div>
+                <span>@Resources.GetLabelName("Same As Proposer ?")</span>
+            </label>
+        </div>
+        @*@Html.CheckBoxFor(a => a.objFillMemberDetials.IsSameasProposerAddress, new { @id = "chkMemberAddrSameasProposerAdrr",@class= "switch_1", @onclick = "FetchProposalAddressToRegAddr()" })
+        <label id="lblRegisteredaddress" style="text-align:left;">
+            @Resources.GetLabelName("Same As Proposer ?")
+        </label >*@
+    </div >
+    @Html.AddressForNewProspectScreen(a => a.objFillMemberDetials.objCommunicationAddress)
+
+    @*Permanent Address*@
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <p class="h4" style="font-weight:bold;">
+            <img src="~/Content/Images/quote-19.png" style="width:20px;" />
+        @Resources.GetLabelName("Permanant Address")</p>
+    </div>
+    <div id="clientAddress">
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 cntr">
+            <label class="label-cbx">
+                @Html.CheckBoxFor(a => a.objFillMemberDetials.IsRegAsCommunication, new { @id = "chkMemberIsPermanentAddrSame", @class = "invisible invisibleperadd", @onclick = "FetchPermAddressToRegAddr()" })
+                <div class="checkbox">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                        <polyline points="4 11 8 15 16 6"></polyline>
+                    </svg>
+                </div>
+                <span>@Resources.GetLabelName("Is Permanent Address same as Communication Address ?")</span>
+            </label>
+        </div>
+        @*<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group switch_box box_1">
+            @Html.CheckBoxFor(a => a.objFillMemberDetials.IsRegAsCommunication, new { @id = "chkMemberIsPermanentAddrSame",@class= "switch_1", @onclick = "FetchPermAddressToRegAddr()" })
+            <label id="lblRegisteredaddress" style="text-align:left;">
+               @Resources.GetLabelName("Is Permanent Address same as Communication Address ?")
+            </label >
+        </div >*@
+        <div id = "divAddress" >
+            @Html.AddressForNewProspectScreen(a => a.objFillMemberDetials.objPermenantAddress)
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="clearfix"></div>
+    <div id="divProposalMemberDetailsUpdateButton" class="col-md-12 col-sm-12  col-lg-12 form-group" style="display:none; text-align: center;margin-top: 20px;">
+
+        <input type="button" class="btn btn-default" id="btnUpdate" value="Update" onclick="CheckingNIC = true; NicChecked = false; UpdateRow()" style="padding-left:20px;padding-right:20px;" />
+        <input type="button" class="btn btn-default" id="btnCancel" value="Cancel" onclick="Cancel()" style="padding-left:20px;padding-right:20px;" />
+    </div>
+
+</div>
+
+
+<script>
+    $("#TxtMemberSalutation").autocomplete({
+
+        source: function (request, response) {
+            $.ajax({
+                url: "../Suspect/GetSalutation",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+
+                    response($.map(data, function (item) {
+                        return { label: item, value: item };
+                    }))
+                }
+            })
+        },
+        minLength: 1,
+        messages: {
+            noResults: "",
+            results: function (count) {
+                return count + (count > 1 ? ' results' : ' result ') + ' found';
+            }
+        }
+    });
+    var value = false;
+    $("#hdnAutoCompleteValue").val(value);
+    $("#TxtMemberSalutation").on("autocompleteselect", function (event, u) {
+        value = true;
+        $("#hdnAutoCompleteValue").val(value);
+
+    })
+    $(document).ready(function () {
+        var OccupationID = $("#ddlMemberOccupation").val();
+
+        var MemberCitizenShip = '@Model.objFillMemberDetials.CitizenShip';
+        if (MemberCitizenShip == "True") {
+            $("#chkMemberCitizenShip").prop("checked", true);
+            $('.invisiblemem').addClass('checkboxactive');
+            $("#DivMemberCitizenShip1").show();
+            $("#DivMemberCitizenShip1").show();
+        }
+        if (MemberCitizenShip == "False") {
+            $("#chkMemberCitizenShip").prop("checked", false);
+            $('.invisiblemem').removeClass('checkboxactive');
+            $("#DivMemberCitizenShip1").hide();
+            $("#DivMemberCitizenShip1").hide();
+        }
+
+        $("#chkMemberCitizenShip").click(function () {
+            if (this.checked) {
+                $("#DivMemberCitizenShip1").show();
+                $("#DivMemberCitizenShip2").show();
+            }
+            else {
+                $("#DivMemberCitizenShip1").hide();
+                $("#DivMemberCitizenShip2").hide();
+            }
+        });
+
+        var MemberHazardousWork = '@Model.objFillMemberDetials.OccupationHazardousWork';
+        if (MemberHazardousWork == "True") {
+            $("#yesbtnMemberOccupation").prop("checked", true);
+            $("#DivMemberOccupationHazardousWork").show();
+        }
+        if (MemberHazardousWork == "False") {
+            $("#yesbtnOccupation").prop("checked", false);
+            $("#DivMemberOccupationHazardousWork").hide();
+        }
+
+        $("input[id='yesbtnMemberOccupation']").click(function () {
+            $("#yesbtnMemberOccupation").prop("checked", true);
+            if ($("#yesbtnMemberOccupation").is(':checked') == true) {
+                //$('#yesbtnMemberOccupation').prop('checked',true)
+                $("input[id='yesbtnMemberOccupation']").is(':checked') == true;
+                if ($("#yesbtnMemberOccupation").is(':checked') == true) {
+                    $("#DivMemberOccupationHazardousWork").show();
+                }
+                else if ($("#yesbtnMemberOccupation").is(':checked') == false) {
+                    $("#DivMemberOccupationHazardousWork").hide();
+                }
+            }
+
+
+        });
+
+        $("input[id='NobtnMemberOccupation']").click(function () {
+            var test = $(this).val();
+            if (test == "False") {
+                $("#DivMemberOccupationHazardousWork").hide();
+            }
+        });
+
+        FetchPermAddressToRegAddr();
+        $('#objFillMemberDetialsobjCommunicationAddressddlProvince').val('@Model.objFillMemberDetials.objCommunicationAddress.State');
+
+        FillDistrictCommaddMember('@Model.objFillMemberDetials.objCommunicationAddress.State', '@Model.objFillMemberDetials.objCommunicationAddress.District', "objFillMemberDetialsobjCommunicationAddress");
+        FillCityCommaddMember('@Model.objFillMemberDetials.objCommunicationAddress.District', '@Model.objFillMemberDetials.objCommunicationAddress.City', "objFillMemberDetialsobjCommunicationAddress");
+
+        $('#objFillMemberDetialsobjPermenantAddressddlProvince').val('@Model.objFillMemberDetials.objCommunicationAddress.State');
+        $('#objFillMemberDetialsobjCommunicationAddressAddress1').val('@Model.objFillMemberDetials.objCommunicationAddress.Address1');
+        $('#objFillMemberDetialsobjCommunicationAddressAddress2').val('@Model.objFillMemberDetials.objCommunicationAddress.Address2');
+        $('#objFillMemberDetialsobjCommunicationAddressPincode').val('@Model.objFillMemberDetials.objCommunicationAddress.Pincode');
+        FillDistrictCommadd('@Model.objFillMemberDetials.objPermenantAddress.State', '@Model.objFillMemberDetials.objPermenantAddress.District', "objFillMemberDetialsobjPermenantAddress");
+        FillCityCommadd('@Model.objFillMemberDetials.objPermenantAddress.District', '@Model.objFillMemberDetials.objPermenantAddress.City', "objFillMemberDetialsobjobjPermenantAddress");
+    });
+    var textId;
+    function FillDistrictCommaddMember(ProvinceCode, distct, ID) {
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    $('#' + textName + 'ddlDistrict').html(""); // clear before appending new list
+                    $('#' + textName + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textName + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                    });
+
+                    $('#' + textName + 'ddlDistrict').val(distct);
+                }
+            });
+        }
+    }
+
+    function FillCityCommaddMember(ProvinceCode, distct, ID) {
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.post("../AgentonBoarding/FetchCity?DistrictCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    $('#' + textName + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textName + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textName + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                    });
+                    $('#' + textName + 'ddlCity').val(distct);
+                }
+            });
+        }
+    }
+    function FetchPermAddressToRegAddr() {debugger
+        if ($("#chkMemberIsPermanentAddrSame").is(':checked',true)) {
+            var IsComAddrValidated = ValidateCommAddr();
+            if (IsComAddrValidated) {
+               CopyAddressesControlToControlNew('objFillMemberDetialsobjPermenantAddress', 'objFillMemberDetialsobjCommunicationAddress');
+                $("#chkMemberIsPermanentAddrSame").attr('checked', true);
+            }
+            else {
+                $("#chkMemberIsPermanentAddrSame").attr('checked', false);
+
+                return false;
+            }
+        }
+        else {
+            RemoveAddressDetailsNew('objFillMemberDetialsobjPermenantAddress');           
+            $("#chkIsPermanentAddrSame").attr('disabled', false);
+            //$('.invisibleperaddmod').removeClass('checkboxactive');
+        }
+    }
+
+   
+
+
+
+    function FillDistrictCommAddress(e) {
+
+        var event = e.id;
+        var ProvinceCode = $("#" + e.id).val();
+        if (ProvinceCode != '') {
+            $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+            .done(function (data) {
+
+                if (data != null) {
+                    // for member deatils
+                    if (e.id == "objFillMemberDetialsobjCommunicationAddressddlProvince") {
+                        textId = e.id.substring(0, 43);
+                    }
+                    else if (e.id == "objFillMemberDetialsobjPermenantAddressddlProvince") {
+                        textId = e.id.substring(0, 39);
+                    }
+                        // for prospect details
+                    else if (e.id == "objProspectDetailsobjCommunicationAddressddlProvince") {
+                        textId = e.id.substring(0, 41);
+                    }
+                    else if (e.id == "objProspectDetailsobjPermenantAddressddlProvince") {
+                        textId = e.id.substring(0, 37);
+                    }
+                    else {
+                        textId = e.id.substring(0, 43);
+                    }
+                    $('#' + textId + 'ddlDistrict').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textId + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                    });
+                }
+            });
+        }
+    }
+
+    function FillCityCommAddress(e) {
+
+        var DistrictCode = $("#" + e.id).val();
+        if (DistrictCode != '') {
+            $.post("../AgentonBoarding/FetchCity?DistrictCode=" + DistrictCode)
+            .done(function (data) {
+
+                if (data != null) {
+                    // for member details
+                    if (e.id == "objFillMemberDetialsobjCommunicationAddressddlDistrict") {
+                        textId = e.id.substring(0, 43);
+                    }
+                    else if (e.id == "objFillMemberDetialsobjPermenantAddressddlDistrict") {
+                        textId = e.id.substring(0, 39);
+                    }
+                        // for prospect details
+                    else if (e.id == "objProspectDetailsobjCommunicationAddressddlDistrict") {
+                        textId = e.id.substring(0, 41);
+                    }
+                    else if (e.id == "objProspectDetailsobjPermenantAddressddlDistrict") {
+                        textId = e.id.substring(0, 37);
+                    }
+
+                    else {
+                        textId = e.id.substring(0, 43);
+                    }
+                    $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textId + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                    });
+                }
+            });
+        }
+    }
+
+    function FillPostalCodeCommAddress(e) {
+        var CityCode = $("#" + e).val();
+        if (CityCode != '') {
+            $.post("../AgentonBoarding/FetchPostalCode?CityCode=" + CityCode)
+            .done(function (data) {
+
+                if (data != null) {
+                    // for member details
+                    if (e == "objFillMemberDetialsobjCommunicationAddressPincode") {
+                        textId = e.substring(0, 43);
+                    }
+                    else if (e == "objFillMemberDetialsobjPermenantAddressPincode") {
+                        textId = e.substring(0, 39);
+                    }
+                        // for prospect details
+                    else if (e == "objProspectDetailsobjCommunicationAddressPincode") {
+                        textId = e.substring(0, 41);
+                    }
+                    else if (e == "objProspectDetailsobjPermenantAddressPincode") {
+                        textId = e.substring(0, 37);
+                    }
+                    else {
+                        textId = e.substring(0, 43);
+                    }
+                    $('#' + textId + 'ddlProvince').val(data.Provience);
+                    $('#' + textId + 'ddlDistrict').val(data.Distric);
+                }
+            });
+        }
+    }
+
+    function OnSelfShowDetails() {
+        if ($('#ddlRelationWithProposer').val() == '267') {
+            $('#DivIsSelfAssured').show();
+        }
+        else {
+            $('#DivIsSelfAssured').hide();
+        }
+    }
+
+
+    function FetchProposalAddressToRegAddr() {
+        debugger
+        if ($("#chkMemberAddrSameasProposerAdrr").is(':checked')) {
+            CopyProposerAddressesToMemberAddress('objFillMemberDetialsobjCommunicationAddress', 'objProspectDetailsobjCommunicationAddress');
+            $("#chkMemberAddrSameasProposerAdrr").attr('checked', true);
+        }
+        else {
+
+            RemoveAddressDetailsNew('objFillMemberDetialsobjCommunicationAddress');
+            $("#chkMemberAddrSameasProposerAdrr").attr('disabled', false);
+        }
+    }
+
+    function CopyProposerAddressesToMemberAddress(fillableAddress, filledAddress) {
+        var add = filledAddress;
+        var aa = $('#objProspectDetailsobjCommunicationAddressAddress1').val();
+        $('#' + fillableAddress + 'Address1').val($('#' + filledAddress + 'Address1').val()).attr('readonly', 'readonly');
+        $('#' + fillableAddress + 'Address2').val($('#' + filledAddress + 'Address2').val()).attr('readonly', 'readonly');
+        $('#' + fillableAddress + 'Address3').val($('#' + filledAddress + 'Address3').val()).attr('readonly', 'readonly');
+        $('#' + fillableAddress + 'ddlProvince').val($('#' + filledAddress + 'ddlProvince').val()).attr('readonly', 'readonly');
+        $('#' + fillableAddress + 'ddlDistrict').val($('#' + filledAddress + 'ddlDistrict').val()).attr('readonly', 'readonly');
+        $('#' + fillableAddress + 'ddlDistrict').append($('<option value=\'' + $('#' + filledAddress + 'ddlDistrict').val() + '\'>' + $('#' + filledAddress + 'ddlDistrict option:selected').text() + '</option>'));
+        //$('#' + fillableAddress + 'ddlDistrict').attr('readonly', 'readonly');
+        $('#' + fillableAddress + 'ddlCity').append($('<option value=\'' + $('#' + filledAddress + 'ddlCity').val() + '\'>' + $('#' + filledAddress + 'ddlCity option:selected').text() + '</option>'));
+        //$('#' + fillableAddress + 'ddlCity').attr('readonly', 'readonly');
+        $('#' + fillableAddress + 'ddlCity').val($('#' + filledAddress + 'ddlCity').val()).attr('readonly', 'readonly');
+        $('#' + fillableAddress + 'Pincode').val($('#' + filledAddress + 'Pincode').val()).attr('readonly', 'readonly');
+
+
+        writeMultipleMessage("error", "", fillableAddress + 'Address1');
+        writeMultipleMessage("error", "", fillableAddress + 'Address2');
+        writeMultipleMessage("error", "", fillableAddress + 'ddlProvince');
+        writeMultipleMessage("error", "", fillableAddress + 'ddlDistrict');
+        writeMultipleMessage("error", "", fillableAddress + 'ddlCity');
+        writeMultipleMessage("error", "", fillableAddress + 'Pincode');
+    }
+
+    function ValidateCommAddr() {
+        if ($("#objFillMemberDetialsobjCommunicationAddressAddress1").val() == "") {
+            writeMultipleMessage("error", "Please Enter Address1", "objFillMemberDetialsobjCommunicationAddressAddress1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressAddress1");
+        }
+        if ($("#objFillMemberDetialsobjCommunicationAddressPincode").val() == "") {
+            writeMultipleMessage("error", "Please Enter Pincode.", "objFillMemberDetialsobjCommunicationAddressPincode");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressPincode");
+            return true;
+        }
+        if ($("#objFillMemberDetialsobjCommunicationAddressddlProvince").val() == "") {
+            writeMultipleMessage("error", "Please Enter Province.", "objFillMemberDetialsobjCommunicationAddressddlProvince");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressddlProvince");
+        }
+        if ($("#objFillMemberDetialsobjCommunicationAddressddlDistrict").val() == "") {
+            writeMultipleMessage("error", "Please Enter District.", "objFillMemberDetialsobjCommunicationAddressddlDistrict");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objFillMemberDetialsobjCommunicationAddressddlDistrict");
+        }
+    }
+    function ValidateCommunicationAddr() {
+        if ($("#objProspectDetailsobjCommunicationAddressAddress1").val() == "") {
+            writeMultipleMessage("error", "Please Enter Address1", "objProspectDetailsobjCommunicationAddressAddress1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
+        }
+        if ($("#objProspectDetailsobjCommunicationAddressPincode").val() == "") {
+            writeMultipleMessage("error", "Please Enter Pincode.", "objProspectDetailsobjCommunicationAddressPincode");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressPincode");
+            return true;
+        }
+        if ($("#objProspectDetailsobjCommunicationAddressddlProvince").val() == "") {
+            writeMultipleMessage("error", "Please Enter Province.", "objProspectDetailsobjCommunicationAddressddlProvince");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlProvince");
+        }
+        if ($("#objProspectDetailsobjCommunicationAddressddlDistrict").val() == "") {
+            writeMultipleMessage("error", "Please Enter District.", "objProspectDetailsobjCommunicationAddressddlDistrict");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlDistrict");
+        }
+    }
+
+    $('#ddlMemberMaritalStatus').change(function () {
+
+        var MaritalStaus = $(this).val();
+        if (MaritalStaus == "14") {
+            $('#MemberAnivarsaryDate').show();
+        }
+        else {
+            $('#MemberAnivarsaryDate').hide();
+            $('#txtMemberWeddingAnniversaryDate').val("");
+        }
+    });
+
+    function FillMemberResidentialStatusFunction() {
+
+        var Status = $("#ddlFillMemberResidentialStatus option:selected").text();
+        if (Status == "Select" || Status == "Sri lanka") {
+            $("#divFillMemberResidentialStatus").hide();
+        }
+        if (Status == "Non Sri Lanka" || Status == "Others") {
+            $("#divFillMemberResidentialStatus").show();
+        }
+    }
+
+    function MemberNationalityFunction() {
+        var Status = $("#ddlMemberNationality option:selected").text();
+        if (Status == "Select" || Status != "United States of America") {
+            $("#divMemberUSTaxpayerId").hide();
+            $("#divFillMember").hide();
+        }
+        if (Status == "Others") {
+            $("#divFillMember").show();
+            $("#divMemberUSTaxpayerId").hide();
+        }
+        if (Status == "United States of America") {
+            $("#divMemberUSTaxpayerId").show();
+            $("#divFillMember").hide();
+        }
+    }
+
+    function FetchProposalDOBGenderfromNIC(e, dob, gender, Age, id, status) {
+        
+        var NICNo = $('#' + e).val();
+        var SpouseDOB = $('#' + dob).val();
+        var RelationShipID = $('#' + id).val();
+        var YearNIC;
+        var spousedate = $("#txtMemberFillDateOfBirth").val();
+        var spousegender = $("#ddlMemberGender").val();
+        var spousesalutation = $("#TxtMemberSalutation").val();
+        if (NICNo == "") {
+            NicChecked = false;
+            UpdateRow();
+            return false;
+        }
+        if (NICNo.toUpperCase() == "SLC") {
+            NicChecked = true;
+            UpdateRow();
+            return true;
+        }
+        if (NICNo != null && NICNo != "") {
+            if (NICNo.length == 12 || NICNo.length == 10) {
+                if (NICNo.length == 12) {
+                    var nofdays = NICNo.substr(4, 3);
+                    YearNIC = NICNo.substr(0, 4);
+                }
+                else if (NICNo.length == 10) {
+                    NICArray = NICNo.split("");
+                    if (NICArray[9].toUpperCase() == "X" || NICArray[9].toUpperCase() == "V") {
+
+                        var nofdays = NICNo.substr(2, 3);
+                        YearNIC = NICNo.substr(0, 2);
+                    }
+                    else {
+                        if (status == 'Update')
+                        {
+                            CheckingNIC = false;
+                            NicChecked = false;
+                            UpdateRow();
+                            return false;
+                        }
+                        else {
+                            return false;
+
+                        }
+                    }
+                }
+            }
+            $.post("../../AgentonBoarding/FetchDateMonth?NIC=" + NICNo)
+                .done(function (data) {
+                    if (data != "Error") {
+                        if (RelationShipID == '267') {
+                            if (dob == "txtMemberFillDateOfBirth") {
+                                $("#" + dob).prop("disabled", false);
+                                $("#" + dob).val(data);
+                                $("#" + dob).prop("disabled", true);
+                                $('#ProspectDOB').val(data);
+                            }
+                            else {
+                                $("#" + dob).val(data);
+                            }
+                            if (nofdays <= 366 && nofdays >= 0) {
+                                $("#" + gender).val("M");
+                                $("#" + gender).prop('disabled', true);
+                            }
+                            else if (nofdays > 500 && nofdays <= 866) {
+                                $("#" + gender).val("F");
+                                $("#" + gender).prop('disabled', true);
+                            }
+                            if (dob != "txtMemberFillDateOfBirth") {
+                                ageProposalCount();
+                            }
+                            else {
+
+                                if (!ProposalInterviewrageCount()) {
+                                    if (status == 'Update') {
+                                        CheckingNIC = false;
+                                        NicChecked = false;
+                                        UpdateRow();
+                                        return false;
+                                    }
+                                    else {
+                                        return false;
+
+                                    }
+                                }
+                            }
+                        }
+
+                        if (RelationShipID == '268') {
+                            debugger;
+                            var arr = data.split('/');
+                            var DOBDate = arr[0];
+                            var DOBMonth = arr[1];
+                            var DOBYear = arr[2];
+                            var spousedateofbirth = SpouseDOB.split('/');
+                            var SpouseDate = spousedateofbirth[0];
+                            var SpouseMonth = spousedateofbirth[1];
+                            var SpouseYear = spousedateofbirth[2];
+
+                            if (nofdays <= 366 && nofdays >= 0) {
+                                //var SpouseGender =   $("#" + gender).val("M");
+                                if (spousesalutation != "") {
+                                    if (spousesalutation == "Mr" || spousesalutation == "Al Haj" || spousesalutation == "Ayur Dr Mr" || spousesalutation == "Father" || spousesalutation == "Master" || spousesalutation == "Rector" || spousesalutation == "Reverent" || spousesalutation == "Reverent Father" || spousesalutation == "Sir") {
+                                        var SpouseGender = "M";
+                                    }
+                                    else {
+                                        var SpouseGender = $("#ddlMemberGender").val();
+
+                                    }
+                                }
+
+
+                               // $("#" + gender).prop('disabled', true);
+                            }
+                            else if (nofdays > 500 && nofdays <= 866) {
+                                // var SpouseGender = $("#" + gender).val("F");
+                                if (spousesalutation != "") {
+                                    if (spousesalutation == "Ayur Dr Mrs" || spousesalutation == "Ayur Dr Ms" || spousesalutation == "Dame" || spousesalutation == "Dr Mrs" || spousesalutation == "Dr Ms" || spousesalutation == "Lady" || spousesalutation == "Madam" || spousesalutation == "Miss" || spousesalutation == "Mrs" || spousesalutation == "Ms" || spousesalutation == "Reverent Sister") {
+                                        var SpouseGender = "F";
+                                    }
+                                    else {
+                                        var SpouseGender = $("#ddlMemberGender").val();
+
+                                    }
+                                }
+                               // $("#" + gender).prop('disabled', true);
+                            }
+                    
+                            debugger;
+                            if (DOBYear == SpouseYear && DOBMonth == SpouseMonth && DOBDate == SpouseDate && SpouseGender == spousegender) //&& DOBMonth == SpouseMonth && DOBDate == SpouseDate
+                            {
+                                writeMultipleMessage("error", "", e);
+                            }
+                            else {
+                                writeMultipleMessage("error", "Spouse NIC Number & Salutation & Date of Birth & Gender Mismatched", e);
+                                if (status == 'Update') {
+                                    CheckingNIC = false;
+                                    NicChecked = false;
+                                    UpdateRow();
+                                    return false;
+                                }
+                                else {
+                                    return false;
+
+                                }
+                            }
+                        }
+
+                        if (RelationShipID == '269' || RelationShipID == '270') {
+                            var arr = data.split('/');
+                            var DOBDate = arr[0];
+                            var DOBMonth = arr[1];
+                            var DOBYear = arr[2];
+                            var spousedateofbirth = SpouseDOB.split('/');
+                            var SpouseDate = spousedateofbirth[0];
+                            var SpouseMonth = spousedateofbirth[1];
+                            var SpouseYear = spousedateofbirth[2];
+
+                            if (nofdays <= 366 && nofdays >= 0) {
+                                //var SpouseGender =   $("#" + gender).val("M");
+                                if (spousesalutation != "") {
+                                    if (spousesalutation == "Mr" || spousesalutation == "Al Haj" || spousesalutation == "Ayur Dr Mr" || spousesalutation == "Father" || spousesalutation == "Master" || spousesalutation == "Rector" || spousesalutation == "Reverent" || spousesalutation == "Reverent Father" || spousesalutation == "Sir") {
+                                        var SpouseGender = "M";
+                                    }
+                                }
+
+
+                                // $("#" + gender).prop('disabled', true);
+                            }
+                            else if (nofdays > 500 && nofdays <= 866) {
+                                // var SpouseGender = $("#" + gender).val("F");
+                                if (spousesalutation != "") {
+                                    if (spousesalutation == "Ayur Dr Mrs" || spousesalutation == "Ayur Dr Ms" || spousesalutation == "Dame" || spousesalutation == "Dr Mrs" || spousesalutation == "Dr Ms" || spousesalutation == "Lady" || spousesalutation == "Madam" || spousesalutation == "Miss" || spousesalutation == "Mrs" || spousesalutation == "Ms" || spousesalutation == "Reverent Sister") {
+                                        var SpouseGender = "F";
+                                    }
+                                }
+                                // $("#" + gender).prop('disabled', true);
+                            }
+
+                            if (DOBYear == SpouseYear && DOBMonth == SpouseMonth && DOBDate == SpouseDate && SpouseGender == spousegender) //&& DOBMonth == SpouseMonth && DOBDate == SpouseDate
+                            {
+                                writeMultipleMessage("error", "", e);
+                            }
+                            else {
+                                writeMultipleMessage("error", "Child NIC Number & Salutation & Date of Birth & Gender Mismatched", e);
+                                if (status == 'Update') {
+                                    CheckingNIC = false;
+                                    NicChecked = false;
+                                    UpdateRow();
+                                    return false;
+                                }
+                                else {
+                                    return false;
+
+                                }
+                            }
+                        }
+                        if (status == 'Update') {
+                            CheckingNIC = false;
+                            NicChecked = true;
+                            UpdateRow();
+                            return true;
+                        }
+                        else {
+                            return true;
+
+                        }
+                    }
+                    else {
+                        writeMultipleMessage("error", "NIC Number should be 12 or 10 Digits", e);
+                        if (status == 'Update') {
+                            CheckingNIC = false;
+                            NicChecked = false;
+                            UpdateRow();
+                            return false;
+                        }
+                        else {
+                            return false;
+
+                        }
+                    }
+
+                });
+
+        }
+        else {
+            CheckingNIC = false;
+            NicChecked = false;
+            UpdateRow();
+            return false;
+        }
+        //return true;
+    }
+
+
+    function ProposalInterviewrageCount() {
+
+        var dob = $("#txtMemberFillDateOfBirth").val();
+        if (dob != '' && !ValidateProposalDOB("txtMemberFillDateOfBirth")) {
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtMemberFillDateOfBirth");
+            if (dob != '') {
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = (currentYear - birthYear) + 1;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                $("#txtMemberAgeNextBirthdayMember").val(calYear);
+                var ProspectAge = $('#txtMemberAgeNextBirthdayMember').val();
+                if (ProspectAge > 61 || ProspectAge < 19) {
+                    return false;
+
+                }
+                $('#txtprospectAge').val(ProspectAge);
+                return true;
+            }
+        }
+    }
+
+    function ValidateProposalDOB(datepickerId) {
+        var dob = $('#' + datepickerId).val();
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+        var arrDOB = dob.split('/');
+        var birthDay = arrDOB[0];
+        var birthMonth = arrDOB[1];
+        var birthYear = arrDOB[2];
+        var arrCurrentDate = currentDate.split('/');
+        var currentDay = arrCurrentDate[0];
+        var currentMonth = arrCurrentDate[1];
+        var currentYear = arrCurrentDate[2];
+        if (birthYear <= currentYear) {
+            if (birthMonth <= currentMonth) {
+                if (birthDay <= currentDay) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth < currentMonth) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (birthMonth > currentMonth && birthYear < currentYear) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+    function ageProposalCount() {
+        var dob = $('#txtMemberFillDateOfBirth').val();
+        var controlid = 'txtMemberFillDateOfBirth';
+        writeMultipleMessage("error", "", controlid);
+        if (dob == "") {
+            $('#txtMemberAgeNextBirthdayMember').val('');
+            return false;
+        }
+        if (!ValidateProposalDOB(controlid)) {
+            $('#txtMemberAgeNextBirthdayMember').val('');
+            return false;
+        }
+        else {
+            if (dob != '') {
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = (currentYear - birthYear) + 1;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                $('#txtMemberAgeNextBirthdayMember').val(calYear);
+                var ProspectAge = $('#txtMemberAgeNextBirthdayMember').val();
+
+                if (ProspectAge.length > 2 || ProspectAge > 75 || ProspectAge < 18) {
+                    return false;
+
+                }
+                $('#txtMemberAgeNextBirthdayMember').val(ProspectAge);
+            }
+        }
+    }
+</script>

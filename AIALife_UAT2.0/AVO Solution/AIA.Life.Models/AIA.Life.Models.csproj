@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9C4E7C0D-1581-481B-AED9-BD8DD2419061}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AIA.Life.Models</RootNamespace>
+    <AssemblyName>AIA.Life.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Grid.Mvc.Ajax">
+      <HintPath>..\packages\Grid.Mvc.Ajax.1.0.31\lib\Grid.Mvc.Ajax.dll</HintPath>
+    </Reference>
+    <Reference Include="GridMvc">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AgentonBoarding\RecruitmentAgent.cs" />
+    <Compile Include="Allocation\AllocationModel.cs" />
+    <Compile Include="Common\Address.cs" />
+    <Compile Include="Common\Agent.cs" />
+    <Compile Include="Common\AppVersion.cs" />
+    <Compile Include="Common\AuthorizeUser.cs" />
+    <Compile Include="Common\DocumentUpload.cs" />
+    <Compile Include="Common\Error.cs" />
+    <Compile Include="Common\LifeAssuredAge.cs" />
+    <Compile Include="Common\MappingData.cs" />
+    <Compile Include="Common\MasterListItem.cs" />
+    <Compile Include="Common\MemberDetails.cs" />
+    <Compile Include="Common\PreviousPolicyDetails.cs" />
+    <Compile Include="Common\ProductMasters.cs" />
+    <Compile Include="Common\Questions.cs" />
+    <Compile Include="DashBoard\DashboardReport.cs" />
+    <Compile Include="EmailSMSDetails\EmailSMSDetails.cs" />
+    <Compile Include="Hierarchy\HierarchyData.cs" />
+    <Compile Include="Integration\AgentOnBoarding\AgentServiceModel.cs" />
+    <Compile Include="Integration\AgentOnBoarding\CreateEmployeeService.cs" />
+    <Compile Include="Integration\Payment\PaymentAPIModels.cs" />
+    <Compile Include="Integration\Payment\PaymentServiceModel.cs" />
+    <Compile Include="Integration\Payment\ReceiptIntegration.cs" />
+    <Compile Include="Integration\Services\PremiumModel.cs" />
+    <Compile Include="Integration\Services\ProposalInfo.cs" />
+    <Compile Include="Integration\Services\ProposalIntegration.cs" />
+    <Compile Include="Integration\Services\QuoteInfo.cs" />
+    <Compile Include="Integration\Services\ServiceMedicalTests.cs" />
+    <Compile Include="MQModel\QueueModel.cs" />
+    <Compile Include="MQModel\WrapperImpersonationContext.cs" />
+    <Compile Include="NeedAnalysis\NeedAnalysis.cs" />
+    <Compile Include="Common\BenifitDetails.cs" />
+    <Compile Include="Opportunity\BenifitDetails.cs" />
+    <Compile Include="Opportunity\CampaignLeadType.cs" />
+    <Compile Include="Opportunity\ChildDetails.cs" />
+    <Compile Include="Opportunity\LifeQuote.cs" />
+    <Compile Include="Opportunity\Prospect.cs" />
+    <Compile Include="Opportunity\SpouseDetails.cs" />
+    <Compile Include="Payment\PaymentModel.cs" />
+    <Compile Include="Policy\LifeAssuredDetails.cs" />
+    <Compile Include="Policy\MedicalHistory.cs" />
+    <Compile Include="Policy\Policy.cs" />
+    <Compile Include="Opportunity\ProductDetails.cs" />
+    <Compile Include="Policy\ProposalInbox.cs" />
+    <Compile Include="Policy\ProposalStatus.cs" />
+    <Compile Include="Policy\TransactLog.cs" />
+    <Compile Include="Policy\UWInbox.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Opportunity\Suspect.cs" />
+    <Compile Include="Reports\UWDecisionReport.cs" />
+    <Compile Include="UserManagement\AccountSummary.cs" />
+    <Compile Include="UserManagement\Address.cs" />
+    <Compile Include="UserManagement\CDTAccounts.cs" />
+    <Compile Include="UserManagement\ChangePassword.cs" />
+    <Compile Include="UserManagement\Configuration.cs" />
+    <Compile Include="UserManagement\ContentManagement.cs" />
+    <Compile Include="UserManagement\CreateUserModel.cs" />
+    <Compile Include="UserManagement\Float.cs" />
+    <Compile Include="UserManagement\ImdcodeCreationModel.cs" />
+    <Compile Include="UserManagement\IMOUsers.cs" />
+    <Compile Include="UserManagement\Login.cs" />
+    <Compile Include="UserManagement\Mapping.cs" />
+    <Compile Include="UserManagement\MasBranch.cs" />
+    <Compile Include="UserManagement\MasEmployee.cs" />
+    <Compile Include="UserManagement\ProductPayments.cs" />
+    <Compile Include="UserManagement\UserAccount.cs" />
+    <Compile Include="UserManagement\UserDetails.cs" />
+    <Compile Include="UserManagement\UserExtension.cs" />
+    <Compile Include="UserManagement\UserProductPermissions.cs" />
+    <Compile Include="UWDecision\UWLoadingPremium.cs" />
+    <Compile Include="UWDecision\UWDecision.cs" />
+    <Compile Include="UWRules\UWDocuments.cs" />
+    <Compile Include="UWRules\UWPolicy.cs" />
+    <Compile Include="UWRules\UWRule.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

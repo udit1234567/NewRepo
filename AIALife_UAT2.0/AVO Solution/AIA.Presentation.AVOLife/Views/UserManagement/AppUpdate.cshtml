@@ -1,0 +1,262 @@
+﻿@model AIA.Life.Models.UserManagement.AppNotification
+@using AIA.Presentation.Helpers
+@using GridMvc.Html
+@using AIAResources;
+<style>
+    #ISMandatory {
+        width: 25px;
+        height: 25px;
+        margin-top: 28px;
+    }
+
+    .mandatory-label {
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 26px;
+    }
+
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .inputfile-6 + label {
+        border: 2px solid #eee;
+        padding: 0;
+        height: 37px;
+    }
+
+    .inputfile-6 + label {
+        color: #000;
+    }
+
+    .inputfile + label {
+        max-width: 100%;
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    .inputfile-6 + label span {
+        width: 200px;
+        min-height: 2em;
+        display: inline-block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .inputfile-6 + label span, .inputfile-6 + label strong {
+        padding: 0.625rem 1.25rem;
+    }
+
+    .inputfile + label * {
+        pointer-events: none;
+    }
+
+    .inputfile-6 + label strong {
+        height: 45%;
+        color: #f1e5e6;
+        background-color: #d31145;
+        border-radius: 3px;
+        display: inline-block;
+        position: absolute;
+        right: 17px;
+    }
+
+    .inputfile-6 + label span, .inputfile-6 + label strong {
+        padding: 0.625rem 1.25rem;
+    }
+
+    .inputfile-6 + label {
+        border: 2px solid #eee;
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .inputfile-6 + label {
+        color: #000;
+    }
+
+    .update-section {
+        border: 1px solid #d31145;
+        padding: 30px;
+    }
+</style>
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+
+        <div class="btn btn-info"><b>@Resources.GetLabelName("App Update")</b></div>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("", "", new { ReturnUrl = "" }, FormMethod.Post, new { role = "form", id = "frmAppUpdate" }))
+{<div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a style="color: white;" class="icon-user"></a>
+                <a data-toggle="collapse" data-target="#collapse3" href="#collapseone" class="collapsed">
+                    App Update <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Search Recepient")<span class="mandatory">*</span></label>
+                @Html.DropDownListFor(s => s.SelectRecepient, new SelectList(Model.LstRecepient, "ID", "Value"), "Select", new { @id = "ddlSearchRecepient", @class = "form-control"})
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Sub Recepient")</label>
+                @Html.DropDownListFor(s => s.SelectSubRecepient, new SelectList(Model.LstSubRecepient, "Text", "Value"), "Select", new { @id = "ddlSearchRecepient", @class = "form-control" })
+            </div>
+        </div>
+
+            @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    @Html.CheckBoxFor(a => a.ISMandatory, new { @id = "ISMandatory" })
+                    <label class="mandatory-label">ISMandatory</label>
+                </div>
+            </div>*@
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Enter Message")<span class="mandatory">*</span></label>
+                    @Html.TextAreaFor(x => x.Message, new { @class = "form-control", @id = "idMessage" })
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("What's New")<span class="mandatory">*</span></label>
+                    @Html.TextAreaFor(x => x.WhatsNew, new { @class = "form-control", @id = "idWhatsNew" })
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" style="text-align: center;margin-top:30px;display:block" id="divSearchButtons">
+                <input type="button" name="Search" value="Submit" onclick="AppUpdate()" class="btn btn-default">
+                <input type="button" name="Clear" value="Cancel" onclick="return location.href = '../UserManagement/AppUpdate'" class="btn btn-default">
+                @*<input type="button" name="Clear" value="Schedule" class="btn btn-default" data-toggle="modal" data-target="#mySchedule">*@
+            </div>
+        </div>
+}
+<!-- Modal -->
+<div class="modal fade" id="mySchedule" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Schedule</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Select Date</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Select Time</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="AppModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Resources.GetLabelName("App Update")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="AppModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadHomePage()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    'use strict';
+    (function (document, window, index) {
+        var inputs = document.querySelectorAll('.inputfile');
+        Array.prototype.forEach.call(inputs, function (input) {
+            var label = input.nextElementSibling,
+                labelVal = label.innerHTML;
+
+            input.addEventListener('change', function (e) {
+                var fileName = '';
+                if (this.files && this.files.length > 1)
+                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                else
+                    fileName = e.target.value.split('\\').pop();
+
+                if (fileName)
+                    label.querySelector('span').innerHTML = fileName;
+                else
+                    label.innerHTML = labelVal;
+            });
+
+            // Firefox bug fix
+            input.addEventListener('focus', function () { input.classList.add('has-focus'); });
+            input.addEventListener('blur', function () { input.classList.remove('has-focus'); });
+        });
+    }(document, window, 0));
+    function AppUpdate() {
+        debugger;
+        writeMultipleMessage("error", "", "idMessage");
+        writeMultipleMessage("error", "", "idMessage");
+        writeMultipleMessage("error", "", "ddlSearchRecepient");
+        if ($("#idMessage").val() == "") {
+            writeMultipleMessage("error", "Please Enter Message.", "idMessage");
+            return false;
+        }
+        if ($("#idWhatsNew").val() == "") {
+            writeMultipleMessage("error", "Please Enter What's New Message.", "idWhatsNew");
+            return false;
+        }
+
+        if ($("#ddlSearchRecepient").val() == "") {
+            writeMultipleMessage("error", "Please Select Recepient Search.", "ddlSearchRecepient");
+            return false;
+        }
+        $.post("../../UserManagement/SendAppUpdate", $("#frmAppUpdate").serialize(), function (data) {
+
+            $('#AppModalBody').html('');
+            $('#AppModalBody').html(data.Result);
+            $("#AppModal").modal("show");
+        });
+    }
+    function LoadHomePage() {
+        window.location.href = "/UserManagement/AppUpdate";
+    }
+</script>

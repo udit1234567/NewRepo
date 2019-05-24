@@ -1,0 +1,738 @@
+﻿
+@model AIA.Life.Models.Policy.Policy
+@using GridMvc.Html
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int NomineeCount = 0;
+    int MemberIndex = Model.AssuredIndex;
+    string TableID = "tblMemberNomineeDetails" + MemberIndex;
+    if (Model.objNomineeDetails != null)
+    {
+        if (Model.objNomineeDetails.Count() == 0)
+        {
+            NomineeCount = Model.objNomineeDetails.Count();
+        }
+        else
+        {
+            NomineeCount = Model.objNomineeDetails.Count();
+        }
+    }
+}
+@Html.Grid(Model.objNomineeDetails).Named("GridNomineeDetails").Columns(columns =>
+{
+columns.Add(a => a.NomineeRelationship).Titled("Relationship To Life Assured").Format("Relationship To Life Assured").Encoded(false).Sanitized(false).RenderValueAs(a => Html.DropDownList("objNomineeDetails[" + a.Index + "].NomineeRelationship", new SelectList(Model.lstBeneficiaryRelations, "ID", "Value", a.NomineeRelationship), "Select", new { @id = "DDLNomineeRelationship" + a.Index, @class = "form-control", @style = "width:100%", @onChange = "CheckBoxUncheck()" }));
+columns.Add(a => a.NomineeSalutation).Titled("Salutation").Format("Salutation").Encoded(false).Sanitized(false).RenderValueAs(a => Html.DropDownList("objNomineeDetails[" + a.Index + "].NomineeSalutation", new SelectList(Model.lstBeneficiarySalutation, "Value", "Text", a.NomineeSalutation), "Select", new { @id = "DDLNomineeSalutation" + a.Index, @class = "form-control", @style = "width:100%", @onChange = "CheckBoxUncheck()" }));
+columns.Add(a => a.NomineeName).Titled("Given Name").Format("NAME").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objNomineeDetails[" + a.Index + "].NomineeName", a.NomineeName, new { @id = "NomineeName" + a.Index, @class = "form-control", @style = "width:100%", @maxlength = 60, @onkeypress = "return onlyAlphabets(event),CheckBoxUncheck()", @onkeyup = "return AlphabetsWithSpace(event),CheckBoxUncheck()", @onChange = "CheckBoxUncheck()" }));
+columns.Add(a => a.NomineeSurname).Titled("Surname").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objNomineeDetails[" + a.Index + "].NomineeSurname", a.NomineeSurname, new { @id = "NomineeSurname" + a.Index, @class = "form-control", @style = "width:100%", @maxlength = 60, @onkeypress = "return onlyAlphabets(event),CheckBoxUncheck()", @onkeyup = "return AlphabetsWithSpace(event),CheckBoxUncheck()", @onChange = "CheckBoxUncheck()" }));
+columns.Add(a => a.NomineeNICNo).Titled("NIC No").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objNomineeDetails[" + a.Index + "].NomineeNICNo", a.NomineeNICNo, new { @id = "NomineeNICNo" + a.Index, @class = "form-control", @style = "width:100%", @maxlength = 12, @onkeypress = "return isAlphaNumberKeyback(event),CheckBoxUncheck()", @onkeyup = "return isAlphaNumberKeybackwithOutSymbolSpace(event),CheckBoxUncheck()", @onChange = "NomineeFoundNIC_Loaddata('" + a.Index + "'),CheckBoxUncheck()" })); //FetchDOBfromNICNominee('NomineeNICNo', '" + "NOMDOB" + a.Index + "','ddlNomineeGender" + a.Index + "',\'" + a.Index + "\')
+columns.Add(a => a.NomineeNicNoDOB).Titled("Date Of Birth").Encoded(false).Sanitized(false).RenderValueAs(a => @Html.iNubeDatePickerForGridNew("" + a.NomineeNicNoDOB, "objNomineeDetails[" + a.Index + "].NomineeNicNoDOB", "NomineeNicNoDOB" + a.Index, new { @class = "form-control" + " NOMDOB" + a.Index, @id = "NomineeDOB" + a.Index, data_role = "htmlDatePicker", @style = "width:100%", @onChange = "CheckBoxUncheck()" }, "").ToHtmlString());
+columns.Add(a => a.NomineeGender).Titled("Gender").Encoded(false).Sanitized(false).RenderValueAs(a => Html.DropDownList("objNomineeDetails[" + a.Index + "].NomineeGender", new SelectList(Model.lstGender, "Value", "Text", a.NomineeGender), "Select", new { @id = "DDLNomineeGender" + a.Index, @class = "form-control", @style = "width:100%", @onChange = "CheckBoxUncheck()" }));
+columns.Add(a => a.NomineeMaritalStatus).Titled("Marital Status").Encoded(false).Sanitized(false).RenderValueAs(a => Html.DropDownList("objNomineeDetails[" + a.Index + "].NomineeMaritalStatus", new SelectList(Model.MaritalStatuslist, "Value", "Text", a.NomineeMaritalStatus), "Select", new { @id = "ddlNomineeMaritalStatus" + a.Index, @class = "form-control", @style = "width:100%", @onChange = "CheckBoxUncheck()" }));
+columns.Add(a => a.NomineeAddress).Titled("Address").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objNomineeDetails[" + a.Index + "].NomineeAddress", a.NomineeAddress, new { @id = "NomineeAddress" + a.Index, @class = "form-control", @style = "width:100%", @maxlength = 60, @onkeypress = "return onlyAlphabets(event),CheckBoxUncheck()", @onChange = "CheckBoxUncheck()", @onkeyup = "CheckBoxUncheck()" }));
+columns.Add(a => a.NomineeTelephone).Titled("Telephone").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objNomineeDetails[" + a.Index + "].NomineeTelephone", a.NomineeTelephone, new { @id = "NomineeTelephone" + a.Index, @class = "form-control", @style = "width:100%", @maxlength = 16, @onkeypress = "return onlyAlphabets(event),CheckBoxUncheck()", @onChange = "CheckBoxUncheck()" }));
+columns.Add(a => a.NomineeDetailsId, true).Titled("NomineeDetailsId").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objNomineeDetails[" + a.Index + "].NomineeDetailsId", a.NomineeDetailsId, new { @id = "NomineeDetailsId" + a.Index, @class = "form-control", @style = "width:100%" }));
+columns.Add(a => a.NomineePercentage).Titled("%").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objNomineeDetails[" + a.Index + "].NomineePercentage", a.NomineePercentage, new { @id = "NomineePercentage" + a.Index, @class = "form-control", @style = "width:100%", @maxlength = 3, @onkeypress = "return isNumberKeyWithDot1(event),CheckBoxUncheck()", @onkeyup = "return isNumberKeyWithDot1(event),CheckBoxUncheck()", @onChange = "CheckBoxUncheck()" }));
+columns.Add(a => a.IsDeleted, true).Titled("").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Hidden("objNomineeDetails[" + a.Index + "].IsDeleted", a.IsDeleted, new { @id = "NomineeIsDeleted" + a.Index, @class = "form-control" }));
+columns.Add(a => a.NomineeClientCode, true).Titled("").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Hidden("objNomineeDetails[" + a.Index + "].NomineeClientCode", a.NomineeClientCode, new { @id = "NomineeClientCode" + a.Index, @class = "form-control" }));
+columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center").RenderValueAs(a =>@<text>
+        <input type="button" id="deleteGridRow" value="Delete" class="btn btn-default " onclick="DeleteNomineeRow(@a.Index)" /></text>);
+
+}).Selectable(true)
+<script type="text/javascript">
+    function CheckBoxUncheck()
+    {
+        debugger;
+        $("#checkboxDeclaration").prop("checked", false);
+        $("#checkboxDeclaration").removeClass('checkboxactive');
+    }
+
+    $(document).ready(function () {
+        $("#divNomineeDetailsGrid   tbody").find("tr").each(function (index) {
+
+            var MainLifeAddress1 = $('#objProspectDetailsobjCommunicationAddressAddress1').val(); //txtComAddress10
+            var MainLifeAddress2 = $('#objProspectDetailsobjCommunicationAddressAddress2').val(); //txtComAddress20
+            var MainLifeAddress3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val(); //txtComAddress30
+            var MainLifeState = $('#txtComState0').val(); //txtComState0
+            var MainLifePostalCode = $('#objProspectDetailsobjCommunicationAddressPincode').val(); //txtComPincode0
+            var MainLifeDistrict =   $('#objProspectDetailsobjCommunicationAddressddlDistrict').val(); //txtComDistrict0
+            var MainLifeProvince = $('#objProspectDetailsobjCommunicationAddressddlProvince').val(); //txtComCity0
+
+            //var MainLifeAddress1 = $('#txtComAddress10').val();   //txtComAddress10
+            //var MainLifeAddress2 = $('#txtComAddress20').val();   //txtComAddress20
+            //var MainLifeAddress3 = $('#txtComAddress30').val();   //txtComAddress30
+            //var MainLifeState = $('#txtComState0').val();         //txtComState0
+            //var MainLifePostalCode = $('#txtComPincode0').val();  //txtComPincode0
+            //var MainLifeDistrict =   $('#txtComDistrict0').val(); //txtComDistrict0
+            //var MainLifeProvince = $('#txtComCity0').val();       //txtComCity0
+            var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince + ','+MainLifeState ;
+            $("#NomineeAddress" + index).val(MainLifeAddress);
+        });
+    });
+    @*var NomineeIndex = parseInt('@NomineeCount');*@
+    var lstRelation = @(Html.Raw(Json.Encode(Model.lstBeneficiaryRelations)));
+    var lstSalutation = @(Html.Raw(Json.Encode(Model.lstBeneficiarySalutation)));
+    var lstGender = @(Html.Raw(Json.Encode(Model.lstGender)));
+    var MaritalStatuslist = @(Html.Raw(Json.Encode(Model.MaritalStatuslist)));
+
+    var NomineeIndex = 0;
+    function AddNomineeRow() {
+        debugger;
+        $("#checkboxDeclaration").prop("checked", false);
+        $("#checkboxDeclaration").removeClass('checkboxactive');
+
+        // For Removing No Records Row
+        var NomineePolicyID = '@Model.PolicyID';
+        if (NomineePolicyID == 0) {
+            var NomineeGridRows = $("#divNomineeDetailsGrid  tbody tr").length;
+            // if (NomineeGridRows == 0) {
+            if (NomineeIndex == 0) {
+                $("#divNomineeDetailsGrid tbody").find("tr").each(function (index) {
+                    $(this).remove();
+                });
+            }
+            //}
+        }
+        if (NomineePolicyID > 0) {
+            var NoOfNomineeGridRows = $("#divNomineeDetailsGrid  tbody tr").length;
+            if (NoOfNomineeGridRows > 1) {
+                NomineeIndex = NoOfNomineeGridRows;
+            }
+            if (NoOfNomineeGridRows == 1) {
+                if (NomineeIndex == 0) {
+                    $("#divNomineeDetailsGrid tbody").find("tr").each(function (index) {
+                        $(this).remove();
+                    });
+                }
+            }
+        }
+
+        var Remove = NomineeIndex;
+        var IsDeleted = 'NomineeIsDeleted' + NomineeIndex;
+        var _RowID = 'NomineeRow' + NomineeIndex;
+        var _RowIndex = NomineeIndex;
+
+        var DOBMarkUp = "<td class='grid-cell' data-name='DateOfBirth' data-label='Date Of Birth'><div id='divNomineeDateOfBirth" + NomineeIndex + "' class='input-group date'= " +
+       "data-date-format='DD/MM/YYYY'><input data-role='htmlDatePicker' id='NomineeDOB" + NomineeIndex + "' name='objNomineeDetails[" + NomineeIndex +"].NomineeNicNoDOB" + "'  class='form-control datepicker datepicker-hidekeypad NOMDOB"+NomineeIndex+"' maxlength ='10' "  +
+       "type='text' class='form-control datepicker-hidekeypad NOMDOB"+NomineeIndex+"'><span class='input-group-addon openNomineeDOB'  style='padding:0px'><i class='fa fa-calendar'></i></span></div></td> "; //onclick='CallFunction(" + NomineeIndex + ")'
+
+        var DOBID="objNomineeDetails[" +NomineeIndex+ "].NomineeNicNoDOB";
+        var DOBClass="NOMDOB" +NomineeIndex;
+        newRow = "<tr class='grid-row' id='" + _RowID + "' > <td class='grid-cell' data-name='RelationshipWithProspect' data-label='Relationship With Prospect'><select name='objNomineeDetails[" + NomineeIndex + "].NomineeRelationship' class='form-control' style='width:100%' onchange='NomineeDetailsfunction("+NomineeIndex+"),CheckBoxUncheck()'  id=\'DDLNomineeRelationship" + NomineeIndex + "\'><option Value=''>Select</option></select></td>" + //onchange='NomineeDetailsfunction("+NomineeIndex+")'
+            "<td class='grid-cell' data-name='Salutation' data-label='Salutation'><select name='objNomineeDetails[" + NomineeIndex + "].NomineeSalutation' class='form-control' style='width:100%' onchange='CheckBoxUncheck()'  id=\'DDLNomineeSalutation" + NomineeIndex + "\'><option Value=''>Select</option></select></td>"+
+        "<td class='grid-cell' data-name='NomineeName' data-label='Nominee Name'><input name='objNomineeDetails[" + NomineeIndex + "].NomineeName' type='text' class='form-control' style='width:100%'  onkeypress='return AlphabetsWithSpacecommaandslash(event),CheckBoxUncheck()' onkeyup='return AlphabetsWithSpace(event),CheckBoxUncheck()' id=\'NomineeName" + NomineeIndex + "\'></input></td>"+
+        "<td class='grid-cell' data-name='NomineeSurname' data-label='Nominee Surname'><input name='objNomineeDetails[" + NomineeIndex + "].NomineeSurname' type='text' class='form-control' style='width:100%'   onkeypress='return AlphabetsWithSpacecommaandslash(event),CheckBoxUncheck()' onkeyup='return AlphabetsWithSpace(event),CheckBoxUncheck()' id=\'NomineeSurname" + NomineeIndex + "\'></input></td>"+
+            "<td class='grid-cell' data-name='NomineeNICNo' data-label='Nominee NIC No'><input name='objNomineeDetails[" + NomineeIndex + "].NomineeNICNo' type='text' class='form-control' style='width:100%' maxlength ='12' onkeypress = 'return isAlphaNumberKeyback(event),CheckBoxUncheck()' onkeyup = 'return isAlphaNumberKeyback(event),CheckBoxUncheck()' onchange=NomineeFoundNIC_Loaddata('"+NomineeIndex+"') id=\'NomineeNICNo" + NomineeIndex + "\'></input></td>" + //FetchDOBfromNICNominee('NomineeNICNo','"+DOBClass+"','DDLNomineeGender"+NomineeIndex+"',\'" + NomineeIndex + "\')
+         DOBMarkUp +
+            "<td class='grid-cell' data-name='Gender' data-label='Gender'><select name='objNomineeDetails[" + NomineeIndex + "].NomineeGender' class='form-control' style='width:100%' onchange='CheckBoxUncheck()'  id=\'DDLNomineeGender" + NomineeIndex + "\'><option Value=''>Select</option></select></td>" +
+
+            "<td class='grid-cell' data-name='MaritalStatus' data-label='Marital Status'><select name='objNomineeDetails[" + NomineeIndex + "].NomineeMaritalStatus' class='form-control' style='width:100%' onchange='CheckBoxUncheck()'  id=\'ddlNomineeMaritalStatus" + NomineeIndex + "\'><option Value=''>Select</option></select></td>" +
+
+       "<td class='grid-cell' data-name='NomineeAddress' data-label='Nominee Address'><input name='objNomineeDetails[" + NomineeIndex + "].NomineeAddress' type='text' class='form-control' style='width:100%'  onkeypress ='CheckBoxUncheck()' onkeyup='CheckBoxUncheck()'  id=\'NomineeAddress" + NomineeIndex + "\'></input></td>"+
+       "<td class='grid-cell' data-name='NomineeTelephone' data-label='Nominee Telephone'><input name='objNomineeDetails[" + NomineeIndex + "].NomineeTelephone' type='text' class='form-control' style='width:100%'  maxlength ='16' minlength='10' onkeypress = 'return isNumberKey(event),CheckBoxUncheck()' onkeyup='return isNumberTabkey(event),CheckBoxUncheck()' id=\'NomineeTelephone" + NomineeIndex + "\'></input></td>"+
+            "<td class='grid-cell' data-name='NomineePercentage'data-label='Nominee Percentage' ><input name='objNomineeDetails[" + NomineeIndex + "].NomineePercentage' type='text' class='form-control' style='width:100%' maxlength='3' onkeypress = 'return isNumberKeyWithDot1(event),CheckBoxUncheck()'  onkeyup='return isNumberTabkey(event),CheckBoxUncheck()' id=\'NomineePercentage" + NomineeIndex + "\' ></input></td>" + //onchange='NomineeDetailsPercentage("+NomineeIndex+")'
+           //"<td class='grid-cell' style='display:none' data-name='Nominee Details Id'><input name='objNomineeDetails[" + NomineeIndex + "].NomineeDetailsId' type='text' class='form-control'  id=\'" + IsDeleted + "\' ></input></td>" + //
+            "<td style='display:none' class='grid-cell' data-name='IsDeleted'><input value='' class='form-control' type='text' name='objNomineeDetails[" + NomineeIndex + "].IsDeleted' class='form-control' id=\'" + IsDeleted + "' /></td>" +
+           //"<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'deleteGridRow" + NomineeIndex + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteNomineeRow(\"" + _RowID + "\")' /></td></tr>";
+          "<td class='grid-cell text-center' data-name='Delete'><input value='Delete' class='btn btn-default' type='button'  onclick='DeleteNomineeRow(id)' id=\'" + Remove + "'/></td></tr>";
+
+        //"<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'deleteGridRow" + NomineeIndex + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteNomineeRow(\"" + _RowIndex + "\")' /></td></tr>";
+        $('#divNomineeDetailsGrid tbody:last').append(newRow);
+        $(function () { $('#NomineeDOB' + NomineeIndex).datetimepicker({ format: 'DD/MM/YYYY', useCurrent: false }); });
+
+
+        var Relations = "";
+        $.each(lstRelation, function (ID, option) {
+            Relations += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+        });
+        $("#DDLNomineeRelationship" + NomineeIndex).append(Relations);
+
+        var Salutation ="";
+        $.each(lstSalutation, function (Value, option) {
+            Salutation +='<option Value="'+ option.Value + '">'+option.Text + '</option>';
+        });
+        $("#DDLNomineeSalutation" + NomineeIndex).append(Salutation);
+
+        var Gender ="";
+        $.each(lstGender, function (Value, option) {
+            Gender += '<option Value='+ option.Value + '>'+option.Text + '</option>';
+        });
+        $("#DDLNomineeGender" + NomineeIndex).append(Gender);
+
+        var MaritalStatus ="";
+        $.each(MaritalStatuslist, function (Value, option) {
+            MaritalStatus += '<option Value='+ option.Value + '>'+option.Text + '</option>';
+        });
+        $("#ddlNomineeMaritalStatus" + NomineeIndex).append(MaritalStatus);
+
+        var MainLifeAddress1 = $('#txtComAddress10').val();
+        var MainLifeAddress2 = $('#txtComAddress20').val();
+        var MainLifeAddress3 = $('#txtComAddress30').val();
+        var MainLifeState = $('#txtComState0').val();
+        var MainLifePostalCode = $('#txtComPincode0').val();
+        var MainLifeDistrict =   $('#txtComDistrict0').val();
+        var MainLifeProvince = $('#txtComCity0').val();
+        var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifeState + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince ;
+        $("#NomineeAddress" + NomineeIndex).val(MainLifeAddress);
+        //$("#divNomineeDetailsGrid   tbody").find("tr").each(function (index){
+
+        //});
+        var PolicyID = '@Model.PolicyID';
+        if (PolicyID > 0) {
+
+            var MainLifeAddress1 = $('#objProspectDetailsobjCommunicationAddressAddress1').val(); //txtComAddress10
+            var MainLifeAddress2 = $('#objProspectDetailsobjCommunicationAddressAddress2').val(); //txtComAddress20
+            var MainLifeAddress3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val(); //txtComAddress30
+            var MainLifeState = $('#txtComState0').val(); //txtComState0
+            var MainLifePostalCode = $('#objProspectDetailsobjCommunicationAddressPincode').val(); //txtComPincode0
+            var MainLifeDistrict =   $('#objProspectDetailsobjCommunicationAddressddlDistrict').val(); //txtComDistrict0
+            var MainLifeProvince = $('#objProspectDetailsobjCommunicationAddressddlProvince').val(); //txtComCity0
+
+            //var MainLifeAddress1 = $('#txtComAddress10').val();   //txtComAddress10
+            //var MainLifeAddress2 = $('#txtComAddress20').val();   //txtComAddress20
+            //var MainLifeAddress3 = $('#txtComAddress30').val();   //txtComAddress30
+            //var MainLifeState = $('#txtComState0').val();         //txtComState0
+            //var MainLifePostalCode = $('#txtComPincode0').val();  //txtComPincode0
+            //var MainLifeDistrict =   $('#txtComDistrict0').val(); //txtComDistrict0
+            //var MainLifeProvince = $('#txtComCity0').val();       //txtComCity0
+            var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince + ','+MainLifeState ;
+            $("#NomineeAddress" + NomineeIndex).val(MainLifeAddress);
+
+        }
+
+        NomineeIndex = NomineeIndex + 1;
+        $('.datepicker').parent().datetimepicker({
+            format: 'DD/MM/YYYY',
+            useCurrent: false,
+
+        });
+    }
+
+    function DeleteNomineeRow(id){
+        var _RowID = 'NomineeRow' + id;
+        $('#NomineeIsDeleted' + id).val(true);
+        var NomineeFirstName = $("#NomineeName" + id).val();
+        $("#divMemberDetails tbody").find("tr").each(function (index) {
+            FirstNamevalue = $("#txtFirstName" + index).val();
+            if (NomineeFirstName == FirstNamevalue) {
+                $("#hdnIsLifeAssuredSeleted" + index).val(false);
+                $("#NomineeName" + id).val('');
+            }
+        });
+        // NomineeIndex = id;
+        // $(e).closest("tr").remove();
+
+        $("#divNomineeDetailsGrid tbody").find("tr").each(function (index) {
+            if (id == index) {
+                $('#NomineeIsDeleted' + id).val(true);
+                $(this).hide();
+            }
+        });
+    }
+
+    @*function DeleteNomineeRow(id) {
+        debugger;
+        var jsonNomineeObj = [];
+        var _PrevNomineeIndex = NomineeIndex - 1;
+
+        var Index = parseInt(id);
+        $("#divNomineeDetailsGrid tbody").find("tr").each(function (index) {
+            if (Index == index) {
+                $(this).remove();
+            }
+        });
+            // For getting Current Data in Grid
+            var _index =0
+            $("#divNomineeDetailsGrid tbody").find("tr").each(function (index) {
+                _Index = _index;
+                RelationshipWithProspect = $(this).find("[data-name=RelationshipWithProspect]").find("option:selected").val();
+                Salutation = $(this).find("[data-name=Salutation]").find("option:selected").val();
+                NomineeName = $(this).find("[data-name=NomineeName]").find("input[type=text]").val();
+                NomineeSurname  = $(this).find("[data-name=NomineeSurname]").find("input[type=text]").val();
+                NomineeNICNo = $(this).find("[data-name=NomineeNICNo]").find("input[type=text]").val();
+                DateOfBirth = $(this).find("[data-name=DateOfBirth]").find("input[type=text]").val();
+                Gender   = $(this).find("[data-name=Gender]").find("option:selected").val();
+                MaritalStatus = $(this).find("[data-name=MaritalStatus]").find("option:selected").val();
+                NomineeAddress = $(this).find("[data-name=NomineeAddress]").find("input[type=text]").val();
+                NomineeTelephone = $(this).find("[data-name=NomineeTelephone]").find("input[type=text]").val();
+                NomineePercentage = $(this).find("[data-name=NomineePercentage]").find("input[type=text]").val();
+                NomineeDetailsID = $(this).find("[data-name=NomineeDetailsID]").find("input[type=text]").val();
+                jsonNomineeObj.push({ _Index: _Index, RelationshipWithProspect: RelationshipWithProspect, Salutation: Salutation, NomineeName: NomineeName, NomineeSurname: NomineeSurname, NomineeNICNo: NomineeNICNo, DateOfBirth: DateOfBirth, Gender: Gender, MaritalStatus:MaritalStatus,NomineeAddress: NomineeAddress,NomineeTelephone: NomineeTelephone,NomineePercentage: NomineePercentage,NomineeDetailsID : NomineeDetailsID });
+                _index = _index + 1;
+            })
+            // Emptying Grid
+            $("#divNomineeDetailsGrid tbody").find("tr").each(function (index) {
+                $(this).remove();
+            });
+
+            // Rearranging Grid Content For Model Binding
+
+            $.each(jsonNomineeObj, function (index, value) {
+
+                var i = index;
+                var _RowID = 'NomineeRow' + jsonNomineeObj[i]._Index;
+                var _RowIndex = jsonNomineeObj[i]._Index;
+                var DOBMarkUp = "<td class='grid-cell' data-name='DateOfBirth'><div id='divNomineeDateOfBirth" + jsonNomineeObj[i]._Index  + "' class='input-group date'= " +
+                 "data-date-format='DD/MM/YYYY'><input data-role='htmlDatePicker' id='NomineeDOB" + jsonNomineeObj[i]._Index  + "' name='objNomineeDetails[" + jsonNomineeObj[i]._Index  +"].NomineeNicNoDOB" + "'  class='form-control  NOMDOB"+jsonNomineeObj[i]._Index +"' maxlength ='10' " +
+                 "type='text' class='form-control  NOMDOB"+jsonNomineeObj[i]._Index +"'><span class='input-group-addon openNomineeDOB' onclick='CallFunction(" + jsonNomineeObj[i]._Index  + ")' style='padding:0px'><i class='fa fa-calendar'></i></span></div></td> ";
+
+                DeleteRow = " <tr class='grid-row' id='" + _RowID + "' ><td class='grid-cell' data-name='RelationshipWithProspect'><select name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeRelationship'  value='"+jsonNomineeObj[i].RelationshipWithProspect+"' class='form-control' style='width:100%'  id=\'DDLNomineeRelationship" + jsonNomineeObj[i]._Index + "\'><option>Select</option></select></td>" +
+                    "<td class='grid-cell' data-name='Salutation'><select name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeSalutation'  value='"+jsonNomineeObj[i].Salutation+"' class='form-control' value='"+jsonNomineeObj[i].Salutation+"' style='width:115%'  id=\'DDLNomineeSalutation" + jsonNomineeObj[i]._Index + "\'><option>Select</option></select></td>" +
+                    "<td class='grid-cell' data-name='NomineeName'><input name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeName' type='text' class='form-control' style='width: 100%' value='"+jsonNomineeObj[i].NomineeName+"'  id=\'NomineeName" + jsonNomineeObj[i]._Index + "\'></input></td>" +
+                    "<td class='grid-cell' data-name='NomineeSurname'><input name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeSurname' type='text' class='form-control' style='width:100%' value='"+jsonNomineeObj[i].NomineeSurname+"'  id=\'NomineeSurname" + jsonNomineeObj[i]._Index + "\'></input></td>" +
+                    "<td class='grid-cell' data-name='NomineeNICNo'><input name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeNICNo' type='text' class='form-control' style='width:100%' value='"+jsonNomineeObj[i].NomineeNICNo+"'  id=\'NomineeNICNo" + jsonNomineeObj[i]._Index + "\'></input></td>"+
+                    DOBMarkUp +
+                   "<td class='grid-cell' data-name='Gender'><select name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeGender'  value='"+jsonNomineeObj[i].Gender+"' class='form-control' style='width:100%' value='"+jsonNomineeObj[i].Gender+"'  id=\'DDLNomineeGender" + jsonNomineeObj[i]._Index + "\'><option>Select</option></select></td>" +
+                 "<td class='grid-cell' data-name='MaritalStatus'><select name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeMaritalStatus'  value='"+jsonNomineeObj[i].MaritalStatus+"' class='form-control' style='width:100%'  id=\'ddlNomineeMaritalStatus" + jsonNomineeObj[i]._Index + "\'><option>Select</option></select></td>" +
+                 "<td class='grid-cell' data-name='NomineeAddress'><input name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeAddress' type='text' class='form-control' style='width:100%' value='"+jsonNomineeObj[i].NomineeAddress+"'  id=\'NomineeAddress" + jsonNomineeObj[i]._Index + "\'></input></td>" +
+                 "<td class='grid-cell' data-name='NomineeAddress'><input name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeAddress' type='text' class='form-control' style='width:100%' value='"+jsonNomineeObj[i].N+"'  id=\'NomineeAddress" + jsonNomineeObj[i]._Index + "\'></input></td>" +
+                 "<td class='grid-cell' data-name='NomineeTelephone'><input name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeTelephone' type='text' class='form-control' style='width:100%' value='"+jsonNomineeObj[i].NomineeTelephone+"'  id=\'NomineeTelephone" + jsonNomineeObj[i]._Index + "\'></input></td>" +
+                  "<td class='grid-cell' data-name='NomineePercentage'><input name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineePercentage' type='text' class='form-control' value='"+jsonNomineeObj[i].NomineePercentage+"'  id=\'NomineePercentage" + jsonNomineeObj[i]._Index + "\'></input></td>" +
+                    "<td style='display:none' class='grid-cell' data-name='NomineeDetailsId'><input name='objNomineeDetails[" + jsonNomineeObj[i]._Index + "].NomineeDetailsId' type='text' class='form-control' value='"+jsonNomineeObj[i].NomineePercentage+"'  id=\'NomineeDetailsId" + jsonNomineeObj[i]._Index + "\'></input></td>" +
+                   "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'deleteGridRow" + jsonNomineeObj[i]._Index + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteNomineeRow(\"" + _RowIndex + "\")' /></td></tr>";
+                $('#divNomineeDetailsGrid tbody:last').append(DeleteRow);
+                $(function () { $('#NomineeDOB' + jsonNomineeObj[i]._Index).datetimepicker({ format: 'DD/MM/YYYY', useCurrent: false }); });
+
+                NomineeIndex = jsonNomineeObj[i]._Index + 1;
+
+                lstRelations =  @(Html.Raw(Json.Encode(Model.lstBeneficiaryRelations)));
+
+                var Relationss = "";
+                $.each(lstRelations, function (ID, option) {
+                    Relationss += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+                });
+                $("#DDLNomineeRelationship" + jsonNomineeObj[i]._Index).append(Relationss);
+
+                 lstGenders = @(Html.Raw(Json.Encode(Model.lstGender)));
+                var Genders ="";
+                $.each(lstGenders, function (Value, option) {
+                    Genders += '<option Value='+ option.Value + '>'+option.Text + '</option>';
+                });
+                $("#DDLNomineeGender" + jsonNomineeObj[i]._Index).append(Genders);
+
+                lstSalutations = @(Html.Raw(Json.Encode(Model.lstBeneficiarySalutation)));
+                var Salutations ="";
+                $.each(lstSalutations, function (Value, option) {
+                    Salutations +='<option Value="'+ option.Value + '">'+option.Text + '</option>';
+                });
+                $("#DDLNomineeSalutation" + jsonNomineeObj[i]._Index).append(Salutations);
+
+                MaritalStatuslist = @(Html.Raw(Json.Encode(Model.MaritalStatuslist)));
+                var MaritalStatus = "";
+                $.each(MaritalStatuslist, function (Value, option) {
+                    MaritalStatus += '<option Value=' + option.Value + '>' + option.Text + '</option>';
+                });
+                $("#ddlNomineeMaritalStatus" + jsonNomineeObj[i]._Index).append(MaritalStatus);
+            });
+    }*@
+
+    //function NomineeDetailsPercentage(index)
+    //{
+    //    clearAllErrors();
+    //    var LoadingArray= [];
+    //    var total = 0;
+
+    //    $("#divNomineeDetailsGrid tbody").find("tr").each(function (index) {
+    //        var prevPercentagevalue = $("#NomineePercentage" + index).val(); 
+    //        LoadingArray.push(prevPercentagevalue);
+    //    });
+    //    for (var i = 0; i < LoadingArray.length; i++) {
+    //        total  += parseFloat(LoadingArray[i]);
+    //    }
+    //    if (total > 100 || total < 100) {
+    //        writeMultipleMessage("error", "Beneficiary Details Percentage Must be 100 %");
+    //    }
+    //}
+
+    var LifeNomineeIndex;
+    function NomineeDetailsfunction(index)
+    {
+        LifeNomineeIndex = index;
+        var SonCount  = '@Model.objMemberDetails.Where(a=>a.RelationShipWithPropspect == "269").Count()';
+        var DaughterCount  = '@Model.objMemberDetails.Where(a=>a.RelationShipWithPropspect == "270").Count()';
+        //var FirstName;
+        //var FirstNameid = 0;
+        //$("#divMemberDetails tbody").find("tr").each(function (index){
+        //    FirstName =  $("#txtFirstName"+FirstNameid).val();
+        //    FirstNameid++;
+        //});
+        var NomineeFirstName = $("#NomineeName" + index).val();
+        $("#divMemberDetails tbody").find("tr").each(function (ID) {
+            FirstNamevalue = $("#txtFirstName" + ID).val();
+            if (NomineeFirstName == FirstNamevalue) {
+                $("#hdnIsLifeAssuredSeleted" + ID).val(false);
+            }
+        });
+        var id;
+        $('#DDLNomineeSalutation' + index).val("Select");
+        $('#DDLNomineeGender' + index).val("Select");
+        $('#NomineeName' + index).val('');
+        $('#NomineeNICNo' + index).val('');
+        $('#NomineeSurname' + index).val('');
+        $('#NomineeAddress' + index).val('');
+        $('#NomineeTelephone' + index).val('');
+        $('#NomineeDOB' + index).val('');
+        $('#ddlNomineeMaritalStatus' + index).val('');
+        $("#ddlRelationWithProposer" + index).val();
+        var RelationValue =  $("#DDLNomineeRelationship" + index).val();
+        var  value;
+        var Gendervalue;
+        var ChildGendervalue;
+        var FirstNamevalue;
+        var i = 0;
+        var NomineeMemberDetailsPolicyID = '@Model.PolicyID';
+        $("#divMemberDetails tbody").find("tr").each(function (Index) {
+            value = $("#ddlRelationWithProposer"+Index).val();
+            Gendervalue = $("#ddlGender"+1).val();
+            ChildGendervalue = $("#ddlGender"+Index).val();
+            FirstNamevalue = $("#txtFirstName"+Index).val();
+            if (Gendervalue == "M" && RelationValue == "2511") {
+                if (RelationValue == "2511") { //
+                    id = '1';
+                    $('#ddlNomineeMaritalStatus'+index).val('M');
+                }
+            }
+            if (Gendervalue == "F" && RelationValue == "2526") {
+                if (RelationValue == "2526") { // Wife
+                    id = '1';
+                    $('#ddlNomineeMaritalStatus'+index).val('M');
+                }
+            }
+            if (SonCount == 1) {
+                if (ChildGendervalue == "M"){  //Son
+                    if (RelationValue == "2524")
+                    {
+                        if (value == "269") {
+                            //if (FirstNamevalue == FirstName) {
+                            id = Index;
+                            //}
+                        }
+                    }
+                }
+            }
+            if (DaughterCount == 1) {
+                if (ChildGendervalue == "F"){ // Daughter
+                    if (RelationValue == "2498")
+                    {
+                        if (value == "270") {
+                            id = Index;
+                        }
+                    }
+                }
+            }
+        });
+        if (SonCount > 1 ||  DaughterCount > 1) {
+            if(NomineeMemberDetailsPolicyID == 0){
+                if (RelationValue == "2524" || RelationValue =="2498") {  // Son  // Daughter
+                    $.post("../Policy/NomineeDetailsWithMemberDetails?RelationValue=" + RelationValue ,$("#fromProposalPage").serialize(), function (data) {
+                        $("#NomineeDetailsModalBody").html('');
+                        $("#NomineeDetailsModalBody").html(data);
+                        $("#NomineeDetailsModal").modal("show");
+                    });
+                }
+            }
+            if(NomineeMemberDetailsPolicyID > 0){
+                var NomineeLifeAssuredFirstName;
+                $("#divMemberDetails tbody").find("tr").each(function (Index) {
+                    for (var i = 0; i <  $("#divNomineeDetailsGrid  tbody tr").length; i++) {
+                        NomineeLifeAssuredFirstName = $("#NomineeName" + i).val();
+                        NomineeFirstNamevalue = $("#txtFirstName" + Index).val();
+                        if (NomineeLifeAssuredFirstName == NomineeFirstNamevalue) {
+                            $("#hdnIsLifeAssuredSeleted" + Index).val(true);
+                        }
+                    }
+                });
+
+                if (RelationValue == "2524" || RelationValue =="2498") {  // Son  // Daughter
+                    $.post("../Policy/NomineeDetailsWithMemberDetails?RelationValue=" + RelationValue ,$("#fromProposalPage").serialize(), function (data) {
+                        $("#NomineeDetailsModalBody").html('');
+                        $("#NomineeDetailsModalBody").html(data);
+                        $("#NomineeDetailsModal").modal("show");
+                    });
+                }
+            }
+
+
+        }
+
+        var Gender = $('#ddlGender' + id).val();
+        var Salutation = $('#TxtProposerSalutation' + id).val();
+        var FirstName = $('#txtFirstName' + id).val();
+        var NewNicNo = $('#txtNewNicNo' + id).val();
+        var LastName = $('#txtLastName' + id).val();
+        //var Address = $('#txtComAddress1' + id).val();
+        var MobileNo = $('#txtMobileNo').val();
+        var DOB = $('#dtDOB' + id).val();
+        var NomineeMaritialStatus =  $('#ddlMaritalStatus' + id).val();
+        //if (RelationValue == "2511" || RelationValue == "2526") {
+
+        //}
+
+        $('#DDLNomineeSalutation'+index).val(Salutation);
+        $('#DDLNomineeGender'+index).val(Gender);
+        $('#NomineeName'+index).val(FirstName);
+        $('#NomineeNICNo'+index).val(NewNicNo);
+        $('#NomineeSurname'+index).val(LastName);
+        // $('#NomineeAddress'+index).val(Address);
+        $('#NomineeTelephone'+index).val(MobileNo);
+        $('#NomineeDOB'+index).val(DOB);
+
+        var MainLifeAddress1 = $('#txtComAddress10').val();
+        var MainLifeAddress2 = $('#txtComAddress20').val();
+        var MainLifeAddress3 = $('#txtComAddress30').val();
+        var MainLifeState = $('#txtComState0').val();
+        var MainLifePostalCode = $('#txtComPincode0').val();
+        var MainLifeDistrict =   $('#txtComDistrict0').val();
+        var MainLifeProvince = $('#txtComCity0').val();
+        var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifeState + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince ;
+        $("#NomineeAddress" + index).val(MainLifeAddress);
+        //$("#divNomineeDetailsGrid   tbody").find("tr").each(function (index){
+
+        //});
+        var PolicyID = '@Model.PolicyID';
+        if (PolicyID > 0) {
+
+            var MainLifeAddress1 = $('#objProspectDetailsobjCommunicationAddressAddress1').val(); //txtComAddress10
+            var MainLifeAddress2 = $('#objProspectDetailsobjCommunicationAddressAddress2').val(); //txtComAddress20
+            var MainLifeAddress3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val(); //txtComAddress30
+            var MainLifeState = $('#txtComState0').val(); //txtComState0
+            var MainLifePostalCode = $('#objProspectDetailsobjCommunicationAddressPincode').val(); //txtComPincode0
+            var MainLifeDistrict =   $('#objProspectDetailsobjCommunicationAddressddlDistrict').val(); //txtComDistrict0
+            var MainLifeProvince = $('#objProspectDetailsobjCommunicationAddressddlProvince').val(); //txtComCity0
+
+            //var MainLifeAddress1 = $('#txtComAddress10').val();   //txtComAddress10
+            //var MainLifeAddress2 = $('#txtComAddress20').val();   //txtComAddress20
+            //var MainLifeAddress3 = $('#txtComAddress30').val();   //txtComAddress30
+            //var MainLifeState = $('#txtComState0').val();         //txtComState0
+            //var MainLifePostalCode = $('#txtComPincode0').val();  //txtComPincode0
+            //var MainLifeDistrict =   $('#txtComDistrict0').val(); //txtComDistrict0
+            //var MainLifeProvince = $('#txtComCity0').val();       //txtComCity0
+            var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince + ','+MainLifeState ;
+            $("#NomineeAddress" + index).val(MainLifeAddress);
+
+        }
+    }
+
+    function SetRelationShipWithPropspect(id) {
+        debugger
+        var index;
+        index = id.split('_')[1];
+
+        var checkboxcount = $('#NomineeDetailsModalBody').find('input[type=radio]:checked').length;
+        if (checkboxcount > 0) {
+            $("#NomineeDetailsModal").modal("hide");
+            var NomineeDetailsID = LifeNomineeIndex;
+            var LifeAssuredSalutation = $("#txtNomineeLifeAssuredSalutation" + index).val();
+            var LifeAssuredFirstName = $("#txtNomineeLifeAssuredFirstName" + index).val();
+            var LifeAssuredLastName = $("#txtNomineeLifeAssuredLastName" + index).val();
+            var LifeAssuredNICNumber = $("#txtNomineeLifeAssuredNICNumber" + index).val();
+            var LifeAssuredDOB = $("#txtNomineeLifeAssuredDOB" + index).val();
+            var LifeAssuredGender = $("#txtNomineeLifeAssuredGender" + index).val();
+            var LifeAssuredGenderText = $("#txtNomineeLifeAssuredGenderText" + index).val();
+            var LifeAssuredMaritialStatus = $("#txtNomineeLifeAssuredMaritialStatus" + index).val();
+            var LifeAssuredMobileNo = $("#txtNomineeLifeAssuredMobileNo" + index).val();
+
+            $('#DDLNomineeSalutation' + NomineeDetailsID).val(LifeAssuredSalutation);
+            $('#DDLNomineeGender' + NomineeDetailsID).val(LifeAssuredGenderText);
+            $('#NomineeName' + NomineeDetailsID).val(LifeAssuredFirstName);
+            $('#NomineeSurname' + NomineeDetailsID).val(LifeAssuredLastName);
+            $('#NomineeNICNo' + NomineeDetailsID).val(LifeAssuredNICNumber);
+            // $('#NomineeAddress' + NomineeDetailsID).val(Address);
+            $('#NomineeTelephone' + NomineeDetailsID).val(LifeAssuredMobileNo);
+            $('#NomineeDOB' + NomineeDetailsID).val(LifeAssuredDOB);
+            $('#ddlNomineeMaritalStatus' + NomineeDetailsID).val("S");
+
+            var MainLifeAddress1 = $('#txtComAddress10').val();
+            var MainLifeAddress2 = $('#txtComAddress20').val();
+            var MainLifeAddress3 = $('#txtComAddress30').val();
+            var MainLifeState = $('#txtComState0').val();
+            var MainLifePostalCode = $('#txtComPincode0').val();
+            var MainLifeDistrict = $('#txtComDistrict0').val();
+            var MainLifeProvince = $('#txtComCity0').val();
+            var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifeState + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince;
+            $("#NomineeAddress" + NomineeDetailsID).val(MainLifeAddress);
+            var PolicyID = '@Model.PolicyID';
+            if (PolicyID > 0) {
+
+                MainLifeAddress1 = $('#objProspectDetailsobjCommunicationAddressAddress1').val(); //txtComAddress10
+                MainLifeAddress2 = $('#objProspectDetailsobjCommunicationAddressAddress2').val(); //txtComAddress20
+                MainLifeAddress3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val(); //txtComAddress30
+                MainLifeState = $('#txtComState0').val(); //txtComState0
+                MainLifePostalCode = $('#objProspectDetailsobjCommunicationAddressPincode').val(); //txtComPincode0
+                MainLifeDistrict =   $('#objProspectDetailsobjCommunicationAddressddlDistrict').val(); //txtComDistrict0
+                MainLifeProvince = $('#objProspectDetailsobjCommunicationAddressddlProvince').val(); //txtComCity0
+                MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince + ','+MainLifeState ;
+                $("#NomineeAddress" + NomineeDetailsID).val(MainLifeAddress);
+
+            }
+            $("#divMemberDetails tbody").find("tr").each(function (index) {
+                FirstNamevalue = $("#txtFirstName" + index).val();
+                if (LifeAssuredFirstName == FirstNamevalue) {
+                    $("#hdnIsLifeAssuredSeleted" + index).val(true);
+                }
+            });
+
+            writeMultipleMessage("error", "", "IsSelected");
+        }
+        else {
+            writeMultipleMessage("error", "Please Select Records.", "IsSelected");
+            return false;
+        }
+    }
+
+    function NomineeFoundNIC_Loaddata(id) {
+        var Plan = $("#NomineeNICNo" +id).val();
+        var e = $("#NomineeNICNo" +id).val();
+        var dob = $("#NomineeDOB" +id).val();
+        var gender = $("#DDLNomineeGender" +id).val();
+        var Index = id;
+
+        if (Plan != '') {
+            $.post("../Suspect/GetNicValuesQuote?NIC=" + Plan)
+            .done(function (data) {
+                if (data.NICAVAIL == true) {
+                    if (data != null) {
+                        // FetchDOBfromNICNominee(e, dob,gender,Index);
+                        FetchDOBfromNICNominee(e,'NomineeDOB'+id ,'DDLNomineeGender'+id,Index);
+                        $("#DDLNomineeSalutation"+id).val(data.Salutation);
+                        $("#NomineeName"+id).val(data.Name);
+                        $("#NomineeSurname"+id).val(data.LastName);
+                        $("#NomineeDOB"+id).val(data.DateofBirth);
+                        $("#DDLNomineeGender"+id).val(data.Gender);
+                        $("#ddlNomineeMaritalStatus"+id).val(data.MaritalStatus);
+                        var Address = data.objAddress.Address1 + "," + data.objAddress.Address2 + "," + data.objAddress.Address3 +","+ data.objAddress.Pincode +","+ data.objAddress.District +","+data.objAddress.Province;
+                        $("#NomineeAddress"+id).val(Address);
+                        $("#NomineeTelephone"+id).val(data.Mobile);
+                    }
+                }
+                else if (data.NICAVAIL == false) {
+                    $.post("../Suspect/GetOnFail_ContactValues?NIC=" + Plan)
+                                     .done(function (data) {
+                                         FetchDOBfromNICNominee(e,'NomineeDOB'+id ,'DDLNomineeGender'+id,Index);
+                                         if (data.ClientCode != null) {
+                                             $("#DDLNomineeSalutation"+id).val(data.Salutation);
+                                             $("#NomineeName"+id).val(data.Name);
+                                             $("#NomineeSurname"+id).val(data.LastName);
+                                             $("#NomineeDOB"+id).val(data.DateofBirth);
+                                             $("#DDLNomineeGender"+id).val(data.Gender);
+                                             $("#ddlNomineeMaritalStatus"+id).val(data.MaritalStatus);
+                                             var Address = data.objAddress.Address1 + "," + data.objAddress.Address2 + "," + data.objAddress.Address3 +","+ data.objAddress.Pincode +","+ data.objAddress.District +","+data.objAddress.Province;
+                                             $("#NomineeAddress"+id).val(Address);
+                                             $("#NomineeTelephone"+id).val(data.Mobile);
+                                         }
+                                     });
+                }
+            });
+        }
+    }
+
+    function FetchDOBfromNICNominee(e, dob,gender,Index) {
+        var NICNo = $('#' + e + Index).val();
+        var NICNo = e;
+        var DOBID="objNomineeDetails[" +Index+ "].NomineeNicNoDOB";
+        if (NICNo == "") {
+
+            $('.'+dob).attr("disabled", true);
+
+            writeMultipleMessage("error", "Please Enter NIC Number", e + Index);
+            return false;
+        }
+        if (NICNo != null && NICNo != "") {
+            if (NICNo.length == 12 || NICNo.length == 10) {
+                if (NICNo.length == 12) {
+                    var nofdays = NICNo.substr(4, 3);
+                    var dobyears = NICNo.substr(0, 4);
+                }
+                else if (NICNo.length == 10) {
+                    var nofdays = NICNo.substr(2, 3);
+                    var dobyears = NICNo.substr(0, 2);
+                }
+                $.post("../../AgentonBoarding/FetchDateMonth?NIC=" + NICNo)
+                    .done(function (data) {
+                        if (data != "Error") {
+                            //$('.'+dob).attr("disabled", false);
+                            $('.'+dob).val(data);
+                            $('#NomineeDOB'+Index).val(data);
+                            //$('.'+dob).attr("disabled", true);
+                            //ValidateNomineeDOB(Index);
+                            $("#NomineeDOB" + Index).attr("readonly", true);
+                            if (nofdays <= 366 && nofdays >= 0) {
+                                $("#" + gender).val("M");
+                                $("#" + gender).attr("readonly", true);
+                            }
+                            else if (nofdays > 500 && nofdays <= 866) {
+                                $("#" + gender).val("F");
+                                $("#" + gender).attr("readonly", true);
+                            }
+
+                            writeMultipleMessage("error", "", e + Index);
+                            return true;
+                        }
+                        else {
+                            writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", e + Index);
+                            return false;
+                        }
+                    });
+            }
+            else {
+                writeMultipleMessage("error", "Please enter valid NIC Number", e + Index);
+                return false;
+            }
+        }
+    }
+
+    function ValidateDOBBYClass(controlid) {
+        var dob = $('.' + controlid).val();
+        var NomineeDOBID = controlid.split('')[1];
+        //var NomineeDateofBirth = $("#")
+        //var dob = controlid;
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+        var arrDOB = dob.split('/');
+        var birthDay = arrDOB[0];
+        var birthMonth = arrDOB[1];
+        var birthYear = arrDOB[2];
+        var arrCurrentDate = currentDate.split('/');
+        var currentDay = arrCurrentDate[0];
+        var currentMonth = arrCurrentDate[1];
+        var currentYear = arrCurrentDate[2];
+        if (birthYear <= currentYear) {
+            if (birthMonth <= currentMonth) {
+                if (birthDay <= currentDay) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth < currentMonth) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (birthMonth > currentMonth && birthYear < currentYear) {
+                return true;
+
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+    function ValidateNomineeDOB(_index) {
+        var DOBClass="NomineeDOB" +_index;
+        var controlid = "NomineeDOB" +_index;
+        if (!ValidateDOBBYClass(controlid)) {
+            writeMultipleMessage("error", "Please enter valid Date Of Birth. It cannot be future date.", controlid);
+            return false;
+        }
+
+    }
+</script>

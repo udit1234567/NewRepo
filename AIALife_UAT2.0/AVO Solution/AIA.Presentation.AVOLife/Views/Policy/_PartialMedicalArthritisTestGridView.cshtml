@@ -1,0 +1,91 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+@{
+    int MemberIndex = Model.AssuredIndex;
+    string TableID1 = "tblMedicalTreatmentMD" + MemberIndex;
+}
+
+<div class="grid-scroll">
+    <table class="table" id="@TableID1">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name of treatment,test or investigation</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Results</th>
+                <th><input type="button" id="btnAddTreatment" value="+" onclick="AddTreatmentInfo('@TableID1','@MemberIndex')" /></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.objMemberDetails[MemberIndex].LstMedicalTestQuestionnariesDetails != null)
+            {
+                
+                    if (Model.objMemberDetails[MemberIndex].LstMedicalTestQuestionnariesDetails != null)
+                    {
+                        for (int i = 0; i < Model.objMemberDetails[MemberIndex].LstMedicalTestQuestionnariesDetails.Count(); i++)
+                        {
+                        <tr id="Row_TreatmentInfo_@i@MemberIndex">
+                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalTestQuestionnariesDetails[i].varcharFiled3, new { @class = "form-control", @id = "txtTreatmentTestName" + MemberIndex + i, @onkeypress = "return onlyAlphabets(event)" })</td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalTestQuestionnariesDetails[i].varcharFiled4, new { @class = "form-control", @id = "txtTreatmentLocation" + MemberIndex + i, onkeypress = "return onlyAlphabets(event)" })</td>
+                            <td>@Html.iNubeDatePickerFor(m => m.objMemberDetails[MemberIndex].LstMedicalTestQuestionnariesDetails[i].DateFiled2, new { @class = "form-control datepicker", @id = "DpDateOfTreatmentMD" + MemberIndex + i })</td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalTestQuestionnariesDetails[i].varcharFiled5, new { @class = "form-control", @id = "txtTreatmentResults" + MemberIndex + i, @onkeypress = "return onlyAlphabets(event)" })</td>
+
+
+                            <td style="display:none">
+                                @Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalTestQuestionnariesDetails[i].IsDeleted, new { @class = "form-control", @id = "txtTreatmentIsDeleted" + MemberIndex + i })
+                                @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].LstMedicalTestQuestionnariesDetails[i].QuestionsId, new { @class = "form-control", @id = "txtTreatmentQuestionID" + MemberIndex + i })
+                            </td>
+                            <td><input type="button" id="btnRemoveTreatmentInfo" value="-" onclick="RemoveTreatmentInfo('Row_TreatmentInfo_@i@MemberIndex', @i,@MemberIndex)" /></td>
+                        </tr>
+                        }
+                    }
+                
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function AddTreatmentInfo(DivID, MemberIndex) {
+        var newTreatmentRow;
+        var Index = GetGridIndex(DivID);
+
+        var varcharFiled3 = 'txtTreatmentTestName' + MemberIndex + Index;
+        var varcharFiled4 = 'txtTreatmentLocation' + MemberIndex + Index;
+        var varcharFiled5 = 'txtTreatmentResults' + MemberIndex + Index;
+        var DateFiled2 = 'DpDateOfTreatmentMD' + MemberIndex + Index;
+        var TreatmentQuestionID = 'txtTreatmentQuestionID' + MemberIndex + Index;
+        var IsDeleted = 'txtTreatmentIsDeleted' + MemberIndex + Index;
+        var Remove = 'btnRemoveTreatmentInfo' + MemberIndex + Index;
+        var rowNumber = Index + 1;
+        var RowId = "Row_TreatmentInfo" + MemberIndex + Index;
+        var TreatmentdateMarkUp = "<td><div id='DpDateOfTreatmentMD" + MemberIndex + Index + "' class='input-group date' data-date-format='DD/MM/YYYY'><input class='form-control datepicker' data-role='htmlDatePicker' data-val='true' data-val-date='The field DateOfBirth must be a date.' id=\'" + DateFiled2 + "' maxlength='10' name='objMemberDetails[" + MemberIndex + "].LstMedicalTestQuestionnariesDetails[" + Index + "].DateFiled2' type='text' value='' /><span class='input-group-addon' style='padding:0px'><span class='fa fa-calendar'></span></span></div></td>";
+
+        newTreatmentRow = "<tr id='" + RowId + "' >" +
+            "<td>" + "" + "</td>" +
+              "<td><input value='' class='form-control' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].LstMedicalTestQuestionnariesDetails[" + Index + "].varcharFiled3' id=\'" + varcharFiled3 + "'/>" +
+              "<td><input value='' class='form-control' type='text'  name='objMemberDetails[" + MemberIndex + "].LstMedicalTestQuestionnariesDetails[" + Index + "].varcharFiled4' id=\'" + varcharFiled4 + "'/>" +
+               TreatmentdateMarkUp +
+              "<td><input value='' class='form-control' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].LstMedicalTestQuestionnariesDetails[" + Index + "].varcharFiled5' id=\'" + varcharFiled5 + "'/>" +
+              "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstMedicalTestQuestionnariesDetails[" + Index + "].QuestionsId' id=\'" + TreatmentQuestionID + "' /></td>" +
+              "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstMedicalTestQuestionnariesDetails[" + Index + "].IsDeleted' id=\'" + IsDeleted + "' /></td>" +
+              "<td><input value='-' type='button' onclick='RemoveTreatmentInfo(\"" + RowId + "\",\"" + Index + "\")' class='form-control' id=\'" + Remove + "'/></td>" + "</tr>";
+        $('#' + DivID + ' tbody:last').append(newTreatmentRow);
+        $(function () { $('#DpDateOfTreatmentMD' + MemberIndex + Index).datetimepicker({ format: 'DD/MM/YYYY', useCurrent: false }); });
+    }
+
+    function RemoveTreatmentInfo(DivID, index, MemberIndex) {
+        $('#txtTreatmentIsDeleted' + MemberIndex + index).val(true);
+
+        writeMultipleMessage("error", "", "txtTreatmentTestName" + index + "");
+        writeMultipleMessage("error", "", "txtTreatmentLocation" + index + "");
+        writeMultipleMessage("error", "", "txtTreatmentResults" + index + "");
+
+        $('#' + DivID).hide();
+    }
+</script>
+

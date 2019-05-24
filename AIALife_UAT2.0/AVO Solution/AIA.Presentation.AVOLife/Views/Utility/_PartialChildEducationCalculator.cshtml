@@ -1,0 +1,373 @@
+﻿
+@{
+    Layout = null;
+}
+<head>
+    @*@Styles.Render("~/Content/themes/base/css")
+        @Scripts.Render("~/bundles/iNubeScripts")*@
+
+    <script type="text/javascript">
+        var ceCalculator = new Array();
+        $(document).ready(function () {
+
+            document.getElementById("ceChildCurrentAge").value = 8;
+            document.getElementById("ceChildCollegeEnterAge").value = 18;
+            document.getElementById("ceCurrentAnnualCost").value = 300000;
+            CalculateCE();
+        });
+        function ceCurrentAnnualCost(e) {
+            document.getElementById("ceCurrentAnnualCost").value = e.value;
+            CalculateCE();
+        }
+        function ceChildCollegeEnterAge(e) {
+
+            document.getElementById("ceChildCollegeEnterAge").value = e.value;
+            CalculateCE();
+        }
+        function ceChildCurrentAge(e) {
+            document.getElementById("ceChildCurrentAge").value = e.value;
+            CalculateCE();
+        }
+        function ceCCA() {
+            return $("#ceChildCurrentAgeID").data("tSlider");
+        }
+        function ceCEA() {
+            return $("#ceChildCollegeEnterAgeID").data("tSlider");
+        }
+        function ceCNC() {
+            return $("#ceCurrentAnnualCostID").data("tSlider");
+        }
+        function onChangeCECNCText() {
+            var cecncSlider = ceCNC();
+            cecncSlider.value($("#ceCurrentAnnualCost").val());
+            CalculateCE();
+        }
+        function onChangeCECEAText() {
+            var ceceaSlider = ceCEA();
+            ceceaSlider.value($("#ceChildCollegeEnterAge").val());
+            CalculateCE();
+        }
+        function onChangeCECAText() {
+            var cecaSlider = ceCCA();
+            cecaSlider.value($("#ceChildCurrentAge").val());
+            CalculateCE();
+        }
+        function checkIt(evt) {
+            evt = (evt) ? evt : window.event
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                status = "This field accepts numbers only."
+                return false
+            }
+            status = ""
+            return true
+        }
+        function CalculateCE() {
+            var currentage = document.getElementById("ceChildCurrentAge").value;
+            var collegeenterage = document.getElementById("ceChildCollegeEnterAge").value;
+            var currentannualcost = document.getElementById("ceCurrentAnnualCost").value;
+            var degree = $('#ddlChildDegree').val();
+            var place = $('#ddlPlace').val();
+            if (degree == 1 && place == 1) {
+                var childdegree = "mba";
+                var eduplace = "india";
+            }
+            else if (degree == 1 && place == 2) {
+                var childdegree = "mba";
+                var eduplace = "abroad";
+            }
+            else if (degree == 2 && place == 1) {
+                var childdegree = "doctor";
+                var eduplace = "india";
+            }
+            else if (degree == 2 && place == 2) {
+                var childdegree = "doctor";
+                var eduplace = "abroad";
+            }
+            else if (degree == 3 && place == 1) {
+                var childdegree = "architect";
+                var eduplace = "india";
+            }
+            else if (degree == 3 && place == 2) {
+                var childdegree = "architect";
+                var eduplace = "abroad";
+            }
+            else if (degree == 4 && place == 1) {
+                var childdegree = "endineer";
+                var eduplace = "india";
+            }
+            else if (degree == 4 && place == 2) {
+                var childdegree = "endineer";
+                var eduplace = "abroad";
+            }
+            else if (degree == 5 && place == 1) {
+                var childdegree = "pilot";
+                var eduplace = "india";
+            }
+            else if (degree == 5 && place == 2) {
+                var childdegree = "pilot";
+                var eduplace = "abroad";
+            }
+            else if (degree == 6 && place == 1) {
+                var childdegree = "lawyer";
+                var eduplace = "india";
+            }
+            else if (degree == 6 && place == 2) {
+                var childdegree = "lawyer";
+                var eduplace = "abroad";
+            }
+            else if (degree == 7 && place == 1) {
+                var childdegree = "other";
+                var eduplace = "india";
+            }
+            else if (degree == 7 && place == 2) {
+                var childdegree = "other";
+                var eduplace = "abroad";
+            }
+            var riseincost = 7;
+            var InvestmentReturn = 8;
+            var MonthlySavings = 0;
+            var _duration = collegeenterage - currentage;
+            var first = Math.pow((1 + (riseincost / 100)), _duration);
+            var _futureEducationCost = (Math.round(currentannualcost * first));
+            var _pmtFactor = ((Math.pow((1 + (InvestmentReturn) / 100), _duration)) - 1) / (InvestmentReturn / 100);
+            var _neededMonthlySavings = (Math.round((_futureEducationCost / _pmtFactor) / 12));
+            document.getElementById("lblAmntRequired").innerHTML = _futureEducationCost;
+            document.getElementById("lblAddMnthlyInvstmnt").innerHTML = _neededMonthlySavings;
+            var asmptn = document.getElementById("lblCEAsmptn");
+            asmptn.style.display = "block";
+            var amnt = document.getElementById("lblAmountReqDef");
+            amnt.style.display = "block";
+            var addmntlyinvstmnt = document.getElementById("lblAddMnthlyInvstmntDef");
+            addmntlyinvstmnt.style.display = "block";
+            ceCalculator = [
+                    {
+                        "cat": "Today's Education",
+                        "value": currentannualcost
+                    },
+                    {
+                        "cat": "Future Education",
+                        "value": _futureEducationCost
+                    }];
+
+            createChart('divChildEducationCalculator', ceCalculator, 'cat', 'value', 'Child Education Calculator')
+        }
+        function qualification() {
+            var degree = $('#ddlChildDegree').val();
+            var place = $('#ddlPlace').val();
+            if (degree == 1 && place == 1) {
+                document.getElementById("ceCurrentAnnualCost").value = 700000;
+                onChangeCECNCText();
+            }
+            else if (degree == 1 && place == 2) {
+                document.getElementById("ceCurrentAnnualCost").value = 5000000;
+                onChangeCECNCText();
+            }
+            else if (degree == 2 && place == 1) {
+                document.getElementById("ceCurrentAnnualCost").value = 1000000;
+                onChangeCECNCText();
+            }
+            else if (degree == 2 && place == 2) {
+                document.getElementById("ceCurrentAnnualCost").value = 5000000;
+                onChangeCECNCText();
+            }
+            else if (degree == 3 && place == 1) {
+                document.getElementById("ceCurrentAnnualCost").value = 500000;
+                onChangeCECNCText();
+            }
+            else if (degree == 3 && place == 2) {
+                document.getElementById("ceCurrentAnnualCost").value = 3500000;
+                onChangeCECNCText();
+            }
+            else if (degree == 4 && place == 1) {
+                document.getElementById("ceCurrentAnnualCost").value = 500000;
+                onChangeCECNCText();
+            }
+            else if (degree == 4 && place == 2) {
+                document.getElementById("ceCurrentAnnualCost").value = 7000000;
+                onChangeCECNCText();
+            }
+            else if (degree == 5 && place == 1) {
+                document.getElementById("ceCurrentAnnualCost").value = 750000;
+                onChangeCECNCText();
+            }
+            else if (degree == 5 && place == 2) {
+                document.getElementById("ceCurrentAnnualCost").value = 6000000;
+                onChangeCECNCText();
+            }
+            else if (degree == 6 && place == 1) {
+                document.getElementById("ceCurrentAnnualCost").value = 250000;
+                onChangeCECNCText();
+            }
+            else if (degree == 6 && place == 2) {
+                document.getElementById("ceCurrentAnnualCost").value = 4000000;
+                onChangeCECNCText();
+            }
+            else if (degree == 7 && place == 1) {
+                document.getElementById("ceCurrentAnnualCost").value = 300000;
+                onChangeCECNCText();
+            }
+            else if (degree == 7 && place == 2) {
+                document.getElementById("ceCurrentAnnualCost").value = 2000000;
+                onChangeCECNCText();
+            }
+        }
+        function onChangeCECAText() {
+            var slider = getSlider();
+            slider.value($("#ceChildCurrentAge").val());
+            CalculateCE();
+        }
+        $(function () {
+            $("#ChildCurrentAgeDiv").slider({
+                range: true,
+                min: 0,
+                value: 8,
+                max: 18,
+                slide: function (event, i) {
+                    ceChildCurrentAge(i);
+                }
+            });
+            $("#ceChildCollegeEnterAgeDiv").slider({
+                range: true,
+                min: 16,
+                value: 24,
+                max: 18,
+                slide: function (event, result) {
+                    ceChildCollegeEnterAge(result);
+                }
+
+            });
+            $("#CurrentAnnualCostDiv").slider({
+                range: true,
+                min: 100000,
+                value: 300000,
+                max: 10000000,
+                slide: function (event, result) {
+                    ceCurrentAnnualCost(result);
+                }
+
+
+            });
+
+        });
+
+
+    </script>
+</head>
+
+
+<div class="panel panel-default col-lg-12 col-md-12" style="margin-top:10px;">
+    <div class="panel-heading">
+        <h4 class="panel-title" style=" text-align left;">
+            <a href="#collapsablePanelOne" data-toggle="collapse" data-parent="accordion" class="accordion-toggle">
+                Child's Education Calculator
+                <i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+            </a>
+        </h4>
+    </div>
+    <div class="panel-collapse collapse in" id="collapsablePanelOne" style="background-color:white">
+        <div id="SubContent" class="panel-body">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top:20px;">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-7 col-md-7 col-sm-7"></div>
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <label id="lblCEAsmptn" style="text-align: right; color: black; float:left; font-weight:bold">
+                            Assumptions
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-7 col-md-7 col-sm-7"></div>
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <label id="lblAmountReqDef" style="color: black; float: left; font-weight:bold;">
+                            Amount Required for Future Education
+                        </label>
+                        <label id="lblAmntRequired" style="color: red; margin-left: 7px; float: left; font-weight:bold;">
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-7 col-md-7 col-sm-7"></div>
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <label id="lblAddMnthlyInvstmntDef" style="color: black; float: left; display: block;
+                    width: 250px; font-weight:bold;">
+                            Additional monthly Investments needed to achieve your goal
+                        </label>
+                        <label id="lblAddMnthlyInvstmnt" style="color: red; margin-left: 7px; float: left; font-weight:bold;">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-md-12 col-sm-12" style="float:left; ">
+                        <label class="col-md-2 col-sm-2" id="lblChildCurrentAge" for="ChildCurrentAge" style="color: Black; display: block;
+                float: left; width: 200px; font-weight:bold;">
+                            Child's Current Age
+                        </label>
+                        <div id="ChildCurrentAgeDiv" class="col-md-4 col-sm-4"></div>
+                        <input class="col-md-3 col-sm-3" id="ceChildCurrentAge" type="text" style="height: 20px; line-height: 20px;
+                width: 90px; margin-left:10px; margin-right:10px; border-radius:5px; text-align: center;" onchange="onChangeCECAText();" onkeypress="return checkIt(event);" />
+                        <label class="col-md-1 col-sm-1" style="color: Black; font-weight:bold;">
+                            Years
+                        </label>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <label class="col-md-2 col-sm-2" id="lblChildCollegeEnterAge" for="CollegeEnterAge" style="color: Black; display: block;
+                float: left; width: 200px; font-weight:bold;">
+                            Child Will Enter College
+                        </label>
+                        <div id="ceChildCollegeEnterAgeDiv" class="col-md-4 col-sm-4"></div>
+                        <input id="ceChildCollegeEnterAge" type="text" class="col-md-3 col-sm-3" style="height: 20px; line-height: 20px;
+                width: 90px; margin-left:10px; margin-right:10px; border-radius:5px; text-align: center;" onchange="onChangeCECEAText();" onkeypress="return checkIt(event);" />
+                        <label class="col-md-1 col-sm-1" style="color: Black; font-weight:bold;">
+                            Years
+                        </label>
+                    </div>
+                    <div style="height:50px; margin-bottom:5px;" class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <label id="lblChildWanttoBecome" for="ChildWanttoBecome" style="color: Black; float: left;  width: 190px; font-weight:bold;">
+                                Select what would you like
+                            </label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:10px;">
+                            <b>
+                                <label style="color: Black; width: 230px; font-weight:bold;">
+                                    Your Child to Become
+                                </label>
+                            </b>
+                            <div>
+                                @Html.DropDownList("ddlChildDegree", new SelectList(new[] { new SelectListItem { Text = "MBA", Value = "1" }, new SelectListItem { Text = "DOCTOR", Value = "2" }, new SelectListItem { Text = "ARCHITECT", Value = "3" }, new SelectListItem { Text = "ENGINEER", Value = "4" }, new SelectListItem { Text = "PILOT", Value = "5" }, new SelectListItem { Text = "LAWYER", Value = "6" }, new SelectListItem { Text = "OTHER", Value = "7" } }, "Value", "Text", "7"), new { onchange = "qualification()", @class = "form-control", @style = "width: 118px; height:20px" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <b>
+                                <label style="color: Black; width: 230px; font-weight:bold;">
+                                    Select the Place
+                                </label>
+                            </b>
+                            <div>
+                                @Html.DropDownList("ddlPlace", new SelectList(new[] { new SelectListItem { Text = "INDIA", Value = "1" }, new SelectListItem { Text = "ABROAD", Value = "2" } }, "Value", "Text", "1"), new { onchange = "qualification()", @class = "form-control", @style = "width: 118px; height:20px" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <label style="color: Black; display: block; float: left; width: 200px; font-weight:bold;" class="col-md-2 col-sm-2">                        
+                            Current Annual Cost of Education
+                        </label>
+                        <div id="CurrentAnnualCostDiv" class="col-md-4 col-sm-4"></div>
+                        <input id="ceCurrentAnnualCost" class="col-md-3 col-sm-3" type="text" style="height: 20px; line-height: 20px;
+                width: 90px; margin-left:10px; border-radius:5px; text-align: center;" onchange="onChangeCECNCText();" onkeypress="return checkIt(event);" />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6" style="padding-top:-40px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divChildEducationCalculator" style="height: 250px;">
+                        <label></label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

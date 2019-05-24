@@ -1,0 +1,2636 @@
+﻿
+@model  AIA.Life.Models.Opportunity.Prospect
+@using AIAResources;
+<style>
+    @@media (min-width: 768px) and (max-width:1224px) {
+        /* 768px */
+        .financial_analysis_calculator_retirement, .financial_analysis_calculator_education, .financial_analysis_calculator_health, .financial_analysis_calculator_protection, .financial_analysis_calculator_savings {
+            width: 30% !important;
+            margin-top: 27px !important;
+        }
+    }
+</style>
+<script src="~/Content/Scripts/layout.js"></script>
+<script src="~/Scripts/SuspectScript/Suspectscript.js"></script>
+<script src="~/Content/amcharts_3.21.14/amcharts/amcharts.js"></script>
+<script src="~/Content/amcharts_3.21.14/amcharts/serial.js"></script>
+<script src="~/Content/amcharts_3.21.14/amcharts/themes/light.js"></script>
+<script src="~/Content/amcharts_3.21.14/amcharts/plugins/export/export.js"></script>
+@*<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.js"></script>*@
+<script src="~/Scripts/Common.js"></script>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string HomeNumber = string.Empty;
+    int ValCount = 0;
+    if (!string.IsNullOrEmpty(Model.Home))
+    {
+        HomeNumber = Model.Home;
+        ValCount++;
+    }
+    string WorkNumber = string.Empty;
+    if (!string.IsNullOrEmpty(Model.Work))
+    {
+        WorkNumber = Model.Work;
+        ValCount++;
+    }
+    string MobileNumber = string.Empty;
+    if (!string.IsNullOrEmpty(Model.Mobile))
+    {
+        MobileNumber = Model.Mobile;
+        ValCount++;
+    }
+    string EmailAddress = string.Empty;
+    if (!string.IsNullOrEmpty(Model.Email))
+    {
+        EmailAddress = Model.Email;
+        ValCount++;
+    }
+
+}
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "fromProspectForm", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(a => a.ContactID, new { @id = "hdnContactID" })
+    @Html.HiddenFor(a => a.objNeedAnalysis.SelectedProducts, new { @id = "HdnSelectedProducts" })
+    @Html.HiddenFor(a => a.objNeedAnalysis.HospitalBills, new { @id = "HdnHospitalBills" })
+    @Html.HiddenFor(a => a.objNeedAnalysis.HospitalRtrExp, new { @id = "HdnHospitalRtrExp" })
+    @Html.HiddenFor(a => a.objNeedAnalysis.PurposeOfMeeting, new { @id = "HdnDocumentDetails" })
+    @Html.HiddenFor(a => a.SamsLeadNumber, new { @id = "HdnSamsLeadNumber" })
+    @Html.HiddenFor(a => a.SendEmail, new { @id = "HdnSendEmail" })
+
+
+    if (ViewBag.Type == "Suspect")
+    {
+        <div>
+
+            <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+                <div class="visible-lg-block">
+                    @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+                </div>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+
+                <a href="Suspect/Suspect" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Lead")</a>
+
+                <div class="btn btn-info"><b>@Resources.GetLabelName("Modify Lead")</b></div>
+
+            </div>
+        </div>
+
+    }
+    else if (Model.ProspectStage == 2)
+    {
+        <div>
+
+            <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+                <div class="visible-lg-block">
+                    @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+                </div>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+
+                <a href="/Prospect/ProspectPool" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Confirmed Prospect")</a>
+
+                <div class="btn btn-info"><b>@Resources.GetLabelName("Modify Prospect")</b></div>
+
+            </div>
+        </div>
+    }
+    else if (Model.ProspectStage == 4)
+    {
+        <div>
+
+            <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+                <div class="visible-lg-block">
+                    @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+                </div>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+
+                <a href="/Prospect/NeedAnalysisCompleted" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Need Analysis Completed")</a>
+
+                <div class="btn btn-info"><b>@Resources.GetLabelName("Modify Need Analysis")</b></div>
+
+            </div>
+        </div>
+    }    <br />
+
+
+
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 panel-group" id="accordionp">
+            <div class="panel panel-default" id="pnlProposerDetails" @*onchange="SetMandatoryHighlightBlank('pnlProposerDetails', false)"*@>
+
+                @if (ViewBag.Type == "Suspect")
+                {
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-target="#collapse5" data-parent="#accordionp" class="collapsed">
+                                @Resources.GetLabelName("Lead Information")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                            </a>
+                        </h4>
+                    </div>
+                }
+                else
+                {
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-target="#collapse5" data-parent="#accordionp" href="#collapseThree" class="collapsed">
+                                <img src="~/Content/Images/prospect.png" style="width:22px" /> @Resources.GetLabelName("Prospect Information")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <i class="fa fa-angle-down"></i></span>
+                            </a>
+                        </h4>
+                    </div>
+
+                }
+
+                <div id="collapse5" id="divProspect" class="panel-collapse">
+                    <div class="panel-body">
+
+                        @Html.Partial("~/Views/Prospect/ProspectScreen.cshtml", Model)
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" id="pnlNeedAnalysis" @*onchange="SetMandatoryHighlightBlank('pnlNeedAnalysis')"*@>
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#collapse6" data-parent="#accordionp" href="#collapseThree" class="collapsed">
+                            <img src="~/Content/Images/need.png" style="width:22px" />@Resources.GetLabelName("Need Analysis")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse">
+                    <div class="panel-body">
+                        @Html.Partial("~/Views/Prospect/PartialNeedAnalysis.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+    if (ViewBag.Type == "Suspect")
+    {
+        <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
+            <input type="button" class="btn btn-default" id="" value="Save" onclick="IsGraph = true;SaveProspect()" style="padding-left:20px;padding-right:20px;" />
+            <input type="button" class="btn btn-default" id="" value="Cancel" onclick="ClearSuspect()" style="padding-left:20px;padding-right:20px;" />
+            <input type="button" class="btn btn-default" id="" value="Download Graph" onclick="DownloadGraph()" style="padding-left:20px;padding-right:20px;" />
+            @*<input type="button" class="btn btn-default" id="" value="Remove" onclick="RemoveProspect()" style="padding-left:20px;padding-right:20px;" />*@
+        </div>
+    }
+    else
+    {
+        <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
+            @if (Model.ProspectStage == 4)
+            {
+                <input type="button" class="btn btn-default" id="" value="Create Quote" onclick="IsGraph = true;CreateQuote()" style="padding-left:20px;padding-right:20px;" />
+                <input type="button" class="btn btn-default" id="" value="Download Graph" onclick="DownloadGraph()" style="padding-left:20px;padding-right:20px;" />
+            }
+            else if (Model.ProspectStage == 3)
+            {
+                <input type="button" class="btn btn-default" id="" value="Save & Create Quote" onclick="IsGraph = true;CreateQuote()" style="padding-left:5px;padding-right:5px;" />
+                <input type="button" class="btn btn-default" id="" value="Save Only" onclick="IsGraph = true;SaveProspect()" style="padding-left:20px;padding-right:20px;" />
+                <input type="button" class="btn btn-default" id="" value="Cancel" onclick="ClearProspect()" style="padding-left:20px;padding-right:20px;" />
+                <input type="button" class="btn btn-default" id="" value="Download Graph" onclick="DownloadGraph()" style="padding-left:20px;padding-right:20px;" />
+
+                @*<input type="button" class="btn btn-default" id="remove" value="Remove" onclick="" style="padding-left:20px;padding-right:20px;" />*@
+            }
+            else
+            {
+                <input type="button" class="btn btn-default" id="" value="Save & Create Quote" onclick="IsGraph = true;IsQuote = true;CreateQuote()" style="padding-left:5px;padding-right:5px;" />
+                <input type="button" class="btn btn-default" id="" value="Save Only" onclick="IsGraph = true;IsQuote = false;SaveProspect()" style="padding-left:20px;padding-right:20px;" />
+                <input type="button" class="btn btn-default" id="" value="Cancel" onclick="ClearProspect()" style="padding-left:20px;padding-right:20px;" />
+                <input type="button" class="btn btn-default" id="" value="Download Graph" onclick="DownloadGraph()" style="padding-left:20px;padding-right:20px;" />
+                @*<input type="button" class="btn btn-default" id="remove" value="Remove" onclick="" style="padding-left:20px;padding-right:20px;" />*@
+            }
+
+        </div>
+
+        <div class="comments col-md-12 col-sm-12 col-xs-12 col-lg-12" style="display:none">
+            <label style="width:90%;margin-left:5%">
+                Comments:<br />
+                <textarea class="form-control" style="width:100%" placeholder="Reason to Remove"></textarea>
+            </label>
+            <input type="submit" class="btn btn-default" value="Save Comments" style="margin-left:45%;margin-top:3%" />
+        </div>
+         <!-- Modal -->
+        <div class="modal fade" id="SignatureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Signature</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                            @Html.Partial("~/Views/Shared/AddSignature.cshtml")
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+}
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    Confirm
+                </div>*@
+            <div class="modal-body">
+                <img class='Img-align' src='../Images/warning1.png' />
+                <p class="text-center"> Your FNA is incompletely filled. Are you sure you want to continue?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCancel" class="btn" data-dismiss="modal">Cancel</button>
+                <button type="button" id="btnContinue" class="btn btn-danger btn-ok">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.Type == "Suspect")
+{
+    <div class="modal fade" id="SuspectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                        <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                <div class="modal-body" id="SuspectModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadProspectPool()" id="btnClose">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadSuspectPool()" id="btnOK">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="RemoveSuspectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Resources.GetLabelName("Remove Suspect")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="RemoveSuspectModalBody">
+                    <div class="col-md-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">@Html.Label("Reason for removing")</div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group">
+                                @(Html.TextAreaFor(a => a.ReasonForRemove, new { id = "txtremoveReason", @class = "form-control" }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="DeleteSuspect()">Delete Suspect</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadSuspectPool()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="SuspectSuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                        <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                <div class="modal-body" id="SuspectSuccesModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadSuspectPool()" id="btnCloseSuspect">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadSuspectPool()" id="btnOKSuspect">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="modal fade" id="SuspectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                        <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                <div class="modal-body" id="SuspectModalBody">
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadProspectPool()" id="btnClose">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadProspectPool()" id="btnOK">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+   
+    $(document).ready(function () {
+        debugger;
+        $(window).scrollTop(0);
+       
+        var IsGraph;
+        
+        var GraphGenerated;
+        var GraphCount = 0;
+        var IsQuote;
+        $("#hdnContactID").val('@Model.ContactID');
+        if ('@Model.objNeedAnalysis.ProIntrestRate' == 0 || '@Model.objNeedAnalysis.ProIntrestRate' == '' ) {
+            $('#txtProIntrestRate').val("8");
+        }
+        if ('@Model.objNeedAnalysis.CalculatorInflationRate' == 0 || '@Model.objNeedAnalysis.CalculatorInflationRate' == '' ) {
+            $('#txtInflationrate').val("8");
+        }
+        if ('@Model.objNeedAnalysis.CalculatorPlanNoYears' == 0 || '@Model.objNeedAnalysis.CalculatorPlanNoYears' == '' ) {
+            $('#txtnoofyear').val("10");
+        }
+        if ('@Model.objNeedAnalysis.CalculatorIntrestRate' == 0 || '@Model.objNeedAnalysis.CalculatorIntrestRate' == '' ) {
+            $('#txtInterestrate').val("8");
+        }
+        if ('@Model.objNeedAnalysis.EduInflationRate' == 0 || '@Model.objNeedAnalysis.EduInflationRate' == '' ) {
+            $('#txtEduInflationRate').val("8");
+        }
+        if ('@Model.objNeedAnalysis.SavInflationRate' == 0 || '@Model.objNeedAnalysis.SavInflationRate' == '' ) {
+            $('#txtSavInflationRate').val("8");
+        }
+        if ('@Model.objNeedAnalysis.CalculatorToYear' == 0 || '@Model.objNeedAnalysis.CalculatorToYear' == '' ) {
+            $('#txtToYear').val("2028");
+        }
+        if ('@Model.objNeedAnalysis.FNAInflationRate' == 0 || '@Model.objNeedAnalysis.FNAInflationRate' == '' ) {
+            $('#txtInflationrateFNA').val("8");
+        }
+        if ('@Model.objNeedAnalysis.FNAIntrestRate' == 0 || '@Model.objNeedAnalysis.FNAIntrestRate' == '' ) {
+            $('#txtInterestrateFNA').val("8");
+        }
+        if ('@Model.objNeedAnalysis.FNAPlanNoYear' == 0 || '@Model.objNeedAnalysis.FNAPlanNoYear' == '' ) {
+            $('#txtnoofyearFNA').val("10");
+        }
+        if ('@Model.objNeedAnalysis.FNAToYear' == 0 || '@Model.objNeedAnalysis.FNAToYear' == '' ) {
+            $('#txtToYearFNA').val("2028");
+        }
+
+        SetMandatoryHighlightBlank('pnlProposerDetails', true);
+        SetMandatoryHighlightBlank('pnlNeedAnalysis', true);
+
+        $('#remove').click(function () {
+            $('.comments').show();
+        });
+        if (($("#txtGaptotal1").val() != "" && $("#txtGaptotal1").val() != 0) && ($("#txtGaptotal2").val() != "" && $("#txtGaptotal2").val() != 0)) {
+            $('.fna-content').css('display','block');
+            $(".financial_analysis_calculator").css('display','none')
+        }
+        if ($('#txtMonthlyPensionGap').val() != "" && $('#txtMonthlyPensionGap').val() != 0){
+            $('.fna-content').css('display','none');
+            $('.financial_analysis_calculator').css('display','block');
+            $('.financial_analysis_calculator_retirement ').addClass('calculator-details-active')
+            $('.financial_analysis_calculator_health').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_education').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_savings ').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_protection ').removeClass('calculator-details-active')
+
+            $('.financial_analysis_calculator_retirementdetails').css('display','block');
+            $('.financial_analysis_calculator_healthdetails').css('display','none');
+            $('.financial_analysis_calculator_educationdetails').css('display','none');
+            $('.financial_analysis_calculator_savingsdetails').css('display','none');
+            $('.financial_analysis_calculator_protectiondetails').css('display','none');
+        }
+        if (($('#txtCriticalGap').val() != "" && $('#txtCriticalGap').val() != 0) || ($('#txtHospitalizationGap').val() != "" && $('#txtHospitalizationGap').val() != 0) || ($('#txtAdditionalexpenseGap').val() != "" && $('#txtAdditionalexpenseGap').val() != 0)) {
+            $('.fna-content').css('display','none');
+            $('.financial_analysis_calculator').css('display','block');
+            $('.financial_analysis_calculator_retirementdetails').css('display','none');
+            $('.financial_analysis_calculator_retirement ').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_health').addClass('calculator-details-active')
+            $('.financial_analysis_calculator_education').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_savings ').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_protection ').removeClass('calculator-details-active')
+
+            $('.financial_analysis_calculator_healthdetails').css('display','block');
+            $('.financial_analysis_calculator_educationdetails').css('display','none');
+            $('.financial_analysis_calculator_savingsdetails').css('display','none');
+            $('.financial_analysis_calculator_protectiondetails').css('display','none');
+        }
+        if (($('#txtEduLumpSum').val() != "" && $('#txtEduLumpSum').val() != 0)||($('#txtEduMaturity').val() != "" && $('#txtEduMaturity').val() != 0) ){
+            $('.fna-content').css('display','none');
+            $('.financial_analysis_calculator').css('display','block');
+            $('.financial_analysis_calculator_retirement ').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_health').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_education').addClass('calculator-details-active')
+            $('.financial_analysis_calculator_savings ').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_protection ').removeClass('calculator-details-active')
+
+            $('.financial_analysis_calculator_retirementdetails').css('display','none');
+            $('.financial_analysis_calculator_healthdetails').css('display','none');
+            $('.financial_analysis_calculator_educationdetails').css('display','block');
+            $('.financial_analysis_calculator_savingsdetails').css('display','none');
+            $('.financial_analysis_calculator_protectiondetails').css('display','none');
+        }
+        if ($('#txtSavingTarget').val() != "" && $('#txtSavingTarget').val() != 0){
+            $('.fna-content').css('display','none');
+            $('.financial_analysis_calculator').css('display','block');
+            $('.financial_analysis_calculator_retirement ').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_health').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_education').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_savings ').addClass('calculator-details-active')
+            $('.financial_analysis_calculator_protection ').removeClass('calculator-details-active')
+
+
+            $('.financial_analysis_calculator_retirementdetails').css('display','none');
+            $('.financial_analysis_calculator_healthdetails').css('display','none');
+            $('.financial_analysis_calculator_educationdetails').css('display','none');
+            $('.financial_analysis_calculator_savingsdetails').css('display','block');
+            $('.financial_analysis_calculator_protectiondetails').css('display','none');
+        }
+        if ($('#txtEmergencyFund').val() != "" && $('#txtEmergencyFund').val() != 0){
+            $('.fna-content').css('display','none');
+            $('.financial_analysis_calculator').css('display','block');
+            $('.financial_analysis_calculator_retirement ').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_health').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_education').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_savings ').removeClass('calculator-details-active')
+            $('.financial_analysis_calculator_protection ').addClass('calculator-details-active')
+
+            $('.financial_analysis_calculator_retirementdetails').css('display','none');
+            $('.financial_analysis_calculator_healthdetails').css('display','none');
+            $('.financial_analysis_calculator_educationdetails').css('display','none');
+            $('.financial_analysis_calculator_savingsdetails').css('display','none');
+            $('.financial_analysis_calculator_protectiondetails').css('display','block');
+        }
+        var hospBills = $('#HdnHospitalBills').val();
+        for (var i = 0; i < 3; i++) {
+            if ($('.Healthquestions').find('div').find('button').find('h6').eq(i).html() == hospBills) {
+                $('.Healthquestions').find('div').find('button').find('h6').eq(i).parent().addClass('question_answer_button_active');
+            }
+        }
+
+        var hospRtr = $('#HdnHospitalRtrExp').val();
+        for (var i = 0; i < 3; i++) {
+            if ($('.Healthquestions2').find('div').find('button').find('h6').eq(i).html() == hospRtr) {
+                $('.Healthquestions2').find('div').find('button').find('h6').eq(i).parent().addClass('question_answer_button_active');
+            }
+
+        }
+        var count= 0;
+        var products = $('#HdnSelectedProducts').val();
+        var prdarray = products.split(',')
+        debugger;
+        for (var i = 0; i < @Model.ListPlan.Count; i++) {
+            if($('#divMultiProduct').find('div').find('p').eq(i).html() == prdarray[count])
+            {
+                $('#divMultiProduct').find('div').find('p').eq(i).parent().css({'color': 'rgb(255, 255, 255)' ,'background-color': 'rgb(211, 17, 69)'});
+                $('#divMultiProduct').find('div').find('p').eq(i).parent().find('img').attr('src','/Content/Images/AIA_White.png');
+                count++;
+                i=0;
+            }
+        }
+        $('#ProductsSelected').multiselect();
+        @*if (@Model.objNeedAnalysis.HospitalBills != null ) {
+
+
+            var hospBills = @Model.objNeedAnalysis.HospitalBills;
+        for (var i = 0; i < 3; i++) {
+            if ($('.Healthquestions').find('div').find('button').find('h6').eq(i).html() == hospBills) {
+                $('.Healthquestions').find('div').find('button').find('h6').eq(i).parent().addClass('question_answer_button_active');
+            }
+        }
+        }
+        if (@Model.objNeedAnalysis.HospitalRtrExp != null) {
+
+            var hospRtr = @Model.objNeedAnalysis.HospitalRtrExp;
+            for (var i = 0; i < 3; i++) {
+                if ($('.Healthquestions2').find('div').find('button').find('h6').eq(i).html() == hospRtr) {
+                    $('.Healthquestions2').find('div').find('button').find('h6').eq(i).parent().addClass('question_answer_button_active');
+                }
+            }
+        }*@
+
+        //if ($('#txtNic').val() != "") {
+        //    $('#ddlGender').attr('disabled', true);
+        //    $('#dtProspectDOB').attr('disabled', true);
+        //}
+        //else {
+        //    $('#ddlGender').removeAttr('disabled');
+        //    $('#dtProspectDOB').attr('disabled', false);
+        //}
+        //commented on preethi suggestion
+        //var dob = $('#dtDOB').val();
+        //    if (dob != '') {
+
+        //        var d = new Date();
+        //        var currentYear = d.getFullYear();
+        //        var arr = dob.split('/');
+        //        var birthYear = arr[2];
+        //        var calcAge = currentYear - birthYear;
+        //        $('#txtAge').val(calcAge);
+        //    }
+
+        $('#objAddressddlProvince').val('@Model.objAddress.State');
+        @*FillDistrictCommaddMember('@Model.objAddress.State', '@Model.objAddress.District', "objAddress");
+        FillCityCommaddMember('@Model.objAddress.District', '@Model.objAddress.City', "objAddress");*@
+        $('#objAddressddlProvince').val('@Model.objAddress.State');
+        $('#objAddressAddress1').val('@Model.objAddress.Address1');
+        $('#objAddressAddress2').val('@Model.objAddress.Address2');
+        $('#objAddressPincode').val('@Model.objAddress.Pincode');
+
+    });
+    function FetchUploadSignPath() {
+
+        var SignPath=$("#UploadSignature").val();
+        $("#HdnUploadSignPath").val(SignPath);
+    }
+    function CheckSignature()
+    {
+        if($("#SignatureValue").val()=="" && ($("#objNeedAnalysis_UploadSignPath").val()==undefined ||$("#objNeedAnalysis_UploadSignPath").val()==""))
+        {
+            writeMultipleMessage("error", "Please Add the customer Signature", 'SignatureValue');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'SignatureValue');
+            return true;
+        }
+    }
+    function CreateQuote() {
+        debugger;
+        
+        if (IsGraph) {
+         
+            //$('.need-analysis-list li').trigger("click");
+            if ( ($('#chartdiv').html()!="")&&($('#Protectionchartdiv').html()!="")&&($('#healthchartdiv').html()!="")) {
+                window.setTimeout( savePNG,6000); 
+            } 
+            else {
+              window.setTimeout( savePNG,2000); 
+            }
+            //return;
+        }
+        if (GraphGenerated) {
+            var count=0;
+          
+            if (!ValidateGenderSalutation()) {
+                return false;
+            }
+            if (!ValidateSuspectType()) {
+                return false;
+            }
+          
+            $('#ddlGender').removeAttr('disabled');
+            $('#dtProspectDOB').removeAttr('disabled');
+
+            var isValidated = ValidateProspectInfo();
+            if (!isValidated) {
+                return false;
+            }
+            var isAnalysisComplete = ValidationForNeedIdentificationQuote();
+            if (!isAnalysisComplete) {
+                return false;
+            }
+            
+            if(!ChkconfirmCheck()){
+                return false;
+            }
+            if($('#HdnSelectedProducts').val()=="")
+            {
+                writeMultipleMessage("error", "Please Select Atleast 1  Product.", 'HdnSelectedProducts');
+                return true;
+            }
+            else{
+
+                writeMultipleMessage("error", "", 'HdnSelectedProducts');
+                var product=$('#HdnSelectedProducts').val();
+                var arrayprd = product.split(',')
+                if(arrayprd.length >3){
+                    writeMultipleMessage("error", "You can select maximum 3 products.", 'HdnSelectedProducts');
+                    return true;
+                }
+            }
+            
+            if(!ConsectCheck()){
+                return false;
+            }
+            if(!CheckSignature())
+            {
+                return false;
+            }
+            var Mobile = $("#txtMobile").val();
+            var Email = $('#txtEmail').val();
+            var Home = $("#txtTelephone").val();
+            var Work = $("#txtWorkTelephone").val();
+            var _SuspectChangesCount = 0;
+
+            if ('@HomeNumber' != '') {
+                if ('@HomeNumber' != Home) {
+                    _SuspectChangesCount = _SuspectChangesCount + 1;
+                }
+            }
+            if ('@WorkNumber' != '') {
+                if ('@WorkNumber' != Work) {
+                    _SuspectChangesCount = _SuspectChangesCount + 1;
+                }
+            }
+            if ('@EmailAddress' != '') {
+                if ('@EmailAddress' != Email) {
+                    _SuspectChangesCount = _SuspectChangesCount + 1;
+                }
+            }
+            if ('@MobileNumber' != '') {
+                if ('@MobileNumber' != Mobile) {
+                    _SuspectChangesCount = _SuspectChangesCount + 1;
+                }
+            }
+            var ValCount = parseInt('@ValCount');
+            if (_SuspectChangesCount < ValCount) {
+
+            }
+            //else {
+            //    writeMultipleMessage("error", "Please don't change contact information.", "txtTelephone");
+            //    return false;
+            //}
+
+            //FetchSelectedProducts();
+            FetchUploadSignPath();
+
+            var count = 0;
+            var jsonDocumentUpload = [];
+
+            var data = new FormData();
+            var NeedAnalysisAttachment = false;
+            //var FileName = $("#NeedAnalysisFileAttachment").val();
+            //var SignFileName = $("#UploadSignature").val();
+
+            //if (FileName != "") {
+            //    var ext = FileName.substring(FileName.lastIndexOf('.') + 1);
+            //    if (ext != "") {
+            //        ext = ext.toLowerCase();
+
+            //        if (ext == "pdf" || ext == "docx" || ext == "xls" || ext == "xlsx" || ext == "doc" || ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif") {
+            //            writeMultipleMessage("error", "", "NeedAnalysisFileAttachment");
+            //            var isAppend = true;
+            //            if (typeof FormData == "undefined") {
+            //                isAppend = false;
+            //            }
+            //            else {
+            //            }
+            //            var files = $('#NeedAnalysisFileAttachment').get(0).files;
+            //            data.append('file_', $('input[id="NeedAnalysisFileAttachment"]')[0].files[0]);
+            //        }
+            //        else {
+            //            //ErrorCode = false;
+            //            writeMultipleMessage("error", "Please upload valid file", "NeedAnalysisFileAttachment");
+            //            return false;
+            //        }
+            //    }
+            //}
+            //if (FileName != "") {
+            //    jsonDocumentUpload.push({
+            //        FileName: FileName
+            //    });
+            //}
+
+            //var SignAttachment = false;
+            //if (SignFileName != "") {
+            //    var ext = SignFileName.substring(SignFileName.lastIndexOf('.') + 1);
+            //    if (ext != "") {
+            //        ext = ext.toLowerCase();
+
+            //        if (ext == "pdf" || ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif") {
+            //            writeMultipleMessage("error", "", "UploadSignature");
+            //            var isAppend = true;
+            //            if (typeof FormData == "undefined") {
+            //                isAppend = false;
+            //            }
+            //            else {
+            //            }
+            //            var Signaturefiles = $('#UploadSignature').get(0).files;
+            //            data.append('Signfile_', $('input[id="UploadSignature"]')[0].files[0]);
+            //        }
+            //        else {
+            //            //ErrorCode = false;
+            //            writeMultipleMessage("error", "Please Enter valid file format.", "UploadSignature");
+            //            return false;
+            //        }
+            //    }
+            //}
+            //if (SignFileName != "") {
+
+            //    jsonDocumentUpload.push({
+            //        FileName: SignFileName
+            //    });
+            //}
+
+            @*count++;
+            if (jsonDocumentUpload.length != 0) {
+                var len = jsonDocumentUpload.length;
+                len = len - 1;
+                $.ajax({
+                    type: "POST",
+                    url: "../../Utility/SaveDocuments?strUser=@Model.ContactID&Req=" + len,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    data: data,
+                    success: function (data) {
+
+
+                        if (data.StrWriteException != "") {
+                            var Message = '<p> Some Error Occured</p>';
+                            $('#SuspectModalBody').html(Message);
+                            $("#SuspectModal").modal("show");
+                            return false;
+                        }
+                        else {
+                            if (data.ObjDocuments != null) {
+                                if (data.ObjDocuments.length > 0) {
+                                    if (NeedAnalysisAttachment) {
+                                        $('#hdnNeedAnalysisFileAttachment').val(data.ObjDocuments[0].FileName);
+                                        if (SignAttachment) {
+                                            $('#HdnUploadSignPath').val(data.ObjDocuments[1].FileName);
+                                        }
+                                    }
+                                    else {
+                                        $('#HdnUploadSignPath').val(data.ObjDocuments[0].FileName);
+                                    }
+
+                                }
+                            }
+                            $("#layout").css({ "opacity": "0.5" })
+                            toggleBusyIndicator("show");
+                            $.post('/Prospect/SaveNeedAnalysis', $("#fromProspectForm").serialize(), function (data) {
+
+                                $("#layout").css({ "opacity": "1" })
+                                toggleBusyIndicator("hide");
+                                if (data.Message == 'Success') {
+                                    var StageMessage = "";
+                                    if (data.Status == 2) {
+                                        StageMessage = "And is in Propspect Stage";
+                                    }
+                                    else if (data.Status == 3) {
+                                        StageMessage = " And is in Confirmed Propspect Stage";
+                                    }
+                                    else if (data.Status == 4) {
+                                        StageMessage = "And is in  Need Analysis Completed Stage";
+                                        return window.location.href = "/Policy/Quotation?ContactID=" + '@Model.ContactID';
+
+                                    }
+                                    var Message = '<p> Data Saved Successfully ' + StageMessage + ' </p>';
+                                    $('#SuspectModalBody').html(Message);
+                                    $("#SuspectModal").modal("show");
+                                }
+                                else {
+
+                                    var Message = '<p> Some Error Occured</p>';
+                                    $('#SuspectModalBody').html(Message);
+                                    $("#SuspectModal").modal("show");
+                                }
+                                $('#myModal').modal('show');
+                            });
+                            //return true;
+                        }
+                    },
+                    complete: function (data) {
+
+                    }
+                });
+            }
+
+            else {*@
+            //if ($('#SignatureValue').val() != "") {
+            $('#HdnSendEmail').val("Quote")
+            $.post('/Prospect/SaveProspect', $("#fromProspectForm").serialize(), function (data) {
+                debugger;
+                $('#SuspectModalBody').empty();
+                if (data.Message == 'Success') {
+                    var Message = "";
+                    if (data.Status == 2) {
+                        var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                        Message = " And is in Prospect Stage";
+                    }
+                    else if (data.Status == 3) {
+                        var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                        Message = " And is in Confirmed Prospect Stage";
+                    }
+                    else if (data.Status == 4) {
+                        Message = " And is in  Need Analysis Completed Stage";
+                        return window.location.href = "/Policy/Quotation?ContactID=" + '@AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt(Model.ContactID.ToString())';
+                    }
+                    var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                    var Message = '<p class="text-center"> Data Saved Successfully' + StageMessage + ' </p>';
+                    $('#SuspectModalBody').append(Image);
+                    $('#SuspectModalBody').append(Message);
+                    $("#SuspectModal").modal("show");
+                    $('#btnClose').show();
+                    $('#btnOK').hide();
+                }
+                else {
+                    $('#SuspectModalBody').empty();
+                    var Message ='<br/>'+ data.Error;
+                    var Image = '<img class="Img-align" src="../Images/cancel1.png" />'
+                    $('#SuspectModalBody').append(Image);
+                    $('#SuspectModalBody').append(Message);
+                    $("#SuspectModal").modal("show");
+                    $('#btnClose').hide();
+                    $('#btnOK').show();
+                }
+                $('#myModal').modal('show');
+            });
+            //}
+        }
+    }
+
+
+    function ClearProspect() {
+        window.location.href = "/Prospect/ProspectPool";
+    }
+    //function FetchSelectedProducts() {
+
+    //    $("#HdnSelectedProducts").val($("#example-getting-NeedAnanlysis").val());
+    //}
+    function SaveNeedAnalysis(isCreateQuote) {
+        clearAllErrors();
+        var Mobile = $("#txtMobile").val();
+        var Email = $('#txtEmail').val();
+        var Home = $("#txtTelephone").val();
+        var Work = $("#txtWorkTelephone").val();
+
+        var _SuspectChangesCount = 0;
+
+        if ('@HomeNumber' != '') {
+            if ('@HomeNumber' != Home) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        if ('@WorkNumber' != '') {
+            if ('@WorkNumber' != Work) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        if ('@EmailAddress' != '') {
+            if ('@EmailAddress' != Email) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        if ('@MobileNumber' != '') {
+            if ('@MobileNumber' != Mobile) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        var ValCount = parseInt('@ValCount');
+        if (_SuspectChangesCount < ValCount) {
+
+        }
+        //else {
+        //    writeMultipleMessage("error", "Please don't change contact information.", "txtTelephone");
+        //    return false;
+        //}
+        if(@Model.ProspectStage == 2)
+        {
+            var isValidated = ValidateProspectInfo();
+            if (!isValidated) {
+                return false;
+            }
+        }
+        if(@Model.ProspectStage == 3)
+        {
+            var isValidated = ValidateProspectInfo();
+            if (!isValidated) {
+                return false;
+            }
+        }
+        $('#ddlGender').removeAttr('disabled');
+        $('#dtProspectDOB').removeAttr('disabled');
+        //FetchSelectedProducts();
+        var jsonDocumentUpload = [];
+        var data = new FormData();
+        var FileName = $("#NeedAnalysisFileAttachment").val();
+        var SignFileName = $("#UploadSignature").val();
+        var NeedAnalysisAttachment = false;
+        var SignAttachment = false;
+        //if (FileName != "") {
+        //    var ext = FileName.substring(FileName.lastIndexOf('.') + 1);
+        //    if (ext != "") {
+        //        ext = ext.toLowerCase();
+        //        if (ext == "pdf" || ext == "docx" || ext == "xls" || ext == "xlsx" || ext == "doc" || ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif") {
+        //            writeMultipleMessage("error", "", "NeedAnalysisFileAttachment");
+        //            var isAppend = true;
+        //            if (typeof FormData == "undefined") {
+        //                isAppend = false;
+        //            }
+        //            else {
+        //            }
+        //            var files = $('#NeedAnalysisFileAttachment').get(0).files;
+        //            data.append('file_', $('input[id="NeedAnalysisFileAttachment"]')[0].files[0]);
+        //        }
+        //        else {
+        //            //ErrorCode = false;
+        //            writeMultipleMessage("error", "Please upload valid file format.", "NeedAnalysisFileAttachment");
+        //            return false;
+        //        }
+        //    }
+        //}
+        //if (FileName != "") {
+        //    NeedAnalysisAttachment = true;
+        //    jsonDocumentUpload.push({
+        //        FileName: FileName
+        //    });
+        //}
+
+        //if (SignFileName != "") {
+        //    var ext = SignFileName.substring(SignFileName.lastIndexOf('.') + 1);
+        //    if (ext != "") {
+        //        ext = ext.toLowerCase();
+
+        //        if (ext == "pdf" || ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif") {
+        //            writeMultipleMessage("error", "", "UploadSignature");
+        //            var isAppend = true;
+        //            if (typeof FormData == "undefined") {
+        //                isAppend = false;
+        //            }
+        //            else {
+        //            }
+        //            var Signaturefiles = $('#UploadSignature').get(0).files;
+        //            data.append('Signfile_', $('input[id="UploadSignature"]')[0].files[0]);
+        //        }
+        //        else {
+        //            //ErrorCode = false;
+        //            writeMultipleMessage("error", "Please Enter valid file format.", "UploadSignature");
+        //            return false;
+        //        }
+        //    }
+        //}
+        //if (SignFileName != "") {
+
+        //    SignAttachment = true;
+        //    jsonDocumentUpload.push({
+        //        FileName: SignFileName
+        //    });
+        //}
+
+        SubFunction(isCreateQuote);
+
+    }
+    function SubFunction(isCreateQuote) {
+        debugger;
+        $("#layout").css({ "opacity": "0.5" })
+        toggleBusyIndicator("show");
+        $.post('/Prospect/SaveNeedAnalysis', $("#fromProspectForm").serialize(), function (data) {
+            $("#layout").css({ "opacity": "1" })
+            toggleBusyIndicator("hide");
+            $('#SuspectModalBody').empty();
+            if (data.Message == 'Success') {
+                var Message = "";
+                if (data.Status == 2) {
+                    Message = " And is in Prospect Stage";
+                }
+                else if (data.Status == 3) {
+                    Message = " And is in Confirmed Prospect Stage";
+                }
+                else if (data.Status == 4) {
+                    Message = " And is in  Need Analysis Completed Stage";
+                    if (isCreateQuote) {
+                        return window.location.href = "/Policy/Quotation?ContactID=" + '@Model.ContactID';
+                    }
+
+                }
+
+                var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                var Message = '<p class="text-center"> Data Saved Successfully' + Message + ' </p>';
+                $('#SuspectModalBody').append(Image);
+                $('#SuspectModalBody').append(Message);
+                $("#SuspectModal").modal("show");
+            }
+            else {
+                $('#SuspectModalBody').empty();
+                var Message = '<p> Some Error Occured</p>';
+                var Image = '<img class="Img-align" src="../Images/cancel1.png" />'
+                $('#SuspectModalBody').append(Image);
+                $('#SuspectModalBody').append(Message);
+                $("#SuspectModal").modal("show");
+            }
+            $('#myModal').modal('show');
+        });
+    }
+    function LoadProspectHome() {
+        window.location.href = '/Prospect/Prospect';
+    }
+
+    function showQuotation() {
+        window.location.href = "/Policy/Quotation?ContactID=" + '@Model.ContactID';
+    }
+
+    function ValidateProspectInfo() {
+        writeMultipleMessage("error", "", "txtName");
+        writeMultipleMessage("error", "", "txtLastName");
+        writeMultipleMessage("error", "", "objAddressAddress1");
+        writeMultipleMessage("error", "", "objAddressAddress2");
+        writeMultipleMessage("error", "", "objAddressAddress3");
+        var Name=$("#txtName").val();
+        if (Name == "") {
+            writeMultipleMessage("error", "Please Enter Given Name.", "txtName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtName');
+        }
+        var res=ValidName(Name)
+        if(res==false){
+            writeMultipleMessage("error", "“Please Enter Valid Name – Following formats are not allowed –<br> -First Character cannot be ‘Space’ or ‘special character’<br>-There cannot be 3 consecutive letters in name<br>-Two consecutive space are not allowed<br>-Accept only ‘alphabet’, ‘space’ and ‘apostrophe (‘)’‘’", "txtName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtName");
+        }
+        var LastName=$("#txtLastName").val();
+        if (LastName == "") {
+            writeMultipleMessage("error", "Please Enter SurName.", "txtLastName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtLastName');
+        }
+        var res=ValidName(LastName)
+        if(res==false){
+            writeMultipleMessage("error", "“Please enter Valid SurName – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’<br>-There cannot be 3 consecutive letters in name<br>-Two consecutive space are not allowed<br>-Accept only ‘alphabet’, ‘space’ and ‘apostrophe (‘)’‘’", "txtLastName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtLastName");
+        }
+
+        var Address1=$('#objAddressAddress1').val();
+        var res=ValidateAddress(Address1)
+        if(res==false){
+            writeMultipleMessage("error", "“Please Enter Valid Address1 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘), is not allowed after space", "objAddressAddress1");
+            return false;
+        }
+        else{
+            writeMultipleMessage("error", "", "objAddressAddress1");
+        }
+        var Address2=$('#objAddressAddress2').val();
+        var res=ValidateAddress(Address2)
+        if(res==false){
+            writeMultipleMessage("error", "“Please Enter Valid Address2 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘), is not allowed after space", "objAddressAddress2");
+            return false;
+        }
+        else{
+            writeMultipleMessage("error", "", "objAddressAddress3");
+        }
+        var Address3=$('#objAddressAddress3').val();
+        var res=ValidateAddress(Address2)
+        if(res==false){
+            writeMultipleMessage("error", "“Please Enter Valid Address3 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘), is not allowed after space", "objAddressAddress2");
+            return false;
+        }
+        else{
+            writeMultipleMessage("error", "", "objAddressAddress3");
+        }
+        if ($('#TxtSalutation').val() == "") {
+            writeMultipleMessage("error", "Please Enter Salutation", "ddlSalutation");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "TxtSalutation");
+        }
+        if ($("#hdnAutoCompleteValue").val() == "false") {
+            writeMultipleMessage("error", "Please Enter Correct Salutation.", "TxtSuspectSalutation");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'TxtSuspectSalutation');
+        }
+        if ($("#txtsurname").val() == "") {
+            writeMultipleMessage("error", "Please Enter Surname.", "txtsurname");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtsurname");
+        }
+
+        if ($("#txtNic").val() == "") {
+            writeMultipleMessage("error", "Please Enter NIC.", "txtNic");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtNic");
+        }
+
+
+        if ($('#ddlGender option:selected').text() == "Select" || $('#ddlGender option:selected').text() == "") {
+            writeMultipleMessage("error", "Please Select Gender", "ddlGender");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ddlGender");
+        }
+
+        if ($("#dtProspectDOB").val() == "") {
+            writeMultipleMessage("error", "Please Enter Date of Birth.", "dtProspectDOB");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "dtProspectDOB");
+        }
+        if ($("#txtAge").val() < 18 || $("txtAge").val() > 61) {
+            writeMultipleMessage("error", "Please Enter Age at Next BirthDay Should be between 19 to 61", 'txtAge');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtAge');
+        }
+        if ($("#TxtOccupation").val() == "") {
+            writeMultipleMessage("error", 'Please Enter Occupation', 'ddlOccupation')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'TxtOccupation');
+        }
+
+        if ($("#txtAverageMonthlyIncome").val() == "") {
+            writeMultipleMessage("error", "Please Enter Average Monthly Income.", "txtAverageMonthlyIncome");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtAverageMonthlyIncome");
+        }
+
+        if ($("#ddlMaritalStatus").val() == "") {
+            writeMultipleMessage("error", "Please Select the Marital Status.", "ddlMaritalStatus");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ddlMaritalStatus");
+        }
+
+        if ($('#objAddressAddress1').val() == '') {
+            writeMultipleMessage("error", "Please Enter Communication Address.", 'objAddressAddress1');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'objAddressAddress1');
+        }
+        if ($('#objAddressAddress2').val() == '') {
+            writeMultipleMessage("error", "Please Enter Communication Address2.", 'objAddressAddress2');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'objAddressAddress2');
+        }
+        if ($('#objAddressPincode').val() == '') {
+            writeMultipleMessage("error", "Please Enter Pinncode.", 'objAddressPincode');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'objAddressPincode');
+            return true;
+        }
+        var pincode = $('#objAddressPincode').val();
+        if (pincode != "YYYYY|") {
+            if ($('#objAddressddlProvince').val() == "") {
+                writeMultipleMessage("error", "Please Enter Province.", "objAddressddlProvince");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objAddressddlProvince");
+            }
+            if ($('#objAddressddlDistrict').text() == "") {
+                writeMultipleMessage("error", "Please Enter District.", "objAddressddlDistrict");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objAddressddlDistrict");
+            }
+        }
+
+        //if ($('#objAddressddlCity option:selected').text() == "Select" || $('#objAddressddlCity option:selected').text() == "") {
+        //    writeMultipleMessage("error", "Please Select City.", "objAddressddlCity");
+        //    return false;
+        //}
+        //else {
+        //    writeMultipleMessage("error", "", "objAddressddlCity");
+        //}
+
+
+    }
+    //function ageProspectCount() {
+
+    //    var dob = $('#dtProspectDOB').val();
+    //    var controlid = 'dtProspectDOB';
+    //    if (dob == "") {
+    //        $('#txtAge').val('');
+    //        writeMultipleMessage("error", "Please enter valid Date Of Birth.", controlid);
+    //        return false;
+    //    }
+    //    if (!ValidateDOB(controlid)) {
+    //        $('#txtAge').val('');
+    //        writeMultipleMessage("error", "Please enter valid Date Of Birth. It cannot be future date.", controlid);
+    //        return false;
+    //    }
+    //    else {
+    //        if (dob != '') {
+    //            //
+    //            var d = new Date();
+    //            var currentYear = d.getFullYear();
+    //            var currentMonth = d.getMonth() + 1;
+    //            var currentDate = d.getDate();
+    //            var arr = dob.split('/');
+    //            var birthYear = arr[2];
+    //            var birthMonth = arr[1];
+    //            var birthdate = arr[0];
+    //            var calYear = currentYear - birthYear;
+    //            var CalMonth = currentMonth - birthMonth;
+    //            var calcAge = 0;
+    //            if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+    //                calYear--;
+    //            }
+    //            $('#txtAge').val(calYear);
+    //            var ProspectAge = $('#txtAge').val();
+    //            $('#txtprospectAge').val(ProspectAge);
+    //            $('#ProspectDOB').val(dob);
+    //        }
+    //    }
+    //}
+
+    function ClearSuspect() {
+        $('#objAddressAddress1').val('');
+        $('#objAddressAddress2').val('');
+        $('#objAddressddlProvince').val('');
+        $('#objAddressddlDistrict').val('');
+        $('#objAddressddlCity').val('');
+        $('#objAddressPincode').val('');
+        $('#txtLastName').val('');
+        window.location.href = "/Suspect/SuspectPool";
+    }
+    function LeadDocument()
+    {
+        debugger;
+        var Document = $('#filename').val();
+        var DocArray = Document.split('\\');
+        var docData = DocArray[DocArray.length-1];
+        var ContactID = $('#hdnContactID').val();
+        //var docData = JSON.stringify(DocName);
+        $.ajax({
+            type: "POST",
+            url: "/Utility/SaveLeadDocuments?objLstDoc=" + docData + "&ContactID=" + ContactID,
+            contentType: false,
+            processData: false,
+            data: docData,
+            success: function (data) {
+
+                if (data.StrWriteException != "") {
+                    return false;
+                }
+                else {
+                    $('#HdnDocumentDetails').val(data.DocData);
+                    SaveProspect();
+                }
+            }
+
+        });
+
+    }
+    function ValidateGenderSalutation()
+    {debugger;
+        GraphGenerated = false;
+        var Salutation = $('#TxtSalutation').val();
+        var Gender = $('#ddlGender').val();
+        if (Salutation == "Al Haj" || Salutation == "Ayur Dr Mr"|| Salutation == "Father"|| Salutation == "Master"|| Salutation == "Mr" || Salutation == "Rector"|| Salutation == "Reverent"|| Salutation == "Reverent Father"|| Salutation == "Sir" ) {
+            if(Gender == "F")
+            {
+                writeMultipleMessage("error", "Salutation does not match with the Gender", 'ddlGender');
+                return false;
+
+            }
+        }
+        else if (Salutation == "Ayur Dr Mrs" || Salutation == "Ayur Dr Ms"|| Salutation == "Dame"|| Salutation == "Dr Mrs"|| Salutation == "Dr Ms" || Salutation == "Lady"|| Salutation == "Madam"|| Salutation == "Miss"|| Salutation == "Mrs"|| Salutation == "Ms" || Salutation == "Reverent Sister" ) {
+            if(Gender == "M")
+            {
+                writeMultipleMessage("error", "Salutation does not match with the Gender", 'ddlGender');
+                return false;
+
+            }
+        }
+        return true;
+    }
+    function SaveProspect() {
+        debugger;
+        if (IsGraph) {
+            savePNG();
+            //return;
+        }
+
+
+        if (GraphGenerated) {
+            if (!ValidateGenderSalutation()) {
+                return false;
+            }
+            $("#dtProspectDOB").prop("disabled", false);
+            $("#ddlGender").prop("disabled", false);
+
+            if (!ValidateProspectDetails()) {
+                return false;
+            }
+            if (!ValidateSuspectType()) {
+                return false;
+            }
+
+            if(!ValidateNICPassport()){
+                $("#divBusyIndicator").hide();
+            }
+            else {
+
+                if (!OptMandatory()) {
+                    $("#confirm-delete").modal("show");
+                }
+                else {
+
+                    $.post('/Prospect/SaveProspect', $('#fromProspectForm').serialize(), function (data) {                    //$.post('/EmailIntegration/EmailNotification', $('#fromProspectForm').serialize(), function (data) {
+                        $('#SuspectModalBody').empty();
+                        if (data.Message == 'Success') {
+
+                            var Message = '';
+                            if (data.Status == 1 ) {
+                                var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                                Message = '<p class="text-center"> Data Saved Successfully in Lead Stage. </p>';
+                                $('#SuspectSuccesModalBody').append(Image);
+                                $('#SuspectSuccesModalBody').append(Message);
+                                $("#SuspectSuccessModal").modal("show");
+                                $('#btnClose').show();
+                                $('#btnOK').hide();
+                            }
+                            else if (data.Status == 2) {
+                                var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                                Message = '<p class="text-center"> Data Saved Successfully in Prospect Stage. </p>';
+                                $('#SuspectModalBody').append(Image);
+                                $('#SuspectModalBody').append(Message);
+                                $("#SuspectModal").modal("show");
+                                $('#btnClose').show();
+                                $('#btnOK').hide();
+                            }
+                            else if (data.Status == 4) {
+                                var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                                Message = '<p class="text-center"> Data Saved Successfully in Need Analysis Completed Stage. </p>';
+                                $('#SuspectModalBody').append(Image);
+                                $('#SuspectModalBody').append(Message);
+                                $("#SuspectModal").modal("show");
+                                $('#btnClose').show();
+                                $('#btnOK').hide();
+                            }
+                            else {
+
+                                $('#SuspectModalBody').empty();
+                                var Image='<img class="Img-align" src="../Images/warning1.png" />'
+                                var Message ='<br/>'+ data.Error;
+                                $('#SuspectModalBody').append(Image);
+                                $('#SuspectModalBody').append(Message);
+                                $("#SuspectModal").modal("show");
+                                $('#btnClose').hide();
+                                $('#btnOK').show();
+                            }
+                        }
+                        else {
+                            $('#SuspectModalBody').empty();
+                            var Image='<img class="Img-align" src="../Images/warning1.png" />'
+                            var Message ='<br/>'+ data.Error;
+                            $('#SuspectModalBody').append(Image);
+                            $('#SuspectModalBody').append(Message);
+                            $("#SuspectModal").modal("show");
+                            $('#btnClose').hide();
+                            $('#btnOK').show();
+                        }
+                        // $('#myModal').modal('show')
+                    });
+                }
+                $("#dtProspectDOB").prop("disabled", true);
+                $("#ddlGender").prop("disabled", true);
+            }
+        }
+        debugger;
+        // Education Grid table.......
+        var count =  $("#edutable tbody tr").length;
+        for(var i = 1;i<count;i++){
+                        var benify =$("#txtedurelation" + i).val();
+                        if (benify == "Select" || benify == " " || benify == undefined) {
+                            writeMultipleMessage("error", 'Please Select The Beneficiary For Education', "benify")
+                            return false;
+                        }
+                        else {
+                            writeMultipleMessage("error", "", "benify");
+                        }
+                        if(benify != "Select"){
+                            var curReq = $("#txteducurrent" + i).val();
+                            var term = $("#txteduterm" + i).val();
+                            var availFund = $("#txtedufund" + i).val();
+                            if (curReq == "" || curReq == undefined) {
+                                writeMultipleMessage("error", 'Please Enter The Current Requirement For Education', "curReq")
+                                return false;
+                            }
+                            else {
+                                writeMultipleMessage("error", " ", "curReq");
+
+                            }
+                            if (term == "" || term == undefined) {
+                                writeMultipleMessage("error", 'Please Enter The Term For Education', "term")
+                                return false;
+                            }
+                            else {
+                                writeMultipleMessage("error", "", "term");
+
+                            }
+                            if (availFund == "" || availFund == undefined) {
+                                writeMultipleMessage("error", 'Please Enter The Available Fund For Education', "availFund");
+                                return false;
+                            }
+                            else {
+                                writeMultipleMessage("error", "", "availFund");
+
+                            }
+                        }
+                    }
+        // Savings Grid table........
+        var saveCount = $("#savingtable tbody tr").length;
+        for(var j = 1;j< saveCount;j++){
+            var benify_1 =$("#txtsavingrelation" + j).val();
+            if(benify_1 =="Select" || benify_1 == "" || benify_1 == undefined){
+                writeMultipleMessage("error", 'Please Select The Beneficiary For Savings',"benify_1");
+            }
+            else{
+                writeMultipleMessage("error","","benify_1");
+            }
+            if(benify_1!= "Select"){
+                var curReq_1 = $("#txtsavingtable" + j).val();
+                var term_1 = $("#txtsavingterm" + j).val();
+                var availFund_1 = $("#txtsavingfund" + j).val();
+                if(curReq_1 == " " || curReq_1 == undefined){
+                    writeMultipleMessage("error", 'Please Enter the Current Requirement For Savings',"curReq_1");
+                }
+                else{
+                    writeMultipleMessage("error"," ","curReq_1");
+                }
+                if(term_1 == " " || term_1 == undefined){
+                    writeMultipleMessage("error",'Please Enter The Term For Savings',"term_1");
+                }
+                else{
+                    writeMultipleMessage("error"," ","term_1");
+                }
+                if(availFund_1 == " " || availFund_1 == undefined){
+                    writeMultipleMessage("error",'Please Enter The Available Fund For Savings',"availFund_1");
+                }
+                else{
+                    writeMultipleMessage("error"," ","availFund_1");
+                }
+            }
+        }
+    }
+    var gAmChart;
+    var IsGraph = false;
+    var GraphGenerated = false;
+    var IsQuote;
+    function DownloadGraph()
+    {
+        debugger;
+
+        var EduCount = 0;
+        for (var i = 1; i <= 5; i++) {
+            if($("#chkEducation"+i).is(':checked'))
+            {
+                EduCount++;
+            }
+        }
+        var RtmCount = 0;
+        for (var i = 1; i <= 5; i++) {
+            if($("#chkRetirement"+i).is(':checked'))
+            {
+                RtmCount++;
+            }
+        }
+        var ProCount = 0;
+        for (var i = 1; i <= 5; i++) {
+            if($("#chkProtection"+i).is(':checked'))
+            {
+                ProCount++;
+            }
+        }
+        var HltCount = 0;
+        for (var i = 1; i <= 5; i++) {
+            if($("#chkHealth"+i).is(':checked'))
+            {
+                HltCount++;
+            }
+        }
+        var SavCount = 0;
+        for (var i = 1; i <= 5; i++) {
+            if($("#chkSaving"+i).is(':checked'))
+            {
+                SavCount++;
+            }
+        }
+        if (EduCount == 0 && RtmCount == 0 && ProCount == 0 && HltCount == 0 && SavCount == 0) {
+
+            }
+            else
+        {
+            $('#divBusyIndicator').show();
+            window.setTimeout(function(){ 
+                gAmChart.export.capture({}, function () {
+                    this.toPNG({
+                        multiplier: 3,
+                        "fit": [ 523.28, 769.89 ]
+                    }, function (data) {
+                        debugger;
+                        if(data.length > 10){
+                            $("#HdnGraphByteArray").val(data);
+                        }
+                        $.post('/Prospect/DownloadGraph', $("#fromProspectForm").serialize(), function (data) {
+                            if(data =='Success')
+                            {
+                                window.location.href = "/Prospect/DownloadFNA";
+
+                            }
+
+                        });
+                    });
+                });
+            }, 6000);
+            $('#divBusyIndicator').hide();
+            }
+           
+
+
+        }
+
+        function ValidateNICPassport()
+        {
+            var NIC=$("#txtNic").val();
+            var PassPort=$("#txtPassport").val();
+            if(PassPort=="" && NIC=="")
+            {
+                writeMultipleMessage("error", "Please Enter PassPort/NIC", 'txtPassport');
+                return false;
+            }
+            else
+            {
+                writeMultipleMessage("error", "", 'txtPassport');
+                return true;
+            }
+        }
+        function ValidateProspectDetails() {
+
+            writeMultipleMessage("error", "", "objAddressAddress1");
+            writeMultipleMessage("error", "", "objAddressAddress2");
+            writeMultipleMessage("error", "", "objAddressAddress3");
+
+
+            var Type=$("#ddlPropectInfoType option:selected").text();
+            var Salutation=$("#ddlSalutation option:selected").text();
+            var NIC=$("#txtNic").val();
+            var PassPort=$("#txtPassport").val();
+            var Gender=$("#ddlGender").val();
+            var AnnualIncome=$("#txtAverageMonthlyIncome").val();
+            var Occupation=$("#TxtOccupation").val();
+            var Place=$("#txtPlace").val();
+            var Name = $("#txtName").val();
+            var LastName = $("#txtLastName").val();
+            var Mobile = $("#txtMobile").val();
+            var DOB = $("#dtProspectDOB").val();
+            var DatePickerID = $("#dtDOB").attr('id');
+            var Age = $('#txtAge').val();
+            var Address1=$("#objAddressAddress1").val();
+            var Address2=$("#objAddressAddress2").val();
+            var Address3=$("#objAddressAddress3").val();
+            var pin=$("#objAddressPincode").val();
+            var email = $("#txtEmail").val();
+            var dependentCount=$('#dependents-count').val();
+            var SpouseNameInfo = $("#txtSpouseNameInfo").val();
+            var SpouseDOBInfo = $("#dtSpouseDOBInfo").val();
+            var Email = $("#txtEmail").val();
+            var Home = $("#txtTelephone").val();
+            var MaritalStatus=$("#ddlMaritalStatus").val();
+
+            var res=ValidName(Name)
+            if(res==false){
+                writeMultipleMessage("error", "“Please Enter Valid Name – Following formats are not allowed –<br> -First Character cannot be ‘Space’ or ‘special character’<br>-There cannot be 3 consecutive letters in name<br>-Two consecutive space are not allowed<br>-Accept only ‘alphabet’, ‘space’ and ‘apostrophe (‘)’‘’", "txtName");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtName");
+            }
+            var res=ValidName(LastName)
+            if(res==false){
+                writeMultipleMessage("error", "“Please Enter Valid SurName – Following formats are not allowed –<br> -First Character cannot be ‘Space’ or ‘special character’<br>-There cannot be 3 consecutive letters in name<br>-Two consecutive space are not allowed<br>-Accept only ‘alphabet’, ‘space’ and ‘apostrophe (‘)’‘’", "txtLastName");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtLastName");
+            }
+            if (Mobile != "" && Mobile.length < 10) {
+                writeMultipleMessage("error", "Please Enter atleast 10 Digits Mobile Number.", "txtMobile");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtMobile");
+
+            }
+            if ($("#hdnAutoCompleteValue").val() == "false") {
+                writeMultipleMessage("error", "Please Enter Correct Salutation.", "TxtSalutation");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", 'TxtSalutation');
+            }
+            //if ($("#hdnAutOccupation").val() == "false") {
+            //    writeMultipleMessage("error", "Please Enter Correct Occupation.", "TxtOccupation");
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'TxtOccupation');
+
+            //}
+            if (Home != "")
+            {
+                if(Home.length < 10) {
+                    writeMultipleMessage("error", "Please Enter atleast 10 Digits Home Number.", "txtTelephone");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtTelephone");
+
+                }
+            }
+
+            if(Gender=="M")
+            {
+                if(MaritalStatus=="W")
+                {
+                    writeMultipleMessage("error", "Please Select Proper Marital Status According to your gender.", "ddlMaritalStatus");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "ddlMaritalStatus");
+
+                }
+            }
+            if(Gender=="F")
+            {
+                if(MaritalStatus=="R")
+                {
+                    writeMultipleMessage("error", "Please Select Proper Marital Status According to your gender.", "ddlMaritalStatus");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "ddlMaritalStatus");
+                }
+            }
+
+
+            if ($("#PIspouseDetails").css("display") == "block") {
+                if (SpouseNameInfo == "") {
+                    writeMultipleMessage("error", "Please Enter Spouse Name", "txtSpouseNameInfo");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtSpouseNameInfo");
+                }
+            }
+            if ($("#PIspouseDetails").css("display") == "block") {
+                if (SpouseDOBInfo == "") {
+                    writeMultipleMessage("error", "Please Enter Spouse DOB", "dtSpouseDOBInfo");
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtSpouseNameInfo");
+                }
+            }
+            var Address1=$('#objAddressAddress1').val();
+            var res=ValidateAddress(Address1);
+            if(res==false){
+                writeMultipleMessage("error", "“Please Enter Valid Address1 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objAddressAddress1");
+                return false;
+            } else
+            {
+                writeMultipleMessage("error", "", "objAddressAddress1");
+            }
+
+            var Address2=$('#objAddressAddress2').val();
+            var res=ValidateAddress(Address2);
+            if(res==false){
+                writeMultipleMessage("error", "“Please Enter Valid Address2 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objAddressAddress2");
+                return false;
+            } else
+            {
+                writeMultipleMessage("error", "", "objAddressAddress2");
+            }
+            var Address3=$('#objAddressAddress3').val();
+            var res=ValidateAddress(Address3);
+            if(res==false){
+                writeMultipleMessage("error", "“Please Enter Valid Address3 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objAddressAddress3");
+                return false;
+            } else
+            {
+                writeMultipleMessage("error", "", "objAddressAddress3");
+            }
+
+            //if (dependentCount>5) {
+            //    writeMultipleMessage("error", "Maximum Number of dependants can be  5", "dependents-count");
+            //    return false;
+
+            //}
+            //writeMultipleMessage("error", "", "HdnSelectedProducts");
+
+            ////if (prodCount == "") {
+            ////    writeMultipleMessage("error", "Please Select Atleast a Product", "HdnSelectedProducts");
+            ////    return false;
+            ////}
+            //if (!validateEmailID('txtEmail','Please Enter Valid Email Id.')) {
+            //    return false;
+            //}
+
+            //if(!SubmitInterviewrageCount())
+            //{
+            //    return false;
+            //}
+            //if (!ValidateHome()) {
+            //    return false;
+            //}
+            //if (!ValidateWork()) {
+            //    return false;
+            //}
+            //for (var i = 0; i < $('#dependents-count').val(); i++) {
+            //    if(CalculateageInfo(i)){
+            //        return false;
+            //    }
+            //}
+            //if ($("#ddlPropectInfoType option:selected").text() == 'Select' || $("#ddlPropectInfoType option:selected").text() == '') {
+            //    writeMultipleMessage("error", 'Please select Type', 'ddlPropectInfoType')
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'ddlPropectInfoType');
+            //}
+            //if ($("#TxtSalutation").val() == "") {
+            //    writeMultipleMessage("error", 'Please Enter Salutation', 'ddlSalutation')
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'TxtSalutation');
+            //}
+            //if ($("#hdnAutoCompleteValue").val() == "false") {
+            //    writeMultipleMessage("error", "Please enter correct Salutation.", "TxtSuspectSalutation");
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'TxtSuspectSalutation');
+            //}
+            //if (Name == "") {
+            //    writeMultipleMessage("error", "Please enter Given Name.", 'txtFirstName');
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'txtFirstName');
+            //}
+            //if (LastName == "") {
+            //    writeMultipleMessage("error", "Please enter SurName.", 'txtLastName');
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'txtLastName');
+            //}
+            ////if (NIC == "" &&PassPort=="") {
+            ////    writeMultipleMessage("error", "Please enter NIC or PassPort.", 'txtNic');
+            ////    return false;
+            ////}
+
+            //if (NIC == "") {
+            //    writeMultipleMessage("error", "Please Enter Valid NIC Number.", 'txtNic');
+            //    return false;
+            //}
+            //if (NIC.length == 10 || NIC.Length == 12) {
+            //    writeMultipleMessage("error", "", 'txtNic');
+            //}
+            //else {
+            //    writeMultipleMessage("error", "Please Enter Valid NIC Number.", 'txtNic');
+            //    return false;
+            //}
+            //if (NIC.toUpperCase() == "SLC") {
+            //    if(PassPort=="")
+            //    {
+            //        writeMultipleMessage("error", "Please enter PassPort.", 'txtPassport');
+            //        return false;
+            //    }
+            //    else
+            //    {
+            //        writeMultipleMessage("error", "", 'txtPassport');
+
+            //    }
+            //}
+
+
+            //if ($("#ddlGender option:selected").text() == 'Select' || $("#ddlGender option:selected").text() == '') {
+            //    writeMultipleMessage("error", 'Please select Gender', 'ddlGender')
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'ddlGender');
+            //}
+            //if (DOB == "") {
+            //    writeMultipleMessage("error", "Please enter DOB.", 'dtProspectDOB');
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'dtProspectDOB');
+            //}
+            //if (Age == "0") {
+            //    writeMultipleMessage("error", "Please enter Age.", 'txtAge');
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'txtAge');
+            //}
+            //if (Mobile == "") {
+            //    writeMultipleMessage("error", "Please enter Mobile No.", "txtMobile");
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'txtMobile');
+            //}
+
+            //if (Mobile != "" && Mobile.length < 10) {
+            //    writeMultipleMessage("error", "Please enter 10 Digits Mobile Number.", "txtMobile");
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", "txtMobile");
+
+            //}
+            //if (Email == "" ) {
+            //    writeMultipleMessage("error", "Please enter Email ID", "txtEmail");
+            //    return false;
+            //}
+
+            //if (Occupation== "") {
+            //    writeMultipleMessage("error", 'Please enter Occupation', 'ddlOccupation')
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'TxtOccupation');
+            //}
+            //if (AnnualIncome == "") {
+            //    writeMultipleMessage("error", "Please enter Annual Income.", 'txtAverageMonthlyIncome');
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'txtAverageMonthlyIncome');
+            //}
+
+            //if ($("#ddlMaritalStatus").val() == "") {
+            //    writeMultipleMessage("error", "Please Select the marital status.", "ddlMaritalStatus");
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", "ddlMaritalStatus");
+            //}
+            //if (Place == "") {
+            //    writeMultipleMessage("error", "Please enter Place.", 'txtPlace');
+            //    return false;
+            //}
+
+            //else {
+            //    writeMultipleMessage("error", "", 'txtPlace');
+            //}
+            //var AvgMonthlyIncomevalue = $("#txtPlace").val();
+            //var cArray = AvgMonthlyIncomevalue.split("");
+            //for (var i = 0; i < cArray.length; i++) {
+            //    if (cArray[i] == " ") {
+            //        flag = 0;
+            //    }
+            //    else {
+            //        flag = 1;
+            //        break;
+            //    }
+            //}
+            //if (flag == 0) {
+            //    writeMultipleMessage("error", "Enter Valid Place", "txtPlace");
+            //    return false;
+
+            //} else {
+            //    writeMultipleMessage("error", "", "txtPlace");
+
+            //}
+            //var AvgMonthlyIncomevalue = $("#txtAverageMonthlyIncome").val();
+            //var cArray = AvgMonthlyIncomevalue.split("");
+            //for (var i = 0; i < cArray.length; i++) {
+            //    if (cArray[i] == "0") {
+            //        flag = 0;
+            //    }
+            //    else {
+            //        flag = 1;
+            //        break;
+            //    }
+            //}
+            //if (flag == 0) {
+            //    writeMultipleMessage("error", "Enter Valid Average Annual Income", "txtAverageMonthlyIncome");
+            //    return false;
+
+            //} else {
+            //    writeMultipleMessage("error", "", "txtAverageMonthlyIncome");
+            //    return true;
+            //}
+            //if (Address1 == "") {
+            //    writeMultipleMessage("error", "Please enter Address1.", 'objAddressAddress1');
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'objAddressAddress1');
+            //}
+            //if ($('#objAddressAddress2').val() == '') {
+            //    writeMultipleMessage("error", "Please enter Communication Address2.", 'objAddressAddress2');
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'objAddressAddress2');
+            //}
+            //if ($("#objAddressddlProvince option:selected").text() == 'Select' || $("#objAddressddlProvince option:selected").text() == '') {
+            //    writeMultipleMessage("error", 'Please select Province', 'objAddressddlProvince')
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'objAddressddlProvince');
+            //}
+            //if ($("#objAddressddlDistrict option:selected").text() == 'Select' || $("#objAddressddlDistrict option:selected").text() == '') {
+            //    writeMultipleMessage("error", 'Please select District', 'ddlSalutation')
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'objAddressddlDistrict');
+            //}
+            //if ($("#objAddressddlCity option:selected").text() == 'Select' || $("#objAddressddlCity option:selected").text() == '') {
+            //    writeMultipleMessage("error", 'Please select City', 'objAddressddlCity')
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'objAddressddlCity');
+            //}
+            //if (pin == "") {
+            //    writeMultipleMessage("error", "Please enter pin.", 'objAddressPincode');
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'objAddressPincode');
+            //    return true;
+            //}
+            @*var _SuspectChangesCount = 0;
+        if ('@HomeNumber' != '') {
+            if ('@HomeNumber' != Home) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        if ('@WorkNumber' != '') {
+            if ('@WorkNumber' != Work) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        if ('@EmailAddress' != '') {
+            if ('@EmailAddress' != Email) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        if ('@MobileNumber' != '') {
+            if ('@MobileNumber' != Mobile) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        var ValCount = parseInt('@ValCount');
+        if (_SuspectChangesCount < ValCount) {
+
+        }
+        else {
+            writeMultipleMessage("error", "Please don't change contact information.", "txtTelephone");
+            return false;
+        }
+        if (DOB == "" && Age == "") {
+            writeMultipleMessage("error", "Please enter One of Date Of Birth/Age.", "dtDOB");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "dtDOB");
+            return true;
+        }*@
+            return true;
+        }
+        function SubmitInterviewrageCount() {
+
+            var NICNo = $('#txtNic').val();
+            var dob = $("#dtProspectDOB").val();
+            //if (NICNo.toUpperCase() != "SLC") {
+            if (dob != '' && !ValidateDOB("dtProspectDOB")) {
+                writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "dtProspectDOB");
+                if (dob != '') {
+                    var d = new Date();
+                    var currentYear = d.getFullYear();
+                    var currentMonth = d.getMonth() + 1;
+                    var currentDate = d.getDate();
+                    var arr = dob.split('/');
+                    var birthYear = arr[2];
+                    var birthMonth = arr[1];
+                    var birthdate = arr[0];
+                    var calYear = currentYear - birthYear;
+                    var CalMonth = currentMonth - birthMonth;
+                    var calcAge = 0;
+                    if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                        calYear--;
+                    }
+                    $("#txtAge").val(calYear);
+                    var ProspectAge = $('#txtAge').val();
+                    if ( ProspectAge > 60 || ProspectAge < 18) {
+                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+                        return false;
+
+                    }
+                    return true;
+                }
+                else {
+                    writeMultipleMessage("error", "Please Enter Valid NIC number", "txtNic");
+                    return false;
+
+                }
+                //}
+            }
+            return true;
+        }
+        function ageCount(controlid) {
+
+            var dob = $('#' + controlid).val();
+            if (dob == "") {
+                $('#txtAge').val('');
+                writeMultipleMessage("error", "Please Enter Valid Date Of Birth.", controlid);
+                return false;
+            }
+            if (!ValidateDOB(controlid)) {
+                writeMultipleMessage("error", "Please Enter Valid Date Of Birth. It cannot be future date.", controlid);
+                return false;
+            }
+            else {
+                if (dob != '') {
+                    //
+                    var d = new Date();
+                    var currentYear = d.getFullYear();
+                    var currentMonth = d.getMonth() + 1;
+                    var currentDate = d.getDate();
+                    var arr = dob.split('/');
+                    var birthYear = arr[2];
+                    var birthMonth = arr[1];
+                    var birthdate = arr[0];
+                    var calYear = currentYear - birthYear;
+                    var CalMonth = currentMonth - birthMonth;
+                    var calcAge = 0;
+                    if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                        calYear--;
+                    }
+                    $("#txtAge").val(calYear);
+
+                    //dob = new Date(dob);
+                    //var d = new Date();
+                    //var currentYear = d.getFullYear();
+                    //var currentMonth = d.getMonth();
+                    //var currentDate = d.getDay();
+                    //var arr = dob.split('/');
+                    //var birthYear = arr[2];
+                    //var birthMonth = arr[1];
+                    //var birthday = arr[0];
+                    //var ageDifMs = Date.now() - dob.getTime();
+                    //var ageDate = new Date(ageDifMs);
+                    //var calcAge = Math.abs(ageDate.getUTCFullYear() - 1970); //currentYear - birthYear;
+                    //$('#txtAge').val(calcAge);
+                }
+            }
+        }
+        function ValidateDOB(controlid) {
+            //
+            var dob = $('#' + controlid).val();
+            var d = new Date();
+            var month = d.getMonth() + 1;
+            var day = d.getDate();
+            var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+            var arrDOB = dob.split('/');
+            var birthDay = arrDOB[0];
+            var birthMonth = arrDOB[1];
+            var birthYear = arrDOB[2];
+            var arrCurrentDate = currentDate.split('/');
+            var currentDay = arrCurrentDate[0];
+            var currentMonth = arrCurrentDate[1];
+            var currentYear = arrCurrentDate[2];
+            if (birthYear <= currentYear) {
+                if (birthMonth <= currentMonth) {
+                    if (birthDay <= currentDay) {
+                        return true;
+                    }
+                    else if (birthDay > currentDay && birthMonth < currentMonth) {
+                        return true;
+                    }
+                    else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else if (birthMonth > currentMonth && birthYear < currentYear) {
+                    return true;
+
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        }
+        function LoadProspectPool() {
+            window.location.href = "/Prospect/Prospect";
+        }
+        function LoadSuspectPool() {
+            window.location.href = "/Suspect/SuspectPool";
+        }
+        function FillDistrictCommaddMember(ProvinceCode, distct, ID) {
+            var textName = ID;
+            if (ProvinceCode != '') {
+                $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+                .done(function (data) {
+                    if (data != null) {
+                        $('#' + textName + 'ddlDistrict').html(""); // clear before appending new list
+                        $('#' + textName + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                        $.each(data, function (ID, option) {
+                            $('#' + textName + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                        });
+                        $('#' + textName + 'ddlDistrict').val(distct);
+                    }
+                });
+            }
+        }
+        function FillCityCommaddMember(ProvinceCode, distct, ID) {
+            var textName = ID;
+            if (ProvinceCode != '') {
+                $.post("../AgentonBoarding/FetchCity?DistrictCode=" + ProvinceCode)
+                .done(function (data) {
+                    if (data != null) {
+                        $('#' + textName + 'ddlCity').html(""); // clear before appending new list
+                        $('#' + textName + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                        $.each(data, function (ID, option) {
+                            $('#' + textName + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                        });
+                        $('#' + textName + 'ddlCity').val(distct);
+                    }
+                });
+            }
+        }
+        function FillDistrictCommAddress(e) {
+            var ProvinceCode = $("#" + e.id).val();
+            if (ProvinceCode != '') {
+                $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+                .done(function (data) {
+                    if (data != null) {
+                        if (e.id == "objAddressddlProvince") {
+                            textId = e.id.substring(0, 10);
+                        }
+                        else {
+                            textId = e.id.substring(0, 10);
+                        }
+                        $('#' + textId + 'ddlDistrict').html(""); // clear before appending new list
+                        $('#' + textId + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                        $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                        $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                        $('#' + textId + 'Pincode').val('');
+                        $.each(data, function (ID, option) {
+                            $('#' + textId + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#' + textId + 'ddlDistrict').html(""); // clear before appending new list
+                $('#' + textId + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                $('#' + textId + 'Pincode').val("");
+            }
+        }
+        function FillCityCommAddress(e) {
+            var DistrictCode = $("#" + e.id).val();
+            if (DistrictCode != '') {
+                $.post("../AgentonBoarding/FetchCity?DistrictCode=" + DistrictCode)
+                .done(function (data) {
+                    if (data != null) {
+                        if (e.id == "objAddressddlDistrict") {
+                            textId = e.id.substring(0, 10);
+                        }
+                        else {
+                            textId = e.id.substring(0, 10);
+                        }
+                        $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                        $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                        $('#' + textId + 'Pincode').val('');
+                        $.each(data, function (ID, option) {
+                            $('#' + textId + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                $('#' + textId + 'Pincode').val("");
+            }
+
+        }
+        function FillPostalCodeCommAddress(e) {
+
+            var CityCode = $("#" + e).val();
+            if (CityCode != '') {
+                $.post("../AgentonBoarding/FetchPostalCode?CityCode=" + CityCode)
+                .done(function (data) {
+
+                    if (data != null) {
+                        if (e == "objAddressPincode") {
+                            textId = e.substring(0, 10);
+                        }
+                        else {
+                            textId = e.substring(0, 10);
+                        }
+                        $('#' + textId + 'ddlProvince').val(data.Provience);
+                        $('#' + textId + 'ddlDistrict').val(data.Distric);
+                    }
+                });
+            }
+            else {
+                $('#' + textId + 'ddlProvince').val("");
+                $('#' + textId + 'ddlDistrict').val("");
+            }
+        }
+        function RemoveProspect() {
+            var flag = confirm("Are you sure to remove the Suspect?");
+            if (flag) {
+                $("#RemoveSuspectModal").modal("show");
+            }
+            else
+                return false;
+
+        }
+        function DeleteSuspect() {
+            var Reason = $('#txtremoveReason').val();
+            var contactId = $('#hdnContactID').val();
+            if (Reason == "") {
+
+                writeMultipleMessage("error", "Please Enter Reason for Remove.", 'txtremoveReason');
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", 'txtremoveReason');
+                var model = { "ContactId": contactId }
+                $.ajax({
+                    type: "POST",
+                    url: '/Suspect/DeleteOpportunityInfo',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(model),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.Message == 'Success') {
+                            $("#RemoveSuspectModal").modal("hide");
+                            var Message = '<p>Suspect Deleted Successfully</p>';
+                            $('#SuspectSuccesModalBody').html(Message);
+                            $("#SuspectSuccessModal").modal("show");
+                        }
+                        else {
+                            $("#RemoveSuspectModal").modal("hide");
+                            var Message = '<p>Some Error Occured</p>';
+                            $('#SuspectSuccesModalBody').html(Message);
+                            $("#SuspectSuccessModal").modal("show");
+                        }
+                    }
+                });
+                //return true;
+            }
+        }
+        function OptMandatory()
+        {
+
+            var Salary = $("#txtIncome0").val();
+            var Totalmonthlyexpenses = $("#txtTotalmonthlyexpenses").val();
+            var RetireSalary =$("#txtRetireSalary").val();
+            var EstTotalMonthlyExpense = $("#txtTotalMonthlyExpense").val();
+            var AnnualIncomeSurplus = $("#txtAnnualIncomeSurplus").val();
+            var MonthlyPensionGap = $("#txtMonthlyPensionGap").val();
+            var EduGapTotal =$("#txtEduGapTotal").val();
+            var SavingGapTotal = $("#txtSavingGapTotal").val();
+            var MonthlyEarning = $("#txtMonthlyEarning").val();
+            var YearsofEarning =$("#txtYearsofEarning").val();
+            var NetAssests = $("#txtNetAssests").val();
+            var SurPlusDeficit = $("#txtSurPlusDeficit").val();
+            var index3 =  $(".selectrow tr").length;
+            var Gaptotal1 = $("#txtGaptotal1").val();
+            var Gaptotal2 = $("#txtGaptotal2").val();
+            var CriticalGap = $("#txtCriticalGap").val();
+            var HosGap = $("#txtHospitalizationGap").val();
+            var AddexpGap = $("#txtAdditionalexpenseGap").val();
+            var index = $(".healthselectrow tr").length;
+            var index2 = $(".savingselectrow tr").length;
+            var prodCount = $("#HdnSelectedProducts").val();
+
+            if (prodCount == "") {
+                return false;
+            }
+            if ($('.fna-content').css("display") == "block" ) {
+                if (Salary == "") {
+                    return false;
+                }
+                if (NetAssests == "") {
+                    return false;
+                }
+                if (SurPlusDeficit == "") {
+                    return false;
+                }
+                for (var i = index3; i >= 0; i--) {
+                    var curReq = parseInt($('#txtreqtable'+i).val());
+                    if (curReq == "") {
+                        return false;
+                    }
+                }
+                if (Gaptotal1 == "") {
+                    return false;
+                }
+                if (Gaptotal2 == "") {
+                    return false;
+                }
+            }
+            if ($('.financial_analysis_calculator').css("display") == "block" ) {
+                if ($( ".financial_analysis_calculator_retirement" ).hasClass( "calculator-details-active" )) {
+                    if (Totalmonthlyexpenses == "") {
+                        return false;
+                    }
+                    if (RetireSalary == "") {
+                        return false;
+                    }
+                    if (EstTotalMonthlyExpense == "") {
+                        return false;
+                    }
+                    if (AnnualIncomeSurplus == "") {
+                        return false;
+                    }
+                    if (MonthlyPensionGap == "") {
+                        return false;
+                    }
+                }
+                if ($( ".financial_analysis_calculator_health" ).hasClass( "calculator-details-active" )) {
+                    if (CriticalGap == "" && HosGap == "" && AddexpGap == "") {
+                        return false;
+                    }
+                }
+                if ($( ".financial_analysis_calculator_education" ).hasClass( "calculator-details-active" )) {
+                    for (var i = index; i >= 0; i--) {
+                        var educurr = parseInt($('#txteducurrent'+i).val());
+                        if (educurr == "") {
+                            return false;
+                        }
+                        var eduterm = parseInt($('#txteduterm'+i).val());
+                        if (eduterm == "") {
+                            return false;
+                        }
+                        if (EduGapTotal == "" && index > 1) {
+                            return false;
+                        }
+                    }
+                }
+                if (($( ".financial_analysis_calculator_savings" ).hasClass( "calculator-details-active" )) == true) {
+                    for (var i = index2; i >= 0; i--) {
+                        var savingcurrent = parseInt($('#txtsavingtable'+i).val());
+                        if (savingcurrent == "") {
+                            return false;
+                        }
+                        var savingterm = parseInt($('#txtsavingterm'+i).val());
+                        if (savingterm == "") {
+                            return false;
+                        }
+                        if (SavingGapTotal == "" && index2 > 1) {
+                            return false;
+                        }
+                    }
+                }
+                if ($( ".financial_analysis_calculator_protection" ).hasClass( "calculator-details-active" )) {
+                    if (YearsofEarning == "") {
+                        return false;
+                    }
+                    if (MonthlyEarning == "") {
+                        return false;
+                    }
+
+                }
+
+            }
+            return true;
+        }
+
+
+        $("#btnCancel").click(function(event){
+
+            $("#confirm-delete").modal("hide");
+            event.stopPropagation();
+        });
+        $("#btnContinue").click(function(event){
+            debugger;
+            $("#confirm-delete").modal("hide");
+
+            $.post('/Prospect/SaveProspect', $('#fromProspectForm').serialize(), function (data) {
+                if (data.Message == 'Success') {
+                    $('#SuspectSuccesModalBody').empty();
+                    var Message = '';
+                    console.log(data.Status);
+                    if (data.Status == 1) {
+                        var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                        Message = '<p class="text-center"> Data Saved Successfully in Lead Stage. </p>';
+                        $('#SuspectSuccesModalBody').append(Image);
+                        $('#SuspectSuccesModalBody').append(Message);
+                        $("#SuspectSuccessModal").modal("show");
+                        $('#btnCloseSuspect').show();
+                        $('#btnOKSuspect').hide();
+
+                    }
+                    else if (data.Status == 2) {
+                        var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                        Message = '<p class="text-center"> Data Saved Successfully in Prospect Stage. </p>';
+                        $('#SuspectModalBody').append(Image);
+                        $('#SuspectModalBody').append(Message);
+                        $("#SuspectModal").modal("show");
+                        $('#btnClose').show();
+                        $('#btnOK').hide();
+                    }
+                    else if (data.Status == 4) {
+                        var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                        Message = '<p class="text-center"> Data Saved Successfully in Need Analysis Completed Stage. </p>';
+                        $('#SuspectSuccesModalBody').append(Image);
+                        $('#SuspectSuccesModalBody').append(Message);
+                        $("#SuspectSuccessModal").modal("show");
+                        $('#btnCloseSuspect').show();
+                        $('#btnOKSuspect').hide();
+
+                }
+                else  {
+                    var Image='<img class="Img-align" src="../Images/warning1.png" />'
+                    var Message ='<br/>'+ data.Error;
+                    $('#SuspectSuccesModalBody').append(Image);
+                    $('#SuspectSuccesModalBody').append(Message);
+                    $("#SuspectSuccessModal").modal("show");
+                    $('#btnCloseSuspect').hide();
+                    $('#btnOKSuspect').show();
+
+                }
+            }
+            else {
+                    $('#SuspectSuccesModalBody').empty();
+                    var Image='<img class="Img-align" src="../Images/warning1.png" />'
+                    var Message ='<br/>'+ data.Error;
+                $('#SuspectSuccesModalBody').append(Image);
+                $('#SuspectSuccesModalBody').append(Message);
+                $("#SuspectSuccessModal").modal("show");
+                $('#btnCloseSuspect').hide();
+                $('#btnOKSuspect').show();
+            }
+            // $('#myModal').modal('show')
+        });
+    });
+
+        function toggleBusyIndicator(status) {
+            status = (status != undefined && status != null) ? status.toLowerCase() : "hide";
+            if (status == "show") {
+                $("#modal-background").addClass("active");
+                $("#divBusyIndicator").addClass("active");
+                $("#layoutBody").addClass("active");
+            }
+            else {
+                $("#modal-background").removeClass("active");
+                $("#divBusyIndicator").removeClass("active");
+                $("#layoutBody").removeClass("active");
+            }
+        }
+
+        function ValidationForNeedIdentificationQuote() {
+            writeMultipleMessage("error", "", "dummy");
+            writeMultipleMessage("error", "", 'HdnSelectedProducts');
+
+            var value = 1;
+            var Q1 = 0, Q2 = 0, Q3 = 0, Q4 = 0, Q5 = 0;
+            $('#fromProspectForm').children().find('.need-identification-question-section').each(function () {
+                $(this).find('.need-identification-answer-subsec').each(function () {
+                    if (value == 1) {
+                        if ($(this).children().find("input:checkbox[class='checkbox1 checkmark']:checked").is(":checked") == true) {
+                            Q1++;
+                        }
+                    }
+                    if (value == 2) {
+                        if ($(this).children().find("input:checkbox[class='checkbox2 checkmark']:checked").is(":checked") == true) {
+                            Q2++;
+                        }
+                    }
+                    if (value == 3) {
+                        if ($(this).children().find("input:checkbox[class='checkbox3 checkmark']:checked").is(":checked") == true) {
+                            Q3++;
+                        }
+                    }
+                    if (value == 4) {
+                        if ($(this).children().find("input:checkbox[class='checkbox4 checkmark']:checked").is(":checked") == true) {
+                            Q4++;
+                        }
+                    }
+                    if (value == 5) {
+                        if ($(this).children().find("input:checkbox[class='checkbox5 checkmark']:checked").is(":checked") == true) {
+                            Q5++;
+                        }
+                    }
+                })
+                value++;
+
+            })
+            if (Q1 < 1) {
+                writeMultipleMessage("error", "Please complete the mandatory 5 Questionnaire in the Need Identification Tab", "dummy");
+                return false;
+            }
+            if (Q2 < 1) {
+                writeMultipleMessage("error", "Please complete the mandatory 5 Questionnaire in the Need Identification Tab", "dummy");
+                return false;
+            }
+            if (Q3 < 1) {
+                writeMultipleMessage("error", "Please complete the mandatory 5 Questionnaire in the Need Identification Tab", "dummy");
+                return false;
+            } if (Q4 < 1) {
+                writeMultipleMessage("error", "Please complete the mandatory 5 Questionnaire in the Need Identification Tab", "dummy");
+                return false;
+            }
+            if (Q5 < 1) {
+                writeMultipleMessage("error", "Please complete the mandatory 5 Questionnaire in the Need Identification Tab", "dummy");
+                return false;
+            }
+            return true;
+        }
+
+        function ConsectCheck() {
+
+            debugger
+
+            if ($("input[id='chkconsent']").is(':checked') == false) {
+
+            writeMultipleMessage("error", "Please select consent for product selection", "chkconsent");
+            $("#chkconsent").prop("checked", false);
+            $("#chkconsent").prop("value", false);
+            $(".invisible").removeClass('checkboxactive')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "chkconsent");
+            return true;
+        }
+    }
+    function ChkconfirmCheck() {
+
+        debugger
+
+        if ($("input[id='chkconfirm']").is(':checked') == false) {
+
+            writeMultipleMessage("error", "Please select consent for need identification", "chkconfirm");
+            $("#chkconfirm").prop("checked", false);
+            $("#chkconfirm").prop("value", false);
+            $(".invisible").removeClass('checkboxactive')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "chkconfirm");
+            return true;
+        }
+    }
+</script>

@@ -1,0 +1,142 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Type</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "txtType", @class = "form-control" }))
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+
+        <div class="form-group">
+            <label>Salutation</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "txtFirstName", @class = "form-control" }))
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+
+        <div class="form-group">
+            <label>Name</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "txtFirstName", @class = "form-control" }))
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Gender</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "txtFirstName", @class = "form-control" }))
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Date Of Birth</label>
+            @Html.iNubeDatePickerFor(m => m.objClientDetails.DOB, new { @class = "form-control", @id = "dtDOB", @MaxDate = DateTime.Now.ToString("MM/dd/yyyy"), @onChange = "ageCount()" })
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Age</label>
+            @Html.TextBoxFor(m => m.objClientDetails.Age, new { @class = "form-control", @id = "txtAge" })
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Telephone</label>
+            @Html.TextBoxFor(m => m.objClientDetails.PhoneNumber, new { @class = "form-control", @id = "txtTelephone", @maxlength = "16", @onkeypress = "return isNumberKey(event)" }) @* @onblur = "ValidatePhoneNumber()"*@
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Mobile</label>
+            @Html.TextBoxFor(m => m.objClientDetails.MobileNumber, new { @class = "form-control", @id = "txtMobile", @maxlength = "10", @onkeypress = "return isNumberKey(event)", @onblur = "ValidateMobileNumber()" })
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Office No</label>
+            @Html.TextBoxFor(m => m.objClientDetails.OfficeNumber, new { @class = "form-control", @id = "txtOfficeNo" })
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Email ID</label>
+            @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "txtEmail", @maxlength = "50", @onblur = "validateEmailID('txtEmail','Please Enter Valid Email Id.')" })
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Occupation</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "txtFirstName", @class = "form-control" }))
+
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Marital Status</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "txtFirstName", @class = "form-control" }))
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Nationality</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "txtFirstName", @class = "form-control" }))
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>PREFERRED LANGUAGE</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "txtFirstName", @class = "form-control" }))
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Monthly Income</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "txtFirstName", @class = "form-control" }))
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>IDENTIFICATION</label>
+            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "txtFirstName", @class = "form-control" }))
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>ID NO</label>
+            @Html.TextBoxFor(m => m.objClientDetails.NICNo, new { @class = "form-control", @id = "txtPan", @maxlength = "10", @onblur = "ValidatePANNo()" })
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div id="clientAddress">
+        <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4">Communication Address:</p>
+        @(Html.AddressFor(a => a.objClientDetails.objAddress))
+    </div>
+</div>
+
+
+

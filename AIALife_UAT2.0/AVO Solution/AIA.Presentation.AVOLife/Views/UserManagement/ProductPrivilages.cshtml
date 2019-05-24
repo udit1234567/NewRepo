@@ -1,0 +1,39 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+@Styles.Render("~/Content/TreeView")
+@{
+    ViewBag.Title = "ProductPrivilages";
+    if (Model.userDetails == null)
+    {
+        Model.userDetails = new AIA.Life.Models.UserManagement.UserDetails();
+    }
+   //  Layout = "~/Views/Shared/_NewLayout.cshtml";@*---layout has to render from viewstart*@
+    //List<iNubeModels.UM.OfficeDetails> lst = new List<iNubeModels.UM.OfficeDetails>();
+    //lst.Add(new iNubeModels.UM.OfficeDetails { Office = "Office name", Channel = "channel name", SM = "sm name", Referral = "referral name" });
+}
+
+@*<script src="~/Scripts/Knockout/knockout-2.1.0.js"></script>
+<script src="~/Scripts/Knockout/ko_dataGrid.js"></script>*@
+
+@*<div id="PrevilagesPanels">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default" id="pnlProducts">
+            <div class="panel-heading" role="tab" id="headingFour">
+                <h5 class="panel-title text-left">
+                    <i class="fa fa-stack-overflow"></i>
+                    <a class="accordion-toggle" data-toggle="collapse" data-target="#collapseFour">Product <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                <div class="panel-body">
+
+                    <div class="col-sm-12" id="DivCoverDetails">
+                        @Html.Action("ProductTree", "UserManagement", new {userId=Model.UserID })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+

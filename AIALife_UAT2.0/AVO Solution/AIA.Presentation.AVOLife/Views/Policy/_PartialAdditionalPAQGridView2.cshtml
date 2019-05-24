@@ -1,0 +1,92 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+@{
+    //ViewBag.Title = "_PartialAdditionalPAQGridView1";
+    int MemberIndex = Model.AssuredIndex;
+    string PAQTableIDGridView2 = "tblPAQGridView2" + MemberIndex;
+}
+
+<div class="grid-scroll">
+    <table class="table" id="@PAQTableIDGridView2">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Company</th>
+                <th>Sum Assured</th>
+                <th>Reason for cover</th>
+                <th>Type / Term of Policy</th>
+                <th><input type="button" id="btnAddPAQGridView2" value="+" onclick="AddPAQGridInfoTwo('@PAQTableIDGridView2','@MemberIndex')" /></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.objMemberDetails[MemberIndex].LstExistingPolicieswithAIAlnsurancePAQ2Details != null)
+            {
+                for (int i = 0; i < Model.objMemberDetails[MemberIndex].LstExistingPolicieswithAIAlnsurancePAQ2Details.Count(); i++)
+                {
+                    string _RowID = "Row_PAQGridInfoTwo" + MemberIndex + i;
+                    <tr id=@_RowID>
+
+                        <td></td>
+                        <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstExistingPolicieswithAIAlnsurancePAQ2Details[i].PAQvarcharFiled5, new { @class = "form-control", @id = "txtPAQCompanyGirdTwo" + MemberIndex + i, @onkeypress = "return isAlphaNumeric(event)" })</td>
+                        <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstExistingPolicieswithAIAlnsurancePAQ2Details[i].PAQvarcharFiled6, new { @class = "form-control", @id = "txtPAQSumAssuredGirdTwo" + MemberIndex + i, @onchange = "Insurancef1(id)", onkeypress = "return isNumberKey(event)" })</td>
+                        <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstExistingPolicieswithAIAlnsurancePAQ2Details[i].PAQvarcharFiled7, new { @class = "form-control", @id = "txtPAQReasonforcoverGridTwo" + MemberIndex + i, @onkeypress = "return isAlphaNumeric(event)" })</td>
+                        <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstExistingPolicieswithAIAlnsurancePAQ2Details[i].PAQvarcharFiled8, new { @class = "form-control", @id = "txtPAQTypeorTermofPolicyGridTwo" + MemberIndex + i, @onchange = "Insurancef1(id)", @onkeypress = "return isNumberKey(event)" })</td>
+
+                        <td style="display:none">
+                            @Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstExistingPolicieswithAIAlnsurancePAQ2Details[i].IsDeleted, new { @class = "form-control", @id = "txtPAQGridViewTwoIsDeleted" + MemberIndex + i })
+                            @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].LstExistingPolicieswithAIAlnsurancePAQ2Details[i].QuestionsId, new { })
+                        </td>
+                        <td><input type="button" id="btnRemovePAQGridInfoTwo" value="-" onclick="RemovePAQGridInfoTwo('@_RowID', @i,'@MemberIndex')" /></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function AddPAQGridInfoTwo(DivID, MemberIndex) {
+            var newCurrentMDRow;
+            var Index = GetGridIndex(DivID);
+
+            var PAQCompanyGirdTwo = 'txtPAQCompanyGirdTwo' + MemberIndex + Index;
+            var PAQSumAssuredGirdTwo = 'txtPAQSumAssuredGirdTwo' + MemberIndex + Index;
+            var PAQReasonforcoverGridTwo = 'txtPAQReasonforcoverGridTwo' + MemberIndex + Index;
+            var PAQTypeorTermofPolicyGridTwo = 'txtPAQTypeorTermofPolicyGridTwo' + MemberIndex + Index;
+
+            var IsDeleted = 'txtPAQGridViewTwoIsDeleted' + MemberIndex + Index;
+            var Remove = 'btnRemovePAQGridInfoTwo' + MemberIndex + Index;
+            var rowNumber = Index + 1;
+            var RowId = "Row_PAQGridInfoTwo" + MemberIndex + Index;
+
+            newCurrentMDRow = "<tr id='" + RowId + "' >" +
+                "<td>" + "" + "</td>" +
+                  "<td><input value='' class='form-control' type='text' onkeypress = 'return isAlphaNumeric(event)' name='objMemberDetails[" + MemberIndex + "].LstExistingPolicieswithAIAlnsurancePAQ2Details[" + Index + "].PAQvarcharFiled5' id=\'" + PAQCompanyGirdTwo + "'/>" +
+                  "<td><input value='' class='form-control' type='text' onchange='Insurancef1(id)' onkeypress = 'return isNumberKey(event)' name='objMemberDetails[" + MemberIndex + "].LstExistingPolicieswithAIAlnsurancePAQ2Details[" + Index + "].PAQvarcharFiled6' id=\'" + PAQSumAssuredGirdTwo + "'/>" +
+                  "<td><input value='' class='form-control' type='text' onkeypress = 'return isAlphaNumeric(event)' name='objMemberDetails[" + MemberIndex + "].LstExistingPolicieswithAIAlnsurancePAQ2Details[" + Index + "].PAQvarcharFiled7' id=\'" + PAQReasonforcoverGridTwo + "'/>" +
+                  "<td><input value='' class='form-control' type='text' onchange='Insurancef1(id)' onkeypress = 'return isNumberKey(event)' name='objMemberDetails[" + MemberIndex + "].LstExistingPolicieswithAIAlnsurancePAQ2Details[" + Index + "].PAQvarcharFiled8' id=\'" + PAQTypeorTermofPolicyGridTwo + "'/>" +
+
+                  "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstExistingPolicieswithAIAlnsurancePAQ2Details[" + Index + "].IsDeleted' id=\'" + IsDeleted + "' /></td>" +
+                  "<td><input value='-' type='button' onclick='RemovePAQGridInfoTwo(\"" + RowId + "\",\"" + Index + "\",\"" + MemberIndex + "\")' class='form-control' id=\'" + Remove + "'/></td>" + "</tr>";
+            $('#' + DivID + ' tbody:last').append(newCurrentMDRow);
+        }
+
+    function RemovePAQGridInfoTwo(DivID, index,MemberIndex) {
+        $('#txtPAQGridViewTwoIsDeleted' + MemberIndex + index).val(true);
+
+             writeMultipleMessage("error", "", "txtPAQCompanyGirdTwo" + index + "");
+             writeMultipleMessage("error", "", "txtPAQSumAssuredGirdTwo" + index + "");
+             writeMultipleMessage("error", "", "txtPAQReasonforcoverGridTwo" + index + "");
+             writeMultipleMessage("error", "", "txtPAQTypeorTermofPolicyGridTwo" + index + "");
+
+            $('#' + DivID).hide();
+    }
+    function Insurancef1(id) {
+        var res = $('#' + id).val();
+        $('#' + id).val(parseInt(res.replace(/,/g, '')).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+        $('#hdn' + id).val(res.replace(/,/g, ''));
+    }
+</script>
+

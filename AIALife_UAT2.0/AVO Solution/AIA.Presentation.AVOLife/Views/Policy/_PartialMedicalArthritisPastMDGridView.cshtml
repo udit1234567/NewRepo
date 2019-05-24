@@ -1,0 +1,84 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+@{
+    int MemberIndex = Model.AssuredIndex;
+    string TableID1 = "tblMedicalPastMD" + MemberIndex;
+}
+<div class="grid-scroll">
+    <table class="table" id="@TableID1">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name of Medication</th>
+                <th>Dose</th>
+                <th>Frequency</th>
+                <th>Date Last Taken</th>
+                <th><input type="button" id="btnAddPastMD" value="+" onclick="AddPastMDInfo('@TableID1','@MemberIndex')" /></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.objMemberDetails[MemberIndex].LstMedicalQuestionnariesDetails != null)
+        {
+            for (int i = 0; i < Model.objMemberDetails[MemberIndex].LstMedicalQuestionnariesDetails.Count(); i++)
+            {
+        <tr id="Row_PastMDInfo_@i@MemberIndex">
+            <td></td>
+            <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalQuestionnariesDetails[i].varcharFiled9, new { @class = "form-control", @id = "txtPastMedicationName" + MemberIndex + i, @onkeypress = "return onlyAlphabets(event)" })</td>
+            <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalQuestionnariesDetails[i].varcharFiled10, new { @class = "form-control", @id = "txtPastDose" + MemberIndex + i, onkeypress = "return onlyAlphabets(event)" })</td>
+            <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalQuestionnariesDetails[i].varcharFiled11, new { @class = "form-control", @id = "txtPastFrequency" + MemberIndex + i, @onkeypress = "return onlyAlphabets(event)" })</td>
+            <td>@Html.iNubeDatePickerFor(m => m.objMemberDetails[MemberIndex].LstMedicalQuestionnariesDetails[i].DateFiled3, new { @class = "form-control datepicker", @id = "DpDateOfPastMD" + MemberIndex + i })</td>
+
+            <td style="display:none">
+                @Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalQuestionnariesDetails[i].IsDeleted, new { @class = "form-control", @id = "txtPastMDIsDeleted" + MemberIndex + i })
+                @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].LstMedicalQuestionnariesDetails[i].QuestionsId, new { @class = "form-control", @id = "txtPasMDQuestionID" + MemberIndex + i })
+            </td>
+            <td><input type="button" id="btnRemovePastMDInfo" value="-" onclick="RemovePastMDInfo('Row_PastMDInfo_@i@MemberIndex', @i,@MemberIndex)" /></td>
+        </tr>
+            }
+        }
+        </tbody>
+    </table>
+    </div>
+
+    <script>
+        function AddPastMDInfo(DivID, MemberIndex) {
+            var newPastMDRow;
+            var Index = GetGridIndex(DivID);
+
+            var varcharFiled9 = 'txtPastMedicationName' + MemberIndex + Index;
+            var varcharFiled10 = 'txtPastDose' + MemberIndex + Index;
+            var varcharFiled11 = 'txtPastFrequency' + MemberIndex + Index;
+            var DateFiled3 = 'DpDateOfPastMD' + MemberIndex + Index;
+            var PasMDQuestionID = 'txtPasMDQuestionID' + MemberIndex + Index; 
+            var IsDeleted = 'txtPastMDIsDeleted' + MemberIndex + Index;
+            var Remove = 'btnRemovePastMDInfo' + MemberIndex + Index;
+            var rowNumber = Index + 1;
+            var RowId = "Row_PastMDInfo" + MemberIndex + Index;
+            var MDdateMarkUp = "<td><div id='DpDateOfPastMD" + MemberIndex + Index + "' class='input-group date' data-date-format='DD/MM/YYYY'><input class='form-control datepicker' data-role='htmlDatePicker' data-val='true' data-val-date='The field DateOfBirth must be a date.' id=\'" + DateFiled3 + "' maxlength='10' name='objMemberDetails[" + MemberIndex + "].LstMedicalQuestionnariesDetails[" + Index + "].DateFiled3' type='text' value='' /><span class='input-group-addon' style='padding:0px'><span class='fa fa-calendar'></span></span></div></td>";
+
+            newPastMDRow = "<tr id='" + RowId + "' >" +
+                "<td>" + "" + "</td>" +
+                  "<td><input value='' class='form-control' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].LstMedicalQuestionnariesDetails[" + Index + "].varcharFiled9' id=\'" + varcharFiled9 + "'/>" +
+                  "<td><input value='' class='form-control' type='text'  name='objMemberDetails[" + MemberIndex + "].LstMedicalQuestionnariesDetails[" + Index + "].varcharFiled10' id=\'" + varcharFiled10 + "'/>" +
+                  "<td><input value='' class='form-control' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].LstMedicalQuestionnariesDetails[" + Index + "].varcharFiled11' id=\'" + varcharFiled11 + "'/>" +
+                   MDdateMarkUp +
+                   "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstMedicalQuestionnariesDetails[" + Index + "].QuestionsId' id=\'" + PasMDQuestionID + "' /></td>" +
+                  "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstMedicalQuestionnariesDetails[" + Index + "].IsDeleted' id=\'" + IsDeleted + "' /></td>" +
+                  "<td><input value='-' type='button' onclick='RemovePastMDInfo(\"" + RowId + "\",\"" + Index + "\")' class='form-control' id=\'" + Remove + "'/></td>" + "</tr>";
+            $('#' + DivID + ' tbody:last').append(newPastMDRow);
+            $(function () { $('#DpDateOfPastMD' + MemberIndex + Index).datetimepicker({ format: 'DD/MM/YYYY', useCurrent: false }); });
+        }
+
+        function RemovePastMDInfo(DivID, index,MemberIndex) {
+            $('#txtIsDeleted' + MemberIndex + index).val(true);
+
+            writeMultipleMessage("error", "", "txtPastMedicationName" + index + "");
+            writeMultipleMessage("error", "", "txtPastDose" + index + "");
+            writeMultipleMessage("error", "", "txtPastFrequency" + index + "");
+
+            $('#' + DivID).hide();
+        }
+    </script>
+

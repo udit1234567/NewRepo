@@ -1,0 +1,213 @@
+﻿@model AIA.Life.Models.Policy.UWInbox
+@using AIA.Presentation.Helpers
+@{
+    ViewBag.Title = "UnderWriter";
+    var userName = HttpContext.Current.User.Identity.Name;
+    List<int?> lstPermissions = HelperMethods.GetPermissions(userName);
+}
+<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/Styles/under-writer.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<style>
+    .underwritingPool-table {
+        margin-top: 0px !important;
+    }
+</style>
+<!---------content-------------------->
+
+<div class="box-container">
+    @if (lstPermissions.Contains(29))
+    {
+        <div class="showSingle col-lg-3 col-md-3 col-sm-6 col-xs-12" target="1">
+            <div id="underwritingpool" onclick="LoadGrid('UWPool')" class="table underwritingPool-table">
+                <p class="text-box">My Basket<i class="fa fa-angle-right "></i></p>
+                <p class="container-icon"><img src="~/Content/Images/pool.png" /><span class="number-box">@Model.UWPoolCount</span></p>
+            </div>
+        </div>
+    }
+    @if (lstPermissions.Contains(30))
+    {
+        <div class="showSingle col-lg-3 col-md-3 col-sm-6 col-xs-12" target="3">
+            <div id="submittedUnderwriting">
+                <div onclick="LoadGrid('SubmittedUW')">
+                    <p class="text-box">Processed<i class="fa fa-angle-right "></i><br>Proposals </p>
+                    <p class="container-icon"><img src="~/Content/Images/submitted.png" /><span class="number-box">@Model.SubmittedProposals</span></p>
+                </div>
+                <ul class="submittedUnderWriting-submenu">
+                    <li onclick="LoadGrid('Accept')">Accept<span class="case-count">@Model.AcceptedCount</span></li>
+                    <li onclick="LoadGrid('Declined')">Decline<span class="case-count">@Model.RejectCount</span></li>
+                    <li onclick="LoadGrid('PostPoned')">Postpone<span class="case-count">@Model.PostponeCount</span></li>
+                    <li onclick="LoadGrid('Counter Offer')">CounterOffer<span class="case-count">@Model.CounterOffer</span></li>
+                    <li onclick="LoadGrid('Withdrawn')">Withdrawn<span class="case-count">@Model.WithDrawnCount</span></li>
+                    <li onclick="LoadGrid('Not Taken Up')">Not taken Up<span class="case-count">@Model.NotTakenCount</span></li>
+                    <li onclick="LoadGrid('Refer to Underwriter')">Refer to UnderWriter<span class="case-count">@Model.ReferToSRUWCount</span></li>
+                    <li onclick="LoadGrid('Outstanding Requirement')">OutStanding Requirement<span class="case-count">@Model.OutStandingCount</span></li>
+                </ul>
+            </div>
+        </div>
+    }
+    @if (lstPermissions.Contains(31))
+    {
+        <div class="showSingle col-lg-3 col-md-3 col-sm-6 col-xs-12" target="4">
+            <div id="allocate" onclick="LoadGrid('allocate')">
+                <p class="text-box">Allocate<i class="fa fa-angle-right "></i><br>Proposals </p>
+                <p class="container-icon"><img src="~/Content/Images/Allocate.png" /> <span class="number-box">@Model.AllocationCount</span></p>
+            </div>
+        </div>
+    }
+    @if (lstPermissions.Contains(32))
+    {
+        <div class="showSingle col-lg-3 col-md-3 col-sm-6 col-xs-12" target="5">
+            <div id="allocate" onclick="LoadGrid('Manualallocate')">
+                <p class="text-box">Manual Allocate<i class="fa fa-angle-right "></i><br>Proposals </p>
+                <p class="container-icon"><img src="~/Content/Images/Allocate.png" /> <span class="number-box">@Model.AllocationCount</span></p>
+            </div>
+        </div>
+    }
+</div>
+<div class="clearfix"></div>
+<br />
+<br />
+<div id="div1" class="targetDiv" style="display:none;">
+    <div id="divUWPoolGrid" class="iGrid table underwritingPool-table">
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<div id="div2" class="targetDiv" style="display:none;">
+    <div class="iGrid table incompleteUnderWriting-table" id="divIncompleteUW">
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<div id="div3" class="targetDiv" style="display:none;">
+    <div class="iGrid table submittedUnderWriting-table" id="divSubmittedUW">
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<div id="div4" class="targetDiv" style="display:none;">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divAllocate">
+
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div id="div5" class="targetDiv" style="display:none;">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divManualAllocate">
+
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+
+<div id="AllocationModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Message</h4>
+            </div>
+            <div class="modal-body" id="AllocationModalBody">
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default uwbtn" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.targetDiv').hide();
+        $('.targetDiv').first().show();
+        $('.showSingle').first().addClass('selected');
+        $('.showSingle').click(function () {
+            $('.targetDiv').hide();
+            $('.showSingle').removeClass('selected');
+            $('#div' + $(this).attr('target')).show();
+            //$(this).addClass('selected');
+        });
+        $('table.display').DataTable();
+
+    })
+
+    function LoadGrid(type) {
+        switch (type) {
+            case "UWPool":
+                $.post("../Policy/PartialUWPoolGrid", null, function (data) {
+                    $("#divUWPoolGrid").html(data);
+                });
+
+                break;
+            case "IncompleteUw":
+                $.post("../Policy/PartialUWPoolGrid", null, function (data) {
+                    $("#divIncompleteUW").html(data);
+                });
+                break;
+                
+           
+            case "SubmittedUW": $.post("../Policy/PartialUWProcessedPoolGrid", null, function (data) {
+                $("#divSubmittedUW").html(data);
+            });
+                break;
+            case "Accept": $.post("../Policy/PartialUWProcessedPoolGrid?Decision=Accept", null, function (data) {
+                $("#divSubmittedUW").html(data);
+            });
+                break;
+            case "Declined": $.post("../Policy/PartialUWProcessedPoolGrid?Decision=Declined", null, function (data) {
+                $("#divSubmittedUW").html(data);
+            });
+                break;
+            case "Withdrawn": $.post("../Policy/PartialUWProcessedPoolGrid?Decision=Withdrawn", null, function (data) {
+                $("#divSubmittedUW").html(data);
+            });
+                break;
+            case "PostPoned": $.post("../Policy/PartialUWProcessedPoolGrid?Decision=PostPoned", null, function (data) {
+                $("#divSubmittedUW").html(data);
+            });
+                break;           
+            case "Counter Offer": $.post("../Policy/PartialUWProcessedPoolGrid?Decision=" + "Counter Offer", null, function (data) {
+                $("#divSubmittedUW").html(data);
+            });
+                break;
+            case "Not Taken Up": $.post("../Policy/PartialUWProcessedPoolGrid?Decision=" + "Not Taken Up", null, function (data) {
+                $("#divSubmittedUW").html(data);
+            });
+                break;
+            case "Refer to Underwriter": $.post("../Policy/PartialUWProcessedPoolGrid?Decision=" + "Refer to Underwriter", null, function (data) {
+                $("#divSubmittedUW").html(data);
+            });
+                break;
+            case "Outstanding Requirement": $.post("../Policy/PartialUWProcessedPoolGrid?Decision=" + "Outstanding Requirement", null, function (data) {
+                $("#divSubmittedUW").html(data);
+            });
+                break;
+            case "allocate":
+
+                $.post("../Allocation/GetAllocationDetails", null, function (data) {
+                    $("#divAllocate").html(data);
+                });
+                break;
+            case "Manualallocate":
+                window.location.href = "/Allocation/ManualAllocationDetails";
+                //$.post("../Allocation/ManualAllocationDetails", null, function (data) {
+                //    $("#divManualAllocate").html(data);
+                //});
+                break;
+            default:
+
+
+        }
+
+    }
+
+
+</script>

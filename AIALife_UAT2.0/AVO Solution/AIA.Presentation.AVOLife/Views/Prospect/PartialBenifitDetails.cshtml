@@ -1,0 +1,300 @@
+﻿@model AIA.Life.Models.Opportunity.QuoteList
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    string TabIndex = Model.objListQuote[Model.SelectedQuote].PanelIndex;
+    int MemberIndex = Model.objListQuote[Model.SelectedQuote]._memberIndex;
+}
+@*<div class="col-lg-12 col-sm-12 form-group">
+        <label>Benefit Description</label><br />
+        <textarea class="col-lg-12 plan-desc"></textarea>
+    </div>*@
+
+<style>
+    label-type {
+        display: block;
+        height: 34px;
+        font-size: 14px;
+        color: #555555;
+        background-color: #ffffff;
+    }
+</style>
+
+<div class="table-responsive iGrid">
+
+    <table class="table table-bordered" id="BenifitTable_@Model.SelectedQuote">
+
+        <thead>
+            <tr>
+                <th style="font-weight: bold;text-align:center;width:30%;">Select Your Benifits</th>
+                <th style="font-weight: bold;text-align:center;width:20%;">Sum Assured (LKR)</th>
+                <th style="font-weight: bold;text-align:center;width:15%;">Premium (LKR)</th>
+                <th style="font-weight: bold;text-align:center;width:15%;">Loading (LKR)</th>
+                <th style="font-weight: bold;text-align:center;width:20%;">Total Premium (LKR)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails.Count; i++)
+            {
+                string BenifitName = "LstBenifitDetails[" + i + "].BenifitName";
+                string Val = "LstBenifitDetails[" + i + "].Suminsured." + "valueAsNumber";
+                string SilbID = "lblBenefitSI" + Model.SelectedQuote + MemberIndex + i;
+                string SitxtID = "txtBenefitSI" + Model.SelectedQuote + MemberIndex + i;
+                string ridtxtID = "txtBenefitPremium" + Model.SelectedQuote + MemberIndex + i;
+                string loadinglbID = "lblLoadingAmount" + Model.SelectedQuote + MemberIndex + i;
+                string tplbID = "lblTotalPremium" + Model.SelectedQuote + MemberIndex + i;
+                <tr>
+                    <th class="iGridHeader">Select your Benefit</th>
+                    <td>
+                        
+                        @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "FAMILY HOSPITAL EXPENSE COVER")
+                        {
+                            <span>
+                                <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#HECModal_@Model.SelectedQuote" />
+
+                            </span>
+                            @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+                        }
+                        
+                        else if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "HOSPITAL EXPENSE COVER")
+                        {
+                            <span>
+                                <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#EduHECModal_@Model.SelectedQuote" />
+
+                            </span>
+                            @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+                        }
+                        else if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "FAMILY GLOBAL HOSPITALISATION CARE" || Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "GLOBAL HOSPITALISATION CARE")
+                        {
+                            <span>
+                                <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#HealthHECModal_@Model.SelectedQuote" />
+
+                            </span>
+                            @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+                        }
+                        else
+                        {
+                            @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+                        }
+
+                        @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].Mandatory)
+                        {
+                            @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted })
+                        }
+                        else
+                        {
+                            @Html.CheckBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted, new { @id = "ChkBenifit" + i, @style = "float:right" })
+                        }
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].Mandatory, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].Mandatory })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MemberBenifitID, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MemberBenifitID })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AssuredMember, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AssuredMember })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderCode, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderCode })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].CalType, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].CalType })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderID, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderID })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MinAge, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MinAge })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MaxAge, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MaxAge })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MinSumInsured, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MinSumInsured })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MaxSumInsured, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MaxSumInsured })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].DiscountAmount, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].DiscountAmount })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingPercentage, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingPercentage })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadinPerMille, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadinPerMille })
+                       
+                    </td>
+                    <th class="iGridHeader">Sum Assured(LKR)</th>
+                    <td>
+                        @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].CalType.ToUpper() == "CAL")
+                        {
+                            if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderID == 10)
+                            {                                
+                                @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured })
+                            }
+                            else
+                            {
+                                @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "label-type", @id = SitxtID, maxlength = "12" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+
+                            }
+                        }
+                        else
+                        {
+                            @Html.CurrencyTextBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "form-control", @id = SitxtID, maxlength = "12", @onchange = "f1(id)", @onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)", @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, @style = "text-align: center;" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+                        }
+
+
+                    </td>
+                    <th class="iGridHeader">Premium(LKR)</th>
+                    <td>
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @class = "label-type", maxlength = "12", @id = ridtxtID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium)
+                    </td>
+                    <th class="iGridHeader">Loading(LKR)</th>
+                    <td>
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount, new { @class = "label-type", maxlength = "12", @id = loadinglbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount)
+                    </td>
+                    <th class="iGridHeader">Total Premium(LKR) </th>
+                    <td>
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium, new { @class = "label-type", maxlength = "12", @id = tplbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium)
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<div class="modal fade" id="HECModal_@Model.SelectedQuote" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                Max HEC/FHEC rider Sum Assured limit is ‘Annualized Basic Premium * 5’ times. User can select only following Sum Assureds subjected to Limits below i.e. the chosen Sum assured cannot be more than ‘Annualized Basic Premium * 5’ times
+                </p>
+               
+                <br />
+                <p>
+                    The allowed Sum Assureds are: “100,000, 200,000, 300,000, 400,000, 500,000, 750,000 & 1,000,000”
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="EduHECModal_@Model.SelectedQuote" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                Max HEC rider Sum Assured limit is ‘Annualized Basic Premium * 5’ times. User can select only following Sum Assureds subjected to Limits below i.e. the chosen Sum assured cannot be more than ‘Annualized Basic Premium * 5’ times
+                </p>                 
+                <br />
+                <p>
+                The allowed Sum Assureds are: “100,000, 200,000, 300,000, 400,000, 500,000, 750,000 & 1,000,000”
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="HealthHECModal_@Model.SelectedQuote" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                   If Annual Compulsory Premium is less than 100,000 then Max Sum Assured of GHC/FGHC is 250,000, 500,000, 750,000, 1,000,000
+                </p>
+                <br />
+                <p>
+                    If Annual Compulsory Premium is from 100,000 to 300,000 then Max Sum Assured of GHC/FGHC can be selected from following Sum Assured list subjected to Max of “Annual Compulsory Premium x 20”
+                </p>
+              
+                <p>
+                    250,000, 500,000, 750,000, 1,000,000, 2,000,000, 3,000,000, 4,000,000, 5,000,000
+                </p>
+                <br />
+                <p>
+                    If  Annual  Compulsory  Premium  is  above  300,000  then  Max  Sum  Assured  of  GHC/FGHC  can  be  selected  from  following  Sum  Assured  list  subjected  to  Max  of  “Annual  Compulsory  Premium  x  25”
+                </p>
+                <p>
+                    250,000, 500,000, 750,000, 1,000,000, 2,000,000, 3,000,000, 4,000,000, 5,000,000, 7,500,000, 10,000,000, 15,000,000, 20,000,000
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*<script>
+        var el, newPoint, newPlace, offset;
+
+        // Select all range inputs, watch for change
+        $("input[type='range']").change(function () {
+
+            // Cache this for efficiency
+            el = $(this);
+
+            // Measure width of range input
+            width = el.width();
+
+            // Figure out placement percentage between left and right of input
+            newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
+
+            offset = -1;
+
+            // Prevent bubble from going beyond left or right (unsupported browsers)
+            if (newPoint < 0) { newPlace = 0; }
+            else if (newPoint > 1) { newPlace = width; }
+            else { newPlace = width * newPoint + offset; offset -= newPoint; }
+
+            // Move bubble
+            el
+                .next("output")
+                .css({
+                    left: newPlace,
+                    marginLeft: offset + "%"
+                })
+                .text(el.val());
+        })
+            // Fake a change to position bubble at page load
+            .trigger('change');
+        function SetSIBenefitSliderValue(id) {
+            //  debugger
+            if ($('#txtBenefitSI' + id).val() != '' || $('#txtBenefitSI' + id).val() != undefined) {
+
+                var value = parseInt($('#txtBenefitSI' + id).val());
+                var MinValue = 0;
+                if ($('#Min' + id).val() != undefined || $('#Min' + id).val() != '') {
+                    MinValue = parseInt($('#Min' + id).val());
+                }
+                var MaxValue = 0;
+                if ($('#Max' + id).val() != undefined || $('#Max' + id).val() != '') {
+                    MaxValue = parseInt($('#Max' + id).val());
+                }
+
+                if (value != '' && value != undefined) {
+
+                    $('#RangeSI_' + id).val(value);
+                    if (value < MinValue) {
+                        //   $('#txtBenefitSI' + id).val(MinValue);
+                    }
+                    else if (value > MaxValue) {
+                        $('#txtBenefitSI' + id).val(MaxValue);
+                    }
+
+                }
+
+
+            }
+
+
+        }
+    </script>*@
+
+

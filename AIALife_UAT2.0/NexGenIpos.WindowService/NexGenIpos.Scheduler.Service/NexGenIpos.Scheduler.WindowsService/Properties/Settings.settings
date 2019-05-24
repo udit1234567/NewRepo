@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="NexGenIpos.Scheduler.WindowsService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="NexGenIpos_Scheduler_WindowsService_RNiRpasMotorIDVService_Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://10.65.5.96/iRPASMotors_MOSS/Service.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

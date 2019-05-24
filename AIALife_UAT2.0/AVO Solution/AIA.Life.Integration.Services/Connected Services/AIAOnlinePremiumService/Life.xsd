@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://ws.aviva.com/" targetNamespace="http://ws.aviva.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="paymentCount" type="tns:paymentCount" />
+  <xs:element name="paymentCountResponse" type="tns:paymentCountResponse" />
+  <xs:element name="paymentReversal" type="tns:paymentReversal" />
+  <xs:element name="paymentReversalResponse" type="tns:paymentReversalResponse" />
+  <xs:element name="uploadPayment" type="tns:uploadPayment" />
+  <xs:element name="uploadPaymentResponse" type="tns:uploadPaymentResponse" />
+  <xs:element name="validatePolicyNo" type="tns:validatePolicyNo" />
+  <xs:element name="validatePolicyNoResponse" type="tns:validatePolicyNoResponse" />
+  <xs:complexType name="uploadPayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="policyNo" type="xs:string" />
+      <xs:element minOccurs="0" name="instType" type="xs:string" />
+      <xs:element minOccurs="0" name="instNo" type="xs:string" />
+      <xs:element name="amount" type="xs:double" />
+      <xs:element minOccurs="0" name="clientID" type="xs:string" />
+      <xs:element minOccurs="0" name="password" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="uploadPaymentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentReversal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="policyNo" type="xs:string" />
+      <xs:element minOccurs="0" name="instType" type="xs:string" />
+      <xs:element minOccurs="0" name="instNo" type="xs:string" />
+      <xs:element name="amount" type="xs:double" />
+      <xs:element minOccurs="0" name="clientID" type="xs:string" />
+      <xs:element minOccurs="0" name="password" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentReversalResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="validatePolicyNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="policyNo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="validatePolicyNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentCount">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="paymentDate" type="xs:string" />
+      <xs:element minOccurs="0" name="clientID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentCountResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

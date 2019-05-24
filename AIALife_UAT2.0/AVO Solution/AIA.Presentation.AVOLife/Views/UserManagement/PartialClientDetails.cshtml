@@ -1,0 +1,166 @@
+﻿@model AIA.Life.Models.UserManagement.ImdcodeCreationModel
+@using AIA.Presentation.Helpers
+<div class="col-lg-12 col-sm-12 form-group">
+    <div class="col-lg-4 col-sm-6 " id="divSalutation">
+        <label class="col-lg-5 col-sm-5 control-label text-right">Salutation<span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.DropDownListFor(a => a.Salutation, new SelectList(Model.SalutationList, "ID", "Value"), "Select", ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control disableDDOnEditMode", @id = "ddlsalutation" } : new { @id = "ddlsalutation", @class = "form-control", @onblur = "validateDropDown('ddlsalutation','Please Select Salutation')", @onchange ="GetGenderBySalutation()" })
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6" id="divFirstName">
+        <label class="col-lg-5 col-sm-5  control-label  text-right">First Name <span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.TextBoxFor(a => a.ClientFirstName, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "txtFirstName", @maxlength = "60" } : new { @class = "form-control", @id = "txtFirstName", @onkeypress = "return onlyAlphabets(event)", @onblur = "validateTextBox('txtFirstName','please provide First Name ')", @maxlength = "60" })
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6" id="divLastName">
+        <label class="col-lg-5 col-sm-5  control-label  text-right">Last Name <span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.TextBoxFor(a => a.ClientLastName, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "txtLastName", @maxlength = "60" } : new { @id = "txtLastName", @class = "form-control", @onkeypress = "return onlyAlphabetsWithDot(event)", @onblur = "validateTextBox('txtLastName','please provide Last Name ')", @maxlength = "60" })
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6 " id="divCorporatename">
+        <label class="col-lg-5 col-sm-5 control-label text-right">Corporate Name <span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.TextBoxFor(a => a.ClientCorporateName, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "CorpName", @maxlength = "120" } : new { @class = "form-control", @id = "CorpName", @onblur = "validateTextBox('CorpName','please provide Corporate Name ')", @maxlength = "120" })
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-sm-12 form-group">
+    <div class="col-lg-4 col-sm-6 " id="divGender">
+        <label class="col-lg-5 col-sm-5 control-label text-right">Gender<span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.DropDownListFor(a => a.Gender, new SelectList(Model.GenderList, "ID", "Value"), "Select", ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control disableDDOnEditMode", @id = "ddlgender" } : new { @id = "ddlgender", @class = "form-control", @onblur = "validateDropDown('ddlgender','Please Select Gender')" })
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6" id="divMaritalStatus">
+        <label class="col-lg-5 col-sm-5  control-label  text-right">Marital Status <span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.DropDownListFor(a => a.MarriedIndicator, new SelectList(Model.MaritalStatus, "ID", "Value"), "Select", ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control disableDDOnEditMode", @id = "ddlmaritalstatus" } : new { @id = "ddlmaritalstatus", @class = "form-control", @onblur = "validateDropDown('ddlmaritalstatus','please select Marital Status')" })
+
+        </div>
+    </div>
+    <div class="input-append date" id="IMDdob" data-date-format="dd-mm-yyyy">
+        <div class="col-lg-4 col-sm-6">
+            <label class="col-lg-5 col-sm-5  control-label text-right">
+                Date Of Birth <span class="mandatory">*</span></label>
+            <div class="col-lg-7 col-sm-7 ">
+                @Html.iNubeDatePickerFor(a => a.ImdDoB, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "dpdob" } : new { @class = "form-control ", @id = "dpdob", @onblur = "ValidateDateofBirth()"},"ValidateDateofBirth")
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6 " id="divContactPerson">
+        <label class="col-lg-5 col-sm-5 control-label text-right">Contact Person <span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.TextBoxFor(a => a.Contact, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "Contact", @maxlength = "30" } : new { @class = "form-control", @id = "Contact", @onkeypress = "return onlyAlphabets(event)",@onblur = "validateTextBox('Contact','Please Provide Contact Person')", @maxlength = "30" })
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-sm-12 form-group">
+    <div>
+        @(Html.AddressFor(a => a.AddressLine1))
+    </div>
+</div>
+<div class="col-lg-4 col-sm-6 ">
+    <label class="col-lg-5 col-sm-5 control-label text-right">Tel No Office <span class="mandatory">*</span></label>
+    <div class="col-lg-7 col-sm-7">
+        @Html.TextBoxFor(a => a.officeTelephone, new { @class = "form-control", @id = "txtofficeno", @onblur = "ValidatePhoneNumber()", @onkeypress = "isNumberKey(event)", @maxlength = "16" })
+    </div>
+</div>
+
+<div class="col-lg-12 col-sm-12 form-group">
+    <div class="col-lg-4 col-sm-6">
+        <label class="col-lg-5 col-sm-5  control-label  text-right">Mobile Number <span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control", @id = "txtmobile", @onkeypress = "isNumberKey(event)", @onblur = "ValidateMobileNumber()", @maxlength = "10" })
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-6 ">
+        <label class="col-lg-5 col-sm-5 control-label text-right">Email Id <span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.TextBoxFor(a => a.email, new { @class = "form-control", @id = "txtemail", @onblur = "validateEmail()", @maxlength = "50" })
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6 ">
+        <label class="col-lg-5 col-sm-5 control-label text-right">PAN <span class="mandatory">*</span></label>
+        <div class="col-lg-7 col-sm-7">
+            @Html.TextBoxFor(a => a.ClientPAN, new { @class = "form-control", @id = "txtPan", @onblur = "ValidatePANNo()" })
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //if ($("#ClientTypeIndividual").is(':checked')) {
+        //    ShowIndividual();
+        //}
+        //else {
+        //    ShowOrg();
+        //}
+
+        var searchClientType = '@Model.tempClientType';
+        var clientType = '@Model.ClientType'.toString().toUpperCase();
+        if (clientType == '' || clientType == null) {
+            clientType = 'TRUE';
+        }
+        if (searchClientType == 0 && clientType == 'TRUE') {
+            ShowIndividual();
+            $("#ClientTypeIndividual").attr("checked", true);
+            var phone = '@Model.tempTelephoneNo'.toString();
+            if (phone != ''){
+                $('#txtofficeno').val(phone);
+            }
+            var mobile = '@Model.tempMobileNo'.toString();
+            if (mobile != '') { 
+                $('#txtmobile').val(mobile);
+            }   
+        }
+
+        else {
+            ShowOrg();
+            $("#ClientTypeorganization").attr("checked", true);
+            var phone = '@Model.tempTelephoneNo'.toString();
+            if (phone != '') {
+                $('#txtofficeno').val(phone);
+            }
+            var mobile = '@Model.tempMobileNo'.toString();
+            if (mobile != '') {
+                $('#txtmobile').val(mobile);
+            }
+        }
+
+        NumberOnly('txtmobile');
+        NumberOnly('txtofficeno');
+        NumberOnly('AddressLine1Pincode');
+
+        //NoWhiteSpaces('txtFirstName');
+        //NoWhiteSpaces('txtLastName');
+        //NoWhiteSpaces('CorpName');
+        //NoWhiteSpaces('Contact');
+
+        NoWhiteSpaces('txtemail');
+
+        $("#AddressLine1City").prop("disabled", false);
+        $('#AddressLine1City').focus(function () {
+            $("#AddressLine1City").prop("disabled", false);
+            $("#AddressLine1City").prop("readonly", false);
+        });
+        $("#AddressLine1City").blur(function () {
+            validateTextBox('AddressLine1City', 'Please enter City');
+        });
+        $("#AddressLine1City").keypress(function (e) {
+            return onlyAlphabets(e);
+        });
+
+        $("#AddressLine1Pincode").attr("maxlength", 6);
+        $("#AddressLine1Pincode").blur(function () {
+            ValidatePinCode();
+        });
+
+        $("#txtPan").attr("maxlength", 10);
+        NoSymbols('txtPan');
+        $("#txtPan").keyup(function () {
+            this.value = this.value.toUpperCase();
+        });
+    });
+</script>

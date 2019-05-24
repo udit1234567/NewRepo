@@ -1,0 +1,5 @@
+CompName, StartTime, EndTime, Repeat(min), UseMultiCore
+RECIEPT,08:00:00, 08:00:00, 15, 1
+MASTERSBAT,09:00:00, 23:59:00, 720, 1
+SMSREMINDER,16:00:00, 23:59:00, 0, 1
+BIZDATE,00:00:01, 23:59:59, 30, 1

@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "CreateChart";
+    Layout = null;
+
+}
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>*@
+<script src="~/Scripts/d3/d3.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css" />*@
+<script src="~/Scripts/d3/c3.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        var chartData = [];
+        var url = "/Home/GetFinancialSummary";
+        $.getJSON(url, function (data) {
+
+            if (data != null) {
+                $.each(data, function (i, value) {
+
+                    chartData.push(value);
+                });
+                //CreateAmchart(chartData, 'FinancialYear', 'NoOfProposals', 'EarningProjectionDiv2');
+                var dData = chartData.map(function (d, i) {
+                    return d.NoOfProposals;
+                });
+                var labels = chartData.map(function (d, i) {
+                    return d.FinancialYear;
+                });
+
+                var chart = c3.generate({
+                    bindto: '#EarningProjectionDiv3',
+                    data: {
+                        colors: {
+                            NoOfProposals: '#00BFFF',
+                            NoOfProposals1:'yellow'
+                        },
+                        json: {
+                            NoOfProposals: [0, 0, 0, 0],
+                            NoOfProposals1: [0, 0, 0, 0],
+                        },
+                        type: 'bar',
+                        types: {
+
+                            NoOfProposals1: 'line'
+                        },
+
+                        labels: false
+                    },
+                    axis: {
+                        x: {
+                            type: 'category',
+                            categories:labels,
+                            label: {
+                                text: 'Financial Year',
+                                position: 'outer-center',
+                            }
+                        },
+                        y: {
+                            label: {
+                                text: 'Number of Proposals',
+                                position: 'outer-middle',
+                            },
+                            tick: {
+                                values: [100,200,300,400,500]
+                            }
+
+                        }
+
+                    },
+                    legend: {
+                        show: false
+                    },
+                    tooltip: {
+                        show: true,
+                        grouped: false,
+
+                    },
+                    interaction: {
+                        enabled: true
+                    }
+
+
+                });
+                setTimeout(function () {
+                    chart.load({
+                        json: {
+                            NoOfProposals: dData,
+                            NoOfProposals1: dData
+                        }
+                    });
+                }, 700);
+
+            }
+
+
+
+        });
+
+
+    })
+
+
+
+   
+
+
+
+</script>
+
+
+<div class="container chart-div">
+    <div>
+        @*<canvas id="EarningProjectionDiv2"></canvas>*@
+        <div id="EarningProjectionDiv3"></div>
+    </div>
+</div>
+
+<style type="text/css">
+    /*#EarningProjectionDiv {
+        width:450px;
+        height:400px;
+    }*/
+    .outer {
+        overflow: auto;
+    }
+
+    .inner {
+        width: 450px;
+        height: 400px;
+    }
+
+    #EarningProjectionDiv {
+        display: block;
+        width: 450px;
+        height: 400px;
+    }
+
+    #EarningProjectionDiv3 {
+        max-width: 450px;
+        max-height: 400px;
+    }
+
+    .c3-grid .c3-xgrid-focus {
+        visibility: hidden !important;
+    }
+</style>

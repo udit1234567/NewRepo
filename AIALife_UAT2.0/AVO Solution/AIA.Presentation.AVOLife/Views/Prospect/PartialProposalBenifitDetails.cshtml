@@ -1,0 +1,113 @@
+﻿
+@model AIA.Life.Models.Opportunity.QuoteList
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    string TabIndex = Model.objListQuote[Model.SelectedQuote].PanelIndex;
+    int MemberIndex = Model.objListQuote[Model.SelectedQuote]._memberIndex;
+}
+@*<div class="col-lg-12 col-sm-12 form-group">
+        <label>Benefit Description</label><br />
+        <textarea class="col-lg-12 plan-desc"></textarea>
+    </div>*@
+
+<style>
+    label-type {
+        display: block;
+        height: 34px;
+        font-size: 14px;
+        color: #555555;
+        background-color: #ffffff;
+    }
+</style>
+
+<div class="table-responsive">
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th style="font-weight: bold;text-align:center;width:30%;">@Resources.GetLabelName("Select Your Benifits")</th>
+                <th style="font-weight: bold;text-align:center;width:20%;">@Resources.GetLabelName("Sum Assured")</th>
+                <th style="font-weight: bold;text-align:center;width:15%;">@Resources.GetLabelName(" Premium")</th>
+                <th style="font-weight: bold;text-align:center;width:15%;">@Resources.GetLabelName("Loading")</th>
+                <th style="font-weight: bold;text-align:center;width:20%;">@Resources.GetLabelName("Total Premium")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails.Count; i++)
+            {                
+                <tr>
+                    <td>
+                        @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+                        @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].Mandatory)
+                        {
+                            @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted })
+                        }
+                        else
+                        {
+                            @Html.CheckBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted, new { @id = "ChkBenifit" + i, @style = "float:right" })
+                        }
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].Mandatory, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].Mandatory })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MemberBenifitID, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MemberBenifitID })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AssuredMember, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AssuredMember })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderCode, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderCode })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].CalType, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].CalType })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderID, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderID })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MinAge, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MinAge })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MaxAge, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MaxAge })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MinSumInsured, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MinSumInsured })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MaxSumInsured, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].MaxSumInsured })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].DiscountAmount, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].DiscountAmount })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium })
+                        @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingPercentage, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingPercentage })
+                       
+                    </td>
+
+                    <td>
+                        @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].CalType.ToUpper() == "CAL")
+                        {
+                            if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID == 4
+                                || Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID == 16
+                                || Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID == 33
+                                || Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID == 79)
+                            {                                
+                                @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured })
+                            }
+                            else
+                            {
+                                @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "label-type", maxlength = "12" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+
+                            }
+                        }
+                        else
+                        {
+                            @Html.CurrencyTextBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "form-control", maxlength = "12", @onchange = "f1(id)", @onkeypress = "return isNumberKey(event)", @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, @style = "text-align: center;" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+                        }
+
+
+                    </td>
+                    <td>
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @class = "label-type", maxlength = "12" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium)
+                    </td>
+                    <td>
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount, new { @class = "label-type", maxlength = "12"}, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount)
+                    </td>
+                    <td>
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium, new { @class = "label-type", maxlength = "12" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium)
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+
+
+

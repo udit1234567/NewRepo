@@ -1,0 +1,72 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using GridMvc.Html
+@{
+
+//Model.AjaxGridSettings.PagePartitionSize = 15;
+
+
+}
+
+@Html.Grid(Model.objProposalReAllocate).Named("GridProposalReAllocateDetails").Columns(columns =>
+{
+    columns.Add(a => a.ProposalReAllocateId).Titled("").Encoded(false).Sanitized(false).SetWidth(1).RenderValueAs(a => Html.RadioButton("ProposalReAllocateId" + a.ProposalReAllocateId, a.ProposalReAllocateId, new { @id = "rdnProposalReAllocateId" + a.ProposalReAllocateId, @class = "form-control numeric", Style = "height:14px;width:14px" }));
+    columns.Add(a => a.ProposalReAllocateType).Titled("Allocation Type").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.ProposalReAllocateProposalNo).Titled("Proposal Number").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.ProposalReAllocateAddressLine1).Titled("Address Line1").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.ProposalReAllocateAddressLine2).Titled("Address Line2").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.ProposalReAllocateDistrict).Titled("District").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.ProposalReAllocateCity).Titled("City/Town").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.ProposalReAllocateDecision).Titled("Decision").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.ProposalReAllocateReportee).Titled("Reportee").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+}).WithPaging(5).WithMultipleFilters()
+
+<style type="text/css">
+    .table th {
+        /*background-color: #fbd99d;*/
+        color: white !important;
+        text-align: center;
+    }
+</style>
+<script src="~/Scripts/gridmvc.js"></script>
+<script src="~/Scripts/gridmvc-ext.js"></script>
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+<script src="~/Scripts/gridmvc.lang.fr.js"></script>
+<script src="~/Scripts/gridmvc.lang.ru.js"></script>
+<script src="~/Scripts/gridmvc.customwidgets.js"></script>
+<script src="~/Scripts/ladda-bootstrap/ladda.min.js"></script>
+<script src="~/Scripts/ladda-bootstrap/spin.min.js"></script>
+<script src="~/Scripts/URI.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: false
+            });
+            pageGrids.GridProposalReAllocateDetails.ajaxify({
+
+            });
+        }
+
+
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

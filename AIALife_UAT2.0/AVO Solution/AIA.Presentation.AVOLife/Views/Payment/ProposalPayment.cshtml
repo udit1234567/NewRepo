@@ -1,0 +1,617 @@
+﻿@model AIA.Life.Models.Payment.PaymentModel
+@using AIAResources;
+@{
+    ViewBag.Title = "ProposalPayment";
+}
+@using AIA.Presentation.Helpers
+<h2>@Resources.GetLabelName("Payment")</h2>
+@{
+    var x = Model.QuoteNo;
+}
+<script src="~/Scripts/SuspectScript/Suspectscript.js"></script>
+<script src="~/Content/Scripts/layout.js"></script>
+<style>
+    .clearfix {
+        clear: both;
+    }
+
+    #payment-details {
+        text-align: center;
+    }
+
+        #payment-details ul li {
+            list-style: none;
+            display: inline-block;
+            margin-right: 50px;
+            vertical-align: top;
+        }
+
+    .background-img, .payment-subdetails ul li {
+        /*background-color: #ddd;*/
+        border-radius: 11px;
+        width: 150px;
+        height: 80px;
+    }
+
+        .background-img img, .payment-subdetails ul li p {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .payment-subdetails ul li i {
+            font-size: 40px;
+            color: #000;
+        }
+
+    .payment-subdetails ul {
+        display: none;
+    }
+
+    .payment-active {
+        /*background-color: #d31145 !important;*/
+        color: #fff;
+    }
+
+        .payment-active i {
+            color: #fff !important;
+        }
+
+    .transaction-details {
+        text-align: center;
+        font-size: 27px;
+        font-weight: 300;
+    }
+
+        .transaction-details p {
+            margin: 0;
+        }
+        .btn-Modal:hover{
+            background-color: #708090 !important;
+            color: white;
+        }
+        .btn-Modal {
+          background-color: #2F4F4F !important; 
+          color: white; 
+        }
+
+</style>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:3%">
+    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmPaymentPage" }))
+    {
+        for (int i = 0; i < Model.lstPaymentItems.Count; i++)
+        {
+            @Html.HiddenFor(a => a.lstPaymentItems[i].ProductID)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].PreferredLanguage)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].ProductName)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].Salutation)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].PolicyStartDate)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].PolicyEndDate)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].Email)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].InsuredName)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].ProposalNo)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].Premium)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].AdditionalPremium)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].PlanName)
+            @Html.HiddenFor(a => a.lstPaymentItems[i].IsAfc, new { @id = "HdnAfc" })
+
+        }
+
+        @Html.HiddenFor(a => a.SelectedPayment, new { @id = "HdnSelectedPayment" })
+        @Html.HiddenFor(a => a.TransactionNo, new { @id = "HdnTransactionNo" })
+        @Html.HiddenFor(a => a.ProposalNo, new { @id = "HdnProposalNo" })
+        @Html.HiddenFor(a => a.Mobile, new { @id = "HdnMobile" })
+        @Html.HiddenFor(a => a.QuoteNo, new { @id = "hdnQuoteNo" })
+        @Html.HiddenFor(a => a.CloseWindow, new { @id = "hdnCloseWindow" })
+        <div id="DivPanels" style="margin-top:3%">
+            <div class="panel panel-default" id="pnlProposalDetails">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <i class="fa fa-building-o"></i>
+                        <a data-toggle="collapse" data-target="#collapsepolicyDetails" href="#collapseThree" class="collapsed">
+                            @Resources.GetLabelName("Proposal Details")
+                            <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapsepolicyDetails" class="panel-collapse in">
+                    <div class="col-lg-12 panel-body form-group" id="pnlProposalDetailsBody">
+
+                        @*Grid Display*@
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 iGrid">
+                            @Html.Hidden("PremimumAmount", new { @id = "PremimumAmount" })
+                            @Html.Hidden("ClientName", new { @id = "ClientName" })
+                            @Html.Partial("~/Views/Payment/PartialProposalGrid.cshtml", Model)
+                        </div>
+                        @*Procced to Pay*@
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-top:10px;">
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            </div>
+
+                            <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
+                                <label class="col-lg-5 col-sm-5 control-label">@Resources.GetLabelName("Payable Amount") (LKR):<span class="mandatory"> *</span></label>
+                                <div class="col-lg-7 col-sm-7">
+                                    @Html.ReadCurrencyTextBoxFor(a => a.PayableAmount, new { @readonly = "readonly", @class = "form-control", @id = "txtPayableAmount" }, Model.PayableAmount)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 btn-res">
+                                <input type="button" onclick="ProceedToPay()" value="Proceed To Pay" class="btn btn-default" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="panel panel-default" id="pnlPaymentoptions" style="display:none;" onchange="SetMandatoryHighlightBlank('pnlNomineeDetails', false)">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <i class="fa fa-building-o"></i>
+                        <a data-toggle="collapse" data-target="#collapsePaymentOptions" href="#collapseThree" class="collapsed">
+                            @Resources.GetLabelName("Payment Options")
+                            <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapsePaymentOptions" class="panel-collapse in">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-body form-group" id="payment-details">
+                        <ul>
+                            <li id="Mcash" onclick="subPayment(id)">
+                                <p class="background-img"><img src="~/Images/mCash2.png" width="150px"  height="auto"/></p>
+                                <p class="text-center" style="font-weight:bold;">@Resources.GetLabelName("mCash")</p>
+                            </li>
+                            @*<li id="onlinebanking" onclick="subPayment(id)">
+                                    <p class="background-img"><img src="~/Content/Images/Payment-button-2.png" /></p>
+                                    <p>Online Banking</p>
+                                </li>*@
+                            <li id="PayByGenie" onclick="subPayment(id)">
+                                <p class="background-img"><img src="~/Images/Visa Master2.png" width="150px"  height="auto"/></p>
+                                    <p class="text-center" style="font-weight:bold;">@Resources.GetLabelName("VISA/MasterCard")</p>
+                            </li>
+                            @*<li id="offlineBanking" onclick="subPayment(id)">
+                                    <p class="background-img"><img src="~/Content/Images/Payment-button-4.png" /></p>
+                                    <p>Offline Banking</p>
+                                </li>*@
+                            <li id="othertypes" onclick="subPayment(id)">
+                                <p class="background-img"><img src="~/Images/OfflineImage.png" width="150px"  height="auto" /></p>
+                                <p class="text-center" style="font-weight:bold;">@Resources.GetLabelName("Offline Payments")</p>
+                            </li>
+                        </ul>
+                        @*<div class="payment-subdetails">
+                                <ul id="onlinebankingDetails">
+                                    <li id="OnlineBank" onclick="subPaymentDetails(id)"><p><i class="fa fa-laptop"></i><br />Online Bank</p></li>
+                                    <li id="CreditCard" onclick="subPaymentDetails(id)"><p><i class="fa fa-credit-card"></i><br />Credit Card</p></li>
+                                    <li id="DebitCard" onclick="subPaymentDetails(id)"><p><i class="fa fa-credit-card"></i><br />Debit Card</p></li>
+                                </ul>
+                                <ul id="walletsDetails">
+                                    <li id="PayByGenie" onclick="subPaymentDetails(id)"><p><i class="fa fa-money"></i><br />Pay By Genie</p></li>
+                                    <li id="EasyCash" onclick="subPaymentDetails(id)"><p><i class="fa fa-money"></i><br />Easy Cash</p></li>
+
+                                </ul>
+                                <ul id="othertypesDetails">
+                                    <li id="Internalreceipt" onclick="subPaymentDetails(id)"><p><i class="fa fa-exchange"></i><br />Internal Receipt</p></li>
+                                    <li id="PaymentLink" onclick="subPaymentDetails(id)"><p><i class="fa fa-link"></i><br />Payment Link</p></li>
+                                    <li id="CashierPayments" onclick="subPaymentDetails(id)"><p><i class="fa fa-money"></i><br />Cashier Payments</p></li>
+                                </ul>
+                            </div>*@
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divMcash" style="display:none">
+
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group ">
+                                    <label class="paylabel">@Resources.GetLabelName("Mcash Mobile Number")<span class="mandatory">*</span></label>
+                                    @Html.TextBoxFor(a => a.McashMobile, new { @class = "form-control", @id = "txtMcashMobile", @maxlength = "10", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <label class="paylabel">@Resources.GetLabelName("Mcash Pin")<span class="mandatory">*</span></label>
+                                    @Html.PasswordFor(a => a.McashPin, new { @class = "form-control", @id = "txtMcashPin", @maxlength = "4", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divOfflineField" style="display:none">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <label class="paylabel">@Resources.GetLabelName("Payment Channel")<span class="mandatory">*</span></label>
+                                    @Html.TextBoxFor(a => a.PaymentChanel, new { @class = "form-control", @id = "txtPayableChannel" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <label class="paylabel">@Resources.GetLabelName("Reference No")</label>
+                                    @Html.TextBoxFor(a => a.ChequeNo, new { @class = "form-control", @id = "txtChequeNo", @onkeypress = "return isNumberKey(event)" })
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <label class="paylabel">@Resources.GetLabelName("Institution/Outlet/Bank")</label>
+                                    @Html.TextBoxFor(a => a.BranchName, new { @class = "form-control", @id = "txtBranchName" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divOfflineField2" style="display:none">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <label class="paylabel">@Resources.GetLabelName("Amount") (LKR)<span class="mandatory">*</span></label>
+                                    @Html.CurrencyTextBoxFor(a => a.CheqAmount, new { @class = "form-control", @id = "txtCheqAmount", @onkeypress = "return isNumberKey(event)", @onchange = "f1(id)", @pattern = "[0-9]*" }, Model.CheqAmount)
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <label class="paylabel">@Resources.GetLabelName("Remarks")</label>
+                                    @Html.TextBoxFor(a => a.Remarks, new { @class = "form-control", @id = "txtRemarks" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group">
+                                    <label class="paylabel">@Resources.GetLabelName("Attachment")</label>
+                                    <label>
+                                        <input type="file" class="btn btn-default btn-align" value="Browse" id="browse" onchange="Handlechange(id)" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="transaction-details" style="display:none">
+                            <p style="text-align:center;margin-top:2%;font-weight:bold">@Resources.GetLabelName("Transaction Reference Number")</p>
+                            <p style="margin-top:2%;"><div id="transactionNo" style="font-size:25px;"></div></p>
+                            <input value="Proceed" class="btn btn-default" type="button" onclick="SubmitPaymentInfo()" style="margin-top:2%;">
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="modal fade" id="PaymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="LoadHomePage()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+                <div class="modal-body" id="PaymentModalBody">
+
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-Modal" data-dismiss="modal" id="btnPayModal" value="OK" onclick="LoadHomePage()" style="padding-left:20px;padding-right:20px;" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function subPayment(id) {
+
+        $('.background-img').removeClass('payment-active');
+        $('#' + id).find('.background-img').addClass('payment-active');
+        var item = '#' + id + 'Details';
+        $('.payment-subdetails ul').hide();
+        $('.transaction-details').hide();
+        $("#divOfflineField").hide();
+        $("#divOfflineField2").hide();
+        $("#divMcash").hide();
+        $(item).show();
+        GetTransationNumber();
+
+        if (id == 'othertypes') {
+            $("#divOfflineField").show();
+            $("#divOfflineField2").show();
+
+        }
+        if (id == 'Mcash') {
+            $("#divMcash").show();
+        }
+        $("#HdnSelectedPayment").val(id);
+    }
+    //function subPaymentDetails(id) {
+
+
+    //    $("#HdnSelectedSubPayment").val(id);
+    //}
+    //function GetInstrumentDetails() {
+    //    var InstrumentType = $("#ddlInstrumentType").val();
+    //    if(InstrumentType=="Cheque")
+    //    {
+    //        $("#divChequeField").show()
+    //    }
+    //    else {
+    //        $("#divAmount").show()
+
+    //    }
+    //}
+
+    $(document).ready(function () {
+        var Premium = $('*[data-name="Premium"]').text();
+        $('*[data-name="Premium"]').text(parseInt(Premium.replace(/,/g, '')).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+        $('.payment-subdetails ul li').click(function () {
+
+            $('.payment-subdetails ul li').removeClass('payment-active');
+            $(this).addClass('payment-active');
+            GetTransationNumber();
+            //$('.transaction-details').show();
+        })
+    })
+
+
+    function LoadHomePage() {
+        var CloseWindow = $('#hdnCloseWindow').val();
+        if (CloseWindow == "true") {
+            window.close();
+        }
+        else {
+            window.location.href = '/Home/Index';
+        }
+    }
+    function ShowQuickPayOnline() {
+        window.location.href = "/Payment/RenewalPaymentOnline";
+    }
+
+    $('input:radio[name="PaymentOption"]').change(
+        function () {
+
+            if ($(this).is(':checked') && $(this).val() == 'CQ') {
+                $('#HeadingName').html('');
+                $('#HeadingName').html('Cheque Details');
+                $('#divChequeDetails').show();
+                $('#divcashDetails').hide();
+            }
+            else if ($(this).is(':checked') && $(this).val() == 'Cash') {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+
+                if (dd < 10) {
+                    dd = '0' + dd
+                }
+
+                if (mm < 10) {
+                    mm = '0' + mm
+                }
+
+                today = dd + '/' + mm + '/' + yyyy;
+                $('#cashDate').val(today);
+                $('#HeadingName').html('');
+                $('#HeadingName').html('Cash');
+                $('#divChequeDetails').hide();
+                $('#divcashDetails').show();
+            }
+            else {
+                $('#divChequeDetails').hide();
+                $('#divCashDetails').hide();
+            }
+            //else if ($(this).is(':checked') && $(this).val() == 'DD') {
+            //    $('#HeadingName').html('');
+            //    $('#HeadingName').html('DD Details');
+            //    $('#divChequeDetails').hide();
+            //    $('#divddDetails').show();
+            //}
+        });
+    function ProceedToPay() {
+
+        var checkcount = $('#gridproposalpayment').find('input[type=checkbox]:checked').length;
+        if (checkcount > 0) {
+            $('#pnlPaymentoptions').show();
+            writeMultipleMessage("error", "", "IsSelected");
+        }
+        else {
+            writeMultipleMessage("error", "Please select atleast one checkbox.", "IsSelected");
+            $('#pnlPaymentoptions').hide();
+            return false;
+        }
+    }
+    function GetTransationNumber() {
+
+        $.post("/Payment/GetTransationNumber", $("#frmPaymentPage").serialize(), function (data) {
+
+            $("#transactionNo").text(data);
+            $('.transaction-details').show();
+            $("#HdnTransactionNo").val(data);
+        })
+    }
+
+    function SubmitPaymentInfo() {
+
+        var TotalPayableAmount = $('#PayableAmount').val();
+        TotalPayableAmount = TotalPayableAmount == null ? 0 : parseFloat(TotalPayableAmount);
+        var TotalPayingAmount = $('#TotalPayingAmount').val();
+        TotalPayingAmount = TotalPayingAmount == null ? 0 : parseFloat(TotalPayingAmount);
+
+        if (TotalPayingAmount < TotalPayableAmount) {
+            writeMultipleMessage("error", "Total Paying Amount can not be less than Payable Amount", "TotalPayingAmount");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "TotalPayingAmount");
+        }
+
+        var paymentMode = $("#HdnSelectedPayment").val();
+        //var SubPaymentMode = $("#HdnSelectedSubPayment").val();
+        var TransactionNo = $("#HdnTransactionNo").val();
+        var Ammount = $("#txtPayableAmount").val();
+        debugger;
+        var res = true;
+        switch (paymentMode) {
+            case "othertypes":
+                if ($("#txtPayableChannel").val() == null || $("#txtPayableChannel").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Payable channel", "txtPayableChannel");
+                    res = false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtPayableChannel");
+                }
+                //if ($("#txtChequeNo").val() == null || $("#txtChequeNo").val() == "") {
+                //writeMultipleMessage("error", "Please Enter Cheque No", "txtChequeNo");
+                //res= false;
+                //} else {
+                //    writeMultipleMessage("error", "", "txtChequeNo");
+                //}
+                //    if ($("#txtBranchName").val() == null || $("#txtBranchName").val() == "") {
+                //writeMultipleMessage("error", "Please Enter Branch Name", "txtBranchName");
+                //res= false;
+                //    } else {
+                //        writeMultipleMessage("error", "", "txtBranchName");
+                //    }
+                if ($("#hdntxtCheqAmount").val() == null || $("#hdntxtCheqAmount").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Cheque Amount", "txtCheqAmount");
+                    res = false;
+                } else {
+                    writeMultipleMessage("error", "", "txtCheqAmount");
+                }
+                //if ($("#txtRemarks").val() == null || $("#txtRemarks").val() == "") {
+                //    writeMultipleMessage("error", "Please Enter Remarks", "txtRemarks");
+                //    res= false;
+                //}
+                //else {
+                //    writeMultipleMessage("error", "", "txtRemarks");
+                //}
+                if(res!=false){
+                $.post("/Payment/SaveProposalPaymentInfo", $("#frmPaymentPage").serialize(), function (data) {
+                    var Message = '';
+                    if (data.ErrorMessage == null || data.ErrorMessage == "") {
+                        if (data.UWMessage != '' && data.UWMessage != null) {
+                            Message = ' <h4 class="text-danger" style="color:darkslategrey">' + data.UWMessage + ' </h4><br/>';
+                        }
+                        else if (data.Message == "Success"){
+
+                            Message = '<h4 class="text-danger" style="color:darkslategrey"> Your policy has been issued. Please refer policy number ' + data.ProposalNo + ' for future reference  </h4>';
+                        }
+                        $('#PaymentModalBody').empty();
+                        var Image = '<img class="Img-align" src="../Images/checked1.png" /><br/>'
+                        $('#PaymentModalBody').append(Image);
+                        $('#PaymentModalBody').append(Message);
+                        $("#PaymentModal").modal("show");
+
+                    }
+                    else {
+                        $('#PaymentModalBody').empty();
+                        var Image = '<img class="Img-align" src="~/Images/error.png" style="max-height: 100px; max-width: 100px;" /><br/>'
+                        Message = ' <h4 class="text-danger" style="color:darkslategrey">' + data.ErrorMessage + ' </h4>';
+                        $('#PaymentModalBody').append(Image);
+                        $('#PaymentModalBody').append(Message);
+                        $("#PaymentModal").modal("show");
+                    }
+                });
+                }
+
+                break;
+            case "Mcash":
+                if ($("#txtMcashMobile").val() == null || $("#txtMcashMobile").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Mobile No", "txtMcashMobile");
+                    res = false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtMcashMobile");
+                }
+                if ($("#txtMcashPin").val() == null || $("#txtMcashPin").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Mcash Pin", "txtMcashPin");
+                    res = false;
+                } else {
+                    writeMultipleMessage("error", "", "txtMcashPin");
+                }
+                if (res != false) {
+                    $.post("/Payment/MCashPayment", $("#frmPaymentPage").serialize(), function (data) {
+
+                        if (data.ErrorMessage == null || data.ErrorMessage == "") {
+                            var Message = '';
+                            if (data.UWMessage != '' && data.UWMessage != null) {
+                                Message = '<p class="text-center"> ' + data.UWMessage + ' </p>';
+                            }
+                            else if (data.Message == "Success") {
+
+                                Message = '<p class="text-center"> Payment is  Successfull. Please use  Policy no ' + data.ProposalNo + ' for further reference </p>';
+                            }
+                            $('#PaymentModalBody').empty();
+                            var Image = '<img class="Img-align" src="../Images/checked1.png" />'
+                            $('#PaymentModalBody').append(Image);
+                            $('#PaymentModalBody').append(Message);
+                            $("#PaymentModal").modal("show");
+
+                        }
+                        else {
+                            $('#PaymentModalBody').empty();
+                            var Image = '<img class="Img-align" src="../Images/cancel1.png" />'
+                            $('#PaymentModalBody').append(Image);
+                            $('#PaymentModalBody').append(data.ErrorMessage);
+                            $("#PaymentModal").modal("show");
+                        }
+                    });
+                }
+                break;
+
+            case "PayByGenie": $('#frmPaymentPage').attr('action', "/Payment/SampathBankPG");
+
+                document.forms["frmPaymentPage"].submit();
+
+                break;
+
+            default:
+
+        }
+
+    }
+
+    // Calculate premimum
+   // var Premium1 = 0;
+    function SetProposalInfo(id, Proposal, Premium, InsuredName, Mobile) {
+        debugger;
+        var Ischecked = $("#"+id).prop("checked");
+        if (Ischecked) {
+            $("#HdnProposalNo").val(Proposal);
+            Premium = (Premium == null || Premium == 'undefined') ? 0 : parseFloat(Premium);
+            $('#PremimumAmount').val(Premium);
+            // Premium = parseFloat(Premium);
+            //Premium1 += Premium;
+            //$('#hdnQuoteNo').val(Proposal);
+            $('#hdntxtPayableAmount').val(Premium);
+            f2('txtPayableAmount');
+            var AddPremium = $('#txtAdditionalPremium').val();
+            if (AddPremium > 0) {
+                $('#hdntxtAdditionalPremium').val(AddPremium);
+                f2('txtAdditionalPremium');
+            }
+            $('#ClientName').val(InsuredName);
+            $("#HdnMobile").val(Mobile);
+        }
+        else
+        {
+            $('#txtPayableAmount').val('');
+        }
+    }
+    function f1(id) {
+
+        var res = $('#' + id).val();
+        if (res == "") {
+            res = "0";
+        }
+        $('#' + id).val(parseInt(res.replace(/,/g, '')).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+        $('#hdn' + id).val(res.replace(/,/g, ''));
+    }
+    function f2(id) {
+
+        var res = $('#hdn' + id).val();
+        if (res != undefined) {
+            $('#' + id).val(parseInt(res.replace(/,/g, '')).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+        }
+    }
+</script>

@@ -1,0 +1,129 @@
+﻿@model AIA.Life.Models.Opportunity.QuoteList
+@using AIA.Presentation.Helpers
+@using AIAResources;
+
+@{
+
+    int Index = Model.SelectedQuote;
+    string PanleID = "DivPanelBenefits" + Index;
+    string PanleNavigatorheader = "#PanelBenefits" + Index;
+    string PanleNavigator = "PanelBenefits" + Index;
+    int count = 1, tabCount = 1;
+    int GlobalCount = 0;
+
+}
+
+
+
+@*Panel Benefit Details*@
+<div class="panel panel-default" id=@PanleID>
+    <div class="panel-heading backgroundclr" role="tab">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=@PanleNavigatorheader aria-expanded="false" aria-controls="collapseTwo">
+                <i class="more-less glyphicon glyphicon-plus"></i>
+                @Resources.GetLabelName("Benefit Details")
+
+            </a>
+        </h4>
+    </div>
+    <div id=@PanleNavigator class="panel-collapse" role="tabpanel" aria-labelledby=@PanleID>
+        <div class="panel-body">
+
+
+            <ul class="nav nav-pills">
+                @foreach (var item in Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails)
+                {
+                    string TabId = Convert.ToString(count) + Model.SelectedQuote;
+                    if (count == 1)
+                    {
+                        <li class="active width">
+                            <a data-toggle="pill" href="#tab_6_@TabId">@Resources.GetLabelName(item.Assured)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="width"><a data-toggle="pill" href="#tab_6_@TabId">@Resources.GetLabelName(item.Assured)</a></li>
+
+                    }
+
+                    count++;
+                }
+
+
+            </ul>
+            <div class="tab-content product-tab">
+
+                @foreach (var Assured in Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails)
+                {
+                    string TabId = Convert.ToString(tabCount) + Model.SelectedQuote;
+                    if (tabCount == 1)
+                    {
+                        <div class="tab-pane fade in active" id="tab_6_@TabId">
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].Assured)
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].Relationship)
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].AgeNextBirthDay)
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].CurrentAge)
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].MemberIndex, new { @Value = GlobalCount })
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].TabIndex, new { @Value = TabId })
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].IsBenefitRequested, new { @class = "BenefitReq" + Model.SelectedQuote, @id = "hdnBenefitRequested" + TabId })
+                            <div id="DivBenefitDetails_@TabId">
+                                <div style="display:none;">@(Model.objListQuote[Model.SelectedQuote]._memberIndex = GlobalCount)</div>
+
+                                @Html.Partial("~/Views/Prospect/PartialBenifitDetails.cshtml", Model)
+
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="tab-pane" id="tab_6_@TabId">
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].Assured)
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].Relationship)
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].AgeNextBirthDay)
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].CurrentAge)
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].MemberIndex, new { @Value = GlobalCount })
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].TabIndex, new { @Value = TabId })
+                            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].IsBenefitRequested, new { @class = "BenefitReq" + Model.SelectedQuote, @id = "hdnBenefitRequested" + TabId })
+                            <div id="DivBenefitDetails_@TabId">
+                                <div style="display:none;">@(Model.objListQuote[Model.SelectedQuote]._memberIndex = GlobalCount)</div>
+                                @Html.Partial("~/Views/Prospect/PartialBenifitDetails.cshtml", Model)
+                            </div>
+
+
+                        </div>
+                    }
+                    tabCount++;
+                    GlobalCount++;
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="PremiumOvervieModel_@Index" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Premium Overview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="PremiumOvervieModelbody_@Index">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+

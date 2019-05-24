@@ -1,0 +1,250 @@
+﻿ @model AIA.Life.Models.Allocation.ManualAllocation
+@using AIAResources;
+@{
+// Layout = null;
+}
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+@Scripts.Render("~/bundles/GridMVC")
+
+<div class="panel panel-default" id="pnlProposalForm">
+    <div class="panel-heading backgroundclr" role="tab" id="headingOne">
+        <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                @Resources.GetLabelName("Allocate")
+                <img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+            </a>
+        </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+            <form id="Manualallocationform">   
+                  <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 iGrid" id="ManualAllocateGrid">
+                    @{ Html.RenderAction("ManualAllocationGrid", "Allocation"); }
+                    </div>
+                    @*@Html.Partial("~/Views/Allocation/_PartialAllocateGrid.cshtml", Model.AllocationProposals)*@
+</form>
+            <br />
+            @{
+                if (Model.objLstAllocationProposals.Count() > 0)
+                {
+                      <div class="text-center">
+                            <input type="button" value="Allocate" class="btn btn-default uwbtn" onclick="ManualAllocateProposal(@Model.objLstAllocationProposals.Count)" />
+                        </div>
+                    
+                } }
+
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-default" id="pnlProposalDetails">
+    <div class="panel-heading backgroundclr" role="tab" id="headingTwo">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+                @Resources.GetLabelName("Reset")
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+
+            </a>
+        </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="panel-body">
+            <form id="ManualResetform">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="ManualResetAllocateGrid">
+                    @{ Html.RenderAction("ManualResetGrid", "Allocation"); }
+                    </div>
+
+                    @*@Html.Partial("~/Views/Allocation/_PartialResetGrid.cshtml", Model.ResetProposals)*@
+</form>
+                <br />
+                @{
+                    if (Model.objLstResetProposals.Count() > 0)
+                    {
+                        <div class="text-center">
+                            <input type="button" value="Reset" class="btn btn-default uwbtn" onclick="ManualResetProposal()" />
+                        </div>
+                    }
+
+                }
+
+</div>
+    </div>
+</div>
+
+
+<div id="ManualAllocationModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Message</h4>
+            </div>*@
+            <div class="modal-body" id="ManualAllocationModalBody">
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default uwbtn" data-dismiss="modal" onclick="RefreshUrl()">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    var Selected = [];
+    var ResetSelected = [];
+    function RefreshUrl() {
+        window.location.href = '/Allocation/ManualAllocationDetails';
+    }
+    function ManualAllocateProposal()
+    {
+               var ManualAllocateGrid = false;
+        var AssignedDoesntHaveValue = false;
+        var checkcount = $('#ManualAllocateGrid').find('input[type=radio]:checked').length;
+       var selectedID = '';
+        var id='';
+        $("input:checkbox").each(function(){
+            debugger
+            var $this = $(this);
+
+            if($this.is(":checked")){
+                debugger
+                selectedID = ($this.attr("id"));
+                id=selectedID.replace('AllocatechkIsSelected','')
+                if ($('#AllocatechkIsSelected' + id).is(":checked")) {
+                    ManualAllocateGrid = true;
+                }
+                if ($('#DDLAssignTo' + id).val() == '') {
+                    AssignedDoesntHaveValue = true;
+                }            
+            }
+        });
+        //$("#ManualAllocateGrid tbody").find("tr").each(function (index) {
+
+            
+        //});
+        if (!ManualAllocateGrid) {
+            writeMultipleMessage("error", "Please select  altleast one record.", "ManualAllocation");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ManualAllocation");
+        }
+
+        if (AssignedDoesntHaveValue) {
+            writeMultipleMessage("error", "Please select UnderWriter Name For Selected Cases.", "ManualAllocation1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ManualAllocation1");
+        }
+     var count=$("#ManualAllocateGrid tbody").find("tr").length;
+        debugger;
+        if (Selected.count == 0) {
+        writeMultipleMessage("error", "Please select a record and respective assignee for allocation.", "ManualAllocation1");
+            return false;
+    }
+    else
+    {
+        writeMultipleMessage("error", "", "ManualAllocation1");
+    }
+    var Allocated = Selected.join(',');
+    $.post("../Allocation/SaveManualAllocation?Selected="+Allocated, function (data) {
+         
+        if (data == 'Success') {
+            $('#ManualAllocationModalBody').empty();
+            var Image='<img class="Img-align" src="../Images/checked1.png" />'
+            var Message = '<p class="text-center"> Allocated Successfully</p>';
+            $('#ManualAllocationModalBody').append(Image);
+                $('#ManualAllocationModalBody').append(Message);
+                $("#ManualAllocationModal").modal("show");
+            }
+        });
+    }
+
+    function ManualResetProposal()
+    {
+        debugger;
+        //var ManualResetAllocateGrid = false;
+        //$("#ManualResetAllocateGrid tbody").find("tr").each(function (index) {
+
+        //    if ($('#ResetchkIsSelected' + index).is(":checked")) {
+        //        ManualResetAllocateGrid = true;
+        //    }
+        //});
+        //if (!ManualResetAllocateGrid) {
+        //    writeMultipleMessage("error", "Please select  altleast one record.", "ManualResetAllocation");
+        //    return false;
+        //}
+        //else {
+        //    writeMultipleMessage("error", "", "ManualResetAllocation");
+        //}
+        var ManualResetAllocateGrid = false;
+        var AssignedDoesntHaveValue = false;
+        var checkcount = $('#ManualResetAllocateGrid').find('input[type=radio]:checked').length;
+        var selectedID = '';
+        var id='';
+        $("input:checkbox").each(function(){
+            debugger
+            var $this = $(this);
+
+            if($this.is(":checked")){
+                debugger
+                selectedID = ($this.attr("id"));
+                id=selectedID.replace('ResetchkIsSelected','')
+                if ($('#ResetchkIsSelected' + id).is(":checked")) {
+                    ManualResetAllocateGrid = true;
+                }
+                if ($('#DDLResetAssignTo' + id).val() == '') {
+                    AssignedDoesntHaveValue = true;
+                }            
+            }
+        });
+        //$("#ManualAllocateGrid tbody").find("tr").each(function (index) {
+
+            
+        //});
+        if (!ManualResetAllocateGrid) {
+            writeMultipleMessage("error", "Please select  altleast one record.", "ManualAllocation");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ManualAllocation");
+        }
+
+        if (AssignedDoesntHaveValue) {
+            writeMultipleMessage("error", "Please select UnderWriter Name For Selected Cases.", "ManualAllocation1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ManualAllocation1");
+        }
+        var count=$("#ManualResetAllocateGrid tbody").find("tr").length;
+        debugger;
+        if (ResetSelected.length == 0) {
+            writeMultipleMessage("error", "Please select a record and respective assignee for allocation.", "ManualAllocation1");
+            return false;
+        }
+        else
+        {
+            writeMultipleMessage("error", "", "ManualAllocation1");
+        }
+        var Allocated = ResetSelected.join(',');
+        $.post("../Allocation/ResetManualAllocation?Selected="+Allocated, function (data) {
+            if (data == 'Success') {
+                $('#ManualAllocationModalBody').empty();
+                var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                var Message = '<p class="text-center"> Updated Successfully</p>';
+                $('#ManualAllocationModalBody').append(Image);
+                $('#ManualAllocationModalBody').append(Message);
+                $("#ManualAllocationModal").modal("show");
+            }
+        });
+    }
+</script>

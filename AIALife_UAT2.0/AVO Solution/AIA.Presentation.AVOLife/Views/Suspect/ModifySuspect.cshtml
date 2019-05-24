@@ -1,0 +1,757 @@
+﻿@model  AIA.Life.Models.Opportunity.Prospect
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string HomeNumber = string.Empty;
+    int ValCount = 0;
+    if (!string.IsNullOrEmpty(Model.Home))
+    {
+        HomeNumber = Model.Home;
+        ValCount++;
+    }
+    string WorkNumber = string.Empty;
+    if (!string.IsNullOrEmpty(Model.Work))
+    {
+        WorkNumber = Model.Work;
+        ValCount++;
+    }
+    string MobileNumber = string.Empty;
+    if (!string.IsNullOrEmpty(Model.Mobile))
+    {
+        MobileNumber = Model.Mobile;
+        ValCount++;
+    }
+    string EmailAddress = string.Empty;
+    if (!string.IsNullOrEmpty(Model.Email))
+    {
+        EmailAddress = Model.Email;
+        ValCount++;
+    }
+}
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmModifySuspest" }))
+{
+    <style>
+        /*.SuspectInfo-item:nth-child(2n+2) {
+            background-color: #fdf0bc;
+            background: -webkit-linear-gradient(#fdf0bc, #f5f3ea); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#fdf0bc, #f5f3ea); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#fdf0bc, #f5f3ea); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#fdf0bc, #f5f3ea); border-radius: 4px;
+        }
+
+        */ .SuspectInfo-item {
+            padding-left: 4%;
+            padding-right: 0%;
+        }
+    </style>
+
+    @Html.HiddenFor(a => a.ContactID, new { @id = "hdnContactID" })
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12
+">
+        <div class="panel panel-default" id="pnlProposerDetails">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse5" class="collapsed">
+                        @Resources.GetLabelName("Suspect Information")<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse">
+                <div class="panel-body">
+
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label>Type</label>
+                                @Html.DropDownListFor(a => a.Type, new SelectList("", "", ""), "Self", new { @id = "ddlPropectInfoType", @class = "form-control" })
+                            </div>
+                        </div>
+                
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-2.png" style="width: 20px;" />@Resources.GetLabelName("Salutation")</label>
+                                @Html.DropDownListFor(m => m.Salutation, new SelectList(Model.lstSalutation, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlSalutation", @onchange = "AutoPopulateMaritalStatus()" })
+
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-8.png" style="width: 20px;" />@Resources.GetLabelName("Given Name")</label>
+                                @(Html.TextBoxFor(a => a.Name, new { @id = "txtName", @class = "form-control" }))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-1.png" style="width: 20px;" />@Resources.GetLabelName("Surname")</label>
+                                @(Html.TextBoxFor(a => a.LastName, new { @id = "txtLastName", @class = "form-control" }))
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label>@Resources.GetLabelName("NIC")</label>
+                                @(Html.TextBoxFor(a => a.NIC, new { @id = "txtNic", @class = "form-control", @onchange = "FetchDOBGenderfromNIC('txtNic','dtProspectDOB','ddlGender','txtAge')", @maxlength = 12 }))
+
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1"></div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-3.png" style="width: 20px;" />@Resources.GetLabelName("Gender")</label>
+                                @Html.DropDownListFor(m => m.Gender, new SelectList(Model.lstGender, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlGender" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label>@Resources.GetLabelName("Date Of Birth")</label>
+                                @Html.iNubeDatePickerFor(a => a.DateofBirth, new { @class = "form-control datepicker", @id = "dtProspectDOB", @onblur = "ageProspectCount('dtDOB')", @maxlength = "10", @onclick = "ageProspectCount()", @onchange = "ageProspectCount()" })
+                                @*@Html.iNubeDatePickerFor(m => m.DateofBirth, new { @class = "form-control datepicker", @id = "dtProspectDOB", @MaxDate = DateTime.Now.ToString("MM/dd/yyyy"), @onchange = "ageProspectCount()", @onclick = "ageProspectCount()" })*@
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-11.png" style="width: 20px;" />@Resources.GetLabelName("Age")</label>
+                                @Html.TextBoxFor(m => m.AgeNextBdy, new { @class = "form-control", @id = "txtAge", @readonly = "readonly", @maxlength = "2", @onkeypress = "return isNumberKey(event)" })
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-9.png" style="width: 20px;" />@Resources.GetLabelName("Email ID")</label>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "txtEmail", @maxlength = "50", @onblur = "validateEmailID('txtEmail','Please Enter Valid Email Id.')" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-7.png" style="width: 20px;" />@Resources.GetLabelName("Home")</label>
+                                @Html.TextBoxFor(m => m.Home, new { @class = "form-control", @id = "txtTelephone", @maxlength = "9", @onkeypress = "return isNumberKey(event)" }) @* @onblur = "ValidatePhoneNumber()"*@
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-4.png" style="width: 20px;" />@Resources.GetLabelName("Office")</label>
+                                @Html.TextBoxFor(m => m.Work, new { @class = "form-control", @id = "txtTelephonework", @maxlength = "9", @onkeypress = "return isNumberKey(event)" }) @* @onblur = "ValidatePhoneNumber()"*@
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-6.png" style="width: 20px;" />@Resources.GetLabelName("Mobile")</label>
+                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @id = "txtMobile", @maxlength = "9", @onkeypress = "return isNumberKey(event)" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/quote-5.png" style="width: 20px;" />@Resources.GetLabelName("Occupation")</label>
+                                @Html.DropDownListFor(m => m.Occupation, new SelectList(Model.lstOccupation, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlOccupation" })
+
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label>@Resources.GetLabelName("Annual Income")</label>
+                                @Html.DropDownListFor(m => m.AvgMonthlyIncome, new SelectList(Model.lstAvgMonthlyIncome, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlAverageMonthlyIncome" })
+
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <div class="form-group">
+                                <label><img src="~/Content/Images/Forma 1-16.png" style="width: 20px;" />@Resources.GetLabelName("Marital Status")</label>
+                                @Html.DropDownListFor(m => m.MaritalStatus, new SelectList(Model.MaritalStatuslist, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlMaritalStatus", @onchange = "selectedMaritalStatus()" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <label>@Resources.GetLabelName("Passport")</label>
+                            @Html.TextBoxFor(m => m.PassPort, new { @class = "form-control", @id = "txtPassport", @maxlength = "9", @onkeypress = "return isNumberKey(event)" })
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <label>@Resources.GetLabelName("Place")</label>
+                            @Html.TextBoxFor(m => m.Place, new { @class = "form-control", @id = "txtPlace" })
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                        </div>
+                    </div>
+
+                    @*Communication Address*@
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+                        <div class="form-group">
+                            <p class="h4" style="font-weight:bold;">
+                            <img src="~/Content/Images/quote-19.png" style="width: 20px;" />@Resources.GetLabelName("Communication Address"):</p>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                @Html.AddressForNewProspectScreen(a => a.objAddress)
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+        <div class="panel panel-default" id="pnlNeedAnalysis">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse2" href="#collapseTwo" class="collapsed">
+                        <img src="~/Content/Images/need.png" style="width:30px" />@Resources.GetLabelName("Need Analysis")<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    @Html.Partial("~/Views/Prospect/PartialNeedAnalysis.cshtml", Model)
+
+
+                </div>
+            </div>
+        </div>
+
+    <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
+        <input type="button" class="btn btn-default" id="" value="Save" onclick="SaveProspect()" style="padding-left:20px;padding-right:20px;" />
+        <input type="button" class="btn btn-default" id="" value="Cancel" onclick="ClearProspect()" style="padding-left:20px;padding-right:20px;" />
+        @*<input type="button" class="btn btn-default" id="" value="Remove" onclick="RemoveProspect()" style="padding-left:20px;padding-right:20px;" />*@
+    </div>
+}
+
+<div class="modal fade" id="SuspectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body" id="SuspectModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadProspectPool()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="RemoveSuspectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Resources.GetLabelName("Remove Suspect")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="RemoveSuspectModalBody">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">@Html.Label("Reason for removing")</div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                        <div class="form-group">
+                            @(Html.TextAreaFor(a => a.ReasonForRemove, new { id = "txtremoveReason", @class = "form-control" }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="DeleteSuspect()">Delete Suspect</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadSuspectPool()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SuspectSuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body" id="SuspectSuccesModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadSuspectPool()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var dob = $('#dtDOB').val();
+        if (dob != '') {            
+            var d = new Date();
+            var currentYear = d.getFullYear();
+            var arr = dob.split('/');
+            var birthYear = arr[2];
+            var calcAge = currentYear - birthYear;
+            $('#txtAge').val(calcAge);
+        }
+        $('#objAddressddlProvince').val('@Model.objAddress.State');
+        FillDistrictCommaddMember('@Model.objAddress.State', '@Model.objAddress.District', "objAddress");
+        FillCityCommaddMember('@Model.objAddress.District', '@Model.objAddress.City', "objAddress");
+        $('#objAddressddlProvince').val('@Model.objAddress.State');
+        $('#objAddressAddress1').val('@Model.objAddress.Address1');
+        $('#objAddressAddress2').val('@Model.objAddress.Address2');
+        $('#objAddressPincode').val('@Model.objAddress.Pincode');
+    });
+    function ageProspectCount() {
+
+        var dob = $('#dtProspectDOB').val();
+        var controlid = 'dtProspectDOB';
+        if (dob == "") {
+            $('#txtAge').val('');
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth.", controlid);
+            return false;
+        }
+        if (!ValidateDOB(controlid)) {
+            $('#txtAge').val('');
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth. It Cannot be Future Date.", controlid);
+            return false;
+        }
+        else {
+            if (dob != '') {
+                //debugger;
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                $('#txtAge').val(calYear);
+                var ProspectAge = $('#txtAge').val();
+                $('#txtprospectAge').val(ProspectAge);
+                $('#ProspectDOB').val(dob);
+            }
+        }
+    }
+
+    function ClearProspect() {
+        $('#objAddressAddress1').val('');
+        $('#objAddressAddress2').val('');
+        $('#objAddressddlProvince').val('');
+        $('#objAddressddlDistrict').val('');
+        $('#objAddressddlCity').val('');
+        $('#objAddressPincode').val('');
+        $('#txtLastName').val('');
+        window.location.href = "/Suspect/SuspectPool";
+    }
+
+    function SaveProspect() {
+        if (!ValidateProspectDetails()) {
+        }
+        else {
+
+            $.post('/Prospect/SaveProspect', $('#frmModifySuspest').serialize(), function (data) {
+                if (data.Message == 'Success') {
+                    var Message = '';
+                    $('#SuspectModalBody').empty();
+                    if (data.Status == 1) {
+                        var Image = '<img class="Img-align" src="../Images/checked1.png" />'
+                        Message = '<p class="text-center"> Data Saved Successfully in Suspect Stage. </p>';
+                    }
+                    else if (data.Status == 2) {
+                        var Image = '<img class="Img-align" src="../Images/checked1.png" />'
+                        Message = '<p class="text-center"> Data Saved Successfully in Prospect Stage. </p>';
+                    }
+                    $('#SuspectModalBody').append(Image);
+                    $('#SuspectModalBody').append(Message);
+                    $("#SuspectModal").modal("show");
+                }
+                else {
+                    $('#SuspectModalBody').empty();
+                    var Image = '<img class="Img-align" src="../Images/cancel1.png" />'
+                    var Message = '<p class="text-center"> Some Error Occured</p>';
+                    $('#SuspectModalBody').append(Image);
+                    $('#SuspectModalBody').append(Message);
+                    $("#SuspectModal").modal("show");
+                }
+                $('#myModal').modal('show')
+            });
+        }
+    }
+
+    function ValidateProspectDetails() {
+
+        var Name = $("#txtFirstName").val();
+        //var LastName = $("#txtLastName").val();
+        var Mobile = $("#txtMobile").val();
+        var Email = $('#txtEmail').val();
+        var Home = $("#txtTelephone").val();
+        var Work = $("#txtWorkTelephone").val();
+        var DOB = $("#dtDOB").val();
+        var DatePickerID = $("#dtDOB").attr('id');
+        var Age = $('#txtAge').val();
+
+        //if ($("#ddlSalutation option:selected").text() == 'Select' || $("#ddlSalutation option:selected").text() == '') {
+        //    writeMultipleMessage("error", 'Please select Salutation', 'ddlSalutation')
+        //    return false;
+        //}
+        //else {
+        //    writeMultipleMessage("error", "", 'ddlSalutation');
+        //}
+
+        if (Name == "") {
+            writeMultipleMessage("error", "Please enter Given Name.", 'txtFirstName');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtFirstName');
+        }
+
+        //if (LastName == "") {
+        //    writeMultipleMessage("error", "Please enter SurName.", 'txtLastName');
+        //    return false;
+        //}
+        //else {
+        //    writeMultipleMessage("error", "", 'txtLastName');
+        //}
+
+        if (Home == "" && Email == "" && Mobile == "" && Work == "") {
+            writeMultipleMessage("error", "Please Enter One of Home/Work/Mobile/Email.", "txtTelephone");
+            return false;
+        }
+        else {
+            if (Mobile != "" && Mobile.length < 10) {
+                writeMultipleMessage("error", "Please Enter 10 Digits Mobile Number.", "txtTelephone");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtTelephone");
+                return true;
+            }
+        }
+
+        var _SuspectChangesCount = 0;
+
+        if ('@HomeNumber' != '') {
+            if ('@HomeNumber' != Home) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        if ('@WorkNumber' != '') {
+            if ('@WorkNumber' != Work) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        if ('@EmailAddress' != '') {
+            if ('@EmailAddress' != Email) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        if ('@MobileNumber' != '') {
+            if ('@MobileNumber' != Mobile) {
+                _SuspectChangesCount = _SuspectChangesCount + 1;
+            }
+        }
+        var ValCount = parseInt('@ValCount');
+        if (_SuspectChangesCount < ValCount) {
+
+        }
+        else {
+            writeMultipleMessage("error", "Please Don't Change Contact Information.", "txtTelephone");
+            return false;
+        }
+
+        if (DOB == "" && Age == "") {
+            writeMultipleMessage("error", "Please Enter One of Date Of Birth/Age.", "dtDOB");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "dtDOB");
+            return true;
+        }
+    }
+
+    function ageCount(controlid) {
+
+        var dob = $('#' + controlid).val();
+        if (dob == "") {
+            $('#txtAge').val('');
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth.", controlid);
+            return false;
+        }
+        if (!ValidateDOB(controlid)) {
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth. It Cannot be Future Date.", controlid);
+            return false;
+        }
+        else {
+            if (dob != '') {
+//                debugger;
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                $("#txtAge").val(calYear);
+
+                //dob = new Date(dob);
+                //var d = new Date();
+                //var currentYear = d.getFullYear();
+                //var currentMonth = d.getMonth();
+                //var currentDate = d.getDay();
+                //var arr = dob.split('/');
+                //var birthYear = arr[2];
+                //var birthMonth = arr[1];
+                //var birthday = arr[0];
+                //var ageDifMs = Date.now() - dob.getTime();
+                //var ageDate = new Date(ageDifMs);
+                //var calcAge = Math.abs(ageDate.getUTCFullYear() - 1970); //currentYear - birthYear;
+                //$('#txtAge').val(calcAge);
+            }
+        }
+    }
+
+    function ValidateDOB(controlid) {
+    //    debugger;
+        var dob = $('#' + controlid).val();
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+        var arrDOB = dob.split('/');
+        var birthDay = arrDOB[0];
+        var birthMonth = arrDOB[1];
+        var birthYear = arrDOB[2];
+        var arrCurrentDate = currentDate.split('/');
+        var currentDay = arrCurrentDate[0];
+        var currentMonth = arrCurrentDate[1];
+        var currentYear = arrCurrentDate[2];
+        if (birthYear <= currentYear) {
+            if (birthMonth <= currentMonth) {
+                if (birthDay <= currentDay) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth < currentMonth) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (birthMonth > currentMonth && birthYear < currentYear) {
+                return true;
+
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+    function LoadProspectPool() {
+        window.location.href = "/Policy/Home";
+    }
+    function LoadSuspectPool() {
+        window.location.href = "/Suspect/SuspectPool";
+    }
+
+    function FillDistrictCommaddMember(ProvinceCode, distct, ID) {
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    $('#' + textName + 'ddlDistrict').html(""); // clear before appending new list
+                    $('#' + textName + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textName + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                    });
+                    $('#' + textName + 'ddlDistrict').val(distct);
+                }
+            });
+        }
+    }
+    function FillCityCommaddMember(ProvinceCode, distct, ID) {
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.post("../AgentonBoarding/FetchCity?DistrictCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    $('#' + textName + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textName + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textName + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                    });
+                    $('#' + textName + 'ddlCity').val(distct);
+                }
+            });
+        }
+    }
+    function FillDistrictCommAddress(e) {
+        var ProvinceCode = $("#" + e.id).val();
+        if (ProvinceCode != '') {
+            $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    if (e.id == "objAddressddlProvince") {
+                        textId = e.id.substring(0, 10);
+                    }
+                    else {
+                        textId = e.id.substring(0, 10);
+                    }
+                    $('#' + textId + 'ddlDistrict').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                    $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $('#' + textId + 'Pincode').val('');
+                    $.each(data, function (ID, option) {
+                        $('#' + textId + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                    });
+                }
+            });
+        }
+        else {
+            $('#' + textId + 'ddlDistrict').html(""); // clear before appending new list
+            $('#' + textId + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+            $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+            $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+            $('#' + textId + 'Pincode').val("");
+        }
+    }
+    function FillCityCommAddress(e) {
+        var DistrictCode = $("#" + e.id).val();
+        if (DistrictCode != '') {
+            $.post("../AgentonBoarding/FetchCity?DistrictCode=" + DistrictCode)
+            .done(function (data) {
+                if (data != null) {
+                    if (e.id == "objAddressddlDistrict") {
+                        textId = e.id.substring(0, 10);
+                    }
+                    else {
+                        textId = e.id.substring(0, 10);
+                    }
+                    $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $('#' + textId + 'Pincode').val('');
+                    $.each(data, function (ID, option) {
+                        $('#' + textId + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                    });
+                }
+            });
+        }
+        else {
+            $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+            $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+            $('#' + textId + 'Pincode').val("");
+        }
+
+    }
+    function FillPostalCodeCommAddress(e) {
+      
+        var CityCode = $("#" + e).val();
+        if (CityCode != '') {
+            $.post("../AgentonBoarding/FetchPostalCode?CityCode=" + CityCode)
+            .done(function (data) {               
+                if (data != null) {
+                    if (e== "objAddressPincode") {
+                        textId = e.substring(0, 10);
+                    }
+                    else {
+                        textId = e.substring(0, 10);
+                    }
+                    $('#' + textId + 'ddlProvince').val(data.Provience);
+                    $('#' + textId + 'ddlDistrict').val(data.Distric);
+                }
+            });
+        }
+        else {
+            $('#' + textId + 'ddlProvince').val("");
+            $('#' + textId + 'ddlDistrict').val("");
+        }
+    }
+    function RemoveProspect() {
+        var flag = confirm("Are you sure to remove the Suspect?");
+        if (flag) {
+            $("#RemoveSuspectModal").modal("show");
+        }
+        else
+            return false;
+
+    }
+    function DeleteSuspect() {
+        var Reason = $('#txtremoveReason').val();
+        var contactId = $('#hdnContactID').val();
+        if (Reason == "") {
+
+            writeMultipleMessage("error", "Please Enter Reason for Remove.", 'txtremoveReason');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtremoveReason');
+            var model = { "ContactId": contactId }
+            $.ajax({
+                type: "POST",
+                url: '/Suspect/DeleteOpportunityInfo',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(model),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.Message == 'Success') {
+                        $("#RemoveSuspectModal").modal("hide");
+                        var Message = '<p>Suspect Deleted Successfully</p>';
+                        $('#SuspectSuccesModalBody').html(Message);
+                        $("#SuspectSuccessModal").modal("show");
+                    }
+                    else {
+                        $("#RemoveSuspectModal").modal("hide");
+                        var Message = '<p>Some Error Occured</p>';
+                        $('#SuspectSuccesModalBody').html(Message);
+                        $("#SuspectSuccessModal").modal("show");
+                    }
+                }
+            });
+            //return true;
+        }
+    }
+</script>

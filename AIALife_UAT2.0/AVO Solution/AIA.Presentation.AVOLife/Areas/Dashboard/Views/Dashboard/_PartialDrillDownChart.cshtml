@@ -1,0 +1,91 @@
+﻿@model int
+@{
+    var ReportID = Model;
+    var divID = "divChart" + Model;
+}
+<script>
+    var chartData = "";
+    var chart = "";
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: '../Dashboard/DashBoard/MakeChart',
+            contentType: "application/json; charset=utf-8",
+            data: { ReportID: '@ReportID', UserName : '@ViewBag.UserName' },
+            dataType: "json",
+            success: function (result) {
+                chartData = JSON.parse(result.strDataProvider);
+                $.each(chartData, function (index, value) {
+
+                    try {
+                        chartData[index].data = JSON.parse(chartData[index].data);
+
+                    } catch (e) {
+
+                    }
+                });
+                $("#" + '@divID').css("height", result.GraphHeight);
+                $("#" + '@divID').css("width", result.GraphWidth);
+                chart = AmCharts.makeChart('@divID', {
+                    "type": result.Type,
+                    
+                    "dataProvider": chartData,
+                    "startDuration": result.StartDuration,
+                    "graphs": JSON.parse(result.strlstGraphs),
+                    "categoryField": result.CategoryField,
+                    "categoryAxis": JSON.parse(result.strcategoryAxis),
+                    "export": {
+                        "enabled": false
+                    }
+                });
+                chart.addListener("clickGraphItem", function (event) {
+                    if ('object' === typeof event.item.dataContext.data) {
+
+                        // set the monthly data for the clicked month
+                        event.chart.dataProvider = event.item.dataContext.data;
+
+                        // update the chart title
+                        // event.chart.titles[0].text = event.item.dataContext.category + ' monthly data';
+
+                        // let's add a label to go back to yearly data
+                        event.chart.addLabel(
+                            35, 20,
+                            "< Go back",
+                            undefined,
+                            15,
+                            undefined,
+                            undefined,
+                            undefined,
+                            true,
+                            'javascript:resetChart();');
+
+                        // validate the new data and make the chart animate again
+                        event.chart.validateData();
+                        event.chart.animateAgain();
+                    }
+                });
+                
+            }
+        });
+    });
+    
+    function resetChart() {
+        chart.dataProvider = chartData;
+        //chart.titles[0].text = 'Yearly data';
+
+        // remove the "Go back" label
+        chart.allLabels = [];
+
+        chart.validateData();
+        chart.animateAgain();
+    }
+</script>
+
+
+<div id='@divID'></div>
+
+
+
+
+

@@ -1,0 +1,330 @@
+﻿@model  AIA.Life.Models.Opportunity.Prospect
+@using AIAResources;
+@{
+    Layout = null;
+    if (Model.objNeedAnalysis.objNeeds == null)
+    {
+        Model.objNeedAnalysis.objNeeds = new List<AIA.Life.Models.NeedAnalysis.Needs>
+    ();
+    }
+    if (Model.objNeedAnalysis.objNeeds.Count() < 1)
+    {
+        Model.objNeedAnalysis.objNeeds.Add(new AIA.Life.Models.NeedAnalysis.Needs());
+        Model.objNeedAnalysis.objNeeds.Add(new AIA.Life.Models.NeedAnalysis.Needs());
+        Model.objNeedAnalysis.objNeeds.Add(new AIA.Life.Models.NeedAnalysis.Needs());
+        Model.objNeedAnalysis.objNeeds.Add(new AIA.Life.Models.NeedAnalysis.Needs());
+        Model.objNeedAnalysis.objNeeds.Add(new AIA.Life.Models.NeedAnalysis.Needs());
+        Model.objNeedAnalysis.objNeeds.Add(new AIA.Life.Models.NeedAnalysis.Needs());
+        Model.objNeedAnalysis.objNeeds.Add(new AIA.Life.Models.NeedAnalysis.Needs());
+    }
+}
+<style>
+    /*.personalinfo-form table tbody tr:nth-child(2n+1) {
+        background-color: #fdf0bc;
+        background: -webkit-linear-gradient(#fdf0bc, #f5f3ea);
+        background: -o-linear-gradient(#fdf0bc, #f5f3ea); 
+        background: -moz-linear-gradient(#fdf0bc, #f5f3ea); 
+        background: linear-gradient(#fdf0bc, #f5f3ea);
+        border-radius: 4px;
+    }*/
+
+    .personalinfo-form table thead th {
+        font-weight: 600;
+    }
+
+    .personalinfo-form img {
+        width: 30px;
+        margin-right: 5px;
+    }
+
+    .personalinfo-form table tbody td {
+        padding-top: 13px;
+    }
+
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .inputfile-6 + label {
+        border: 2px solid #eee;
+        padding: 0;
+    }
+
+    .inputfile-6 + label {
+        color: #000;
+    }
+
+    .inputfile + label {
+        max-width: 100%;
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    .inputfile-6 + label span {
+        width: 200px;
+        min-height: 2em;
+        display: inline-block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .inputfile-6 + label span, .inputfile-6 + label strong {
+        padding: 0.625rem 1.25rem;
+    }
+
+    .inputfile + label * {
+        pointer-events: none;
+    }
+
+    .inputfile-6 + label strong {
+        height: 100%;
+        color: #f1e5e6;
+        background-color: #f87335;
+        border-radius: 3px;
+        display: inline-block;
+    }
+
+    .inputfile-6 + label span, .inputfile-6 + label strong {
+        padding: 0.625rem 1.25rem;
+    }
+</style>
+
+<div class="panel panel-default" id="" style="display:none">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-target="#collapseA5" href="#collapseA" class="collapsed">
+                @Resources.GetLabelName("Analysis")<img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" />
+            </a>
+        </h4>
+    </div>
+    <div id="collapseA5" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="table-responsive personalinfo-form">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>@Resources.GetLabelName("Future Needs")</th>
+                                <th>@Resources.GetLabelName("Needs Identified")</th>
+                                <th>@Resources.GetLabelName("Value(Rs)")</th>
+                                <th>@Resources.GetLabelName("Priority")</th>
+                                <th>@Resources.GetLabelName("Product Suggestion")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.objNeedAnalysis.objNeeds.Count; i++)
+                            {
+                                string PriorityID = "select" + (i + 1);
+                                string PriorityName = "objNeedAnalysis.objNeeds[" + i + "].Priority";
+                                <tr>
+                                    @if (Model.objNeedAnalysis.objNeeds[i].ImagePath != null)
+                                    {
+                                        <td>
+                                            <img src="@Url.Content(Model.objNeedAnalysis.objNeeds[i].ImagePath)" />
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    <td>
+                                        <label>
+                                            @Model.objNeedAnalysis.objNeeds[i].NeedName
+                                        </label>
+                                        @Html.HiddenFor(a => a.objNeedAnalysis.objNeeds[i].NeedName, new { @id = "hdnNeedName" })
+                                    </td>
+                                    <td>
+                                        @if (Model.objNeedAnalysis.objNeeds[i].IsNeedOpted != false)
+                                        {
+                                            @(Html.CheckBoxFor(a => a.objNeedAnalysis.objNeeds[i].IsNeedOpted, new { @id = "chkIsOPDreq" + i }))
+                                        }
+                                        else
+                                        {
+                                            @(Html.CheckBoxFor(a => a.objNeedAnalysis.objNeeds[i].IsNeedOpted, new { @id = "chkIsOPDreq" + i, @onclick = "EnableBenifitControls(" + i + ")" }))
+                                        }
+                                    </td>
+                                    <td>@Html.TextBoxFor(m => m.objNeedAnalysis.objNeeds[i].Value, new { @class = "form-control", @readonly = "readonly", @maxlenght = "10", @id = "txtFamilyIncomeValue" + i, @onkeypress = "return isNumberKey(event)", @onblur = "SumUpBenifitSA(" + i + ")" })</td>
+                                    @if (Model.objNeedAnalysis.objNeeds[i].Priority != null)
+                                    {
+                                        <td>@Html.DropDownListFor(m => m.objNeedAnalysis.objNeeds[i].Priority, new SelectList(Model.lstNeedsPriority, "ID", "Value", Model.objNeedAnalysis.objNeeds[i].Priority), "Select", new { @class = "form-control", @id = PriorityID, @onchange = "process_selection(this)", @name = @PriorityName })</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@Html.DropDownListFor(a => a.objNeedAnalysis.objNeeds[i].Priority, new SelectList(Model.lstNeedsPriority, "ID", "Value"), "Select", new { @class = "form-control", @id = @PriorityID, @onchange = "process_selection(this)", @disabled = "true", @name = @PriorityName })</td>
+                                    }
+                                    <td>@Html.TextBoxFor(m => m.objNeedAnalysis.objNeeds[i].PlanSuggested, new { @class = "form-control", @id = "", @placeholder = "Plan A,Plan B", @readony = "readonly" })</td>
+                                    <td style="display:none">
+                                        @Html.HiddenFor(a => a.objNeedAnalysis.objNeeds[i].NeedID, new { @value = "1" })
+                                        @Html.HiddenFor(a => a.objNeedAnalysis.objNeeds[i].PKNeedID, new { })
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <p>@Resources.GetLabelName("Total")</p>
+                                </td>
+                                <td>@Html.TextBoxFor(m => m.objNeedAnalysis.Total, new { @class = "form-control", @id = "txtValueTotal", @readonly = "true" })</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-5 form-group personalinfo-form">
+                <label for="sel1"><img src="~/Content/Images/pencil.png" />@Resources.GetLabelName("Comments"):</label>
+                @Html.TextAreaFor(m => m.objNeedAnalysis.Comments, new { @class = "form-control", @id = "", })
+            </div>
+            <div class="col-md-5 form-group" style="margin-left: 38px;margin-top: 34px;">
+                <div class="uploadfieldtrick">
+                    Attach File<br />
+                    <input name="file-7[]" id="NeedAnalysisFileAttachment" class="inputfile inputfile-6" data-multiple-caption="{count} files selected" multiple="" type="file">
+                    <label for="NeedAnalysisFileAttachment"><span></span> <strong>Browse</strong></label>
+                    @Html.HiddenFor(a => a.objNeedAnalysis.NeedAnalysisFileAttachment, new { @id = "hdnNeedAnalysisFileAttachment" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function getValue(val) {
+        if (isNaN(val) == true) {
+            return 0;
+        }
+        else {
+            return val;
+        }
+    }
+
+
+    function changeImage() {
+        var image = document.getElementById('plusimg');
+        if (image.src.match("minus")) {
+            image.src = '../../Content/Images/plus.png';
+        } else {
+            image.src = '../../Content/Images/minus.png';
+        }
+    }
+
+
+    function EnableBenifitControls(i) {
+        
+        var ID = i + 1;
+        var PriorityID = '#select' + ID;
+        var value = 0;
+        var amount = 0;
+        if ($('#chkIsOPDreq' + i).is(':checked') == true) {
+            $('#txtFamilyIncomeValue' + i).prop('readonly', false);
+            $(PriorityID).prop('disabled', false);
+            SumUpBenifitSA(i);
+        }
+        else {
+            $('#txtFamilyIncomeValue' + i).prop('readonly', true);
+            $('#txtFamilyIncomeValue' + i).val('');
+            $(PriorityID).prop('disabled', true);
+            SubstractBenifitSA(i);
+        }
+    }
+
+    function SubstractBenifitSA(i) {
+        value = getValue(parseInt($("#txtFamilyIncomeValue" + i).val()));
+        amount = getValue(parseInt($("#txtValueTotal").val()));
+        $('#txtValueTotal').val(amount - value);
+    }
+    function SumUpBenifitSA(i) {
+        var value = getValue(parseInt($("#txtFamilyIncomeValue" + i).val()));
+        var Sumvalue = getValue(parseInt($("#txtValueTotal").val()));
+        $("#txtValueTotal").val(Sumvalue + value);
+    }
+
+</script>
+<script>
+    'use strict';
+    ; (function (document, window, index) {
+        var inputs = document.querySelectorAll('.inputfile');
+        Array.prototype.forEach.call(inputs, function (input) {
+            var label = input.nextElementSibling,
+                labelVal = label.innerHTML;
+
+            input.addEventListener('change', function (e) {
+                var fileName = '';
+                 if (this.files && this.files.length > 1)
+                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                else
+                    fileName = e.target.value.split('\\').pop();
+
+                if (fileName)
+                    label.querySelector('span').innerHTML = fileName;
+                else
+                    label.innerHTML = labelVal;
+            });
+
+            // Firefox bug fix
+            input.addEventListener('focus', function () { input.classList.add('has-focus'); });
+            input.addEventListener('blur', function () { input.classList.remove('has-focus'); });
+        });
+    }(document, window, 0));
+</script>
+
+<script>
+    // *** EDIT THIS ***
+    var selectIds = new Array('select1', 'select2', 'select3', 'select4', 'select5', 'select6', 'select7'); // all of the select input id values to apply the only one option value anywhere rule against
+
+    function process_selection(theObj) {
+
+        var allSelectedValues = new Array(); // used to store all currently selected values
+
+        // == get all of the currently selected values for all the select inputs
+        for (var x = 0; x < selectIds.length; x++) {
+            var v = document.getElementById(selectIds[x]).value; // the value of the selected option for the select input currently being looked at in the loop (selectIds[x])
+            // if the selected option value is not an empty string ..
+            if (v !== "") {
+                // store the value of the selected option and it's associated select input id value
+                allSelectedValues[v] = selectIds[x];
+            }
+        }
+
+        // == now work on each option within each select input
+        for (var x = 0; x < selectIds.length; x++) {
+            // loop thru all the options of this select input
+            var optionObj = document.getElementById(selectIds[x]).getElementsByTagName("option");
+            for (var i = 0; i < optionObj.length; i++) {
+                var v = optionObj[i].value; // the value of the current option in the iteration
+                // only worry about option values that are not an empty string ("")
+                if (v !== "") {
+                    if (allSelectedValues[v]) {
+                        if (allSelectedValues[v] && allSelectedValues[v] != selectIds[x]) {
+                            // disable this option because it is already selected
+                            // and this select input is NOT the one that it is selected in
+                            optionObj[i].disabled = true;
+                        }
+                    } else {
+                        // enable this option because it is not already selected
+                        // in any of the other select inputs
+                        optionObj[i].disabled = false;
+                    }
+                }
+            } // end for (option loop)
+        } // end for (select loop)
+    } // end func
+
+</script>

@@ -1,0 +1,97 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+
+    int Index = Model.AssuredIndex;
+    string TableID1 = "tblClaimInfo" + Index;
+
+    string ClaimInfoRowIndexID = "Row_ClaimInfo" + Index;
+    string ClaimInfoRowRemoveID = "btnRemoveClaimInfo" + Index;
+
+}
+
+<div class="grid-scroll">
+    <div class="table">
+        <table class="table" id="@TableID1">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Company Name</th>
+                    <th style="width:15%;text-align:left">Policy No</th>
+                    <th>Nature of Claim</th>
+                    <th style="padding-left:60px;text-align:left">Date Of Claim</th>
+                    <th><input type="button" id="btnAddClaimInfo" value="+" onclick="AddClaimInfo('@TableID1','@Index')" /></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.objMemberDetails[Index].objClaimInfo != null)
+                {
+                    for (int i = 0; i < Model.objMemberDetails[Index].objClaimInfo.Count(); i++)
+                    {
+                        <tr id="Row_ClaimInfo">
+                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[Index].objClaimInfo[i].CompanyName, new { @class = "form-control", @id = "txtCompanyName" + Index + i, @onkeypress = "return onlyAlphabets(event)" })</td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[Index].objClaimInfo[i].PolicyNo, new { @class = "form-control", @id = "txtPolicyNo" + Index + i, onkeypress = "return onlyAlphabets(event)" })</td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[Index].objClaimInfo[i].NatureOfClaim, new { @class = "form-control", @id = "txtNatureOfClaim" + Index + i, @onkeypress = "return onlyAlphabets(event)" })</td>
+                            <td>@Html.iNubeDatePickerFor(m => m.objMemberDetails[Index].objClaimInfo[i].DateOfClaim, new { @class = "form-control datepicker", @id = "DpDateOfClaim" + Index + i })</td>
+                            <td style="display:none">
+                                @Html.HiddenFor(m => m.objMemberDetails[Index].objClaimInfo[i].IsDeleted, new { @class = "form-control", @id = "txtClaimIsDeleted" + Index + i })
+                                @Html.HiddenFor(a => a.objMemberDetails[Index].objClaimInfo[i].OtherClaimId, new { })
+                            </td>
+                            <td><input type="button" id="@ClaimInfoRowRemoveID@i" value="-" onclick="RemoveClaimInfo('@ClaimInfoRowIndexID@i', @i,@Index)" /></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function AddClaimInfo(DivID, MemberIndex) {
+
+        var newClaimRow;
+        var Index = GetGridIndex(DivID);
+
+        var CompanyName = 'txtCompanyName' + MemberIndex + Index;
+        var PolicyNo = 'txtPolicyNo' + MemberIndex + Index;
+        var NatureOfClaim = 'txtNatureOfClaim' + MemberIndex + Index;
+        var DateOfClaim = 'DpDateOfClaim' + MemberIndex + Index;
+        var ClaimIsDeleted = 'txtClaimIsDeleted' + MemberIndex + Index;
+        var Add = 'btnAddClaimInfo' + MemberIndex + Index;
+        var Remove = 'btnRemoveClaimInfo' + MemberIndex + Index;
+        var rowNumber = Index + 1;
+        var RowId = "Row_ClaimInfo" + MemberIndex + Index;
+        var dateMarkUp = "<td><div id='DpDateOfClaim" + MemberIndex + Index + "' class='input-group date' data-date-format='DD/MM/YYYY'><input class='form-control datepicker' data-role='htmlDatePicker' data-val='true' data-val-date='The field DateOfBirth must be a date.' id=\'" + DateOfClaim + "' maxlength='10' name='objMemberDetails[" + MemberIndex + "].objClaimInfo[" + Index + "].DateOfClaim' type='text' value='' /><span class='input-group-addon' style='padding:0px'><span class='glyphicon glyphicon-calendar'></span></span></div></td>";
+
+        newClaimRow = "<tr id='" + RowId + "' >" +
+              "<td>" + "" + "</td>" +
+              "<td><input value='' class='form-control' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].objClaimInfo[" + Index + "].CompanyName' id=\'" + CompanyName + "'/>" +
+              "<td><input value='' class='form-control' type='text' onkeypress = 'return isNumberKey(event)' name='objMemberDetails[" + MemberIndex + "].objClaimInfo[" + Index + "].PolicyNo' id=\'" + PolicyNo + "'/>" +
+              "<td><input value='' class='form-control' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].objClaimInfo[" + Index + "].NatureOfClaim' id=\'" + NatureOfClaim + "'/>" +
+              dateMarkUp +
+              "<td style='display:none'><input value='' class='form-control' type='hidden' name='objMemberDetails[" + MemberIndex + "].objClaimInfo[" + Index + "].Isdeleted' id=\'" + ClaimIsDeleted + "' /></td>" +
+              "<td><input value='-' type='button' onclick='RemoveClaimInfo(\"" + RowId + "\",\"" + Index + "\",\"" + MemberIndex + "\")' class='form-control' id=\'" + Remove + "'/></td>" + "</tr>";
+        $('#' + DivID + ' tbody:last').append(newClaimRow);
+        $(function () { $('#DpDateOfClaim' + MemberIndex + Index).datetimepicker({ format: 'DD/MM/YYYY', useCurrent: false }); });
+    }
+
+    function RemoveClaimInfo(DivID, index,MemberIndex) {
+        var PolicyId = '@Model.PolicyID';
+        $("#txtClaimIsDeleted" + MemberIndex + index).val(true);
+        if (PolicyId > 0) {
+            $("#DivAIACompanyClaimsInsurnceDetails tbody").find("tr").each(function (id) {
+                if (index == id) {
+                    $('#txtClaimIsDeleted' + MemberIndex + index).val(true);
+                    $(this).hide();
+                }
+            });
+        }
+        if (PolicyId = 0) {
+            $('#' + DivID).hide();
+        }
+        $('#' + DivID).hide();
+    }
+</script>
+

@@ -1,0 +1,55 @@
+﻿@model Grid.Mvc.Ajax.GridExtensions.AjaxGrid<AIA.Life.Models.UserManagement.ImdcodeCreationModel>
+@using GridMvc.Html
+
+@{
+    var data = ViewBag.Data;
+    var res=string.Empty;
+    if (TempData["Load"] == "FirstTime")
+    {
+        res = data.Clientcode + "," + data.ClientFirstName + "," + data.ClientLastName + "," + data.ClientCorporateName + "," + data.ClientPAN;
+    }
+    Model.AjaxGridSettings.PagePartitionSize = 5;
+}
+
+          
+                      @Html.Grid(Model).Named("ClientSearchGrid").Columns(columns=>
+                    {
+                        columns.Add(c => c.Clientcode).Titled("Client Code").Encoded(false).Sanitized(false);
+                        columns.Add(c => c.ClientFirstName).Titled("First Name").Encoded(false).Sanitized(false);
+                        columns.Add(c => c.ClientLastName).Titled("Last Name").Encoded(false).Sanitized(false);
+                        columns.Add(c => c.ClientCorporateName).Titled("Corporatename").Encoded(false).Sanitized(false);
+                        columns.Add(c => c.ClientPAN).Titled("Pan").Encoded(false).Sanitized(false);
+                    }).Selectable(true).WithPaging(4)
+               
+<script src="~/Scripts/gridmvc.js"></script>
+<script src="~/Scripts/gridmvc-ext.js"></script>
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+<script src="~/Scripts/gridmvc.lang.fr.js"></script>
+<script src="~/Scripts/gridmvc.lang.ru.js"></script>
+<script src="~/Scripts/gridmvc.customwidgets.js"></script>
+<script src="~/Scripts/ladda-bootstrap/ladda.min.js"></script>
+<script src="~/Scripts/ladda-bootstrap/spin.min.js"></script>
+<script src="~/Scripts/URI.js"></script>
+
+<script type="text/javascript">
+    var SearchClientId = "";
+    $(document).ready(function () {
+        $(".grid-mvc").gridmvc();
+        pageGrids.ClientSearchGrid.onRowSelect(function (e) {           
+            SearchClientId = e.row.Clientcode;
+            $('#txtclientcode').val(SearchClientId);
+
+        })
+
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: false
+            });
+            pageGrids.ClientSearchGrid.ajaxify({
+                getData: '../../UserManagement/LoadNxtPageClient?Details=' + '@res',
+                getPagedData: '../../UserManagement/LoadNxtPageClient?Details=' + '@res'
+                });
+        }
+
+    });
+    </script>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://ws.aviva.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="LifeService" targetNamespace="http://ws.aviva.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://10.242.8.73:8086/AVIVAWS/Life?xsd=1" namespace="http://ws.aviva.com/" />
+    </xsd:schema>
+  </types>
+  <message name="uploadPayment">
+    <part name="parameters" element="tns:uploadPayment" />
+  </message>
+  <message name="uploadPaymentResponse">
+    <part name="parameters" element="tns:uploadPaymentResponse" />
+  </message>
+  <message name="paymentCount">
+    <part name="parameters" element="tns:paymentCount" />
+  </message>
+  <message name="paymentCountResponse">
+    <part name="parameters" element="tns:paymentCountResponse" />
+  </message>
+  <message name="paymentReversal">
+    <part name="parameters" element="tns:paymentReversal" />
+  </message>
+  <message name="paymentReversalResponse">
+    <part name="parameters" element="tns:paymentReversalResponse" />
+  </message>
+  <message name="validatePolicyNo">
+    <part name="parameters" element="tns:validatePolicyNo" />
+  </message>
+  <message name="validatePolicyNoResponse">
+    <part name="parameters" element="tns:validatePolicyNoResponse" />
+  </message>
+  <portType name="Life">
+    <operation name="uploadPayment">
+      <input wsam:Action="http://ws.aviva.com/Life/uploadPaymentRequest" message="tns:uploadPayment" />
+      <output wsam:Action="http://ws.aviva.com/Life/uploadPaymentResponse" message="tns:uploadPaymentResponse" />
+    </operation>
+    <operation name="paymentCount">
+      <input wsam:Action="http://ws.aviva.com/Life/paymentCountRequest" message="tns:paymentCount" />
+      <output wsam:Action="http://ws.aviva.com/Life/paymentCountResponse" message="tns:paymentCountResponse" />
+    </operation>
+    <operation name="paymentReversal">
+      <input wsam:Action="http://ws.aviva.com/Life/paymentReversalRequest" message="tns:paymentReversal" />
+      <output wsam:Action="http://ws.aviva.com/Life/paymentReversalResponse" message="tns:paymentReversalResponse" />
+    </operation>
+    <operation name="validatePolicyNo">
+      <input wsam:Action="http://ws.aviva.com/Life/validatePolicyNoRequest" message="tns:validatePolicyNo" />
+      <output wsam:Action="http://ws.aviva.com/Life/validatePolicyNoResponse" message="tns:validatePolicyNoResponse" />
+    </operation>
+  </portType>
+  <binding name="LifePortBinding" type="tns:Life">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="uploadPayment">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="paymentCount">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="paymentReversal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="validatePolicyNo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="LifeService">
+    <port name="LifePort" binding="tns:LifePortBinding">
+      <soap:address location="http://10.242.8.73:8086/AVIVAWS/Life" />
+    </port>
+  </service>
+</definitions>

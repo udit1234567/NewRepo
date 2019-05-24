@@ -1,0 +1,285 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using AIA.Presentation.Helpers
+@{
+
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse5" href="#collapseFive" id="pnlcommunicationDetails" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                Communication Details
+            </a>
+        </h4>
+    </div>
+    <div id="collapse5" class="panel-collapse in">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div>
+                    <h4><b>Phone and Email</b></h4>
+                    <br />
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divMobileno">
+                    <div class="form-group">
+                        <label>Mobile No<span class="mandatory">*</span></label>
+                        @Html.TextBoxFor(a => a.Mobile1, new { @class = "form-control", @id = "txtMobileNo", @maxlength = "10", @onkeypress = "return isNumberKey(event)", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divOfficephone1">
+                    <div class="form-group">
+                        <label>Office Phone 1<span class="mandatory">*</span></label>
+                        @Html.TextBoxFor(a => a.OfficePhone1, new { @class = "form-control", @id = "txtOfficePhone1", @maxlength = "10", @onkeypress = "return isNumberKey(event)", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divOfficephone2">
+                    <div class="form-group">
+                        <label>Office Phone 2</label>
+                        @Html.TextBoxFor(a => a.OfficePhone2, new { @class = "form-control", @id = "txtOfficePhone2", @maxlength = "10", @onkeypress = "return isNumberKey(event)" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divFaxNo">
+                    <div class="form-group">
+                        <label>Fax No</label>
+                        @Html.TextBoxFor(a => a.Fax, new { @class = "form-control", @id = "txtFaxNo", @maxlength = "30", @onkeypress = "return isNumberKey(event)" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divEmail">
+                    <div class="form-group">
+                        <label>Email</label>
+                        @Html.TextBoxFor(a => a.Email, new { @class = "form-control", @id = "txtEmailId", @maxlength = "60" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <br />
+                <div>
+                    <h4><b>Communication Address</b></h4>
+                    <br />
+                </div>
+                <div id="divCommAddress">
+                    @Html.AddressForNew(a => a.objCommunicationAddress)
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <br />
+                <div>
+                    <h4><b>Registratrion Address</b></h4>
+                    <br />
+                </div>
+                <div id="RegAddress">
+                    <div class="col-lg-12 col-sm-12 form-group">
+                        @Html.CheckBoxFor(a => a.IsRegAsCommunication, new { @id = "chkIsRegistrationAddrSame", @onclick = "FetchCommAddressToRegAddr()" })
+                        <label id="lblRegisteredaddress" style="text-align:left;">
+                            Is Registration Address same as Communication Address ?
+                        </label>
+                    </div>
+                    <div id="divRegAddress">
+                        @Html.AddressForNew(a => a.objRegistrationAddress)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <br />
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <input type="button" value="Save" id="btnSaveCommunicationDetails" class="btn btn-default" style="width:100px" onclick="SaveHierarchyCommunicationDetails()">
+                <input type="button" value="Submit" id="btnBasicSubmitDetails" class="btn btn-default" style="width:100px;display:none" onclick="SubmitHierarchyDetails()">
+                <input type="button" value="Cancel" id="btnCancelCommunicationDetails" class="btn btn-default" style="width:100px" onclick="return location.href = '../Home/Index'">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        FetchCommAddressToRegAddr();
+        //$('#objCommunicationAddressddlProvince').prepend($('<option value=\'' + 'A' + '\'>' + 'Select' + '</option>'));
+        //$('#objRegistrationAddressddlProvince').prepend($('<option value=\'\'>Select</option>'));        
+        $('#objCommunicationAddressddlProvince').val('@Model.objCommunicationAddress.State');
+        FillDistrictCommadd('@Model.objCommunicationAddress.State', '@Model.objCommunicationAddress.District', "objCommunicationAddress");
+        FillCityCommadd('@Model.objCommunicationAddress.District', '@Model.objCommunicationAddress.City', "objCommunicationAddress");
+        $('#objRegistrationAddressddlProvince').val('@Model.objRegistrationAddress.State');
+        $('#objRegistrationAddressAddress1').val('@Model.objRegistrationAddress.Address1');
+        $('#objRegistrationAddressAddress2').val('@Model.objRegistrationAddress.Address2');
+        $('#objRegistrationAddressPincode').val('@Model.objRegistrationAddress.Pincode');
+        FillDistrictCommadd('@Model.objRegistrationAddress.State', '@Model.objRegistrationAddress.District', "objRegistrationAddress");
+        FillCityCommadd('@Model.objRegistrationAddress.District', '@Model.objRegistrationAddress.City', "objRegistrationAddress");               
+    });
+    function FetchCommAddressToRegAddr() {
+        if ($("#chkIsRegistrationAddrSame").is(':checked')) {
+            CopyAddressesControlToControlNew('objRegistrationAddress', 'objCommunicationAddress');
+            $("#chkIsRegistrationAddrSame").attr('checked', true);
+        }
+        else {
+            RemoveAddressDetailsNew('objRegistrationAddress');
+            $("#chkIsRegistrationAddrSame").attr('disabled', false);
+        }
+    }
+    var textId;
+    function FillDistrictCommAddress(e) {        
+        clearAllErrors();
+        if (e.id == "objCommunicationAddressddlProvince") {
+            $("#chkIsRegistrationAddrSame").attr('checked', false);
+            RemoveAddressDetailsNew('objRegistrationAddress');
+            $("#chkIsRegistrationAddrSame").attr('disabled', false);
+        }
+        var ProvinceCode = $("#" + e.id).val();
+        if (ProvinceCode != '') {
+            $.post("../Hierarchy/FetchDistrict?ProvinceCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    if (e.id == "objCommunicationAddressddlProvince") {
+                        textId = e.id.substring(0, 23);
+                    }
+                    else if (e.id == "objRegistrationAddressddlProvince") {
+                        textId = e.id.substring(0, 22);
+                    }
+                    else {
+                        //textId = e.id.substring(0, 26);
+                        textId = e.id.substring(0, 22);
+                    }
+                    $('#' + textId + 'ddlDistrict').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                    $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $('#' + textId + 'Pincode').val('');
+                    $.each(data, function (ID, option) {
+                        $('#' + textId + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                    });
+                }
+            });
+        }
+        else {
+            $('#' + textId + 'ddlDistrict').html(""); // clear before appending new list
+            $('#' + textId + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+            $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+            $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+            $('#' + textId + 'Pincode').val("");
+        }
+    }
+    function FillCityCommAddress(e) {
+        clearAllErrors();
+        if (e.id == "objCommunicationAddressddlDistrict") {
+            $("#chkIsRegistrationAddrSame").attr('checked', false);
+            RemoveAddressDetailsNew('objRegistrationAddress');
+            $("#chkIsRegistrationAddrSame").attr('disabled', false);
+        }        
+        var DistrictCode = $("#" + e.id).val();
+        if (DistrictCode != '') {
+            $.post("../Hierarchy/FetchCity?DistrictCode=" + DistrictCode)
+                .done(function (data) {
+                    if (data != null) {
+                        if (e.id == "objCommunicationAddressddlDistrict") {
+                            textId = e.id.substring(0, 23);
+                        }
+                        else if (e.id == "objRegistrationAddressddlDistrict") {
+                            textId = e.id.substring(0, 22);
+                        }
+                        else {
+                            //textId = e.id.substring(0, 26);
+                            textId = e.id.substring(0, 22);
+                        }
+                        $('#' + textId + 'ddlCity').html("");
+                        $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                        $('#' + textId + 'Pincode').val('');
+                        $.each(data, function (ID, option) {
+                            $('#' + textId + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                        });
+                    }
+                });
+        }
+        else {
+            $('#' + textId + 'ddlCity').html("");
+            $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+            $('#' + textId + 'Pincode').val("");
+        }
+
+    }
+    function FillPostalCodeCommAddress(e) {
+        clearAllErrors();
+        if (e.id == "objCommunicationAddressddlCity") {
+            $("#chkIsRegistrationAddrSame").attr('checked', false);
+            RemoveAddressDetailsNew('objRegistrationAddress');
+            $("#chkIsRegistrationAddrSame").attr('disabled', false);
+        }       
+        var CityCode = $("#" + e.id).val();
+        if (CityCode != '') {
+            $.post("../Hierarchy/FetchPostalCode?CityCode=" + CityCode)
+                .done(function (data) {
+                    if (data != null) {
+                        if (e.id == "objCommunicationAddressddlCity") {
+                            textId = e.id.substring(0, 23);
+                        }
+                        else if (e.id == "objRegistrationAddressddlCity") {
+                            textId = e.id.substring(0, 22);
+                        }
+                        else {
+                            //textId = e.id.substring(0, 26);
+                            textId = e.id.substring(0, 22);
+                        }
+                        $('#' + textId + 'Pincode').val(data);
+                    }
+                });
+        }
+        else {
+            $('#' + textId + 'Pincode').val("");
+        }
+    }
+    function FillDistrictCommadd(ProvinceCode, distct, ID) {        
+        clearAllErrors();
+        //$("#chkIsRegistrationAddrSame").attr('checked', false);
+        //RemoveAddressDetailsNew('objRegistrationAddress');
+        //$("#chkIsRegistrationAddrSame").attr('disabled', false);
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.post("../Hierarchy/FetchDistrict?ProvinceCode=" + ProvinceCode)
+                .done(function (data) {
+                    if (data != null) {
+                        $('#' + textName + 'ddlDistrict').html(""); // clear before appending new list
+                        $('#' + textName + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                        $.each(data, function (ID, option) {
+                            $('#' + textName + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                        });
+
+                        $('#' + textName + 'ddlDistrict').val(distct);
+                    }
+                });
+        }
+    }
+    function FillCityCommadd(ProvinceCode, distct, ID) {
+        clearAllErrors();
+        //$("#chkIsRegistrationAddrSame").attr('checked', false);
+        //RemoveAddressDetailsNew('objRegistrationAddress');
+        //$("#chkIsRegistrationAddrSame").attr('disabled', false);
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.post("../Hierarchy/FetchCity?DistrictCode=" + ProvinceCode)
+                .done(function (data) {
+                    if (data != null) {
+                        $('#' + textName + 'ddlCity').html(""); // clear before appending new list
+                        $('#' + textName + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                        $.each(data, function (ID, option) {
+                            $('#' + textName + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                        });
+                        $('#' + textName + 'ddlCity').val(distct);
+                    }
+                });
+        }
+    }
+    function RemoveRegAddSame(e) {        
+        if (e.id == "objCommunicationAddressAddress1" || e.id == "objCommunicationAddressAddress2") {
+            $("#chkIsRegistrationAddrSame").attr('checked', false);
+            RemoveAddressDetailsNew('objRegistrationAddress');
+            $("#chkIsRegistrationAddrSame").attr('disabled', false);
+        }
+    }
+</script>

@@ -1,0 +1,87 @@
+﻿@model AIA.Life.Models.Opportunity.Prospect
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    ViewBag.Title = "SuspectPool";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+
+    @@media screen and (min-width:320px) and (max-width:768px) {
+        .no-more-tables table, thead, tbody, th, td, tr {
+            float: none;
+        }
+    }
+</style>
+
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+      
+        <a href="/Suspect/Suspect" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Lead")</a>
+       
+        <div class="btn btn-info"><b>@Resources.GetLabelName("Lead Pool")</b></div>
+
+    </div>
+</div>
+<br/>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 iGrid" id="divSuspectPoolGrid" >
+    @*@Html.Partial("~/Views/Suspect/PartialSuspectPoolGrid.cshtml", Model)*@
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divPartialModifySuspect" style="display:none">
+    @*@Html.Partial("~/Views/Suspect/PartialModifySuspect.cshtml", Model)*@
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "get",
+            url: '/Suspect/PartialSuspectPoolGrid',
+            type: 'POST',
+            dataType: 'html',
+            contentType: 'application/json; charset=utf-8', success: function (data) {
+                $("#divSuspectPoolGrid").html(data);
+            }
+        });
+    });
+    function SaveProspect() {
+        $.ajax({
+            type: "post",
+            url: '/Prospect/SaveProspect',
+            type: 'POST',
+            data:
+                JSON.stringify({
+                    objProspect: $("#frmModifySuspest").serializeObject()
+                }),
+            //dataType: 'json',
+            dataType: 'html',
+            contentType: 'application/json; charset=utf-8', success: function (data) {
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

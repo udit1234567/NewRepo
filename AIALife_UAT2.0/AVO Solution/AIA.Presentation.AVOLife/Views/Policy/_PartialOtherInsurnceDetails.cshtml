@@ -1,0 +1,277 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+
+    int Index = Model.AssuredIndex;
+    string SubGrid = "DivOtherInsuranceDetalisSUBGrid" + Index;
+    int index = 0;  // Row Index
+    int QuestionCount = 0;
+    int QuestionIndex = 0;
+
+    ViewBag.QuestionIndex1 = -1;
+    string PanleID = "DivPanelOtherInsurance" + Index;
+    string PanleNavigatorheader = "#PanelOtherInsurance" + Index;
+    string PanleNavigator = "PanelOtherInsurance" + Index;
+    string AddButtonID = "btnAddMainOtherInsu" + Index;
+    string UpdateButtonID = "btnUpdateMainOtherInsu" + Index;
+    string CancelButtonID = "btnCancelMainOtherInsu" + Index;
+    string GridDivID = "GrdOtherInsu" + Index;
+    string TableID = "tbladditional" + Index;
+    string jpolicy = "j-policy" + Index;
+    string opolicy = "o-policy" + Index;
+    string yesbtn = "yesbtn" + Index;
+    string Nobtn = "Nobtn" + Index;
+    string head = "head" + Index;
+    string footer1 = "footer1" + Index;
+    string otherpolicy = "other-policy" + Index;
+
+    string PreviousInsuranceDetailsTableID = "divPolicyPreviousDetailsGrid" + Index;
+
+
+    string TableID1 = "tblClaimInfo" + Index;
+    string DivHideShowClaimsInfo = "DivHideShowClaimsInfo" + Index;
+    string DisplayClaimInfo = string.Empty;
+    if (Model.objMemberDetails[Index].AreyouClaimedAnyPolicies == true)
+    { DisplayClaimInfo = "block"; }
+    else { DisplayClaimInfo = "none"; }
+
+}
+
+@helper CustomRowRenderingControl(List<AIA.Life.Models.Common.QuestionsList> lstInsuranceQuestions, int MemberIndex, int QuestionInd, int RowIndex, int SubRowIndex = 0, int SuperSubRowIndex = 0, string IsChild = null, string IsSubChild = null)
+{
+    <style>
+        .question-count {
+            width: 5%;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 9px !important;
+        }
+
+        .question-text {
+            display: inline-block;
+            width: 90%;
+            vertical-align: top;
+                word-break: break-word;
+        }
+    </style>
+int QuestionIndex = QuestionInd;
+foreach (var Questions in lstInsuranceQuestions)
+{
+    ViewBag.QuestionIndex1 = ViewBag.QuestionIndex1 + 1;
+    int i = ViewBag.QuestionIndex1;
+    int AssuredIndex = Model.AssuredIndex;
+    string ParentId = Convert.ToString(MemberIndex) + Convert.ToString(QuestionIndex) + Convert.ToString(Questions.QuestionID);
+    string ChildID = ParentId + "C";
+    string Display = "none";
+    string TableID = "tbladditional" + AssuredIndex;
+    string jpolicy = "j-policy" + AssuredIndex;
+    string opolicy = "o-policy" + QuestionIndex;
+    if (IsSubChild == "True")
+    {
+        SuperSubRowIndex++;
+    }
+    else if (IsChild == "True")
+    {
+        SubRowIndex++;
+    }
+    else
+    {
+        RowIndex++;
+    }
+
+    if (Questions.ControlType == "Radio")
+    {
+        string ClassName = string.Empty;
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "ChildInsurancequestions"; }
+        else { ClassName = "Insurance-questions"; }
+        <div class=@ClassName id=@ParentId>
+
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                <p>
+                    @if (IsSubChild == "True")
+                        {
+                        <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex </span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                        <span class="question-count">@RowIndex.@SubRowIndex </span>
+                        }
+                        else
+                        {
+                        <span class="question-count">@RowIndex</span>
+                        }
+                    <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                </p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 radiobtn-space">
+
+                @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstOtherInsuranceDetails[" + i + "].Answer", "true", Questions.Answer == "true" ? true : false, new { @class = "med-radio-button", id = "rdbtnAnswerTextYes" + MemberIndex + QuestionIndex, onchange = "HideShowChildsInsuranceRadio('" + ChildID + "','" + Questions.Value + "','" + "true" + "')" })  @*AddPolicyLifeAssuredOtherInsuranceRow('" + TableID + "'," + MemberIndex + ")*@
+                <label>@Resources.GetLabelName("Yes")</label>
+                @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstOtherInsuranceDetails[" + i + "].Answer", "false", Questions.Answer == "false" ? true : false, new { @class = "med-radio-button", id = "rdbtnAnswerTextNo" + MemberIndex + QuestionIndex, onchange = "HideShowChildsInsuranceRadio('" + ChildID + "','" + Questions.Value + "','" + "false" + "')" }) @*HidePolicyLifeAssuredOtherInsuranceRow('" + TableID + "'," + MemberIndex + ")*@
+                <label>@Resources.GetLabelName("No")</label>
+
+            </div>
+
+            <div>
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstOtherInsuranceDetails[" + i + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstOtherInsuranceDetails[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+            </div>
+
+
+        </div>
+
+
+        if (Questions.LstQuestionsTypes != null)
+        {
+            if (Questions.LstQuestionsTypes.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(Questions.Answer))
+                {
+                    if (Questions.Answer == Questions.Value)
+                    { Display = "div"; }
+                }
+                <div class="Insurance-subquestion-txt" id=@ChildID style="display:@Display; text-align:right">
+                    <div>
+                        <p>
+                            @if (IsChild == "True")
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, SubRowIndex, 0, "False", "True")
+                            }
+                            else
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, 0, 0, "True", "False")
+                            }
+                        </p>
+                    </div>
+                </div>
+                }
+            }
+
+        }
+
+        else if (Questions.ControlType == "GridView")
+        {
+            string ClassName = string.Empty;
+            if (IsChild == "True" || IsSubChild == "True")
+            { ClassName = "ChildInsurancequestions"; }
+            else { ClassName = "Insurance-questions"; }
+            <div class=@ClassName id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                    <p>
+                        @if (IsSubChild == "True")
+                        {
+                            <span class="question-counts">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                            <span class="question-counts">@RowIndex.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                            <span class="question-counts">@RowIndex</span>
+                        }
+                        <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText) </span >
+                    </p >
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                    
+
+                    @if(Questions.SubControlType == "_PartialAIAwithInsurnceDetails.cshtml")
+                                {
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivAIAwithInsurnceDetails">
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @if(Questions.SubControlType == "_PartialAIAwithoutInsurnceDetails.cshtml")
+                            {
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivAIAwithoutInsurnceDetails">
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @if(Questions.SubControlType == "_PartialAIACompanyClaimsInsurnceDetails.cshtml")
+                    {
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivAIACompanyClaimsInsurnceDetails">
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                        </div>
+                    }
+
+                </div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstOtherInsuranceDetails[" + i + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstOtherInsuranceDetails[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }
+    QuestionIndex++;
+}
+}
+
+
+<div>
+    @if(Model.objMemberDetails[Index].objLstOtherInsuranceDetails != null && Model.objMemberDetails[Index].objLstOtherInsuranceDetails.Count() > 0)
+    {
+        @CustomRowRenderingControl(Model.objMemberDetails[Index].objLstOtherInsuranceDetails.OrderBy(a => a.SequenceNo).ToList(), Index, QuestionIndex, 0, 0, 0, "False", "False")
+        index = index + 1;
+        QuestionCount = QuestionCount + 1;
+    }
+</div>
+
+@*Insurance Questions GridView*@
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var MemberIndex = '@Model.AssuredIndex';
+        $.post("../Policy/LoadPolicyPreviousInsuranceGrid", $("#fromProposalPage").serialize(), function (data) {
+            $("#divPolicyPreviousDetailsGrid" + MemberIndex).html(data);
+            $("#divPolicyPreviousDetailsGrid" + MemberIndex).show();
+        });
+    });
+
+
+    function HideShowChildsInsuranceRadio(ID, Value, ControlValue) {
+        var MemberIndex = '@Model.AssuredIndex';
+        if (Value == ControlValue) {
+            $('#' + ID).show();
+            $("#policyinsurancetable" + MemberIndex).show();
+            $("#policy-table" + MemberIndex).show();
+
+        }
+        else {
+            $('#' + ID).hide();
+           $("#divPolicyPreviousDetailsGrid").hide();
+        }
+
+    }
+
+    //function AddPolicyLifeAssuredOtherInsuranceRow(DivID, MemberIndex) {
+
+    //    $.post("../Policy/LoadPolicyPreviousInsuranceGrid", $("#fromProposalPage").serialize(), function (data) {
+    //        $("#divPolicyPreviousDetailsGrid" + MemberIndex).html(data);
+    //        $("#divPolicyPreviousDetailsGrid" + MemberIndex).show();
+    //    });
+
+    //}
+
+    //function HidePolicyLifeAssuredOtherInsuranceRow(DivID, MemberIndex) {
+
+    //    $("#divPolicyPreviousDetailsGrid" + MemberIndex).hide();
+    //}
+
+</script>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,759 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+@using AIA.CrossCutting;
+@{
+    int lifeCount = 0, tabCount = 0;
+    int _MemberCount = Model.objMemberDetails.Count();
+}
+<link href="~/Content/Styles/under-writer.css" rel="stylesheet" />
+<link href="~/Content/Styles/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Content/Scripts/bootstrap-multiselect.js"></script>
+<style>
+    #pnlMemberLevelDecision .nav-tabs > li > a, .nav-pills > li > a {
+        padding: 11px 52px;
+    }
+
+    #pnlMemberLevelDecision .btns {
+        background-color: #D31145;
+    }
+
+    #pnlMemberLevelDecision .underwritingPool-table {
+        background-color: #f6ccd7 !important;
+    }
+
+    #pnlMemberLevelDecision .tab-content {
+        float: none;
+    }
+</style>
+
+
+<div class="panel panel-default" id="pnlMemberLevelDecision" onchange="SetMandatoryHighlightBlank('pnlMemberLevelDecision', false)">
+    <div class="panel-heading backgroundclr" role="tab" id="headingMLD">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseMLD" aria-expanded="false" aria-controls="collapseMLD">
+                @Resources.GetLabelName("Member Level Decision")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+            </a>
+        </h4>
+    </div>
+    <div id="collapseMLD" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingMLD">
+        <div class="panel-body">
+            <ul class="nav nav-pills">
+
+                @foreach (var lifeTab in Model.ListAssured)
+                {
+                    if (lifeCount == 0)
+                    {
+                        <li class="active">
+                            <a data-toggle="pill" href="#UwAssuredLife_@lifeCount" class="collapsed">
+                                @lifeTab
+                            </a>
+                        </li>
+                    }
+
+                    else
+                    {
+                        <li>
+                            <a data-toggle="pill" href="#UwAssuredLife_@lifeCount" class="collapsed">
+                                @lifeTab
+                            </a>
+                        </li>
+
+                    }
+                    lifeCount++;
+
+
+                }
+
+
+
+            </ul>
+            <div class="tab-content" id="divMemberLevelUWReview">
+                @foreach (var Assured in Model.ListAssured)
+                {
+                    Model.AssuredName = Assured;
+                    Model.AssuredIndex = Model.objMemberDetails.FindIndex(a => a.AssuredName == Assured);
+                    if (tabCount == 0)
+                    {
+                        <div id="UwAssuredLife_@tabCount" class="tab-pane fade in active">
+
+
+                            @Html.Partial("~/Views/Policy/_PartialMemberLevelUWInfo.cshtml", Model)
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="UwAssuredLife_@tabCount" class="tab-pane fade in">
+
+                            @Html.Partial("~/Views/Policy/_PartialMemberLevelUWInfo.cshtml", Model)
+
+                        </div>
+                    }
+
+                    tabCount++;
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-default" id="pnlPolicyLevelDecision" onchange="SetMandatoryHighlightBlank('pnlPolicyLevelDecision', false)">
+    <div class="panel-heading backgroundclr" role="tab" id="headingPLD">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePLD" aria-expanded="false" aria-controls="collapsePLD">
+                @Resources.GetLabelName("Policy Level Decision")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+            </a>
+        </h4>
+    </div>
+    <div id="collapsePLD" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPLD">
+        <div class="panel-body">
+            <div class="col-md-12 form-group">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <label> @Resources.GetLabelName("Underwriting Decision")<span class="mandatory">*</span></label>
+                        @Html.DropDownListFor(a => a.Decision, new SelectList(Model.LstDecision, "ID", "Value", Model.Decision), "Select", new { @id = "ddlPolicylevelDecision", @class = "form-control", @onchange = "OnChangeofPolicylevelDecision()" })
+
+                    </div>
+                    @{ 
+                        DateTime today = DateTime.Now;
+                        int[] exceptionDays = new int[3] { 29, 30, 31 };
+                        if (exceptionDays.Contains(today.Day)) {
+                            today = new DateTime(today.Year, today.Month, 28);
+                        }
+                    }
+                    @if (today.Year > today.AddMonths(-6).Year)
+                    {
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label> @Resources.GetLabelName("Commencement Date")<span class="mandatory">*</span></label>
+                            @Html.iNubeDatePickerFor(a => a.RiskCommencementDate, new { @class = "form-control datepicker", @id = "dtRiskCommencementDate", @maxlength = "10", @Maxdate = today, @MinDate = new DateTime(DateTime.Now.Year,1, 1) })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label> @Resources.GetLabelName("Commencement Date")<span class="mandatory">*</span></label>
+                            @Html.iNubeDatePickerFor(a => a.RiskCommencementDate, new { @class = "form-control datepicker", @id = "dtRiskCommencementDate", @maxlength = "10", @Maxdate = today, @MinDate = today.AddMonths(-6) })
+                        </div>
+                    }
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" id="UWSelect" style="display:none">
+                        <label> @Resources.GetLabelName("Underwriter Name")</label>
+                        @Html.DropDownListFor(a => a.UnderwriterName, new SelectList(Model.LstUWName, "Value", "Text", Model.UnderwriterName), "Select", new { @id = "ddlSelectUW", @class = "form-control" })
+
+
+                    </div>
+                    @*<p class="col-lg-4 col-md-4 col-sm-4 col-xs-12" id="UWPostPone" style="display:none">
+            <label> @Resources.GetLabelName("No of Days")</label>
+            @Html.TextBoxFor(a => a.NoofDays, new { @class = "form-control", @id="txtNoofDays", maxlength = 2 })
+
+
+        </p>*@
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" id="CounterofferQuote" style="display:none">
+                        <input value="Generate Quote" class="btn btn-default uwbtn" type="button" onclick="GenerateQuoteForCounterOffer('@CrossCutting_EncryptDecrypt.Encrypt(Model.QuoteNo)')">
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <label>@Resources.GetLabelName("Remarks")</label>
+                        @Html.TextAreaFor(a => a.UWComments, new { @class = "form-control" })
+                        @*<textarea class="form-control" name="UWComments"></textarea>*@
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="col-md-12 form-group" style="text-align:center;margin-top:3%;" id="DivUWFinalbutton">
+    <input class="btn btn-default btns uwbtn" id="btnSaveUWProposal" type="button" onclick="SaveUWProposal()" value="Save" style="padding-left:25px;padding-right:25px;">
+    <input class="btn btn-default btns uwbtn" id="btnSubmitProposal" type="button" onclick="CheckForAgeChange()" value="Submit" style="padding-left:25px;padding-right:25px;">
+    <input class="btn btn-default btns uwbtn" id="btnCancel" type="button" onclick="UWCancel()" value="Cancel" style="padding-left:25px;padding-right:25px;">
+
+</div>
+
+
+<script type="text/javascript">
+
+    var LstDeviationDecision = @(Html.Raw(Json.Encode(Model.LstDecision)));
+    var MemberCount = parseInt('@_MemberCount');
+
+
+    $(document).ready(function () {
+        SetMandatoryHighlightBlank('pnlMemberLevelDecision',true);
+        SetMandatoryHighlightBlank('pnlPolicyLevelDecision',true);
+
+        $('#multiAdditionalDocument').multiselect();
+        $("#btnSaveProposal").hide();
+        $("#btnModifyProposal").hide();
+        $("#btnPayment").hide();
+        $("#btnQuotePDF").hide();
+       // $('#MedicalFeePaidBy'+index).prop("disabled",false);
+    });
+
+    function LoadProposalHome() {
+        window.location.href = '/Policy/ProposalHome';
+    }
+    function UWCancel() {
+        window.location.href = '/Home/UnderwriterHome';
+    }
+    function LoadAdditionalDocument(index)
+    {
+        //debugger;//12345
+      $('#divMedicalDocument_'+index).find('.multiselect-container').find('input').prop("disabled",false);
+      $('#divNonMedicalDocument_'+index).find('.multiselect-container').find('input').prop("disabled",false);
+      //$('#MedicalFeePaidBy'+index).prop("disabled",false);
+      
+        var documentType = $("#ddlDocument"+index).val();
+        if(documentType=="Medical Document")
+        {
+            $("#divMedicalDocument_"+index).show();
+            $('#multiAdditionalDocument1_'+index).multiselect();
+            $("#DivMultiSelect_"+index).hide();
+            $("#divNonMedicalDocument_"+index).hide();
+
+        }
+        else if (documentType == "Non Medical Document") {
+            $("#divNonMedicalDocument_"+index).show();
+            $('#multiAdditionalDocument2_'+index).multiselect();
+            $("#DivMultiSelect_"+index).hide();
+            $("#divMedicalDocument_"+index).hide();
+        }
+        else {
+            $("#divMedicalDocument_"+index).hide();
+            $("#divNonMedicalDocument_"+index).hide();
+            $("#DivMultiSelect_"+index).show();
+        }
+    }
+    function UpdateDeviationStatus(_index, _DeviationIndex) {
+
+
+        var _MemberStatus = $('#ddlDeviation' + _index+_DeviationIndex).val();
+        var _MemberDeviationID =parseInt( $('#MemberDeviationID' + _index+_DeviationIndex).val());
+
+        $.ajax({
+            url: '/Policy/UpdateMemberLevelDeviation',
+            global: false,
+            type: "POST",
+            data: { Status: _MemberStatus, DeviationID:_MemberDeviationID },
+            success: function (data) {
+                UpdateStatusBasedonDeviationStatus(_index);
+            },
+
+            fail: function (data) {
+                return false;
+            }
+        });
+    }
+
+    function ReLoadUWSettings()
+    {
+
+    }
+
+    function UpdateStatusBasedonDocumentStatus(_index) {
+        var DivID = '#UwAssuredLife_' + _index;
+        var IsAutoReqCase = false;
+        var IsOutStandingDocCase = false;
+        $('#divMemberLevelUWReview').children(DivID).find('.MedicalDocDecision').each(function () {
+
+            if ($(this).val() == "2368") {
+                IsOutStandingDocCase = true;
+            }
+            //else  if ($(this).val() == "AutoRequired") {
+            //    IsAutoReqCase = true;
+            //}
+
+        });
+
+        $('#divMemberLevelUWReview').children(DivID).find('.NonMedicalDocDecision').each(function () {
+
+            if ($(this).val() == "2368") {
+                IsOutStandingDocCase = true;
+            }
+            //  else if ($(this).val() == "AutoRequired") {
+            //    IsAutoReqCase = true;
+            //}
+
+        });
+
+        if (IsAutoReqCase || IsOutStandingDocCase) {
+            $('#ddlUWMemberlevelDecision'+_index+' option').remove();
+            var _Items = "";
+            _Items += '<option Value='+ '' + '>'+'Select' + '</option>';
+            _Items += '<option Value='+ '1177' + '>'+'Outstanding Requirement' + '</option>';
+            $('#ddlUWMemberlevelDecision'+_index ).append(_Items);
+
+        }
+        else{
+            $('#ddlUWMemberlevelDecision'+_index+' option').remove();
+            var _Items = "";
+            _Items += '<option Value='+ '' + '>'+'Select' + '</option>';
+            $.each(LstDeviationDecision, function (ID, option) {
+                _Items += '<option Value='+ option.ID + '>'+option.Value + '</option>';
+            });
+            $('#ddlUWMemberlevelDecision'+_index ).append(_Items);
+        }
+    }
+
+
+    function  UpdateStatusBasedonDeviationStatus(_index) {
+        var DivID = '#UwAssuredLife_' + _index;
+        var IsReferTOSrUWCase = false;
+        $('#divMemberLevelUWReview').children(DivID).find('.MemberDeviation').each(function () {
+
+            if ($(this).val() == "2298") {
+                IsReferTOSrUWCase = true;
+            }
+
+
+        });
+
+        if (IsReferTOSrUWCase) {
+            $('#ddlUWMemberlevelDecision'+_index+' option').remove();
+            var _Items = "";
+            _Items += '<option Value='+ '' + '>'+'Select' + '</option>';
+            _Items += '<option Value='+ '2298' + '>'+'Refer to Underwriter' + '</option>';
+            $('#ddlUWMemberlevelDecision'+_index ).append(_Items);
+            $('#ddlPolicylevelDecision').append(_Items);
+
+        }
+        else{
+            UpdateStatusBasedonDocumentStatus(_index);
+        }
+    }
+
+    function UpdateMemberDecisionOptions(_index)
+    {
+        UpdateStatusBasedonDeviationStatus(_index);
+    }
+
+    function Re_LoadReasons(_index)
+    {
+        //var MemberLevel = $('#ddlUWMemberlevelDecision'+_index).val();
+
+        //$.ajax({
+        //    url: '../Policy/GetReasons',
+        //    global: false,
+        //    type: "POST",
+        //    data: { Decision: MemberLevel },
+        //    success: function (data) {
+
+        //        $('#ddlUWMemberLevelReason option'+_index).remove();
+        //        $('#ddlUWMemberLevelReason'+_index).html('');
+        //        var options = '';
+        //        options += '<option value="Select">Select</option>';
+
+        //        for (var i = 0; i < data.objListReason.length; i++) {
+        //            options += '<option value="' + data.objListReason[i] + '">' + data.objListReason[i] + '</option>';
+        //        }
+        //        $('#ddlUWMemberLevelReason'+_index).append(options);
+
+        //        // UpdateStatusBasedonDeviationStatus(_index);
+        //    },
+
+        //    fail: function (data) { alert('No data found');
+        //        return false;
+        //    }
+        //});
+    }
+
+    function LoadReasons(MemberLevel,_index)
+    {
+
+        //$.ajax({
+        //    url: '../Policy/GetReasons',
+        //    global: false,
+        //    type: "POST",
+        //    data: { Decision: MemberLevel },
+        //    success: function (data) {
+
+        //        $('#ddlUWMemberLevelReason option'+_index).remove();
+        //        $('#ddlUWMemberLevelReason'+_index).html('');
+        //        var options = '';
+        //        options += '<option value="Select">Select</option>';
+
+        //        for (var i = 0; i < data.objListReason.length; i++) {
+        //            options += '<option value="' + data.objListReason[i] + '">' + data.objListReason[i] + '</option>';
+        //        }
+        //        $('#ddlUWMemberLevelReason' + _index).append(options);
+        //        if (MemberLevel == "187" || MemberLevel == "1449")
+        //            $('#ddlUWMemberLevelMedicalCodes' + _index).show();
+        //        // UpdateStatusBasedonDeviationStatus(_index);
+        //    },
+
+        //    fail: function (data) { alert('No data found');
+        //        return false;
+        //    }
+        //});
+    }
+
+    var Index;
+    function DerivePolicylevelDecision(_index)
+    {
+        debugger;
+        //Decline-187 =reason field,
+        //not taken up-1176=reason field,
+        //postpone-1449=reason&Duration,
+        //withdrawn-2299=reason field,
+        //refer underwriter-2298=‘Select underwriter’
+        
+        //$('#ddlUWMemberLevelReason'+_index).val();
+        Index = _index;
+        if(_index >= 0)
+        {
+            var MemberLevel = $('#ddlUWMemberlevelDecision'+_index).val();
+            if(MemberLevel==187||MemberLevel== 1176||MemberLevel== 2299)
+            {
+                //ddlUWMemberLevelReason need to be enabled
+                LoadReasons(MemberLevel,_index);
+                $('#ddlUWReason_' + _index).show();
+
+                //$('#ddlUWSelect').hide();
+                $('#ddlUWMonth_' + _index).hide();
+                $('#dtDecisionDt'+_index).prop('disabled',true);
+                //$('.multiselect-container').find('input').prop('disabled',false);
+            }
+            else if(MemberLevel==1449)
+            {
+                $('#ddlUWReason_' + _index).show();
+                $('#ddlUWMonth_' + _index).show();
+                $('#ddlUWMonth_' + _index).prop('disabled',false);
+                //alert($('#txtUWMemberLevelMonth'+_index));
+                $('#txtUWMemberLevelMonth'+_index).prop('disabled',false);
+
+            }
+            else if(MemberLevel==2298)
+            {
+                //$('#ddlUWSelect').show();
+                $('#ddlUWReason_' + _index).hide();
+                $('#ddlUWMonth_' + _index).hide();
+            }
+            else
+            {
+                $('#ddlUWSelect').hide();
+                $('#ddlUWReason_' + _index).hide();
+                $('#ddlUWMonth_' + _index).hide();
+                $('#dtDecisionDt'+_index).prop('disabled',false);
+            }
+
+            if (MemberLevel == 1449 || MemberLevel == 187) {
+                $('#ddlUWMedicalCodes_' + _index).show();
+            }
+            else {
+                $('#ddlUWMedicalCodes_' + _index).hide();
+            }
+            if(MemberLevel =='186' || MemberLevel =='185'){
+                $('#ApplyLoadingButtion_'+_index).attr('disabled',false);
+            }
+            else{
+                $('#ApplyLoadingButtion_'+_index).attr('disabled',true);
+            }
+        }
+        var DecisionList = [];
+        for(var i=0; i<MemberCount;i++)
+        {
+            var MemberLevelDecision = $('#ddlUWMemberlevelDecision'+i).val();
+
+            var Name= $('#hdnAssuredName'+i).val();
+
+            DecisionList.push({AssuredName: Name, Decision: MemberLevelDecision});
+
+        }
+        $.ajax({
+            url: '/Policy/DerivePolicyLevelDecision',
+            global: false,
+            type: "POST",
+            data: { MemberDecisions: DecisionList},
+            success: function (data) {
+                if(data.Message = "Success")
+                {
+                    $('#ddlPolicylevelDecision option').remove();
+                    var _Items = "";
+                    _Items += '<option Value='+ '' + '>'+'Select' + '</option>';
+                    if( data.ResultText != null || data.ResultText !='null'|| data.ResultText !='')
+                    {
+                        _Items += '<option Value='+ data.Result + '>'+data.ResultText + '</option>';
+                    }
+                    $('#ddlPolicylevelDecision' ).append(_Items);
+                    if( data.Result =='2298')
+                    {
+                        $('#UWSelect').show();
+                        $('#CounterofferQuote').hide();
+                    }
+                    else if( data.Result =='186')
+                    {
+                        $('#CounterofferQuote').show();
+                        $('#UWSelect').hide();
+
+                    }
+                    else if( data.Result =='1449')
+                    {
+                        // $('#UWPostPone').show();
+                        $('#CounterofferQuote').hide();
+                        $('#UWSelect').hide();
+                    }
+                    else{
+                        $('#UWSelect').hide();
+                        $('#CounterofferQuote').hide();
+                    }
+                }
+                else{
+                    $('#ddlPolicylevelDecision  option').remove();
+
+                }
+            },
+
+            fail: function (data) {
+                return false;
+            }
+        });
+    }
+
+    function GetGridIndex(DivID) {
+        var _index = 0;
+        var HasData= false;
+        $("#"+DivID+" tbody").find("tr").each(function (index) {
+            _index = index;
+            HasData=true;
+        });
+        if(HasData)
+        {
+            _index=  _index+1;
+        }
+        return _index;
+    }
+    function AddDocuments(index)
+    {
+    var fullDate = new Date();
+    var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : '0' + (fullDate.getMonth()+1);
+    var currentDate = fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+        var _index= parseInt(index);
+        var documentType = $("#ddlDocument"+index).val();
+
+        if(documentType=="Medical Document")
+        {
+            var _value= $('#multiAdditionalDocument1_'+index).val();
+            if(_value != undefined  &&_value != null )
+            {
+                var _gridID="MedicalGrid_"+index;
+                var _gridIndex= GetGridIndex(_gridID);
+                for( var j=0; j<_value.length;j++)
+                {
+                    var Row_ID="MedicalGridRow_"+_gridIndex;
+                    var _ddlStatus="ddlStatusMedical"+index+_gridIndex;
+                    var _documentDate = "divdtDocReceivedDate" +index+_gridIndex;
+                    var  newRow = "<tr  id='" + Row_ID + "'>" +
+                 "<td>"+"<span class='AditionalDocuments'>* </span>"+_value[j]+" <input type='hidden' class='form-control'  name='objMemberDetails["+index+"].ObjUwDecision.lstUWMedicalDocument["+_gridIndex+"].Document' value='"+_value[j]+"' />"+
+                 "<input type='hidden' class='form-control'  name='objMemberDetails["+index+"].ObjUwDecision.lstUWMedicalDocument["+_gridIndex+"].IsAdded' value='"+'True'+"' /> </td>" +
+                  "<td></td>"+
+                 "<td><select class='form-control MedicalDocDecision'  id=\'" + _ddlStatus + "\' name='objMemberDetails["+index+"].ObjUwDecision.lstUWMedicalDocument["+_gridIndex+"].Status'  onchange=UpdateMemberDecisionOptions('" + index + "')><option>Select</option></select></td>" +
+                 "<td>" +
+                 "<div id=\'" + _documentDate + "\' class='input-group date' data-date-format='DD/MM/YYYY'><input class='form-control datepicker input-validation-error' data-role='htmlDatePicker' data-val='true' data-val-date='The field DateTime must be a date.' id='dtDocReceivedDate"+index+_gridIndex+"' value='"+currentDate+"' name='objMemberDetails["+index+"].ObjUwDecision.lstUWMedicalDocument["+_gridIndex+"].DateTime' type='text' value='' aria-describedby='dtDocReceivedDate"+index+_gridIndex+"-error'><span class='input-group-addon' style='padding:0px'><i class='fa fa-calendar'></i></span></div></td>"+
+
+                  "<td><input type='text' class='form-control'  name='objMemberDetails["+index+"].ObjUwDecision.lstUWMedicalDocument["+_gridIndex+"].Remarks' /></td>" +
+
+                 +"</tr>";
+
+                    $('#MedicalGrid_'+index+' tbody:last').append(newRow);
+                    $(function () { $('#divdtDocReceivedDate' +index+_gridIndex).datetimepicker({format: 'DD/MM/YYYY', widgetPositioning:{horizontal: 'auto',vertical: 'bottom'},useCurrent: false,minDate:'12/21/1918',maxDate:'12/21/2099'}); });// DatePicker
+                    var items = "";
+                    items += "<option Value='" + '2368' + "'>" + 'Outstanding Requirement' + "</option>";
+                    items += "<option Value='" + '2369' + "'>" + 'Waveoff' + "</option>";
+                    items += "<option Value='" + '2370' + "'>" + 'Received' + "</option>";
+                    $("#" + _ddlStatus).append(items);
+                    //
+                    _gridIndex=_gridIndex+1;
+                }
+            }
+
+        }
+        else if(documentType=="Non Medical Document"){
+            var _value= $('#multiAdditionalDocument2_'+index).val();
+            if(_value != undefined  &&_value != null )
+            {
+                var _gridID="NonMedicalGrid_"+index;
+                var _gridIndex= GetGridIndex(_gridID);
+                for( var j=0; j<_value.length;j++)
+                {
+
+                    var Row_ID="NonMedicalGridRow_"+_gridIndex;
+                    var _ddlStatus="ddlStatusNonMedical"+index+_gridIndex;
+                    var _documentDate = "divdtProspectDOB" +index+_gridIndex;
+                    var  newRow = "<tr  id='" + Row_ID + "'>" +
+                 "<td>"+"<span class='AditionalDocuments'>* </span>"+_value[j]+" <input type='hidden' class='form-control'  name='objMemberDetails["+index+"].ObjUwDecision.lstUWNonMedicalDocument["+_gridIndex+"].Document' value='"+_value[j]+"' />"+
+                  "<input type='hidden' class='form-control'  name='objMemberDetails["+index+"].ObjUwDecision.lstUWNonMedicalDocument["+_gridIndex+"].IsAdded' value='"+'True'+"' /> </td>" +
+                  "<td></td>"+
+                 "<td><select class='form-control NonMedicalDocDecision'  id=\'" + _ddlStatus + "\'  name='objMemberDetails["+index+"].ObjUwDecision.lstUWNonMedicalDocument["+_gridIndex+"].Status'   onchange=UpdateMemberDecisionOptions('" + index + "')><option>Select</option></select></td>" +
+                 "<td><div id=\'" + _documentDate + "\' class='input-group date' data-date-format='DD/MM/YYYY'><input class='form-control datepicker input-validation-error' data-role='htmlDatePicker' data-val='true' data-val-date='The field DateTime must be a date.' id='dtProspectDOB"+index+_gridIndex+"' value='"+currentDate+"' name='objMemberDetails["+index+"].ObjUwDecision.lstUWNonMedicalDocument["+_gridIndex+"].DateTime' type='text' value='' aria-describedby='dtDocReceivedDate"+index+"-error'><span class='input-group-addon' style='padding:0px'><i class='fa fa-calendar'></i></span></div></td>"+// DatePicker
+                  "<td><input type='text' class='form-control'  name='objMemberDetails["+index+"].ObjUwDecision.lstUWNonMedicalDocument["+_gridIndex+"].Remarks' /></td>" +
+                 +"</tr>";
+
+                    $('#NonMedicalGrid_'+index+' tbody:last').append(newRow);
+                    $(function () { $('#divdtProspectDOB' +index+_gridIndex).datetimepicker({format: 'DD/MM/YYYY', widgetPositioning:{horizontal: 'auto',vertical: 'bottom'},useCurrent: false,minDate:'12/21/1918',maxDate:'12/21/2099'}); });
+                    //
+                    var items = "";
+                    items += "<option Value='" + '2368' + "'>" + 'Outstanding Requirement' + "</option>";
+                    items += "<option Value='" + '2369' + "'>" + 'Waive' + "</option>";
+                    items += "<option Value='" + '2370' + "'>" + 'Received' + "</option>";
+                    $("#" + _ddlStatus).append(items);
+                    //
+                    _gridIndex=_gridIndex+1;
+                }
+            }
+        }
+
+    }
+
+    function displayHistoryDetails(id) {
+        var historyid = "#" + id + "-documentslist";
+        $('.history-timeline').children().find('.history-proposal-details').removeClass('history-heighlight-details');
+        $('.history-panel-details>div').hide();
+        $("#" + id).find('.history-proposal-details').addClass('history-heighlight-details');
+        $(historyid).toggle();
+    }
+
+
+    function ShowLoadingInfo(memberid)
+    {
+        $.ajax({
+            url: '/Policy/FetchLoadigInfo',
+            global: false,
+            type: "POST",
+            data: { MemberID: memberid},
+            success: function (data) {
+                $('#DivLoading').html(data);
+                $("#applyLoading").modal("show");
+            },
+
+            fail: function (data) {
+                return false;
+            }
+        });
+    }
+
+    function SaveUWProposal()
+    {
+        //debugger;
+        EnableRiskInformation();
+        //$('#ddlUWMemberRelationWithProposer').prop('disabled', false);
+        //if(ValidateUWSectionDetails('') != false)
+        //{
+        FetchSelectedMedicalCode();
+        $.post("../Policy/SaveUWRemarks", $("#fromProposalPage").serialize(), function (data) {
+            if (data.Message == 'Success') {
+                $('#QuoteModalBody').empty();
+                var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                var Message = '<p class="text-center"> Proposal has been  Saved Successfully </p>';
+                $('#QuoteModalBody').append(Image);
+                $('#QuoteModalBody').append(Message);
+                $("#QuoteModal").modal("show");
+            }
+            else {
+                $('#QuoteModalBody').empty();
+                var Image = '<img class="Img-align" src="../Images/cancel1.png" />'
+                var Message = '<p class="text-center"> Some Error Occured</p>';
+                $('#QuoteModalBody').append(Image);
+                $('#QuoteModalBody').append(Message);
+                $("#QuoteModal").modal("show");
+            }
+            DisableRiskInformation();
+        });
+    }
+
+    //}
+    function CheckForAgeChange() {
+        clearAllErrors();
+        //$('#ddlUWMemberRelationWithProposer').prop('disabled', false);
+        FetchSelectedMedicalCode();
+        if (ValidateUWSectionDetails('') != false) {
+            EnableRiskInformation();
+            var Message = '';
+            var Duration = $('#txtUWMemberLevelMonth0').val();
+            var RefferedUnderwriterName = $('#ddlSelectUW option:selected').text();
+            $('#txtProposalNo').prop('disabled', false);
+            $('#txtproposerEmail').prop('disabled', false);
+            $('#txtMobileNo').prop('disabled', false);
+            $('#txtOtherMobileNo').prop('disabled', false);
+            $('#txtproposerEmail').prop('readonly', true);
+            $('#txtMobileNo').prop('readonly', true);
+            $('#txtOtherMobileNo').prop('readonly', true);
+            $.post("../Policy/CheckAgeChangeForMembers", $("#fromProposalPage").serialize(), function (data) {
+                
+                if (data.WarningMessage != null && data.WarningMessage != "") {
+                    $('#AgeChangeModalBody').empty();
+                    var Message = '<p class="text-center"> ' + data.WarningMessage + '</p>';
+                    var Image = '<img class="Img-align" src="../Images/warning1.png" />'
+                    $('#AgeChangeModalBody').append(Image);
+                    $('#AgeChangeModalBody').append(Message);
+                    $("#AgeChangeModal").modal("show");
+                }
+                else {
+                    $('#QuoteModalBody').empty();
+                    var Image = "";
+                    if (data.ErrorMessage === null || data.ErrorMessage === "") {
+                        switch (data.Decision) {
+                            case "184"://Accept
+                            case "185": // Accept with loading
+                                Image = '<img class="Img-align" src="../Images/checked1.png" />';
+                                Message = '<p class="text-center">The Proposal is Accepted - Policy number ' + data.ProposalNo + '</p>';
+                                break;
+                            case "186":// Counter Offer
+                                Image = '<img class="Img-align" src="../Images/checked1.png" />';
+                                Message = '<p class="text-center">The proposal is Sent to Wealth Planner with Counter Offer</p>';
+                                break;
+                            case "187":// Decline
+                                Image = '<img class="Img-align" src="../Images/checked1.png" />';
+                                Message = '<p class="text-center">The proposal is declined - Refund Amount Initiated</p>';
+                                break;
+                            case "1176":// Not Taken Up
+                                Image = '<img class="Img-align" src="../Images/checked1.png" />';
+                                Message = '<p class="text-center">The Proposal is Not Taken Up - Refund Amount Initiated</p>';
+                                break;
+                            case "1177":// Outstanding Requirement
+                                Image = '<img class="Img-align" src="../Images/checked1.png" />';
+                                Message = '<p class="text-center">The proposal is Sent to Wealth Planner for Pending Requirements</p>';
+                                break;
+                            case "1449":// Postpone
+                                Image = '<img class="Img-align" src="../Images/checked1.png" />';
+                                Message = '<p class="text-center">The Proposal is Postponed for ' + Duration + ' month duration - Refund Amount Initiated</p>';
+                                break;
+                            case "2299":// Withdrawn
+                                Image = '<img class="Img-align" src="../Images/checked1.png" />';
+                                Message = '<p class="text-center">The Proposal is Withdrawn - Refund Amount Initiated</p>';
+                                break;
+                            case "2298":// Refer to Underwriter
+                                Image = '<img class="Img-align" src="../Images/checked1.png" />';
+                                Message = '<p class="text-center">The proposal is referred to ' + RefferedUnderwriterName + ' Underwriter</p>';
+                                break;
+
+                        }
+                        $('#QuoteModalBody').append(Image);
+                        $('#QuoteModalBody').append(Message);
+                        $("#QuoteModal").modal("show");
+                    }
+                    else {
+                        $('#QuoteModalBody').empty();
+                        var Message = '<p class="text-center"> ' + data.ErrorMessage + '</p>';
+                        var Image1 = '<img class="Img-align" src="../Images/cancel1.png" />';
+                        $('#QuoteModalBody').append(Image1);
+                        $('#QuoteModalBody').append(Message);
+                        $("#QuoteModal").modal("show");
+                    }
+                    DisableRiskInformation();
+                }
+            });
+        }
+    }
+    
+
+</script>

@@ -1,0 +1,32 @@
+﻿
+
+
+
+<ul class="dropdown-menu dropdown-menu-default">
+    @*<li>
+        <a href="javascript:void(0);" onclick="javascript:window.location.href = '@Url.Action("ChangePassword", "UserManagement")'">
+            <i class="icon-lock"></i>Change Password
+        </a>
+    </li>*@
+    <li>
+        <a href="javascript:void(0);" onclick="Logout();">
+            @* <a href="login.html">*@
+            <i class="icon-key"></i>Log Out
+        </a>
+    </li>
+    @*<li>
+        <a href="javascript:void(0);" onclick="javascript:window.location.href = '@Url.Action("ChangePassword", "UserManagement")'">
+            <i class="icon-lock"></i>Change Password</a>
+    </li>
+    <li>
+        <a href="javascript:void(0);" onclick="Logout();">
+    
+            <i class="icon-key"></i>Log Out</a>
+    </li>*@
+</ul>
+<script type="text/javascript">
+
+    function Logout() {
+        window.location = "../../Account/LogOff";
+    }
+</script>

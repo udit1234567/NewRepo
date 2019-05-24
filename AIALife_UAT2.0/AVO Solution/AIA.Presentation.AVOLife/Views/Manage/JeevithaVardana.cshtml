@@ -1,0 +1,1490 @@
+﻿@{
+    ViewBag.Title = "JeevithaVardhana";
+    Layout = "~/Views/Shared/AIA/_Layout.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
+<style>
+    .backgroundclr {
+        color: #ffffff !important;
+        background-color: #fbb055 !important;
+        border: none !important;
+    }
+
+    .marginTop 
+        margin-top: 30px;
+    }
+
+    .displayNone {
+        display: none;
+    }
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+        color: #ffffff !important;
+        background-color: #fbb055 !important;
+    }
+
+    .textAlign {
+        text-align: center !important;
+    }
+
+    .thQuestions {
+        border-bottom-color: snow !important;
+        padding-top: 40px !important;
+        padding-left: 350px !important;
+        font-weight: bold !important;
+    }
+
+    .thBold {
+        font-weight: bold !important;
+    }
+</style>
+<br />
+<div class="container demo">
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+                        Proposal Details
+                        <img src="~/Content/iNube/Images/portlet-expand-icon-white.png" style="float: right;" />
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Proposal No:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Plan Name:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option>Jeevitha Vardana</option>
+                                <option>Family Plus</option>
+                            </select>
+                        </div>
+                        @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Term:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option></option>
+                            </select>
+                        </div>*@
+                    </div>
+                    @*<div class="row" style="text-align: center;">
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Save</a>
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Cancel</a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+                        Agent Details
+                         <img style="float: right;" src="~/Content/iNube/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Agent Code:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Agent Name:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Branch Code:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Branch Name:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group"></div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group"></div>
+                    </div>
+                    @*<div class="row" style="text-align: center;">
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Save</a>
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Cancel</a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+
+                        Proposer Details
+                         <img style="float: right;" src="~/Content/iNube/Images/portlet-expand-icon-white.png">
+
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Existing client:</label>
+                            <label class="radio-inline"><input type="radio" name="optradio" id="showE">Yes</label>
+                            <label class="radio-inline"><input type="radio" name="optradio" id="hideE">No</label>
+                        </div>
+                        <div class="row displayNone" id="clientE">
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                <a href="#" class="btn btn-info backgroundclr" role="button">Client search</a>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Customer Type:</label>
+                            <select disabled class="form-control">
+                                <option>Individual</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Title:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option>Mr.</option>
+                                <option>Ms.</option>
+                                <option>Mrs.</option>
+                                <option>Mx.</option>
+                                <option>Dr.</option>
+                                <option>Prof.</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">First Name:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Middle Name:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Last Name:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Date of Birth:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Age Next Birthday:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Gender:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Transgender</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Martial Status:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option>Single</option>
+                                <option>Married</option>
+                                <option>Divorced</option>
+                                <option>Widowed</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Old NIC No:</label>
+                            <input type="text" class="form-control">
+
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">New NIC No:</label>
+                            <input type="text" class="form-control">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Occupation:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Workplace Name:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Monthly Income:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Mobile No:</label>
+                            <input type="text" class="form-control">
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Res/Office Phone:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Email:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-12 h4">Communication Address:</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="exampleTextarea">Address 1:</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="exampleTextarea">Address 2</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Pincode:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">City/Town:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">District:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Province:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <p class="col-md-4 col-sm-4 col-xs-12 col-lg-4 h4">Permanent Address:</p>
+                        <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
+                            <label><input type="checkbox" value="">Same as above</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="exampleTextarea">Address 1:</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="exampleTextarea">Address 2</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Pincode:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">City/Town:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">District:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Province:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    @*<div class="row" style="text-align: center;">
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Save</a>
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Cancel</a>
+                        </div>*@
+
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingFour">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+
+                        Life Assured
+                        <img style="float: right;" src="~/Content/iNube/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                <div class="panel-body">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a data-toggle="pill" href="#member">Member Details</a></li>
+                        <li><a data-toggle="pill" href="#lifestyle">LifeStyle</a></li>
+                        <li><a data-toggle="pill" href="#familybck">Family Background</a></li>
+                        <li><a data-toggle="pill" href="#">Other Questions</a></li>
+                        <li><a data-toggle="pill" href="#">Other Insurance</a></li>
+                        
+
+
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="member" class="tab-pane fade in active">
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Existing client:</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="showM">Yes</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="hideM">No</label>
+                                </div>
+                                <div class="displayNone" id="clientM">
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                        <a href="#" class="btn btn-info backgroundclr" role="button">Client search</a>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="sel1">Relation with Proposer:</label>
+                                    <select class="form-control">
+                                        <option>--Select--</option>
+                                        <option>Self</option>
+                                        <option>Spouse</option>
+                                        <option>Son</option>
+                                        <option>Daughter</option>
+                                        <option>Father</option>
+                                        <option>Mother</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="sel1">Title:</label>
+                                    <select class="form-control">
+                                        <option>--Select--</option>
+                                        <option>Mr.</option>
+                                        <option>Ms.</option>
+                                        <option>Mrs.</option>
+                                        <option>Mx.</option>
+                                        <option>Dr.</option>
+                                        <option>Prof.</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">First Name:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Middle Name:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Last Name:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Date of Birth:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Age Next Birthday:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="sel1">Gender:</label>
+                                    <select class="form-control">
+                                        <option>--Select--</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Transgender</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="sel1">Martial Status:</label>
+                                    <select class="form-control">
+                                        <option>--Select--</option>
+                                        <option>Single</option>
+                                        <option>Married</option>
+                                        <option>Divorced</option>
+                                        <option>Widowed</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Old NIC No:</label>
+                                    <input type="text" class="form-control">
+
+
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">New NIC No:</label>
+                                    <input type="text" class="form-control">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="sel1">Occupation:</label>
+                                    <select class="form-control">
+                                        <option>--Select--</option>
+                                        <option></option>
+                                        <option></option>
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Workplace Name:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Monthly Income:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Mobile No:</label>
+                                    <input type="text" class="form-control">
+
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Res/Office Phone:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Email:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label><input type="checkbox" style="margin-right: 10px;margin-left: -10px;" value="">Do you have/had a Life Insurance policy with any Insurance company?</label>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label><input type="checkbox" style="margin-right: 10px;margin-left: -10px;" value="">has there been any life proposal declined earlier?</label>
+                            </div>
+                            <div class="row">
+                                <p class="col-md-12 h4" style="margin-top: 10px;">Address:</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label class="checkbox-inline"><input type="checkbox" name="optradio">Same as Proposer Communication Address</label>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label class="checkbox-inline"><input type="checkbox" name="optradio">Same as Proposer Permanent Address</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Address 1:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Address 2:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Pincode:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">City/Town:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">District:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Province:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <br />
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="thBold">Life Assured Name</th>
+                                        <th class="thBold">Relation</th>
+                                        <th class="thBold">Date of Birth</th>
+                                        <th class="thBold">Gender</th>
+                                        <th class="thBold">View Details</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>LA1</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><a href="#">View</a></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>LA2</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><a href="#">View</a></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>LA3</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><a href="#">View</a></td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            @*<div class="row" style="text-align: center;">
+                                    <a href="#" class="btn btn-info backgroundclr" role="button">Save</a>
+                                    <a href="#" class="btn btn-info backgroundclr" role="button">Cancel</a>
+                                </div>*@
+                        </div>
+                        <div id="lifestyle" class="tab-pane fade">
+                            <h3>LifeStyle</h3>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Height:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Weight:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Tobacco Consumption:</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="showT">Yes</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="hideT">No</label>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                </div>
+                            </div>
+                            <div class="row displayNone" id="yesT">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="sel1">Type:</label>
+                                    <select class="form-control">
+                                        <option>--Select--</option>
+                                        <option></option>
+                                        <option></option>
+                                        <option></option>
+                                        <option></option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Quantity:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Since When:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Alcohol Consumption:</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="showA">Yes</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="hideA">No</label>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                </div>
+                            </div>
+                            <div class="row displayNone" id="yesA">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="sel1">Type:</label>
+                                    <select class="form-control">
+                                        <option>--Select--</option>
+                                        <option>Spirits</option>
+                                        <option>Wine</option>
+                                        <option>Beer</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Quantity:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="usr">Since When:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            @*<div class="row">
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group marginTop">
+                                        <label for="usr">Narcotics Consumption:</label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" id="showN">Yes</label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" id="hideN">No</label>
+                                    </div>
+                                    <div id="yesN" class="displayNone">
+                                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                            <label for="usr">Quantity:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                            <label for="usr">Since When:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                </div>*@
+                            <div class="row">
+
+                                <div class="col-md-6 form-group">
+                                    <label for="usr">Intention of hazardous Occupation:</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="showH">Yes</label>
+                                    <label class="radio-inline"><input type="radio" name="optradio" id="hideH">No</label>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                                </div>
+                                <div class="col-md-2 form-group">
+                                </div>
+
+                            </div>
+                            <div class="row displayNone" id="yesH">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                </div>
+                            </div>
+                            <br />
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="thBold">Assured Name</th>
+                                        <th class="thBold">Plan Premium</th>
+                                        <th class="thBold">Rider 1</th>
+                                        <th class="thBold">Rider 2</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            @*<div class="row" style="text-align: center;">
+                                    <a href="#" class="btn btn-info backgroundclr" role="button">Save</a>
+                                    <a href="#" class="btn btn-info backgroundclr" role="button">Cancel</a>
+                                </div>*@
+                        </div>
+                        <div id="familybck" class="tab-pane fade">
+                            <h3>Family Background</h3>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="sel1">Father:</label>
+                                    <select class="form-control" id="mySelect" name="serviceChoice">
+                                        <option>--Select--</option>
+                                        <option value="0">Living</option>
+                                        <option value="1">Deceased</option>
+                                    </select>
+                                </div>
+                                <div id="deathDetailsF" class="displayNone">
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                        <label for="usr">Age at Death:</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                        <label for="usr">Cause of Death:</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+
+                                </div>
+                                <div class="displayNone" id="ageDetailsF">
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                        <label for="usr">Current Age:</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                        <label for="sel1">Status of Health:</label>
+                                        <select class="form-control">
+                                            <option>--Select--</option>
+                                            <option>Healthy</option>
+                                            <option>Unhealthy</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <label for="sel1">Mother:</label>
+                                    <select class="form-control" id="mySelectM" name="serviceChoiceM">
+                                        <option>--Select--</option>
+                                        <option value="2">Living</option>
+                                        <option value="3">Deceased</option>
+                                    </select>
+                                </div>
+                                <div id="deathDetailsM" class="displayNone">
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                        <label for="usr">Age at Death:</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                        <label for="usr">Cause of Death:</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="displayNone" id="ageDetailsM">
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                        <label for="usr">Current Age:</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                        <label for="sel1">Status of Health:</label>
+                                        <select class="form-control">
+                                            <option>--Select--</option>
+                                            <option>Healthy</option>
+                                            <option>Unhealthy</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="col-md-12 form-group">
+                                <label style="margin-left: 10px;"><input type="checkbox" style="margin-right: 10px;" value="">Any of your family member (Father, Mother, Brother or Sister)suffered/suffering from Diabetes/Hypertension/Cancer/Heart Disease/Kidney Disease/Stroke/Hereditary disorder/Mental Illness?</label>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label style="margin-left: 10px;"><input type="checkbox" style="margin-right: 10px;" value="">Has there been a death in any members of your family below the age of 60 years?</label>
+                            </div>
+                            <br />
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="thBold">Assured Name</th>
+                                        <th class="thBold">Plan Premium</th>
+                                        <th class="thBold">Rider 1</th>
+                                        <th class="thBold">Rider 2</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+
+                            @*<div class="row" style="text-align: center;">
+                                    <a href="#" class="btn btn-info backgroundclr" role="button">Save</a>
+                                    <a href="#" class="btn btn-info backgroundclr" role="button">Cancel</a>
+                                </div>*@
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <label style="margin-left: 15px;"><input type="checkbox" style="margin-right: 10px;" value="" id="chkcriticalillness" onclick="ShowChildrenDetails()">Benefit cover required for children?</label>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divChildrenDetails" style="display:none">
+            <div class="panel-heading backgroundclr" role="tab" id="headingSix">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+
+                        Children Details
+                         <img style="float: right;" src="~/Content/iNube/Images/portlet-expand-icon-white.png">
+                    </a>
+
+                </h4>
+            </div>
+            <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Relation with Proposer:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option>Self</option>
+                                <option>Spouse</option>
+                                <option>Son</option>
+                                <option>Daughter</option>
+                                <option>Father</option>
+                                <option>Mother</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">First Name:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Middle Name:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Last Name:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Date of Birth:</label>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Gender:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Transgender</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                        </div>
+                    </div>
+                    @*<div class="row" style="text-align: center;">
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Save</a>
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Cancel</a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingFive">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+
+                        Medical History
+                         <img style="float: right;" src="~/Content/iNube/Images/portlet-expand-icon-white.png">
+
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <colgroup span="2"></colgroup>
+                        <colgroup span="2"></colgroup>
+                        <tr>
+
+                            <td class="thQuestions">Questionaries</td>
+                            <th scope="colgroup" class="textAlign">Main Life</th>
+                            <th scope="colgroup" class="textAlign">Spouse</th>
+                            <th colspan="3" scope="colgroup" class="textAlign">Child</th>
+                        </tr>
+                        <tr>
+
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col">1</th>
+                            <th scope="col">2</th>
+                            <th scope="col">3</th>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">1.Have you/your child visited a doctor in the last 3 years?</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2.Have you/your child ever been subjected to any medical condition,<br /> illness or injury which has already affected your child's breath or any do <br /> so in the future?</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3.Have you/your child ever undergone or been advised to under go an<br /> operation, X-ray, medical check-up or investigation at a hospital or elsewhere? </th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4.Are you/your child at present receiving medical treatment or taking any<br /> medicine or drugs, or have knowledge of any impending medical or<br /> surgical tests or treatment?</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5.Have you/your child ever had an illness, accident or injury requiring an <br /> overnight stay in hospital?</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6.Have you/your dependents ever been in a state of anxiety, depression or had any mental, nervous, neurological disorder?</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">7.Have you/your child ever been physically disabledin ny manner or had an defect due to injury or disease?If so give details </th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">8.Do you hve/does your child has any physical disability, deformity or impairment?</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">9.Have you remained absent from work on grounds of ill health during the last three years for more than three consecutive days?</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">10.Have you/your child ever suffered from or been treated for </th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">(a) Ailments of the heart, circulatory problems, high blood pressure, stroke</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">(b) Diabetes, ailments of kidney's genito-urinary system, eyes, cars</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">(c) Ailments of the brain, central nervous system or any mental illness</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">(d) Cancer, cyst, tumour or blood cancers</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">(e) Multiple Sclerosis, Arthritis, rheumatism</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">(f) Hepatitis, AIDS or an AIDS related conditin or surgical tests and treatment</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">(g) Respiratory or lung disease such as asthma, brochchitis, persistent cough</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">(h) Ailnments of digestive system, gall bladder or liver such as actual or suspected ulcer, bleeding from bowel, recurrent indigestion, gall stones, hernia</th>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                            <td class="textAlign"><input type="checkbox" value=""></td>
+                        </tr>
+
+
+                    </table>
+                    <div class="col-md-12">
+                        <label>Comment:</label><br />
+                        <textarea type="text" placeholder="Description" style="width: 100%"></textarea>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingSeven">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+
+                        Benefit/Coverage Details
+                         <img style="float: right;" src="~/Content/iNube/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                <div class="panel-body">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="thBold">Benefit Name</th>
+                                <th class="thBold">Life Assured 1</th>
+                                <th class="thBold">Life Assured 2</th>
+                                <th class="thBold">Child1</th>
+                                <th class="thBold">Child2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sum Assured</td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+
+                            </tr>
+                            <tr>
+                                <td>Personal Accident Cover</td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+
+                            </tr>
+                            <tr>
+                                <td>Additional Life Covers</td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+
+                            </tr>
+                            <tr>
+                                <td>Critical Iliness Cover</td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+
+                            </tr>
+                            <tr>
+                                <td>Hospitalization-Daily Benefits/Day</td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+
+                            </tr>
+                            <tr>
+                                <td>Hospitalization Reimbursement</td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+
+                            </tr>
+                            <tr>
+                                <td>Family Income Benefits</td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+
+                            </tr>
+                            <tr>
+                                <td>Funeral Expenses</td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control"></td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    @*<div class="row" style="text-align: center;">
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Save</a>
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Cancel</a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingEight">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+
+                        Policy Level Details
+                         <img style="float: right;" src="~/Content/iNube/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Policy Term:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="usr">Premium Payment Term:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Premium Payment Frequency:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label for="sel1">Preffered language for Policy Document:</label>
+                            <select class="form-control">
+                                <option>--Select--</option>
+                                <option>Sinhala</option>
+                                <option>Tamil</option>
+                                <option>English</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" style="text-align: center;">
+                        <a href="#" class="btn btn-info backgroundclr" role="button" onclick="btnCalc()" id="calcBtn">Calculate</a>
+
+                    </div>
+                    <br />
+
+                    <br />
+
+                    @*<div class="row" style="text-align: center;">
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Save</a>
+                            <a href="#" class="btn btn-info backgroundclr" role="button">Cancel</a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="panelNine" style="display: none;">
+            <div class="panel-heading backgroundclr" role="tab" id="headingNine">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+
+                        Premium Summary
+                         <img style="float: right;" src="~/Content/iNube/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+                <div class="panel-body">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="thBold">Assured Name</th>
+                                <th class="thBold">Plan Premium</th>
+                                <th class="thBold">Rider 1</th>
+                                <th class="thBold">Rider 2</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <br />
+                    <div class="row" style="text-align: center;">
+                        <a href="#" class="btn btn-info backgroundclr" role="button">Edit</a>
+                        <a href="#" class="btn btn-info backgroundclr" role="button">Save Details</a>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div><!-- panel-group -->
+</div>
+
+<script type="text/javascript">
+
+    $("#showT").click(function () {
+        $("#yesT").show();
+    });
+    $("#hideT").click(function () {
+        $("#yesT").hide();
+    });
+    $("#showA").click(function () {
+        $("#yesA").show();
+    });
+    $("#hideA").click(function () {
+        $("#yesA").hide();
+    });
+    $("#showN").click(function () {
+        $("#yesN").show();
+    });
+    $("#hideN").click(function () {
+        $("#yesN").hide();
+    });
+    $("#showH").click(function () {
+        $("#yesH").show();
+    });
+    $("#hideH").click(function () {
+        $("#yesH").hide();
+    });
+    $("#showE").click(function () {
+        $("#clientE").show();
+    });
+    $("#hideE").click(function () {
+        $("#clientE").hide();
+    });
+    $("#showM").click(function () {
+        $("#clientM").show();
+    });
+    $("#hideM").click(function () {
+        $("#clientM").hide();
+    });
+
+
+    $('select[name=serviceChoice]').change(function () {
+        if ($('select[name=serviceChoice] option:Selected').val() == '0') {
+            $('#ageDetailsF').show();
+            $('#deathDetailsF').hide();
+
+        } else if ($('select[name=serviceChoice] option:Selected').val() == '1') {
+            $('#ageDetailsF').hide();
+            $('#deathDetailsF').show();
+
+        }
+    });
+
+    $('select[name=serviceChoiceM]').change(function () {
+        if ($('select[name=serviceChoiceM] option:Selected').val() == '2') {
+            $('#ageDetailsM').show();
+            $('#deathDetailsM').hide();
+
+
+        } else if ($('select[name=serviceChoiceM] option:Selected').val() == '3') {
+            $('#ageDetailsM').hide();
+            $('#deathDetailsM').show();
+
+        }
+    });
+
+    function ShowChildrenDetails() {
+        if ($("#chkcriticalillness").is(":checked")) {
+            $("#divChildrenDetails").show();
+        }
+        else {
+            $("#divChildrenDetails").hide();
+        }
+    }
+    function btnCalc() {
+
+        $("#panelNine").show();
+
+    }
+
+
+
+</script>

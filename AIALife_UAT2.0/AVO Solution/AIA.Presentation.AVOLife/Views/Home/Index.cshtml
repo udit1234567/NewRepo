@@ -1,0 +1,1684 @@
+﻿@model AIA.Life.Models.DashBoard.GraphDetails
+    @using AIA.Presentation.AVOLife.Models
+    @using AIAResources;
+
+<style>
+    .col-lg-4, col-lg-2, .col-lg-3, .col-lg-6, .col-lg-12, .col-lg-9, .col-lg-5, .col-sm-1, .col-lg-9, .col-lg-3 {
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+    }
+
+    blockquote, q {
+        quotes: none;
+    }
+
+        blockquote:before, blockquote:after, q:before, q:after {
+            content: '';
+            content: none;
+        }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    /*--start editing from here--*/
+    a {
+        text-decoration: none;
+    }
+
+    .txt-rt {
+        text-align: right;
+    }
+    /* text align right */
+    .txt-lt {
+        text-align: left;
+    }
+    /* text align left */
+    .txt-center {
+        text-align: center;
+    }
+    /* text align center */
+    .float-rt {
+        float: right;
+    }
+    /* float right */
+    .float-lt {
+        float: left;
+    }
+    /* float left */
+    .clear {
+        clear: both;
+    }
+    /* clear float */
+    .pos-relative {
+        position: relative;
+    }
+    /* Position Relative */
+    .pos-absolute {
+        position: absolute;
+    }
+    /* Position Absolute */
+    .vertical-base {
+        vertical-align: baseline;
+    }
+    /* vertical align baseline */
+    .vertical-top {
+        vertical-align: top;
+    }
+    /* vertical align top */
+    nav.vertical ul li {
+        display: block;
+    }
+    /* vertical menu */
+    nav.horizontal ul li {
+        display: inline-block;
+    }
+    /* horizontal menu */
+    img {
+        max-width: 100%;
+    }
+    /*--end reset--*/
+    body {
+        font-family: 'Roboto Condensed', sans-serif;
+        background: url(../images/1.png)repeat #22655c 0px 0px;
+        background-attachment: fixed;
+        background-size: 85%;
+    }
+
+    h1 {
+        font-size: 3em;
+        text-align: center;
+        color: #fff;
+        font-weight: 100;
+        font-family: 'Arima Madurai', cursive;
+    }
+
+    ul {
+        list-style: none;
+    }
+    /*-- calendar --*/
+    .main-agileits-w3layouts {
+        padding: 1em 0 1em;
+    }
+
+    .agileits-info {
+        width: 30%;
+        margin: 5em;
+    }
+    /*-- calendar-header -- */
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+        *:before,
+        *:after {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+    .custom-calendar-wrap {
+        position: relative;
+        overflow: hidden;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -o-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+    .w3ls-header {
+        background: #fff;
+        padding: 0.1em;
+        position: relative;
+        margin-top: -10px !important;
+    }
+
+        .w3ls-header h2,
+        .w3ls-header h3 {
+            text-align: center;
+            text-transform: uppercase;
+            margin-left: 23%;
+        }
+
+        .w3ls-header h2 {
+            color: #555;
+            font-weight: 300;
+            font-size: 18px;
+            display: inline-block;
+            font-family: 'Arima Madurai', cursive;
+        }
+
+        .w3ls-header h3 {
+            font-size: 21px;
+            font-weight: 700;
+            color: #D31145;
+            display: inline-block;
+            font-family: 'Arima Madurai', cursive;
+            margin-left: 10px;
+        }
+
+        .w3ls-header nav span {
+            position: absolute;
+            top: 41px;
+            color: transparent;
+            cursor: pointer;
+            /*margin: 0 1px;*/
+            font-size: 35px;
+            line-height: 25px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .w3ls-header nav span:first-child {
+                left: 15px;
+            }
+
+            .w3ls-header nav span:nth-child(2) {
+                left: 16px;
+            }
+
+            .w3ls-header nav span:before {
+                font-family: 'fontawesome-selected';
+                color: #D31145;
+                text-align: center;
+                -webkit-transition: 0.5s all;
+                -moz-transition: 0.5s all;
+                -o-transition: 0.5s all;
+                -ms-transition: 0.5s all;
+                transition: 0.5s all;
+            }
+
+            .w3ls-header nav span.custom-prev:before {
+                content: '\25c2';
+            }
+
+            .w3ls-header nav span.custom-next:before {
+                content: '\25b8';
+            }
+
+            .w3ls-header nav span.custom-current:before {
+                content: '\27a6';
+            }
+
+            .w3ls-header nav span:hover:before {
+                color: #495468;
+            }
+
+            .w3ls-header nav span.custom-current {
+                font-size: 25px;
+                right: 18px;
+                line-height: 21px;
+            }
+    /*-- content-reveal --*/
+    .custom-content-reveal {
+        background: rgba(246, 246, 246, 0.9);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 100;
+        top: 100%;
+        left: 0px;
+        text-align: center;
+        -webkit-transition: all 0.6s ease-in-out;
+        -moz-transition: all 0.6s ease-in-out;
+        -o-transition: all 0.6s ease-in-out;
+        -ms-transition: all 0.6s ease-in-out;
+        transition: all 0.6s ease-in-out;
+    }
+
+        .custom-content-reveal span.custom-content-close {
+            position: absolute;
+            top: 21px;
+            right: 13px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            background: #FF5722;
+            cursor: pointer;
+            line-height: 15px;
+            padding: 0;
+        }
+
+            .custom-content-reveal span.custom-content-close:after {
+                content: 'x';
+                font-size: 18px;
+                color: #fff;
+            }
+
+        .custom-content-reveal a,
+        .custom-content-reveal span {
+            font-size: 22px;
+            padding: 10px 30px;
+            display: block;
+            line-height: 1.6em;
+        }
+
+        .custom-content-reveal h4 {
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: #333;
+            padding: 20px 35px;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            border-top: 5px solid #FF5722;
+            -webkit-box-shadow: 0 1px rgba(255,255,255,0.9);
+            box-shadow: 0 1px rgba(255,255,255,0.9);
+            -moz-box-shadow: 0 1px rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+        }
+
+        .custom-content-reveal span {
+            color: #888;
+        }
+
+        .custom-content-reveal a {
+            color: #FF5722;
+        }
+
+            .custom-content-reveal a:hover {
+                color: #333;
+            }
+
+    /* Modifications */
+
+    .fc-calendar .fc-row > div {
+        background: #fff;
+        cursor: pointer;
+    }
+
+        .fc-calendar .fc-row > div:empty {
+            background: transparent;
+        }
+
+        .fc-calendar .fc-row > div.fc-today > span.fc-date {
+            color: #fff;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .fc-calendar .fc-row > div.fc-content:after {
+            content: '\00B7';
+            text-align: center;
+            width: 20px;
+            margin-left: -10px;
+            position: absolute;
+            color: #DDD;
+            font-size: 56px;
+            line-height: 20px;
+            left: 53%;
+            bottom: 2px;
+            -webkit-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -ms-transition: 0.5s all;
+            transition: 0.5s all;
+        }
+
+        .fc-calendar .fc-row > div.fc-today.fc-content:after {
+            color: #b02c42;
+        }
+
+        .fc-calendar .fc-row > div.fc-content:hover:after {
+            color: #FF5722;
+        }
+
+        .fc-calendar .fc-row > div.fc-today.fc-content:hover:after {
+            color: #fff;
+        }
+
+        .fc-calendar .fc-row > div > div a,
+        .fc-calendar .fc-row > div > div span {
+            display: none;
+            font-size: 12px !important;
+        }
+
+
+    .fc-calendar-container {
+        height: 274px;
+        width: auto;
+        padding: 25px;
+        background: #f6f6f6;
+        -webkit-box-shadow: inset 0 1px rgb(204, 204, 204);
+        -moz-box-shadow: inset 0 1px rgb(204, 204, 204);
+       border: 1px solid #EAE6E5;
+       box-shadow: 1px 1px 2px 2px #EAE6E5;
+    }
+
+    .fc-calendar {
+        width: 100%;
+        height: 90%;
+    }
+
+        .fc-calendar .fc-head {
+            height: 30px;
+            background: transparent;
+            color: #FF5722;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 11px !important;
+        }
+
+        .fc-calendar .fc-body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+        }
+
+        .fc-calendar .fc-row {
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+        }
+
+    .fc-four-rows .fc-row {
+        height: 25%;
+    }
+
+    .fc-five-rows .fc-row {
+        height: 20%;
+    }
+
+    .fc-six-rows .fc-row {
+        height: 16.66%;
+        height: -moz-calc(100%/6);
+        height: -webkit-calc(100%/6);
+        height: calc(100%/6);
+    }
+
+    .fc-calendar .fc-row > div,
+    .fc-calendar .fc-head > div {
+        float: left;
+        height: 100%;
+        width: 14.28%; /* 100% / 7 */
+        width: -moz-calc(100%/7);
+        width: -webkit-calc(100%/7);
+        width: calc(100%/7.01);
+        position: relative;
+    }
+
+    /* IE 9 is rounding up the calc it seems */
+    .ie9 .fc-calendar .fc-row > div,
+    .ie9 .fc-calendar .fc-head > div {
+        width: 14.2%;
+    }
+
+    .fc-calendar .fc-row > div {
+        border-right: 1px solid #ddd;
+        padding: 4px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .fc-calendar .fc-head > div {
+        text-align: center;
+    }
+
+    .fc-calendar .fc-row > div > span.fc-date {
+        position: absolute;
+        width: 30px;
+        height: 20px;
+        top: 50%;
+        left: 50%;
+        text-align: center;
+        margin: -10px 0 0 -15px;
+        color: #686a6e;
+        font-weight: 400;
+        pointer-events: none;
+    }
+
+    .fc-calendar .fc-row > div > span.fc-weekday {
+        padding-left: 5px;
+        display: none;
+    }
+
+    .fc-calendar .fc-row > div.fc-content.fc-today {
+        background: #D31145;
+    }
+
+    .fc-calendar .fc-row > div.fc-content {
+        background-color: #E5E5E5;
+    }
+
+    .fc-calendar .fc-row > div.fc-out {
+        opacity: 0.6;
+    }
+
+    .fc-calendar .fc-row > div:last-child,
+    .fc-calendar .fc-head > div:last-child {
+        border-right: none;
+    }
+
+    .fc-calendar .fc-row:last-child {
+        border-bottom: none;
+    }
+
+
+
+
+    #chartdiv {
+        width: 100%;
+        height: 213px !important;
+    }
+
+    #chartdiv2 {
+        width: 100%;
+        height: 388px !important;
+        font-size: 11px;
+        border: 1px solid #EAE6E5;
+        box-shadow: 1px 1px 2px 2px #EAE6E5;
+    }
+
+    #chartdiv4 {
+        width: 100%;
+        height: 250px !important;
+        font-size: 11px;
+        border: 1px solid #EAE6E5;
+        box-shadow: 1px 1px 2px 2px #EAE6E5;
+    }
+
+    #chartdiv3 {
+        width: 100%;
+        height: 200px !important;
+    }
+
+    .general-chart-body {
+        width: 100%;
+        font-size: 11px;
+        border: 1px solid #EAE6E5;
+        box-shadow: 1px 1px 2px 2px #EAE6E5;
+        background-color: #ffffff;
+    }
+
+    .amcharts-pie-slice {
+        transform: scale(1);
+        transform-origin: 50% 50%;
+        transition-duration: 0.3s;
+        transition: all .3s ease-out;
+        -webkit-transition: all .3s ease-out;
+        -moz-transition: all .3s ease-out;
+        -o-transition: all .3s ease-out;
+        cursor: pointer;
+        box-shadow: 0 0 30px 0 #000;
+    }
+
+    .btn:hover {
+        background-image: none !important;
+        background-color: #F9A61A !important;
+    }
+
+    .amcharts-pie-slice:hover {
+        transform: scale(1.1);
+        filter: url(#shadow);
+    }
+
+    .texture-color {
+        background-color: #EAE6E5;
+    }
+
+    #map {
+        height: 200px;
+        width: 92%;
+    }
+
+    h4 {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .carousel-control .glyphicon-chevron-right, .glyphicon-chevron-left, .carousel-control .icon-next, .carousel-control .icon-prev, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 11px !important;
+        color: white !important;
+        background-color: #D31145 !important;
+        border-radius: 50% 50% !important;
+        position: absolute;
+        top: 123px;
+        display: flex;
+        justify-content: center;
+        padding-top: 1px;
+    }
+
+    .carousel-control.left {
+        background-image: none !important;
+    }
+
+    .carousel-control.right {
+        right: 0 !important;
+        left: auto !important;
+        background-image: none !important;
+    }
+
+    .carousel-control {
+        position: absolute;
+        top: 7px;
+        bottom: 0;
+        left: 7px;
+        width: 15%;
+        font-size: 12px;
+        color: #fff;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0,0,0,.6) !important;
+        background-color: rgba(0,0,0,0) !important;
+        filter: alpha(opacity=50);
+        opacity: 1 !important;
+    }
+
+    .btn-gradient {
+        text-align: center;
+        background: #f46624 !important; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(#f46624, #fca21a) !important; /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#f46624, #fca21a) !important; /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#f46624, #fca21a) !important; /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#f46624, #fca21a) !important;
+        color: #fff !important;
+        margin-bottom: 5% !important;
+    }
+
+    .header-style {
+        color: white !important;
+        text-align: center;
+        background-color: #D9D9D9;
+    }
+
+    .header-left {
+        background-color: #D31145;
+        border-radius: 0px 4px 17px 0px;
+        color: white !important;
+        height: 51px;
+        display: flex;
+        align-items: center;
+        margin-left: -2px;
+    }
+
+        .header-left > h3 {
+            font-size: 23px !important;
+        }
+
+    .header-right {
+        background-color: #D9D9D9;
+        padding: 2% 0% 1% 0%;
+        color: white !important;
+    }
+
+    .div-header {
+    }
+
+    .div-header-h4 {
+        background-color: #D9D9D9;
+        color: #000;
+        font-weight: 600;
+        font-size: 16px !important;
+        border-radius: 10px 10px 0px 0px;
+        width: 100%;
+        margin-left: -1px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        padding-left: 22px;
+    }
+
+
+
+    .header-div-3 {
+        height: 160px;
+        border-radius: 10px 10px 0px 0px;
+        background-color: #fff;
+    }
+
+    @@media screen and (min-width: 320px) and (max-width: 480px) {
+        .general-chart-body {
+            box-shadow: none;
+            border: none;
+        }
+
+        .header-div-3 {
+            height: 150px !important;
+        }
+
+        .status-col {
+            padding-top: 40px;
+            text-align: center;
+        }
+    }
+
+    @@media screen and (max-width: 600px) {
+        .header-div-3 {
+            height: 350px !important;
+        }
+
+        .header-div-3-icon {
+            margin: 3% 0% 3% 0% !important;
+        }
+
+        .margin-res {
+            margin: 10% 0% 10% 0%;
+        }
+
+        .res-center {
+            margin: 0% 25% 0% 25% !important;
+        }
+
+        .btn-gradient {
+            width: 70% !important;
+        }
+
+        .margin-mobile {
+            margin-top: -50% !important;
+            margin-left: 15% !important;
+        }
+    }
+
+    @@media screen and (min-width: 766px) and (max-width: 1200px) {
+        .margin-res {
+            margin: 2% 0% 2% 0%;
+        }
+
+        .btn-gradient {
+            font-size: 11px !important;
+        }
+
+        .status-col {
+            padding-top: 40px;
+            text-align: center;
+        }
+    }
+
+    @@media screen and (min-width: 1200px) {
+        .header-div-3 {
+            height: 220px !important;
+        }
+    }
+
+    .header-div-3-h4 {
+        background-color: #E44D08;
+        color: #fff;
+        font-weight: 500;
+        padding: 2%;
+        border-radius: 10px 10px 0px 0px;
+        font-size: 16px !important;
+    }
+
+    .service-request-icons {
+        font-size: 60px !important;
+        background-color: #fff !important;
+        text-shadow: 1px 1px 1px 1px !important;
+        color: #1E71B7 !important;
+        margin-left: 15% !important;
+    }
+
+    .locator-div {
+        border: 1px solid #EAE6E5;
+        box-shadow: 1px 1px 2px 2px #EAE6E5;
+        background-color: #fff;
+        border-radius: 10px 10px 0px 0px;
+    }
+</style>
+
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Effective Calendar template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free web designs for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Custom Theme files -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/calendar.css" rel="stylesheet" type="text/css" />
+<script src="https://www.amcharts.com/lib/3/funnel.js"></script>
+
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href="//fonts.googleapis.com/css?family=Arima+Madurai" rel="stylesheet">
+
+
+<div class="texture-color">
+    <div class="col-lg-12 col-sm-12 header-style">
+        <div class="col-lg-4 col-md-6 col-sm-4 header-left">
+            <h3 style="font-weight: 500">
+                @Resources.GetLabelName("Welcome to Agent Virtual Office")
+            </h3>
+        </div>
+        @*<div class="col-lg-8 col-sm-8 header-right">
+                <h4 style="font-weight: 600">
+                    @Resources.GetLabelName("General Braodcast")
+                </h4>
+            </div>*@
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+        <br>
+        <div class="col-lg-12 col-sm-12">
+
+            <div class="col-lg-4 col-md-12 col-sm-6 margin-res">
+                <div class="div-header">
+                    <h4 class="div-header-h4"> @Resources.GetLabelName("BUSINESS FIGURES")</h4>
+                    <div class="general-chart-body" style="height:308px;">
+                        <div class="col-lg-12 col-sm-12" style="padding-bottom:10px;padding-top:10px;">
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">Target vs Achivement</div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <select class="form-control">
+                                    <option>year</option>
+                                    <option>2015</option>
+                                    <option>2016</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="chartdiv" style="background-color: #fff"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: #ff751a;height: 12px;margin-top: 5px;">&nbsp;</p>
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Target</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: #fcc904;height: 12px;margin-top: 5px;">&nbsp;</p>
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Achievement</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 margin-res">
+                <div class="div-header">
+                    <h4 class="div-header-h4"> @Resources.GetLabelName("SALES FUNNEL")</h4>
+                    <div class="general-chart-body">
+                        <div id="chartdiv3" style="background-color: #fff"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: #48809a;height: 12px;margin-top: 5px;">&nbsp;</p>
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Suspect</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color:#b19400;height: 12px;margin-top: 5px;">&nbsp;</p>
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Prospect</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: #5c8044;height: 12px;margin-top: 5px;">&nbsp;</p>
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Confirm Prospect</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: #8f3232;height: 12px;margin-top: 5px;">&nbsp;</p>
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Need Analysis</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: #905b79;height: 12px;margin-top: 5px;">&nbsp;</p>
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Quotation</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <p class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: #212d51;height: 12px;margin-top: 5px;">&nbsp;</p>
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-9">Proposal</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="main-agileits-w3layouts">
+
+                    <div>
+                        <!-- calendar -->
+                        <div>
+                            <div class="c">
+                                <div id="custom-inner" class="custom-inner">
+                                    <div class="w3ls-header">
+                                        <h4 class="div-header-h4"> @Resources.GetLabelName("DAILY PLANNER")</h4>
+                                        <nav>
+                                            <span id="custom-prev" class="custom-prev"></span>
+                                            <span id="custom-next" style="margin-left:20px" class="custom-next"></span>
+                                            <span id="custom-current" class="custom-current" title="Go to current date"></span>
+                                        </nav>
+                                        <h2 id="custom-month" style="text-align:center" class="w3layouts-month">MARCH</h2>
+                                        <h3 id="custom-year" class="w3-agileits-year">2016</h3>
+                                    </div>
+
+                                    <div id="calendar" class="fc-calendar-container fc-agile">
+                                        <div class="clear"> </div>
+
+                                    </div>
+                                  
+                                </div>
+
+                            </div>
+
+                            <!-- js -->
+                            <script src="js/jquery-1.11.1.min.js"></script>
+                            <script src="js/modernizr.custom.63321.js"></script>
+                            <script type="text/javascript" src="js/jquery.calendario.js"></script>
+                            <script type="text/javascript" src="js/data.js"></script>
+                            <!-- //js -->
+                            <script type="text/javascript">
+
+          $(function() {
+            function updateMonthYear() {
+              $( '#custom-month' ).html( $( '#calendar' ).calendario('getMonthName') );
+              $( '#custom-year' ).html( $( '#calendar' ).calendario('getYear'));
+            }
+
+            $(document).on('finish.calendar.calendario', function(e){
+              $( '#custom-month' ).html( $( '#calendar' ).calendario('getMonthName') );
+              $( '#custom-year' ).html( $( '#calendar' ).calendario('getYear'));
+              $( '#custom-next' ).on( 'click', function() {
+                $( '#calendar' ).calendario('gotoNextMonth', updateMonthYear);
+              } );
+              $( '#custom-prev' ).on( 'click', function() {
+                $( '#calendar' ).calendario('gotoPreviousMonth', updateMonthYear);
+              } );
+              $( '#custom-current' ).on( 'click', function() {
+                $( '#calendar' ).calendario('gotoNow', updateMonthYear);
+              } );
+              $( '#custom-current' ).on( 'click', function() {
+                $( '#calendar' ).calendario('gotoNow', updateMonthYear);
+              } );
+            });
+
+            $('#calendar').on('shown.calendar.calendario', function(){
+              $('div.fc-row > div').on('onDayClick.calendario', function(e, dateprop) {
+                console.log(dateprop);
+                if(dateprop.data) {
+                  showEvents(dateprop.data.html, dateprop);
+                }
+              });
+            });
+
+            var transEndEventNames = {
+              'WebkitTransition' : 'webkitTransitionEnd',
+              'MozTransition' : 'transitionend',
+              'OTransition' : 'oTransitionEnd',
+              'msTransition' : 'MSTransitionEnd',
+              'transition' : 'transitionend'
+            },
+            transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+            $wrapper = $( '#custom-inner' );
+
+            function showEvents( contentEl, dateprop ) {
+              hideEvents();
+              var $events = $( '<div id="custom-content-reveal" class="custom-content-reveal"><h4>Events for ' + dateprop.monthname + ' '
+              + dateprop.day + ', ' + dateprop.year + '</h4></div>' ),
+              $close = $( '<span class="custom-content-close"></span>' ).on( 'click', hideEvents);
+              $events.append( contentEl.join('') , $close ).insertAfter( $wrapper );
+              setTimeout( function() {
+                $events.css( 'top', '0%' );
+              }, 25);
+            }
+
+            function hideEvents() {
+              var $events = $( '#custom-content-reveal' );
+              if( $events.length > 0 ) {
+                $events.css( 'top', '100%' );
+                Modernizr.csstransitions ? $events.on( transEndEventName, function() { $( this ).remove(); } ) : $events.remove();
+              }
+            }
+
+            $( '#calendar' ).calendario({
+              caldata : events,
+              displayWeekAbbr : true,
+              events: ['click', 'focus']
+            });
+
+          });
+                            </script>
+                        </div>
+                        <!-- //calendar -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12" style="">
+                <div class="col-lg-7 col-sm-12" style="margin-top:20px;">
+                    <div class="div-header">
+                        <h4 class="div-header-h4"> @Resources.GetLabelName("MY PERFORMANCE")</h4>
+                        <div id="chartdiv4" style="background-color: #fff"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-12 col-sm-6" style="margin-bottom:2%">
+                    <br />
+                    <div class="col-lg-12 col-sm-12">
+                        <div style="height:px">
+                            <h4 class="div-header-h4">
+                                @Resources.GetLabelName("COMPETATION STATUS")
+                            </h4>
+
+                            <div style="background-color: white;padding: 2%;height: 250px" class="general-chart-body">
+                                <h4 style="text-align:center">@Resources.GetLabelName("Competation Name")</h4>
+                                <div id="myCarousel" class="carousel slide" data-ride="carousel"
+                                     style="margin:5% 2% 5% 2%">
+
+                                    <div class="carousel-inner" style="height: 100px;position:relative">
+                                        <div class="item active">
+
+                                            <div class="col-lg-3 col-sm-3" style="font-size:12px; text-shadow: 0px 0px 5px #E44D08;
+  color:#FDCF82; font-size: 36px;margin-left: 5%;margin-top: 9%">
+                                                <img src="~/Images/Competation.png" />
+                                            </div>
+                                            <div class="col-lg-8 col-sm-8 col-xs-8" style="z-index:9999">
+                                                <ul class="margin-mobile" style="font-size: 14px;margin-top: 6%;margin-left:-15%;z-index:999">
+                                                    <li>Target:</li>
+                                                    <li>Achieved:</li>
+                                                    <li>Gap:</li>
+                                                    <li>Rank:</li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Left and right controls -->
+                                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+          
+
+        </div>
+    </div>
+
+    
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+var chart = AmCharts.makeChart( "chartdiv3", {
+  "type": "funnel",
+  "theme": "light",
+  "dataProvider": [ {
+    "title": " ",
+    "value": 200
+  }, {
+    "title": " ",
+    "value": 123
+  }, {
+      "title": " ",
+      "value": 98
+  }, {
+      "title": " ",
+      "value": 72
+  }, {
+    "title": " ",
+    "value": 35
+  }, {
+      "title": " ",
+      "value": 35
+  }],
+  "balloon": {
+    "fixedPosition": true
+  },
+  "valueField": "value",
+  "titleField": "title",
+  "marginRight": 0,
+  "marginLeft": 0,
+  "startX": -500,
+  "depth3D": 100,
+  "angle": 40,
+  "outlineAlpha": 1,
+  "labelsEnabled": false,
+  "outlineColor": "#FFFFFF",
+  "outlineThickness": 2,
+  "labelPosition": "",
+  "balloonText": "[[title]]: [[value]]n[[description]]",
+  "export": {
+    "enabled": true
+  }
+} );
+</script>
+<script>
+var chart = AmCharts.makeChart( "chartdiv2", {
+  "type": "serial",
+  "theme": "none",
+  "dataProvider": [ {
+    "country": "USA",
+    "visits": 2025
+  }, {
+    "country": "China",
+    "visits": 1882
+  }, {
+    "country": "Japan",
+    "visits": 1809
+  }, {
+    "country": "Germany",
+    "visits": 1322
+  }
+
+   ],
+  "valueAxes": [ {
+    "gridColor": "#FFFFFF",
+    "gridAlpha": 0.2,
+    "dashLength": 0
+  } ],
+  "gridAboveGraphs": true,
+  "startDuration": 1,
+  "graphs": [ {
+    "balloonText": "[[category]]: <b>[[value]]</b>",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "valueField": "visits"
+  } ],
+  "chartCursor": {
+    "categoryBalloonEnabled": false,
+    "cursorAlpha": 0,
+    "zoomable": false
+  },
+  "categoryField": "country",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "gridAlpha": 0,
+    "tickPosition": "start",
+    "tickLength": 20
+  },
+  "export": {
+    "enabled": true
+  }
+
+} );
+</script>
+<!-- amCharts javascript code -->
+<script type="text/javascript">
+			AmCharts.makeChart("chartdiv4",
+				{
+					"type": "serial",
+					"categoryField": "category",
+					"rotate": true,
+					"marginLeft": 0,
+					"marginRight": 0,
+                    "marginTop":0,
+					"colors": [
+						"#5FC9D9",
+						"#1E71B7",
+						"#B0DE09",
+						"#0D8ECF",
+						"#2A0CD0",
+						"#CD0D74",
+						"#CC0000",
+						"#00CC00",
+						"#0000CC",
+						"#DDDDDD",
+						"#999999",
+						"#333333",
+						"#990000"
+					],
+					"startDuration": 1,
+					"categoryAxis": {
+						"gridPosition": "start"
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"balloonText": "[[title]] of [[category]]:[[value]]",
+							"fillAlphas": 1,
+							"id": "AmGraph-1",
+							"title": "Achivements",
+							"type": "column",
+							"valueField": "column-1"
+						},
+						{
+							"balloonText": "[[title]] of [[category]]:[[value]]",
+							"fillAlphas": 1,
+							"id": "AmGraph-2",
+							"title": "Target",
+							"type": "column",
+							"valueField": "column-2"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"axisFrequency": 11,
+							"id": "ValueAxis-1",
+							"autoRotateAngle": -1.8,
+							"autoRotateCount": 44,
+							"labelRotation": -1.8,
+							"minHorizontalGap": 40,
+							"showFirstLabel": false,
+							"title": ""
+						},
+						{
+							"id": "ValueAxis-2"
+						},
+						{
+							"id": "ValueAxis-3"
+						},
+						{
+							"id": "ValueAxis-4"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"legend": {
+						"enabled": true,
+						"useGraphSettings": true
+					},
+					"titles": [
+						{
+							"id": "Title-1",
+							"size": 15,
+							"text": " "
+						}
+					],
+					"dataProvider": [
+						{
+							"category": "No of Lives",
+							"column-1": "110",
+							"column-2": "85"
+						},
+						{
+							"category": "Lives in Force",
+							"column-1": "90",
+							"column-2": "70"
+						},
+						{
+							"category": "1st year commision",
+							"column-1": "130",
+							"column-2": "20"
+						},
+						{
+							"category": "Renewal Commision",
+							"column-1": "80",
+							"column-2": "58"
+						}
+					]
+				}
+			);
+</script>
+<script>
+var chart = AmCharts.makeChart("chartdiv", {
+    "theme": "none",
+    "type": "serial",
+    "dataProvider": [{
+        "country": "2014",
+        "year2004": 3.5,
+        "year2005": 4.2
+    }, {
+        "country": "2015",
+        "year2004": 1.7,
+        "year2005": 3.1
+    }, {
+        "country": "2016",
+        "year2004": 2.8,
+        "year2005": 2.9
+    }, {
+        "country": "2017",
+        "year2004": 2.6,
+        "year2005": 2.3
+    }],
+    "valueAxes": [{
+        "unit": "%",
+        "position": "left",
+        "title": " ",
+    }],
+    "startDuration": 1,
+    "graphs": [{
+        "balloonText": "GDP grow in [[category]] (2004): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "2004",
+        "type": "column",
+        "valueField": "year2004"
+    }, {
+        "balloonText": "GDP grow in [[category]] (2005): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "2005",
+        "type": "column",
+        "clustered":false,
+        "columnWidth":0.5,
+        "valueField": "year2005"
+    }],
+    "plotAreaFillAlphas": 0.1,
+    "categoryField": "country",
+    "categoryAxis": {
+        "gridPosition": "start"
+    },
+    "export": {
+    	"enabled": false
+     }
+
+});
+</script>
+<script>
+
+
+        var events = {
+        '11-21-2016': [{ content: 'Great American Smokeout', url: 'http://www.wincalendar.com/Great-American-Smokeout', allDay: true }],
+        '11-11-2016': [{ content: 'Remembrance Day (Canada)', url: 'http://www.wincalendar.com/Remembrance-Day', allDay: true }],
+        '04-01-2016': [{ content: 'Start Skagit Valley Tulip Festival ', repeat: 'YEARLY', allDay: true, endDate: '04-30-2100' }],
+        '12-25-2016': [{ content: 'Christmas Day', repeat: 'YEARLY', allDay: true, endDate: '12-25-2100' }],
+        '01-01-2016': [{ content: 'New Year\'s', repeat: 'YEARLY', allDay: true, endDate: '12-31-2100' }],
+        '01-01-2016': [{ content: 'Yeah Monthly', repeat: 'MONTHLY', allDay: true, endDate: '07-02-2015' }],
+        '01-07-2016': [{ content: 'Dummy Text', repeat: 'MONTHLY', allDay: true, endDate: '02-07-2100' }],
+        '01-15-2016': [{ content: 'Lorem Ipsum was popularised', repeat: 'MONTHLY', allDay: true, endDate: '02-07-2100' }],
+        '03-02-2016': [{ content: 'Graduation Exams', repeat: 'INTERVAL', allDay: true, endDate: '03-20-2015' }],
+        '01-01-2016': [{ content: 'MONDAY (WEEKLY)', repeat: 'MON', allDay: true, endDate: '01-01-2100' }]
+    },
+t = new Date(),
+//Creation of today event
+today = ((t.getMonth() + 1) < 10 ? '0' + (t.getMonth() + 1) : (t.getMonth() + 1)) + '-' + (t.getDate() < 10 ? '0' + t.getDate() : t.getDate()) + '-' + t.getFullYear();
+    events[today] = [{ content: 'TODAY', allDay: true }];
+    /**
+     * [jquery.calendario.js] (v5.0.0) #Copyright 2015, Boží Ďábel#
+     */
+
+    +function ($) {
+        'use strict';
+
+        var Calendario = function (element, options) {
+            this.init('calendario', element, options)
+        }
+
+        Calendario.INFO = {
+            EMAIL: '%email%',
+            FEED: '%feed%',
+            NAME: 'HangingTime!',
+            VERSION: '5.0.0',
+            UNIQUE: '%unique%',
+            USER: '%user%',
+            UPDATEURL: '%url%'
+        }
+
+        Calendario.DEFAULTS = {
+            weeks: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            weekabbrs: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            monthabbrs: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            displayWeekAbbr: false,
+            displayMonthAbbr: false,
+            startIn: 1,
+            fillEmpty: true,
+            zone: '00:00',
+            events: ['click', 'focus'],
+            checkUpdate: true,
+            weekdays: 'MON, TUE, WED, THU, FRI',
+            weekends: 'SAT, SUN',
+            format: 'MM-DD-YYYY',
+            feed: 'http://calendario.t15.org/sync/'
+        }
+
+        Calendario.prototype.init = function (type, element, options) {
+            this.INFO = Calendario.INFO
+            this.type = type
+            this.$element = $(element)
+            this.options = $.extend({}, Calendario.DEFAULTS, this.$element.data(), options)
+            this.today = new Date()
+            this.month = (isNaN(this.options.month) || this.options.month === null) ? this.today.getMonth() : this.options.month - 1
+            this.year = (isNaN(this.options.year) || this.options.year === null) ? this.today.getFullYear() : this.options.year
+            this.caldata = this.processCaldata(this.options.caldata)
+            this.curData = []
+            this.syncData = {}
+            this.generateTemplate()
+            this.initEvents()
+        }
+
+        Calendario.prototype.sync = function (data) {
+            var self = this
+            $.post(self.options.feed, { info: self.INFO, caldata: data, domain: document.domain }, function (d) { self.syncData = d }, 'json')
+            return data
+        }
+
+        Calendario.prototype.initEvents = function () {
+            this.$element.on(this.options.events.join('.calendario ').trim() + '.calendario', 'div.fc-row > div:not(:empty)', function (e) {
+                $(this).trigger($.Event('onDay' + e.type.charAt(0).toUpperCase() + e.type.slice(1)), [$(this).data('bz.calendario.dateprop')])
+            })
+        }
+
+        Calendario.prototype.propDate = function () {
+            var self = this, month, year, day, hc
+            this.$element.find('div.fc-row > div').filter(':not(:empty)').each(function () {
+                hc = $(this).children('span.fc-date').hasClass('fc-emptydate'), day = $(this).children('span.fc-date').text()
+                month = (hc && day <= 31 && day >= 24 ? self.month - 1 : (hc && day >= 1 && day <= 7 ? self.month + 1 : self.month))
+                year = (month == 12 ? self.year + 1 : (month == -1 ? self.year - 1 : self.year))
+                month = (month == 12 ? 0 : (month == -1 ? 11 : month))
+                var dateProp = {
+                    'day': $(this).children('span.fc-date').text(),
+                    'month': month + 1,
+                    'monthname': self.options.displayMonthAbbr ? self.options.monthabbrs[month] : self.options.months[month],
+                    'year': year,
+                    'weekday': $(this).index() + self.options.startIn,
+                    'weekdayname': self.options.weeks[($(this).index() == 6 ? 0 : $(this).index() + self.options.startIn)],
+                    'data': self.curData[$(this).children('span.fc-date').text()] ? self.curData[$(this).children('span.fc-date').text()] : false
+                }
+                $(this).data('bz.calendario.dateprop', dateProp)
+            })
+        }
+
+        Calendario.prototype.insertToCaldata = function (key, c, date, data, f) {
+            if (!data[key]) data[key] = []
+            c.repeat ? c.day = [date[f.DD], c.endDate.split('-')[f.DD]] : c.day = [date[f.DD], date[f.DD]]
+            c.repeat ? c.month = [date[f.MM], c.endDate.split('-')[f.MM]] : c.month = [date[f.MM], date[f.MM]]
+            c.repeat ? c.year = [date[f.YYYY], c.endDate.split('-')[f.YYYY]] : c.year = [date[f.YYYY], date[f.YYYY]]
+            c.category = c.category ? 'calendar-' + c.category.split('-').pop() : 'calendar-default'
+            return data[key].push(c) ? data : data
+        }
+
+        Calendario.prototype.processCaldata = function (obj) {
+            var data = {}, self = this
+            var format = {}
+            $.each(this.options.format.toUpperCase().split('-'), function (key, val) {
+                format[val] = key
+            })
+            $.each(obj, function (key, val) {
+                $.each(val, function (i, c) {
+                    if (c.repeat == 'INTERVAL' || c.repeat == 'EVERYDAY') c.repeat = 'MON, TUE, WED, THU, FRI, SAT, SUN'
+                    else if (c.repeat == 'WEEKDAYS') c.repeat = self.options.weekdays
+                    else if (c.repeat == 'WEEKENDS') c.repeat = self.options.weekends
+                    if ($.inArray(c.repeat, [undefined, 'YEARLY', 'MONTHLY']) != -1) data = self.insertToCaldata(parseInt(key.split('-')[format.DD]), c, key.split('-'), data, format)
+                    else if (c.repeat) {
+                        $.each(c.repeat.split(','), function (v, k) {
+                            data = self.insertToCaldata(k.trim(), $.extend(c, { repeat: 'WEEKLY' }), key.split('-'), data, format)
+                        })
+                    }
+                })
+            })
+            return self.sync(data)
+        }
+
+        Calendario.prototype.toDObj = function (time, day) {
+            var zoneH = parseInt(this.options.zone.split(':')[0])
+            var zoneM = parseInt(this.options.zone.charAt(0) + this.options.zone.split(':')[1])
+            var hour = parseInt(time.split(':')[0]) - zoneH
+            var minutes = parseInt(time.split(':')[1]) - zoneM
+            return new Date(Date.UTC(this.year, this.month, day, hour, minutes, 0, 0))
+        }
+
+        Calendario.prototype.parseDay = function (c, day) {
+            if (!this.curData[day]) this.curData[day] = { html: [], allDay: [], startTime: [], endTime: [], note: [], content: [], url: [] }
+            c.allDay ? this.curData[day].allDay.push(true) : this.curData[day].allDay.push(false)
+            c.allDay ? this.curData[day].startTime.push(this.toDObj('00:00', day)) : this.curData[day].startTime.push(this.toDObj(c.startTime, day))
+            c.allDay ? this.curData[day].endTime.push(this.toDObj('23:59', day)) : this.curData[day].endTime.push(this.toDObj(c.endTime, day))
+            c.note ? this.curData[day].note.push(c.note) : this.curData[day].note.push('')
+            c.content ? this.curData[day].content.push(c.content) : this.curData[day].content.push('')
+            c.url ? this.curData[day].url.push(c.url) : this.curData[day].url.push('')
+            var i = c.url ? this.curData[day].html.push('<a class="' + c.category + '" href="' + c.url + '">' + c.content + '</a>') - 1
+                          : this.curData[day].html.push('<span class="' + c.category + '">' + c.content + '</span>') - 1
+            this.curData[day].html[i] += '<time class="fc-allday" datetime="' + this.curData[day].allDay[i] + '"></time>'
+            this.curData[day].html[i] += '<time class="fc-starttime" datetime="' + this.curData[day].startTime[i].toISOString() + '"></time>'
+            this.curData[day].html[i] += '<time class="fc-endtime" datetime="' + this.curData[day].endTime[i].toISOString() + '"></time>'
+            this.curData[day].html[i] += '<note>' + this.curData[day].note[i] + '</note>'
+            this.isProperlyParsed = true
+        }
+
+        Calendario.prototype.parseDataToDay = function (data, day, dbobj) {
+            var self = $.extend({}, this, dbobj)
+            self.isProperlyParsed = false
+            $.each(data, function (i, c) {
+                if (!c) {/*ignore*/ }
+                else if (c.repeat == 'YEARLY' || c.repeat == 'MONTHLY' || c.repeat == 'WEEKLY') {
+                    if (self.year >= c.year[0] && self.year <= c.year[1]) {
+                        if (c.repeat == 'YEARLY' && (self.month + 1) == c.month[0]) self.parseDay(c, day)
+                        if (self.year == c.year[0] && (self.month + 1) >= c.month[0]) {
+                            if (c.repeat == 'MONTHLY') self.parseDay(c, day)
+                            if (c.repeat == 'WEEKLY') {
+                                if (c.month[0] + c.year[0] == c.month[1] + c.year[1]) {
+                                    if (c.month[0] == (self.month + 1) && c.day[1] >= day && day >= c.day[0]) self.parseDay(c, day)
+                                } else if (c.month[0] == (self.month + 1) && day >= c.day[0]) self.parseDay(c, day)
+                                else if (c.year[0] == c.year[1] && c.month[1] > (self.month + 1) && c.month[0] < (self.month + 1)) self.parseDay(c, day)
+                                else if (c.year[0] == c.year[1] && c.month[1] == (self.month + 1) && day <= c.day[1]) self.parseDay(c, day)
+                                else if (c.year[0] != c.year[1] && c.month[0] < (self.month + 1)) self.parseDay(c, day)
+                            }
+                        } else if (c.year[0] < self.year && self.year < c.year[1]) {
+                            if (c.repeat == 'MONTHLY' || c.repeat == 'WEEKLY') self.parseDay(c, day)
+                        } else if ((self.month + 1) <= c.month[1] && self.year == c.year[1]) {
+                            if (c.repeat == 'MONTHLY') self.parseDay(c, day)
+                            if (c.repeat == 'WEEKLY' && day <= c.day[1] && (self.month + 1) == c.month[1]) self.parseDay(c, day)
+                            else if (c.repeat == 'WEEKLY' && c.year[0] != c.year[1] && (self.month + 1) < c.month[1]) self.parseDay(c, day)
+                        }
+                    }
+                } else if (self.year == c.year[0] && (self.month + 1) == c.month[0]) self.parseDay(c, day)
+            })
+            if (this.curData[day] && self.isProperlyParsed) return '<div class="fc-calendar-event">' + this.curData[day].html.join('</div><div class="fc-calendar-event">') + '</div>'
+            else return ''
+        }
+
+        Calendario.prototype.generateTemplate = function (callback) {
+            this.curData = []
+            var head = this.getHead()
+            var body = this.getBody()
+            var rowClass = ''
+
+            if (this.rowTotal == 4) rowClass = 'fc-four-rows'
+            else if (this.rowTotal == 5) rowClass = 'fc-five-rows'
+            else if (this.rowTotal == 6) rowClass = 'fc-six-rows'
+
+            this.$cal = $('<div class="fc-calendar ' + rowClass + '">').append(head, body)
+            this.$element.find('div.fc-calendar').remove().end().append(this.$cal)
+            this.propDate()
+            this.$element.trigger($.Event('shown.calendar.calendario'))
+            if (callback) callback.call()
+            return true
+        }
+
+        Calendario.prototype.getHead = function () {
+            var html = '<div class="fc-head">', pos, j
+            for (var i = 0; i <= 6; i++) {
+                pos = i + this.options.startIn
+                j = pos > 6 ? pos - 6 - 1 : pos
+                html += '<div>' + (this.options.displayWeekAbbr ? this.options.weekabbrs[j] : this.options.weeks[j]) + '</div>'
+            }
+            return html + '</div>'
+        }
+
+        Calendario.prototype.getBody = function () {
+            var d = new Date(this.year, this.month + 1, 0)
+            var monthLength = d.getDate()
+            var firstDay = new Date(this.year, d.getMonth(), 1)
+            var pMonthLength = new Date(this.year, this.month, 0).getDate()
+            var html = '<div class="fc-body"><div class="fc-row">'
+            var day = 1
+            var month = 1
+            var year = 1
+            var empDay = 1
+            var startingDay = firstDay.getDay()
+            var pos = 0
+            var p = 0
+            var inner = ''
+            var today = false
+            var past = false
+            var content = ''
+            var idx = 0
+            var data = ''
+            var dbobj = {}
+            var cellClasses = ''
+
+            for (var i = 0; i < 7; i++) {
+                for (var j = 0; j <= 6; j++) {
+                    pos = startingDay - this.options.startIn
+                    p = pos < 0 ? 6 + pos + 1 : pos
+                    inner = ''
+                    today = this.month === this.today.getMonth() && this.year === this.today.getFullYear() && day === this.today.getDate()
+                    past = this.year < this.today.getFullYear() || this.month < this.today.getMonth() && this.year === this.today.getFullYear() ||
+                              this.month === this.today.getMonth() && this.year === this.today.getFullYear() && day < this.today.getDate()
+                    content = ''
+                    idx = j + this.options.startIn > 6 ? j + this.options.startIn - 6 - 1 : j + this.options.startIn
+                    dbobj = {}
+
+                    if (this.options.fillEmpty && (j < p || i > 0)) {
+                        if (day > monthLength) {
+                            empDay = day++ - monthLength
+                            year = (this.month + 1) == 12 ? this.year + 1 : this.year
+                            month = (this.month + 1) == 12 ? 0 : this.month + 1
+                        } else if (day == 1) {
+                            empDay = pMonthLength++ - p + 1
+                            year = (this.month - 1) == -1 ? this.year - 1 : this.year
+                            month = (this.month - 1) == -1 ? 11 : this.month - 1
+                        }
+                        if (day > monthLength || day == 1) {
+                            today = month === this.today.getMonth() && year === this.today.getFullYear() && empDay === this.today.getDate()
+                            past = year < this.today.getFullYear() || month < this.today.getMonth() && year === this.today.getFullYear() ||
+                                   month === this.today.getMonth() && year === this.today.getFullYear() && empDay < this.today.getDate()
+                            dbobj = { 'month': month, 'year': year }
+                            inner = '<span class="fc-date fc-emptydate">' + empDay + '</span><span class="fc-weekday">' + this.options.weekabbrs[idx] + '</span>'
+                            data = Array.prototype.concat(this.caldata[empDay], this.caldata[this.options.weekabbrs[idx].toUpperCase()])
+                            .sort(function (a, b) {
+                                return (a.allDay ? '00:00' : a.startTime).replace(':', '') - (b.allDay ? '00:00' : b.startTime).replace(':', '')
+                            })
+                            if (data) content += this.parseDataToDay(data, empDay, dbobj)
+                            if (content !== '') inner += '<div class="fc-calendar-events">' + content + '</div>'
+                        }
+                    }
+
+                    if (day <= monthLength && (i > 0 || j >= p)) {
+                        inner = '<span class="fc-date">' + day + '</span><span class="fc-weekday">' + this.options.weekabbrs[idx] + '</span>'
+                        data = Array.prototype.concat(this.caldata[day], this.caldata[this.options.weekabbrs[idx].toUpperCase()])
+                        .sort(function (a, b) {
+                            return (a.allDay ? '00:00' : a.startTime).replace(':', '') - (b.allDay ? '00:00' : b.startTime).replace(':', '')
+                        })
+                        if (data) content += this.parseDataToDay(data, day, dbobj)
+                        if (content !== '') inner += '<div class="fc-calendar-events">' + content + '</div>'
+                        ++day;
+                    }
+
+                    cellClasses = (today ? 'fc-today ' : (past ? 'fc-past ' : 'fc-future ')) + (content !== '' ? 'fc-content' : '')
+                    html += (cellClasses !== '' ? '<div class="' + cellClasses.trim() + '">' : '<div>') + inner + '</div>'
+                }
+
+                if (day > monthLength) {
+                    this.rowTotal = i + 1
+                    break
+                } else html += '</div><div class="fc-row">'
+            }
+            return html + '</div></div>'
+        }
+
+        Calendario.prototype.move = function (period, dir, callback) {
+            if (dir === 'previous') {
+                if (period === 'month') {
+                    this.year = this.month > 0 ? this.year : --this.year
+                    this.month = this.month > 0 ? --this.month : 11
+                } else if (period === 'year') this.year = --this.year
+            }
+            else if (dir === 'next') {
+                if (period === 'month') {
+                    this.year = this.month < 11 ? this.year : ++this.year
+                    this.month = this.month < 11 ? ++this.month : 0
+                } else if (period === 'year') this.year = ++this.year
+            }
+            return this.generateTemplate(callback)
+        }
+
+        Calendario.prototype.option = function (option, value) {
+            if (value) return this.options[option] = value
+            else return this.options[option]
+        }
+
+        Calendario.prototype.getYear = function () {
+            return this.year
+        }
+
+        Calendario.prototype.getMonth = function () {
+            return this.month + 1
+        }
+
+        Calendario.prototype.getMonthName = function () {
+            return this.options.displayMonthAbbr ? this.options.monthabbrs[this.month] : this.options.months[this.month]
+        }
+
+        Calendario.prototype.getCell = function (day, data) {
+            if (!data) return this.$cal.find("span.fc-date").filter(function () { return $(this).text() == day }).parent()
+            else return this.$cal.find("span.fc-date").filter(function () { return $(this).text() == day }).parent().data('bz.calendario.dateprop')
+        }
+
+        Calendario.prototype.setData = function (caldata, clear) {
+            if (clear) this.caldata = this.processCaldata(caldata)
+            else $.extend(this.caldata, this.processCaldata(caldata))
+            return this.generateTemplate()
+        }
+
+        Calendario.prototype.gotoNow = function (callback) {
+            this.month = this.today.getMonth()
+            this.year = this.today.getFullYear()
+            return this.generateTemplate(callback)
+        }
+
+        Calendario.prototype.gotoMonth = function (month, year, callback) {
+            this.month = month - 1
+            this.year = year
+            return this.generateTemplate(callback);
+        }
+
+        Calendario.prototype.gotoPreviousMonth = function (callback) {
+            return this.move('month', 'previous', callback)
+        }
+
+        Calendario.prototype.gotoPreviousYear = function (callback) {
+            return this.move('year', 'previous', callback)
+        }
+
+        Calendario.prototype.gotoNextMonth = function (callback) {
+            return this.move('month', 'next', callback)
+        }
+
+        Calendario.prototype.gotoNextYear = function (callback) {
+            return this.move('year', 'next', callback)
+        }
+
+        Calendario.prototype.feed = function () {
+            return this.syncData.feed ? this.syncData.feed : 'not-available'
+        }
+
+        Calendario.prototype.version = function () {
+            return this.INFO.VERSION
+        }
+
+        function Plugin(option, value1, value2, value3) {
+            var val = ''
+            this.each(function () {
+                var $this = $(this)
+                var data = $this.data('bz.calendario')
+                var options = typeof option == 'object' && option
+
+                if (!data) $this.data('bz.calendario', (data = new Calendario(this, options)))
+                if (typeof option == 'string' && $.isFunction(data[option])) return val = data[option](value1, value2, value3)
+                else if (typeof option == 'string') return val = data['option'](value1, value2)
+            })
+            if (val) return val
+            else $(document).trigger($.Event('finish.calendar.calendario'))
+        }
+
+        var old = $.fn.calendario
+
+        $.fn.calendario = Plugin
+        $.fn.calendario.Constructor = Calendario
+
+        $.fn.calendario.noConflict = function () {
+            $.fn.calendario = old
+            return this
+        }
+    }(jQuery);
+
+</script>

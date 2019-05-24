@@ -1,0 +1,141 @@
+﻿
+
+@model AIA.Life.Models.Policy.Policy
+@using GridMvc.Html
+
+@Html.Grid(Model.objSpouseLifeAssuredOtherInsurance).Named("GridSpouseLifeAssuredOtherInsuranceDetails").Columns(columns =>
+{
+columns.Add(a => a.CompanyName).Titled("Company Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.PolicyNo).Titled("Policy/Prop.No").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.TotalSAAtDeath).Titled("Total SA at Death").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.AccidentalBenefitAmount, true).Titled("Accidental Benefit Ammount").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.CriticalIllnessBenefit, true).Titled("Critical Illness Benefit").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.HospitalizationPerDay, true).Titled("Hospitalization Per Day").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.CurrentStatus).Titled("Current Status").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add().Titled("Delete").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(@<text>
+        <input type="button" id="btnSpouseDeleteGridRow" value="Delete" class="btn btn-default " onclick="DeleteSpouseOtherInsuranceRow(this)" /></text>);
+columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(@<text>
+    <input type="button" id="btnSpouseEditGridRow" value="Delete" class="btn btn-default " onclick="EditMainOtherInsuranceRow(this)" /></text>);
+})
+
+<style type="text/css">
+    .table th {
+        color: white !important;
+        text-align: center;
+    }
+</style>
+
+<script>
+
+
+    var SpouseLifeInsuranceLength = 0;
+    function AddSpouseOtherInsuranceRow() {
+        if (SpouseLifeInsuranceLength == 0) {
+            $("#divSpouseOtherInsurance tbody").find("tr").each(function (index) {
+                $(this).remove();
+            });
+        }
+
+        var RowID = "SpouseLifeInsurance" + SpouseLifeInsuranceLength;
+
+        var CompanyName = $('#txtPrevInsCompany').val();
+        var PolicyOrProposal = $('#txtPolicyOrProposal').val();
+        var TotalSI = $('#txtTotalSI').val();
+        var AccidentalBenifit = $('#txtAccedentalBenifit').val();
+        var CIBenifit = $('#txtCritiIllnesBenifit').val();
+        var HospitalizationPerDay = $('#txtHospitalizationPerDay').val();
+        var CurrentStatus = $('#txtCurrentStatus').val();
+        newRow = " <tr class='grid-row' id='" + RowID + "'><td class='grid-cell' data-name='CompanyName'><input name='objSpouseLifeAssuredOtherInsurance[" + SpouseLifeInsuranceLength + "].CompanyName' type='text' class='form-control'  value='" + CompanyName + "' id=\'txt_CompanyName" + SpouseLifeInsuranceLength + "\'></input></td>" +
+       "<td class='grid-cell' data-name='PolicyOrProposal'><input name='objSpouseLifeAssuredOtherInsurance[" + SpouseLifeInsuranceLength + "].PolicyNo' type='text' class='form-control'  value='" + PolicyOrProposal + "'  id=\'txt_PolicyOrProposal" + SpouseLifeInsuranceLength + "\'></input></td>" +
+       "<td class='grid-cell' data-name='TotalSI'><input name='objSpouseLifeAssuredOtherInsurance[" + SpouseLifeInsuranceLength + "].TotalSAAtDeath' type='text' class='form-control'  value='" + TotalSI + "'  id=\'txt_TotalSI" + SpouseLifeInsuranceLength + "\'></input></td>" +
+       "<td class='grid-cell' style='display:none' data-name='AccidentalBenifit'><input name='objSpouseLifeAssuredOtherInsurance[" + SpouseLifeInsuranceLength + "].AccidentalBenefitAmount' type='hidden' class='form-control' value='" + AccidentalBenifit + "' id=\'txt_AccidentalBenifit" + SpouseLifeInsuranceLength + "\'></input></td>" +
+           "<td class='grid-cell' style='display:none' data-name='CIBenifit'><input name='objSpouseLifeAssuredOtherInsurance[" + SpouseLifeInsuranceLength + "].CriticalIllnessBenefit' type='hidden' class='form-control'  value='" + CIBenifit + "'  id=\'txt_CIBenifit" + SpouseLifeInsuranceLength + "\'></input></td>" +
+       "<td class='grid-cell' style='display:none' data-name='HospitalizationPerDay'><input name='objSpouseLifeAssuredOtherInsurance[" + SpouseLifeInsuranceLength + "].HospitalizationPerDay' type='hidden' class='form-control'  value='" + HospitalizationPerDay + "'  id=\'txt_HospitalizationPerDay" + SpouseLifeInsuranceLength + "\'></input></td>" +
+       "<td class='grid-cell' data-name='CurrentStatus'><input name='objSpouseLifeAssuredOtherInsurance[" + SpouseLifeInsuranceLength + "].CurrentStatus' type='text' class='form-control' value='" + CurrentStatus + "' id=\'txt_CurrentStatus" + SpouseLifeInsuranceLength + "\'></input></td>" +
+      "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'deleteGridRow" + SpouseLifeInsuranceLength + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteSpouseOtherInsuranceRow(\"" + RowID + "\")' /></td>" +
+       "<td class='grid-cell text-center' data-name='Edit'><input class='btn btn-default' id=\'EditGridRow" + SpouseLifeInsuranceLength + "\' style='margin-top: 3px;' type='button' value='Edit' onclick='EditSpouseOtherInsuranceRow(\"" + SpouseLifeInsuranceLength + "\")' /></td></tr>";
+        $('#divSpouseOtherInsurance tbody:last').append(newRow);
+        SpouseLifeInsuranceLength = SpouseLifeInsuranceLength + 1;
+
+        RefreshSpouseOtherInsuranceData();
+    }
+
+    var updateSpouseOtherInsuranceID = 0;
+    function EditSpouseOtherInsuranceRow(id) {
+        
+        updateSpouseOtherInsuranceID = id;
+        var CompanyName = $('#txt_CompanyName' + id).val();
+        var PolicyOrProposal = $('#txt_PolicyOrProposal' + id).val();
+        var TotalSI = $('#txt_TotalSI' + id).val() ;
+        var AccidentalBenifit = $('#txt_AccidentalBenifit' + id).val();
+        var CIBenifit = $('#txt_CIBenifit' + id).val() ;
+        var HospitalizationPerDay = $('#txt_HospitalizationPerDay' + id).val();
+        var CurrentStatus = $('#txt_CurrentStatus' + id).val();
+
+
+
+        $('#txtPrevInsCompany').val(CompanyName);
+        $('#txtPolicyOrProposal').val(PolicyOrProposal);
+         $('#txtTotalSI').val(TotalSI);
+        $('#txtAccedentalBenifit').val(AccidentalBenifit);
+         $('#txtCritiIllnesBenifit').val(CIBenifit);
+        $('#txtHospitalizationPerDay').val(HospitalizationPerDay);
+        $('#txtCurrentStatus').val(CurrentStatus);
+
+
+
+        $('#btnUpdateSpouseOtherInsu').show();
+        $('#btnCancelSpouseOtherInsu').show();
+        $('#btnAddSpouseOtherInsu').hide();
+
+
+    }
+    function DeleteSpouseOtherInsuranceRow(id) {
+        $('#' + id).remove();
+    }
+    function CancelSpouseOtherInsurance() {
+        $('#btnUpdateSpouseOtherInsu').hide();
+        $('#btnCancelSpouseOtherInsu').hide();
+        $('#btnAddSpouseOtherInsu').show();
+        RefreshMainOtherInsuranceData();
+    }
+
+    function UpdateSpouseOtherInsuranceRow() {
+
+        $('#txt_CompanyName' + updateSpouseOtherInsuranceID).val($('#txtPrevInsCompany').val());
+        $('#txt_PolicyOrProposal' + updateSpouseOtherInsuranceID).val($('#txtPolicyOrProposal').val());
+        $('#txt_TotalSI' + updateSpouseOtherInsuranceID).val($('#txtTotalSI').val());
+        $('#txt_AccidentalBenifit' + updateSpouseOtherInsuranceID).val($('#txtAccedentalBenifit').val());
+        $('#txt_CIBenifit' + updateSpouseOtherInsuranceID).val($('#txtCritiIllnesBenifit').val());
+        $('#txt_HospitalizationPerDay' + updateSpouseOtherInsuranceID).val($('#txtHospitalizationPerDay').val());
+        $('#txt_CurrentStatus' + updateSpouseOtherInsuranceID).val($('#txtCurrentStatus').val());
+
+
+        CancelMainOtherInsurance();
+        RefreshSpouseOtherInsuranceData();
+    }
+
+    function RefreshSpouseOtherInsuranceData() {
+
+        $('#txtPrevInsCompany').val('');
+        $('#txtPolicyOrProposal').val('');
+        $('#txtTotalSI').val('');
+        $('#txtAccedentalBenifit').val('');
+        $('#txtCritiIllnesBenifit').val('');
+        $('#txtHospitalizationPerDay').val('');
+        $('#txtCurrentStatus').val('');
+
+    }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+

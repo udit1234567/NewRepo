@@ -1,0 +1,234 @@
+﻿@{
+    Layout = null;
+}
+<head>
+
+    @*@Styles.Render("~/Content/themes/base/css")
+        @Scripts.Render("~/bundles/iNubeScripts")*@
+    <script type="text/javascript">
+        var hlvCalculator = new Array();
+        $(document).ready(function () {
+            document.getElementById("hlvCurrentAge").value = 35;
+            document.getElementById("hlvRetirementAge").value = 60;
+            document.getElementById("hlvMonthlyEarnings").value = 50000;
+            document.getElementById("hlvIncrementPA").value = 6;
+            HLVCalculate();
+        });
+        function onhlvCurrentAgeSlide(e) {
+            document.getElementById("hlvCurrentAge").value = e.value;
+            HLVCalculate();
+        }
+        function onhlvRetirementAgeSlide(e) {
+            document.getElementById("hlvRetirementAge").value = e.value;
+            HLVCalculate();
+        }
+        function onhlvMonthlyEarningsSlide(e) {
+            document.getElementById("hlvMonthlyEarnings").value = e.value;
+            HLVCalculate();
+        }
+        function onhlvIncrementPASlide(e) {
+            document.getElementById("hlvIncrementPA").value = e.value;
+            HLVCalculate();
+        }
+        function getSlider() {
+            return $("#hlvCurrentAgeID").data("tSlider");
+        }
+        function getRASlider() {
+            return $("#hlvRetirementAgeID").data("tSlider");
+        }
+        function getMESlider() {
+            return $("#hlvMonthlyEarningsID").data("tSlider");
+        }
+        function getIPSlider() {
+            return $("#hlvIncrementPAID").data("tSlider");
+        }
+        function onChangehlvCAText() {
+            var slider = getSlider();
+            slider.value($("#hlvCurrentAge").val());
+            HLVCalculate();
+        }
+        function onChangehlvRAText() {
+            var slider = getRASlider();
+            slider.value($("#hlvRetirementAge").val());
+            HLVCalculate();
+        }
+        function onChangehlvMEText() {
+            var slider = getMESlider();
+            slider.value($("#hlvMonthlyEarnings").val());
+            HLVCalculate();
+        }
+        function onChangehlvIPText() {
+            var slider = getIPSlider();
+            slider.value($("#hlvIncrementPA").val());
+            HLVCalculate();
+        }
+        function HLVCalculate() {
+
+            var hlvCurrentAge = document.getElementById("hlvCurrentAge").value;
+            var hlvRetirementAge = document.getElementById("hlvRetirementAge").value;
+            var hlvMonthlyEarnings = document.getElementById("hlvMonthlyEarnings").value;
+            var hlvIncrementPA = document.getElementById("hlvIncrementPA").value;
+            var Interest = 5;
+            var _yearlyEarning = hlvMonthlyEarnings * 12;
+            var _interestRate = Interest - hlvIncrementPA;
+            var _pvFactor = (1 + hlvIncrementPA / 100) / (1 + Interest / 100);
+            var _duration = hlvRetirementAge - hlvCurrentAge;
+            var _lifeValue = Math.round((_yearlyEarning / (_interestRate / 100)) * (1 - (Math.pow(_pvFactor, _duration))));
+            var asmptns = document.getElementById("lblHLVAssumptions");
+            asmptns.style.display = "block";
+            var lblHLVDef = document.getElementById("lblHLVDef");
+            lblHLVDef.style.display = "block";
+            var lblHLVAgeDef = document.getElementById("lblHLVAgeDef");
+            lblHLVAgeDef.style.display = "block";
+            var lblyrs = document.getElementById("lblyrs");
+            lblyrs.style.display = "block";
+            document.getElementById("lblHLVReq").innerHTML = _lifeValue;
+            document.getElementById("lblHLVAge").innerHTML = hlvRetirementAge;
+            hlvCalculator = [
+                {
+                    "cat": "Retirement Age",
+                    "value": hlvCurrentAge
+                }];
+
+            createChart('divHLVCalculator', hlvCalculator, 'cat', 'value', 'Human Life Value Calculator')
+        }
+        $(function () {
+            $("#CurrentAgeDiv").slider({
+                range: true,
+                min: 18,
+                max: 65,
+                value: 35,
+                slide: function (event, i) {
+                    onhlvCurrentAgeSlide(i);
+                }
+
+            });
+            $("#RetirementAgeDiv").slider({
+                range: true,
+                min: 35,
+                max: 85,
+                value: 60,
+                slide: function (event, i) {
+                    onhlvRetirementAgeSlide(i);
+                }
+            });
+            $("#MonthlyEarningsDiv").slider({
+                range: true,
+                min: 5000,
+                max: 500000,
+                value: 50000,
+                slide: function (event, i) {
+                    onhlvMonthlyEarningsSlide(i);
+                }
+            });
+            $("#IncrementPADiv").slider({
+                range: true,
+                min: 0,
+                value: 6,
+                max: 20,
+                slide: function (event, i) {
+                    onhlvIncrementPASlide(i);
+                }
+            });
+        });
+        function checkIt(evt) {
+            evt = (evt) ? evt : window.event
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                status = "This field accepts numbers only."
+                return false
+            }
+            status = ""
+            return true
+        }
+    </script>
+</head>
+
+
+<div style="width: 100%;">
+    <div class="panel panel-default col-lg-12 col-md-12" style="margin-top:10px;">
+        <div class="panel-heading">
+            <h4 class="panel-title" style=" text-align left;">
+                <a href="#collapsablePanelOne" data-toggle="collapse" data-parent="accordion" class="accordion-toggle">
+                    Retirement Calculator
+                    <i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+                </a>
+            </h4>
+        </div>
+        <div class="panel-collapse collapse in" id="collapsablePanelOne" style="background-color:white">
+            <div id="SubContent" class="panel-body">
+                <div style="width: 45%; padding-top: 85px;">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-md-3 col-sm-3" style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                            Current Age
+                        </label>
+                        <div class="col-md-5 col-sm-5" id="CurrentAgeDiv"></div>
+
+                        <input class="col-md-4 col-sm-4" id="hlvCurrentAge" type="text" style="height: 20px; line-height: 20px; text-align: center;
+                    width: 90px; margin-left:10px; margin-right:10px; border-radius:5px;" onchange="onChangehlvCAText();" onkeypress="return checkIt(event);" />
+                        <label style="color: Black; font-weight:bold">
+                            Years
+                        </label>
+
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-md-3 col-sm-3" style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                            Retirement Age
+                        </label>
+                        <div class="col-md-5 col-ms-5" id="RetirementAgeDiv"></div>
+                        <input id="hlvRetirementAge" class="col-md-4 col-sm-4" type="text" style="height: 20px; line-height: 20px;
+                width: 90px; text-align: center; margin-left:10px; margin-right:10px; border-radius:5px;" onchange="onChangehlvRAText();" onkeypress="return checkIt(event);" />
+                        <label style="color: Black; font-weight:bold">
+                            Years
+                        </label>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-md-3 col-sm-3" style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                            Monthly Earnings
+                        </label>
+                        <div class="col-md-5 col-sm-5" id="MonthlyEarningsDiv"></div>
+                        <input class="col-md-4 col-sm-4" id="hlvMonthlyEarnings" type="text" style="height: 20px; line-height: 20px;
+                width: 90px; text-align: center;margin-left:10px; border-radius:5px;" onchange="onChangehlvMEText();" onkeypress="return checkIt(event);" />
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="col-md-3 col-sm-3" style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                            Increment % pa
+                        </label>
+                        <div class="col-md-5 col-sm-5" id="IncrementPADiv"></div>
+                        <input class="col-md-4 col-sm-4" id="hlvIncrementPA" type="text" style="height: 20px; line-height: 20px; width: 90px;
+                text-align: center;margin-left:10px; margin-right:10px; border-radius:5px;" onchange="onChangehlvIPText();" onkeypress="return checkIt(event);" />
+                        <label style="color: Black; font-weight:bold">
+                            %
+                        </label>
+                    </div>
+                </div>
+                <div style="float: right; width: 40%; margin-top:-140px;">
+                    <div>
+                        <label id="lblHLVAssumptions" style="text-align: center; color:black; font-weight:bold;">
+                            Assumptions
+                        </label>
+                        <div>
+                            <label id="lblHLVDef" style="text-align: right; color: black; float: left; font-weight:bold;">
+                                Human Life Value
+                            </label>
+                            <label id="lblHLVReq" style="color: red; text-align: right; float: left; margin-left: 10px; font-weight:bold;">
+                            </label>
+                            <label id="lblHLVAgeDef" style="text-align: right; color: black; float: left; margin-left: 10px; font-weight:bold;">
+                                when you are at
+                            </label>
+                            <label id="lblHLVAge" style="color: red; text-align: right; float: left; margin-left: 10px; font-weight:bold;">
+                            </label>
+                            <label id="lblyrs" style="text-align: right; color: black; float: left; margin-left: 10px; font-weight:bold;">
+                                years
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divHLVCalculator" style="height: 250px; position: relative;">
+                        <label></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

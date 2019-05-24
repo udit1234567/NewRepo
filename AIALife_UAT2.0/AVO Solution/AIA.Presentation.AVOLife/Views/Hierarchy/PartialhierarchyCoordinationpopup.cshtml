@@ -1,0 +1,143 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+    @{ 
+
+    }
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Channel<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(s => s.CoordinationChannel, new SelectList(Model.LstCoordinationChannel, "ID", "Value"), "Select", new { @id = "ddlHierarchyCoodinationChannel", @class = "form-control", @Onchange = "FetchCoordinationSubChannel()" })
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+    <div class="form-group">
+        <label>Sub Channel<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(s => s.CoordinationSubChannel, new SelectList(Model.LstCoordinationSubChannel, "ID", "Value"), "Select", new { @id = "ddlHierarchyCoodinationSubChannel", @class = "form-control" })
+    </div>
+</div>
+    @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Partner<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(s => s.EntityType, new SelectList("", "", ""), "Select", new { @id = "ddlHierarchyCoodinationSubChannel", @class = "form-control" })
+        </div>
+    </div>*@
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Code<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.CoordinationSearchCode, new { @class = "form-control", @id = "txtCoordinationCode" })
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Geo Unit Name<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.CoordinationSearchGeoUnitName, new { @class = "form-control", @id = "txtCoordinationUnitName"})
+        </div>
+    </div>
+    
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <br />
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <input type="button" value="Search" id="btnSaveCoordinationSearchDetails" class="btn btn-default" style="width:100px" onclick="SearchCoordinationDetails()">             
+         </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divSearchCoordinationPopUpdetails">
+
+    </div>
+<script type="text/javascript">
+    var Channel = $("#ddlHierarchyCoodinationChannel").val();
+    var SubChannel = $("#ddlHierarchyCoodinationSubChannel").val();
+    var Code = $("#txtCoordinationCode").val();
+    var GeoUnitName = $("#txtCoordinationUnitName").val();
+    function SearchCoordinationDetails()   
+    {        
+        if (!ValidatePopupDetails()) {
+        }
+        else {
+            $.post("../Hierarchy/LoadCoordinationSearchDetails", $("#frmHierarchyDetails").serialize())
+                .done(function (data) {
+                    $("#divSearchCoordinationPopUpdetails").html(data);
+
+                }).
+                fail(function () {
+                    $("#divSearchCoordinationPopUpdetails").html("No Records Found");
+                });
+        }  
+    }
+    function ValidatePopupDetails() {   
+      
+        if (validateDropDown('ddlHierarchyCoodinationChannel', 'Please Select Channel.') == false) {
+            return false;
+        }
+        if (validateDropDown('ddlHierarchyCoodinationSubChannel', 'Please Select Sub Channel') == false) {
+            return false;
+        }      
+        if (validateTextBox('txtCoordinationCode', 'Please enter Code.') == false) {
+            return false;
+        }
+        if (validateTextBox('txtCoordinationUnitName', 'Please enter Geo Unit Name') == false) {
+            return false;
+        }
+        return true;
+    }
+    function FetchCoordinationSubChannel() {
+        var ChannelID = $("#ddlHierarchyCoodinationChannel").val();
+        if (ChannelID == "" && ChannelID == undefined) {
+        }
+        else {
+            $.post("../Hierarchy/FetchCoordinateSubChannel", $("#frmHierarchyDetails").serialize())
+                .done(function (data) {
+                    if (data != null) {
+                        $('#ddlHierarchyCoodinationSubChannel').html(""); // clear before appending new list
+                        $('#ddlHierarchyCoodinationSubChannel').append($('<option value=\'\'>Select</option>'));
+                        $.each(data, function (ID, option) {
+                            $('#ddlHierarchyCoodinationSubChannel').append($('<option value=\'' + option.ID + '\'>' + option.Value + '</option>'));
+                        });
+                    }
+                });
+        }
+    } 
+    var CoordinationCode;
+    $("#txtCoordinationCode").autocomplete({
+        appendTo: '#divSearchCoordinationPopUpdetails',
+        minLength: 1,
+        CoordinationCode: $("#txtCoordinationCode").val(),
+        source: function (request, response) {
+            $.ajax({
+                url: '/Hierarchy/SearchGeoUnitCode',
+                type: "POST",
+                dataType: "json",
+                data: { CoordinationCode: request.term },
+                success: function (data) {
+                    response($.map(data, function (item, idx) {
+                        return {
+                            label: item.Text,
+                            value: item.Value,
+                            id: item.ID
+                        };
+
+                    }));
+                },
+            });
+        },
+        select: function (event, ui) {
+            $.ajax({
+                url: '/Hierarchy/GetGeoUnitName',
+                type: "POST",
+                dataType: "json",
+                data: { CoordinationCode: ui.item.value },
+                success: function (data) {                    
+                    $('#txtCoordinationCode').val(data[0].CoordinationSearchCode);
+                    $('#txtCoordinationUnitName').val(data[0].CoordinationSearchGeoUnitName);                   
+                }
+
+            });
+        },
+    });
+</script>

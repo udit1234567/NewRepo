@@ -1,0 +1,107 @@
+﻿@*<style>
+    .youtube-popup {
+  position: relative;
+  width: 560px; /* equal to the iframe width */
+  height: 315px; /* equal to the iframe height */
+}
+
+.youtube-popup > div {
+  position: absolute;
+  width: 560px; /* equal to the iframe width */
+  height: 315px; /* equal to the iframe height */
+  top: 0;
+  z-index: 100;
+}
+</style>
+<div class="auto-resizable-iframe">
+    <div>
+        <br />
+      
+        <div id="player1" class="youtube-popup">
+            <iframe class="AIAVideo" id="productviewvideo1" src="https://www.youtube.com/embed/kbq_2h8MNLg" frameborder="0" allowfullscreen></iframe>
+            <br />
+        </div>
+        <div></div>
+    </div>
+    <br />
+<div>
+        <div id="player2" class="youtube-popup">
+            <iframe class="AIAVideo" id="productviewvideo2" src="https://www.youtube.com/embed/GQ4ZC7L_K7E" frameborder="0" allowfullscreen></iframe>
+            <br />
+        </div>
+    <div></div>
+    </div>
+</div>
+<script>
+    $('.youtube-popup > div').click(function () {
+        debugger;
+        window.open($(this).parent().children('iframe').attr("src"));
+    });
+</script>*@
+@*Commented on 18/10/2018 for youtube link to image changing.*@
+@*<style>
+    .youtube-popup {
+  position: relative;
+  width: 654px; 
+  height: 315px; 
+}
+
+.youtube-popup > div {
+  position: absolute;
+  width: 560px;
+  height: 315px;
+  top: 0;
+  z-index: 100;
+}
+</style>
+
+    <div class="auto-resizable-iframe">
+        <div id="player1">
+            <br />
+            <div  class="youtube-popup">
+                <iframe width="560" height="315"  src="https://www.youtube.com/embed/kbq_2h8MNLg" frameborder="0" allowfullscreen></iframe>
+                <div></div>
+            </div>
+        </div>
+        <div id="player2">
+            <br />
+            <div  class="youtube-popup">
+                <iframe width="560" height="315"  src="https://www.youtube.com/embed/GQ4ZC7L_K7E" frameborder="0" allowfullscreen></iframe>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $('.youtube-popup > div').click(function () {
+        window.open($(this).parent().children('iframe').attr("src"));
+    });
+</script>*@
+
+<style>
+    .embed-responsive {
+        position: relative;
+        display: block;
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+</style>
+<div class="auto-resizable-iframe">
+    <div class='embed-responsive pop-style'>
+        <br />
+        <a href="https://www.youtube.com/embed/kbq_2h8MNLg" width="100%" height="100%" target="_blank">
+            <img src="~/Content/Images/Youtube1.png" width="100%" />
+
+        </a>
+        <br />
+    </div>
+    <div class='embed-responsive pop-style'>
+        <br />
+        <a href="https://www.youtube.com/embed/GQ4ZC7L_K7E" width="100%" height="100%" target="_blank">
+            <img src="~/Content/Images/Youtube2.png" width="100%"/>
+
+        </a>
+        <br />
+    </div>
+  </div>

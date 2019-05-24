@@ -1,0 +1,59 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int GlobalCount = 0;
+    
+}
+@Html.HiddenFor(a => a.AnnualPremium, new { })
+@Html.HiddenFor(a => a.HalfYearlyPremium, new { })
+@Html.HiddenFor(a => a.MonthlyPremium, new { })
+@Html.HiddenFor(a => a.QuaterlyPremium, new { })
+@Html.HiddenFor(a => a.Cess, new { })
+@Html.HiddenFor(a => a.PolicyFee, new { })
+@Html.HiddenFor(a => a.VAT, new { })
+<div class="table-responsive" >
+    @if (Model.ListAssured != null)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="font-weight: bold">@Resources.GetLabelName("Select Your Riders")</th>
+
+                    @foreach (var item in Model.ListAssured)
+                {
+                        <th style="font-weight: bold">@Resources.GetLabelName(item)</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var benifit in Model.LstPremiumDetails.ToList())
+                {
+                    <tr>
+                        <td>
+                            @benifit.BenifitName
+                            @Html.HiddenFor(m => m.LstPremiumDetails[GlobalCount].BenifitName, new { })
+                            @Html.HiddenFor(m => m.LstPremiumDetails[GlobalCount].BenefitID)
+                            @Html.HiddenFor(m => m.LstPremiumDetails[GlobalCount].MemberBenifitID)
+                            @Html.HiddenFor(m => m.LstPremiumDetails[GlobalCount].AssuredMember)
+
+                        </td>
+                        @for (int i = 0; i < benifit.objBenefitMemberRelationship.Count(); i++)
+                        {
+                            <td style="height:82px;text-align:center">
+                                @Html.TextBoxFor(m => m.LstPremiumDetails[GlobalCount].objBenefitMemberRelationship[i].Rider_Premium, new { @readonly = "readonly", @class = "form-control" })
+                                @Html.HiddenFor(m => m.LstPremiumDetails[GlobalCount].objBenefitMemberRelationship[i].Member_Relationship)
+                                @Html.HiddenFor(m => m.LstPremiumDetails[GlobalCount].objBenefitMemberRelationship[i].Assured_Name)
+                            </td>
+                        }
+                    </tr>
+
+                    GlobalCount++;
+
+
+                }
+            </tbody>
+
+        </table>
+    }
+</div>

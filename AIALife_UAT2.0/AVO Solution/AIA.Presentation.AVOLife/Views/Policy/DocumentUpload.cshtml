@@ -1,0 +1,713 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using GridMvc.Html
+@using GridMvc.Sorting
+@using AIA.Life.Models.Common
+@using AIAResources;
+@{
+    int Count = 0;
+    if (Model.objDocumentUpload.Count != 0)
+    {
+        Count = Model.objDocumentUpload.Count();
+    }
+}
+<style>
+    .nav-tabs > li > a, .nav-pills > li > a {
+        padding: 11px 52px;
+    }
+
+    .upload-doc input[type="file"] {
+        display: none;
+    }
+
+    .upload-doc i {
+        color: #000;
+        font-size: 27px;
+    }
+
+    .document-link-list i {
+        background-color: #B8123E;
+        color: white;
+        margin-left: 12px;
+        padding: 4px;
+        border-radius: 2px;
+    }
+
+    .upload-status i {
+        background-color: #00c700;
+        color: white;
+        margin-left: 12px;
+        padding: 4px;
+        border-radius: 2px;
+    }
+
+    .document-link-list li {
+        list-style: none;
+        text-align: left;
+    }
+</style>
+
+@Html.HiddenFor(a => a.HdnDocumentDetails, new { @id = "HdnDocumentDetails" })
+
+<div class="" id="divDocumentUpload">
+    <div class="iGrid" id="divDocumentUploads">
+        <table class="table UwMedical-table">
+            <thead>
+                <tr>
+                    <th>Document Type</th>
+                    <th>Upload</th>
+                    <th>Link</th>
+                    <th>Member</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.objDocumentUpload.Count(); i++)
+                {
+                    string Row_ID = "DocGridRow" + i;
+                    string FileControlID = "txtFileName_" + i;
+                    string DoctypeID = "ddlDocumentType" + i;
+                    string MemberTypeId = "ddlMemberType" + i;
+                    string HdnFilePath = "hdnFilepath" + i;
+                    string HdnDocID = "hdnDocID" + i;
+                    string HdnDocumentID = "hdnDocumentID" + i;
+                    string DocumentLink = "hdnFilepath" + i;
+                    string ExistingFileName = "lnkExistingFileName" + i;
+                    string UploadDoctd = "uploaddoctd" + i;
+                    string deletelink = "delete-link_" + i;
+
+                    string Modifiedeletelink = "delete-link_" + i;
+
+                    string DeleteID = "btnDelete" + i;
+
+                    <tr id=@Row_ID>
+                        <td data-name='Document_Name'>
+                            @Html.DropDownListFor(a => a.objDocumentUpload[i].Document_Name, new SelectList(Model.lstDocumentName, "Value", "Text", Model.objDocumentUpload[i].Document_Name), new { @class = "form-control", @id = DoctypeID })
+
+                        </td>
+                        <td class="upload-doc" data-name='FileName' id="@UploadDoctd">
+                            <label for="@FileControlID">
+                                <i class="fa fa-upload"></i>
+                            </label>
+                            <input type="file" name="@FileControlID" class='form-control' id="@FileControlID" onchange="Handlechange(id)" />
+                            @Html.Hidden("HiddenDocID", Model.objDocumentUpload[i].DOCID, new { @id = HdnDocumentID })
+
+                        </td>
+
+                        <td class="document-link-list" data-name='Link'>
+                            <ul id="@DocumentLink">
+                                @{
+                                    for (int j = 0; j < Model.objDocumentUpload[i].objlstDocuments.Count(); j++)
+                                    {
+                                        @Html.Hidden("HiddenFilePath", Model.objDocumentUpload[i].objlstDocuments[j].ExistingFileName, new { @id = HdnFilePath + j }) //HdnFilePath //"hdnFilepath" + Model.objDocumentUpload[i].DocIndex + j
+                                        @Html.Hidden("HiddenDocID", Model.objDocumentUpload[i].objlstDocuments[j].DOCID, new { @id = HdnDocID + j })
+                                        <li>
+                                            @{
+                                                if (Model.objDocumentUpload[i].objlstDocuments[j].FileName != null)
+                                                {
+                                                    @Html.ActionLink(Model.objDocumentUpload[i].objlstDocuments[j].FileName, "DownloadPolicyDocument", "Utility", new { FilePath = Model.objDocumentUpload[i].objlstDocuments[j].ExistingFileName, @style = "margin-left:-40px" }, new { @id = deletelink + i })
+                                                    if (Model.Underwriter != "UW")
+                                                    {
+                                                        <span id="@Modifiedeletelink" onclick="deleteImage(id)"><i class="fa fa-close"></i></span> //"lnkExistingFileName" + Model.objDocumentUpload[i].DocIndex + k
+
+                                                    }
+
+                                                }
+                                            }
+
+                                        </li>
+
+                                    }
+                                }
+                            </ul>
+
+                        </td>
+
+
+                        <td data-name='MemberType'>
+                            @Html.DropDownListFor(a => a.objDocumentUpload[i].MemberType, new SelectList(Model.DropDownMemberDetails, "Value", "Value", Model.objDocumentUpload[i].MemberType), new { @class = "form-control", @id = MemberTypeId })
+                        </td>
+
+                        <td><input type="button" id="@DeleteID" class="btn btn-default btnhide" value="Delete" onclick="DeleteUploadRow(@i)" /></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-lg-3 col-sm-6 col-md-3 col-xl-12"><input type="button" class="btn btn-default btnhide" value="Add " id="btnAddDocument" onclick="AddNewDocumentUpload()" /></div>
+</div>
+
+<div class="modal fade" id="DocumentsuploadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h5 class="modal-title">@Resources.GetLabelName("Documents UpLoad")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body" id="DocumentsuploadModalBody">
+                <div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="OCRYes">Yes</button>  @*onclick="SaveNomineeDetails(this)"*@
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="OCRNo" onclick="funOCRNo()">No</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="OCROk">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    var Count = '@Count';
+    var DocGridLength = parseInt(Count);
+    var documentNameData =  @(Html.Raw(Json.Encode(Model.lstDocumentName)));
+    var MemeberTypesData =  @(Html.Raw(Json.Encode(Model.DropDownMemberDetails)));
+    var MemeberListAssured =  @(Html.Raw(Json.Encode(Model.ListAssured)));
+
+    $(document).ready(function () {
+        var DocumentUploadPolicyID = '@Model.PolicyID';
+        if (DocumentUploadPolicyID > 0) {
+            for (var i = 0; i < @Model.objDocumentUpload.Count(); i++)
+            {
+                var DocumentTypevalue = $("#ddlDocumentType"+i).val();
+                var MemberTypevalue = $("#ddlMemberType"+i).val();
+                if (DocumentTypevalue == "Age Proof" && MemberTypevalue == "MainLife") {
+                    $("#ddlDocumentType"+i).prop("disabled", true);
+                    $("#ddlMemberType"+i).prop("disabled", true);
+                    $("#btnDelete"+i).prop("disabled", true);
+                }
+                if (DocumentTypevalue == "Age Proof" && MemberTypevalue == "Spouse") {
+                    $("#ddlDocumentType"+i).prop("disabled", true);
+                    $("#ddlMemberType"+i).prop("disabled", true);
+                    $("#btnDelete"+i).prop("disabled", true);
+                }
+            }
+        }
+
+        //debugger;
+        if('@Model.PolicyStageStatusID' !='2375'&&'@Model.PolicyStageStatusID' !='193'&&'@Model.PolicyStageStatusID' !='2376')
+        {
+            if($("#divDocumentUploads").children().find('tr').length ==1)
+            {
+                for(var i=0;i<=MemeberListAssured.length;i++){
+                    if(MemeberListAssured[i] =="MainLife" || MemeberListAssured[i] =="Spouse"){
+                        AddNewDocumentUpload()
+                        $("#ddlMemberType0").val("MainLife");
+                        $("#ddlMemberType1").val("Spouse");
+                    }
+                }}
+
+        }
+
+
+
+    });
+
+
+    function AddNewDocumentUpload() {
+        debugger;
+        var DeleteId = 'btnDelete' + DocGridLength;
+        var Row_ID = "DocGridRow" + DocGridLength;
+        var DoctypeID = 'ddlDocumentType' + DocGridLength;
+        var DocumentLink = 'hdnFilepath' + DocGridLength;
+        var  MemberTypeId ='ddlMemberType' + DocGridLength;
+        var  HdnDocumentID = "hdnDocumentID" + DocGridLength;
+        newRow = "<tr  id='" + Row_ID + "'>" +
+               "<td data-name='Document_Name' data-label='Doc_Name' ><select class='form-control'  id=\'" + DoctypeID + "\'><option>Select</option></select></td>" +
+              "<td class='upload-doc'  data-name='FileName' data-label='File Name' >  <label for='txtFileName_" + DocGridLength + "'> <i class='fa fa-upload'></i>  </label> <input name='txtFileName_" + DocGridLength + "' class='form-control' type='file'  id='txtFileName_" + DocGridLength + "'  onChange='Handlechange(id)' /><input id='"+HdnDocumentID+"' name='objDocumentUpload["+DocGridLength+"].DOCID' type='hidden' value='0'></td>" +
+               "<td class='document-link-list' data-name='Link' data-label='Link' ><ul id=\'" + DocumentLink + "\'></ul></td>" +
+                "<td  data-name='MemberType' data-label='Member Type'><select class='form-control'  id=\'" + MemberTypeId + "\'><option>Select</option></select></td>" +
+               "<td ><input class='btn btn-default' id=\'" + DeleteId + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteUploadRow(" + DocGridLength + ")'/></td></tr>";
+        $('#divDocumentUpload tbody:last').append(newRow);
+        var items = "";
+        $.each(documentNameData, function (index, itemData) {
+            items += "<option Value='" + itemData.Text + "'>" + itemData.Text + "</option>";
+
+        });
+        $("#" + DoctypeID).append(items);
+        items = "";
+
+            $.each(MemeberTypesData, function (index, itemData) {
+                items += '<option Value=' + itemData.Value + '>' + itemData.Text + '</option>';
+                if ('@Model.PolicyStageStatusID' != '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer' && '@Model.PolicyStageStatusID' != '@AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusOutStandingReq') {
+                    if (itemData.Text == "MainLife") {
+                        $("#ddlDocumentType"+index).val("Age Proof");
+                        $("#ddlMemberType"+index).val("MainLife");
+                        $("#ddlDocumentType"+index).prop("disabled", true);
+                        $("#ddlMemberType"+index).prop("disabled", true);
+                        $("#btnDelete"+index).prop("disabled", true);
+                    }
+                    if (itemData.Text == "Spouse") {
+                        $("#ddlDocumentType"+index).val("Age Proof");
+                        $("#ddlMemberType"+index).val("Spouse");
+                        $("#ddlDocumentType"+index).prop("disabled", true);
+                        $("#ddlMemberType"+index).prop("disabled", true);
+                        $("#btnDelete"+index).prop("disabled", true);
+                    }
+                }
+            });
+        $("#" + MemberTypeId).append(items);
+        DocGridLength = DocGridLength + 1;
+        
+
+    }
+
+    function DeleteUploadRow(index) {
+        var Index = parseInt(index);
+        var DoctypeID = $('#ddlDocumentType' + index).val();
+        var  MemberTypeId =$('#ddlMemberType' + index).val();
+        var DocID = $('#hdnDocumentID'+ index).val();
+        $.ajax({
+            type: "POST",
+            url: "/Policy/DeletePolicyDocument?MemberType=" + MemberTypeId+"&DocumentType="+DoctypeID+"&DocID="+DocID,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $('#DocGridRow' + index).remove();
+            }
+
+        });
+
+    }
+
+    function UploadFiles() {
+        debugger
+        var count;
+        var jsonDocumentUpload = [];
+        var data = new FormData();
+
+        GetDocuments(jsonDocumentUpload, data);
+
+        var docData = JSON.stringify(jsonDocumentUpload);
+        $.ajax({
+            type: "POST",
+            url: "/Utility/SavePolicyDocuments?objLstDoc=" + docData,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                if (data.StrWriteException != "") {
+                    return false;
+                }
+                else {
+                    $('#HdnDocumentDetails').val(data.DocData);
+                }
+            }
+
+        });
+        return true;
+    }
+
+    function GetDocuments(jsonDocumentUpload, data) {
+
+        $("#divDocumentUpload tbody").find("tr").each(function (index) {
+
+            $(this).find("[data-name=MemberType]").find("option:selected").prop("disabled", false);
+            $(this).find("[data-name=Document_Name]").find("option:selected").prop("disabled", false);
+            var Document_Name = $(this).find("[data-name=Document_Name]").find("option:selected").val();
+            var DocID = $(this).find("[data-name=FileName]").find("input[type=hidden]").val();
+            var FileNameId = $(this).find("[data-name=FileName]").find("input[type=file]").val();
+            var MemberType = $(this).find("[data-name=MemberType]").find("option:selected").val();
+
+            var FilePath = '';
+            if( $('#txtFileName_' + index).get(0) != undefined)
+            {
+                var files = $('#txtFileName_' + index).get(0).files;
+                if(( files != undefined && files != null && files.length > 0) || Document_Name =="Age Proof")
+                {
+                    if ( files == undefined || files == null || files.length == 0)
+                    {
+                        jsonDocumentUpload.push({
+                            DocName: Document_Name, FileName: "",
+                            FilePath: null, Key: null, ItemType:'PolicyDocuments',MemberType:MemberType, DOCID:DocID });
+                    }
+                    for( var i=0; i <files.length;i++)
+                    {
+                        data.append('file_' + index+i, $('input[id="txtFileName_' + index + '"]')[0].files[i]);
+                        jsonDocumentUpload.push({
+                            DocName: Document_Name, FileName: $('input[id="txtFileName_' + index + '"]')[0].files[i].name,
+                            FilePath: FilePath, Key: 'file_' + index+i, ItemType:'PolicyDocuments',MemberType:MemberType, DOCID:DocID });
+                    }
+                }
+                else{
+
+                }
+            }
+            else{
+
+            }
+
+        });
+    }
+
+    function ValidateDocumentUpload() {
+        $("#divDocumentUpload tbody").find("tr").each(function (index) {
+            var documentName = $(this).find("[data-name=Document_Name]").find("option:selected").text();
+            var FileNameId = $(this).find("[data-name=FileName]").find("input[type=file]").val();
+            if (FileNameId == "") {
+                if ($(this).find("[data-name=ExistingFileName]") == null || $(this).find("[data-name=ExistingFileName]") == undefined) {
+
+                    writeMultipleMessage("error", "Please Provide a file to upload", "txtFileName" + index);
+                    return false;
+                    ErrorCode = false;
+                }
+            }
+
+            if (documentName != "" && FileNameId != "" && FileNameId != undefined) {
+                if (FileNameId != "") {
+
+                    var ext = FileNameId.substring(FileNameId.lastIndexOf('.') + 1);
+                    if (ext != "") {
+                        if (ext == "pdf" || ext == "docx" || ext == "xls" || ext == "xlsx" || ext == "doc" || ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif" || ext=="ppt" || ext=="pptx") {
+                        }
+                        else {
+                            writeMultipleMessage("error", "File format is invalid in " + ++index + " Row Please upload the proper file like pdf,doc,xls,jpeg etc.", "txtFileName" + index);
+                            ErrorCode = false;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+    function ProposalUploadFileToServer(id) {
+
+        var UploadIndex = id.split('_')[1];
+
+        var formdata = new FormData(); //FormData object
+        var fileInput = document.getElementById(id);
+        var Index;
+        $("#divDocumentUpload tbody").find("tr").each(function (index) {
+            Index = index;
+        });
+        var iSize = fileInput.files[0].size;
+
+        //if (iSize / 1024 > 1)
+        //{
+        //    if (((iSize / 1024) / 1024) > 1)
+        //    {
+        //        iSize = (Math.round(((iSize / 1024) / 1024) * 100) / 100)//MB
+        //        if (iSize > 3) {
+        //            writeMultipleMessage("error", "File Size should be less than 3 MB", "txtFileName_" +Index);
+        //            return false;
+        //        }
+
+        //    }
+        //}
+        //Iterating through each files selected in fileInput
+        for (i = 0; i < fileInput.files.length; i++) {
+            //Appending each file to FormData object
+            formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        }
+        var DoumentOCR;
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "../../Utility/UploadFile",
+            contentType: false,
+            processData: false,
+            data: formdata,
+            success: function (data) {
+                debugger;
+                if (data == "error") {
+                    writeMultipleMessage("error", "File format is invalid in " + Index + " Row Please upload the proper file like pdf,doc,xls,jpeg etc.", "txtFileName" + Index);
+                    return false;
+                    DoumentOCR = false;
+                }
+                else{
+                    writeMultipleMessage("error", "", "txtFileName_" + Index);
+
+                    DoumentOCR = true;
+
+                }
+                if (DoumentOCR == true) {
+                    var MainLife = $("#ddlMemberType"+UploadIndex).val();
+                    if (MainLife == "MainLife" || MainLife == "Spouse") {
+                        var AgeProofDocumentType = "";
+                        var BirthCeritificateAgeProofDocumentType;
+                        $("#divMemberDetails tbody").find("tr").each(function (ID) {
+                            if (UploadIndex == ID)
+                            {
+                                var LifeAssuredAgeProof = $("#txtDrivingLicense" + ID).val();
+                                BirthCeritificateAgeProofDocumentType = LifeAssuredAgeProof;
+                                if (LifeAssuredAgeProof == "PP") {
+                                    AgeProofDocumentType = "Passport";
+                                }
+                                if (LifeAssuredAgeProof == "DL") {
+                                    AgeProofDocumentType = "DL";
+                                }
+                                if (LifeAssuredAgeProof == "NIC") {
+                                    AgeProofDocumentType = "ID";
+                                }
+                                if (LifeAssuredAgeProof == "BCER") {
+                                    AgeProofDocumentType = "BCER";
+                                }
+                            }
+                        });
+                        var DocumentType = $("#ddlDocumentType"+UploadIndex).val();
+                        if (DocumentType == "Age Proof") {
+                            $.ajax({
+                                type: "POST",
+                                url: "../Policy/gooleVisionTextDecoderApi?AgeProofDocumentType="+AgeProofDocumentType,
+                                contentType: false,
+                                processData: false,
+                                data: formdata,
+                                success: function (data) {
+                                    var DocumentsUploadID = UploadIndex;
+                                    var NICNumber = data.NIC_Number;
+                                    if (NICNumber == null) {
+                                        $("#divMemberDetails tbody").find("tr").each(function (id) {
+                                            if (id == DocumentsUploadID) {
+                                                if (AgeProofDocumentType == "Passport") {
+                                                    $("#hdnIsOCRImageRecognitionFailure" + id).val(true);
+                                                    $('#DocumentsuploadModalBody').empty();
+                                                    var Image="<img class='Img-align' src='../Images/warning1.png' />"
+                                                    var Message = '<br/><p class="text-center"> Image Recognition Failure (Please Enter Passport only). Do you want to proceed </p>';
+                                                    $('#OCROk').hide();
+                                                    $('#OCRYes').show();
+                                                    $('#OCRNo').show();
+                                                    $('#DocumentsuploadModalBody').append(Image);
+                                                    $('#DocumentsuploadModalBody').append(Message);
+                                                    $("#DocumentsuploadModal").modal("show");
+                                                }
+                                                if (AgeProofDocumentType == "ID") {
+                                                    $("#hdnIsOCRImageRecognitionFailure" + id).val(true);
+                                                    $('#DocumentsuploadModalBody').empty();
+                                                    var Image="<img class='Img-align' src='../Images/warning1.png' />"
+                                                    var Message = '<br/><p class="text-center"> Image Recognition Failure (Please Enter National Identity Card only). Do you want to proceed </p>';
+                                                    $('#OCROk').hide();
+                                                    $('#OCRYes').show();
+                                                    $('#OCRNo').show();
+                                                    $('#DocumentsuploadModalBody').append(Image);
+                                                    $('#DocumentsuploadModalBody').append(Message);
+                                                    $("#DocumentsuploadModal").modal("show");
+                                                }
+                                                if (AgeProofDocumentType == "DL") {
+                                                    $("#hdnIsOCRImageRecognitionFailure" + id).val(true);
+                                                    $('#DocumentsuploadModalBody').empty();
+                                                    var Image="<img class='Img-align' src='../Images/warning1.png' />"
+                                                    var Message = '<br/><p class="text-center"> Image Recognition Failure (Please Enter Driving License with DOB only). Do you want to proceed </p>';
+                                                    $('#OCROk').hide();
+                                                    $('#OCRYes').show();
+                                                    $('#OCRNo').show();
+                                                    $('#DocumentsuploadModalBody').append(Image);
+                                                    $('#DocumentsuploadModalBody').append(Message);
+                                                    $("#DocumentsuploadModal").modal("show");
+                                                }
+                                                if (AgeProofDocumentType == "BCER") {
+                                                    $("#hdnIsOCRImageRecognitionFailure" + id).val(false);
+                                                    $('#DocumentsuploadModalBody').empty();
+                                                    var Image="<img class='Img-align' src='../Images/warning1.png' />"
+                                                    var Message = '<br/><p class="text-center"> Image Recognition Failure (Please upload DL/NIC/Passport). Do you want to proceed </p>';
+                                                    $('#OCROk').hide();
+                                                    $('#OCRYes').show();
+                                                    $('#OCRNo').show();
+                                                    $('#DocumentsuploadModalBody').append(Image);
+                                                    $('#DocumentsuploadModalBody').append(Message);
+                                                    $("#DocumentsuploadModal").modal("show");
+                                                }
+
+                                                if (AgeProofDocumentType == "" || AgeProofDocumentType == "undefined") {
+                                                    $('#DocumentsuploadModalBody').empty();
+                                                    var Image="<img class='Img-align' src='../Images/warning1.png' />"
+                                                    var Message = '<br/><p class="text-center"> Image Recognition Failure (Life Assured Age Proof Type is Empty). Do you want to proceed </p>';
+                                                    $('#OCROk').hide();
+                                                    $('#OCRYes').show();
+                                                    $('#OCRNo').show();
+                                                    $('#DocumentsuploadModalBody').append(Image);
+                                                    $('#DocumentsuploadModalBody').append(Message);
+                                                    $("#DocumentsuploadModal").modal("show");
+                                                }
+                                            }
+
+                                        });
+
+
+
+                                    }
+                                    if (NICNumber !=null) {
+                                        $("#divMemberDetails tbody").find("tr").each(function (index) {
+                                            var LifeAssuredNIC = $("#txtNewNicNo" + index).val().toUpperCase();
+                                            if (DocumentsUploadID == index) {
+                                                if (LifeAssuredNIC == NICNumber) {
+                                                    $('#DocumentsuploadModalBody').empty();
+                                                    //$("#IsOCRSeleted" + index).val(true);
+                                                    $("#hdnIsOCRSeleted" + index).val(true);
+                                                    var Image="<img class='Img-align' src='../Images/checked1.png' />"
+                                                    var Message = '<br/><p> Entered NIC Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR NIC Number : '+NICNumber+' <span id="RightOCR' + UploadIndex + '"><i class="fa fa-check" style="color: green;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC is matched!</p>';
+                                                    $('#OCROk').show();
+                                                    $('#OCRYes').hide();
+                                                    $('#OCRNo').hide();
+                                                    $('#DocumentsuploadModalBody').append(Image);
+                                                    $('#DocumentsuploadModalBody').append(Message);
+                                                    $("#DocumentsuploadModal").modal("show");
+                                                }
+                                                else{
+                                                    $('#DocumentsuploadModalBody').empty();
+                                                    $("#IsOCRSeleted" + index).val(false);
+                                                    $("#hdnIsOCRSeleted" + index).val(false);
+                                                    $("#txtHdnOCRPath" + DocumentsUploadID).val(false);
+                                                    var Image="<img class='Img-align' src='../Images/warning1.png' />"
+                                                    var Message = '<br/><p> Entered NIC Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR NIC Number : '+NICNumber+' <span id="WrongOCR' + UploadIndex + '"><i class="fa fa-close" style="color: red;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC image is mismatched. Do you want to proceed? </p>';
+                                                    $('#OCROk').hide();
+                                                    $('#OCRYes').show();
+                                                    $('#OCRNo').show();
+                                                    $('#DocumentsuploadModalBody').append(Image);
+                                                    $('#DocumentsuploadModalBody').append(Message);
+                                                    $("#DocumentsuploadModal").modal("show");
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                        //return true;
+                    }
+                }
+            }
+        });
+    }
+
+    var OCRID;
+    var fileValue;
+    function Handlechange(id) {
+        var DeleteID = id.split('_')[1];
+        $($("#hdnFilepath" + DeleteID)).remove();
+        $($("#delete-link_" + DeleteID)).remove();
+        $($("li"+DeleteID)).remove();
+        $($("ul"+DeleteID)).remove();
+        OCRID = DeleteID;
+        fileValue=ProposalUploadFileToServer(id);
+        localStorage.setItem('compare', fileValue);
+        var input = document.getElementById(id);
+        var DoumentPolicyID = '@Model.PolicyID';
+        if (DoumentPolicyID > 0) {
+            //var DocumentUploadGridRows = $("#  tbody tr").length;
+            var td = $("#" + id).parent().parent().find('.document-link-list');
+            //ul.innerHTML = "";
+            for (var i = 0; i < input.files.length; i++) {
+                var ul = document.createElement("ul"+DeleteID);
+                var li = document.createElement("li"+DeleteID);
+                li.innerHTML = input.files[i].name;
+                var remove = document.createElement("span");
+                remove.innerHTML = '<span id="delete-link_' + DeleteID + '" onclick="deleteImage(id)"><i class="fa fa-close"></i></span>';
+                li.appendChild(remove);
+                ul.append(li);
+                td.append(ul);
+            }
+        }
+        if (DoumentPolicyID == 0) {
+            var input = document.getElementById(id);
+            var ul = $("#" + id).parent().parent().find('.document-link-list').children('ul');
+            ul.innerHTML = "";
+            for (var i = 0; i < input.files.length; i++) {
+                var li = document.createElement("li");
+                li.innerHTML = input.files[i].name;
+                var remove = document.createElement("span");
+                remove.innerHTML = '<span id="delete-link_' + DeleteID + '" onclick="deleteImage(id)"><i class="fa fa-close"></i></span>';
+                ul.append(li);
+                li.appendChild(remove);
+            }
+        }
+        //if (ProposalUploadFileToServer(id)) {
+        //    debugger;
+        //    // var OCRPathValue =  $("#txtHdnOCRPath" + DeleteID).val();
+        //    var input = document.getElementById(id);
+        //    var ul = $("#" + id).parent().parent().find('.document-link-list').children('ul');
+        //    ul.innerHTML = "";
+        //    for (var i = 0; i < input.files.length; i++) {
+        //        var li = document.createElement("li");
+        //        li.innerHTML = input.files[i].name;
+        //        var remove = document.createElement("span");
+        //        remove.innerHTML = '<span id="delete-link' + DeleteID + '" onclick="deleteImage(id)"><i class="fa fa-close"></i></span>';
+        //        ul.append(li);
+        //        li.appendChild(remove);
+        //    }
+        //}
+        //else {
+        //    return false;
+        //}
+    }
+
+    function deleteImage(id) {
+        $('#checkboxDeclaration').attr("class", "invisibledelc");
+        var ids = "#" + id;
+        $(ids).parent().parent().remove();
+        $("#checkboxDeclaration").prop("checked", false);
+        var FilepathDeleteID = id.split('_')[1];
+        $("#txtFileName_" + FilepathDeleteID).val('');
+        //debugger;
+        //var DoctypeID = $('#ddlDocumentType' + FilepathDeleteID).val();
+        //var  MemberTypeId =$('#ddlMemberType' + FilepathDeleteID).val();
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/Policy/DeleteDocumentLinkPolicyDocument?MemberType=" + MemberTypeId+"&DocumentType="+DoctypeID,
+        //    contentType: false,
+        //    processData: false,
+        //    success: function (data) {
+        //        debugger;
+        //        $('#hdnFilepath' + FilepathDeleteID).remove();
+        //        $($("li"+FilepathDeleteID)).remove();
+        //        $($("ul"+FilepathDeleteID)).remove();
+        //    }
+
+        //});
+        $($("#hdnFilepath" + FilepathDeleteID)).remove();
+        //names.push(elem.files[i].name);
+        // console.log(names);
+    }
+
+    function funOCRNo() {
+        var id = OCRID;
+        var ids = "#delete-link_" + id;
+        $(ids).parent().parent().remove();
+        $("#txtFileName_" + id).val('');
+    }
+
+    function fundeleteImage(id,index) {
+        var FDeleteID = id.split('_')[1];
+        var id = FDeleteID;
+        var DoctypeID = $('#ddlDocumentType' + FDeleteID).val();
+        var  MemberTypeId =$('#ddlMemberType' + FDeleteID).val();
+        var PolicyIDDocument = '@Model.PolicyID';
+        $.ajax({
+            type: "POST",
+            url: "/Policy/DeleteDocumentLinkPolicyDocument?MemberType=" + MemberTypeId+"&DocumentType="+DoctypeID+"&PolicyIDDocument="+PolicyIDDocument,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#txtFileName_" + index).remove();
+                $("#uploaddoctd" + index).html("<input type='file' name='txtFileName_" + index + "' class='form-control' id='txtFileName_" + index + "' onchange='Handlechange(id)' />");
+                $('#hdnFilepath' + FDeleteID).remove();
+                $($("li"+FDeleteID)).remove();
+                $($("ul"+FDeleteID)).remove();
+                $("#txtFileName_" + FDeleteID).val('');
+            }
+
+        });
+        var ids = "#delete-link_" + id;
+        $(ids).parent().remove();
+        $("#checkboxDeclaration").prop("checked", false);
+        //  $($("#hdnFilepath" + FDeleteID)).remove();
+        //var hdnFilepath = $("#hdnFilepath") + id;
+        //$(hdnFilepath).remove();
+    }
+
+
+</script>
+
+<style type="text/css">
+    @@media only screen and (max-width: 800px) {
+        #divDocumentUpload .iGrid td:before {
+            content: attr(data-label);
+        }
+    }
+</style>

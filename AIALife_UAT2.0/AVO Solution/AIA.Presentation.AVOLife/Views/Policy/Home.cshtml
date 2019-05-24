@@ -1,0 +1,168 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("", "", FormMethod.Post, new { @id = "frmRecruitmentSearch", @class = "" }))
+{
+    <style>
+        .panel-default {
+            border-color: #eee !important;
+            margin-bottom: 5px;
+        }
+
+        .panel {
+            background-color: #B8123E !important; /*#D31145 !important;*/
+        }
+
+        .block-content {
+            background-color: #46b2b5;
+            padding: 2em 1em;
+            width: 200px;
+            height: 150px;
+            color: white;
+            padding-top: 15px;
+        }
+
+        @@media screen and (min-width: 320px) and (max-width: 768px) {
+            .navbar-collapse.collapse {
+                display: block !important;
+                margin-left: 20px;
+            }
+
+            .nav > li {
+                display: inline-block;
+            }
+
+            .dashboard-stat .details {
+                right: 20px;
+            }
+        }
+    </style>
+    
+    <div class="panel panel-default">
+        <div class="panel-body" style="color: white;font-size: 16px;
+    font-weight: 600;">
+            @*@Resources.NewBusiness*@
+            New Business
+        </div>
+
+    </div>
+    <br />
+
+    <div id="navContainer">
+        <div class="collapse navbar-collapse Main-collapse" id="navbar-collapse-1">
+            <div class="navbar-nav list" id="divNav">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown liClass">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light green-soft"
+                           data-toggle="dropdown" style="margin-right: 20px;" onclick="ShowSuspect()">
+                            <div class="visual">
+                                <i class="icon-share-alt">
+                                </i>
+                            </div>
+                            <div class="details col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="desc col-md-12 col-sm-12 col-xs-12 col-lg-12" style="text-align:center;padding-left:25%;"><b>@Resources.GetLabelName("Suspect")</b></div>
+                                @*<div class="number col-sm-4" style="padding-top: 0px">1</div>*@
+                            </div>
+                            <div class="col-sm-12">
+                                <img src="~/Images/Up-Arrow.png" style="height:20px;margin-left:38px;">
+                                <i class=""></i>
+                            </div>
+                        </a>
+
+                    </li>
+                    <li class="dropdown liClass">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light red-soft"
+                           data-toggle="dropdown" style="margin-right: 20px;" onclick="ShowProspect()">
+                            <div class="visual">
+                                <i class="icon-share-alt">
+                                </i>
+                            </div>
+                            <div class="details col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="desc  col-md-12 col-sm-12 col-xs-12 col-lg-12" style="text-align: center;padding-left:25%;"><b>@Resources.GetLabelName("Prospect")</b></div>
+                                @*<div class="number col-sm-4" style="padding-top: 0px">1</div>*@
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <img src="~/Images/Up-Arrow.png" style="height:20px;margin-left:38px;">
+                                <i class=""></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown liClass">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light blue-soft"
+                           data-toggle="dropdown" data-hover="dropdown" style="margin-right: 20px;" onclick="ShowQuote()">
+                            <div class="visual">
+                                <i class="icon-share-alt">
+                                </i>
+                            </div>
+                            <div class="details col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="desc  col-md-12 col-sm-12 col-xs-12 col-lg-12" style="text-align: center;padding-left:25%;"><b>@Resources.GetLabelName("Quotation")</b></div>
+                                @*<div class="number col-sm-4" style="padding-top: 0px">1</div>*@
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <img src="~/Images/Up-Arrow.png" style="height:20px;margin-left:38px;">
+                                <i class=""></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown liClass">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light purple-soft"
+                           data-toggle="dropdown" data-hover="dropdown" style="margin-right: 20px;" onclick="ShowProposal()">
+                            <div class="visual">
+                                <i class="icon-share-alt">
+                                </i>
+                            </div>
+                            <div class="details col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="desc  col-md-12 col-sm-12 col-xs-12 col-lg-12" style="text-align: center;padding-left:25%;"><b>@Resources.GetLabelName("Proposal")</b></div>
+                                @*<div class="number col-sm-4" style="padding-top: 0px">1</div>*@
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <img src="~/Images/Up-Arrow.png" style="height:20px;margin-left:38px">
+                                <i class=""></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown liClass" style="display:none">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light green-soft"
+                           data-toggle="dropdown" data-hover="dropdown" style="margin-right: 20px;" onclick="ShowApproval()">
+                            <div class="visual">
+                                <i class="icon-share-alt">
+                                </i>
+                            </div>
+                            <div class="details col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="desc col-md-12 col-sm-12 col-xs-12 col-lg-12" style="text-align: center;padding-left:25%;"><b>@Resources.GetLabelName("Approval")</b></div>
+                                @*<div class="number col-sm-4" style="padding-top: 0px">1</div>*@
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <img src="~/Images/Up-Arrow.png" style="height:20px;margin-left:38px">
+                                <i class=""></i>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function ShowSuspect() {
+            window.location.href = "/Suspect/Suspect";
+        };
+        function ShowProspect() {
+            window.location.href = "/Prospect/Prospect";
+        };
+        function ShowQuote() {
+            window.location.href = "/Policy/Quote";
+        };
+        function ShowProposal() {
+            window.location.href = "/Policy/proposalHome";
+        };
+        function ShowApproval() {
+            //window.location.href = "/Policy/Approval";
+        };
+    </script>
+}

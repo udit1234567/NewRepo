@@ -1,0 +1,254 @@
+﻿@model AIA.Life.Models.UserManagement.PermissionTree
+@{       
+   // Guid UserId = ViewBag.UserId;
+    //Guid.Parse(Request["UserID"]);
+    List<int> indetPerm = new List<int>();
+    if (Model.objTree.Count() == 0)
+    {
+        Model.objTree = new List<AIA.Life.Models.UserManagement.TreeView>();
+    }
+    else{
+        indetPerm = Model.objTree.Where(a => a.IsIndet == true).Select(x => x.ItemId).ToList();
+    }
+   
+}
+<link href="~/Content/TreeView.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    var PaymentPermissions = new Array();
+    $(function () {
+        $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+        $('.tree li.parent_li > span').on('click', function (e) {
+            var children = $(this).parent('li.parent_li').find(' > ul > li');
+            if (children.is(":visible")) {
+                children.hide('fast');
+                $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+            } else {
+                children.show('fast');
+                $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign icon-folder-open').removeClass('icon-plus-sign');
+            }
+            e.stopImmediatePropagation();
+        });
+    });
+
+    $(function () {
+        $('.paymentClass').on('click', function (e) {
+            var TreeViewNodes = $('.paymentClass');
+            var chkId = "";
+            //---------------------------------------------------actions on child nodes -------------------------------------------
+            var all = jQuery(this).siblings("ul").find(":checkbox");
+            chkId = "#" + (this.id);
+            if ($(chkId).is(':checked')) {
+                for (var i = 0; i < all.length; i++) {
+                    chkId = "#" + (all[i].id);
+                    $(chkId).prop("checked", true);
+                    $(chkId).prop("indeterminate", false);
+                }
+            }
+            else {
+                for (var i = 0; i < all.length; i++) {
+                    chkId = "#" + (all[i].id);
+                    $(chkId).prop("indeterminate", false);
+                    $(chkId).prop("checked", false);
+                }
+            }
+            //----------------------------------------------------till here ----------------------------------------------------
+
+
+            // ---------------------------------------actions on parent nodes ---------------------------------------------
+            var chkIdParent = "#" + $(this).data("parent");
+            var tempId = parseInt(this.id);
+            var tempParentID = $(this).data("parent");
+            tempParentID = parseInt($(this).data("parent"))
+
+            var isID = false;
+            var arr = new Array();
+            while (tempParentID != 0) {
+
+                tempId = tempParentID;
+                isID = false;
+                for (var i = 0; i < TreeViewNodes.length && isID == false; i++) {
+                    if (parseInt(TreeViewNodes[i].id) == tempParentID) {
+                        isID = true;
+                        //fetch node value where attribute.nodeame =="data-parent
+                        tempParentID = TreeViewNodes[i].attributes[3].nodeValue;
+                        if (isNaN(tempParentID)) {
+                            tempParentID = TreeViewNodes[i].attributes[4].nodeValue;
+                        }
+                        arr.push(TreeViewNodes[i].id);
+                    }
+
+                }
+
+            }
+
+            var chkBoxCount = 0;
+            var CheckedCount = 0;
+            var index;
+            for (var i = 0; i < arr.length; i++) {
+                chkIdParent = "#" + arr[i];
+                chkBoxCount = $(chkIdParent).siblings("ul").find(":checkbox");
+                CheckedCount = chkBoxCount.filter(":checked");
+
+                if (($(chkId).is(':checked') == false)) {
+
+                    $(chkIdParent).removeAttr("checked", "checked");
+                    $(chkIdParent).prop("indeterminate", false);
+                    if (CheckedCount.length != 0) {
+                        $(chkIdParent).prop("indeterminate", true);
+                        index = PaymentPermissions.indexOf(arr[i]);
+                        if (index == -1) {
+                            PaymentPermissions.push(arr[i]);
+                        }
+                    }
+                    else {
+                        index = PaymentPermissions.indexOf(arr[i]);
+                        if (index > -1) {
+                            PaymentPermissions.splice(index, 1);
+                        }
+                    }
+
+                }
+                else {
+
+                    if (chkBoxCount.length == CheckedCount.length) {
+                        $(chkIdParent).prop("indeterminate", false);
+                        index = PaymentPermissions.indexOf(arr[i]);
+                        if (index > -1) {
+                            PaymentPermissions.splice(index, 1);
+                        }
+                        $(chkIdParent).prop("checked", true);
+                    }
+                    else if (CheckedCount.length > 0) {
+                        $(chkIdParent).prop("indeterminate", true);
+                        index = PaymentPermissions.indexOf(arr[i]);
+                        if (index == -1) {
+                            PaymentPermissions.push(arr[i]);
+                        }
+                    }
+                    else {
+                        $(chkIdParent).prop("indeterminate", false);
+                        index = PaymentPermissions.indexOf(arr[i]);
+                        if (index > -1) {
+                            PaymentPermissions.splice(index, 1);
+                        }
+                        $(chkIdParent).prop("checked", false);
+                    }
+                }
+            }
+            // -----------------------------------------------------------------till here ----------------------------------
+
+        });
+    });
+
+    function SavePaymentPermissions(RoleData) {
+
+        var tree = $("#divPaymentTree").find("input:checkbox");
+        var checkedNodes = tree.filter(":checked");
+        var vals = [];
+        vals = tree.filter(':checked').map(function () {
+            return this.id;
+        }).get();
+
+        var Role = $("#ddlRoles").val();
+        var IMEINo = $("#txtUMIMEINumber").val();
+        $.ajax({
+            url: '@Url.Action("SavePermissions", "UserManagement")',
+            data: JSON.stringify({ permissionIDs: vals, IndetPerm: PaymentPermissions,  RoleNames: Role, IMEINum : IMEINo ,permissionType: "Payment", pageName: "Users", permOverRidden: "true" }),
+            dataType: 'json',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+        //processData: true,
+            success: function (successMsg) {               
+                if (successMsg != "Error") {
+                if (UserData != "UserID") {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Confirmation',
+                        message: "Payment Permissions Successfully Updated",
+                        buttons: [{
+                            label: 'OK',
+                            action: function (dialogItself) {
+                                dialogItself.close();
+                            }
+                        }]
+                    });
+                }
+                //$('#tabProductPrivilages').prop('disabled', false);
+                //loadProductPrivilages();
+            } else {
+                BootstrapDialog.show({
+                    type: BootstrapDialog.TYPE_DANGER,
+                    title: 'Confirmation',
+                    message: "Payment Permissions not Updated,please check User Name should not be null",
+                    buttons: [{
+                        label: 'OK',
+                        action: function (dialogItself) {
+                            dialogItself.close();
+                        }
+                    }]
+                });
+
+            }
+
+            //    //alert("Payment Permissions Successfully Updated");
+            //    $('#PaymentPermissionsModelBody').html("Payment Permissions Successfully Updated");
+            //    $("#PaymentPermissionsModal").modal('show');
+            //} else {
+            //    //alert("Payment Permissions not Updated");
+            //    $('#PaymentPermissionsModelBody').html("Payment Permissions not Updated");
+            //    $("#PaymentPermissionsModal").modal('show');
+            //}
+        },
+        error: function (k, m, n) {
+        }
+    });
+}
+
+
+</script>
+
+<div class="tree well" id="divPaymentTree" style="overflow-y: auto;height:400px">
+    @OrgTree(Model.objTree, 0)
+
+    @helper OrgTree(List<AIA.Life.Models.UserManagement.TreeView> nodes, int parentId)
+{
+    if (nodes.Any(n => n.Parent == parentId))
+    {   
+        <ul>
+            @foreach (var node in nodes.Where(n => n.Parent == parentId))
+            {     
+                <li>
+                    @if(node.IsSelected == true){
+                    <input type="checkbox"  class="paymentClass" id ='@node.ItemId' data-parent ='@node.Parent'  checked ="checked"  />
+                    }
+                    else{
+                         <input type="checkbox"  class="paymentClass" id ='@node.ItemId' data-parent ='@node.Parent' />
+                    }
+                    <span><i class="icon-folder-open"></i>@node.ItemDesc</span>
+
+                    @OrgTree(nodes, node.ItemId)
+
+                </li>           
+            }
+        </ul>   
+    }
+    }
+
+    
+</div>
+<input type="button" name ="Save" value ="Update Permissions" class="btn btn-default" onclick="SavePaymentPermissions('UpdateUserID')" />
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var id = "";       
+        var PaymentPermissions = @Html.Raw(Json.Encode(indetPerm));
+        for (var i = 0; i < PaymentPermissions.length; i++) {
+            id = "#" + PaymentPermissions[i];
+            $(id).prop("indeterminate", true);
+        }
+    });
+    </script>

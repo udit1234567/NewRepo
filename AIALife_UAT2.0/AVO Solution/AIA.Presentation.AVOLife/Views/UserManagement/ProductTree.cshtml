@@ -1,0 +1,466 @@
+﻿@model AIA.Life.Models.UserManagement.PermissionTree
+@{ 
+    Guid UserId = ViewBag.UserId;
+    //Guid.Parse(Request["UserID"]); 
+    List<int> indetPerm = new List<int>();
+    if (Model.objTree.Count() == 0)
+    {
+        Model.objTree = new List<AIA.Life.Models.UserManagement.TreeView>();
+    }
+    else
+    {
+        indetPerm = Model.objTree.Where(a => a.IsIndet == true).Select(x => x.ItemId).ToList();
+    }
+}
+
+
+<link href="~/Content/TreeView.css" rel="stylesheet" />
+<script type="text/javascript">
+    var IndetPermissionsProd = new Array();
+    $(function () {
+        $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+        $('.tree li.parent_li > span').on('click', function (e) {
+            var children = $(this).parent('li.parent_li').find(' > ul > li');
+            if (children.is(":visible")) {
+                children.hide('fast');
+                $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+            } else {
+                children.show('fast');
+                $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign icon-folder-open').removeClass('icon-plus-sign');
+            }
+            e.stopImmediatePropagation();
+        });
+    });
+
+    $(function () {
+        $('.testClass').on('click', function (e) {
+            var TreeViewNodes = $('.testClass');
+            var chkId = "";
+            //---------------------------------------------------actions on child nodes -------------------------------------------
+            var all = jQuery(this).siblings("ul").find(":checkbox");
+            chkId = "#" + (this.id);
+            
+            if ($(this).is(':checked')) {
+                for (var i = 0; i < all.length; i++) {
+                    chkId = "#" + (all[i].id);
+                    $(chkId).prop("checked", true);                    
+                    $(chkId).prop("indeterminate", false);
+                }
+            }
+            else {
+                for (var i = 0; i < all.length; i++) {
+                    chkId = "#" + (all[i].id);
+                    $(chkId).prop("indeterminate", false);
+                    $(chkId).prop("checked", false);                  
+                }
+            }
+            //----------------------------------------------------till here ----------------------------------------------------
+
+
+            // ---------------------------------------actions on parent nodes ---------------------------------------------
+            var chkIdParent = "#" + $(this).data("parent");
+            var tempId = parseInt(this.id);
+            var tempParentID = $(this).data("parent");
+            tempParentID = parseInt($(this).data("parent"))
+
+            var isID = false;
+            var arr = new Array();
+            while (tempParentID != 0) {
+
+                tempId = tempParentID;
+                isID = false;
+                for (var i = 0; i < TreeViewNodes.length && isID == false; i++) {
+                    if (parseInt(TreeViewNodes[i].id) == tempParentID) {
+                        isID = true;
+                        //fetch node value where attribute.nodeame =="data-parent
+                        tempParentID = TreeViewNodes[i].attributes[3].nodeValue;
+                        if (isNaN(tempParentID)) {
+                            tempParentID = TreeViewNodes[i].attributes[4].nodeValue;
+                        }
+                        arr.push(TreeViewNodes[i].id);
+                    }
+
+                }
+
+            }
+
+            var chkBoxCount = 0;
+            var CheckedCount = 0;
+            var index;
+            for (var i = 0; i < arr.length; i++) {
+                chkIdParent = "#" + arr[i];
+                chkBoxCount = $(chkIdParent).siblings("ul").find(":checkbox");
+                CheckedCount = chkBoxCount.filter(":checked");
+
+                if (($(chkId).is(':checked') == false)) {
+
+                    $(chkIdParent).removeAttr("checked", "checked");
+                    $(chkIdParent).prop("indeterminate", false);
+                    if (CheckedCount.length != 0) {
+                        $(chkIdParent).prop("indeterminate", true);
+                        index = IndetPermissionsProd.indexOf(arr[i]);
+                        if (index == -1) {
+                            IndetPermissionsProd.push(arr[i]);
+                        }
+                    }
+                    else {                       
+                        index = IndetPermissionsProd.indexOf(arr[i]);
+                        if (index > -1) {
+                            IndetPermissionsProd.splice(index, 1);
+                        }
+                    }
+
+                }
+                else {
+
+                    if (chkBoxCount.length == CheckedCount.length) {
+                        $(chkIdParent).prop("indeterminate", false);
+                        index = IndetPermissionsProd.indexOf(arr[i]);
+                        if (index > -1) {
+                            IndetPermissionsProd.splice(index, 1);
+                        }
+                        $(chkIdParent).prop("checked", true);
+                    }
+                    else if (CheckedCount.length > 0) {
+                        $(chkIdParent).prop("indeterminate", true);
+                        index = IndetPermissionsProd.indexOf(arr[i]);
+                        if (index == -1) {
+                            IndetPermissionsProd.push(arr[i]);
+                        }
+                    }
+                    else {
+                        $(chkIdParent).prop("indeterminate", false);
+                        index = IndetPermissionsProd.indexOf(arr[i]);
+                        if (index > -1) {
+                            IndetPermissionsProd.splice(index, 1);
+                        }
+                        $(chkIdParent).prop("checked", false);
+                    }
+                }
+            }
+            // -----------------------------------------------------------------till here ----------------------------------
+
+        });
+    });
+
+
+    function OpenProductConfigurtion(id) {
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "@(Url.Action("ProductSpecificPrivilages", "UserManagement"))",
+            data:{productID:id,userID:'@UserId'},
+            success: function (data) {
+                $("#divModal").html('');
+                $("#divModal").html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                BootstrapDialog.show({
+                    type: BootstrapDialog.TYPE_DANGER,
+                    title: 'Info',
+                    message: "Failed to Load page",
+                    buttons: [{
+                        label: 'OK',
+                        action: function (dialogItself) {
+                            dialogItself.close();
+                        }
+                    }]
+                });
+              
+            }
+        });
+        $('#hdnProductID').val(id);
+        $('#ProductConfigModal').modal('toggle');
+        $('#ProductConfigModal').modal('show');
+    }
+
+    function SaveProductPermissions() {
+        var tree = $("#divProductTree").find("input:checkbox");
+        if ($('#txtIMEINumber').is(':visible')) {
+            var imeiNum = $("#txtIMEINumber").val();
+            var result= isIMEI ();
+            if(result)
+            {
+                return false;
+            }
+        }; 
+        var checkedNodes = tree.filter(":checked");
+        var vals = [];
+        vals = tree.filter(':checked').map(function () {
+            return this.id;
+        }).get();
+        var SelfInsp =$("#chkSelfInspection").is(':checked');
+        var RaiseInsp = $("#chkRaiseInspection").is(':checked');
+        var Recommendation = $("#chkRecommendation").is(':checked');
+        $.ajax({
+            url: '@Url.Action("SavePermissions", "UserManagement")',
+            data: JSON.stringify({ permissionIDs: vals, IndetPerm: IndetPermissionsProd, userID: '@UserId', permissionType: "Product", IMEINum: imeiNum,SelfInsp: SelfInsp,RaiseInsp:RaiseInsp,Recommendation:Recommendation }),
+            dataType: 'json',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            processData: true,
+            success: function (successMsg) {
+                if (successMsg) {
+                    
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Confirmation',
+                        message: "Products Permissions  Successfully Updated",
+                        buttons: [{
+                            label: 'OK',
+                            action: function (dialogItself) {
+                                dialogItself.close();
+                            }
+                        }]
+                    });
+                } else {
+                    
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Confirmation',
+                        message: "Products Permissions not Updated",
+                        buttons: [{
+                            label: 'OK',
+                            action: function (dialogItself) {
+                                dialogItself.close();
+                            }
+                        }]
+                    });
+                }
+            },
+            error: function (k, m, n) {
+            }
+        });
+    }
+</script>
+
+<div class="tree well" id="divProductTree" style="overflow-y: auto; height: 400px">
+
+    @OrgTree(Model.objTree, 0)
+
+    @helper OrgTree(List<AIA.Life.Models.UserManagement.TreeView> nodes, int parentId)
+{
+    if (nodes.Any(n => n.Parent == parentId))
+    {   
+        <ul>
+            @foreach (var node in nodes.Where(n => n.Parent == parentId))
+            {            
+                <li>
+
+                    @*<input type="checkbox"  class="testClass" id ='@node.ItemId' data-parent ='@node.Parent' checked ="checked"/>*@
+                    @if (node.IsSelected == true)
+                    {
+                        <input type="checkbox"  class="testClass" id ='@node.ItemId' data-parent ='@node.Parent'  checked ="checked"  />
+                    }
+                    else
+                    {
+                        <input type="checkbox"  class="testClass" id ='@node.ItemId' data-parent ='@node.Parent' />
+                    }
+                    <span><i class="icon-folder-open"></i>@node.ItemDesc</span>
+                    @if (node.ProductId != null)
+                    {
+                        <div class="ConfigureProduct" onclick="OpenProductConfigurtion('@node.ProductId')"></div>
+                    }
+                    @OrgTree(nodes, node.ItemId)
+                </li>           
+            }
+        </ul>   
+    }
+    }
+</div>
+@*<div class="col-lg-12 form-group" id="divSelfInspection">
+    <div class="col-lg-4 form-group">
+
+        <div class="col-lg-1 col-sm-1">
+            @Html.CheckBoxFor(a => a.isIMEIChecked, new { @id = "chkSelfInspection" })
+        </div>
+        <label class="col-lg-6 col-sm-6  control-label  text-right">Self Inspection</label>
+    </div>
+
+    <div class="col-lg-4 form-group">
+        <label class="col-lg-4 col-sm-4  control-label  text-right" id="lblIMEINumber">IMEI Number</label>
+        <div class="col-lg-8 col-sm-8">
+            @Html.TextBoxFor(a => a.IMEINumber, new { @class = "form-control", @id = "txtIMEINumber", @onblur = "isIMEI()" })
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+</div>
+<div class="col-lg-12 form-group" id="divRecommendation" style="display: none;">
+    <div class="col-lg-4 form-group">
+
+        <div class="col-lg-1 col-sm-1">
+            @Html.CheckBoxFor(a => a.isRecommendation, new { @id = "chkRecommendation" })
+        </div>
+        <label class="col-lg-6 col-sm-6  control-label  text-right">Recommendation</label>
+    </div>
+
+    <div class="col-lg-4 form-group">
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+</div>
+<div class="col-lg-12 form-group" id="divRaiseInspection">
+    <div class="col-lg-4 form-group">
+
+        <div class="col-lg-1 col-sm-1">
+            @Html.CheckBoxFor(a => a.isRaiseInspection, new { @id = "chkRaiseInspection" })
+        </div>
+        <label class="col-lg-6 col-sm-6  control-label  text-right">Raise Inspection</label>
+    </div>
+
+    <div class="col-lg-4 form-group">
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+</div>*@
+<div class="modal fade" id="ProductConfigModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-image: linear-gradient(to bottom, rgb(176, 178, 179) 100%, rgb(176, 178, 179) 100%); border-radius: 3px;">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="color: white;">Product Specific Privileges</h4>
+            </div>
+            <div class="modal-body">
+                <div id="divModal"></div>
+            </div>
+            <div class="modal-footer" style="padding-right: 32px;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="SaveProductPrivilages()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="hdnProductID" />
+</div>
+
+<input type="button" name="Save" value="Update Permissions" class="btn btn-default" onclick="SaveProductPermissions()" />
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var id = "";       
+        IndetPermissionsProd = @Html.Raw(Json.Encode(indetPerm));
+        for (var i = 0; i < IndetPermissionsProd.length; i++) {
+            id = "#" + IndetPermissionsProd[i];
+            $(id).prop("indeterminate", true);
+        }
+
+        if ('@Model.isIMEIChecked' == 'True') {
+            $('#lblIMEINumber').show();
+            $('#txtIMEINumber').show();
+            $("#divRecommendation").show();
+        }
+        else {
+            $('#lblIMEINumber').hide();
+            $('#txtIMEINumber').hide();
+            $("#divRecommendation").hide();
+        }
+        
+        $('#chkSelfInspection').change(function() {
+            if ($(this).is(':checked')) {
+                $('#lblIMEINumber').show();
+                $('#txtIMEINumber').show();
+                $("#divRecommendation").show();
+            } else {
+                $('#lblIMEINumber').hide();
+                $('#txtIMEINumber').hide();
+                $('#txtIMEINumber').val('');
+                $("#divRecommendation").hide();
+            }
+        });
+
+        $("#txtIMEINumber").keypress(function (e) {
+            $("#txtIMEINumber").attr("maxlength", 15);
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+    });
+
+    function SaveProductPrivilages()
+    {
+        //$.ajax({
+        //    type: "POST",
+        //    url: "../../UserManagement/SaveProductPrivilages",
+        //    data: {
+        //        objProductPermission: $('#frmProductSpecificPrivilages').serialize(),
+        //        productID:$('#hdnProductID').val()
+        //    },
+        //    //dataType: 'json',
+        //    //contentType: 'application/json; charset=utf-8',
+        //    success: function (data) { }
+        //});
+        var productCodes = $('#divMakeModel input:checkbox:checked').map(function() {
+            return this.value;
+        }).get();
+        //var chkAll =$("#chkMakeModel").is(":checked");      
+        $('#hdnvhProductCodes').val(productCodes);
+        productCodes="";
+        $.post("../../UserManagement/SaveProductPrivilages?ProductId="+$('#hdnProductID').val()+"&UserId="+'@UserId'+'&productCodes='+productCodes,$('#frmProductSpecificPrivilages').serialize())
+        .done(function(data){
+            
+            BootstrapDialog.show({
+                type: BootstrapDialog.TYPE_DANGER,
+                title: 'Confirmation',
+                message: "Product Privilages saved successfully",
+                buttons: [{
+                    label: 'OK',
+                    action: function (dialogItself) {
+                        dialogItself.close();
+                    }
+                }]
+            });
+            $('#ProductConfigModal').modal('toggle');
+        });
+        
+
+            
+    }
+
+    function isIMEI () {
+        var result= false;
+        var s = $('#txtIMEINumber').val();
+        if (s==null || s=="")
+        {
+            writeMultipleMessage("error", "Please Enter IMEI Number.", "txtIMEINumber");
+            result= true;
+        }
+        else if(s.length > 15 || s.length < 15)
+        {
+            writeMultipleMessage("error", "IMEI Number length should be 15.", "txtIMEINumber");
+            result= true;
+        }
+        else
+        {
+            var etal = /^[0-9]{15}$/;
+            if (!etal.test(s))
+            {
+                writeMultipleMessage("error", "Invalid IMEI Number.", "txtIMEINumber");
+                result= true;
+            }
+            sum = 0; mul = 2; l = 14;
+            for (i = 0; i < l; i++) {
+                digit = s.substring(l-i-1,l-i);
+                tp = parseInt(digit,10)*mul;
+                if (tp >= 10)
+                    sum += (tp % 10) +1;
+                else
+                    sum += tp;
+                if (mul == 1)
+                    mul++;
+                else
+                    mul--;
+            }
+            chk = ((10 - (sum % 10)) % 10);
+            if (chk != parseInt(s.substring(14,15),10))
+            {
+                writeMultipleMessage("error", "Invalid IMEI Number.", "txtIMEINumber");
+                result= true;
+            }
+            else
+            {
+                writeMultipleMessage("error", "", "txtIMEINumber");
+                result= false;
+            }
+        }
+        return result;
+    }
+
+   
+</script>

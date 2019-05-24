@@ -1,0 +1,1223 @@
+﻿@model  AIA.Life.Models.Opportunity.Prospect
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    Layout = null;
+}
+<script src="~/Scripts/Common.js"></script>
+
+<style>
+    /*.prospectinfo-item:nth-child(2n+2) {
+        background-color: #fdf0bc;
+        background: -webkit-linear-gradient(#fdf0bc, #f5f3ea); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#fdf0bc, #f5f3ea); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#fdf0bc, #f5f3ea); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#fdf0bc, #f5f3ea); border-radius: 4px;
+    }
+
+    */ .prospectinfo-item {
+        padding-left: 8%;
+        padding-right: 4%;
+    }
+</style>
+
+<div class="prospectinfo-item">
+    @Html.HiddenFor(a => a.ClientCode, new { id = "hdnClientCode" })
+    @Html.HiddenFor(a => a.SamsLeadNumber, new { id = "hdnSamsLeadNumber" })
+    @Html.HiddenFor(a => a.IntroducerCode, new { id = "hdnIntroducerCode" })
+    @Html.HiddenFor(a => a.CurrentAge, new { id = "hdnCurrentAge" })
+    @Html.HiddenFor(a => a.HdnAutOccupation, new { id = "hdnAutOccupation" })
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
+            @(Html.TextBoxFor(a => a.NIC, new
+        {
+            @id = "txtNic",
+            @class = "form-control", @*@onchange = "FoundNIC_Loaddata(),FetchDOBGenderfromNIC('txtNic','dtProspectDOB','ddlGender','txtAge')"*@ @onchange = "ValidateNICPopup()",
+            @maxlength = 12, @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",
+            @onkeyup = "return isAlphaNumberKeyback(event)"
+        }))
+
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Type")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(a => a.Type, new SelectList(Model.LstType, "Value", "Value"), "Select", new { @id = "ddlPropectInfoType", @class = "form-control", @onchange = "ValidateSuspectType()" })
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-2.png" style="width: 20px;" />@Resources.GetLabelName("Salutation")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(m => m.Salutation, new
+       {
+           @class = "form-control",
+           @id = "TxtSalutation"@*, @onchange = "AutoPopulateMaritalStatus()"*@ })
+
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-8.png" style="width: 20px;" />@Resources.GetLabelName("Given Name")<span class="mandatory">*</span></label>
+            @(Html.TextBoxFor(a => a.Name, new { @id = "txtName", @class = "form-control", @maxlength = "60", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)", @onchange = "validTextBox('txtName','Please Enter Name.')" }))
+        </div>
+    </div>
+</div>
+<div class="prospectinfo-item">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-1.png" style="width: 20px;" />@Resources.GetLabelName("Surname")<span class="mandatory">*</span></label>
+            @(Html.TextBoxFor(a => a.LastName, new { @id = "txtLastName", @class = "form-control", @maxlength = "40", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)" }))
+        </div>
+    </div>
+
+
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-6.png" style="width: 20px;" />@Resources.GetLabelName("Mobile")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @id = "txtMobile", @maxlength = "16", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+
+        </div>
+    </div>
+
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-7.png" style="width: 20px;" />@Resources.GetLabelName("Home")</label>
+            @Html.TextBoxFor(m => m.Home, new { @class = "form-control", @id = "txtTelephone", @maxlength = "16", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "ValidateHome()" }) @* @onblur = "ValidatePhoneNumber()"*@
+
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-4.png" style="width: 20px;" />@Resources.GetLabelName("Office")</label>
+            @Html.TextBoxFor(m => m.Work, new { @class = "form-control", @id = "txtTelephonework", @maxlength = "16", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" }) @* @onblur = "ValidatePhoneNumber()"*@
+
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-9.png" style="width: 20px;" />@Resources.GetLabelName("Email Id")<span class="mandatory">*</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "txtEmail", @maxlength = "50", @onblur = "validateEmailID('txtEmail','Please Enter Valid Email Id.')", @style = "text-transform:none",@onkeypress = " return isSpace(event)", @onkeyup = " return isSpace(event)" })
+        </div>
+    </div>
+
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Place")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(m => m.Place, new { @class = "form-control", @id = "txtPlace", @maxlength = "50",@onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)", @onkeypress= "return isAlphaNumberKeybackwithOutSymbol(event)" })
+
+
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-3.png" style="width: 20px;" />@Resources.GetLabelName("Gender")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.Gender, new SelectList(Model.lstGender, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlGender" })
+
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/Forma 1-16.png" style="width: 20px;" />@Resources.GetLabelName("Marital Status")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.MaritalStatus, new SelectList(Model.MaritalStatuslist, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMaritalStatus", @onchange = "selectedMaritalStatus()" })
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group" style="width:100%">
+            <label>@Resources.GetLabelName("Date Of Birth")<span class="mandatory">*</span></label>
+            @Html.iNubeDatePickerFor(a => a.DateofBirth, new { @class = "form-control datepicker", @id = "dtProspectDOB", @onblur = "ageProspectCount('dtDOB')", @maxlength = "10", @onchange = "ageProspectCount()" }) @*@onclick = "ageProspectCount()",*@
+
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-11.png" style="width: 20px;" />@Resources.GetLabelName("Age at Next Birthday")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(m => m.AgeNextBdy, new { @class = "form-control", @id = "txtAge", @readonly = "readonly", @maxlength = "2", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabKey(event)" })
+
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label><img src="~/Content/Images/quote-5.png" style="width: 20px;" />@Resources.GetLabelName("Occupation")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(m => m.Occupation, new { @class = "form-control", @id = "TxtOccupation" })
+
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Average Annual Income") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
+            @Html.CurrencyTextBoxFor(m => m.AvgMonthlyIncome, new { @class = "form-control", @id = "txtAverageMonthlyIncome", @onkeyup = "return isNumberTabkey(event)", @onkeypress = "return isNumberKey(event)", @maxlength = "12", onchange = "f1(id)" }, Model.AvgMonthlyIncome)
+
+        </div>
+    </div>
+
+
+
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Passport")</label>
+            @Html.TextBoxFor(m => m.PassPort, new { @class = "form-control", @id = "txtPassport", @maxlength = "16", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",@onkeyup = "return isAlphaNumberKeyback(event)" })
+        </div>
+    </div>
+
+</div>
+
+
+@*Communication Address*@
+
+
+<div class="form-group">
+    <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4" style="font-weight:bold;"><img src="~/Content/Images/quote-19.png" style="width: 20px;" />@Resources.GetLabelName("Communication Address"):</p>
+    <div class="">
+        @Html.AddressForNewProspectScreen(a => a.objAddress)
+
+    </div>
+</div>
+<div class="modal fade" id="NicPopUp" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> </h4>
+            </div>*@
+            <div class="modal-body">
+               <img class="Img-align" src="../Images/warning1.png" />
+                <p class="text-center">@Resources.GetLabelName("The lead already exist and available details will be updated accordingly")</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnYes" class="btn" data-dismiss="modal">OK</button>
+                @*<button type="button" id="btnNo" class="btn btn-default" data-dismiss="modal">No</button>*@
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function ValidateSuspectType() {
+       
+        var Type = $("#ddlPropectInfoType").val();
+        if (Type == "iNube" || Type == "Mi Syn") {
+            writeMultipleMessage("error", "You are not allowed to select campaign leads", "ddlPropectInfoType");
+            return false;
+        } else {
+            writeMultipleMessage("error", "", "ddlPropectInfoType");
+            return true;
+        }
+
+
+    }
+    function FoundNIC_Loaddata() {
+        var Plan = $("#txtNic").val();
+        if (Plan != '') {
+
+            $.post("../Suspect/GetNicValues?NIC=" + Plan)
+            .done(function (data) {
+                if (data.NICAVAIL == true) {
+                    debugger;
+                    if (data != null) {
+                        $("#txtEmail").val(data.Email);
+                        $('#txtName').val(data.Name);
+                        $('#txtLastName').val(data.LastName);
+                        $('#txtMobile').val(data.Mobile);
+                        $('#TxtSalutation').val(data.Salutation);
+                        $('#txtPlace').val(data.Place);
+                        $("#ddlPropectInfoType").val(data.Type);
+                        $('#ddlGender').val(data.Gender);
+                        $('#txtTelephone').val(data.Home);
+                        $('#txtTelephonework').val(data.Work);
+                        $("#ddlMaritalStatus").val(data.MaritalStatus);
+                        $('#dtProspectDOB').val(data.DateofBirth);
+                        $('#txtAge').val(data.Age);
+                        $('#TxtOccupation').val(data.Occupation);
+                        $('#txtAverageMonthlyIncome').val(data.AvgMonthlyIncome);
+                        $("#txtPassport").val(data.PassPort);
+                        $('#objAddressAddress1').val(data.objAddress.Address1);
+                        $('#objAddressAddress2').val(data.objAddress.Address2);
+                        $('#objAddressAddress3').val(data.objAddress.Address3);
+                        $('#objAddressPincode').val(data.objAddress.Pincode);
+                        $('#objAddressddlDistrict').val(data.objAddress.District);
+                        $('#objAddressddlProvince').val(data.objAddress.Province);
+                        $("#hdnClientCode").val(data.ClientCode);
+                        $("#divProspect").show();
+                    }
+
+                    else {
+                        $("#divProspect").show();
+
+                    }
+
+                }
+
+                else if (data.NICAVAIL == false) {
+
+                    $.post("../Suspect/GetOnFail_ContactValues?NIC=" + Plan)
+                     .done(function (data) {
+                         debugger;
+                         if (data.ClientCode != null) {
+                             $("#txtEmail").val(data.Email);
+                             $('#txtName').val(data.Name);
+                             $('#txtLastName').val(data.LastName);
+                             $('#txtMobile').val(data.Mobile);
+                             $('#TxtSalutation').val(data.Salutation);
+                             $('#txtPlace').val(data.Place);
+                             $("#ddlPropectInfoType").val(data.Type);
+                             $('#ddlGender').val(data.Gender);
+                             $('#txtTelephone').val(data.Home);
+                             $('#txtTelephonework').val(data.Work);
+                             $("#ddlMaritalStatus").val(data.MaritalStatus);
+                             $('#dtProspectDOB').val(data.DateofBirth);
+                             $('#txtAge').val(data.Age);
+                             $('#TxtOccupation').val(data.Occupation);
+                             $('#txtAverageMonthlyIncome').val(data.AvgMonthlyIncome);
+                             $("#txtPassport").val(data.PassPort);
+                             $('#objAddressAddress1').val(data.objAddress.Address1);
+                             $('#objAddressAddress2').val(data.objAddress.Address2);
+                             $('#objAddressAddress3').val(data.objAddress.Address3);
+                             $('#objAddressPincode').val(data.objAddress.Pincode);
+                             $('#objAddressddlDistrict').val(data.objAddress.District);
+                             $('#objAddressddlProvince').val(data.objAddress.Province);
+                             $("#hdnClientCode").val(data.ClientCode);
+                             $("#divProspect").show();
+
+                         }
+                         else {
+                             $("#divProspect").show();
+
+                         }
+
+                     });
+                }
+
+
+
+
+            });
+        }
+    }
+    function ValidateNICPopup() {
+        debugger;
+        var Plan = $("#txtNic").val();
+        if (Plan != '') {
+
+            $.post("../Suspect/GetNicValues?NIC=" + Plan)
+            .done(function (data) {
+                debugger;
+                if (data.NICAVAIL == true) {
+                    debugger;
+                    if (data != null) {
+                        var res = true;
+                    }
+
+                    else {
+                        var res = false;
+
+                    }
+
+                }
+
+                else if (data.NICAVAIL == false) {
+
+                    $.post("../Suspect/GetOnFail_ContactValues?NIC=" + Plan)
+                     .done(function (data) {
+                         debugger;
+                         if (data.ClientCode != null) {
+                             var res = true;
+                         }
+                         else {
+                             var res = false;
+
+                         }
+                         debugger;
+                         if (res == true || res == false) {
+                             ChangeNIC(res);
+                         }
+                     });
+                }
+                debugger;
+                if (res == true || res == false) {
+                    ChangeNIC(res);
+                }
+            });
+        }
+
+    }
+    $("#TxtSalutation").autocomplete({
+
+        source: function (request, response) {
+            $.ajax({
+                url: "../Suspect/GetSalutation",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item, value: item };
+                    }))
+                }
+            })
+        },
+        minLength: 1,
+        messages: {
+            noResults: "",
+            results: function (count) {
+                return count + (count > 1 ? ' results' : ' result ') + ' found';
+            }
+        }
+    });
+    var value = false;
+    $("#hdnAutoCompleteValue").val(value);
+    $("#TxtSalutation").on("autocompleteselect", function (event, u) {
+
+        value = true;
+        $("#hdnAutoCompleteValue").val(value);
+
+    })
+
+    $("#TxtOccupation").autocomplete({
+
+        source: function (request, response) {
+            $.ajax({
+                url: "../Suspect/GetOccupation",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {                 
+                    response($.map(data, function (item) {
+                    
+                        return { label: item.Text, value: item.value };
+                    }))
+                }
+            })
+        },
+        minLength: 2,
+        messages: {
+            noResults: "",
+            results: function (count) {
+                return count + (count > 1 ? ' results' : ' result ') + ' found';
+            }
+        }
+    });
+    var value = false;
+    $("#hdnAutOccupation").val(value);
+    $("#TxtOccupation").on("autocompleteselect", function (event, u) {
+
+        value = true;
+        $("#hdnAutOccupation").val(value);
+
+    })
+
+    $(document).ready(function () {
+        FetchDOBGenderfromNIC('txtNic', 'dtProspectDOB', 'ddlGender', 'txtAge');
+        $("#ddlPropectInfoType").val('@Model.Type');
+        //if ($('#ddlSalutation').val() == "1093") {
+        //    $("#ddlMaritalStatus").val(14);
+        //    $('.spouse-details').show();
+        //    $('.prospect-details').show();
+        //    $('#checkedSingle').prop('checked', false);
+        //    $('#checkedMarried').prop('checked', true);
+        //}
+        //else {
+        //    $("#ddlMaritalStatus").val(15);
+        //    $('.spouse-details').hide();
+        //    $('.prospect-details').show();
+        //    $('#checkedSingle').prop('checked', true);
+        //    $('#checkedMarried').prop('checked', false);
+        //}
+        //var NIC = $("#txtNic").val();
+        //NicArray = NIC.split("");
+        //if (NIC.length == 10) {
+        //    if (NicArray[9] == "V" || NicArray[9] == "X") {
+        //        if (NicArray[3] == 0 || NicArray[3] == 1 || NicArray[3] == 2|| NicArray[3] == 3) {
+        //            $('#ddlGender').val('M')
+        //        }
+        //        else if (NicArray[3] == 5 || NicArray[3] == 6 || NicArray[3] == 7 || NicArray[3] == 8) {
+        //            $('#ddlGender').val('F')
+        //        }
+        //        else {
+        //            writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+
+        //        }
+        //    }
+        //    else
+        //    {
+        //        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+
+        //    }
+        //}
+        //else if (NIC.length == 12) {
+        //    if ($.isNumeric(NIC))
+        //    {
+        //        if (NicArray[3] == 0 || NicArray[3] == 1 || NicArray[3] == 2 || NicArray[3] == 3) {
+        //            $('#ddlGender').val('M')
+        //        }
+        //        else if (NicArray[3] == 5 || NicArray[3] == 6 || NicArray[3] == 7 || NicArray[3] == 8) {
+        //            $('#ddlGender').val('F')
+        //        }
+        //        else {
+        //            writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+
+        //        }
+        //    }
+        //    else
+        //    {
+        //        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+        //    }
+        //}
+        $('#objAddressddlProvince').val('@Model.objAddress.State');
+        FillDistrictCommaddMember('@Model.objAddress.State', '@Model.objAddress.District', "objAddress");
+        FillCityCommaddMember('@Model.objAddress.District', '@Model.objAddress.City', "objAddress");
+        $('#objAddressddlProvince').val('@Model.objAddress.State');
+        $('#objAddressAddress1').val('@Model.objAddress.Address1');
+        $('#objAddressAddress2').val('@Model.objAddress.Address2');
+        $('#objAddressPincode').val('@Model.objAddress.Pincode');
+
+        var dob = $('#dtProspectDOB').val();
+        if (dob != '' && dob != undefined) {
+            var d = new Date();
+            var currentYear = d.getFullYear();
+            var arr = dob.split('/');
+            var birthYear = arr[2];
+            var calcAge = currentYear - birthYear;
+            $('#txtAge').val(calcAge + 1);
+            $('#hdnCurrentAge').val(calcAge);
+        }
+
+    });
+
+    function AutoPopulateMaritalStatus() {
+        if ($('#ddlSalutation').val() == "1093") {
+            $("#ddlMaritalStatus").val(14);
+            $('.spouse-details').show();
+            $('.prospect-details').show();
+            $('#checkedSingle').prop('checked', false);
+            $('#checkedMarried').prop('checked', true);
+            //$("#ddlMaritalStatus option:selected").text('Married');
+        }
+        else {
+            $("#ddlMaritalStatus").val(15);
+            $('.spouse-details').hide();
+            $('.prospect-details').show();
+            $('#checkedSingle').prop('checked', true);
+            $('#checkedMarried').prop('checked', false);
+        }
+    }
+
+    function FetchDOBGenderfromNIC(e, dob, gender, Age) {
+        var NICNo = $('#' + e).val();
+        NICNo = NICNo.trim();
+        writeMultipleMessage("error", "", e)
+        if (NICNo == "") {
+            $('#ddlGender').prop("disabled", false);
+            $('#dtProspectDOB').prop("disabled", false);
+            // writeMultipleMessage("error", "Please Enter NIC Number", e);
+            return false;
+        }
+        //if (NICNo.toUpperCase() == "SLC") {
+        //    $('#ddlGender').prop("disabled", false);
+        //    $('#dtProspectDOB').prop("disabled", false);
+        //    return true;
+        //}
+        if (NICNo != null && NICNo != "") {
+            if (NICNo.length == 12 || NICNo.length == 10) {
+                if (NICNo.length == 12) {
+                    var nofdays = NICNo.substr(4, 3);
+                    var dobyears = NICNo.substr(0, 4);
+                }
+                else if (NICNo.length == 10) {
+
+                    NICArray = NICNo.split("");
+                    if (NICArray[9].toUpperCase() == "X" || NICArray[9].toUpperCase() == "V") {
+                        var nofdays = NICNo.substr(2, 3);
+                        var dobyears = NICNo.substr(0, 2);
+                    }
+                    else {
+                        writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                        return false;
+
+                    }
+                }
+                $.post("../../AgentonBoarding/FetchDateMonth?NIC=" + NICNo)
+                    .done(function (data) {
+                        if (data != "Error") {
+
+                            if (dob == "dtProspectDOB") {
+                                $("#" + dob).prop("disabled", false);
+                                $("#" + dob).val(data);
+                                $("#" + dob).prop("disabled", true);
+                                $('#ProspectDOB').val(data);
+                            }
+                            else {
+                                $("#" + dob).val(data);
+                            }
+                            if (nofdays <= 366 && nofdays >= 0) {
+                                $("#" + gender).val("M");
+                                $("#" + gender).prop('disabled', true);
+                            }
+                            else if (nofdays > 500 && nofdays <= 866) {
+                                $("#" + gender).val("F");
+                                $("#" + gender).prop('disabled', true);
+                            }
+                            if (dob != "dtProspectDOB") {
+                                ageProspectCount();
+                            }
+                            else {
+                                if (!InterviewrageCount()) {
+                                    //writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                                    return false;
+
+                                }
+                            }
+                            writeMultipleMessage("error", "", e);
+                            return true;
+                        }
+                        else {
+                            writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", e);
+                            //return false;
+                        }
+                    });
+            }
+            else {
+                writeMultipleMessage("error", "NIC Number should be 12 or 10 Digits", e);
+                return false;
+            }
+        }
+    }
+
+    function InterviewrageCount() {
+        var dob = $("#dtProspectDOB").val();
+        if (dob != '' && !ValidateDOB("dtProspectDOB")) {
+            writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "dtProspectDOB");
+            if (dob != '') {
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                $("#txtAge").val(calYear + 1);
+                $('#hdnCurrentAge').val(calYear);
+                var ProspectAge = $('#txtAge').val();
+                if (ProspectAge > 61 || ProspectAge < 19) {
+                    writeMultipleMessage("error", "Age at Next Birthday should be between 19 to 61", "txtNic");
+                    return false;
+
+                }
+                $('#txtprospectAge').val(ProspectAge);
+                $('#txtAgeInfo').val(ProspectAge);
+                $('#dtProspectDOBInfo').val(dob);
+
+                return true;
+            }
+        }
+    }
+
+    function ValidateDOB(datepickerId) {
+        var dob = $('#' + datepickerId).val();
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+        var arrDOB = dob.split('/');
+        var birthDay = arrDOB[0];
+        var birthMonth = arrDOB[1];
+        var birthYear = arrDOB[2];
+        var arrCurrentDate = currentDate.split('/');
+        var currentDay = arrCurrentDate[0];
+        var currentMonth = arrCurrentDate[1];
+        var currentYear = arrCurrentDate[2];
+        if (birthYear <= currentYear) {
+            if (birthMonth <= currentMonth) {
+                if (birthDay <= currentDay) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth < currentMonth) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (birthMonth > currentMonth && birthYear < currentYear) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+    function ageProspectCount() {
+        var dob = $('#dtProspectDOB').val();
+        var controlid = 'dtProspectDOB';
+        writeMultipleMessage("error", "", controlid);
+        if (dob == "") {
+            $('#txtAge').val('');
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth.", controlid);
+            return false;
+        }
+        if (!ValidateDOB(controlid)) {
+            $('#txtAge').val('');
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth. It Cannot be Future Date.", controlid);
+            return false;
+        }
+        else {
+            if (dob != '') {
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                $('#txtAge').val(calYear + 1);
+                $('#hdnCurrentAge').val(calYear);
+
+                var ProspectAge = $('#txtAge').val();
+
+                if (ProspectAge.length > 2 || ProspectAge > 75 || ProspectAge < 18) {
+                    writeMultipleMessage("error", "Please Enter Valid DOB", "txtNic");
+                    return false;
+
+                }
+                $('#txtprospectAge').val(ProspectAge);
+                $('#ProspectDOB').val(dob);
+                $('#txtAgeInfo').val(ProspectAge);
+                $('#dtProspectDOBInfo').val(dob);
+
+            }
+        }
+    }
+
+    function selectedMaritalStatus() {
+  
+
+        var Status = $("#ddlMaritalStatus").val();
+        if (Status == 14||Status=='M') {
+            $("#PIspouseDetails").show();
+            $('.spouse-details').show();
+            $('.prospect-details').show();
+            $("#DivSpouseMonthlyIncome").show();
+            $('#checkedSingle').prop('checked', false);
+            $('#checkedMarried').prop('checked', true);
+            $('#checkedSingle').prop('disabled', true);
+            $('#checkedMarried').prop('disabled', false);
+        }
+        else if (Status == 15 || Status == 'S') {
+            $("#PIspouseDetails").hide();
+            $('.spouse-details').hide();
+            $('.prospect-details').show();
+            $("#DivSpouseMonthlyIncome").hide();
+            $('#checkedSingle').prop('checked', true);
+            $('#checkedMarried').prop('checked', false);
+            $('#checkedMarried').prop('disabled', true);
+            $('#checkedSingle').prop('disabled', false);
+        }
+        else {
+            $('.spouse-details').hide();
+            $('.prospect-details').show();
+            $('#checkedMarried').prop('disabled', true);
+            $('#checkedSingle').prop('disabled', true);
+            $('#checkedMarried').prop('checked', false);
+            $('#checkedSingle').prop('checked', false);
+        }
+
+        if ($("#ddlMaritalStatus option:selected").text() == "Married") {
+            $("#PIspouseDetails").css("display", "block");
+            var SpouseAge = $('#txtSpouseAgeInfo').val();
+            if (SpouseAge == "" || SpouseAge == null || SpouseAge == 0) {
+                $('#txtSpouseAgeInfo').addClass("blank-field-hightlight");
+            }
+            else {
+                $('#txtSpouseAgeInfo').removeClass("blank-field-hightlight");
+            }
+        }
+        else {
+            $("#PIspouseDetails").css("display", "none");
+        }
+        if ($("#ddlMaritalStatus option:selected").text() == "Single" || $("#ddlMaritalStatus option:selected").text() == "Company" || $("#ddlMaritalStatus option:selected").text() == "Others") {
+            $(".dependents-field").hide();
+        }
+        else {
+            $(".dependents-field").show();
+        }
+    }
+
+    function FillDistrictCommaddMember(ProvinceCode, distct, ID) {
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    $('#' + textName + 'ddlDistrict').html(""); // clear before appending new list
+                    $('#' + textName + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textName + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                    });
+                    $('#' + textName + 'ddlDistrict').val(distct);
+                }
+            });
+        }
+    }
+    function FillCityCommaddMember(ProvinceCode, distct, ID) {
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.post("../AgentonBoarding/FetchCity?DistrictCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    $('#' + textName + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textName + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textName + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                    });
+                    $('#' + textName + 'ddlCity').val(distct);
+                }
+            });
+        }
+    }
+
+    function FillDistrictCommAddress(e) {
+        var ProvinceCode = $("#" + e.id).val();
+        if (ProvinceCode != '') {
+            $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    if (e.id == "objAddressddlProvince") {
+                        textId = e.id.substring(0, 10);
+                    }
+                    else {
+                        textId = e.id.substring(0, 10);
+                    }
+                    $('#' + textId + 'ddlDistrict').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                    $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $('#' + textId + 'Pincode').val('');
+                    $.each(data, function (ID, option) {
+                        $('#' + textId + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                    });
+                }
+            });
+        }
+        else {
+            $('#' + textId + 'ddlDistrict').html(""); // clear before appending new list
+            $('#' + textId + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+            $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+            $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+            $('#' + textId + 'Pincode').val("");
+        }
+    }
+    function FillCityCommAddress(e) {
+        var DistrictCode = $("#" + e.id).val();
+        if (DistrictCode != '') {
+            $.post("../AgentonBoarding/FetchCity?DistrictCode=" + DistrictCode)
+            .done(function (data) {
+                if (data != null) {
+                    if (e.id == "objAddressddlDistrict") {
+                        textId = e.id.substring(0, 10);
+                    }
+                    else {
+                        textId = e.id.substring(0, 10);
+                    }
+                    $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $('#' + textId + 'Pincode').val('');
+                    $.each(data, function (ID, option) {
+                        $('#' + textId + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                    });
+                }
+            });
+        }
+        else {
+            $('#' + textId + 'ddlCity').html(""); // clear before appending new list
+            $('#' + textId + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+            $('#' + textId + 'Pincode').val("");
+        }
+    }
+    function FillPostalCodeCommAddress(e) {
+
+        var CityCode = $("#" + e).val();
+        if (CityCode != '') {
+            $.post("../AgentonBoarding/FetchPostalCode?CityCode=" + CityCode)
+            .done(function (data) {
+
+                if (data != null) {
+                    if (e == "objAddressPincode") {
+                        textId = e.substring(0, 10);
+                    }
+                    else {
+                        textId = e.substring(0, 10);
+                    }
+                    $('#' + textId + 'ddlProvince').val(data.Provience);
+                    $('#' + textId + 'ddlDistrict').val(data.Distric);
+                }
+            });
+        }
+        else {
+            $('#' + textId + 'ddlProvince').val("");
+            $('#' + textId + 'ddlDistrict').val("");
+        }
+    }
+    function ValidateMob() {
+        var Mob = $("#txtMobile").val();
+        writeMultipleMessage("error", "", "txtMobile");
+        if ($("#txtMobile").val() == "0000000000") {
+            writeMultipleMessage("error", "Please Enter Valid Mobile Number", "txtMobile");
+
+        }
+        if (Mob.length < 10) {
+            writeMultipleMessage("error", "Please Enter Valid Mobile Number", "txtMobile");
+
+        }
+    }
+    function ValidateHome() {
+
+        writeMultipleMessage("error", "", "txtTelephone");
+        var homelength = $("#txtTelephone").val().length;
+        var home = $("#txtTelephone").val();
+        if (homelength < 10 && home != "") {
+            writeMultipleMessage("error", "Home number must be atleast 10 digits", "txtTelephone");
+            return false;
+        }
+        if (home == "0000000000") {
+            writeMultipleMessage("error", "Home number cannot be all zeroes", "txtTelephone");
+            return false;
+        }
+        return true;
+    }
+    function ValidateWork() {
+
+        writeMultipleMessage("error", "", "txtTelephonework");
+        var worklength = $("#txtTelephonework").val().length;
+        var work = $("#txtTelephonework").val();
+        if (worklength < 10 && work != "") {
+            writeMultipleMessage("error", "Office number must be atleast 10 digits", "txtTelephonework");
+            return false;
+        }
+        if (work == "0000000000") {
+            writeMultipleMessage("error", "Office number cannot be all zeroes", "txtTelephonework");
+            return false;
+        }
+        return true;
+    }
+
+    $("#txtAverageMonthlyIncome").change(function () {
+
+
+        var AvgMonthlyIncomevalue = $("#txtAverageMonthlyIncome").val();
+        var cArray = AvgMonthlyIncomevalue.split("");
+        for (var i = 0; i < cArray.length; i++) {
+            if (cArray[i] == "0") {
+                flag = 0;
+            }
+            else {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0) {
+            writeMultipleMessage("error", "Enter Valid Average Annual Income", "txtAverageMonthlyIncome");
+            return false;
+
+        } else {
+            writeMultipleMessage("error", "", "txtAverageMonthlyIncome");
+            return true;
+        }
+    });
+    function ValidatePlace() {
+
+        var Place = $("#txtPlace").val();
+        var cArray = Place.split("");
+        for (var i = 0; i < cArray.length; i++) {
+            if (cArray[i] == " ") {
+                flag = 0;
+            }
+            else {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0) {
+            writeMultipleMessage("error", "Enter Valid Place", "txtPlace");
+            return false;
+
+        } else {
+            writeMultipleMessage("error", "", "txtPlace");
+            return true;
+        }
+    }
+    function ValidateOccupation() {
+
+        writeMultipleMessage("error", '', "ddlOccupation");
+        if ($("#TxtOccupation").text() == "") {
+            writeMultipleMessage("error", 'Please Enter Occupation', 'ddlOccupation')
+            return false;
+        }
+
+    }
+    function ValidateName(id) {
+
+        var Name = $("#" + id).val();
+        var cArray = Name.split("");
+        for (var i = 0; i < cArray.length; i++) {
+            if (cArray[i] == " ") {
+                flag = 0;
+            }
+            else {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0) {
+            writeMultipleMessage("error", "Enter Valid Name", id);
+            return false;
+
+        } else {
+            writeMultipleMessage("error", "", id);
+            return true;
+        }
+    }
+    //function FetchDOBGenderfromNIC(e, dob, gender, Age) {
+
+    //    var NICNo = $('#' + e).val();
+    //    if (NICNo == "") {
+    //        $('#ddlGender').removeAttr('disabled');
+    //        $('#dtProspectDOB').removeAttr('readonly');
+    //        writeMultipleMessage("error", "Please Enter NIC Number", e);
+    //        return false;
+    //    }
+    //    if (NICNo != null && NICNo != "") {
+    //        if (NICNo.length == 12 || NICNo.length == 10) {
+    //            if (NICNo.length == 12) {
+    //                var numchk = new RegExp("^[0-9]{12}$");
+    //                if (numchk.test(NICNo)) {
+    //                }
+    //                else {
+    //                    $('#' + e).val('');
+    //                    writeMultipleMessage("error", "Please enter a valid NIC Number.", e);
+    //                    return false;
+    //                }
+    //                var nofdays = NICNo.substr(4, 3);
+    //                var dobyears = NICNo.substr(0, 4);
+    //            }
+    //            else if (NICNo.length == 10) {
+
+    //                var numchk = new RegExp("^[0-9]{9}$");
+    //                var NumericCheck = NICNo.substr(0, 9);
+    //                if (numchk.test(NumericCheck)) {
+    //                    var LstAlpha = NICNo.substr(9, 10);
+    //                    if (LstAlpha == 'V' || LstAlpha == 'X' || LstAlpha == 'v' || LstAlpha == 'x') {
+    //                    }
+    //                    else {
+    //                        $('#' + e).val('');
+    //                        writeMultipleMessage("error", "Please enter a valid NIC Number.", e);
+    //                        return false;
+    //                    }
+
+    //                } else {
+    //                    $('#' + e).val('');
+    //                    writeMultipleMessage("error", "Please enter a valid NIC Number.", e);
+    //                    return false;
+    //                }
+
+    //                var nofdays = NICNo.substr(2, 3);
+    //                var dobyears = NICNo.substr(0, 2);
+    //            }
+    //            $.post("../../AgentonBoarding/FetchDateMonth?NoofDays=" + nofdays + "&Year=" + dobyears)
+    //                .done(function (data) {
+
+    //                    if (data != "Error") {
+
+    //                        if (dob == "dtProspectDOB") {
+    //                            $("#" + dob).attr("readonly", false);
+    //                            $("#" + dob).val(data);
+    //                            $("#" + dob).attr("readonly", true);
+    //                            $('#ProspectDOB').val(data);
+    //                        }
+    //                        else {
+    //                            $("#" + dob).val(data);
+    //                        }
+    //                        if (nofdays <= 366 && nofdays >= 0) {
+    //                            $("#" + gender).val(20);
+    //                            $("#" + gender).attr('disabled', true);
+    //                        }
+    //                        else if (nofdays > 500 && nofdays <= 866) {
+    //                            $("#" + gender).val(21);
+    //                            $("#" + gender).attr('disabled', true);
+    //                        }
+    //                        if (dob != "dtProspectDOB") {
+    //                            ageProspectCount();
+    //                        }
+    //                        else {
+    //                            InterviewrageCount();
+    //                        }
+    //                        writeMultipleMessage("error", "", e);
+    //                        return true;
+    //                    }
+    //                    else {
+    //                        $('#' + e).val('');
+    //                        writeMultipleMessage("error", "Please enter a valid NIC Number.", e);
+    //                        return false;
+    //                    }
+    //                });
+    //        }
+    //        else {
+    //            writeMultipleMessage("error", "Please enter valid NIC", e);
+    //            $('#' + e).val('');
+    //            return false;
+    //        }
+    //    }
+    //}
+
+    //function InterviewrageCount() {
+    //    var dob = $("#dtProspectDOB").val();
+    //    if (dob != '' && !ValidateDOB("dtProspectDOB")) {
+    //        writeMultipleMessage("error", "Please Enter Valid Date Of Birth", "dtProspectDOB");
+    //        return false;
+    //    }
+    //    else {
+    //        writeMultipleMessage("error", "", "dtProspectDOB");
+    //        if (dob != '') {
+
+
+    //            var arr = dob.split('/');
+    //            var f = new Date(arr[2], arr[1] - 1, arr[0]);
+    //            var DateOFBirth = new Date(f);
+    //            var today = new Date();
+    //            var age = Math.floor((today - DateOFBirth) / (365.25 * 24 * 60 * 60 * 1000));
+    //            $("#txtAge").val(age + 1);
+
+    //            if (parseInt($("#txtAge").val()) <= 18) {
+    //                var Message = '<p>Prospect is a Minor. Unable to Continue.</p>';
+    //                $('#AgeValidationModelBody').html(Message);
+    //                $('#AgeValidationModel').modal("show");
+    //                //alert("Prospect is a Minor. Unable to Continue.");
+    //                //  window.location.href = "/Policy/Home";
+    //            }
+    //            var ProspectAge = $('#txtAge').val();
+    //            $('#txtprospectAge').val(ProspectAge);
+    //            return true;
+    //        }
+    //    }
+    //}
+
+    //function ValidateDOB(datepickerId) {
+    //    var dob = $('#' + datepickerId).val();
+    //    var d = new Date();
+    //    var month = d.getMonth() + 1;
+    //    var day = d.getDate();
+    //    var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+    //    var arrDOB = dob.split('/');
+    //    var birthDay = arrDOB[0];
+    //    var birthMonth = arrDOB[1];
+    //    var birthYear = arrDOB[2];
+    //    var arrCurrentDate = currentDate.split('/');
+    //    var currentDay = arrCurrentDate[0];
+    //    var currentMonth = arrCurrentDate[1];
+    //    var currentYear = arrCurrentDate[2];
+    //    if (birthYear <= currentYear) {
+    //        if (birthMonth <= currentMonth) {
+    //            if (birthDay <= currentDay) {
+    //                return true;
+    //            }
+    //            else if (birthDay > currentDay && birthMonth < currentMonth) {
+    //                return true;
+    //            }
+    //            else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+    //                return true;
+    //            }
+    //            else {
+    //                return false;
+    //            }
+    //        }
+    //        else if (birthMonth > currentMonth && birthYear < currentYear) {
+    //            return true;
+    //        }
+    //        else {
+    //            return false;
+    //        }
+    //    }
+    //    else {
+    //        return false;
+    //    }
+    //}
+    function validTextBox(id, msg) {
+
+        var name = $("#" + id).val();
+        if ($("#" + id).val() == null || $("#" + id).val() == "") {
+            writeMultipleMessage("error", msg, id);
+            return false;
+        }
+
+        else {
+            writeMultipleMessage("error", '', id);
+            $('#txtNameInfo').val(name);
+            return true;
+        }
+    }
+    function ChangeNIC(res) {
+        debugger;
+        FetchDOBGenderfromNIC('txtNic', 'dtProspectDOB', 'ddlGender', 'txtAge');
+        //var res = ValidateNICPopup();
+        if (res) {
+            if ("@Model.objNeedAnalysis.Stage" == "Lead" || "@Model.objNeedAnalysis.Stage" == "Quotation") {
+                $("#NicPopUp").modal("show");
+            }
+            else {
+                FoundNIC_Loaddata();
+                FetchDOBGenderfromNIC('txtNic', 'dtProspectDOB', 'ddlGender', 'txtAge');
+            }
+        }
+    }
+    $("#btnNo").click(function (event) {
+        $("#NicPopUp").modal("hide");
+    });
+    $("#btnYes").click(function (event) {
+        $("#NicPopUp").modal("hide");
+        FoundNIC_Loaddata();
+        FetchDOBGenderfromNIC('txtNic', 'dtProspectDOB', 'ddlGender', 'txtAge');
+    });
+</script>

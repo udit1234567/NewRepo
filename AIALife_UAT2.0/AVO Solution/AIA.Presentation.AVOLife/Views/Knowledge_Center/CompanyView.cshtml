@@ -1,0 +1,63 @@
+﻿<style>
+    .embed-responsive {
+        position: relative;
+        display: block;
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+   
+</style>
+<div class="auto-resizable-iframe">
+    <div class='embed-responsive pop-style' id="ComEng" >
+        <br />
+        <a href="~/Content/Knowledge_Center/7943_AIA Corporate Profile E.PDF" width="100%" height="100%" target="_blank">
+
+            <img src="~/Content/Images/english.png" width="100%" />
+        </a>
+        @*<embed src="~/Content/Knowledge_Center/7943_AIA Corporate Profile E.PDF" width="100%" height="100%" />*@
+        <br />
+    </div>
+    <div class='embed-responsive pop-style' id="ComSin" style='display:none'>
+        <br />
+        <a href="~/Content/Knowledge_Center/7943_AIA Corporate Profile S.PDF" width="100%" height="100%" target="_blank">
+
+            <img src="~/Content/Images/sinhala.png" width="100%" />
+        </a>
+        @*<embed src="~/Content/Knowledge_Center/7943_AIA Corporate Profile S.PDF" width="100%" height="100%" />*@
+        <br />
+    </div>
+    <div class='embed-responsive pop-style' id="ComTam" style='display:none'>
+        <br />
+        <a href="~/Content/Knowledge_Center/7943_AIA Corporate Profile T.PDF" width="100%" height="100%" target="_blank">
+            <img src="~/Content/Images/tamil.png" width="100%"/>
+        </a>
+        @*<embed src="~/Content/Knowledge_Center/7943_AIA Corporate Profile T.PDF" width="100%" height="100%" />*@
+        <br />
+    </div>
+    </div>
+    <script>
+        var defaultLang = "en-IN";
+        $(document).ready(function () {
+            // debugger;
+            var lastSelectedTab = localStorage.getItem("currentlng");
+            if (lastSelectedTab == "en-IN") {
+                $("#ComEng").show();
+                $("#ComTam").hide();
+                $("#ComSin").hide();
+            }
+            if (lastSelectedTab == "si-LK") {
+                $("#ComSin").show();
+                $("#ComEng").hide();
+                $("#ComTam").hide();
+            }
+            if (lastSelectedTab == "ta-IN") {
+                $("#ComTam").show();
+                $("#ComSin").hide();
+                $("#ComEng").hide();
+
+
+
+            }
+        })
+    </script>

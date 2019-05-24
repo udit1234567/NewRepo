@@ -1,0 +1,181 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int count = 1, tabCount = 1;
+    int GlobalCount = 0;
+}
+
+<div id="divProposalBenifits">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <p class="col-md-12 h4">@Resources.GetLabelName("Benefit Details"):</p>
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Basic Sum Insured")<span class="mandatory">*</span></label>
+                    @Html.TextBoxFor(a => a.BasicSumInsured, new { @class = "form-control", @id = "txtProposalBasicSumInsured", @onblur = "validateTextBox('txtProposalBasicSumInsured','please provide Basic Sum Insured')", @maxlength = "9", @style = "width:160px" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Basic Premium")<span class="mandatory">*</span></label>
+                    @Html.TextBoxFor(a => a.BasicPremium, new { @class = "form-control", @id = "txtProposalBasicPremium", @onblur = "validateTextBox('txtProposalBasicPremium','please provide Basic Sum Insured')", @maxlength = "9", @style = "width:160px", @readonly = "readonly" })
+                </div>
+            </div>
+            <br />
+        </div>
+        <ul class="nav nav-pills">
+            @foreach (var item in Model.ListAssured)
+            {
+                if (count == 1)
+                {
+                    <li class="active width">
+                        <a data-toggle="pill" href="#tab_6_@count">@item</a>
+                    </li>
+
+                }
+                else
+                {
+                    <li class="width"><a data-toggle="pill" href="#tab_6_@count">@item</a></li>
+
+                }
+
+                count++;
+            }
+
+
+        </ul>
+        <div class="tab-content">
+
+            @foreach (var Assured in Model.ListAssured)
+            {
+                if (tabCount == 1)
+                {
+                    <div class="tab-pane fade in active" id="tab_6_@tabCount">
+                        <div class="table-responsive" style="overflow: scroll;">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="font-weight: bold">@Resources.GetLabelName("Select Your Riders")</th>
+                                        <th style="font-weight: bold">@Resources.GetLabelName("Sum Assured")</th>
+                                        <th style="font-weight: bold">@Resources.GetLabelName("Premium")</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var benifit in Model.LstBenifitDetails.Where(a => a.AssuredMember == Assured).ToList())
+                                    {
+
+                                        string BenifitName = "LstBenifitDetails[" + GlobalCount + "].BenifitName";
+                                        string BenifitOpted = "LstBenifitDetails[" + GlobalCount + "].BenifitOpted";
+
+
+                                        <tr>
+                                            <td>
+                                                @Html.CheckBoxFor(m => m.LstBenifitDetails[GlobalCount].BenifitOpted, new { @id = "ChkBenifit" + GlobalCount })
+                                                @benifit.BenifitName
+                                                @*<input type="checkbox" style="margin-left: 57px;" name=@BenifitOpted  />*@
+                                                <input type="hidden" value=@benifit.BenifitName name=@BenifitName />
+                                                @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].BenefitID)
+                                                @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].MemberBenifitID)
+                                                @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].AssuredMember)
+                                                @Html.HiddenFor(m=>m.LstBenifitDetails[GlobalCount].RelationshipWithProspect)
+                                            </td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => m.LstBenifitDetails[GlobalCount].Suminsured)
+
+                                            </td>
+                                            <td>
+
+                                                @Html.TextBoxFor(m => m.LstBenifitDetails[GlobalCount].Premium)
+                                            </td>
+                                        </tr>
+
+                                        GlobalCount++;
+
+
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="tab-pane" id="tab_6_@tabCount">
+                        <div style="overflow: scroll;">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="font-weight: bold">@Resources.GetLabelName("Select Your Riders")</th>
+                                        <th style="font-weight: bold">@Resources.GetLabelName("Sum Assured")</th>
+                                        <th style="font-weight: bold">@Resources.GetLabelName("Premium")</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var benifit in Model.LstBenifitDetails.Where(a => a.AssuredMember == Assured).ToList())
+                                    {
+
+
+
+                                        string BenifitName = "LstBenifitDetails[" + GlobalCount + "].BenifitName";
+                                        string BenifitOpted = "LstBenifitDetails[" + GlobalCount + "].BenifitOpted";
+
+                                        //string AssuredMember = "LstBenifitDetails[" + GlobalCount + "].AssuredMember";
+                                        <tr>
+                                            <td>
+                                                @Html.CheckBoxFor(m => m.LstBenifitDetails[GlobalCount].BenifitOpted, new { @id = "ChkBenifit" + GlobalCount })
+                                                @benifit.BenifitName <input type="hidden" value=@benifit.BenifitName name=@BenifitName />
+                                                @*<input type="hidden" value=@benifit.AssuredMember name=@AssuredMember />*@
+                                                @*<input type="checkbox" name=@BenifitOpted style="margin-left: 57px;">*@
+                                                @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].BenefitID)
+                                                @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].MemberBenifitID)
+                                                @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].AssuredMember)
+                                                @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].RelationshipWithProspect)
+                                            </td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => m.LstBenifitDetails[GlobalCount].Suminsured)
+
+                                            </td>
+                                            <td>
+
+                                                @Html.TextBoxFor(m => m.LstBenifitDetails[GlobalCount].Premium)
+                                            </td>
+                                        </tr>
+
+                                        GlobalCount++;
+
+
+                                    }
+
+
+
+                                </tbody>
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                }
+                tabCount++;
+
+
+            }
+
+
+
+
+        </div>
+    </div>
+</div>
+          

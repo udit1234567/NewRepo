@@ -1,0 +1,126 @@
+﻿@using AIA.Presentation.Helpers;
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Retrigger Mail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+
+<div class="panel panel-default">
+    <div class="panel-body" style="background-color: orangered;color:white;font-size:large;padding: 10px;" align="center">LOCATOR</div>
+</div>
+<div>
+    @Html.DropDownList("locator", new SelectList(new List<SelectListItem> { new SelectListItem { Text = "ATM", Value = "0" },
+                                                        new SelectListItem {Text="Branch",Value="1" },
+                                                        new SelectListItem {Text="Gym",Value="2" } }, "Value", "Text"), "Select", new { @id = "ddllocator", @class = "form-control", @style = "width:250px;" })
+</div>
+<br />
+<div id="googleMap" style="height:400px;width:100%;"></div>
+<img src="~/Content/Images/office@0,32x.png" /><label>Branches</label>
+<img src="~/Content/Images/ATM@0,32x.png" /><label>ATM's</label>
+<img src="~/Content/Images/Gym@0,32x.png" /><label>Gym's</label>
+
+@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Q2KNaUwSq18QlJm2y24Sd66k4HXVL24&callback=myMap"></script>*@
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Q2KNaUwSq18QlJm2y24Sd66k4HXVL24&libraries=places&callback=initAutocomplete"></script>
+
+<input id="pac-input" type="text" placeholder="Search...">
+<script>
+    $("#ddllocator").on("change", function () {
+        var searchText = $("#ddllocator option:selected").text();
+        $("#pac-input").val(searchText);
+        initAutocomplete(searchText);
+    });
+    function myMap() {
+        var myCenter = new google.maps.LatLng(7.5231, 80.4618);
+        var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        var marker = new google.maps.Marker({ position: myCenter });
+        marker.setMap(map);
+    }
+    function initAutocomplete(searchText) {
+    
+        var map = new google.maps.Map(document.getElementById('googleMap'), {
+            center: { lat: 7.5231, lng: 80.4618 },
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
+
+
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+
+        searchBox.addListener('places_changed', function () {
+      
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                if (input.value.indexOf("ATM") != -1) {
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: "@Url.Content("~/Content/Images/ATM@0,32x.png")",
+                        title: place.name,
+                        position: place.geometry.location,
+                       // animation: google.maps.Animation.BOUNCE
+                    }));
+                }
+                if (input.value.indexOf("Branch") != -1) {
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: "@Url.Content("~/Content/Images/office@0,32x.png")",
+                        title: place.name,
+                        position: place.geometry.location,
+                       // animation: google.maps.Animation.BOUNCE
+                    }));
+                }
+                if (input.value.indexOf("Gym") != -1) {
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: "@Url.Content("~/Content/Images/Gym@0,32x.png")",
+                        title: place.name,
+                        position: place.geometry.location,
+                        //animation: google.maps.Animation.BOUNCE
+                    }));
+                }
+                if (place.geometry.viewport) {
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+    }
+</script>

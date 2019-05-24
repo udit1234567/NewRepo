@@ -1,0 +1,83 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+@{
+    int MemberIndex = Model.AssuredIndex;
+    string TableID1 = "tblMedicalCurrentMD" + MemberIndex;
+}
+
+<div class="table-responsive" style="overflow-x:visible">
+    <table class="table" id="@TableID1">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name of Medication</th>
+                <th>Dose</th>
+                <th>Frequency</th>
+                <th><input type="button" id="btnAddCurrentMD" value="+" onclick="AddCurrentMDInfo('@TableID1','@MemberIndex')" /></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.objMemberDetails[MemberIndex].LstMedicalCurrentQuestionnariesDetails != null)
+            {
+                for (int i = 0; i < Model.objMemberDetails[MemberIndex].LstMedicalCurrentQuestionnariesDetails.Count(); i++)
+                {
+                    <tr id="Row_CurrentMDInfo_@i@MemberIndex">
+                        <td></td>
+                        <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalCurrentQuestionnariesDetails[i].varcharFiled6, new { @class = "form-control", @id = "txtCureentMedicationName" + MemberIndex + i, @onkeypress = "return onlyAlphabets(event)" })</td>
+                        <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalCurrentQuestionnariesDetails[i].varcharFiled7, new { @class = "form-control", @id = "txtCurrentDose" + MemberIndex + i, onkeypress = "return onlyAlphabets(event)" })</td>
+                        <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalCurrentQuestionnariesDetails[i].varcharFiled8, new { @class = "form-control", @id = "txtCurrentFrequency" + MemberIndex + i, @onkeypress = "return onlyAlphabets(event)" })</td>
+
+                        <td style="display:none">
+                            @Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalCurrentQuestionnariesDetails[i].IsDeleted, new { @class = "form-control", @id = "txtCurrentMDIsDeleted" + MemberIndex + i })
+                            @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].LstMedicalCurrentQuestionnariesDetails[i].QuestionsId, new { @class = "form-control", @id = "txtCureentQuestionID" + MemberIndex + i })
+                        </td>
+                        <td><input type="button" id="btnRemoveCurrentMDInfo" value="-" onclick="RemoveCurrentMDInfo('Row_CurrentMDInfo_@i@MemberIndex', @i,@MemberIndex)" /></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    </div>
+
+    <script>
+        function AddCurrentMDInfo(DivID, MemberIndex) {
+            var newCurrentMDRow;
+            var Index = GetGridIndex(DivID);
+
+            var varcharFiled6 = 'txtCureentMedicationName' + MemberIndex + Index;
+            var varcharFiled7 = 'txtCurrentDose' + MemberIndex + Index;
+            var varcharFiled8 = 'txtCurrentFrequency' + MemberIndex + Index;
+            var CurrentQuestionID = 'txtCureentQuestionID' + MemberIndex + Index;
+            var IsDeleted = 'txtCurrentMDIsDeleted' + MemberIndex + Index;
+            var Remove = 'btnRemoveCurrentMDInfo' + MemberIndex + Index;
+            
+            var QuestionId = 'btnRemoveCurrentMDInfo' + MemberIndex + Index;
+            var rowNumber = Index + 1;
+            var RowId = "Row_CurrentMDInfo" + MemberIndex + Index;
+
+            newCurrentMDRow = "<tr id='" + RowId + "' >" +
+                "<td>" + "" + "</td>" +
+                  "<td><input value='' class='form-control' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].LstMedicalCurrentQuestionnariesDetails[" + Index + "].varcharFiled6' id=\'" + varcharFiled6 + "'/>" +
+                  "<td><input value='' class='form-control' type='text'  name='objMemberDetails[" + MemberIndex + "].LstMedicalCurrentQuestionnariesDetails[" + Index + "].varcharFiled7' id=\'" + varcharFiled7 + "'/>" +
+                  "<td><input value='' class='form-control' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].LstMedicalCurrentQuestionnariesDetails[" + Index + "].varcharFiled8' id=\'" + varcharFiled8 + "'/>" +
+                   //"<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstMedicalQuestionnariesDetails[" + Index + "].QuestionsId' id=\'" + QuestionId + "' /></td>" +
+                   "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstMedicalCurrentQuestionnariesDetails[" + Index + "].QuestionsId' id=\'" + CurrentQuestionID + "' /></td>" +
+                  "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstMedicalCurrentQuestionnariesDetails[" + Index + "].IsDeleted' id=\'" + IsDeleted + "' /></td>" +
+                  "<td><input value='-' type='button' onclick='RemoveCurrentMDInfo(\"" + RowId + "\",\"" + Index + "\")' class='form-control' id=\'" + Remove + "'/></td>" + "</tr>";
+            $('#' + DivID + ' tbody:last').append(newCurrentMDRow);
+        }
+
+        function RemoveCurrentMDInfo(DivID, index,MemberIndex) {
+
+            $('#txtCurrentMDIsDeleted' +MemberIndex+ index).val(true);
+
+            writeMultipleMessage("error", "", "txtCureentMedicationName" + index + "");
+            writeMultipleMessage("error", "", "txtCurrentDose" + index + "");
+            writeMultipleMessage("error", "", "txtCurrentFrequency" + index + "");
+
+            $('#' + DivID).hide();
+        }
+    </script>
+

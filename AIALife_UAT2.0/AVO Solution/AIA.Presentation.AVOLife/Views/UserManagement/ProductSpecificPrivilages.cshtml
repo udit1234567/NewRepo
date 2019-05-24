@@ -1,0 +1,36 @@
+﻿@model AIA.Life.Models.UserManagement.UserProductPermissions
+@{
+    ViewBag.Title = "ProductSpecificPrivilages";
+}
+@using (Html.BeginForm("", "", FormMethod.Post, new { name = "frmProductSpecificPrivilages", id = "frmProductSpecificPrivilages", @class = "" }))
+{  
+    @Html.HiddenFor(a =>a.vhProductCodes, new { @id = "hdnvhProductCodes"})
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i class="icon-users"></i>
+            <a data-toggle="collapse" data-target="#pnlMotorCovers" href="#collapseThree" class="collapsed"> Product Specific Privileges<img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+            </a>
+        </h4>
+    </div>
+    <div id="pnlMotorCovers" class="panel-collapse in">
+        <div class="panel-body">
+          @{Html.RenderPartial("~/Areas/UM/Views/UserManagement/ProductSpecificData.cshtml", Model);}
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i class="icon-users"></i>
+            <a data-toggle="collapse" data-target="#pnlClientBody" href="#collapseThree" class="collapsed">Validations/Field Level Data Points <img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+            </a>
+        </h4>
+    </div>
+    <div id="pnlClientBody" class="panel-collapse in">
+        <div class="panel-body">
+            @{Html.RenderPartial("~/Areas/UM/Views/UserManagement/MotorFieldLevelData.cshtml", Model);}
+        </div>
+    </div>
+</div>
+}

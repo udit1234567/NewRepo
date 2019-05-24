@@ -1,0 +1,34 @@
+﻿@{ 
+    Layout = null;
+}
+<br />
+<div align="center">
+    <div>
+        @if (ViewBag.Message.Contains("You will be notified soon"))
+        {
+            <img class="Img-align" src="../Images/warning1.png" />
+        }
+        else
+        {
+            <img class="Img-align" src="../Images/checked1.png" />
+        }
+
+    </div>
+    <div class="text-center-pay">
+        <p class="text-center-pay" style="font-size:18px;">@ViewBag.Message</p>
+    </div>
+    <div class="text-center-pay">
+        <button type="button" class="btn btn-secondary btn-pay" data-dismiss="modal" onclick="RedirecttosubmitPage()">OK</button>
+    </div>
+</div>
+        <script>
+            function RedirecttosubmitPage() {
+                var CloseWindow = @ViewBag.CloseWindow;
+                if (CloseWindow == true) {
+                    window.close();
+                }
+                else {
+                    window.top.location.href = "/policy/ProposalSubmitted";
+                }
+            }
+        </script>

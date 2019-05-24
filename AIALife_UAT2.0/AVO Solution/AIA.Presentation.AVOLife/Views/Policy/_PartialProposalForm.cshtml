@@ -1,0 +1,612 @@
+﻿
+@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    Layout = null;
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+    <p>
+        @Resources.GetLabelName("You are about to perform an important task. With the filling up of this Proposal Form you are seeking financial security for your own future or for the future of your family members.") @Resources.GetLabelName("AIA Insurance Lanka PLC will undertake providing financial security in accordance with the premium deposited under the insurance plan you have opted for.The Company will take this responsibility solely on the basis of the information provided by you in the Proposal Form. Thus the Company hopes that you will act with utmost care and responsibility when providing the information.") @Resources.GetLabelName("In Insurance this is mutual trust and confidence as of paramount importance.") @Resources.GetLabelName("If the information provided by you is found to be incorrect, then there is a posibility that the policy will become invalid, which will also mean that you will have to forefit all the benefits you were hoping for.")
+    </p>
+    <p style="font-weight:bold; text-transform:uppercase">
+        @Resources.GetLabelName("Important")
+    </p>
+    <p>
+        <ol style="font-weight:bold;">
+            <li>
+                @Resources.GetLabelName("Please answer all the questions accurately.")
+            </li>
+            <li>
+                @Resources.GetLabelName("Please do not withhold any information.")
+            </li>
+            <li>
+                @Resources.GetLabelName("If you are in doubt whether some information need to be disclosed, please disclose them.")
+            </li>
+            <li>
+                @Resources.GetLabelName("Please make sure that you answer all the questions before placing your signature.")
+            </li>
+        </ol>
+    </p>
+    <br />
+    @Html.HiddenFor(a => a.SmartPensionReceivingPeriod)
+    @Html.HiddenFor(a => a.LeadNo)
+    @Html.HiddenFor(a => a.IntroducerCode)
+    @Html.HiddenFor(a => a.Deductible)
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Quotation No")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.QuoteNo, new { @readonly = "readonly", id = "QuoteNo", @class = "form-control" })
+        @Html.HiddenFor(a => a.QuoteNo, new { id = "hdnQuoteNo", @class = "form-control" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="usr">@Resources.GetLabelName("Proposal No")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.ProposalNo, new { @readonly = "readonly", id = "txtProposalNo", @class = "form-control" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="sel1">@Resources.GetLabelName("Plan Name")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.PlanName, new { id = "txtPlanName", @class = "form-control", @readonly = "readonly" })
+    </div>
+
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+
+    @if (Model.PlanName == "Easy Pensions")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivEasyPesnsionPolicyTerm">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstEasyPensionPolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @readonly = "readonly", @id = "ddlEasyPesnsionPolicyTerm", @onchange = "ddlEasyPesnsionPolicyTerm()" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivEasyPesnsionPremiumPaymentTerm">
+            <label for="sel1">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PaymentTerm, new { @readonly = "readonly", id = "txtProposalPremiumTerm", @class = "form-control" })
+       </div>
+    }
+    @if (Model.PlanName == "Smart Pensions")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PolicyTerm, new { id = "ddlProposalSmartPensionPolicyTerm", @class = "form-control", @onchange = "EducationPlanPolicyTerm();", @readonly = "readonly" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PaymentTerm, new { id = "txtSmartPensionPremiumPaymentTerm", @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Education Plan")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PolicyTerm, new { id = "txtEducationPlanPolicyTerm", @class = "form-control", @onchange = "EducationPlanPolicyTerm();", @readonly = "readonly" })
+         </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PaymentTerm, new { id = "txtEducationPlanPremiumPaymentTerm", @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Health Protector")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PolicyTerm, new { @id = "txtHealthProtectorPolicyTerm", @class = "form-control", @onchange = "HealthProtectorPolicyTerm();", @readonly = "readonly" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PaymentTerm, new { @id = "txtHealthProtectorPremiumPaymentTerm", @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Smart Builder")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivSmartBuilder">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstSmartBuilderPolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalSmartBuilderPolicyTerm", @readonly = "readonly" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PaymentTerm, new SelectList(Model.LstSmartBuilderPaymentTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "txtSmartBuilderPremiumPaymentTerm", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Smart Builder Gold")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivSmartBuilderGold">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstSmartBuilderGoldPolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalSmartBuilderGoldPolicyTerm", @readonly = "readonly" })
+
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PaymentTerm, new SelectList(Model.LstSmartBuilderGoldPaymentTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "txtSmartBuilderGoldPremiumPaymentTerm", @readonly = "readonly" })
+       </div>
+    }
+    @if (Model.PlanName == "Priority Value")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivPriorityValue">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstPriorityValuePolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalPriorityValuePolicyTerm", @readonly = "readonly" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PaymentTerm, new SelectList(Model.LstPriorityValuePaymentTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "txtPriorityValuePremiumPaymentTerm", @readonly = "readonly" })
+        </div>
+    }
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="usr">@Resources.GetLabelName("Payment Frequent")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.PaymentFrequency, new SelectList(Model.LstPaymentfrequency, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstPaymentfrequency", @readonly = "readonly" })
+    </div>
+</div>
+
+
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" >
+    @if (Model.PlanName == "Easy Pensions")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstMaturityBenefit", @onchange = "MaturityBenefitFunction()" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormBenefitYears">
+            <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Text"), "Select", new { @class = "form-control blank-field-hightlight", @id = "ddlProposalFormBenefitYears" })
+        </div>
+    }
+    @if (Model.PlanName == "Smart Pensions")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Pension Receiving period")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.SmartPensionReceivingPeriod, new SelectList(Model.LstBenefitYears, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlProposalSmartPensionReceivingPeriod" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Monthly Saving Income")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.SmartPensionMonthlyIncome, new { id = "txtSmartPensionMonthlySavingIncome", @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Education Plan")
+    {
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+        </div>
+    }
+
+    @if (Model.PlanName == "Health Protector")
+    {
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+        </div>
+    }
+    @if (Model.PlanName == "Smart Builder")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstSmartBuilderMaturityBenefit", @onchange = "SmartBuilderMaturityBenefitFunction();" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormSmartBuilderBenefitYears">
+            <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalFormSmartBuilderBenefitYears" })
+        </div>
+    }
+    @if (Model.PlanName == "Smart Builder Gold")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstSmartBuilderGoldMaturityBenefit", @onchange = "SmartBuilderGoldMaturityBenefitFunction();" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormSmartBuilderGoldBenefitYears">
+            <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalFormSmartBuilderGoldBenefitYears" })
+        </div>
+    }
+    @if (Model.PlanName == "Priority Value")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstPriorityValueMaturityBenefit", @onchange = "PriorityValueMaturityBenefitFunction();" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormPriorityValueBenefitYears">
+            <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalFormPriorityValueBenefitYears" })
+       </div>
+    }
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    @*@if (Model.ProposalNeed == "Direct" || Model.ProposalNeed == "Lead" || Model.ProposalNeed == "2099" || Model.ProposalNeed == "2100" || Model.ProposalNeed == "2101" || Model.ProposalNeed == "2102" || Model.ProposalNeed == "2103" || Model.ProposalNeed == "2104" || Model.ProposalNeed == "2105" || Model.ProposalNeed == "2106" || Model.ProposalNeed == "2107" || Model.ProposalNeed == "2108" || Model.ProposalNeed == "2110")
+    {*@
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="sel1">@Resources.GetLabelName("Need")</label>
+            @Html.DropDownListFor(m => m.ProposalNeed, new SelectList(Model.lstProposalNeed, "ID", "Value"), "Select", new { @class = "form-control reqFieldProposal", @id = "ddlProposalNeed" })
+        </div>
+    @*}*@
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        debugger;
+        MaturityBenefitFunction();
+        SmartBuilderMaturityBenefitFunction();
+        SmartBuilderGoldMaturityBenefitFunction();
+        PriorityValueMaturityBenefitFunction();
+        $("#QuoteNo").val('@Model.QuoteNo');
+        debugger;
+        if ('@Model.PlanName' == 'Easy Pensions') {
+            $('#ddlLstMaturityBenefit').val("2380");
+            $('#ddlLstMaturityBenefit').prop('disabled', true);
+            $("#divProposalFormBenefitYears").show();
+            $('#ddlProposalFormBenefitYears').val('@Model.SmartPensionReceivingPeriod');
+            $('#ddlProposalFormBenefitYears').prop('disabled', true);
+
+        }
+        else{
+            $('#ddlLstMaturityBenefit').val("2381");
+            $('#ddlLstMaturityBenefit').prop('disabled', true);
+        }
+
+    });
+
+    function MaturityBenefitFunction() {
+        var Status = $("#ddlLstMaturityBenefit option:selected").text();
+        if (Status == "Select" || Status == "LumpSum") {
+            $("#divProposalFormBenefitYears").hide();
+        }
+        if (Status == "Payment") {
+            $("#divProposalFormBenefitYears").show();
+        }
+    }
+
+    function SmartBuilderMaturityBenefitFunction() {
+        var Status = $("#ddlLstSmartBuilderMaturityBenefit option:selected").text();
+        if (Status == "Select" || Status == "LumpSum") {
+            $("#divProposalFormSmartBuilderBenefitYears").hide();
+        }
+        if (Status == "Payment") {
+            $("#divProposalFormSmartBuilderBenefitYears").show();
+        }
+    }
+
+    function SmartBuilderGoldMaturityBenefitFunction() {
+        var Status = $("#ddlLstSmartBuilderGoldMaturityBenefit option:selected").text();
+        if (Status == "Select" || Status == "LumpSum") {
+            $("#divProposalFormSmartBuilderGoldBenefitYears").hide();
+        }
+        if (Status == "Payment") {
+            $("#divProposalFormSmartBuilderGoldBenefitYears").show();
+        }
+    }
+
+    function PriorityValueMaturityBenefitFunction() {
+        var Status = $("#ddlLstPriorityValueMaturityBenefit option:selected").text();
+        if (Status == "Select" || Status == "LumpSum") {
+            $("#divProposalFormPriorityValueBenefitYears").hide();
+        }
+        if (Status == "Payment") {
+            $("#divProposalFormPriorityValueBenefitYears").show();
+        }
+    }
+
+    function ddlEasyPesnsionPolicyTerm() {
+        $("#txtProposalPremiumTerm").val($("#EasyPesnsionPolicyTerm").val());
+    }
+
+    function SmartPensionPolicyTerm() {
+        $("#txtSmartPensionPremiumPaymentTerm").val($("#ddlProposalSmartPensionPolicyTerm").val());
+    }
+
+    function EducationPlanPolicyTerm() {
+        $("#txtEducationPlanPremiumPaymentTerm").val($("#txtEducationPlanPolicyTerm").val());
+    }
+
+    function HealthProtectorPolicyTerm() {
+        $("#txtHealthProtectorPremiumPaymentTerm").val($("#txtHealthProtectorPolicyTerm").val());
+    }
+
+    function ValidatePropsalForm() {
+
+        var PalnName = '@Model.PlanName';
+        if ($("#QuoteNo").val() == "") {
+            writeMultipleMessage("error", "Please Enter Quote Number.", "QuoteNo");
+            $("#checkboxDeclaration").prop("checked", false);
+            $(".invisibledelc").removeClass('checkboxactive')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "QuoteNo");
+        }
+
+        if (PalnName == "Easy Pensions") {
+            if ($('#ddlEasyPesnsionPolicyTerm').val() == "") {
+
+                writeMultipleMessage("error", "Please Enter Policy Term.", "ddlEasyPesnsionPolicyTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlEasyPesnsionPolicyTerm");
+            }
+
+            if ($('#txtProposalPremiumTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Premium Term.", "txtProposalPremiumTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtProposalPremiumTerm");
+            }
+
+            if ($('#ddlLstMaturityBenefit').val() == "") {
+                writeMultipleMessage("error", "Please Enter Maturity Benefit Details.", "ddlLstMaturityBenefit");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlLstMaturityBenefit");
+            }
+
+            var Status = $("#ddlLstMaturityBenefit option:selected").text();
+            if (Status == "Payment") {
+                if ($('#ddlProposalFormBenefitYears').val() == "") {
+                    writeMultipleMessage("error", "Please Enter Benefit Years.", "ddlProposalFormBenefitYears");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    $(".invisibledelc").removeClass('checkboxactive')
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "ddlProposalFormBenefitYears");
+                }
+            }
+
+        }
+
+        if (PalnName == "Smart Pensions") {
+            if ($('#ddlProposalSmartPensionPolicyTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Policy Term.", "ddlProposalSmartPensionPolicyTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlProposalSmartPensionPolicyTerm");
+            }
+
+            if ($('#txtSmartPensionPremiumPaymentTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Premium Term.", "txtSmartPensionPremiumPaymentTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtSmartPensionPremiumPaymentTerm");
+            }
+
+            if ($('#ddlProposalSmartPensionReceivingPeriod').val() == "") {
+                writeMultipleMessage("error", "Please Enter  SmartPension Receiving Period.", "ddlProposalSmartPensionReceivingPeriod");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlProposalSmartPensionReceivingPeriod");
+            }
+
+            if ($('#txtSmartPensionMonthlySavingIncome').val() == "") {
+                writeMultipleMessage("error", "Please Enter  SmartPension Monthly Saving Income.", "txtSmartPensionMonthlySavingIncome");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtSmartPensionMonthlySavingIncome");
+            }
+        }
+
+        if (PalnName == "Education Plan") {
+            if ($('#txtEducationPlanPolicyTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Policy Term.", "txtEducationPlanPolicyTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtEducationPlanPolicyTerm");
+            }
+
+            if ($('#txtEducationPlanPremiumPaymentTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Premium Term.", "txtEducationPlanPremiumPaymentTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtEducationPlanPremiumPaymentTerm");
+            }
+        }
+
+        if (PalnName == "Health Protector") {
+            if ($('#txtHealthProtectorPolicyTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Policy Term.", "txtHealthProtectorPolicyTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtHealthProtectorPolicyTerm");
+            }
+
+            if ($('#txtHealthProtectorPremiumPaymentTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Premium Term.", "txtHealthProtectorPremiumPaymentTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtHealthProtectorPremiumPaymentTerm");
+            }
+        }
+
+        if (PalnName == "Smart Builder") {
+            if ($('#ddlProposalSmartBuilderPolicyTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Policy Term.", "ddlProposalSmartBuilderPolicyTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlProposalSmartBuilderPolicyTerm");
+            }
+
+            if ($('#txtSmartBuilderPremiumPaymentTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Premium Term.", "txtSmartBuilderPremiumPaymentTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtSmartBuilderPremiumPaymentTerm");
+            }
+
+            if ($('#ddlLstSmartBuilderMaturityBenefit').val() == "") {
+                writeMultipleMessage("error", "Please Enter Maturity Benefit Details.", "ddlLstSmartBuilderMaturityBenefit");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlLstSmartBuilderMaturityBenefit");
+            }
+
+            var Status = $("#ddlLstSmartBuilderMaturityBenefit option:selected").text();
+            if (Status == "Payment") {
+                if ($('#ddlProposalFormSmartBuilderBenefitYears').val() == "") {
+                    writeMultipleMessage("error", "Please Enter Benefit Years.", "ddlProposalFormSmartBuilderBenefitYears");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    $(".invisibledelc").removeClass('checkboxactive')
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "ddlProposalFormSmartBuilderBenefitYears");
+                }
+            }
+        }
+
+        if (PalnName == "Smart Builder Gold") {
+            if ($('#ddlProposalSmartBuilderGoldPolicyTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Policy Term.", "ddlProposalSmartBuilderGoldPolicyTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlProposalSmartBuilderGoldPolicyTerm");
+            }
+
+            if ($('#txtSmartBuilderGoldPremiumPaymentTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Premium Term.", "txtSmartBuilderGoldPremiumPaymentTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtSmartBuilderGoldPremiumPaymentTerm");
+            }
+
+            if ($('#ddlLstSmartBuilderGoldMaturityBenefit').val() == "") {
+                writeMultipleMessage("error", "Please Enter Maturity Benefit Details.", "ddlLstSmartBuilderGoldMaturityBenefit");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlLstSmartBuilderGoldMaturityBenefit");
+            }
+
+            var Status = $("#ddlLstSmartBuilderGoldMaturityBenefit option:selected").text();
+            if (Status == "Payment") {
+                if ($('#ddlProposalFormSmartBuilderGoldBenefitYears').val() == "") {
+                    writeMultipleMessage("error", "Please Enter Benefit Years.", "ddlProposalFormSmartBuilderGoldBenefitYears");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    $(".invisibledelc").removeClass('checkboxactive')
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "ddlProposalFormSmartBuilderGoldBenefitYears");
+                }
+            }
+        }
+
+        if (PalnName == "Priority Value") {
+            if ($('#ddlProposalPriorityValuePolicyTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Policy Term.", "ddlProposalPriorityValuePolicyTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlProposalPriorityValuePolicyTerm");
+            }
+
+            if ($('#txtPriorityValuePremiumPaymentTerm').val() == "") {
+                writeMultipleMessage("error", "Please Enter Premium Term.", "txtPriorityValuePremiumPaymentTerm");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtPriorityValuePremiumPaymentTerm");
+            }
+
+            if ($('#ddlLstPriorityValueMaturityBenefit').val() == "") {
+                writeMultipleMessage("error", "Please Enter Maturity Benefit Details.", "ddlLstPriorityValueMaturityBenefit");
+                $("#checkboxDeclaration").prop("checked", false);
+                $(".invisibledelc").removeClass('checkboxactive')
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlLstPriorityValueMaturityBenefit");
+            }
+
+            var Status = $("#ddlLstPriorityValueMaturityBenefit option:selected").text();
+            if (Status == "Payment") {
+                if ($('#ddlProposalFormPriorityValueBenefitYears').val() == "") {
+                    writeMultipleMessage("error", "Please Enter Benefit Years.", "ddlProposalFormPriorityValueBenefitYears");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    $(".invisibledelc").removeClass('checkboxactive')
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "ddlProposalFormPriorityValueBenefitYears");
+                }
+            }
+        }
+
+    }
+
+    //function ValidateCheck() {
+
+
+    //    if ($("input[id='checkboxWPDeclaration']").is(':checked') == false) {
+    //        if ($("#checkboxWPDeclaration").val() == "false") {
+    //            $(".invisibledelcwp").removeClass('checkboxactive')
+    //            writeMultipleMessage("error", "please Selct Welth planners's Confidential Report Check box in Welth planner Section.", "checkboxWPDeclaration");
+    //            return false;
+    //        }
+    //        else {
+    //            writeMultipleMessage("error", "", "checkboxWPDeclaration");
+    //            $(".invisibledelcwp").addClass('checkboxactive')
+    //        }
+    //    }
+    //}
+
+</script>

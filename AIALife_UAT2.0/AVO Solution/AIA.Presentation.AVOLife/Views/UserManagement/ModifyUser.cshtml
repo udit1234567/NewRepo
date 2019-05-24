@@ -1,0 +1,42 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+@{
+    ViewBag.Title = "ModifyUser";
+    //Model.userDetails.UserID = Guid.Parse("84A27E8D-1976-41A6-9C98-D0BE5A88BB7C");
+}
+
+<div id="content">
+  
+        <div id="userPaymentMenuPrivilages">
+            @{Html.RenderPartial("~/Views/UserManagement/IntermediaryPrivilages.cshtml", Model);}
+            @*@{Html.RenderPartial("~/Views/UserManagement/ProductPrivilages.cshtml", Model);}*@
+        </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#tabs').tab();
+        $('#txtuserID').prop('disabled', true);
+        $('#txtReportusrId').prop('disabled', true);
+        $('#BranchDetail input').prop('disabled', true);
+        $('.deleteUserBranchRow').attr('disabled', false);
+
+        if ('@Model' != null && ('@Model.text' == 83 || '@Model.text' == 84)) {
+            $('.BancaBranchCode').attr('disabled', false);
+            $('.BancaBranchDescription').attr('readonly', false);
+        }
+        else {
+            $(".BancaBranchCode").attr('disabled', 'disabled');
+            $(".BancaBranchDescription").attr('readonly', 'disabled');
+        }
+       
+    });
+
+    $('#tabProductPrivilages').click(function () {
+        loadProductPrivilages()
+    });
+
+  
+
+</script>

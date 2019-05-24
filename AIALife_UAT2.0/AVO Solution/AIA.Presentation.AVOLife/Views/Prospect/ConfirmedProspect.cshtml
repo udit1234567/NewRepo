@@ -1,0 +1,52 @@
+﻿@model AIA.Life.Models.Opportunity.Prospect
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    ViewBag.Title = "ConfirmedProspect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+    @@media screen and (min-width:320px) and (max-width:768px) {
+        .no-more-tables table, thead, tbody, th, td, tr {
+            float: none;
+        }
+    }
+</style>
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+<script src="~/Scripts/ladda-bootstrap/ladda.min.js"></script>
+<script src="~/Scripts/ladda-bootstrap/spin.min.js"></script>
+<script src="~/Scripts/gridmvc.js"></script>
+<script src="~/Scripts/gridmvc.min.js"></script>
+<script src="~/Scripts/gridmvc-ext.js"></script>
+<script src="~/Scripts/gridmvc.lang.fr.js"></script>
+<script src="~/Scripts/gridmvc.lang.ru.js"></script>
+<script src="~/Scripts/gridmvc.customwidgets.js"></script>
+<script src="~/Scripts/URI.js"></script>
+
+<div class="panel panel-default">
+    <div class="panel-body" style="color: white;
+    font-weight: 600;">New Business - Prospect - Confirmed Prospect</div>
+</div>
+
+
+<div class="" id="divProspectListGrid" style="overflow-x:auto;">
+    @Html.Partial("~/Views/Prospect/PartialProspectPoolGrid.cshtml", Model)
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divPartialProspectScreen" style="display:none">
+    
+</div>
+
+
+

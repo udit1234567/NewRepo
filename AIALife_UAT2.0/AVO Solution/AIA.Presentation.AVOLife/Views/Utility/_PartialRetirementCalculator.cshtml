@@ -1,0 +1,405 @@
+﻿
+@{
+    Layout = null;
+}
+
+<head>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if ('@ViewData["monthlyExpense"]' == "") {
+                document.getElementById("currentMonthlyExpenses").value = 5000;
+            }
+            else {
+                document.getElementById("currentMonthlyExpenses").value = document.getElementById("cmeID").value = '@ViewData["monthlyExpense"]';
+                onChangeText();
+            }
+            document.getElementById("currentAge").value = 18;
+            document.getElementById("preferredRetirementAge").value = 60;
+            if ('@ViewData["netWorth"]' == "") {
+                document.getElementById("currentNetWorth").value = 0;
+            }
+            else {
+                document.getElementById("currentNetWorth").value = document.getElementById("cnwID").value = '@ViewData["netWorth"]';
+                onCNWChangeText();
+            }
+            Cal();
+        });
+
+
+
+        function FillCurrentMonthlyExpense() {
+            document.getElementById("currentMonthlyExpenses").value = document.getElementById("monthlyExpenseID").value;
+            var window = $(retMonthlyExpense).data('tWindow');
+            window.close();
+            window.destroy();
+            onChangeText();
+        }
+        function FillNetWorth() {
+            document.getElementById("currentNetWorth").value = document.getElementById("totalNetWorthID").value;
+            var window = $(curNetWorth).data('tWindow');
+            window.close();
+            window.destroy();
+            onCNWChangeText();
+        }
+        function LoadRefineLink(page) {
+            if (page == "needPage") {
+                retMonthlyExpense = $.telerik.window.create({
+                    title: "Refine",
+                    html: "<strong>Loading Page...</strong>",
+                    contentUrl: '/MyBusiness/RetirementMonthlyExpenseRefine?page=needPage',
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    scrollable: false,
+                    width: "500",
+                    height: "500",
+                    onOpen: function () {
+                    },
+                    onClose: function (e) {
+                        e.preventDefault();
+                        retMonthlyExpense.data('tWindow').destroy();
+                    }
+                });
+            }
+            else {
+                retMonthlyExpense = $.telerik.window.create({
+                    title: "Refine",
+                    html: "<strong>Loading Page...</strong>",
+                    contentUrl: '/MyBusiness/RetirementMonthlyExpenseRefine?page=myBusiness',
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    scrollable: false,
+                    width: "500",
+                    height: "500",
+                    onOpen: function () {
+                    },
+                    onClose: function (e) {
+                        e.preventDefault();
+                        retMonthlyExpense.data('tWindow').destroy();
+                    }
+                });
+            }
+            retMonthlyExpense.attr('id', 'RetirementMonthly');
+            var window = $(retMonthlyExpense).data('tWindow');
+            window.center().open();
+            window.center();
+        }
+        function LoadRefineCNWLink(page) {
+            if (page == "needPage") {
+                curNetWorth = $.telerik.window.create({
+                    title: "NetWorth",
+                    html: "<strong>Loading Page...</strong>",
+                    contentUrl: '/MyBusiness/RetirementNetWorthRefine?page=needPage',
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    scrollable: false,
+                    width: "500",
+                    height: "500",
+                    onOpen: function () {
+                    },
+                    onClose: function (e) {
+                        e.preventDefault();
+                        curNetWorth.data('tWindow').destroy();
+                    }
+                });
+            }
+            else {
+                curNetWorth = $.telerik.window.create({
+                    title: "NetWorth",
+                    html: "<strong>Loading Page...</strong>",
+                    contentUrl: '/MyBusiness/RetirementNetWorthRefine?pagemyBusiness',
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    scrollable: false,
+                    width: "500",
+                    height: "500",
+                    onOpen: function () {
+                    },
+                    onClose: function (e) {
+                        e.preventDefault();
+                        curNetWorth.data('tWindow').destroy();
+                    }
+                });
+            }
+            curNetWorth.attr('id', 'RetirementMonthly');
+            var window = $(curNetWorth).data('tWindow');
+            window.center().open();
+            window.center();
+        }
+        //function onChangeText() {
+        //    var slider = getSlider();
+        //    slider.value($("#currentMonthlyExpenses").val());
+        //    Cal();
+        //}
+        function onChangeCAText() {
+            var caSlider = getCASlider();
+            caSlider.value($("#currentAge").val());
+            Cal();
+        }
+        function onPRAChangeText() {
+            var praSlider = getPRASlider();
+            praSlider.value($("#preferredRetirementAge").val());
+            Cal();
+        }
+        function onCNWChangeText() {
+            var cnwSlider = getCNWSlider();
+            cnwSlider.value($("#currentNetWorth").val());
+            Cal();
+        }
+        function getSlider() {
+            return $("#cmeID").data("tSlider");
+        }
+        function getCASlider() {
+            return $("#caID").data("tSlider");
+        }
+        function getPRASlider() {
+            return $("#praID").data("tSlider");
+        }
+        function getCNWSlider() {
+            return $("#cnwID").data("tSlider");
+        }
+        function oncaSlide(e) {
+
+            document.getElementById("currentAge").value = e.value;
+            Cal();
+        }
+        function onSlide(e) {
+
+            document.getElementById("currentMonthlyExpenses").value = e.value;
+            Cal();
+        }
+        function onpraSlide(e) {
+            document.getElementById("preferredRetirementAge").value = e.value;
+            Cal();
+        }
+        function oncnwSlide(e) {
+            document.getElementById("currentNetWorth").value = e.value;
+            Cal();
+        }
+
+        function Cal() {
+            var cme = document.getElementById("currentMonthlyExpenses").value;
+            var ca = document.getElementById("currentAge").value;
+            var pra = document.getElementById("preferredRetirementAge").value;
+            var cnw = document.getElementById("currentNetWorth").value;
+            var PostRetirementExpenses = 80;
+            var InflationRate = 5;
+            var InvestmentUptoRetirement = 10;
+            var PostRetirementInvestment = 7;
+            var RetirementTillAge = 85;
+            var duration1 = pra - ca;
+            var firsrt = Math.pow((1 + (InflationRate / 100)), duration1);
+            var _retirementExpenses = (Math.round(cme * (PostRetirementExpenses / 100) * firsrt));
+            var _duration2 = RetirementTillAge - pra;
+            var _pvFactor = (1 + InflationRate / 100) / (1 + PostRetirementInvestment / 100);
+            var _netInterest = PostRetirementInvestment - InflationRate;
+            var corpusFirst = 1 - Math.pow(_pvFactor, _duration2);
+            var _corpusNeeded = (Math.round(((_retirementExpenses * 12) / (_netInterest / 100)) * (corpusFirst)));
+            var _pmtFactor = (Math.pow((1 + InvestmentUptoRetirement / 100), duration1) - 1) / (InvestmentUptoRetirement / 100);
+            var _monthlySavingsNeeded = (Math.round((_corpusNeeded / _pmtFactor) / 12));
+            retirementCalculator = [
+                    {
+                        "cat": "Monthly Expenses",
+                        "value": cme
+                    },
+                    {
+                        "cat": "Expenses After Retirement",
+                        "value": _retirementExpenses
+                    }];
+
+            createChart('retirementCalculator', retirementCalculator, 'cat', 'value', 'Retirement Calculator')
+            document.getElementById("lblCorpusRequired").innerHTML = _corpusNeeded;
+            document.getElementById("lblSavingsRequired").innerHTML = _monthlySavingsNeeded;
+
+        }
+
+
+        function checkIt(evt) {
+            evt = (evt) ? evt : window.event
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                status = "This field accepts numbers only."
+                return false
+            }
+            status = ""
+            return true
+        }
+
+        $(function () {
+
+
+            $("#CMEDiv").slider({
+                range: true,
+                min: 5000,
+                max: 1000000,
+                value: 5000,
+                slide: function (event, data) {
+
+                    onSlide(data);
+                }
+            });
+            $("#currentAgeDiv").slider({
+                range: true,
+                min: 18,
+                max: 65,
+                value: 18,
+                slide: function (event, i) {
+
+                    oncaSlide(i);
+                }
+            });
+            $("#preferredRetirementAgeDiv").slider({
+                range: true,
+                min: 35,
+                max: 600,
+                value: 85,
+                slide: function (event, i) {
+
+                    onpraSlide(i);
+                }
+            });
+            $("#currentNetWorthDiv").slider({
+                range: true,
+                min: 0,
+                max: 50000000,
+                value: 0,
+                slide: function (event, i) {
+
+                    oncnwSlide(i);
+                }
+            });
+        });
+
+    </script>
+</head>
+@*@{
+        if (Model == "needPage")
+        {
+        }
+        else
+        {
+
+        }
+    }*@
+
+
+<div class="panel panel-default col-lg-12 col-md-12" style="margin-top:10px;">
+    <div class="panel-heading">
+        <h4 class="panel-title" style=" text-align left;">
+            <a href="#collapsablePanelOne" data-toggle="collapse" data-parent="accordion" class="accordion-toggle">
+                Retirement Calculator
+                <i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+            </a>
+        </h4>
+    </div>
+    <div class="panel-collapse collapse in" id="collapsablePanelOne" style="background-color:white">
+        <div id="SubContent" class="panel-body">
+
+            <div class="col-lg-12 col-md-12">
+                <div class="col-lg-6 col-md-6" style="padding-top:100px;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <label class="col-lg-6 col-sm-6 control-label" id="CMExplabel" for="CMExp" style="color: Black; display: block; float: left; width: 200px; font-weight:bold;">
+                            Current Monthly Expenses
+                        </label>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="CMEDiv"></div>
+
+                        @if (@ViewData["monthlyExpense"] == null)
+                        {
+                            <input class="col-lg-3 col-sm-3" id="currentMonthlyExpenses" type="text" value='@ViewData["monthlyExpense"]' style="height: 20px; line-height: 20px; text-align: center;
+                    width: 90px; margin-left:10px; border-radius:5px;" onchange="onChangeText();" onkeypress="return checkIt(event);" />
+                        }
+                        else
+                        {
+                            <input class="col-lg-3 col-sm-3" id="currentMonthlyExpenses" value='@ViewData["monthlyExpense"]' type="text" value='@ViewData["netWorth"]' style="height: 20px; line-height: 20px; text-align: center;  width: 90px; margin-left:10px; border-radius:5px;"
+                                   onchange="onCNWChangeText();" />
+                        }
+                        @*<input class="col-lg-1 col-sm-1" type='button' id="viewbutton" name="View" value="Refine" onclick="LoadRefineLink('@Model')"
+                            style="background: none; background-repeat: no-repeat; border: none; cursor: pointer;
+                             text-decoration: underline; color: Blue;" />*@
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <label class="col-lg-4 col-sm-4 control-label" id="CurrentAgelabel" for="CA" style="color: Black; display: block; float: left;
+              width: 200px; font-weight:bold;">
+                            Current Age
+                        </label>
+                        <div class="col-lg-4 col-sm-4" id="currentAgeDiv"></div>
+
+                        <input class="col-lg-4 col-sm-4" id="currentAge" type="text" style="height: 20px; line-height: 20px; text-align: center;
+                width: 90px; margin-left:10px; margin-right:10px; border-radius:5px;" onchange="onChangeCAText();" onkeypress="return checkIt(event);" />
+                        <label class="col-lg-4 col-sm-4 control-label" style="color: Black; height: 20px; line-height: 20px; width: 40px; text-align: center; font-weight:bold">
+                            Years
+                        </label>
+                    </div>
+
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <label class="col-lg-3 col-sm-3 control-label" id="PRAgelabel" for="PR" style="color: Black; display: block; float: left;
+                 width: 200px; font-weight:bold;">
+                            Preferred Retirement Age
+                        </label>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="preferredRetirementAgeDiv"></div>
+                        <input class="col-lg-3 col-sm-3" id="preferredRetirementAge" type="text" style="height: 20px; line-height: 20px;
+                width: 90px; text-align: center; margin-left:10px; margin-right:10px; border-radius:5px;" onchange="onPRAChangeText();" onkeypress="return checkIt(event);" />
+
+                        <label class="col-lg-3 col-sm-3 control-label" style="color: Black; height: 20px; line-height: 20px; width: 40px; text-align: center; font-weight:bold">
+                            Years
+                        </label>
+                    </div>
+
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <label class="col-lg-6 col-sm-6 control-label" id="Netlabel" for="Net" style="color: Black; display: block; float: left;
+                 width: 200px; font-weight:bold;">
+                            Current Net Worth
+                        </label>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="currentNetWorthDiv"></div>
+                        @if (@ViewData["netWorth"] == null)
+                        {
+                            <input class="col-lg-3 col-sm-3" id="currentNetWorth" type="text" style="height: 20px; line-height: 20px; text-align: center;
+                    width: 90px; margin-left:10px; border-radius:5px;" onchange="onCNWChangeText();" onkeypress="return checkIt(event);" />
+                        }
+                        else
+                        {
+                            <input class="col-lg-3 col-sm-3" id="currentNetWorth" type="text" value='@ViewData["netWorth"]' style="height: 20px; line-height: 20px; text-align: center;  width: 90px;margin-left:10px; border-radius:5px;"
+                                   onchange="onCNWChangeText();" />
+                        }
+                        @*<input class="col-lg-1 col-sm-1" type='button' id="cnw" name="View" value="Refine" onclick="LoadRefineCNWLink('@Model')"
+                            style="background: none; background-repeat: no-repeat; border: none; cursor: pointer;
+                             text-decoration: underline; color: Blue;" />*@
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6" style="padding-left:10px;">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <label class="control-label" id="lblAssump" style="text-align: right; color: black; display: block; float:left; font-weight:bold">
+                            Assumptions
+                        </label>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <label class="col-lg-10 col-md-10 col-sm-10" id="lblCorpusDef" style="color: black; float: left; font-weight:bold">
+                            Corpus Required at the age of Retirement
+                        </label>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <label class="col-lg-10 col-md-10 col-sm-10" id="lblCorpusRequired" style="color : black; float: left; font-weight:bold">
+                            Additional Monthly Savings needed to acheive your goals
+                        </label>
+                        <label id="lblSavingsRequired" style="color: red; margin-left: 20px; float: left;font-weight:bold">
+                        </label>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" id="retirementCalculator" style="height: 250px;">
+                        <label></label>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

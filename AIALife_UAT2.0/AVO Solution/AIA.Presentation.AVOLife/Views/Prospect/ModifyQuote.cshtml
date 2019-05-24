@@ -1,0 +1,81 @@
+﻿
+@model AIA.Life.Models.Opportunity.LifeQuote
+@{
+    ViewBag.Title = "ModifyQuote";
+}
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="panel panel-default" id="pnlProposerDetails">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#collapse5" href="#collapseThree" class="collapsed">
+                    Prospect Information<span class="fields-count">2/10 <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse5" class="panel-collapse collapse">
+            <div class="panel-body">
+                @Html.Partial("~/Views/Prospect/PartialClientDetails.cshtml", Model)
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" id="pnlNeedAnalysis">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#collapse6" href="#collapseThree" class="collapsed">
+                    Need Analysis<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                </a>
+            </h4>
+        </div>
+        <div id="collapse6" class="panel-collapse collapse">
+            <div class="panel-body">
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" id="pnlProductDetails">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#collapseQ" href="#collapseThree" class="collapsed">
+                    Product Details<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                </a>
+            </h4>
+        </div>
+        <div id="collapseQ" class="panel-collapse collapse">
+            <div class="panel-body">
+                @Html.Partial("~/Views/Policy/ProductDetails.cshtml", Model)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>Annual Premium</label>
+             
+                @(Html.TextBoxFor(a => a.objProductDetials.Plan, new { id = "", @class = "form-control" }))
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>Half Yearly Premium</label>
+                @(Html.TextBoxFor(a => a.objProductDetials.Plan, new { id = "", @class = "form-control" }))
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>Quaterly Premium</label>
+                @(Html.TextBoxFor(a => a.objProductDetials.Plan, new { id = "", @class = "form-control" }))
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>Monthly Premium</label>
+                @(Html.TextBoxFor(a => a.objProductDetials.Plan, new { id = "", @class = "form-control" }))
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
+        <input type="button" class="btn btn-default" id="btnISubmit" value="Calculate" onclick="" style="padding-left:20px;padding-right:20px;" />
+        <input type="button" class="btn btn-default" id="btnReferToUW" value="Modify" onclick="" style="padding-left:20px;padding-right:20px;" />
+        <input type="button" class="btn btn-default" id="btnModify" value="Save" onclick="" style="padding-left:20px;padding-right:20px;" />
+        <input type="button" class="btn btn-default" id="btnPrintProposal" value="Cancel" onclick="" style="padding-left:20px;padding-right:20px;" />
+    </div>
+</div>

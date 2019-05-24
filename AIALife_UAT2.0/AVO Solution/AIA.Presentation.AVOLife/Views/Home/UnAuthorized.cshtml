@@ -1,0 +1,23 @@
+﻿
+@{
+    if (ViewBag.Credentials == "Invalid")
+    {
+        <h2>Invalid Username or Password. Please enter correct credentials</h2>
+    }
+    else if (ViewBag.Status == "InActive")
+    {
+        <h2>The user account is Inactive. Please contact the IT HelpDesk</h2>
+    }
+    else if (ViewBag.Credentials == "LockOut")
+    {
+        <h2>The user account is Inactive. Please contact the IT HelpDesk</h2>
+    }
+    else
+    {
+        ViewBag.Title = "UnAuthorized";
+        <h2>You’re not authorized to use the application.Please contact the ITHelpDesk.</h2>
+    }
+}
+
+@*<h2>Sorry!! Your not Authorized to access this application. Please contact the Administrator.</h2>*@
+

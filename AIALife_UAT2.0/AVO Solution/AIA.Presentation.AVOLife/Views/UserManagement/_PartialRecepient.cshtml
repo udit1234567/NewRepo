@@ -1,0 +1,24 @@
+﻿@model AIA.Life.Models.UserManagement.AppNotification
+  @Html.HiddenFor(x=>x.HdnLSTRecepient,new { @id= "idHdnLSTRecepient" })
+<div>
+   <table >       
+        @if (Model.lstUserSearch != null && Model.lstUserSearch.Count() > 0)
+        {
+            foreach (var item in Model.lstUserSearch)
+            {
+                <tr>
+                    <td>@item.Value</td>
+                    <td>&nbsp;&nbsp; <input type="button" value="delete" onclick="DelData('@item.NodeId')"/> </td>                   
+                </tr>
+            }
+        }
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        debugger;
+         var json = @Html.Raw(Json.Encode(Model.lstUserSearch));
+        $("#idHdnLSTRecepient").val('@Html.Raw(Json.Encode(Model.lstUserSearch))');
+    });
+</script>
+

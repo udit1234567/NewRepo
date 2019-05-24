@@ -1,0 +1,427 @@
+﻿@model  AIA.Life.Models.Opportunity.Prospect
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using System.Globalization;
+@{
+    ViewBag.Title = "RetirementCalcReport";
+    Layout = null;
+}
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>*@
+<link rel="stylesheet" href="~/Content/Styles/BootSideMenu.css">
+@*<script src="~/Content/Scripts/BootSideMenu.js"></script>*@
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+@*<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>*@
+@*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">*@
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.5/chosen.css" />*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.5/chosen.jquery.js"></script>*@
+<script src="~/Content/Scripts/jspdf.min.js"></script>
+<script src="~/Content/Scripts/jquery-2.2.4.min.js"></script>
+<script src="~/Content/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/Scripts/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Scripts/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/Scripts/chosen.css" rel="stylesheet" />
+<script src="~/Content/Scripts/chosen.jquery.js"></script>
+<script src="~/Scripts/SuspectScript/Suspectscript.js"></script>
+@Html.HiddenFor(x => x.Salutation, new { @id = "txtSalutation" })
+@Html.HiddenFor(x => x.LastName, new { @id = "txtLastName" })
+@Html.HiddenFor(a => a.Name, new { @id = "txtName" })
+@Html.HiddenFor(a => a.objAddress.Address1, new { @id = "txtAddress" })
+@Html.HiddenFor(a => a.objAddress.State, new { @id = "txtState" })
+@Html.HiddenFor(a => a.objAddress.District, new { @id = "txtDistrict" })
+@Html.HiddenFor(a => a.objAddress.City, new { @id = "txtCity" })
+<div class="clearfix"></div>
+    <body style="font-family: AIA Everest;">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <table style="background-color: #c31433; width: 1349px; height: 200px;">
+                        <tbody style="width: 810px; float: left; padding: 32px 0px 0px 40px;">
+                            <tr>
+                                <td>
+                                    <img src="~/Content/Images/logo.jpg" />
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <tbody style="width: 526px; float: right; color: #fff; font-size: 18px; padding: 15px 0px;">
+                            <tr>
+                                <td>
+                                    AIA Insurance Lanka PLC (Co. No. PQ 18)<br>
+                                    AIA Tower P O Box 2088<br>
+                                    92, Dharmapala Mawatha, Colombo 07<br>
+                                    Sri Lanka<br>
+                                    T: (+94 11) 231 0000 F:(+94 11) 244 7620<br>
+                                    E: lk.info@aia.com<br><br>
+
+                                    AIALIFE.COM.LK
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <table style="width: 100%;">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center; font-size: 25px; font-weight: bold; padding: 10px; color: #000;">
+                                    Retirement Fund Analysis of
+                                    <label type="label" id="PDFName"> </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 1214px; margin: 0px auto;">
+                        <tbody style="background-color: #e5f7fd;">
+
+                            <!--1st Row-->
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Age at Next Birthday</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Wealth Planner Name</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Date/Time</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px; ">@Model.AgeNextBdy</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px; ">@Model.CreatedBy</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold; font-size: 20px;"><label id="txtTime"></label></td>
+                            </tr>
+
+                            <!--2nd Row-->
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">WP Agent Code</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">WP Contact Number</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;"></td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.WPCode</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.WPPhone</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;"></td>
+                            </tr>
+
+                            <!--3rd Row-->
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">From Year</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">To Year</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Inflation Rate</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.CalculatorFromYear</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.CalculatorToYear</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.CalculatorInflationRate<label> %</label></td>
+                            </tr>
+
+                            <!--4th Row-->
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Plan No. of Years</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Interest Rate</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;"></td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 0px 0px 10px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.CalculatorPlanNoYears <label> Years</label></td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 10px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.CalculatorIntrestRate<label> %</label></td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 10px 30px; font-weight: bold;font-size: 20px;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 1214px; margin: 20px auto;">
+                        <tbody>
+                            <tr style="width: 250px; padding: 10px; background-color: #d11144; float: left; color: #fff; font-size: 21px;font-weight: bold">
+                                <td>Retirement Calculation</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Total Current Monthly Living Expenses</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Total Estimated Monthly Living Expenses</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;"></td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 0px 0px 10px 30px; font-weight: bold;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.TotalMonthlyExpense))
+                                    
+                                </td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 10px 30px; font-weight: bold;font-size: 20px;">
+                               @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.EstimatedTotalMonthlyExpense))
+                                     
+                                </td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 10px 30px; font-weight: bold;font-size: 20px;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 1214px; margin: 20px auto;">
+                        <tbody>
+                            <tr style="width: 250px; padding: 10px; background-color: #d11144; float: left; color: #fff; font-size: 21px; margin-bottom: 10px;font-weight: bold;">
+                                <td>Retirement Funds</td>
+                            </tr>
+
+                            <tr style="background-color: #c2c2c2; margin-top: 10px;">
+                                <td style="width: 400px; float: left; padding: 10px 0px 10px 30px;font-weight: bold;font-size: 20px;">Category</td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">Available Funds (LKR)</td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">Estimated Funds (LKR)</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">Salary/Income</td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.Salary))
+                                
+                                </td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">---</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">EPF balance fund as date</td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.CurrentEPFBalance))
+                               
+                                </td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.EstimatedEPFBalance))
+                                
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">Monthly Allocation - 20% from salary</td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.MonthlyAllocation20))
+                                
+                                </td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">---</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">ETF balance fund as date</td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.CurrentETFBalance))
+                                
+                                </td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">@Model.objNeedAnalysis.objCalculator.EstimatedETFBalance</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">Monthly Allocation - 3% from salary</td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.MonthlyAllocation3))
+                                
+                                </td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">---</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">Gratuity Fund</td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.CurrentGratuityFund))
+                                
+                                </td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.EstimatedGratuityFund))
+                                
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 10px 30px; font-weight: bold;font-size: 20px;">Total</td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;"></td>
+                                <td style="width: 400px; float: left; padding: 10px 30px 10px 30px; font-weight: bold; text-align: right;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.TotalRetirementFund))
+                                
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 750px; float: left; margin-left: 68px;">
+                        <tbody>
+                            <tr style="padding: 10px; color: #fff; font-size: 18px; margin-bottom: 10px;">
+                                <td style="width: 250px; display:flex; float: left; background-color: #d11144; padding: 10px;font-size: 21px;font-weight: bold;">Fund Balance</td>
+                            </tr>
+                            <tr style="margin: 10px 0px;">
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-size: 20px; font-weight: bold;">Category</td>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-size: 20px; font-weight: bold; text-align: right; padding-right: 30px;">Value (LKR)</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Children Higher Education</td>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-weight: bold; text-align: right; padding-right: 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.Financial0))
+                                
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Children Wedding</td>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-weight: bold; text-align: right; padding-right: 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.Financial1))
+                                
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Buy a Propoerty/Vehicle</td>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-weight: bold; text-align: right; padding-right: 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.Financial2))
+                                
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Settlement of Loans</td>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-weight: bold; text-align: right; padding-right: 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.Financial3))
+                                
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Others</td>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-weight: bold; text-align: right; padding-right: 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.Financial4))
+                                
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 300px; float: left; padding: 20px 0px 0px 30px; font-weight: bold; font-size: 20px;">Fund Balance</td>
+                                <td style="width: 300px; float: left; padding: 20px 0px 0px 30px; font-weight: bold; text-align: right; padding-right: 30px; font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.FundBalanceTotal))
+                               
+                                </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 300px; float: left; margin-bottom: 20px;">
+                        <tbody>
+                            <tr style="padding: 10px; color: #fff; font-size: 18px; margin-bottom: 10px;">
+                                <td style="width: 250px; display: flex; float: left; background-color: #d11144; padding: 10px;font-size: 21px;font-weight: bold;">Annual Income Surplus/Gap</td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 20px 0px 0px 0px;font-size: 20px;">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-size: 20px;">Estimated Annual Living Expenses</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;font-size: 20px;">
+                                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.EstimatedAnnuallivingExpenses))
+                                                
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 20px 0px 0px 0px;font-size: 20px;">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-size: 20px;">Per Annum Interest Income</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;font-size: 20px;">
+                                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.PerAnnumIncome))
+                                                
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 20px 0px 0px 0px;font-size: 20px;">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-size: 20px;">Existing Income Sources</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;font-size: 20px;">
+                                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.Exsitingotherincome))
+                                                
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 10px 0px 0px 0px;font-size: 20px;">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-size: 20px;">Total</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;font-size: 20px;">
+                                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.AnnualIncomeSurplus))
+                                                
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 600px; margin: 20px auto;">
+                        <tbody style="background-color: #d7d7d7; margin-top: 20px;">
+                            <tr>
+                                <td style="padding:30px; text-align:center; font-size:24px; font-weight:bold;">Real Monthly Pension Gap <label style="margin-left: 10px;">
+                                     @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objCalculator.MonthlyPensionGap))
+                                    
+                                     <label> LKR</label></label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+    
+<script>
+    $(document).ready(function () {
+        var Salutation = $('#txtSalutation').val();
+            var FirstName = $('#txtName').val();
+            FirstName = Capitalizing(FirstName);
+            var LastName = $('#txtLastName').val();
+            LastName = Capitalizing(LastName);
+            $('#PDFName').text(Salutation+" "+FirstName + " " + LastName);
+            $('#PDFAddress').val($('#txtAddress').val() + " , " + $('#txtCity').val() + " , " + $('#txtDistrict').val() + " , " + $('#txtState').val());
+            var dt = new Date();
+            var utc = dt.getTime() + (dt.getTimezoneOffset() * 60000);
+            var nd = new Date(utc + (3600000 * +5.5));
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var minutes = (nd.getMinutes() < 10 ? '0' : '') + nd.getMinutes()
+            var time = nd.getDate() + " " + monthNames[nd.getMonth()] + " " + nd.getFullYear() + " " + nd.getHours() + ":" + minutes;
+            $('#txtTime').text(time);
+        });
+        function Capitalizing(str)
+        {
+            str = str.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+                return letter.toUpperCase();
+            });
+            return str;
+        }
+</script>
+

@@ -1,0 +1,87 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+@{
+    //ViewBag.Title = "_PartialAdditionalPAQGridView1";
+    int MemberIndex = Model.AssuredIndex;
+    string PAQTableIDGridView3 = "tblPAQGridView3" + MemberIndex;
+}
+
+<div class="grid-scroll">
+    <table class="table" id="@PAQTableIDGridView3">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Year 1</th>
+                <th>Year 2</th>
+                <th>Year 3</th>
+                @*<th><input type="button" id="btnAddPAQGridView3" value="+" onclick="AddPAQGridInfoThree('@PAQTableIDGridView3','@MemberIndex')" /></th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @*@if (Model.objMemberDetails[MemberIndex].LstTotalAnnualIncomePAQ3Details != null)
+                {*@
+            @*@for (int i = 0; i <= Model.objMemberDetails[MemberIndex].LstTotalAnnualIncomePAQ3Details.Count(); i++)
+            {*@
+            <tr id="Row_PAQGridInfoThree">
+                <td></td>
+                <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].ObjTotalAnnualIncomePAQ3Details.PAQYearFiled1, new { @class = "form-control", @onchange = "Insurancef1(id)", @onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)",@id = "txtPAQYearGirdOne" + MemberIndex})</td>
+                <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].ObjTotalAnnualIncomePAQ3Details.PAQYearFiled2, new { @class = "form-control", @onchange = "Insurancef1(id)", @onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)",@id = "txtPAQYearTwo" + MemberIndex})</td>
+                <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].ObjTotalAnnualIncomePAQ3Details.PAQYearFiled3, new { @class = "form-control", @onchange = "Insurancef1(id)", @onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)",@id = "txtPAQYearGridThree" + MemberIndex})</td>
+
+                @*<td style="display:none">
+                    @Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstTotalAnnualIncomePAQ3Details[i].IsDeleted, new { @class = "form-control", @id = "txtPAQYearIsDeleted" + MemberIndex + i })
+                    @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].LstTotalAnnualIncomePAQ3Details[i].QuestionsId, new { })
+                </td>*@
+                @*<td><input type="button" id="btnRemovePAQYearGridInfo" value="-" onclick="RemovePAQYearGridInfo(@PAQTableIDGridView3, @i)" /></td>*@
+            </tr>
+            @*}*@
+            @*}*@
+        </tbody>
+    </table>
+</div>
+
+<script>
+    //function AddPAQGridInfoThree(DivID, MemberIndex) {
+    //    var newCurrentMDRow;
+    //    var Index = GetGridIndex(DivID);
+
+    //    var PAQYearGirdOne = 'txtPAQYearGirdOne' + MemberIndex + Index;
+    //    var PAQYearTwo = 'txtPAQYearTwo' + MemberIndex + Index;
+    //    var PAQYearGridThree = 'txtPAQYearGridThree' + MemberIndex + Index;
+
+    //    var IsDeleted = 'txtPAQYearIsDeleted' + MemberIndex + Index;
+    //    var Remove = 'btnRemovePAQYearGridInfo' + MemberIndex + Index;
+    //    var rowNumber = Index + 1;
+    //    var RowId = "Row_PAQGridInfoThree" + MemberIndex + Index;
+
+    //    newCurrentMDRow = "<tr id='" + RowId + "' >" +
+    //        "<td>" + "" + "</td>" +
+    //          "<td><input value='' class='form-control' type='text'  name='objMemberDetails[" + MemberIndex + "].LstTotalAnnualIncomePAQ3Details[" + Index + "].PAQYearFiled1' id=\'" + PAQYearGirdOne + "'/>" +
+    //          "<td><input value='' class='form-control' type='text'  name='objMemberDetails[" + MemberIndex + "].LstTotalAnnualIncomePAQ3Details[" + Index + "].PAQYearFiled2' id=\'" + PAQYearTwo + "'/>" +
+    //          "<td><input value='' class='form-control' type='text'  name='objMemberDetails[" + MemberIndex + "].LstTotalAnnualIncomePAQ3Details[" + Index + "].PAQYearFiled3' id=\'" + PAQYearGridThree + "'/>" +
+
+    //          "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstTotalAnnualIncomePAQ3Details[" + Index + "].IsDeleted' id=\'" + IsDeleted + "' /></td>" +
+    //          "<td><input value='-' type='button' onclick='RemovePAQYearGridInfo(\"" + RowId + "\",\"" + Index + "\")' class='form-control' id=\'" + Remove + "'/></td>" + "</tr>";
+    //    $('#' + DivID + ' tbody:last').append(newCurrentMDRow);
+    //}
+
+    function RemovePAQYearGridInfo(DivID, index) {
+        $('#txtPAQGridViewTwoIsDeleted' + index).val(true);
+
+        writeMultipleMessage("error", "", "txtPAQYearGirdOne" + index + "");
+        writeMultipleMessage("error", "", "txtPAQYearTwo" + index + "");
+        writeMultipleMessage("error", "", "txtPAQYearGridThree" + index + "");
+
+        $('#' + DivID).hide();
+    }
+    function Insurancef1(id) {
+        var res = $('#' + id).val();
+        $('#' + id).val(parseInt(res.replace(/,/g, '')).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+        $('#hdn' + id).val(res.replace(/,/g, ''));
+    }
+</script>
+
+
+

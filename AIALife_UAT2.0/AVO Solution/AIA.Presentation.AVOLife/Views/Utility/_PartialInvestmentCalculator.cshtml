@@ -1,0 +1,198 @@
+﻿
+@{
+    Layout = null;
+}
+<head>
+
+    <script type="text/javascript">
+        var investmentCalculator = new Array();
+        $(document).ready(function () {
+
+            document.getElementById("InvestmentTargetID").value = 4000000;
+            document.getElementById("InvestmentReturnID").value = 10;
+            document.getElementById("InvestmentDurationID").value = 20;
+            CalculateInvestments();
+        });
+        function oninvestmentTargetSlide(e) {
+            document.getElementById("InvestmentTargetID").value = e.value;
+            CalculateInvestments();
+        }
+        function oninvestmentReturnSlide(e) {
+            document.getElementById("InvestmentReturnID").value = e.value;
+            CalculateInvestments();
+        }
+        function oninvestmentDurationSlide(e) {
+            document.getElementById("InvestmentDurationID").value = e.value;
+            CalculateInvestments();
+        }
+        function getITSlider() {
+            return $("#investmentTargetID").data("tSlider");
+        }
+        function getIRSlider() {
+            return $("#investmentReturnID").data("tSlider");
+        }
+        function getIDSlider() {
+            return $("#investmentDurationID").data("tSlider");
+        }
+        function onChangeITText() {
+            var itSlider = getITSlider();
+            itSlider.value($("#InvestmentTargetID").val());
+            CalculateInvestments();
+        }
+        function onChangeIRText() {
+            var irSlider = getIRSlider();
+            irSlider.value($("InvestmentReturnID").val());
+            CalculateInvestments();
+        }
+        function onChangeIDText() {
+            var idSlider = getIDSlider();
+            idSlider.value($("InvestmentDurationID").val());
+            CalculateInvestments();
+        }
+        function CalculateInvestments() {
+
+            var investmentTarget = document.getElementById("InvestmentTargetID").value
+            var investmentReturn = document.getElementById("InvestmentReturnID").value
+            var investmentDuration = document.getElementById("InvestmentDurationID").value
+            var _monthlyInvestment = investmentTarget / investmentDuration;
+            investmentCalculator = [
+                {
+                    "cat": "Investment Target",
+                    "value": investmentTarget
+                },
+                {
+                    "cat": "Monthly Investment",
+                    "value": _monthlyInvestment
+                }];
+            //createInvestmentChart('InvestmentCalculatorDiv');
+            createChart('InvestmentCalculatorDiv', investmentCalculator, 'cat', 'value', 'Investimate Calculator')
+
+        }
+
+
+        function onChangeITText() {
+            var slider = getSlider();
+            slider.value($("#InvestmentTargetID").val());
+            CalculateInvestments();
+        }
+
+        function checkIt(evt) {
+            evt = (evt) ? evt : window.event
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                status = "This field accepts numbers only."
+                return false
+            }
+            status = ""
+            return true
+        }
+
+        $("#InvestmentTargetDiv").slider({
+            range: true,
+            min: 1000000,
+            value: 4000000,
+            max: 40000000,
+            slide: function (event, data) {
+                oninvestmentTargetSlide(data);
+            }
+        });
+        $("#ExpectedAnnualInvestmentDiv").slider({
+            range: true,
+            min: 15,
+            value: 10,
+            max: 25,
+            slide: function (event, data) {
+                oninvestmentReturnSlide(data);
+            }
+        });
+        $("#DurationOfInvestmentDiv").slider({
+            range: true,
+            min: 10,
+            value: 20,
+            max: 30,
+            slide: function (event, data) {
+                oninvestmentDurationSlide(data);
+            }
+        });
+
+
+    </script>
+</head>
+
+
+
+<div class="panel panel-default col-lg-12 col-md-12" style="margin-top:10px;">
+    <div class="panel-heading">
+        <h4 class="panel-title" style=" text-align: left;">
+            <a href="#collapsablePanelOne" data-toggle="collapse" data-parent="accordion" class="accordion-toggle">
+                Investment Calculator
+                <i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+            </a>
+        </h4>
+    </div>
+    <div class="panel-collapse collapse in" id="collapsablePanelOne" style="background-color:white">
+        <div id="SubContent" class="panel-body">
+            <div class="container">
+                <div class="col-lg-12 col-md-12">
+                    <div class="col-lg-5 col-md-5" style="margin-left:30px;">
+                        <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top:80px;">
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <label style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                                    Investment Target
+                                </label>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left:10px; margin-right:10px">
+                                <div id="InvestmentTargetDiv"></div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3" style="margin-right:10px;">
+                                @Html.TextBox("InvestmentTarget","", new { @class = "form-control", @id = "InvestmentTargetID", @style = "width:90px; height:20px" })
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2">
+                                <label>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top:20px;">
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <label style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                                    Expected Annual Investment Return
+                                </label>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left:10px; margin-right:10px">
+                                <div id="ExpectedAnnualInvestmentDiv"></div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2" style="margin-right:10px;">
+                                @Html.TextBox("ExpectedAnnualInvestment","", new { @class = "form-control", @id = "InvestmentReturnID", @style = "width:90px; height:20px" })
+
+                            </div>
+                            <label class="col-lg-2 col-md-2 col-sm-2" style="font-weight:bold; margin-left:7px">
+                                %
+                            </label>
+                        </div>
+                        <div class="col-lg-12  col-md-12 col-sm-12" style="margin-top:4px;">
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <label style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                                    Duration Of Investment
+                                </label>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left:10px; margin-right:10px">
+                                <div id="DurationOfInvestmentDiv"></div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2" style="margin-right:10px;">
+                                @Html.TextBox("DurationOfInvestment","", new { @class = "form-control", @id = "InvestmentDurationID", @style = "width:90px; height:20px" })
+                            </div>
+                            <label class="col-lg-2 col-md-2 col-sm-2" style="font-weight:bold; margin-left:7px">
+                                Years
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="InvestmentCalculatorDiv" style="height: 250px; position: relative;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>

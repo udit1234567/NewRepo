@@ -1,0 +1,382 @@
+﻿@model AIA.Life.Models.UserManagement.SearchInternalUser
+<script src="~/Scripts/UserManagement/UserManagement.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $("#dpResignationDate").attr("disabled", "disabled");
+        $("#dpLWD").attr("disabled", "disabled");
+        $("#txtStaffCode").attr("disabled", "disabled");
+        $("#ddlFunction").attr("disabled", "disabled");
+        $("#ddlDepartment").attr("disabled", "disabled");
+        $("#ddlPrimaryBranchCode").attr("disabled", "disabled");
+        $("#txtStaffName").attr("disabled", "disabled");
+        (function ($) {
+            $.fn.selected = function (fn) {
+                return this.each(function () {
+                    $(this).focus(function () {
+                        this.dataChanged = false;
+                    }).change(function () {
+                        this.dataChanged = true;
+                        fn(this);
+                    }).blur(function (e) {
+                        if (!this.dataChanged) {
+                            fn(this);
+                        }
+                    });
+                });
+            };
+        })(jQuery);
+        $("#ddlBranchCode").selected(function (e) {
+            return chkAllBranch();
+
+        });
+        $("#ddlChannelCode").selected(function (e) {
+            return chkAllChannel();
+
+        });
+        if ('@ViewBag.isSearch' == 'True') {
+            isDisable();
+        }
+    });
+    function ModifyInternalUser() {
+        var result = ValidateInternalUser();
+
+        if (result == true) {
+            if ($('#isDisabled').is(':checked') == true) {
+                $("#txtStaffCode").removeAttr("disabled");
+                $("#ddlFunction").removeAttr("disabled");
+                $("#ddlTitle").removeAttr("disabled");
+                $("#ddlPrimaryBranchCode").removeAttr("disabled");
+                $("#txtStaffName").removeAttr("disabled");
+                BootstrapDialog.show({
+                    title: 'Confirmation',
+                    closable: false,
+                    message: 'User will be disabled & will no longer be able to access the Distributor Portal. Would you like to Proceed?',
+                    buttons: [{
+                        label: 'Ok',
+                        action: function (dialog) {
+                            $.post("../../UM/UserManagement/ModifyInternalUser", $("#frmModifyInternalUser").serialize())
+                .done(function (data) {
+                    $('#isDisabled').attr("checked", true);
+                    $('#isDisabled').attr("checked", false);
+                    $("#txtStaffCode").attr("disabled", "disabled");
+                    $("#ddlFunction").attr("disabled", "disabled");
+                    $("#ddlDepartment").attr("disabled", "disabled");
+                    $("#ddlPrimaryBranchCode").attr("disabled", "disabled");
+                    
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Information',
+                        closable: false,
+                        size: 'size-large',
+                        height: '70%',
+                        message: "Details for " + $("#txtStaffName").val() + ", " + $("#txtStaffCode").val() + " are modified and updated",
+                        buttons: [{
+                            label: 'OK',
+                            action: function (dialogItself) {
+                                dialogItself.close();
+                                $('#frmModifyInternalUser').attr('action', 'AgentHome');
+                                document.forms["frmModifyInternalUser"].submit(function () {
+                                });
+                            }
+                        }]
+                    });
+                    //BootstrapDialog.alert("Details for " + $("#txtStaffName").val() + ", " + $("#txtStaffCode").val() +" are modified and updated");
+                    //BootstrapDialog.alert("Modified Internal user successfully");
+
+
+                }).
+                fail(function () {
+                    $("#frmModifyInternalUser").html("Modifications are not effected");
+                });
+                        }
+                    }, {
+                        label: 'Cancel',
+                        action: function (dialog) {
+                            $('#isDisabled').attr("checked", false);
+                            $("#txtStaffCode").attr("disabled", "disabled");
+                            $("#ddlFunction").attr("disabled", "disabled");
+                            $("#ddlDepartment").attr("disabled", "disabled");
+                            $("#ddlPrimaryBranchCode").attr("disabled", "disabled");
+                            $("#txtStaffName").attr("disabled", "disabled");
+                            $("#ddlTitle").attr("disabled", false);
+                            dialog.close();
+                        }
+                    }]
+                });
+                $("#txtStaffCode").attr("disabled", "disabled");
+                $("#ddlFunction").attr("disabled", "disabled");
+                $("#ddlTitle").attr("disabled", "disabled");
+                $("#ddlPrimaryBranchCode").attr("disabled");
+                $("#txtStaffName").attr("disabled");
+
+            }
+            else {
+                $("#txtStaffCode").removeAttr("disabled");
+                $("#ddlFunction").removeAttr("disabled");
+                $("#ddlTitle").removeAttr("disabled");
+                $("#ddlPrimaryBranchCode").removeAttr("disabled");
+                $("#txtStaffName").removeAttr("disabled");
+                $.post("../../UM/UserManagement/ModifyInternalUser", $("#frmModifyInternalUser").serialize())
+                  .done(function (data) {
+
+
+                      BootstrapDialog.show({
+                          type: BootstrapDialog.TYPE_DANGER,
+                          title: 'Information',
+                          closable: false,
+                          size: 'size-large',
+                          height: '70%',
+                          message: "Details for " + $("#txtStaffName").val() + ", " + $("#txtStaffCode").val() + " are modified and updated",
+                          buttons: [{
+                              label: 'OK',
+                              action: function (dialogItself) {
+                                  dialogItself.close();
+                                  $('#frmModifyInternalUser').attr('action', 'AgentHome');
+                                  document.forms["frmModifyInternalUser"].submit(function () {
+                                  });
+                              }
+                          }]
+                      });
+
+
+                  }).
+                  fail(function () {
+                      $("#frmModifyInternalUser").html("Modifications are not effected");
+                  });
+                $("#txtStaffCode").attr("disabled", "disabled");
+                $("#ddlFunction").attr("disabled", "disabled");
+                $("#ddlTitle").attr("disabled", "disabled");
+                $("#ddlPrimaryBranchCode").attr("disabled");
+                $("#txtStaffName").attr("disabled");
+            }
+        }
+
+    }
+
+    function DisabledUser() {
+        BootstrapDialog.show({
+            type: BootstrapDialog.TYPE_DANGER,
+            title: 'Information',
+            closable: false,
+            size: 'size-large',
+            message: "User will be disabled & will no longer be able to access the Distributor Portal. Would you like to Proceed?",
+            buttons: [{
+                label: 'Ok',
+                action: function (dialogItself) {
+                    $('#isDisabled').attr("checked", true);
+                    dialogItself.close();
+                }
+            }
+            ,
+            {
+                label: 'Cancel',
+                action: function (dialogItself) {
+                    $('#isDisabled').attr("checked", false);
+                    dialogItself.close();
+
+                }
+                        }]
+        });
+
+    }
+    function FetchSmcodes() {
+        var result = ValidateInternalUser();
+        $("#txtStaffCode").attr("disabled", false);
+        var StaffCode = $("#txtStaffCode").val();
+        $("#txtStaffCode").attr("disabled", "disabled");
+        if (result == true) {
+            $.post("../../UM/UserManagement/geAllSMDetailsofEmployee?StaffCode=" + StaffCode)
+                .done(function (data) {
+                    
+                    $("#divSMDetails").html(data);
+
+
+                }).
+                fail(function () {
+
+                    $("#divSMDetails").html("Failed to Modified data");
+                });
+
+
+
+        }
+
+    }
+</script>
+@{
+    Layout = "~/Views/Shared/FG/_FGLayout.cshtml";
+}
+
+<h2>Internal User Management</h2><br />
+@using (Html.BeginForm("", "", FormMethod.Post, new { @id = "frmModifyInternalUser" }))
+{
+    <label class="col-lg-12 col-sm-12 control-label ">If you want to edit Staffcode ,Function and Title disable this user First. Add it again</label>
+
+    @Html.HiddenFor(a => a.EmpId);
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">Employee Code</label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.TextBoxFor(a => a.StaffCode, new { @id = "txtStaffCode", @class = "form-control", @maxlength = "30", @onkeypress = "return isAlphaNumeric(event)", @onblur = "validateTextBox('txtStaffCode','Please Enter the Staff Code');return ValidateAlphabetNumeric(this)" })
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">Staff Name<span class="mandatory">*</span> </label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.TextBoxFor(a => a.StaffName, new { @id = "txtStaffName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @maxlength = "120", @onblur = "validateTextBox('txtStaffName','Please Enter the Staff Name');return ValidateAlphabets(this)" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">Primary Branch</label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.DropDownListFor(a => a.PrimaryBranch, new MultiSelectList(Model.lstBranchCode, "ID", "Value"), new { @id = "ddlPrimaryBranchCode", @class = "form-control", @onblur = "validateDropDown('ddlBranchCode','Please Select Branch Code')" })
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">Additional Branches</label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.ListBoxFor(a => a.MultiBranchCode, new MultiSelectList(Model.lstBranchCode, "ID", "Value"), new { @id = "ddlBranchCode", @class = "form-control", multiple = "multiple", @onblur = "validateDropDown('ddlBranchCode','Please Select Branch Code')" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">Department</label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.DropDownListFor(a => a.Department, new MultiSelectList(Model.lstDepartment, "ID", "Value"), new { @id = "ddlDepartment", @class = "form-control", @onblur = "validateDropDown('ddlBranchCode','Please Select Branch Code')" })
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">Staff Corporate Email ID<span class="mandatory">*</span></label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.TextBoxFor(a => a.StaffCorEmailID, new { @id = "txtStaffCorEmailID", @class = "form-control", @onblur = "validateEmailID('txtStaffCorEmailID','Please Enter valid Staff Corporate EmailID')" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">Channel Code<span class="mandatory">*</span></label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.ListBoxFor(a => a.MultiChannelCode, new MultiSelectList(Model.lstChannelCode, "ID", "Value"), new { @id = "ddlChannelCode", @class = "form-control", multiple = "multiple", @onblur = "validateDropDown('ddlChannelCode', 'Please Select Channel Code')" })
+            </div>
+        </div>
+    </div>
+    if (Model.isResigned == true)
+    {
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <div class="col-lg-6 col-sm-6">
+                @(Html.CheckBoxFor(a => a.isResigned, new { @id = "isResigned", @checked = true }))Employee Resigned
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <div class="col-lg-6 col-sm-6">
+                <label class="col-lg-4 col-sm-4  control-label text-right ">
+                    Resignation Date
+                </label>
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(a => a.resignationDate, new { @id = "dpResignationDate", @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6">
+                <label class="col-lg-4 col-sm-4  control-label text-right ">
+                    Last Working Date
+                </label>
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(a => a.lastWorkingDate, new { @id = "dpLWD", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    }
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <br />
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">Reporting Manager StaffCode<span class="mandatory">*</span></label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.TextBoxFor(a => a.LineMangStaffCode, new { @id = "txtLineMangStaffCode", @class = "form-control", @maxlength = "30", @onkeypress = "return isAlphaNumeric(event)", @onblur = "validateTextBox('txtLineMangStaffCode','Please Enter the Line Manager Staff Code');return ValidateAlphabetNumeric(this);GetLineManagerStaffName()" })
+
+
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">Reporting Manager Name</label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.TextBoxFor(a => a.LineManager, new { @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @id = "txtLineManager", @maxlength = "120", @onblur = "return ValidateAlphabets(this)" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">AVO Function</label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.DropDownListFor(a => a.Function, new SelectList(Model.lstUserFunction, "ID", "Value", Model.Function), new { @id = "ddlFunction", @class = "form-control", @onblur = "validateDropDown('ddlFunction', 'Please Select Function')", @onChange = "GetTitle()" })
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-6 form-group">
+            <label class="col-lg-4 col-sm-2 control-label text-right">AVO Title</label>
+            <div class="col-lg-8 col-sm-8">
+                @Html.DropDownListFor(a => a.Title, new SelectList(Model.lstUserTitle, "ID", "Value", Model.Title), new { @id = "ddlTitle", @class = "form-control", @onblur = "return DisableBranchAndChannel();" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6">
+        <div class="col-lg-6 col-sm-6">
+            @(Html.CheckBoxFor(a => a.isDisabled, new { @id = "isDisabled", @checked = true }))Disabled User
+
+        </div>
+    </div>
+
+
+    if (Model.isResigned == false)
+    {
+        <div class="col-sm-12 text-center form-group" style="padding:10px">
+            <div class="col-lg-4 col-sm-4">
+                <input type="button" class="btn btn-default" value="Modify" id="btnModify" onclick="ModifyInternalUser()" />
+            </div>
+            <div class="col-lg-4 col-sm-4">
+                <input type="button" class="btn btn-default" value="Cancel" id="btnCancel" onclick="window.location.href = '../../Home/Index'" />
+            </div>
+            <div class="col-lg-4 col-sm-4">
+                <input type="button" class="btn btn-default" value="SM Codes" id="btnSMCode" onclick="FetchSmcodes()" />
+            </div>
+
+        </div>
+    }
+    <br />
+    <br />
+    <div id="divSMDetails" style="padding:10px"></div>
+    
+
+}
+@Scripts.Render("~/bundles/UserManagement")
+<script type="text/javascript">
+    $(function () {
+
+    });
+    function isEnable() {
+        $('.form-control').prop("disabled", false);
+        $('#btnModify').prop("disabled", false);
+        $('#btnCancel').prop("disabled", false);
+        $('.btn-default').removeAttr("style");
+        //$('#chkDisable').attr("checked", false);
+
+    }
+    function isDisable() {
+        $('.form-control').prop("disabled", "disabled");
+        $('#btnModify').prop("disabled", true);
+        //$('#btnCancel').prop("disabled", true);
+        $('.btn-default').css("background-color", "grey");
+        $('#btnCancel').removeAttr("style");
+        //$('#chkDisable').attr("checked", false);
+    }
+</script>

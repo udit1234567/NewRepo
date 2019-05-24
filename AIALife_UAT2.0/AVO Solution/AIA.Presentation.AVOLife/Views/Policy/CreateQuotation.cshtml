@@ -1,0 +1,476 @@
+﻿@model AIA.Life.Models.Opportunity.LifeQuote
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    ViewBag.Title = "Quotation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .form-control{
+        width:100%;
+    }
+    .backgroundclr {
+        color: #ffffff !important;
+        background-color: #fbb055 !important;
+        border: none !important;
+    }
+</style>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "fromQuotePage0", enctype = "multipart/form-data" }))
+{
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="panel panel-default" id="pnlProposerDetails">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse1" href="#collapseOne" class="collapsed">
+                        <img src="~/Content/Images/prospect.png" style="width:30px" />@Resources.GetLabelName("Prospect Information")<span class="fields-count">2/10 <img src="~/Content/Images/portlet-expand-icon-white.png"/></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Prospect/QuotationProspectScreen.cshtml", Model)
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default" id="pnlPreviousInsuranceDetails">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse7" href="#collapseThree" class="collapsed">
+                        @Resources.GetLabelName("Previous Insurance Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    @Html.Partial("~/Views/Prospect/_PartialPreviousInsuranceDetails.cshtml", Model)
+                    <div id="divPreviousDetailsGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="panel panel-default" id="pnlProductDetails">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse3" href="#collapseThree" class="collapsed">
+                        @Resources.GetLabelName("Product Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Prospect/ProductDetails.cshtml", Model)
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+<script>
+    $(document).ready(function () {
+
+    });
+    //function GetPremiumTerm(index) {
+    //    var ddlPolicyTerm = $("#ddlPolicyTerm" + index).val();
+    //    $("#txtPremiumTerm").val(ddlPolicyTerm);
+    //}
+   //function ModifyQuote(index) {
+   //     $('#fromQuotePage0').find('input:not(.notdisb), textarea, select').attr('disabled', false);
+   //     $('#buttonBenefitOverview_' + index).hide();
+   //     $('#divButtons_' + index).hide();
+   //     $('#btnCalculate_' + index).show();
+
+   // }
+    function DisplayBenifitOverview(index) {
+        $("#BenifitOvervieModel_" + index).modal("show");
+    }
+    //function SaveQuotation(index) {
+    //    $("#fromQuotePage0").find('input:not(.notdisb), textarea, select').attr('disabled', false);
+    //    $('#HdnContactID' + index).attr('disabled', false);
+    //    $.post("/Policy/SaveCreateQuotation", $("#fromQuotePage0").serialize(), function (data) {
+    //        if (data.Message == 'Success') {
+    //            $("#hdnQuoteNo" + index).val(data.QuoteNo);
+    //            var Message = '<p> Data Saved Successfully. Quote No is ' + data.QuoteNo + ' </p>';
+    //            $('#QuoteModalBody').html(Message);
+
+    //            $("#QuoteModal").modal("show");
+
+    //        }
+    //        else {
+
+    //            var Message = '<p> Some Error Occured</p>';
+    //            $('#QuoteModalBody').html(Message);
+    //            $("#QuoteModal").modal("show");
+    //        }
+    //    });
+
+    //}
+    //function CalculateQuotePremium(index) {
+    //    $("#fromQuotePage0").find('input:not(.notdisb), textarea, select').attr('disabled', false);
+    //    $('#HdnContactID' + index).attr('disabled', false);
+    //    $.post("/Policy/CalculateQuotePremium", $("#fromQuotePage0").serialize())
+    //   .done(function (data) {
+    //       if (data.Message == "Success") {
+    //           $("#txtAnnualPremium" + index).val(data.AnnualPremium);
+    //           $("#txtHalfYearlyPremium" + index).val(data.HalfYearlyPremium);
+    //           $("#txtQuaterlyPremium" + index).val(data.QuaterlyPremium);
+    //           $("#txtMonthlyPremium" + index).val(data.MonthlyPremium);
+    //           $("#txtBasicPremium" + index).val(data.BasicPremium);
+    //           $("#txtCess" + index).val(data.Cess);
+    //           $("#txtVat" + index).val(data.VAT);
+    //           $("#hdnPolicyFee" + index).val(data.PolicyFee);
+    //           $('#divButtons_' + index).show();
+    //           $('#BenifitOvervieModelbody_' + index).html(data.STRHtml);
+    //           $('#divIllustration').html(data.STRPremiumHtml);
+    //           $('#buttonBenefitOverview_' + index).show();
+    //           // $('#buttonPremiumOverview_'+index).show();
+    //           $('#btnCalculate_' + index).hide();
+
+    //           //$("#fromQuotePage").serialize().find('input:not(.notdisb), textarea, select').attr('disabled', true);
+
+    //       }
+    //       else {
+    //       }
+
+
+    //   }).
+    //   fail(function () {
+
+    //   });
+
+
+    //}
+    //function ValidateProductDetails() {
+
+    //    if ($("#ddlPlan0 option:selected").text() == 'Select' || $("#ddlPlan0 option:selected").text() == '') {
+    //        writeMultipleMessage("error", 'Please select The Plan', 'ddlPlan0')
+    //        return false;
+    //    }
+    //    else {
+    //        writeMultipleMessage("error", "", 'ddlPlan0');
+    //    }
+    //    if ($("#ddlPolicyTerm0 option:selected").text() == 'Select' || $("#ddlPolicyTerm0 option:selected").text() == '') {
+    //        writeMultipleMessage("error", 'Please select The Policy Term', 'ddlPolicyTerm0')
+    //        return false;
+    //    }
+    //    else {
+    //        writeMultipleMessage("error", "", 'ddlPolicyTerm0');
+    //        return true;
+    //    }
+
+
+    //}
+    //function GetDynamicTabs(index) {
+    //    debugger
+    //    if (!ValidateProspectInfo()) {
+    //    }
+    //    else {
+    //        if (!ValidateProductDetails()) { }
+    //        else {
+    //            $.post("/Policy/GetDynamicTabs", $("#fromQuotePage").serialize(), function (data) {
+    //                $('#DivDynamicInfo_' + index).html(data);
+    //            });
+    //        }
+    //    }
+    //}
+
+    function ValidateProspectInfo() {
+
+        var Type = $("#ddlPropectInfoType option:selected").text();
+        var Salutation = $("#ddlSalutation option:selected").text();
+        var NIC = $("#txtNic").val();
+        var PassPort = $("#txtPassport").val();
+        var Gender = $("#ddlGender").val();
+        var AnnualIncome = $("#txtAverageMonthlyIncome").val();
+        var Occupation = $("#ddlOccupation option:selected").text();
+        var Place = $("#txtPlace").val();
+        var Name = $("#txtName").val();
+        var LastName = $("#txtLastName").val();
+        var Mobile = $("#txtMobile").val();
+        var DOB = $("#dtProspectDOB").val();
+        var DatePickerID = $("#dtDOB").attr('id');
+        var Age = $('#txtAge').val();
+        var Address1 = $("#objProspectobjAddressAddress1").val();
+        var Address2 = $("#objProspectobjAddressAddress2").val();
+        var Address1 = $('#objProspectDetailsobjCommunicationAddressAddress1').val();
+        if (Address1.length >= 3) {
+            if (/(.)\1\1/.test(Address1)) {
+                writeMultipleMessage("error", "Please Enter Valid Address1", "objProspectobjAddressAddress1");
+                return false;
+            } else {
+                writeMultipleMessage("error", "", "objProspectobjAddressAddress1");
+            }
+
+        }
+        else {
+            writeMultipleMessage("error", "Please Enter Valid Address1", "objProspectobjAddressAddress1");
+            return false;
+        }
+        var Address2 = $('#objProspectobjAddressAddress2').val();
+        if (Address2.length >= 3) {
+            if (/(.)\1\1/.test(Address2)) {
+                writeMultipleMessage("error", "Please Enter Valid Address2", "objProspectobjAddressAddress2");
+                return false;
+            } else {
+                writeMultipleMessage("error", "", "objProspectobjAddressAddress2");
+            }
+        }
+        else {
+            writeMultipleMessage("error", "Please Enter Valid Address2", "objProspectobjAddressAddress2");
+            return false;
+        }
+        var Address3 = $('#objProspectobjAddressAddress3').val();
+        if (Address3 != null && Address3 != "undefined" && Address3 != "") {
+            if (Address3.length >= 3) {
+                if (/(.)\1\1/.test(Address3)) {
+                    writeMultipleMessage("error", "Please Enter Valid Address3", "objProspectobjAddressAddress2");
+                    return false;
+                } else {
+                    writeMultipleMessage("error", "", "objProspectobjAddressAddress3");
+                }
+            }
+            else {
+                writeMultipleMessage("error", "Please Enter Valid Address3", "objProspectobjAddressAddress2");
+                return false;
+            }
+        }
+
+
+
+        var pin = $("#objProspectobjAddressPincode").val();
+        if ($("#ddlPropectInfoType option:selected").text() == 'Select' || $("#ddlPropectInfoType option:selected").text() == '') {
+            writeMultipleMessage("error", 'Please Select Type', 'ddlSalutation')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'ddlSalutation');
+        }
+        if ($("#TxtSalutation").val() == "") {
+            writeMultipleMessage("error", 'Please Enter Salutation', 'ddlSalutation')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'TxtSalutation');
+        }
+        if (Name == "") {
+            writeMultipleMessage("error", "Please Enter Given Name.", 'txtFirstName');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtFirstName');
+        }
+        if (LastName == "") {
+            writeMultipleMessage("error", "Please Enter SurName.", 'txtLastName');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtLastName');
+        }
+        if (NIC == "" && PassPort == "") {
+            writeMultipleMessage("error", "Please Enter NIC or PassPort.", 'txtNic');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtNic');
+        }
+
+        if ($("#ddlGender option:selected").text() == 'Select' || $("#ddlGender option:selected").text() == '') {
+            writeMultipleMessage("error", 'Please Select Gender', 'ddlGender')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'ddlGender');
+        }
+        if (DOB == "") {
+            writeMultipleMessage("error", "Please Enter DOB.", 'dtProspectDOB');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'dtProspectDOB');
+        }
+        debugger;
+        if (Age < 18 || Age > 61) {
+            writeMultipleMessage("error", "Please Enter Age at Next BirthDay Should be between 19 to 61", 'txtAge');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtAge');
+        }
+        if (Mobile == "") {
+            writeMultipleMessage("error", "Please Enter Mobile No.", "txtMobile");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtMobile');
+        }
+
+        if (Mobile != "" && Mobile.length < 10) {
+            writeMultipleMessage("error", "Please Enter 10 Digits Mobile Number.", "txtMobile");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtMobile");
+
+        }
+
+        if ($("#TxtOccupation").text() == "") {
+            writeMultipleMessage("error", 'Please Enter Occupation', 'TxtOccupation')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'TxtOccupation');
+        }
+        if (AnnualIncome == "") {
+            writeMultipleMessage("error", "Please Enter Annual Income.", 'txtAverageMonthlyIncome');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtAverageMonthlyIncome');
+        }
+        if ($("#ddlMaritalStatus option:selected").text() == 'Select' || $("#ddlMaritalStatus option:selected").text() == '') {
+            writeMultipleMessage("error", "Please Select the marital status.", "ddlMaritalStatus");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "ddlMaritalStatus");
+        }
+        if (Place == "") {
+            writeMultipleMessage("error", "Please Enter Place.", 'txtPlace');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtPlace');
+        }
+        if (Address1 == "") {
+            writeMultipleMessage("error", "Please Enter Address1.", 'objProspectobjAddressAddress1');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'objProspectobjAddressAddress1');
+        }
+        if (Address2 == "") {
+            writeMultipleMessage("error", "Please Enter Address2.", 'objProspectobjAddressAddress2');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'objProspectobjAddressAddress2');
+        }
+        if ($("#objProspectobjAddressddlProvince option:selected").text() == 'Select' || $("#objProspectobjAddressddlProvince option:selected").text() == '') {
+            writeMultipleMessage("error", 'Please select Province', 'objProspectobjAddressddlProvince')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'objProspectobjAddressddlProvince');
+        }
+        if ($("#objProspectobjAddressddlDistrict option:selected").text() == 'Select' || $("#objProspectobjAddressddlDistrict option:selected").text() == '') {
+            writeMultipleMessage("error", 'Please select District', 'objProspectobjAddressddlDistrict')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'objProspectobjAddressddlDistrict');
+        }
+        if ($("#objProspectobjAddressddlCity option:selected").text() == 'Select' || $("#objProspectobjAddressddlCity option:selected").text() == '') {
+            writeMultipleMessage("error", 'Please select City', 'objProspectobjAddressddlCity')
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'objProspectobjAddressddlCity');
+
+        }
+        if (pin == "") {
+            writeMultipleMessage("error", "Please Enter Pin.", 'objAddressPincode');
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'objAddressPincode');
+            return true;
+        }
+
+    }
+    //function GetBenefitDetails(tabindex, index, count, relationship) {
+    //    debugger
+    //    if (relationship == '267' || relationship == '268') {
+    //        if ($("#txtPlanCode" + index).val() != "PPG") {
+    //            if ($('#txtBasicSumInsured' + tabindex).val() == '' || $('#txtBasicSumInsured' + tabindex).val() == undefined) {
+    //                writeMultipleMessage("error", "Please enter Basic SumAssured", 'txtBasicSumInsured' + tabindex);
+    //                return false;
+    //            }
+
+
+    //        }
+    //        else {
+    //            var ddlBasicSumInsured = $("#ddlBasicSumInsured").val();
+    //            $("#txtBenefitSI1000").val(ddlBasicSumInsured);
+
+    //        }
+
+    //    }
+    //    else {
+    //        writeMultipleMessage("error", "", 'txtBasicSumInsured' + tabindex);
+    //        if (relationship == '268') {
+
+    //            if ($('input[name=IsSelfCovered]:checked', '#fromProspectForm').val() == "true" || $('input[name=IsSelfCovered]:checked', '#fromQuotePage' + index).val() == "True") {
+    //                var MainLifeAmt = $("#txtBasicSumInsured1" + index).val();
+    //                var SpouseValue = $('#txtBasicSumInsured' + tabindex).val();
+    //                if (SpouseValue >= MainLifeAmt) {
+    //                    writeMultipleMessage("error", "Please enter Basic SumAssured less than Basic SumAssured of  MainLife", 'txtBasicSumInsured' + tabindex);
+    //                    return false;
+    //                } else {
+    //                    writeMultipleMessage("error", "", 'txtBasicSumInsured' + tabindex);
+    //                }
+    //            }
+
+    //        }
+    //    }
+    //    var MemberCount = parseInt(count) - 1;
+    //    $('#hdnPanelIndex' + index).val(tabindex);
+    //    $('#hdnBenefitRequested' + tabindex).val(true);
+    //    $.post('/Policy/GetBenifits', $("#fromQuotePage").serialize(), function (data) {
+
+    //        $('#DivBenefitDetails_' + tabindex).html('');
+    //        $('#DivBenefitDetails_' + tabindex).html(data);
+    //        var ValidCount = 0;
+    //        $('.BenefitReq' + index).each(function (index) {
+    //            if ($(this).val() == 'true') {
+    //                ValidCount++;
+    //            }
+    //        });
+    //        if (MemberCount == ValidCount) {
+    //            $('#DivPremiumSection_' + index).show();
+    //        }
+    //    });
+
+    //}
+    //function ShowSpouseChildDetails(divid) {
+    //    $('#' + divid).show();
+    //}
+
+
+    //function LoadPreviousInsuranceGrid() {
+
+    //    var txtNoOfOnGoingProposalWithAIA = $("#txtNoOfOnGoingProposalWithAIA").val();
+    //    var txtNoOfPreviousPolicyWithAIA = $("#txtNoOfPreviousPolicyWithAIA").val();
+    //    if (txtNoOfOnGoingProposalWithAIA != "" || txtNoOfOnGoingProposalWithAIA != null) {
+    //        $.post("../Policy/LoadPreviousInsuranceGrid", $("#fromQuotePage0").serialize(), function (data) {
+
+    //            $("#divPreviousDetailsGrid").html(data);
+    //            $("#divPreviousDetailsGrid").show();
+    //        });
+    //    }
+    //    if (txtNoOfPreviousPolicyWithAIA != "" || txtNoOfPreviousPolicyWithAIA != null) {
+
+    //        $.post("../Policy/LoadPreviousInsuranceGrid", function (data) {
+    //            $("#divPreviousDetailsGrid").html(data);
+    //            $("#divPreviousDetailsGrid").show();
+    //        });
+    //    }
+
+    //}
+</script>

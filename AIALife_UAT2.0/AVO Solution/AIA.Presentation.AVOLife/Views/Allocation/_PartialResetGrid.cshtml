@@ -1,0 +1,95 @@
+﻿@model Grid.Mvc.Ajax.GridExtensions.AjaxGrid<AIA.Life.Models.Allocation.AllocationProposals>
+@using GridMvc.Html
+@using AIAResources;
+    @{
+
+        int PageSize = 5; // Set Page Size
+        int CurrentPage = ViewBag.ResetCurrentPage;
+        int FirstIndex = 0;
+        if (ViewBag.ResetCurrentPage == 1)
+        { FirstIndex = 0; }
+        else {
+            FirstIndex = PageSize * (CurrentPage - 1);
+        }
+    }
+    
+        @Html.Grid(Model).Named("GridResetAllocateProposals").Columns(columns =>
+   {
+       columns.Add(a => a.ISSelected).Titled("Select").Encoded(false).SetWidth(1).Sanitized(false).Filterable(false).RenderValueAs(a => Html.CheckBox("objLstResetProposals[" + (a.Index - FirstIndex) + "].IsSelected", a.ISSelected, new { @id = "ResetchkIsSelected" + (a.Index - FirstIndex), Style = "height:14px;width:14px", @onchange = "ResetFunctionDropDown('checkbox'," + a.ProposalNo + ",'" + (a.Index - FirstIndex) + "')" }));
+       columns.Add(a => a.ProposalNoDisplay).Titled("ProposalNo").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+       columns.Add(a => a.UWName).Titled("UnderWriter Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+       columns.Add(a => a.ProposalNo, true).Titled("ProposalNoHidden").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objLstResetProposals[" + (a.Index - FirstIndex) + "].ProposalNo", a.ProposalNo, new { @id = "txtProposalNo" + (a.Index - FirstIndex), @class = "form-control", @style = "width:100%" }));
+       columns.Add(a => a.AssignTo).Titled("Assign").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objLstResetProposals[" + (a.Index - FirstIndex) + "].AssignTo", new SelectList(ViewBag.UWDetails, "Value", "Text", a.AssignTo), "Select", new { @id = "DDLResetAssignTo" + (a.Index - FirstIndex), @class = "form-control", @style = "width:100%", @onchange = "ResetFunctionDropDown('Dropdown'," + a.ProposalNo + ",'" + (a.Index - FirstIndex) + "')" }));
+
+   }).WithPaging(PageSize).WithMultipleFilters()
+  
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".grid-mvc").gridmvc().pageGrids;
+            if ('@TempData["Load"]' == "FirstTime") {
+                $.ajaxSetup({
+                    cache: false
+                });
+                pageGrids.GridResetAllocateProposals.ajaxify({
+                    getData: '../Allocation/LoadNxtPageForManualProposalReset',
+                    getPagedData: '../Allocation/LoadNxtPageForManualProposalReset',
+                });
+            }
+
+        });
+
+        function ResetFunctionDropDown(Type, index, id) {
+            debugger;
+            var str = index;
+            var selectedvalue = '';
+            // alert(index);
+            var a = $('#DDLResetAssignTo' + id + ' :selected').text();
+            //alert(a);
+
+            if ($("#ResetchkIsSelected" + id).is(':checked')) {
+                if (a != "Select") {
+                    selectedvalue = index + "-" + a;
+                    var res = selectedvalue.split('-')
+                    for (var i = 0; i < Selected.length ; i++) {
+                        if (ResetSelected[i].includes(res[0])) {
+                            ResetSelected.splice(i, 1);
+                        }
+                    }
+                    ResetSelected.push(selectedvalue);
+                }
+
+            }
+            else {
+                selectedvalue = index + "-" + a;
+                for (var i = 0; i < Selected.length; i++) {
+                    if (ResetSelected[i] == selectedvalue) {
+                        ResetSelected.splice(i, 1);
+                    }
+                }
+            }
+
+        }
+
+    </script>
+
+    <style>
+        .panel-default {
+            border-color: #eee !important;
+            margin-bottom: 5px;
+        }
+
+        /*.panel {
+            background-color: #B8123E !important;
+        }*/
+
+        @@media screen and (min-width:320px) and (max-width:768px) {
+            .no-more-tables table, thead, tbody, th, td, tr {
+                float: none;
+            }
+        }
+    </style>

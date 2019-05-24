@@ -1,0 +1,51 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+
+@{
+    ViewBag.Title = "ProposalReAllocate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+      @@media screen and (min-width:320px) and (max-width:768px){
+ .no-more-tables table, thead, tbody, th, td, tr
+    {
+       
+        float:none;
+       
+    }
+}
+</style>
+
+<div class="panel panel-default">
+    <div class="panel-body" style="color: white;
+    font-weight: 600;">New Business - Proposal - Proposal Re-Allocate</div>
+</div>
+
+<div class="" id="divProposalReAllocateGrid" style="overflow-x:auto;">
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.get("../Policy/SearchProposalReAllocateDetails", $("").serialize())
+               .done(function (data) {
+                   $("#divProposalReAllocateGrid").html(data);
+               }).
+               fail(function () {
+                   $("#divProposalReAllocateGrid").html("No Records Found");
+               });
+
+    });
+</script>
+

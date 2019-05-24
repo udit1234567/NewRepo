@@ -1,0 +1,67 @@
+﻿@*<style>
+    .youtube-popup {
+        position: relative;
+        width: 654px;
+        height: 315px; 
+    }
+
+        .youtube-popup > div {
+            position: absolute;
+            width: 560px;
+            height: 315px;
+            top: 0;
+            z-index: 100;
+        }
+</style>
+
+<div class="auto-resizable-iframe">
+    <div id="player3">
+        <br />
+        <div class="youtube-popup">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/HEuqz7MQdZE" frameborder="0" allowfullscreen></iframe>
+            <div></div>
+        </div>
+        <br /><br />
+        </div>
+            <div id="player4">
+                <br />
+                <div class="youtube-popup">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/eqIFz6Y5DzI" frameborder="0" allowfullscreen></iframe>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+   <script>
+       $('.youtube-popup > div').click(function () {
+        window.open($(this).parent().children('iframe').attr("src"));
+    });
+</script>*@
+<style>
+    .embed-responsive {
+        position: relative;
+        display: block;
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+</style>
+<div class="auto-resizable-iframe">
+    <div class='embed-responsive pop-style'>
+        <br />
+        <a href="https://www.youtube.com/embed/HEuqz7MQdZE" width="100%" height="100%" target="_blank">
+            <img src="~/Content/Images/Youtube3.png" width="100%"/>
+
+        </a>
+        <br />
+    </div>
+    <div class='embed-responsive pop-style'>
+        <br />
+        <a href="https://www.youtube.com/embed/eqIFz6Y5DzI" width="100%" height="100%" target="_blank">
+            <img src="~/Content/Images/Youtube4.png" width="100%"/>
+
+        </a>
+        <br />
+    </div>
+   
+</div>
+

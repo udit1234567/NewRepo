@@ -1,0 +1,387 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+@using AIA.Presentation.Helpers
+@using GridMvc.Html;
+@using Grid.Mvc.Ajax.GridExtensions
+@using AIAResources;
+
+@Styles.Render("~/Content/AjaxGridCss")
+@Scripts.Render("~/bundles/UserManagement")
+@Scripts.Render("~/bundles/Dialog")
+@Styles.Render("~/Content/Dialogcss")
+<script src="~/Scripts/fileinput.js"></script>
+<script>
+    function DiviceHistory() {
+        $.ajax({
+            url: "../../UserManagement/DiviceHistory",
+            data: $("#fromUserAccess").serialize(),
+            type: "POST",
+            success: function (data) {
+                if (data.AddOn == "error") {
+                    EnableQuotePage();
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Note',
+                        closable: true,
+                        size: 'size-large',
+                        message: data.Errormsg,
+                        buttons: [{
+                            label: 'OK',
+                            action: function (dialogItself) {
+                                dialogItself.close();
+                            }
+                        }]
+                    });
+
+                }
+                else {
+                    $("#dividUserDetails").html('');
+                    $("#dividUserDetails").show();
+                    $("#dividUserDetails").html(data);
+                }
+            },
+            error: function () {
+                $("#dividUserDetails").html("No record found. Try after some Time");
+            }
+        });
+    }
+    function LoadHomePage() {
+        var CloseWindow = $('#hdnCloseWindow').val();
+        if (CloseWindow == "true") {
+            window.close();
+        }
+        else {
+            window.location.href = '/Home/Index';
+        }
+    }
+</script>
+@using (Html.BeginForm("", "", new { ReturnUrl = "" }, FormMethod.Post, new { role = "form", id = "fromValidatedUser" }))
+{
+    @Html.HiddenFor(a => a.DeactivateStatus, new { id = "hdnDeactivateStatus" })
+    @Html.HiddenFor(a => a.ErrorMessage, new { id = "hdnErrormessage" })
+    
+    <div class="modal fade" id="QuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                        <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                <div class="modal-body" id="QuoteModalBody">
+
+                </div>
+                <div class="modal-footer">                   
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadHomePage()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="QuoteDevice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                        <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                <div class="modal-body" id="QuoteDeviceBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CloseHistory()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.UserCatagory);
+    if (Model.UserCatagory != "UW User")
+    {
+        <div class="col-lg-12 col-sm-12 form-group">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User Code")</label>
+                    @(Html.TextBoxFor(a => a.IMDCode, new { @class = "form-control", @id = "txtUserCode", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User Name")</label>
+                    @(Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @id = "txtUserName1", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly",Model.UserName }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User Status")</label>
+                    @Html.DropDownListFor(a => a.UserStatus, new SelectList(Model.lstUserstatus, "ID", "Value", "selected"), new { @class = "form-control", @id = "ddlstatus", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User Role")</label>
+                    @(Html.TextBoxFor(a => a.UserRole, new { @class = "form-control", @id = "txtUserRole", @readonly = "readonly" }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Mobile Number")</label>
+                    @(Html.TextBoxFor(a => a.MobileNo, new { @class = "form-control", @id = "txtMobileNo", @readonly = "readonly" }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Email")</label>
+                    @(Html.TextBoxFor(a => a.EmailId, new { @class = "form-control", @id = "txtEmailId", @readonly = "readonly" }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Branch ID")</label>
+                    @(Html.TextBoxFor(a => a.branhCode, new { @class = "form-control", @id = "txtbranhCode", @readonly = "readonly" }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Reporting Code")</label>
+                    @(Html.TextBoxFor(a => a.ReportingCode, new { @class = "form-control", @id = "txtReportingCode", @readonly = "readonly" }))
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Reporting Manager")</label>
+                    @(Html.TextBoxFor(a => a.ReportingManager, new { @class = "form-control", @id = "txtReportingManager", @readonly = "readonly" }))
+                </div>
+            </div>
+
+            @if (Model.PageName == "UserSearch")
+            {
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("Device ID")</label>
+                        @(Html.TextBoxFor(a => a.objDeviceDetails.DeviceID, new { @class = "form-control", @id = "txtDeviceID", @onchange = "UpdateDeviceName()"}))
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("Device Name")</label>
+                        @(Html.TextBoxFor(a => a.objDeviceDetails.DeviceName, new { @class = "form-control", @id = "txtDeviceName" }))
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("Device ID")</label>
+                        @(Html.TextBoxFor(a => a.objDeviceDetails.DeviceID, new { @class = "form-control", @id = "txtDeviceID", @onchange = "UpdateDeviceName()", @readonly = "readonly" }))
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("Device Name")</label>
+                        @(Html.TextBoxFor(a => a.objDeviceDetails.DeviceName, new { @class = "form-control", @id = "txtDeviceName", @readonly = "readonly" }))
+                    </div>
+                </div>
+             
+
+            }
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+            <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top:30px;display:block" id="divSearchButtons">
+                @if (Model.PageName == "UserSearch")
+                {
+                    <input type="button" value="Submit" id="btnClientCreateUser" onclick="UpdateDevice()" class="btn btn-default" style="width:130px">
+                }
+                @if (Model.PageName == "UserSearch")
+                {
+                <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/Users?Type=Agent'" class="btn btn-default" style="width:100px">
+                }
+                else
+                {
+                <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/Users?Type=Agent'"  class="btn btn-default" style="width:100px">
+                }
+                @if (Model.PageName == "UserSearch")
+                {
+                    <input type="button" value="Clear Details" id="btnClientSubmit" onclick="Cleardetails()" class="btn btn-default">
+                }
+                <input type="button" value="Device History" id="btnClientSubmit" onclick="DiviceHistory()" class="btn btn-default">
+            </div>
+        </div>
+    }
+    else
+    {
+        if (Model.PageName == "UserSearch")
+        {
+            <div class="col-lg-12 col-sm-12 form-group">
+                @if (Model.UserStatus == "0")
+                {
+                    <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                        <div class="form-group">
+                            <label>@Resources.GetLabelName("Reactive User")</label>
+                            @(Html.RadioButtonFor(a => a.ReactivateUser, true, new { @id = "txtReactivateUser" }))
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                        <div class="form-group">
+                            <label>@Resources.GetLabelName("Deactivate User")</label>
+                            @(Html.RadioButtonFor(a => a.DeactivateUser, true, new { @id = "txtDeactivateUser" }))
+                        </div>
+                    </div>
+                }
+
+            </div>
+        }
+
+        <div class="col-lg-12 col-sm-12 form-group">
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User Code")</label>
+                    @(Html.TextBoxFor(a => a.IMDCode, new { @class = "form-control", @id = "txtUserCode", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User Name")</label>
+                    @(Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @id = "txtUserName1", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly", Model.UserName  }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User Status")</label>
+                    @Html.DropDownListFor(a => a.UserStatus, new SelectList(Model.lstUserstatus, "ID", "Value", "selected"), new { @class = "form-control", @id = "ddlstatus", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User Role")</label>
+                    @(Html.TextBoxFor(a => a.UserRole, new { @class = "form-control", @id = "txtUserRole", @readonly = "readonly" }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Mobile Number")</label>
+                    @(Html.TextBoxFor(a => a.MobileNo, new { @class = "form-control", @id = "txtMobileNo", @readonly = "readonly" }))
+                </div>
+            </div>
+            @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("Reporting Code")</label>
+                        @(Html.TextBoxFor(a => a.ReportingCode, new { @class = "form-control", @id = "txtReportingCode", @readonly = "readonly" }))
+                    </div>
+                </div>*@
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Authorization Limit")</label>
+                    @(Html.TextBoxFor(a => a.AuthLimit, new { @class = "form-control", @id = "txtAuthLimit", @readonly = "readonly" }))
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+            <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top:30px;display:block" id="divSearchButtons">
+                @if (Model.PageName == "UserSearch")
+                {
+
+                    @*<input type="button" value="Submit" id="btnClientSubmit" onclick="ShowAssignedPrevilages()" class="btn btn-default" style="width:100px">*@
+                    <input type="button" value="Submit" id="btnClientCreateUser" onclick="ModifyUser()" class="btn btn-default" style="width:130px">
+                    <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/Users?Type=Agent'"  class="btn btn-default" style="width:100px">
+                }
+                else
+                {
+                    <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/Users?Type=Agent'" class="btn btn-default" style="width:100px">
+                }
+              
+            </div>
+        </div>
+    }
+    <div id="divIDDiviceHistory">
+
+    </div>
+
+}
+<script>
+    $(document).ready(function () {
+        if ($("#hdnErrormessage").val() == "NotExist")
+        {
+            $("#dividUserDetails").hide();
+            writeMultipleMessage("error", "Invalid user in NexGen iPoS", "txtUserID");
+        }
+        $("#txtUserName1").val('@Model.UserName')
+        $("#ddlstatus").prop("disabled", true);
+    });
+    function ModifyUser() {
+        $("#ddlstatus").prop("disabled", false);
+        $.post("../../UserManagement/UserCreation", $("#fromValidatedUser").serialize(), function (data) {
+
+            if (data.StatusCode == "Failure") {
+                writeMultipleMessage("error", "User is not listed in ADSL site", "dummy");
+                return false;
+            }
+            if (data.StatusCode == "Duplicate") {
+                writeMultipleMessage("error", "Duplicate Users are not allowed to create", "dummy");
+                return false;
+            }
+            else {
+                $('#QuoteModalBody').empty();
+                var Image = '<img class="Img-align" src="../Images/checked1.png" />'
+                var Message = '<p class="text-center"> User Access Changes Completed Successfully .</p>';
+                $('#QuoteModalBody').append(Image);
+                $('#QuoteModalBody').append(Message);
+                $("#QuoteModal").modal("show");
+            }
+        });
+    }
+    function UpdateDeviceName() {
+
+        $.post("../../UserManagement/ValidateDeviceName", $("#fromValidatedUser").serialize(), function (data) {
+
+            $("#txtDeviceName").val(data.obj.DeviceName);
+        });
+
+    }
+    function UpdateDevice() {
+        $("#ddlstatus").prop("disabled", false);
+        $.post("../../UserManagement/UpdateDevicedetails", $("#fromValidatedUser").serialize(), function (data) {
+            $('#QuoteModalBody').empty();
+            var Image = '<img class="Img-align" src="../Images/checked1.png" />'
+            var Message = '<p class="text-center">Device details updated sucessfully .</p>';
+            $('#QuoteModalBody').append(Image);
+            $('#QuoteModalBody').append(Message);
+            $("#QuoteModal").modal("show");
+
+        });
+    }
+
+    function DiviceHistory() {
+        $.post("../../UserManagement/DiviceHistory", $("#fromValidatedUser").serialize(), function (data) {
+            debugger;
+            $('#QuoteDeviceBody').html('');
+            $('#QuoteDeviceBody').html(data);
+            $("#QuoteDevice").modal("show");
+
+        });
+    }
+    function CloseHistory() {
+        var CloseWindow = $('#hdnCloseWindow').val();
+        if (CloseWindow == "true") {
+            window.close();
+        }
+        else {
+            $('#QuoteDeviceBody').html('');
+            window.close();
+        }
+    }
+    function Cleardetails() {
+        $("#txtDeviceID").val('');
+        $("#txtDeviceName").val('');
+    }
+
+</script>

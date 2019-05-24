@@ -1,0 +1,111 @@
+﻿@model int
+@{
+    var ReportID = Model;
+    var divID = "divChart" + Model;
+}
+<script>
+    var chartData = "";
+    var chart = "";
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: '../Dashboard/DashBoard/MakeChart',
+            contentType: "application/json; charset=utf-8",
+            data: { ReportID: '@ReportID', UserName : '@ViewBag.UserName' },
+            dataType: "json",
+            success: function (result) {
+                chartData = JSON.parse(result.strDataProvider);
+                $.each(chartData, function (index, value) {
+
+                    try {
+                        chartData[index].data = JSON.parse(chartData[index].data);
+
+                    } catch (e) {
+
+                    }
+                });
+                $("#" + '@divID').css("height", result.GraphHeight);
+                $("#" + '@divID').css("width", result.GraphWidth);
+                chart = AmCharts.makeChart('@divID', {
+                    "type": result.Type,
+                    "theme":result.Theme,
+                    "dataProvider": chartData,
+                    "valueField": result.graphs.valueField,
+                    "titleField": result.graphs.title,
+                    "labelRadius": 2,
+                    "radius": "33%",
+                    "innerRadius": "60%",
+                    "labelText": result.graphs.balloonText
+                });
+                // add slice click handler
+                chart.addListener("clickSlice", function (event) {
+
+                    // get chart object
+                    var chart = event.chart;
+
+                    // check if drill-down data is avaliable
+                    if (event.dataItem.dataContext.data !== undefined) {
+
+                        // save for back button
+                        chart.drillLevels.push(event.dataItem.dataContext);
+
+                        // replace data
+                        chart.dataProvider = event.dataItem.dataContext.data;
+
+                        // replace title
+                        chart.titles[0].text = event.dataItem.dataContext.title;
+
+                        // add back link
+                        // let's add a label to go back to yearly data
+                        event.chart.addLabel(
+                            0, 25,
+                            "< Go back",
+                            undefined,
+                            undefined,
+                            undefined,
+                            undefined,
+                            undefined,
+                            undefined,
+                            'javascript:drillUp();');
+
+                        // take in data and animate
+                        chart.validateData();
+                        chart.animateAgain();
+                    }
+                });
+
+            }
+        });
+    });
+
+    function drillUp() {
+
+        // get level
+        chart.drillLevels.pop();
+        var level = chart.drillLevels[chart.drillLevels.length - 1];
+
+        // replace data
+        chart.dataProvider = level.data;
+
+        // replace title
+        chart.titles[0].text = level.title;
+
+        // remove labels
+        if (chart.drillLevels.length === 1)
+            chart.clearLabels();
+
+        // take in data and animate
+        chart.validateData();
+        chart.animateAgain();
+    }
+</script>
+
+
+<div id='@divID'></div>
+
+
+
+
+
+

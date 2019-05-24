@@ -1,0 +1,200 @@
+﻿@model  AIA.Life.Models.DashBoard.GraphDetails
+@using AIA.Presentation.Helpers
+@using GridMvc.Html
+@{
+    ViewBag.Title = "MyCalendar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/fullcalendar.js"></script>
+<link href="~/Content/fullcalendar.css" rel="stylesheet" />
+<style type="text/css">
+    .table-bordered thead tr th {
+        background-color: #fea42a;
+        border: 1px solid #636363;
+        word-wrap: break-word;
+        text-align: center;
+        font-size: 14px;
+        color: white;
+    }
+
+    .table-bordered tbody tr td {
+        border: 1px solid #636363;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.post("../DashBoard/GetAppointmentGrid", $("#frmAppointmentDetails").serialize())
+            .done(function (data) {
+                $("#appointmentGrid").html(data);
+            }).
+            fail(function () {
+                $("#appointmentGrid").html("No Records Found");
+            });
+        $('#calendar').fullCalendar({
+            height: 280,
+            theme: false,
+            dayClick: function (date, jsEvent, view) {
+            },
+            events: {
+            },
+            eventClick: function (calEvent, jsEvent, view) {
+            },
+            editable: false,
+
+            eventRender: function (event, element) {
+            },
+            renderEvent: function (event, element) {
+            }
+        });
+    });
+    function ChangeText(oFileInput, sTargetID) {
+        document.getElementById(sTargetID).value = oFileInput.value;
+    }
+</script>
+<div class="panel panel-default">
+    <div class="panel-body" style="background-color: #fbb055;color:white;font-size:large;padding: 10px;">Calendar</div>
+</div>
+<table id="tblmyCalendar" class="table table-bordered" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>Calendar</th>
+            <th>Appointment</th>
+            <th>Reminders</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="width:30%;">
+                <div id="calendar" style="width: 96%; margin:2%; margin-top: 10px;border-color:none;">
+                </div>
+            </td>
+            <td style="width:40%;">
+                @using (Html.BeginForm("AppointmentDetails", "DashBoard", FormMethod.Post, new { @id = "frmAppointmentDetails", @class = "" }))
+                {
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label>Date</label>
+                            @Html.iNubeDatePickerFor(m => m.appointment.appointmentdate, new { @class = "form-control", @style = "width:85px;" })
+                        </div>
+                        <div class="form-group">
+                            <label>Time From</label>
+                            @Html.TextBoxFor(m => m.appointment.timeFrom, new { @class = "form-control", @type = "time", @style = "width:65px;" })
+                        </div>
+                        <div class="form-group">
+                            <label>Time To</label>
+                            @Html.TextBoxFor(m => m.appointment.timeTo, new { @class = "form-control", @type = "time", @style = "width:65px;" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-inline">
+                        <label class="control-label">Subject</label>
+                        @Html.TextBoxFor(m => m.appointment.subject, new { @class = "form-control", @style = "width: 300px;margin-left: 30px;" })
+                    </div>
+                    <br />
+                    <div class="form-inline">
+                        <label class="control-label">Meeting with</label>
+                        @Html.TextBoxFor(m => m.appointment.meetingWith, new { @class = "form-control", @style = "width: 300px;" })
+                    </div>
+                    <br />
+                            <div class="form-inline">
+                                <label class="control-label">Description</label>
+                                @Html.TextAreaFor(m => m.appointment.description, new { @class = "form-control", @style = "width: 300px;margin-left:8px;" })
+                            </div>
+                            <br />
+                            <div class="form-inline">
+                                <form id="myform" action="@Url.Action("saveAppointmentfiles","DashBoard")" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 col-xs-12 col-lg-2" style="background-color: orange;margin-left: 33px; height: 33px;text-align: center;padding-top: 6px;color:white;width:92px;">BROWSE</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                            @*   <input id="uploadFiles" type="text" value="Choose File">*@
+                                            @Html.TextBoxFor(model => model.appointment.uploadFiles, "", new { @onclick = "javascript:document.getElementById('file').click();" })
+                                            <input id="file" type="file" style='visibility: hidden;' name="img" multiple="multiple" onchange="ChangeText(this, 'txt');" />
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2" style="margin-left: -28px;">
+                                            <input type="submit" class="form-control" value="UPLOAD" style="background-color:orange; color:white;" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p id="files" class="col-md-1 col-sm-1 col-xs-1 col-lg-1">@ViewBag.UploadStatus</p>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="col-sm-1" style="margin-left: 150px;color:white;">
+                                        <input type="submit" class="form-control" value="ADD" style="background-color:orange;width:74px;color:white;" />
+                                    </div>
+                                    <div class="col-sm-1" style="color:white;">
+                                        <input type="submit" class="form-control" value="CLEAR" style="background-color:orange;margin-left: 50px;color:white;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div id="appointmentGrid"></div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="col-sm-1" style="margin-left: 150px;color:white;">
+                                        <input type="submit" class="form-control" value="SAVE" style="background-color:orange;width:78px;color:white;" />
+                                    </div>
+                                    <div class="col-sm-1" style="color:white;">
+                                        <input type="submit" class="form-control" value="CANCEL" style="background-color:orange;margin-left: 52px;width:78px;color:white;" />
+                                    </div>
+                                </div>
+                            </div>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("AppointmentDetails", "DashBoard", FormMethod.Post, new { @id = "frmReminderDetails", @class = "" }))
+                {
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label>Date</label>
+                            @Html.iNubeDatePickerFor(m => m.reminder.reminderDate, new { @class = "form-control", @style = "width:85px;" })
+                        </div>
+                        <div class="form-group">
+                            <label>Time From</label>
+                            @Html.TextBoxFor(m => m.reminder.reminderTime, new { @class = "form-control", @type = "time", @style = "width:65px;" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-inline">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="control-label">Subject</label>
+                                @Html.TextBoxFor(m => m.reminder.reminderSubject, new { @class = "form-control", @style = "width: 246px;" })
+                            </div>
+                        </form>
+                    </div>
+                    <br />
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div id="appointmentGrid"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div class="col-sm-1" style="color:white;">
+                                <input type="submit" class="form-control" value="ADD" style="background-color:orange;width:78px;color:white;margin-left:-16px;" />
+                            </div>
+                            <div class="col-sm-1" style="color:white;">
+                                <input type="submit" class="form-control" value="CLEAR" style="background-color:orange;margin-left: 36px; color:white;width:78px;" />
+                            </div>
+                            <div class="col-sm-1" style="margin-left: 91px;color:white;">
+                                <input type="submit" class="form-control" value="SAVE" style="background-color:orange;color:white;width:78px;margin-left: -3px;" />
+                            </div>
+                            <div class="col-sm-1" style="color: white;">
+                                <input type="submit" class="form-control" value="CANCEL" style="background-color:orange;margin-left: 49px;color:white;width:78px;" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>

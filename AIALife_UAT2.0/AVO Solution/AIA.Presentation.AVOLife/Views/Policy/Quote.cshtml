@@ -1,0 +1,128 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userName = HttpContext.Current.User.Identity.Name;
+    List<int?> lstPermissions = HelperMethods.GetPermissions(userName);
+}
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+
+    .block-content {
+        background-color: #46b2b5;
+        padding: 2em 1em;
+        width: 200px;
+        height: 150px;
+        color: white;
+        padding-top: 15px;
+    }
+
+    @@media screen and (min-width: 320px) and (max-width: 768px) {
+        .navbar-collapse.collapse {
+            display: block !important;
+            margin-left: 20px;
+        }
+
+        .nav > li {
+            display: inline-block;
+        }
+
+        .dashboard-stat .details {
+            right: 20px;
+        }
+    }
+    #divNav li{
+    width:300px;
+    vertical-align:top;
+}
+</style>
+
+@*<div class="panel panel-default">
+        <div class="panel-body" style="color: white;
+        font-weight: 600;">New Business - Quotation</div>
+    </div>*@
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+      
+        <div class="btn btn-info"><b>@Resources.GetLabelName("Quotation")</b></div>
+    </div>
+</div>
+
+
+
+<br />
+
+<div id="navContainer">
+    <div class="collapse navbar-collapse Main-collapse" id="navbar-collapse-1">
+        <div class="navbar-nav list" id="divNav">
+            <ul class="nav navbar-nav">
+                @if (lstPermissions.Contains(23))
+                {
+                    <li class="dropdown liClass">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light blue-soft"
+                           data-toggle="dropdown" style="margin-right: 20px;" onclick="showCreateQuatation()">
+                           
+                                <img src="~/Content/Images/Generate Quotation1.png" />
+                           
+                                <p><b>@Resources.GetLabelName("Generate Quotation")</b></p>
+
+                           
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 count-of-created">
+                                &nbsp;
+                            </div>
+                        </a>
+
+                    </li>
+                }
+                @if (lstPermissions.Contains(24))
+                {
+                    <li class="dropdown liClass">
+                        <a href="#" class="dropdown-toggle dashboard-stat dashboard-stat-light red-soft"
+                           data-toggle="dropdown" style="margin-right: 20px;" onclick="showQuotationPool()">
+
+                            
+                                <img src="~/Content/Images/Load Quotation1.png" />
+                           
+                                <p><b>@Resources.GetLabelName("Load Quotation")</b></p>
+                            
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 count-of-created">
+                                @ViewBag.QuotationPoolCount
+                            </div>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function showCreateQuatation() {
+        window.location.href = "/Policy/Quotation?ContactID=@AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt("0")";
+    };
+    function showQuotationPool() {
+        window.location.href = "/Policy/QuotationPool";
+    };
+
+    function showQuotationReAllocate() {
+        window.location.href = "/Policy/QuotationReAllocate";
+    };
+</script>
+

@@ -1,0 +1,43 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+@using AIA.Presentation.Helpers
+@using GridMvc.Html;
+@using Grid.Mvc.Ajax.GridExtensions
+@using AIAResources;
+
+@Styles.Render("~/Content/AjaxGridCss")
+@Scripts.Render("~/bundles/UserManagement")
+@Scripts.Render("~/bundles/Dialog")
+@Styles.Render("~/Content/Dialogcss")
+<script src="~/Scripts/fileinput.js"></script>
+@using (Html.BeginForm("", "", new { ReturnUrl = "" }, FormMethod.Post, new { role = "form", id = "fromUserAccess" }))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <i style="color: white;" class="icon-user"></i>
+                <a data-toggle="collapse" data-target="#collapse3" href="#collapseone" class="collapsed">
+                    User Access <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+    </div>
+
+    <div id="collapse3" class="panel-collapse in">
+        <div class="col-lg-12 col-sm-12 form-group">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChilName">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User ID")</label>
+                    @Html.HiddenFor(x => x.UserID, new { @id = "hdnUserID" });
+                    @(Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @id = "txtUserID", @onkeypress = "return onlyAlphabets(event)" }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <input type="button" value="Validate" id="btnClientCreateUser" onclick="ValidateUser()" class="btn btn-default" style="width:130px">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dividUserDetails">
+    </div>
+}

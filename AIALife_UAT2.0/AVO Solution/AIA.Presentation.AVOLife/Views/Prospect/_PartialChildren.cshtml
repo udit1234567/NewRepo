@@ -1,0 +1,259 @@
+﻿@model AIA.Life.Models.Opportunity.Prospect
+@using AIA.Presentation.Helpers
+@using AIAResources;
+
+<script src="~/Scripts/Common.js"></script>
+<script src="~/Scripts/SuspectScript/Suspectscript.js"></script>
+<style>
+
+ .children-table {
+        width: 100%;
+    }
+ .from_to_year_datepicker {
+        padding: 15px 0;
+       
+    }
+    .from_to_year_datepicker_holder {
+        width: 49%;
+        padding: 20px;
+        text-align: center;
+        display: inline-block;
+        position: relative;
+    }
+    .from_to_year_datepicker_input{
+        width: 55%;
+        padding: 5px 30px 5px 20px;
+        position: relative;
+        border-radius: 5px;
+        border: 1px solid #999;
+        display: inline-block;
+    }
+
+    .from_to_year_datepicker_label {
+        padding: 0 20px 0 0;
+    }
+
+    .datepicker_icon {
+        color: #000;
+        position: absolute;
+        right: 96px;
+        top: 28px;
+        cursor: pointer;
+    }
+        .children-table thead tr th {
+            color: #fff !important;
+            text-align: center;
+            background-color: #d31145 !important;
+            font-weight:900;
+            font-size:13px;
+            padding:11px;
+        }
+        .bootstrap-datetimepicker-widget table tr th{
+            background-color:#fff !important;
+            color:#000 !important;
+            padding:8px;
+        }
+        .children-table thead tr th:first-child{
+            border-top-left-radius:4px;
+            border-bottom-left-radius:4px;
+        }
+        .children-table thead tr th:last-child{
+            border-top-right-radius:4px;
+            border-bottom-right-radius:4px;
+        }
+        /*.children-table .input-group.date .form-control{
+            width:auto !important;
+            display:inline-block;
+            vertical-align:top;
+        }
+        .children-table .input-group-addon{
+             display:inline-block;
+            vertical-align:top;
+            padding:8px !important;
+        }*/
+    </style>
+<div class="grid-scroll">
+
+    @*<table class="table dependents-table">
+        <thead>
+            <tr>
+                <th style="width: 25%;">@Resources.GetLabelName("Name")</th>
+                <th style="width: 25%;">@Resources.GetLabelName("DOB")</th>
+                <th style="width: 25%;">@Resources.GetLabelName("Age at Next Birthday")</th>
+                <th style="width: 25%;">@Resources.GetLabelName("Relationship")</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model.objNeedAnalysis.objDependants.Count > 0 && Model.objNeedAnalysis.objDependants != null)
+            {
+                for (int i = 0; i < Model.objNeedAnalysis.objDependants.Count; i++)
+                {
+                    <tr id="divprevrow">
+                        <td>
+                            @Html.TextBoxFor(m => m.objNeedAnalysis.objDependants[i].Name, new { @id = "dtdependantName" + i, @class = "form-control", @onchange = "ValidateName(id)", @onkeypress = "return onlyAlphabets(event)" })
+                        </td>
+                        <td>
+                            @Html.iNubeDatePickerFor(m => m.objNeedAnalysis.objDependants[i].DOB, new { @id = "dtdependantDOB" + i, @class = "form-control datepicker", @onchange = "CalculateageInfo(" + i + ")" })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m.objNeedAnalysis.objDependants[i].AgeNextBirthday, new { @id = "txtdependantAge" + i, @class = "form-control", @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(m => m.objNeedAnalysis.objDependants[i].Relationship, new SelectList(Model.objNeedAnalysis.dllChildRelatioship.OrderBy(a => a.Text), "Text", "Text", Model.objNeedAnalysis.objDependants[i].Relationship), "Select", new { @id = "dtdependantRelation" + i, @class = "form-control" })
+                        </td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+
+    </table>*@
+
+
+
+    @if (Model.objNeedAnalysis.DependantCount > 0 || Model.objNeedAnalysis.DependantCount != null)
+    {
+     
+      <table class="table children-table">
+                <thead>
+                    <tr>
+                        <th>@Resources.GetLabelName("Name")</th>
+                        <th>@Resources.GetLabelName("DOB")</th>
+                        <th>@Resources.GetLabelName("Age at Next Birthday")</th>
+                        <th>@Resources.GetLabelName("Relationship")</th>
+                    </tr>
+                </thead>
+          <tbody>
+              @for (int c = 0; c < Model.objNeedAnalysis.DependantCount; c++)
+              {
+
+                  <tr>
+                      <td>
+                          @Html.TextBoxFor(a => a.objNeedAnalysis.objDependants[c].Name, new { @id = "dtdependantName" + c, @class = "form-control childnamespace", @onchange = "ValidateName(id)", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",@onkeyup = "return AlphabetsWithSpace(event)" })
+                      </td>
+                      <td style="width:300px" >
+                          @Html.iNubeDatePickerFor(a => a.objNeedAnalysis.objDependants[c].DOB, new { @id = "dtdependantDOB" + c, @class = "form-control datepicker datepicker-hidekeypad", @onchange = "CalculateageInfo(" + c + ")", @onblur = "CalculateageInfo(" + c + ")", @placeholder = "DD/MM/YYYY"})
+                      </td>
+                      <td>
+                          @Html.TextBoxFor(a => a.objNeedAnalysis.objDependants[c].AgeNextBirthday, new { @id = "txtdependantAge" + c, @class = "form-control", @readonly = "readonly", @onkeypress = "return onlyAlphabets(event)" })
+                      </td>
+                      <td>
+                          @Html.DropDownListFor(a => a.objNeedAnalysis.objDependants[c].Relationship, new SelectList(Model.objNeedAnalysis.dllChildRelatioship.OrderBy(a => a.Text), "Text", "Text", Model.objNeedAnalysis.objDependants[c].Relationship), "Select", new { @id = "dtdependantRelation" + c, @class = "form-control" })
+                      </td>
+                  </tr>
+
+              }
+          </tbody>
+          </table>
+
+        }
+   
+        @* @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objChildDetials[c].CurrentAge, new { @id = "hdnChildCurrentage" + Model.SelectedQuote })*@
+         @*<div class='col-md-4 col-sm-4 col-xs-12 col-lg-4'>
+         <div class='form-group'>*@
+        @*<label> Child Name @(c + 1)</label>*@
+          @*@Html.TextBoxFor(m => m.objNeedAnalysis.objDependants[c].Name, new { @class = "form-control", @id = "dtdependantName" + c, onchange = "ValidateName(id)", onkeypress = "return onlyAlphabets(event)" })
+
+          </div>*@
+       
+
+        @*<div class='col-md-4 col-sm-4 col-xs-12 col-lg-4'>
+                <div class='form-group'>
+                    @*<label> Child DOB @(c + 1)</label>
+                    @Html.iNubeDatePickerFor(a => a.objListQuote[Model.SelectedQuote].objChildDetials[c].DateofBirth, new { @class = "form-control datepicker", @id = "dtChildDOB" + c, @onblur = "ageProspectCount(" + c + ")", @maxlength = "10", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+
+                </div>
+            </div>
+
+            <div class='col-md-4 col-sm-4 col-xs-12 col-lg-4'>
+                <div class='form-group'>
+                    <label> Child Age at Next Birthday @(c + 1)</label>
+                    @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objChildDetials[c].AgeNextBirthday, new { @class = "form-control", maxlength = "2", @id = "txtChildAge" + c, onkeypress = "return isNumberKey(event)", @readonly = "readonly", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+                </div>
+            </div>
+
+
+            <div class='col-md-4 col-sm-4 col-xs-12 col-lg-4'>
+                <div class='form-group'>
+                    <label> Gender @(c + 1)</label>
+                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objChildDetials[c].Gender, new SelectList(Model.objListQuote[Model.SelectedQuote].objProspect.lstGender, "Value", "Text", Model.objListQuote[Model.SelectedQuote].objChildDetials[c].Gender), "Select", new { @class = "form-control", @id = "ddlChildGender" + c, @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+                </div>
+            </div>*@
+        
+    <div class="clearfix"></div>
+</div>
+
+<script type="text/javascript">
+   
+    @*$(document).ready(function () {
+        
+        var txt = $('#txtNoofChilds' +@Index).val();
+        var val = parseInt(txt);
+        for(i=0;i<=val;i++)
+        {
+            var ChildRelationship = $("#HdnRelationship" + i).val();
+            if (ChildRelationship == "Son")
+            {
+                if($("ddlGender"+i).length>1)
+                {
+                    $("ddlGender"+i).val("M")
+                }else{
+                    alert("1");
+                }
+            }
+            if (ChildRelationship == "Daughter") {
+                if($("ddlGender"+i).length>1)
+                {
+                    $("ddlGender"+ i).val("F")
+                }
+                else{
+                    alert('no');
+                }
+            }
+        }
+    })*@
+    function ageProspectCount(e) {
+      
+
+        @*var NoOfChild = $('#txtNoofChilds' + @QuoteIndex).val();*@
+
+        var dob = $('#dtChildDOB'+e).val();
+
+        var controlid = 'dtChildDOB'+e;
+        if (dob == "") {
+            $('#txtChildAge'+e).val('');
+            writeMultipleMessage("error", "Please enter valid Date Of Birth.", controlid);
+            return false;
+        }
+        if (!ValidateDOB(controlid)) {
+            $('#txtChildAge'+e).val('');
+            writeMultipleMessage("error", "Please enter valid Date Of Birth. It cannot be future date.", controlid);
+            return false;
+        }
+        else {
+            if (dob != '') {
+              
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                $('#txtChildAge'+e).val(calYear+1);
+                $('#hdnChildCurrentage').val(calYear);
+
+
+            }
+        }
+    }
+
+</script>

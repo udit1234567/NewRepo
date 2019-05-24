@@ -1,0 +1,158 @@
+﻿@model AIA.Life.Models.DashBoard.myProfile
+@using AIA.Presentation.Helpers;
+@using GridMvc.Html
+@{
+    ViewBag.Title = "My Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    td {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 10%;
+    }
+    #dtWeddingAnniversary {
+        padding-left: 90px;
+    }
+    .text{
+        width:140px;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-body" style="background-color: orangered;color:white;font-size:large;padding: 10px;" align="center">USER PROFILE</div>
+</div>
+<table style="width:100%">
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">Name</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.fullName, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Mobile</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.mobileNo, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Work</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.workPhone, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">Home</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.homePhone, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Email Id</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.emailId, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Designation</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.designation, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">Marital Status</label>
+        </td>
+        <td>
+            @Html.DropDownListFor(a => a.maritalStatus, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlmaritalStatus", @class = "form-control text" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Wedding Anniversary</label>
+        </td>
+        <td>
+            @Html.iNubeDatePickerFor(m => m.weddingAnniversaryDate, new {@id="dtWeddingAnniversary", @class = "form-control text" })
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><label style="text-decoration:underline; font-weight:bold;">Family Details</label></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            @*@Html.Grid(Model).Named("GridmyProfile").Columns(columns =>
+        {
+            // columns.Add(a => a.SearchID).Titled("").Encoded(false).Sanitized(false).SetWidth("3%").RenderValueAs(a => Html.RadioButton(a.SearchID.ToString(), "Hierarchy", new { @id = "rdnSearchHierarchy" + a.SearchID, @class = "form-control numeric", Style = "height:14px;width:14px", SearchID = a.SearchID, SearchCode = a.Code }));
+            columns.Add(a => a.timeFrom).Titled("Time From").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+            columns.Add(a => a.timeTo).Titled("Time To").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+            columns.Add(a => a.subject).Titled("Subject").Encoded(false).Sanitized(false).SetWidth("10%").Filterable(true);
+        }).WithPaging(5).WithMultipleFilters()*@
+        </td>
+    </tr>
+</table>
+
+<div class="panel panel-default">
+    <div class="panel-body" style="background-color: orangered;color:white;font-size:large;padding: 10px;" align="center">SUPERVISOR INFORMATION</div>
+</div>
+<table style="width:100%">
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">Name</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.supervisorName, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Mobile</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.supervisormobileNo, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Email Id</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.supervisorEmailId, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <label class="control-label">Designation</label>
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.supervisorDesignation, new { @class = "form-control text", @disabled = "disabled" })
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <input type="submit" class="form-control" value="SAVE" style="background-color:orange;color:white;" />
+        </td>
+        <td>
+            <input type="submit" class="form-control" value="CANCEL" style="background-color:orange;margin-left:20px; width: 105px;color:white;" />
+        </td>
+    </tr>
+</table>

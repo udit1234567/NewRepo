@@ -1,0 +1,431 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int Index = Model.AssuredIndex;
+    int index = 0;  // Row Index
+    int QuestionCount = 0;
+    int QuestionIndex = 0;
+
+    ViewBag.QuestionIndex1 = -1;
+    string PanleNavigatorheaderState = "#PanelStateMedicalHistory" + Index;
+    string PanleNavigatorState = "PanelStateMedicalHistory" + Index;
+    string GetIndexState = "DivStateDiseasesQuestionnaireDetails" + Index;
+    string PanleID = "DivPanelMedicalHistory" + Index;
+    string PanleNavigatorheader = "#PanelMedicalHistory" + Index;
+    string PanleNavigator = "PanelMedicalHistory" + Index;
+    string GetDisease = "btnGetDisease" + Index;
+    string GetDiseasesIndex = "DivDiseasesQuestionnaireDetails" + Index;
+
+}
+<style>
+    .med-subquestion-multiselect button {
+        width: 100% !important;
+    }
+
+    .open > .dropdown-menu {
+        display: block;
+        top: 40px;
+        left: 0;
+        width: 94%;
+        height: 149px;
+        overflow-y: scroll;
+    }
+</style>
+<link href="~/Content/Styles/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Content/Scripts/bootstrap-multiselect.js"></script>
+
+@*Medical History*@
+
+@helper CustomRowRenderingControl(List<AIA.Life.Models.Common.QuestionsList> lstMedicalQuestions, int MemberIndex, int QuestionInd, int RowIndex, int SubRowIndex = 0, int SuperSubRowIndex = 0, string IsChild = null, string IsSubChild = null)
+{
+    <style>
+        .question-count {
+          width: 5%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 9px!important;
+        }
+
+        .question-text {
+            display: inline-block;
+            width: 90%;
+            vertical-align: top;
+                word-break: break-word;
+        }
+    </style>
+
+
+int QuestionIndex = QuestionInd;
+foreach (var Questions in lstMedicalQuestions)
+{
+    ViewBag.QuestionIndex1 = ViewBag.QuestionIndex1 + 1;
+    int i = ViewBag.QuestionIndex1;
+    string ParentId = Convert.ToString(MemberIndex) + Convert.ToString(QuestionIndex) + Convert.ToString(Questions.QuestionID);
+    string ChildID = ParentId + "C";
+    if (IsSubChild == "True")
+    {
+        SuperSubRowIndex++;
+    }
+    else if (IsChild == "True")
+    {
+        SubRowIndex++;
+    }
+    else
+    {
+        RowIndex++;
+    }
+    string Display = "none";
+
+    if (Questions.ControlType == "Radio")
+    {
+        string ClassName = string.Empty;
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "ChildMedicalQuestions"; }
+        else { ClassName = "medical-questions"; }
+            <div class=@ClassName id=@ParentId>
+                
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                    <p>
+                        @if (IsSubChild == "True")
+                        {
+                            <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex </span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                            <span class="question-count">@RowIndex.@SubRowIndex </span>
+                        }
+                        else
+                        {
+                            <span class="question-count">@RowIndex</span>
+                        }
+                        <span class="question-text">@Resources.GetLabelName(Questions.QuestionText)</span>
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 radiobtn-space ">
+                    @*<label  class="btn-radio">
+                        @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].Answer", "true", Questions.Answer == "true" ? true : false, new { @class = "medical-radio-button", id = "rdbtnAnswerTextYes" + MemberIndex + QuestionIndex, onchange = "HideShowChildsMHRadio('" + ChildID + "','" + Questions.Value + "','" + "true" + "')" })
+
+                        <svg width="20px" height="20px" viewBox="0 0 20 20">
+                            <circle cx="10" cy="10" r="9"></circle>
+                            <path d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z" class="inner"></path>
+                            <path d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z" class="outer"></path>
+                        </svg>
+                        <span>Yes</span>
+                    </label>
+                    <label class="btn-radio">
+                        @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].Answer", "false", Questions.Answer == "false" ? true : false, new { @class = "medical-radio-button", id = "rdbtnAnswerTextNo" + MemberIndex + QuestionIndex, onchange = "HideShowChildsMHRadio('" + ChildID + "','" + Questions.Value + "','" + "false" + "')" })
+                     
+                        <svg width="20px" height="20px" viewBox="0 0 20 20">
+                            <circle cx="10" cy="10" r="9"></circle>
+                            <path d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z" class="inner"></path>
+                            <path d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z" class="outer"></path>
+                        </svg>
+                        <span>No</span>
+                    </label>*@
+                    @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].Answer", "true", Questions.Answer == "true" ? true : false, new { @class = "medical-radio-button", id = "rdbtnAnswerTextYes" + MemberIndex + QuestionIndex, onchange = "HideShowChildsMHRadio('" + ChildID + "','" + Questions.Value + "','" + "true" + "')" })
+                    <label>@Resources.GetLabelName("Yes")</label>
+                    @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].Answer", "false", Questions.Answer == "false" ? true : false, new { @class = "medical-radio-button", id = "rdbtnAnswerTextNo" + MemberIndex + QuestionIndex, onchange = "HideShowChildsMHRadio('" + ChildID + "','" + Questions.Value + "','" + "false" + "')" })
+                    <label>@Resources.GetLabelName("No")</label>
+
+                </div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+        if (Questions.LstQuestionsTypes != null)
+        {
+            if (Questions.LstQuestionsTypes.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(Questions.Answer))
+                {
+                    if (Questions.Answer == Questions.Value)
+                    { Display = "div"; }
+                }
+               
+                <div class="med-subquestion-txt" id=@ChildID style="display:@Display;">@*text-align:right>*@
+                    <div>
+                        <p>
+                            @if (IsChild == "True")
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, SubRowIndex, 0, "False", "True")
+                            }
+                            else
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, 0, 0, "True", "False")
+                            }
+                        </p>
+                    </div>
+                </div>
+                }
+            }
+        }
+        else if (Questions.ControlType == "TextBox")
+        {
+            string ClassName = string.Empty;
+            if (IsChild == "True" || IsSubChild == "True")
+            { ClassName = "ChildMedicalQuestions"; }
+            else { ClassName = "medical-questions"; }
+            <div class=@ClassName id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12 QuesBox-Space">
+                    <p>
+                        @if (IsSubChild == "True")
+                        {
+                        <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                        <span class="question-count">@RowIndex.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                        <span class="question-count">@RowIndex</span>
+                        }
+                        <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space">
+                    @Html.TextBox("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].Answer", Questions.Answer == null ? "" : Questions.Answer, new { @maxlength = "1000", @class = "form-control"@*, @id = "txtAnswerText" + MemberIndex,*@ })
+                </div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }
+    else if (Questions.ControlType == "DropDown")
+    {
+            string ClassName = string.Empty;
+            if (IsChild == "True" || IsSubChild == "True")
+            { ClassName = "ChildMedicalQuestions"; }
+            else { ClassName = "medical-questions"; }
+            <div class=@ClassName id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                    <p>
+                        @if (IsSubChild == "True")
+                        {
+                        <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                        <span class="question-count">@RowIndex.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                        <span class="question-count">@RowIndex</span>
+                        }
+                        <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space">
+                    @Html.DropDownList("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].Answer", new SelectList(Questions.LstDropDownvalues, "Value", "Value"),  Questions.Answer == null ? "" : Questions.Answer, new { @maxlength = "1000", @class = "form-control", @id = "ddlPregnantPeroide" + MemberIndex, })
+                </div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }
+    else if (Questions.ControlType == "GridView")
+    {
+            string ClassName = string.Empty;
+            if (IsChild == "True" || IsSubChild == "True")
+            { ClassName = "ChildMedicalQuestions"; }
+            else { ClassName = "medical-questions"; }
+            <div class=@ClassName id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                    <p>
+                        @if (IsSubChild == "True")
+                        {
+                            <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                            <span class="question-count">@RowIndex.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                            <span class="question-count">@RowIndex</span>
+                        }
+                        <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                    </p>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    @if (Questions.SubControlType == "_PartialMedicalArthritisTestGridView.cshtml")
+                    {
+                        <div  id="divTreatmentTestDetailsGrid">
+                            @Html.Partial("~/Views/Policy/" + Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @if (Questions.SubControlType == "_PartialMedicalArthritisDoctorsGridView.cshtml")
+                    {
+                        <div  id="divAddressoftheDoctorsDetailsGrid">
+                           @Html.Partial("~/Views/Policy/" + Questions.SubControlType,Model)
+                        </div>
+                    }
+                    @if (Questions.SubControlType == "_PartialMedicalArthritisCurrentlyMDGridView.cshtml")
+                    {
+                        <div id="divCurrentlyTakeMedicationDetailsGrid">
+                           @Html.Partial("~/Views/Policy/"+ Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @if (Questions.SubControlType == "_PartialMedicalArthritisPastMDGridView.cshtml")
+                    {
+                        <div  id="divPastTakeMedicationDetailsGrid">
+                           @Html.Partial("~/Views/Policy/"+ Questions.SubControlType, Model)
+                        </div>
+                    }
+                    @*GridView*@
+                </div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }
+    else if (Questions.ControlType == "Date")
+    {
+            string ClassName = string.Empty;
+            if (IsChild == "True" || IsSubChild == "True")
+            { ClassName = "ChildMedicalQuestions"; }
+            else { ClassName = "medical-questions"; }
+            <div class=@ClassName id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                    <p>
+                        @if (IsSubChild == "True")
+                        {
+                            <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex </span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                            <span class="question-count">@RowIndex.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                            <span class="question-count">@RowIndex</span>
+                        }
+                        <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space" >
+                    @Html.TextBox("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].Answer", Questions.Answer == null ? "" : Questions.Answer, new { @maxlength = "1000", @class = "form-control", @id = "txtAnswerText" + MemberIndex, })
+                </div>
+               
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstMedicalHistory[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }
+    QuestionIndex++;
+}
+}
+
+
+
+<div>
+<p class="col-md-12 h3" style="text-decoration:underline">@Resources.GetLabelName("State of Health")</p>
+
+    <p class="col-md-12 h4" >@Resources.GetLabelName("Have you ever been investigated, treated or diagnosed, currently receiving or intending to seek any medical advice for any of the following conditions:  ")</p>
+    <br/>
+    <div>
+        @if (Model.objMemberDetails[Index].objLstMedicalHistory != null && Model.objMemberDetails[Index].objLstMedicalHistory.Count() > 0)
+        {
+            // Row Index
+            @CustomRowRenderingControl(Model.objMemberDetails[Index].objLstMedicalHistory.OrderBy(a => a.SequenceNo).ToList(), Index, QuestionIndex, 0, 0, 0, "False", "False")
+            index = index + 1;
+            QuestionCount = QuestionCount + 1;
+        }
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#ddlMultiSelect'+@Index).multiselect();
+        $("#btnGetDisease"+@Index).hide();
+    });
+
+    $(document).ready(function () {
+
+        var multiselectUI="multiselect-ui"+@Index;
+        $('.'+multiselectUI).multiselect({
+            onChange: function (option, checked) {
+                // Get selected options.
+
+                var selectedOptions = $('.'+multiselectUI+' option:selected');
+                var ln = $('#dates-field2').children('option').length;
+                if (selectedOptions.length >= 10) {
+                    // Disable all other checkboxes.
+                    var nonSelectedOptions = $('.'+multiselectUI+' option').filter(function () {
+                        return !$(this).is(':selected');
+                    });
+
+                    nonSelectedOptions.each(function () {
+                        var input = $('input[value="' + $(this).val() + '"]');
+                        input.prop('disabled', true);
+                        input.parent('li').addClass('disabled');
+                    });
+                }
+                else {
+
+                    // Enable all checkboxes.
+                    $('.'+multiselectUI+' option').each(function () {
+                        var input = $('input[value="' + $(this).val() + '"]');
+                        input.prop('disabled', false);
+                        input.parent('li').addClass('disabled');
+                    });
+                }
+            }
+        });
+
+        @*if($("#HdnSelectedDiseases"+'@Index').val()!=null &&$("#HdnSelectedDiseases"+'@Index').val()!=''){
+
+            var values=$("#HdnSelectedDiseases"+'@Index').val();
+            var multiselectID='ddlMultiSelect'+'@Index';
+            $.each(values.split(","), function(i,e){
+                $("#"+multiselectID+" option[value='" + e + "']").prop("selected", true);
+            });
+            $('#btnGetDisease'+'@Index').show();
+        }*@
+
+    });
+
+    function HideShowChildsMHRadio(ID, Value, ControlValue) {
+
+        if (Value == ControlValue) {
+            $('#' + ID).show();
+        }
+        else {
+            $('#' + ID).hide();
+        }
+    }
+
+    $(document).ready(function(){
+
+        $('#ddlMultiSelect0').on('change', function(){
+            console.log($(this).val());
+            if($(this).val() == " " || $(this).val() == null){
+                $('#btnGetDisease0').css('visibility','hidden');
+            }
+            else{
+                $('#btnGetDisease0').css('visibility','visible');}
+        })
+    })
+
+</script>

@@ -1,0 +1,56 @@
+﻿@model int
+@{
+    var ReportID = Model;
+    var divID = "divChart" + Model;
+    var labelTitleId = "lblTitle" + Model;
+    var lblGrowthId = "lblGrowth" + Model;
+}
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '../Dashboard/DashBoard/MakeChart',
+            contentType: "application/json; charset=utf-8",
+            data: { ReportID: '@ReportID', UserName : '@ViewBag.UserName' },
+            dataType: "json",
+            success: function (result) {
+                $("#" + '@labelTitleId').text(result.ReportName);
+                $("#" + '@divID').css("height", result.GraphHeight);
+                $("#" + '@divID').css("width", result.GraphWidth);
+                AmCharts.makeChart('@divID', {
+                    "theme": "none",
+                    "type": result.Type,
+                    "dataProvider": JSON.parse(result.strDataProvider),
+                    "balloon": {
+                        "fixedPosition": true
+                    },
+                    "valueField": result.graphs.valueField,
+                    "titleField": result.graphs.labelText,
+                    "marginRight": 0,
+                    "marginLeft": 0,
+                    "startX": -500,
+                    "depth3D": 100,
+                    "angle": 40,
+                    "outlineAlpha": 1,
+                    "labelsEnabled": false,
+                    "outlineColor": "#FFFFFF",
+                    "outlineThickness": 1,
+                    "labelPosition": "",
+                    "balloonText": result.graphs.balloonText,
+                    "export": {
+                        "enabled": false
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+<div id='@divID'></div>
+
+
+
+
+

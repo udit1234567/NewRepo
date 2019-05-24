@@ -1,0 +1,153 @@
+﻿@media only screen and (max-width: 800px) {
+
+
+
+    /* Force table to not be like tables anymore */
+
+
+
+    /* Force table to not be like tables anymore */
+
+    .iGrid table,
+    .iGrid thead,
+    .iGrid tbody,
+    .iGrid th,
+    .iGrid td,
+    .iGrid tr {
+        display: block;
+    }
+
+
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+
+        .iGrid thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+
+
+    .iGrid tr {
+        border: 1px solid #ccc;
+    }
+
+      /* Behave  like a &quot;row&quot; */
+    /*.iGrid table tbody tr td {
+      
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        white-space: normal;
+        text-align: left;
+    }*/
+
+    .iGrid table tbody tr td {
+        /* Behave  like a &quot;row&quot; */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        white-space: normal;
+        /*text-align: left;*/
+    }
+
+        .iGrid td:before {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: bold;
+        }
+
+
+
+        /*
+
+       Label the data
+
+       */
+
+       /*.iGrid td:before {
+            content: attr(data-name);
+        }*/
+
+
+
+    /*ends here*/
+}
+/*Added by Ravi  for Responsive tables*/
+
+/*Added by Ravi  for Responsive tables*/
+@media only screen and (max-width: 800px)
+{
+
+    /* Force table to not be like tables anymore */
+
+    /* Force table to not be like tables anymore */
+   .no-more-tables table, thead, tbody, th, td, tr
+    {
+       
+        float:none;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+   .no-more-tables thead tr 
+    {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+   .no-more-tables tr
+    {
+        border: 1px solid #ccc;
+    }
+
+   .no-more-tables td
+    {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        
+    }
+    
+   .no-more-tables td:before
+    {
+        /* Now like a table header */
+        position: absolute; /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+        /*
+	Label the data
+	*/
+        .no-more-tables td:before {
+            content: attr(data-name);
+        }
+         /*.no-more-tables td:nth-of-type(1):before {content: "available";}
+    .no-more-tables td:nth-of-type(2):before {content: "color";}
+    .no-more-tables td:nth-of-type(3):before{content: "comments";}
+    .no-more-tables td:nth-of-type(4):before{content: "details";}*/
+}
+    /*ends here*/
+
+
+@media only screen and (min-width: 801px) {
+
+     .iGrid thead tr {
+           background-color:antiquewhite;
+        }
+}

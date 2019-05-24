@@ -1,0 +1,1099 @@
+﻿@model AIA.Life.Models.Opportunity.Suspect
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    ViewBag.Title = "NewSuspect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/Common.js"></script>
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+</style>
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+       <a href="Suspect/Suspect" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Lead")</a>
+        <div class="btn btn-info"><b>@Resources.GetLabelName("New Lead")</b></div>
+
+    </div>
+</div>
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmNewSuspest" }))
+{
+    @Html.HiddenFor(a => a.ClientCode, new { id = "hdnClientCode" })
+    @Html.HiddenFor(a => a.AutoCompleteValue, new { id = "hdnAutoCompleteValue" })
+
+    <div class="form-group" style="margin-top:10px;">
+        <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+            <label>@Resources.GetLabelName("Do you know the NIC number ?")</label>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+            @Html.RadioButton("HaveNIC", true, new { @class = "med-radio-button", @onclick = "ShowHideFetchNIC(true)" })<label>@Resources.GetLabelName("Yes")</label>
+            @Html.RadioButton("HaveNIC", false, new { @class = "med-radio-button", @onclick = "ShowHideFetchNIC(false)" })<label>@Resources.GetLabelName("No")</label>
+        </div>
+        <div id="divFetchNIC">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <input type="text" class="form-control" maxlength="12" onkeypress="return isAlphaNumberKeyback(this)" id="txtFetchNIC" value="" onfocus="CheckTextNicifNull()" onblur="CheckTextNicifNull()" />
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3 btn-padding">
+                <input type="button" class="btn btn-default leadSubmit" onclick="verify_nicValidate()" value="Submit" />
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="clearfix"></div>
+    <div id="divSuspectDetails" onchange="SetMandatoryHighlightBlank('divSuspectDetails', false)">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 form-group">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Type")<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(a => a.Type, new SelectList(Model.LstType, "ID", "Value", 2199), new { @id = "ddlPropectInfoType", @class = "form-control", @onchange = "ValidateType()" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("Salutation")<span class="mandatory">*</span></label>
+                    @Html.TextBoxFor(a => a.Title, new { @id = "TxtSuspectSalutation", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("Given Name")<span class="mandatory">*</span></label>
+                    @Html.TextBoxFor(a => a.Name, null, new { @class = "form-control", @id = "txtSuspectName", @maxlength = "60", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)", @onblur = "validateTextBox('txtSuspectName','Please Enter Name.')" })
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("Surname")<span class="mandatory">*</span></label>
+                    @Html.TextBoxFor(a => a.LastName, null, new { @class = "form-control", @maxlength = "40", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)", @id = "txtSuspectLastName" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("Mobile")<span class="mandatory">*</span></label>
+                    @Html.TextBoxFor(a => a.Mobile, null, new { @class = "form-control", @id = "txtSuspectMobile", @onkeypress = "return isNumberKey(event)", @onkeyup= "return isNumberTabkey(event)", @maxlength = "16" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("Home")</label>
+                    @Html.TextBoxFor(a => a.Home, null, new { @class = "form-control", @id = "txtSuspectHome", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @maxlength = "16" })
+                @*@jsdhffjh@*@
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("Office")</label>
+                    @Html.TextBoxFor(a => a.Work, null, new { @class = "form-control", @id = "txtSuspectWork", @onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)", @maxlength = "16" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("Email")</label>
+                    @Html.TextBoxFor(a => a.Email, null, new { @class = "form-control", @maxlength = "50", @id = "txtSuspectEmail", @onblur = "return validateEmailID('txtSuspectEmail','Please Enter Valid Email ID')", @style = "text-transform:none", @onkeypress = " return isSpace(event)", @onkeyup = " return isSpace(event)" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("NIC")</label>
+                    @Html.TextBoxFor(a => a.NIC, null, new { @class = "form-control", @id = "txtSuspectNIC", @onkeypress = "return isAlphaNumberKeyback(this)", @maxlength = "12", @onchange = "ValidateNICSubmit()" })
+                </div>
+            </div>
+
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("Place")<span class="mandatory">*</span></label>
+                    @Html.TextBoxFor(a => a.Place, null, new { @class = "form-control", @maxlength = "50", @id = "txtSuspectPlace",@onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)", @onkeypress = "return isAlphaNumberKeybackwithOutSymbol(event)" })
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label id="">@Resources.GetLabelName("Passport")</label>
+                    @Html.TextBoxFor(a => a.Passport, null, new { @class = "form-control", @maxlength = "50", @id = "txtSuspectPassport",@onkeyup= "return isAlphaNumberKeyback(event)",@onkeypress = "return isAlphaNumberKeyback(event)" })
+                </div>
+            </div>
+            @if (Model.Role == "Banca Agent ")
+            {
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("IntroducerCode")<span class="mandatory">*</span></label>
+                        @Html.DropDownListFor(a => a.IntroducerCode, new SelectList(Model.LstIntroducerCode, "Value", "Text"), "Select", new { @id = "ddlIntroducerCode", @class = "form-control" })
+                    </div>
+                </div>
+            }
+            <div class="clearfix"></div>
+
+
+
+            <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
+                <input type="button" class="btn btn-default" id="btnSaveSuspect" value="Save" onclick="CreateSuspect()" style="padding-left:25px;padding-right:30px;" />
+                <input type="button" class="btn btn-default" id="btnClearSuspect" value="Cancel" onclick="ClearSuspect()" style="padding-left:20px;padding-right:20px;" />
+            </div>
+        </div>
+    </div>
+
+}
+
+<!-- Modal -->
+<div class="modal fade" id="SuspectModal" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body" id="SuspectModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadSuspectPool()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal NIC -->
+<div class="modal fade" id="NicModel" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body" id="NicModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="FoundNIC_Loaddata()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="NotAccepted_OnNicExist()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dialog" style="display: none" align="center">
+    The lead already exist in the system, do you want to create a new lead number.?
+</div>
+
+<script>
+    function ValidateType() {
+
+        var Type = $("#ddlPropectInfoType").val();
+        if (Type == 2714 || Type == 2715) {
+            writeMultipleMessage("error", "You are not allowed to select campaign leads", "ddlPropectInfoType");
+            return false;
+        } else {
+            writeMultipleMessage("error", "", "ddlPropectInfoType");
+            return true;
+        }
+
+
+    }
+    $(document).ready(function () {
+        $("#divFetchNIC").hide();
+        $("#divSuspectDetails").hide();
+        SetMandatoryHighlightBlank("divSuspectDetails", true);
+    });
+
+    $("#TxtSuspectSalutation").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "../Suspect/GetSalutation",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+
+                    response($.map(data, function (item) {
+                        return { label: item, value: item };
+                    }))
+                }
+            })
+        },
+        minLength: 1,
+        messages: {
+            noResults: "",
+            results: function (count) {
+                return count + (count > 1 ? ' results' : ' result ') + ' found';
+            }
+        }
+
+    });
+    var value = false;
+    $("#hdnAutoCompleteValue").val(value);
+    $("#TxtSuspectSalutation").on("autocompleteselect", function (event, u) {
+        debugger
+        value = true;
+        $("#hdnAutoCompleteValue").val(value);
+
+    })
+
+
+    function ShowHideFetchNIC(s) {
+        if (s) {
+            $("#ddlPropectInfoType").val('2199')
+            $("#divFetchNIC").show();
+            $("#txtSuspectEmail").val("");
+            $('#txtSuspectName').val("");
+            $('#txtSuspectLastName').val("");
+            $('#txtSuspectMobile').val("");
+            $('#txtSuspectWork').val("");
+            $('#txtSuspectPlace').val("");
+            $('#txtSuspectNIC').val("");
+            $('#txtSuspectNIC').attr('readonly', false);
+            $('#TxtSuspectSalutation').val("");
+            $("#divSuspectDetails").hide();
+            $("#hdnAutoCompleteValue").val("True");
+        }
+        else {
+            $("#ddlPropectInfoType").val('2199')
+            $("#txtSuspectEmail").val("");
+            $('#txtSuspectName').val("");
+            $('#txtSuspectLastName').val("");
+            $('#txtSuspectMobile').val("");
+            $('#txtSuspectWork').val("");
+            $('#txtSuspectPlace').val("");
+            $('#txtSuspectNIC').val("");
+            $('#txtSuspectNIC').attr('readonly', true);
+            $('#TxtSuspectSalutation').val("");
+            $("#divFetchNIC").hide();
+
+            $("#divSuspectDetails").show();
+
+        }
+    }
+    function LoadNicDetails() {
+        alert("Found Deatils on system");
+    }
+    function ValidNICSubmit() {
+        var NIC = $("#txtFetchNIC").val();
+        if (NIC == "") {
+            writeMultipleMessage("error", "Please Enter NIC Number", "txtFetchNIC");
+            return false;
+        } else {
+            writeMultipleMessage("error", "", "txtFetchNIC");
+        }
+        if (NIC != "" && NIC != undefined) {
+
+            NicArray = NIC.split("");
+            if (NIC.length != 10 && NIC.length != 12) {
+                writeMultipleMessage("error", "NIC Number must be 10 or 12 digits", "txtFetchNIC");
+                return false;
+            }
+            else {
+                if (NIC.length == 10) {
+                    var NICpart = NIC.substr(0, 9);
+                    if (!$.isNumeric(NICpart)) {
+                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        return false;
+                    }
+
+                    if (NicArray[9].toUpperCase() != "V" && NicArray[9].toUpperCase() != "X") {
+                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        return false;
+                    }
+                }
+                else if (NIC.length == 12) {
+                    if (!$.isNumeric(NIC)) {
+                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        return false;
+                    }
+                }
+            }
+        }
+        else {
+            return true
+        }
+        return true
+    }
+    function ValidateNICSubmit() {
+        debugger
+        writeMultipleMessage("error", "", "txtFetchNIC");
+
+        var NIC = $("#txtSuspectNIC").val();
+        if (NIC != "" && NIC != undefined) {
+            NIC = NIC.trim();
+            NicArray = NIC.split("");
+
+            if (NicArray.length != 10 && NicArray.length != 12) {
+                writeMultipleMessage("error", "NIC Number must be 10 or 12 digits", "txtFetchNIC");
+                return false;
+            }
+            else {
+                if (NIC.length == 10) {
+                    var NICpart = NIC.substr(0, 9);
+                    if (!$.isNumeric(NICpart)) {
+                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        return false;
+                    }
+                    if (NicArray[9].toUpperCase() != "V" && NicArray[9].toUpperCase() != "X") {
+                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        return false;
+                    }
+                    if ((NIC.substr(2, 3) > 366 && NIC.substr(2, 3) < 500) || NIC.substr(2, 3) > 866 || NIC.substr(2, 3) == 000) {
+                        writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", "txtFetchNIC");
+                        return false;
+
+                    }
+                }
+                if (NIC.length == 12) {
+                    if (!$.isNumeric(NIC)) {
+                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        return false;
+                    }
+                    if ((NIC.substr(4, 3) > 366 && NIC.substr(4, 3) < 500) || NIC.substr(4, 3) > 866 || NIC.substr(4, 3) == 000) {
+                        writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", "txtFetchNIC");
+                        return false;
+
+                    }
+
+                }
+
+            }
+        }
+        else {
+            return true
+        }
+
+        return true
+    }
+    
+    function ValidNIC() {
+
+        var NIC = $("#txtFetchNIC").val();
+        NIC = NIC.trim();
+        if (NIC.length != 10 && NIC.length != 12) {
+            writeMultipleMessage("error", "NIC Number must be 10 or 12 digits", "txtFetchNIC");
+            return false;
+        }
+        else {
+            NicArray = NIC.split("");
+
+            if (NIC.length == 10) {
+                var NICpart = NIC.substr(0, 9);
+                if (!$.isNumeric(NICpart)) {
+                    writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                    return false;
+                }
+                if (NicArray[9].toUpperCase() != "V" && NicArray[9].toUpperCase() != "X") {
+                    writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                    return false;
+                }
+            }
+            else if (NIC.length == 12) {
+                if (!$.isNumeric(NIC)) {
+                    writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    //$(document).keypress(function (event) {
+    //    var keycode = (event.keyCode ? event.keyCode : event.which);
+    //    if (keycode == '13') {
+    //        FetchClientonNIC();
+    //    }
+    //});
+
+    function CheckTextNicifNull() {
+        //var value = $("#txtFetchNIC").val();
+
+        //if (value == "") {
+
+        //    $("#divSuspectDetails").hide();
+        //}
+    }
+    function NotAccepted_OnNicExist() {
+        window.location.href = "/Home/AgentHome";
+    }
+
+    function FoundNIC_Loaddata() {
+        var Plan = $("#txtFetchNIC").val();
+        if (Plan != '') {
+            $.post("../Suspect/GetNicValues?NIC=" + Plan)
+            .done(function (data) {
+                debugger;
+
+                if (data.NICAVAIL == true) {
+                    //nic_data = data;
+                    //Message = '<p> The lead already exist in the system, do you want to create a new lead number? </p>';
+                    //$('#NicModalBody').html(Message);
+                    //$("#NicModel").modal("show");
+
+                    //var r = confirm("The lead already exist in the system, do you want to create a new lead number?");
+
+                    //if (r == true) {
+                    if (data != null) {
+                        $("#ddlPropectInfoType").val('2199')
+                        $("#txtSuspectEmail").val(data.Email);
+                        $('#txtSuspectName').val(data.Name);
+                        $('#txtSuspectLastName').val(data.LastName);
+                        $('#txtSuspectMobile').val(data.Mobile);
+                        $('#txtSuspectHome').val(data.Home);
+                        $('#txtSuspectWork').val(data.Work);
+                        $('#txtSuspectPlace').val(data.Place);
+                        $('#txtSuspectNIC').val(data.NIC);
+                        $('#txtSuspectNIC').attr('readonly', true);
+                        $('#TxtSuspectSalutation').val(data.Salutation);
+                        $("#hdnClientCode").val(data.ClientCode);
+                        $("#divSuspectDetails").show();
+                    }
+                        //}
+                    else {
+                        $("#divSuspectDetails").show();
+                        //window.location.href = "/Home/AgentHome";
+                    }
+
+                }
+
+                else if (data.NICAVAIL == false) {
+
+                    $.post("../Suspect/GetOnFail_ContactValues?NIC=" + Plan)
+                     .done(function (data) {
+                         if (data.ClientCode != null) {
+                             $("#txtSuspectEmail").val(data.Email);
+                             $('#txtSuspectName').val(data.Name);
+                             $('#txtSuspectLastName').val(data.LastName);
+                             $('#txtSuspectMobile').val(data.Mobile);
+                             $('#txtSuspectWork').val(data.Work);
+                             $('#txtSuspectHome').val(data.Home);
+                             //$('#txtSuspectPlace').val(data.Place);
+                             $('#txtSuspectNIC').val(data.NIC);
+                             $('#txtSuspectNIC').attr('readonly', true);
+                             $('#TxtSuspectSalutation').val(data.Salutation);
+                             $("#hdnClientCode").val(data.ClientCode);
+                             $("#divSuspectDetails").show();
+                         }
+                         else {
+                             $("#divSuspectDetails").show();
+                             //window.location.href = "/Home/AgentHome";
+                         }
+
+                     });
+                }
+
+
+
+
+            });
+        }
+        //$("#txtFetchNIC").val('');
+
+    }
+
+    function verify_nicValidate() {
+
+        var Plan = $("#txtFetchNIC").val();
+        if (!ValidNICSubmit()) {
+            return false
+            //$("#txtFetchNIC").val('');
+        }
+        else {
+            if (Plan != '') {
+                $("#ddlPropectInfoType").val('2199')
+                $("#txtSuspectEmail").val("");
+                $('#txtSuspectName').val("");
+                $('#txtSuspectLastName').val("");
+                $('#txtSuspectMobile').val("");
+                $('#txtSuspectHome').val("");
+                $('#txtSuspectWork').val("");
+                $('#txtSuspectPlace').val("");
+                $('#txtSuspectNIC').val(Plan);
+                $('#TxtSuspectSalutation').val("");
+                $('#txtSuspectPassport').val("");
+                //$('#ddlPropectInfoType').val("");
+
+                $.post("../Suspect/GetNicValues?NIC=" + Plan)
+                .done(function (data) {
+                    debugger;
+                    if (data.NICAVAIL == true) {
+                        $('#NicModalBody').empty();
+                        var Image="<img class='Img-align' src='../Images/warning1.png' />"
+                        Message = '<p class="text-center"> The lead already exist in the system, do you want to create a new lead number? </p>';
+                        $('#NicModalBody').append(Image);
+                        $('#NicModalBody').append(Message);
+                        $("#NicModel").modal("show");
+                        $("#hdnAutoCompleteValue").val("True");
+                        //var r = confirm("The lead already exist in the system, do you want to create a new lead number?");
+
+                        //if (r == true) {
+                        //    if (data != null) {
+                        //        $("#txtSuspectEmail").val(data.Email);
+                        //        $('#txtSuspectName').val(data.Name);
+                        //        $('#txtSuspectLastName').val(data.LastName);
+                        //        $('#txtSuspectMobile').val(data.Mobile);
+                        //        $('#txtSuspectWork').val(data.work);
+                        //        $('#txtSuspectPlace').val(data.Place);
+                        //        $('#txtSuspectNIC').val(data.NIC);
+                        //        $('#txtSuspectNIC').attr('readonly', true);
+                        //        $('#TxtSuspectSalutation').val(data.Salutation);
+                        //        $("#hdnClientCode").val(data.ClientCode);
+                        //        $("#divSuspectDetails").show();
+                        //    }
+                        //}
+                        //else {
+                        //    $("#divSuspectDetails").show();
+                        //    //window.location.href = "/Home/AgentHome";
+                        //}
+                    }
+
+                    else if (data.NICAVAIL == false) {
+
+                        $.post("../Suspect/GetOnFail_ContactValues?NIC=" + Plan)
+                         .done(function (data) {
+                             if (data.ClientCode != null) {
+                                 $('#NicModalBody').empty();
+                                 $('#NicModalBody').empty();
+                                 var Image = "<img class='Img-align' src='../Images/warning1.png' />"
+                                 Message = '<p class="text-center"> The lead already exist in the system, do you want to create a new lead number? </p>';
+                                 $('#NicModalBody').append(Image);
+                                 $('#NicModalBody').append(Message);
+                                 $("#NicModel").modal("show");                     
+                                 $("#hdnAutoCompleteValue").val("True");
+                                 //$("#txtSuspectEmail").val(data.Email);
+                                 //$('#txtSuspectName').val(data.Name);
+                                 //$('#txtSuspectLastName').val(data.LastName);
+                                 //$('#txtSuspectMobile').val(data.Mobile);
+                                 //$('#txtSuspectWork').val(data.work);
+                                 ////$('#txtSuspectPlace').val(data.Place);
+                                 //$('#txtSuspectNIC').val(data.NIC);
+                                 //$('#txtSuspectNIC').attr('readonly', true);
+                                 //$('#TxtSuspectSalutation').val(data.Salutation);
+                                 //$("#hdnClientCode").val(data.ClientCode);
+                                 //$("#divSuspectDetails").show();
+                             }
+                             else {
+                                 $("#divSuspectDetails").show();
+                                 $("#txtFetchNIC").val('');
+                                 //window.location.href = "/Home/AgentHome";
+                             }
+
+                         });
+                    }
+
+                  
+
+
+                });
+            }
+
+        }
+
+
+    }
+    function FetchClientonNIC() {
+
+
+
+        //$("#ddlPropectInfoType").val('');
+        //$("#txtSuspectEmail").val('');
+        //$('#txtSuspectName').val('');
+        //$('#txtSuspectLastName').val('');
+        //$('#txtSuspectMobile').val('');
+        //$('#txtSuspectHome').val('');
+        //$('#txtSuspectPlace').val('');
+        //$('#txtSuspectWork').val('');
+        //$('#TxtSuspectSalutation').val('');
+        if (!ValidNIC()) {
+            return false
+        }
+        verify_nicValidate();
+        if (nicverifyfinal == true) {
+
+            $.post("/Suspect/GetNicDetails", { NIC: $("#txtFetchNIC").val() }, function (data) {
+                $("#ddlPropectInfoType").val('2199')
+                $("#txtSuspectName").val(data.Name);
+                $("#txtSuspectMobile").val(data.Mobile);
+                $('#ddlSuspectSalutation').val(data.Salutation);
+                $("#txtSuspectPlace").val(data.Place);
+                $("#txtSuspectLastName").val(data.LastName);
+                $('#txtSuspectHome').val(data.Home);
+                $('#txtSuspectWork').val(data.Work);
+                $("#txtSuspectNIC").val(data.NIC);
+                if (data.ClientCode != null && data.ClientCode != "")
+                    $("#txtSuspectNIC").attr('readonly', 'readonly');
+                else {
+                    $("#txtSuspectNIC").removeAttr('readonly');
+                    // writeMultipleMessage("error", "Sorry!! We did not find any details in the system.", "txtFetchNIC");
+                }
+                $("#hdnClientCode").val(data.ClientCode);
+                $("#divSuspectDetails").show();
+            });
+
+        }
+    }
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+    var NicChecked = false;
+    function CreateSuspect() {
+        debugger;
+        if (!NicChecked) {
+            FetchDOBGenderfromNIC('txtSuspectNIC')
+        }
+        if (NicChecked) {
+            if (!ValidateSuspectDetails()) {
+                return false;
+
+            }
+            if (!ValidateNICSubmit()) {
+                return false;
+            }
+            if (!ValidateGenderSalutation()) {
+                return false;
+            }
+            //if (!FetchDOBGenderfromNIC('txtSuspectNIC', 'dtProspectDOB', 'ddlGender', 'txtAge')) {
+            //    return false;
+            //}
+            if (!ValidateType()) {
+                return false;
+            }
+            else {
+                $.ajax({
+
+                    type: "post",
+                    url: '/Suspect/SaveSuspect',
+                    type: 'POST',
+                    data:
+                    JSON.stringify({
+                        objSuspect: $("#frmNewSuspest").serializeObject()
+                    }),
+                    dataType: 'json',
+                    //dataType: 'html',
+                    contentType: 'application/json; charset=utf-8', success: function (data) {
+                        $("#SuspectModalBody").empty();
+                        if (data.Message == 'Success') {
+                            var Image='<img class="Img-align" src="../Images/checked1.png" />'
+                            var Message = '<p class="text-center"> Lead Entry Created Successfully </p>';
+                            $('#SuspectModalBody').append(Image);
+                            $('#SuspectModalBody').append(Message);
+                            $("#SuspectModal").modal("show");
+                        }
+                        else {
+                            var Image = '<img class="Img-align" src="../Images/cancel1.png" />'
+                            var Message = '<br/>'+data.Error;
+                            $('#SuspectModalBody').append(Image);
+                            $('#SuspectModalBody').append(Message);
+                            $("#SuspectModal").modal("show");
+                        }
+                        $('#myModal').modal('show')
+                    }
+                });
+            }
+        }
+    }
+    function ClearSuspect() {
+
+        $("#txtSuspectName").val('');
+        $("#txtSuspectLastName").val('');
+        $("#txtSuspectMobile").val('');
+        $("#txtSuspectHome").val('');
+        $("#txtSuspectWork").val('');
+        $("#txtSuspectEmail").val('');
+        window.location.href = "/Suspect/Suspect";
+    }
+
+    function ValidateSuspectDetails() {
+        writeMultipleMessage("error", "", "txtSuspectName");
+        writeMultipleMessage("error", "", "txtSuspectLastName");
+        var Type = $("#ddlPropectInfoType option:Selected").val();
+        var Name = $("#txtSuspectName").val();
+        var Mobile = $("#txtSuspectMobile").val();
+        var Salutation = $('#TxtSuspectSalutation').val();
+        var Place = $("#txtSuspectPlace").val();
+        var LastName = $("#txtSuspectLastName").val();
+        var Email = $("#txtSuspectEmail").val();
+        var errorFlag1 = true;
+        var errorFlag2 = true;
+        var errorFlag3 = true;
+        var errorFlag4 = true;
+        var errorFlag5 = true;
+        var errorFlag6 = true;
+        if (Type == "") {
+            writeMultipleMessage("error", "Please Select Type.", "ddlPropectInfoType");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'ddlPropectInfoType');
+        }
+        if (Salutation == "") {
+            writeMultipleMessage("error", "Please Enter Salutation.", "TxtSuspectSalutation");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'TxtSuspectSalutation');
+        }
+        if ($("#hdnAutoCompleteValue").val() == "false") {
+            writeMultipleMessage("error", "Please Enter Correct Salutation.", "TxtSuspectSalutation");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'TxtSuspectSalutation');
+        }
+
+        if (Name == "") {
+            writeMultipleMessage("error", "Please Enter Given Name.", "txtSuspectName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtSuspectName');
+        }
+        var res = ValidName(Name)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Name– Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’<br>-There cannot be 3 consecutive letters in name<br>-Two consecutive space are not allowed<br>-Accept only ‘alphabet’, ‘space’ and ‘apostrophe (‘)’‘’", "txtSuspectName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtSuspectName");
+        }
+
+        if (LastName == "") {
+            writeMultipleMessage("error", "Please Enter SurName.", "txtSuspectLastName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtSuspectLastName');
+        }
+        var res = ValidName(LastName)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid SurName – Following formats are not allowed –<br> -First Character cannot be ‘Space’ or ‘special character’<br>-There cannot be 3 consecutive letters in name<br>-Two consecutive space are not allowed<br>-Accept only ‘alphabet’, ‘space’ and ‘apostrophe (‘)’‘’", "txtSuspectLastName");
+            return false;
+        } else {
+            writeMultipleMessage("error", "", "txtSuspectLastName");
+        }
+
+        if (Mobile == "") {
+            writeMultipleMessage("error", "Please Enter MobileNo.", "txtSuspectMobile");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtSuspectMobile');
+        }
+        //if (Email == "") {
+        //    writeMultipleMessage("error", "Please enter Email.", "txtSuspectEmail");
+        //    return false;
+        //}
+        //else {
+        //    writeMultipleMessage("error", "", "txtSuspectEmail");
+
+        //}
+        if (Mobile != "" && Mobile.length < 10) {
+            writeMultipleMessage("error", "Please Enter 10 Digits Mobile Number.", "txtSuspectMobile");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtSuspectMobile');
+        }
+
+        if (Place == "") {
+            writeMultipleMessage("error", "Please Enter Place.", "txtSuspectPlace");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", 'txtSuspectPlace');
+
+        }
+        if (Type == "Bank") {
+            if ($("#ddlIntroducerCode").val() == "") {
+                writeMultipleMessage("error", "Please Select IntroducerCode.", "ddlIntroducerCode");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", 'ddlIntroducerCode');
+                return true;
+            }
+        }
+        return true;
+
+    }
+
+    function LoadSuspectPool() {
+        window.location.href = "/Suspect/Suspect";
+    }
+    function FetchDOBGenderfromNIC(e) {
+        debugger;
+        var NICNo = $('#' + e).val();
+        NICNo = NICNo.trim();
+        writeMultipleMessage("error", "", e)
+        writeMultipleMessage("error", "", e)
+        if (NICNo == "") {
+            //$('#ddlGender').prop("disabled", false);
+            //$('#dtProspectDOB').prop("disabled", false);
+            // writeMultipleMessage("error", "Please Enter NIC Number", e);
+            NicChecked = true;
+        }
+        //if (NICNo.toUpperCase() == "SLC") {
+        //    $('#ddlGender').prop("disabled", false);
+        //    $('#dtProspectDOB').prop("disabled", false);
+        //    return true;
+        //}
+        if (NICNo != null && NICNo != "") {
+            if (NICNo.length == 12 || NICNo.length == 10) {
+                if (NICNo.length == 12) {
+                    var nofdays = NICNo.substr(4, 3);
+                    var dobyears = NICNo.substr(0, 4);
+                }
+                else if (NICNo.length == 10) {
+
+                    NICArray = NICNo.split("");
+                    if (NICArray[9].toUpperCase() == "X" || NICArray[9].toUpperCase() == "V") {
+                        var nofdays = NICNo.substr(2, 3);
+                        var dobyears = NICNo.substr(0, 2);
+                    }
+                    else {
+                        writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                        NicChecked = false;
+                        CreateSuspect();
+
+                    }
+                }
+                $.post("../../AgentonBoarding/FetchDateMonth?NIC=" + NICNo)
+                    .done(function (data) {
+                        if (data != "Error") {
+                            debugger;
+                            //if (dob == "dtProspectDOB") {
+                            //    $("#" + dob).prop("disabled", false);
+                            //    $("#" + dob).val(data);
+                            //    $("#" + dob).prop("disabled", true);
+                            //    $('#ProspectDOB').val(data);
+                            //}
+                            //else {
+                            //    $("#" + dob).val(data);
+                            //}
+                            //if (nofdays <= 366 && nofdays >= 0) {
+                            //    $("#" + gender).val("M");
+                            //    $("#" + gender).prop('disabled', true);
+                            //}
+                            //else if (nofdays > 500 && nofdays <= 866) {
+                            //    $("#" + gender).val("F");
+                            //    $("#" + gender).prop('disabled', true);
+                            //}
+                            if (!ageProspectCount(data)) {
+                                //writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                                NicChecked = false;
+                                return false;
+
+                            }
+                            writeMultipleMessage("error", "", e);
+                            NicChecked = true;
+                            CreateSuspect()
+                        }
+                        else {
+                            writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                            NicChecked = false;
+                            return false;
+
+                        }
+                    });
+            }
+            else {
+                writeMultipleMessage("error", "NIC Number should be 12 or 10 Digits", e);
+                NicChecked = false;
+                CreateSuspect();
+
+            }
+        }
+    }
+
+    function InterviewrageCount() {
+        var dob = $("#dtProspectDOB").val();
+        if (dob != '' && !ValidateDOB("dtProspectDOB")) {
+            writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "dtProspectDOB");
+            if (dob != '') {
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                $("#txtAge").val(calYear + 1);
+                $('#hdnCurrentAge').val(calYear);
+                var ProspectAge = $('#txtAge').val();
+                if (ProspectAge > 61 || ProspectAge < 19) {
+                    writeMultipleMessage("error", "Age at Next Birthday should be between 19 to 61", "txtSuspectNIC");
+                    return false;
+
+                }
+                $('#txtprospectAge').val(ProspectAge);
+                $('#txtAgeInfo').val(ProspectAge);
+                $('#dtProspectDOBInfo').val(dob);
+
+                return true;
+            }
+        }
+    }
+
+    function ValidateDOB(datepickerId) {
+        var dob = datepickerId;
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+        var arrDOB = dob.split('/');
+        var birthDay = arrDOB[0];
+        var birthMonth = arrDOB[1];
+        var birthYear = arrDOB[2];
+        var arrCurrentDate = currentDate.split('/');
+        var currentDay = arrCurrentDate[0];
+        var currentMonth = arrCurrentDate[1];
+        var currentYear = arrCurrentDate[2];
+        if (birthYear <= currentYear) {
+            if (birthMonth <= currentMonth) {
+                if (birthDay <= currentDay) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth < currentMonth) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (birthMonth > currentMonth && birthYear < currentYear) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+    function ageProspectCount(data) {
+        debugger;
+        //var dob = $('#dtProspectDOB').val();
+        //var controlid = 'dtProspectDOB';
+        //writeMultipleMessage("error", "", controlid);
+        //if (dob == "") {
+        //    $('#txtAge').val('');
+        //    writeMultipleMessage("error", "Please Enter Valid Date Of Birth.", controlid);
+        //    return false;
+        //}
+        if (!ValidateDOB(data)) {
+            $('#txtAge').val('');
+            writeMultipleMessage("error", "Please Enter Valid NIC Number", 'txtSuspectNIC');
+            return false;
+        }
+        else {
+            if (data != '') {
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = data.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                //$('#txtAge').val(calYear + 1);
+                //$('#hdnCurrentAge').val(calYear);
+
+                var ProspectAge = calYear + 1;
+
+                if (ProspectAge.length > 2 || ProspectAge > 75 || ProspectAge < 18) {
+                    writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtSuspectNIC");
+                    return false;
+
+                }
+                return true;
+                //$('#txtprospectAge').val(ProspectAge);
+                //$('#ProspectDOB').val(dob);
+                //$('#txtAgeInfo').val(ProspectAge);
+                //$('#dtProspectDOBInfo').val(dob);
+
+            }
+        }
+    }
+    function ValidateGenderSalutation() {
+        debugger;
+        var Salutation = $('#TxtSuspectSalutation').val();
+        var NIC = $('#txtSuspectNIC').val();
+        var Gender = '';
+        if (NIC.length == 10) {
+            if (NIC.substr(2, 3) < 366) {
+                Gender = "M";
+            }
+            else
+            {
+                Gender = "F";
+            }
+        }
+        if (NIC.length == 12) {
+            if(NIC.substr(4, 3) < 366)
+            {
+                Gender = "M";
+            }
+            else
+            {
+                Gender = "F";
+            }
+        }
+        if (Salutation == "Al Haj" || Salutation == "Ayur Dr Mr" || Salutation == "Father" || Salutation == "Master" || Salutation == "Mr" || Salutation == "Rector" || Salutation == "Reverent" || Salutation == "Reverent Father" || Salutation == "Sir") {
+            if (Gender == "F") {
+                writeMultipleMessage("error", "Salutation does not match with the NIC,Gender", 'TxtSuspectSalutation');
+                return false;
+
+            }
+        }
+        else if (Salutation == "Ayur Dr Mrs" || Salutation == "Ayur Dr Ms" || Salutation == "Dame" || Salutation == "Dr Mrs" || Salutation == "Dr Ms" || Salutation == "Lady" || Salutation == "Madam" || Salutation == "Miss" || Salutation == "Mrs" || Salutation == "Ms" || Salutation == "Reverent Sister") {
+            if (Gender == "M") {
+                writeMultipleMessage("error", "Salutation does not match with the NIC,Gender", 'TxtSuspectSalutation');
+                return false;
+
+            }
+        }
+        return true;
+    }
+</script>

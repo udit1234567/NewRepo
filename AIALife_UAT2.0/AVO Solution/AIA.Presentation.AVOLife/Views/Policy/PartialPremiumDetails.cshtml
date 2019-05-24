@@ -1,0 +1,80 @@
+﻿
+@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+
+@{
+
+    int GlobalCount = 0;
+ 
+}
+<div class="panel panel-default" id="pnlPremiumDetails" >
+    <div class="panel-heading backgroundclr" role="tab" id="headingPremium">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseP" aria-expanded="true" aria-controls="collapseP">
+
+                Premium Details
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+            </a>
+
+        </h4>
+    </div>
+    <div id="collapseP" class="panel-collapse in" role="tabpanel" aria-labelledby="headingPremium">
+        <div class="panel-body">
+
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
+                    <table class="table table-bordered">
+
+                        <thead valign="top">
+                            <tr>
+                                <th style="font-weight: bold">Benefits</th>
+                                @foreach (var item in Model.ListAssured)
+                                {
+                                    <th style="font-weight: bold">@item</th>
+                                }
+                            </tr>
+                        </thead>
+
+                        <tbody valign="top">
+                            @foreach (var benifit in Model.LstPremiumDetails.ToList())
+                            {
+
+                                string BenifitName = "LstPremiumDetails[" + GlobalCount + "].BenifitName";
+                                string BenifitOpted = "LstPremiumDetails[" + GlobalCount + "].BenifitOpted";
+
+                                string Suminsured = "LstPremiumDetails[" + GlobalCount + "].Suminsured";
+                                string Val = "LstPremiumDetails[" + GlobalCount + "].Suminsured." + "valueAsNumber";
+
+                                <tr>
+                                    <td>
+                                        @benifit.BenifitName
+                                        <input type="hidden" value=@benifit.BenifitName name=@BenifitName />
+                                        @Html.HiddenFor(m => m.LstPremiumDetails[GlobalCount].BenefitID)
+
+                                    </td>
+                                    @for (int i = 0; i < benifit.objAssured.Count(); i++)
+                                    {
+                                        <td>
+                                            @Html.TextBoxFor(m => m.LstPremiumDetails[GlobalCount].objAssured[i].Value)
+                                            @Html.HiddenFor(m => m.LstPremiumDetails[GlobalCount].objAssured[i].Relationship)
+                                            @Html.HiddenFor(m => m.LstPremiumDetails[GlobalCount].objAssured[i].AssuredName)
+                                        </td>
+                                    }
+                                    
+                                </tr>
+
+                                GlobalCount++;
+
+
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

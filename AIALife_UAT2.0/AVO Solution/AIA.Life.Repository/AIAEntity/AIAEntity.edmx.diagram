@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2324ecdae46a468490a06336706797ee" Name="Diagram1" ZoomLevel="25">
+        <EntityTypeShape EntityType="AVOAIALifeModel.Application" Width="1.5" PointX="6.125" PointY="176.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.AspNetRole" Width="1.5" PointX="8.375" PointY="128.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.AspNetUserClaim" Width="1.5" PointX="12.875" PointY="127.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.AspNetUserLogin" Width="1.5" PointX="12.875" PointY="130.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.AspNetUser" Width="1.5" PointX="10.625" PointY="127.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblAddress" Width="1.5" PointX="3.625" PointY="190.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblAllocationRate" Width="1.5" PointX="3.625" PointY="2.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblAuditDepartmentClearance" Width="1.5" PointX="8.125" PointY="326" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblAuthority_RuleCategoryMap" Width="1.5" PointX="10.875" PointY="5.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblBankInfo" Width="1.5" PointX="10.375" PointY="307.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblChannelAllocation" Width="1.5" PointX="3.625" PointY="5.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblContactDependent" Width="1.5" PointX="8.125" PointY="195.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblContactDetail" Width="1.5" PointX="18.125" PointY="205.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblContact" Width="1.5" PointX="5.875" PointY="223.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblCorporate" Width="1.5" PointX="5.875" PointY="192.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblCustomer" Width="1.5" PointX="5.875" PointY="114.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblDependant" Width="1.5" PointX="8.125" PointY="180.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblDiscountLoadingChart" Width="1.5" PointX="5.625" PointY="5.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblEmergencyDetail" Width="1.5" PointX="8.125" PointY="214.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblEmployee" Width="1.5" PointX="5.875" PointY="124.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblFinanceDepartmentClearance" Width="1.5" PointX="8.125" PointY="296.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblGlobalLanguage" Width="1.5" PointX="10.625" PointY="9.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblHealthCalculator" Width="1.5" PointX="10.375" PointY="215" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblHierarchyCoordination" Width="1.5" PointX="22.625" PointY="193.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblHRMDepartmentClearance" Width="1.5" PointX="8.125" PointY="321.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblIMasInviewArea" Width="1.5" PointX="5.875" PointY="348.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblIMasInviewCaterory" Width="1.5" PointX="8.125" PointY="347.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblIntegrationTxnLog" Width="1.5" PointX="18.625" PointY="2.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblLog" Width="1.5" PointX="18.625" PointY="6.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tbllogxml" Width="1.5" PointX="20.625" PointY="2.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMapGradeChallenge" Width="1.5" PointX="14.125" PointY="167.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMemberAdditionalLifeStyleDetail" Width="1.5" PointX="20.875" PointY="163" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMemberBenefitOtherDetail" Width="1.5" PointX="20.875" PointY="184" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMemberDeviationHistory" Width="1.5" PointX="20.875" PointY="151.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMemberDeviationInfo" Width="1.5" PointX="18.625" PointY="150.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMemberLifeStyleDetail" Width="1.5" PointX="18.625" PointY="162.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMemberQuestion" Width="1.5" PointX="18.625" PointY="215.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedCalculator" Width="1.5" PointX="10.375" PointY="220.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedEducationCalculator" Width="1.5" PointX="10.375" PointY="205.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedEduForeign" Width="1.5" PointX="12.625" PointY="211.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedEduGCEAL" Width="1.5" PointX="12.625" PointY="207.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedEduHigher" Width="1.5" PointX="12.625" PointY="203.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedEduLocal" Width="1.5" PointX="12.625" PointY="199.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedHealthCalculator" Width="1.5" PointX="10.375" PointY="227" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedHumanValueCalculator" Width="1.5" PointX="10.375" PointY="275.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedRetirementCalculator" Width="1.5" PointX="10.375" PointY="259.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeed" Width="1.5" PointX="10.375" PointY="232.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedSaveCar" Width="1.5" PointX="12.625" PointY="239.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedSaveHouse" Width="1.5" PointX="12.625" PointY="255.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedSaveOther" Width="1.5" PointX="12.625" PointY="243.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedSaveTour" Width="1.5" PointX="12.625" PointY="251.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedSaveWedding" Width="1.5" PointX="12.625" PointY="247.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedSavingCalculator" Width="1.5" PointX="10.375" PointY="247.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNomineeDetail" Width="1.5" PointX="8.125" PointY="317.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNumberingScheme" Width="1.5" PointX="20.625" PointY="6.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblOpportunity" Width="1.5" PointX="10.375" PointY="236.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblOpportunityApproval" Width="1.5" PointX="17.625" PointY="17" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblOrganization" Width="1.5" PointX="15.875" PointY="187.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblOrgOffice" Width="1.5" PointX="20.375" PointY="190.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblOrgOfficeHistory" Width="1.5" PointX="17.625" PointY="20.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblOrgStructure" Width="1.5" PointX="18.125" PointY="190.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblParameter" Width="1.5" PointX="19.625" PointY="20.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPayment" Width="1.5" PointX="11.125" PointY="142.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPaymentInstrumentDetail" Width="1.5" PointX="13.375" PointY="120.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyDocumentHistory" Width="1.5" PointX="13.375" PointY="215" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyDocument" Width="1.5" PointX="13.375" PointY="219.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyExtension" Width="1.5" PointX="13.375" PointY="146.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyFinancialDetail" Width="1.5" PointX="13.375" PointY="133.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyImdPayment" Width="1.5" PointX="21.625" PointY="20.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyLifeRiskInfo" Width="1.5" PointX="13.375" PointY="224" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyMedicalHistory" Width="1.5" PointX="18.625" PointY="212.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyMemberClaimInfo" Width="1.5" PointX="18.625" PointY="155" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyMemberFamilyHistory" Width="1.5" PointX="18.625" PointY="179.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyMemberInsuranceInfo" Width="1.5" PointX="18.625" PointY="175.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyMemberTest" Width="1.5" PointX="18.625" PointY="167" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyPaymentMap" Width="1.5" PointX="13.375" PointY="154.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyRelationship" Width="1.5" PointX="18.125" PointY="228.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyRisk" Width="1.5" PointX="16.375" PointY="154.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyUWAllocation" Width="1.5" PointX="22.625" PointY="2.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyUWRemarkHistory" Width="1.5" PointX="13.375" PointY="227" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyUWRemark" Width="1.5" PointX="13.375" PointY="136.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPosition" Width="1.5" PointX="22.625" PointY="6.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPreviousInsurenceInfo" Width="1.5" PointX="10.375" PointY="271.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPrevPolicy" Width="1.5" PointX="10.375" PointY="279.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProdRiderDocumentMap" Width="1.5" PointX="22.625" PointY="9.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductAssumptionMap" Width="1.5" PointX="22.625" PointY="14.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductParameter" Width="1.5" PointX="8.875" PointY="15.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductPaymentMap" Width="1.5" PointX="10.625" PointY="172.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductPlanRiderDiscountLoadingMap" Width="1.5" PointX="8.125" PointY="29.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductPlanRiderOccupationChart" Width="1.5" PointX="12.625" PointY="22.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductPlanRiderParameter" Width="1.5" PointX="10.375" PointY="22" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductQuestionMapping" Width="1.5" PointX="5.875" PointY="26.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductRiderParameter" Width="1.5" PointX="5.875" PointY="19.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductRiderRateParameter" Width="1.5" PointX="14.625" PointY="22.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductRider" Width="1.5" PointX="5.875" PointY="15.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductRisk" Width="1.5" PointX="14.125" PointY="164" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProduct" Width="1.5" PointX="3.625" PointY="14.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProposalDecisionMatrix" Width="1.5" PointX="23.625" PointY="18.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProposalMemberDetail" Width="1.5" PointX="10.375" PointY="189" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProposalPremium" Width="1.5" PointX="13.375" PointY="141.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspect" Width="1.5" PointX="5.875" PointY="297.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectDocument" Width="1.5" PointX="18.125" PointY="247.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectEducation" Width="1.5" PointX="8.125" PointY="291.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectEducationDetail" Width="1.5" PointX="10.375" PointY="290.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectExam" Width="1.5" PointX="11.125" PointY="297.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectGradeHistroy" Width="1.5" PointX="11.125" PointY="303.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectInterviewCriteria" Width="1.5" PointX="11.375" PointY="330.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectInview" Width="1.5" PointX="8.125" PointY="329.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectOfficial" Width="1.5" PointX="8.125" PointY="336.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectReference" Width="1.5" PointX="15.125" PointY="247.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProspectTrainingDetail" Width="1.5" PointX="8.125" PointY="304.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblQuoteDrawDownDetail" Width="1.5" PointX="10.375" PointY="192.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblQuoteIllustration" Width="1.5" PointX="23.625" PointY="22.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblRider" Width="1.5" PointX="3.625" PointY="20.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblRule" Width="1.5" PointX="13.875" PointY="4.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblRuleParameter" Width="1.5" PointX="16.125" PointY="4.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblRuleSet" Width="1.5" PointX="11.625" PointY="1.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblServiceLog" Width="1.5" PointX="24.625" PointY="10.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblSpecialAchievement" Width="1.5" PointX="10.375" PointY="293.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblSupervisorDecision" Width="1.5" PointX="19.875" PointY="16.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblSuspect" Width="1.5" PointX="8.125" PointY="342.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblTransaction" Width="1.5" PointX="24.625" PointY="13.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserAccount" Width="1.5" PointX="10.625" PointY="176.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserAvalibility" Width="1.5" PointX="15.125" PointY="181" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserChannelMap" Width="1.5" PointX="15.125" PointY="183.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserHomepage" Width="1.5" PointX="25.625" PointY="17.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserOTP" Width="1.5" PointX="18.625" PointY="24.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserPermission" Width="1.5" PointX="19.875" PointY="11.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserPhoto" Width="1.5" PointX="15.125" PointY="204.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserProductPermission" Width="1.5" PointX="10.625" PointY="137.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUWAllocation" Width="1.5" PointX="25.625" PointY="21.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUWProposal" Width="1.5" PointX="25.625" PointY="24.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUWRemark" Width="1.5" PointX="13.375" PointY="265.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblValidateField" Width="1.5" PointX="26.625" PointY="2.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.User" Width="1.5" PointX="8.375" PointY="176.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.UsersInRole" Width="1.5" PointX="26.625" PointY="9.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblILIntegration" Width="1.5" PointX="26.625" PointY="12.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasAccountType" Width="1.5" PointX="20.625" PointY="25.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasAgentStatu" Width="1.5" PointX="12.625" PointY="26.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasAllMenuType" Width="1.5" PointX="27.625" PointY="17.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasArea" Width="1.5" PointX="27.625" PointY="21.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasAuthority" Width="1.5" PointX="8.625" PointY="2" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasBancaBranch" Width="1.5" PointX="27.625" PointY="26.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasBankMaster" Width="1.5" PointX="28.625" PointY="2.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasBasicRate" Width="1.5" PointX="29.625" PointY="14.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasBranch" Width="1.5" PointX="18.625" PointY="28.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasChallange" Width="1.5" PointX="8.625" PointY="11.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblmasChannel" Width="1.5" PointX="10.625" PointY="195.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasCityDistrictProvince" Width="1.5" PointX="29.625" PointY="19.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasCommonType" Width="1.5" PointX="13.625" PointY="176.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasCommonTypesJ" Width="1.5" PointX="20.625" PointY="28.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasCountry" Width="1.5" PointX="22.625" PointY="28.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasDataType" Width="1.5" PointX="4.375" PointY="11.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasDesignation" Width="1.5" PointX="24.625" PointY="28.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblmasDoctor" Width="1.5" PointX="29.625" PointY="24.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasDocument" Width="1.5" PointX="11.125" PointY="165" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasEmployee" Width="1.5" PointX="29.625" PointY="28.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasExam" Width="1.5" PointX="8.875" PointY="286.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasGCEGrade" Width="1.5" PointX="30.625" PointY="2.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasGCESubject" Width="1.5" PointX="30.625" PointY="5.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasGrade" Width="1.5" PointX="8.875" PointY="312.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasHeaderData" Width="1.5" PointX="30.625" PointY="9.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasILClient" Width="1.5" PointX="14.625" PointY="29.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasILPolicy" Width="1.5" PointX="10.625" PointY="30.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasILPolicyRider" Width="1.5" PointX="31.625" PointY="12.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasIMOUser" Width="1.5" PointX="31.625" PointY="18.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasInterviewerChallenge" Width="1.5" PointX="31.625" PointY="24.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasInterviewGuide" Width="1.5" PointX="8.125" PointY="351.375" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasLifeClass" Width="1.5" PointX="26.625" PointY="30.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasLifeHierarchyTree" Width="1.5" PointX="31.625" PointY="28.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasLifeOccupation" Width="1.5" PointX="32.625" PointY="2.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasLifePricingRate" Width="1.5" PointX="32.625" PointY="7.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasLifeProduct" Width="1.5" PointX="31.625" PointY="31.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasMedicalCheckUpRule" Width="1.5" PointX="33.625" PointY="10.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasMedicalReport" Width="1.5" PointX="16.625" PointY="32.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasNeed" Width="1.5" PointX="18.625" PointY="32.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasNICBlacklist" Width="1.5" PointX="33.625" PointY="18.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasNomineeRalationship" Width="1.5" PointX="33.625" PointY="22.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasOccupation" Width="1.5" PointX="33.625" PointY="26.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasParameter" Width="1.5" PointX="6.625" PointY="10.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasPasswordQuestion" Width="1.5" PointX="28.625" PointY="32.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasPaymentType" Width="1.5" PointX="33.625" PointY="30.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasPermission" Width="1.5" PointX="17.625" PointY="11" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasPermissionNew" Width="1.5" PointX="38.125" PointY="2.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasPlan" Width="1.5" PointX="34.625" PointY="7.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasPolicyTerm" Width="1.5" PointX="8.125" PointY="36.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasPolicyType" Width="1.5" PointX="20.625" PointY="33.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasPositionDesignation" Width="1.5" PointX="22.625" PointY="33.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasPositionType" Width="1.5" PointX="24.625" PointY="33.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasRecieptingBankCode" Width="1.5" PointX="3.625" PointY="34.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasRiskType" Width="1.5" PointX="35.625" PointY="10.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasRuleCategory" Width="1.5" PointX="8.625" PointY="6" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasRuleParameter" Width="1.5" PointX="13.875" PointY="0.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasSAM" Width="1.5" PointX="8.125" PointY="33.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblSubFunctionMapping" Width="1.5" PointX="35.625" PointY="13.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUWReason" Width="1.5" PointX="35.625" PointY="17.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblFundCalc" Width="1.5" PointX="35.625" PointY="20.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasBenefit" Width="1.5" PointX="39.625" PointY="18.75" />
+        <AssociationConnector Association="AVOAIALifeModel.Application1" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_userApp" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblContac__Addre__0B27A5C0" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Commu__0D0FEE32" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Commu__0E04126B" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Commu__0EF836A4" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Commu__0FEC5ADD" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Regis__14B10FFA" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Regis__15A53433" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Regis__1699586C" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Regis__178D7CA5" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblOrgani__SPOC___3414ACBA" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblCustomers_Adress" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblEmergencyDetails_tblAddress_AddressID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblEmployee_CommunicationAddressID_tblAddress" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblEmployee_PermenantAddressID_tblAddress" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrganization_tblAddress" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrganization_tblAddress1" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrganization_tblAddress2" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrgOffice_tblAddress" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrgOffice_tblAddress1" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspect_tblAddress_CommAddressId" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspect_tblAddress_PermAddressId" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectReference_tblAddress_AddressID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectReference_tblAddress_AddressIDRef2" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblAuditDepartmentClearance_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblAuthority_RuleCategoryMap_tblAuthority_AuthorityId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblAuthority_RuleCategoryMap_tblMasRuleCategory_RuleCategoryId" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblBankInfo_tblNomineeDetails_NomineeID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblBankInfo_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblContactDependents_tblContacts" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblContactDetails_tblOrganization_OrganizationID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblContac__Paren__0C1BC9F9" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblDepend__Conta__12B3B8EF" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOpportunity_tblContacts" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Organ__10E07F16" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Organ__11D4A34F" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Organ__12C8C788" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblCorpor__Organ__13BCEBC1" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblEmergencyDetails_EMPID_tblEmployee" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblEmergencyDetails_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblFinanceDepartmentClearance_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_OrgOfficeID_tblHierarchyCoordination" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblHRMDepartmentClearance_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblIMasInviewCaterory_tblIMasInviewArea_InterviewAreaID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectInterviewCriteria_tblIMasInviewCaterory_InterviewCategoryID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblMapGra__Chall__25DB9BFC" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblMapGradeChallenge_tblMasChallange_ChallengeID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblMapGradeChallenge_tblMasGrade_GradeID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblMemberAdditionalLifeStyleDetails_tblMemberLifeStyleDetails" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblMember__Membe__58F12BAE" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedEd__EduCa__01BE3717" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedEd__EduCa__049AA3C2" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedEd__EduCa__7B113988" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedEd__EduCa__7DEDA633" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedSa__SaveC__11F49EE0" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedSa__SaveC__0F183235" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedSa__SaveC__1B7E091A" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedSa__SaveC__14D10B8B" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedSa__SaveC__0C3BC58A" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblNomineeDetails_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblSuperv__Oppor__79C80F94" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrganization_tblMasCommonTypes" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrganization_tblMasCommonTypes1" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrgOffice_tblOrganization" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrgStructure_tblOrganization" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyRelationship_tblOrganization_OrganizationID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectDocument_tblOrganization_OrganizationID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblOrgOffice_tblOrgStructure_OrgStructureID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPaymen__Payme__64C53312" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyPaymentMap_tblAgentPayments" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyRelationship_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyRisks_tblProductRisks" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductParameterMap_tblMasParameter_ParameterId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductParameterMap_tblProduct_ProductId" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblProduc__UserI__36545CEC" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductPlanRiderDiscountLoadingMap_tblProductRiders_RiderId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductPlanRiderParameters_tblMasParameters_ParameterId" />
+        <AssociationConnector Association="AVOAIALifeModel.Fk_tblProductQuestionMapping_tblProducts" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductRiderParameter_tblRider_RiderId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblRiderParameterMap_tblRider_RiderId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblPrductRiderMap_tblRider_RiderId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductRiderMap_tblProduct_ProductId" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProsectEducation_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectDocument_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectExam_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectGradeHistroy_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectInview_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectOfficial_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectReference_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectTrainingDetail_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblSuspects_tblProspect_ProspectID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectEducationDetails_tblProsectEducation_ProspectEducationID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblSpecialAchievements_tblProspectEducation_ProspectEducationID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectExam_tblMasExam_ExamID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectGradeHistroy_tblMasGrade_GradeID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProspectInterviewCriteria_tblProspectInview_ProspectInterviewID" />
+        <AssociationConnector Association="AVOAIALifeModel.tblProspectInterviewCriteria_InterviewGuideTypeID_FK" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblRule_tblMasRuleCatogery_RuleCategoryId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblRule_tblRuleSet_RuleId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblRuleParameters_tblRule_RuleId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblRuleParameters_tblMasRuleParameters_ParameterId" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_userid" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblUserMenuPermissions_tblMasPermission" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblUserProductPermissions_Users" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblMasParameter_tblMasDataType_ParameterDataTypeId" />
+        <AssociationConnector Association="AVOAIALifeModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyMemberBenefitDetail" Width="1.5" PointX="18.625" PointY="184.5" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblQuoteMemberBeniftDetial" Width="1.5" PointX="12.625" PointY="183.375" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblMember__Membe__414EAC47" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblMember__Membe__4242D080" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasLifeQuestionnaire" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblServiceAuthenticationDetail" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasMedicalLab" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyIllustration" Width="1.5" PointX="18.375" PointY="141.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblLogILUpdate" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblLogTPService" Width="1.5" PointX="0.75" PointY="19.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblNeedFinancialNeed" Width="1.5" PointX="10.375" PointY="241" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMemberLevelDecisionHistory" Width="1.5" PointX="26.625" PointY="169.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblAppVersion" Width="1.5" PointX="0.75" PointY="22.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyClient" Width="1.5" PointX="8.5" PointY="151.5" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_AddressId_Pk_tblAddress" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyClients_tblAdress" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyClients_tblCustomers" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyRelationship_tblPolicyClients" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMasProductPlan" Width="1.5" PointX="5.875" PointY="1.125" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductPlanRiderDiscountLoadingMap_tblProductPlan_PlanId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblMasProductPlan_tblProducts" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblMasPolicyTermtblMasProductPlan" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblMasSAMtblMasProductPlan" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblLogSM" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblMemberLevelDecision" Width="1.5" PointX="26.625" PointY="164.125" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblDevicedetail" Width="1.5" PointX="26.125" PointY="185.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserDetail" Width="1.5" PointX="23.875" PointY="181.5" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblUserDe__Addre__336AA144" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblDevice__NodeI__6B2FD77A" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblDevice__NodeI__6F00685E" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_UserDetails_USeraccount" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblUserAvalibility_tblUserDetails_NodeId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblUserChannelMap_tblUserDetails_NodeId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblMasChannel" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblUserPhoto_tblUserDetails" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyMemberDetail" Width="1.5" PointX="23.375" PointY="159.875" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblPolicyMemberDetails_Pemanent_tblAddress" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyMemberDetails_tblAdress" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblMember__Membe__442B18F2" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblMember__Membe__451F3D2B" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblMember__Membe__46136164" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblMember__Membe__4707859D" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblMember__Membe__47FBA9D6" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Membe__72E607DB" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Membe__73DA2C14" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Membe__74CE504D" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Membe__789EE131" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Membe__7993056A" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Membe__7A8729A3" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblQuestionDetail" Width="1.5" PointX="25.625" PointY="84.375" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblQuesti__Membe__2A363CC5" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblQuestion__QID__2B2A60FE" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyCLAQuote" Width="1.5" PointX="18.375" PointY="172.75" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblLifeNeedAnalysi" Width="1.5" PointX="8.125" PointY="220" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblLifeQQ" Width="1.5" PointX="8.125" PointY="200.875" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicy" Width="1.5" PointX="16.125" PointY="136.125" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblLifeQQ__ContactID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblLifeNeedAnalysis_tblContacts" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicy_tblCorporate" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Custo__2759D01A" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicy_tblCustomers" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblHealth__NeedA__37C5420D" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedCa__NeedA__48EFCE0F" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedEd__NeedA__49E3F248" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedFi__NeedA__4EA8A765" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedHe__NeedA__4F9CCB9E" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedHu__NeedA__5090EFD7" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedRe__NeedA__51851410" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblNeedSa__NeedA__5832119F" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPrevio__NeedA__05F8DC4F" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPrevio__NeedA__06ED0088" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPrevPo__NeedA__63F8CA06" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_NeedAnalysis" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblNeeds_tblNeedAnalysis" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPropos__LifeQ__162F4418" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblPolicyCLAQuotes_tblLifeQQ" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblQuoteDrawDownDetails_tblLifeQQ" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Polic__041093DD" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Polic__71F1E3A2" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Polic__75C27486" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblUWRema__Polic__3D491139" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblUWRema__Polic__3E3D3572" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblPolicyCLAQuotes_tblPolicy" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyDocumentHistory_tblPolicy" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyDocuments_tblPolicy" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblpolicyextension_tblPolicy" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyFinancialDetails_tblPolicy" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblPolicyIllustration_tblPolicy_PolicyId" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyPaymentMap_tblPolicy" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyRelationship_tblPolicy" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyRisks_tblPolicy" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblPolicyUWRemarks_tblPolicy_PolicyID" />
+        <AssociationConnector Association="AVOAIALifeModel.FK_tblProposalPremium_tblPolicy_PolicyID" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblPolicyNomineeDetail" Width="1.5" PointX="18.375" PointY="135" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblPolicy__Polic__47BEE010" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblQuoteMemberDetial" Width="1.5" PointX="10.375" PointY="199.875" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblQuoteM__LifeQ__2D12A970" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblQuoteM__Membe__2C1E8537" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblOpportunityHistory" Width="1.5" PointX="12.625" PointY="236.375" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblOpport__Oppor__102C51FF" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblDashboardReportGraph" Width="1.5" PointX="36.625" PointY="39" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblDashboardReport" Width="1.5" PointX="34.375" PointY="37.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblDashboardSubReport" Width="1.5" PointX="36.625" PointY="35.25" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblDashboardXAxi" Width="1.5" PointX="38.875" PointY="35.625" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_DGraphReport" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_SubReportAndReport" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_ParentSubReport" />
+        <AssociationConnector Association="AVOAIALifeModel.SubreportID_FK" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblResourceCatagory" Width="1.5" PointX="11.375" PointY="13.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblResourceCategoryDetail" Width="1.5" PointX="13.625" PointY="13" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblResour__Resou__294D0584" />
+        <AssociationConnector Association="AVOAIALifeModel.FK__tblResour__Resou__2B354DF6" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblProductPlanRider" Width="1.5" PointX="8.125" PointY="19.625" />
+        <EntityTypeShape EntityType="AVOAIALifeModel.tblUserExtension" Width="1.5" PointX="12.375" PointY="17.75" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductPlanRiderParameters_tblProductPlanRider_ProductPlanRiderId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblPrductPlanRiders_tblRider_RiderId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductPlanRider_tblMasProductPlan_PlanId" />
+        <AssociationConnector Association="AVOAIALifeModel.fk_tblProductPlanRider_tblProduct_ProductId" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

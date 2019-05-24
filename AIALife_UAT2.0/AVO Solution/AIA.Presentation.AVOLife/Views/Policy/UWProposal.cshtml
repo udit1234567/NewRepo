@@ -1,0 +1,471 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //int FamilyMemberCount = 0;
+    bool IsViewQuote = false;
+    if (Model.PolicyStageStatusID != 193)
+    {
+        IsViewQuote = true;
+    }
+
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
+<style>
+    .nav-pills > li.active > a {
+        background-color: #D31145 !important;
+    }
+
+    .nav > li > a:hover, .nav > li > a:focus {
+        text-decoration: none;
+        background-color: #eee;
+    }
+
+    .nav-tabs > li > a, .nav-pills > li > a {
+        font-size: 18px;
+        background-color: #D31145 !important;
+        color: #fff;
+    }
+
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+
+    .backgroundclr {
+        color: #ffffff !important;
+        background-color: #fbb055 !important;
+        border: none !important;
+    }
+
+    .marginTop {
+        margin-top: 30px;
+    }
+
+    .displayNone {
+        display: none;
+    }
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+        color: #ffffff !important;
+        background-color: #fbb055 !important;
+    }
+
+    .textAlign {
+        text-align: center !important;
+    }
+
+    .thQuestions {
+        border-bottom-color: snow !important;
+        padding-top: 40px !important;
+        padding-left: 350px !important;
+        font-weight: bold !important;
+    }
+
+    .thBold {
+        font-weight: bold !important;
+    }
+</style>
+<br />
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "fromProposalPage" }))
+    {
+        //Proposal Form
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Proposal Form
+                        <img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    @Html.HiddenFor(a => a.PolicyID, new { @id = "hdnPolicyID" })
+                    @Html.HiddenFor(a => a.ProcceedToPayment, new { @id = "hdnProcceedToPayment" })
+                    @Html.HiddenFor(a => a.ContactID, new { @id = "hdnContactID" })
+                    @Html.HiddenFor(a=>a.PlanCode, new {@id= "hdnPlanCode" })
+                    @Html.Partial("~/Views/Policy/_PartialProposalForm.cshtml", Model)
+                </div>
+            </div>
+        </div>
+
+        //Proposer Details
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+                        @Resources.GetLabelName("Proposer Details")
+                        <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Policy/_PartialProposerDetails.cshtml", Model)
+                </div>
+            </div>
+        </div>
+
+
+        //Life to be Assured
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingN">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseN" aria-expanded="false" aria-controls="collapseTwo">
+
+                        Life to be Assured
+                        <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseN" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingN">
+                <div class="panel-body">
+
+                    @Html.Partial("~/Views/Policy/_PartialMemberDetails.cshtml", Model)
+                </div>
+            </div>
+        </div>
+
+
+        //Questionnaire
+        <div id="DivQuestionnaireDetails">
+            @Html.Partial("~/Views/Policy/_PartialQuestionnaire.cshtml", Model)
+
+        </div>
+
+        <div class="panel panel-default" id="pnlBenefitOverView">
+            <div class="panel-heading backgroundclr" role="tab" id="headingBenefitOverView">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseBenefitOverView" aria-expanded="true" aria-controls="collapseBenefitOverView">
+
+                        @Resources.GetLabelName("Benefit Coverage Details")
+                        <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    </a>
+
+                </h4>
+            </div>
+            <div id="collapseBenefitOverView" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBenefitOverView">
+                <div class="panel-body">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        @Html.Partial("~/Views/Policy/PartialBenifitOverview.cshtml", Model)
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default" id="pnlPremiumOverView">
+            <div class="panel-heading backgroundclr" role="tab" id="headingPremiumOverView">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePremiumOverView" aria-expanded="true" aria-controls="collapsePremiumOverView">
+
+                        @Resources.GetLabelName("Premium Details")
+                        <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    </a>
+
+                </h4>
+            </div>
+            <div id="collapsePremiumOverView" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPremiumOverView">
+                <div class="panel-body">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+
+                        @Html.Partial("~/Views/Policy/PartialPremiumOverview.cshtml", Model)
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        @*<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" style="text-align: center;" id="DivFinalCalculatebutton">
+                <input class="btn btn-default" id="btnCalculateProposal" type="button" onclick="CalculateProposalPremium()" value="Calculate" style="padding-left:25px;padding-right:25px;">
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivPremiumDetails">
+
+            </div>*@
+
+
+        <div class="panel panel-default" id="pnlNomineeDetails">
+            <div class="panel-heading backgroundclr" role="tab" id="headingFour">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+
+                        @Resources.GetLabelName("Nominee Details")
+                        <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    </a>
+
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                <div class="panel-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <p>@Resources.GetLabelName("Nominee(s)Details: (Please indicate Date Of Birth if Nominee does not have NIC)")</p>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <input class="btn btn-default" id="btnAddGridRow" type="button" onclick="AddNomineeRow()" value="Add Nominee Details" style="padding-left:25px;padding-right:25px;">
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 iGrid" id="divNomineeDetailsGrid">
+                        @Html.Partial("~/Views/Policy/PartialNomineeDetailsGrid.cshtml", Model)
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default" id="pnldocumentupload">
+            <div class="panel-heading backgroundclr" role="tab" id="headingEight">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+
+                        Declaration And Documents
+                        <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                <div class="panel-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                            @Html.Partial("~/Views/Policy/DeclarationAndDocuments.cshtml", Model)
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        if (Model.MedicalTestExists)
+        {
+            @Html.HiddenFor(a => a.MedicalTestExists, new { @id = "hdnMedicalTestReq", @value = Model.MedicalTestExists })
+            <div class="panel panel-default" id="pnlMedicalTests">
+                <div class="panel-heading backgroundclr" role="tab" id="headingMedicalTests">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseMedicalTests" aria-expanded="true" aria-controls="collapseMedicalTests">
+                            Medical Test Requirements
+                            <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                        </a>
+
+                    </h4>
+                </div>
+
+
+                <div id="collapseMedicalTests" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingMedicalTests">
+                    <div class="panel-body">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                            @Html.Partial("~/Views/Policy/_PartialMedicalTests.cshtml", Model)
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(a => a.MedicalTestExists, new { @id = "hdnMedicalTestReq", @value = Model.MedicalTestExists })
+        }
+
+        <div id="divPartialUnderwriterReview">
+            @Html.Partial("~/Views/Policy/PartialUnderwriterReview.cshtml", Model)
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" style="text-align: center;" id="DivFinalbutton">
+            <input class="btn btn-default" id="btnSaveProposal" type="button" onclick="SaveProposal()" value="Save Proposal" style="padding-left:25px;padding-right:25px;">
+            @*<input class="btn btn-default" id="btnModifyProposal" type="button" onclick="ModifyProposal()" value="Modify" style="padding-left:25px;padding-right:25px;">*@
+            @*<input class="btn btn-default" id="btnPayment" type="button" onclick="Payment()" value="Proceed To Payment" style="padding-left:25px;padding-right:25px;">*@
+            <input class="btn btn-default" id="btnSubmit" type="button" onclick="Submit()" value="Submit" style="padding-left:25px;padding-right:25px; display:none">
+        </div>
+
+
+
+        <div class="modal fade" id="SpouseSignatureModal" tabindex="-1" role="dialog" aria-labelledby="SpouseModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="SpouseModalLabel">Add Spouse Signature</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                            @Html.Partial("~/Views/Shared/AddSignature.cshtml")
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        if ('@IsViewQuote' == "True")
+        {
+            $('#divUWPanelHideShow').show();
+            $('#pnldocumentupload').show();
+            $('#DivFinalbutton').show();
+            $('#btnPayment').hide();
+            $('#btnSubmit').show();
+
+
+        }
+
+    });
+    function Submit() {
+    }
+    $("#showT").click(function () {
+        $("#yesT").show();
+    });
+    $("#hideT").click(function () {
+        $("#yesT").hide();
+    });
+    $("#showA").click(function () {
+        $("#yesA").show();
+    });
+    $("#hideA").click(function () {
+        $("#yesA").hide();
+    });
+    $("#showN").click(function () {
+        $("#yesN").show();
+    });
+    $("#hideN").click(function () {
+        $("#yesN").hide();
+    });
+    $("#showH").click(function () {
+        $("#yesH").show();
+    });
+    $("#hideH").click(function () {
+        $("#yesH").hide();
+    });
+    $("#showE").click(function () {
+        $("#clientE").show();
+    });
+    $("#hideE").click(function () {
+        $("#clientE").hide();
+    });
+    $("#showM").click(function () {
+        $("#clientM").show();
+    });
+    $("#hideM").click(function () {
+        $("#clientM").hide();
+    });
+
+
+
+    function ShowChildrenDetails() {
+        if ($("#chkcriticalillness").is(":checked")) {
+            $("#divChildrenDetails").show();
+        }
+        else {
+            $("#divChildrenDetails").hide();
+        }
+    }
+    function SaveProposal() {
+
+        $.ajax({
+
+            type: "post",
+            url: '/Policy/SaveProposal',
+            type: 'POST',
+            data:
+                JSON.stringify({
+                    objPolicy: $("#fromProposalPage").serializeObject()
+                }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8', success: function (data) {
+
+
+                $('#DivFinalbutton').hide();
+
+            }
+        });
+    }
+    function GetBenifitAndMedicalHistoryDetails() {
+
+        $.ajax({
+
+            type: "post",
+            url: '/Policy/GetMedicalHistoryAndBenifitDetails',
+            type: 'POST',
+            data:
+                JSON.stringify({
+                    objPolicy: $("#fromProposalPage").serializeObject()
+                }),
+            dataType: 'html',
+            contentType: 'application/json; charset=utf-8', success: function (data) {
+
+                $('#BenifitAndMedicalHistoryDetails').html(data);
+                // $('#DivBenifitbutton').hide();
+                $('#pnldocumentupload').show();
+                $('#DivFinalbutton').show();
+            }
+        });
+    }
+    function ModifyProposal() {
+    }
+    function Payment() {
+        window.location.href = '/Payment/ProposalPayment?ProposalNo=' + $('#txtProposalNo').val();
+    }
+
+    function ageCount() {
+        var dob = $('#txtFillDateOfBirth').val();
+        f (dob != '') {
+           var d = new Date();
+           var currentYear = d.getFullYear();
+           var arr = dob.split('/');
+           var birthYear = arr[2];
+           var calcAge = (currentYear - birthYear) + 1;
+           $('#txtAgeNextBirthday').val(calcAge);
+        }
+    }
+
+</script>
+

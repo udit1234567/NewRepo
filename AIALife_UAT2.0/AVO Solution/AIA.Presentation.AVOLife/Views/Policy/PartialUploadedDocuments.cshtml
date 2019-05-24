@@ -1,0 +1,72 @@
+﻿@model JanaShakthi.Life.Models.Policy.Policy
+@using JanaShakthi.Presentation.Helpers
+
+<div class="panel panel-default">
+    <div class="panel-heading backgroundclr" role="tab" id="DivHeadingUploadedDocuments">
+        <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse12" aria-expanded="true" aria-controls="collapseTwelve">
+                Uploaded Documents
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+            </a>
+        </h4>
+    </div>
+    <div id="collapse12" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="divHeadingUploadedDocuments">
+        <div class="panel-body">
+            <div id="divHealthCheckupActLink" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2 col-sm-offset-2">
+                    @Html.ActionLink("Health Check-up Report", "")
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                </div>
+            </div>
+            <div id="divProposalFormActLink" class="col-lg-12">
+                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2 col-sm-offset-2">
+                    @Html.ActionLink("Proposal Form", "")
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                </div>
+            </div>
+            <div id="divMedicalReportActLink" class="col-lg-12">
+                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2 col-sm-offset-2">
+                    @Html.ActionLink("Medical Report", "")
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                </div>
+            </div>
+            <div class="col-md-12 form-group" style="text-align: center" id="divUploadedDocButtons">
+                <input class="btn btn-default" id="btnSubmit" type="button" onclick="SaveUWRemarks()" value="Submit" style="padding-left:25px;padding-right:25px;">
+                <input class="btn btn-default" id="btnViewProposal" type="button" onclick="showProposalUWPanels()" value="View Proposal" style="padding-left:25px;padding-right:25px;">
+                <input class="btn btn-default" id="btnCancel" type="button" onclick="return location.reload()" value="Cancel" style="padding-left:25px;padding-right:25px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function showProposalUWPanels() {
+        $("#divUWPanelHideShow").show();
+    }
+    function SaveUWRemarks() {
+        FetchSelectedMedicalCode();
+        $.post("../Policy/SaveUWRemarks", $("#fromProposalPage").serialize())
+            .done(function (data) {
+
+
+                if (data.Status != undefined) {
+                    if (data.Status == '191') {
+                        alert("Data Saved Successfully.Proposal is pending for Addintional Requirements");
+                    } else if (data.Status == '192') {
+                        alert("Data Saved Successfully.Please make note of policy no "+ data.ProposalNo+ " for further reference.");
+                    }
+                    else {
+                        alert("Data Saved Successfully.Proposal is reffered to Under Writer.");
+                    }
+                }
+                else {
+                    alert("Data Saved Successfully");
+                }
+
+
+            })
+    }
+</script>

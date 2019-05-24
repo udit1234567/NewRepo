@@ -1,0 +1,350 @@
+﻿@model AIA.Life.Models.Opportunity.QuoteList
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    ViewBag.Title = "Quotation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .backgroundclr {
+        color: #ffffff !important;
+        background-color: #fbb055 !important;
+        border: none !important;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+</style>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "fromQuotePage" }))
+{
+    @Html.HiddenFor(a => a.objProspect.objNeedAnalysis.objSpouseDetails.DateOfBirth, new { @id = "HdnSpouseDateOfBirth" })
+    @Html.HiddenFor(a => a.objProspect.objNeedAnalysis.objSpouseDetails.AgeNextBirthday, new { @id = "HdnAge" })
+    @Html.HiddenFor(a => a.objProspect.objNeedAnalysis.objSpouseDetails.FullName, new { @id = "HdnSpouseFullName" })
+    for (int i = 0; i < Model.objProspect.objNeedAnalysis.objDependants.Count; i++)
+    {
+        @Html.HiddenFor(a => a.objProspect.objNeedAnalysis.objDependants[i].Name, new { @id = "HdnChildName" + i })
+        @Html.HiddenFor(a => a.objProspect.objNeedAnalysis.objDependants[i].DOB, new { @id = "HdnChildDOB" + i })
+        @Html.HiddenFor(a => a.objProspect.objNeedAnalysis.objDependants[i].AgeNextBirthday, new { @id = "HdnChildAge" + i })
+        @Html.HiddenFor(a => a.objProspect.objNeedAnalysis.objDependants[i].Relationship, new { @id = "HdnRelationship" + i })
+    }
+    @Html.HiddenFor(a => a.SelectedQuote, new { id = "hdnSelectedQuote" })
+
+    @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].QuotationType, new { id = "hdnQuotationType" })
+    @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].IsForCounterOffer, new { id = "hdnIsForCounterOffer" })
+    @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].RiskCommencementDate, new { id = "hdnRiskCommencementDate" })
+    if (Model.objListQuote[Model.SelectedQuote].QuotationType != "Direct" && Model.IsForCounterOffer != true)
+    {
+        <div>
+
+            <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+                <div class="visible-lg-block">
+                    @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+                </div>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+             
+                <div class="btn btn-info"><b>@Resources.GetLabelName("Quotation")</b></div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+
+            <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+                <div class="visible-lg-block">
+                    @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+                </div>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+         
+                <div class="btn btn-info"><b>@Resources.GetLabelName("Generate Quotation")</b></div>
+            </div>
+        </div>
+    }
+    <br />
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="panel panel-default" id="pnlProposerDetails" onchange="SetMandatoryHighlightBlank('pnlProposerDetails', false)">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse1" href="#collapseOne" class="collapsed">
+                        <img src="~/Content/Images/prospect.png" style="width:30px" />@Resources.GetLabelName("Prospect Information")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Prospect/QuotationProspectScreen.cshtml", Model)
+                </div>
+            </div>
+        </div>
+        @if (Model.objListQuote[Model.SelectedQuote].QuotationType != "Direct" && Model.IsForCounterOffer != true)
+        {
+            <div class="panel panel-default" id="pnlNeedAnalysis" @*onchange="SetMandatoryHighlightBlank('pnlProposerDetails', false)"*@>
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#collapse2" href="#collapseTwo" class="collapsed">
+                            <img src="~/Content/Images/need.png" style="width:30px" /> @Resources.GetLabelName("Need Analysis")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        @Html.Partial("~/Views/Prospect/PartialNeedAnalysis.cshtml", Model.objProspect)
+
+
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="panel panel-default" id="pnlPreviousInsuranceDetails" onchange="SetMandatoryHighlightBlank('pnlPreviousInsuranceDetails', false)">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse7" href="#collapseThree" class="collapsed">
+                        <img src="~/Content/Images/Insurance Details.png" style="width:30px" />@Resources.GetLabelName("Previous Insurance Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    @*@Html.Partial("~/Views/Prospect/_PartialPreviousInsuranceDetails.cshtml", Model)*@
+                    <div class="iGrid" id="divPreviousDetailsGrid"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default" id="pnlProductDetails" onchange="SetMandatoryHighlightBlank('pnlProductDetails', false)">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse3" href="#collapseThree" class="collapsed">
+                        <img src="~/Content/Images/Product Details.png" /> @Resources.GetLabelName("Product Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    @Html.Partial("~/Views/Policy/QuickQuoteDetails.cshtml", Model)
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+<div class="modal fade" id="QuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body" id="QuoteModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadQuotePool()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ChildDeletionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body" id="ChildDeletionModalBody">
+
+            </div>
+            <div class="modal-footer" id="ChildDeletionModalFooter">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadQuotePool()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        SetMandatoryHighlightBlank('pnlProposerDetails', true);
+        SetMandatoryHighlightBlank('pnlNeedAnalysis', true);
+
+        SetMandatoryHighlightBlank('pnlPreviousInsuranceDetails', true);
+        SetMandatoryHighlightBlank('pnlProductDetails', true);
+        if ('@Model.ObjLifeQuote.IsModifyQuote' == 'True') {
+            ShowTextBox1();
+            ShowTextBox2();
+            LoadPreviousInsuranceGrid();
+
+        }
+        var Date = $('#dtProspectDOB').val();
+        var newDate = Date.replace(/-/g, "/");
+        $('#dtProspectDOB').val(newDate);
+        var SpouseDate = $('#dtSpouseCoveredDOB_0').val();
+        var NewSpouseDate = SpouseDate.replace(/-/g, "/");
+        $('#dtSpouseCoveredDOB_0').val(NewSpouseDate);
+        var SpouseDate = $('#dtSpouseCoveredDOB_1').val();
+        var NewSpouseDate = SpouseDate.replace(/-/g, "/");
+        $('#dtSpouseCoveredDOB_1').val(NewSpouseDate);
+        var SpouseDate = $('#dtSpouseCoveredDOB_2').val();
+        var NewSpouseDate = SpouseDate.replace(/-/g, "/");
+        $('#dtSpouseCoveredDOB_2').val(NewSpouseDate);
+
+        var ChildDate00 = $('#dtChildDOB00').val();
+        var ChildNewDate00 = ChildDate00.replace(/-/g, "/");
+        $('#dtChildDOB00').val(ChildNewDate00);
+        var ChildDate01 = $('#dtChildDOB01').val();
+        var ChildNewDate01 = ChildDate01.replace(/-/g, "/");
+        $('#dtChildDOB01').val(ChildNewDate01);
+        var ChildDate02 = $('#dtChildDOB02').val();
+        var ChildNewDate02 = ChildDate02.replace(/-/g, "/");
+        $('#dtChildDOB02').val(ChildNewDate02);
+        var ChildDate03 = $('#dtChildDOB03').val();
+        var ChildNewDate03 = ChildDate00.replace(/-/g, "/");
+        $('#dtChildDOB03').val(ChildNewDate03);
+        var ChildDate04 = $('#dtChildDOB04').val();
+        var ChildNewDate04 = ChildDate00.replace(/-/g, "/");
+        $('#dtChildDOB04').val(ChildNewDate04);
+        var ChildDate05 = $('#dtChildDOB05').val();
+        var ChildNewDate05 = ChildDate05.replace(/-/g, "/");
+        $('#dtChildDOB05').val(ChildNewDate05);
+
+    });
+
+    function ModifyQuote(index) {
+        $('#fromQuotePage0').find('input:not(.notdisb), textarea, select').attr('disabled', false);
+        $('#buttonBenefitOverview_' + index).hide();
+        $('#divButtons_' + index).hide();
+        $('#btnCalculate_' + index).show();
+
+    }
+    function DisplayBenifitOverview(index) {
+        $("#BenifitOvervieModel_" + index).modal("show");
+    }
+    //function SaveQuotation(index) {
+
+    //    $('#fromQuotePage' + index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
+    //    $('#HdnContactID' + index).attr('disabled', false);
+    //    $.post("/Policy/SaveQuotation", $("#fromQuotePage" + index).serialize(), function (data) {
+    //        if (data.Message == 'Success') {
+    //            $("#hdnQuoteNo" + index).val(data.QuoteNo);
+    //            var Message = '<p> Data Saved Successfully. Quote No is ' + data.QuoteNo + ' </p>';
+    //            $('#QuoteModalBody').html(Message);
+
+    //            $("#QuoteModal").modal("show");
+
+    //        }
+    //        else {
+
+    //            var Message = '<p> Some Error Occured</p>';
+    //            $('#QuoteModalBody').html(Message);
+    //            $("#QuoteModal").modal("show");
+    //        }
+    //    });
+
+    //}
+    //function CalculateQuotePremium(index) {
+
+    //    $('#fromQuotePage' + index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
+    //    $('#HdnContactID' + index).attr('disabled', false);
+    //    $.post("/Policy/CalculateQuotePremium", $("#fromQuotePage" + index).serialize())
+
+    //   .done(function (data) {
+
+    //       if (data.Message == "Success") {
+    //           $("#txtAnnualPremium" + index).val(data.AnnualPremium);
+    //           $("#txtHalfYearlyPremium" + index).val(data.HalfYearlyPremium);
+    //           $("#txtQuaterlyPremium" + index).val(data.QuaterlyPremium);
+    //           $("#txtMonthlyPremium" + index).val(data.MonthlyPremium);
+    //           $("#txtBasicPremium" + index).val(data.BasicPremium);
+    //           $("#txtCess" + index).val(data.Cess);
+    //           $("#txtVat" + index).val(data.VAT);
+    //           $("#hdnPolicyFee" + index).val(data.PolicyFee);
+    //           $('#divButtons_' + index).show();
+    //           $('#BenifitOvervieModelbody_' + index).html(data.STRHtml);
+    //           $('#divIllustration').html(data.STRPremiumHtml);
+    //           $('#buttonBenefitOverview_' + index).show();
+    //           // $('#buttonPremiumOverview_'+index).show();
+    //           $('#btnCalculate_' + index).hide();
+
+    //           $('#fromQuotePage' + index).find('input:not(.notdisb), textarea, select').attr('disabled', true);
+
+    //       }
+    //       else {
+    //       }
+
+
+    //   }).
+    //   fail(function () {
+
+    //   });
+
+
+    //}
+
+    //function ShowSpouseChildDetails(divid) {
+    //    $('#' + divid).show();
+    //}
+
+
+    function LoadPreviousInsuranceGrid() {
+        var txtNoOfOnGoingProposalWithAIA = $("#txtNoOfOnGoingProposalWithAIA").val();
+        var txtNoOfPreviousPolicyWithAIA = $("#txtNoOfPreviousPolicyWithAIA").val();
+        if (txtNoOfOnGoingProposalWithAIA != "" || txtNoOfOnGoingProposalWithAIA != null) {
+            $("#hdnSelectedQuote").val();
+            $.post("../Policy/LoadPreviousInsuranceGrid", $("#fromQuotePage").serialize(), function (data) {
+
+
+                $("#divPreviousDetailsGrid").html(data);
+                $("#divPreviousDetailsGrid").show();
+            });
+        }
+        if (txtNoOfPreviousPolicyWithAIA != "" || txtNoOfPreviousPolicyWithAIA != null) {
+            $("#hdnSelectedQuote").val();
+            $.post("../Policy/LoadPreviousInsuranceGrid", $("#fromQuotePage").serialize(), function (data) {
+
+
+                $("#divPreviousDetailsGrid").html(data);
+                $("#divPreviousDetailsGrid").show();
+            });
+        }
+
+    }
+    function ShowTextBox1() {
+        var rbtnOnGoingProposalWithAIA = $('input[id=rbtnOnGoingProposalWithAIA]:checked').val();
+        if (rbtnOnGoingProposalWithAIA == 1) {
+            $("#divTxt1").show();
+
+        }
+        else {
+            $("#divTxt1").hide();
+            $("#divPreviousDetailsGrid").hide();
+        }
+    }
+    function ShowTextBox2() {
+        var rbtnPreviousPolicyWithAIA = $('input[id=rbtnPreviousPolicyWithAIA]:checked').val();
+        if (rbtnPreviousPolicyWithAIA == 1) {
+            $("#divTxt2").show();
+
+        }
+        else {
+            $("#divTxt2").hide();
+            $("#divPreviousDetailsGrid").hide();
+
+        }
+    }
+</script>

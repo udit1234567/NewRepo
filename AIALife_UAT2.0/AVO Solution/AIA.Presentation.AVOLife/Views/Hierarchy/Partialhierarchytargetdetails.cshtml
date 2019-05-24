@@ -1,0 +1,44 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using GridMvc.Html
+@{ 
+
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse27" href="#collapseTwentySeven" id="pnlTargetDetails" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                Target Details
+            </a>
+        </h4>
+    </div>
+    <div id="collapse27" class="panel-collapse in">
+        <div class="panel-body">
+            <div id="divGridHierarchyGEOUnits">
+                @Html.Grid(Model.ObjHierarchyTarget).Named("GridHierarchyTargetDetails").Columns(columns =>
+           {
+               columns.Add(a => a.FinancialYear).Titled("FY").Encoded(false).Sanitized(false);
+               columns.Add(a => a.Targets).Titled("Target").Encoded(false).Sanitized(false);
+               columns.Add(a => a.Achievements).Titled("Achievements").Encoded(false).Sanitized(false);
+               columns.Add(a => a.LastUpdated).Titled("Last Updated").Encoded(false).Sanitized(false);
+           }).WithPaging(9).WithMultipleFilters().EmptyText("")
+            </div>            
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $(".grid-mvc").gridmvc().pageGrids;
+                    if ('@TempData["Load"]' == "FirstTime") {
+                        $.ajaxSetup({
+                            cache: false
+                        });
+                        pageGrids.GridHierarchyTargetDetails.ajaxify({
+
+                        });
+                    }
+                    });
+    </script>

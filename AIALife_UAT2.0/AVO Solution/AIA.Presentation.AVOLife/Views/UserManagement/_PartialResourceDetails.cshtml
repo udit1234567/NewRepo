@@ -1,0 +1,62 @@
+﻿@model AIA.Life.Models.UserManagement.ContentManagement
+<div class="table-responsive">    
+    <table class="table table-bordered">
+        <tr>
+            <th>Content Type</th>
+            <th>Content Language</th>
+            <th>Start Date</th>
+            <th>Expiry Date</th>
+            <th>file Link</th>
+            <th>View/Del</th>
+        </tr>
+        @if (Model.lstContentManagementDeatils != null && Model.lstContentManagementDeatils.Count() > 0)
+        {
+            foreach (var item in Model.lstContentManagementDeatils)
+            {
+        <tr>
+            <td>@item.ContentTypeName</td>
+            <td>@item.ContentLanguageName</td>
+            <td>@item.EffectiveDate</td>
+            <td>@item.ExpiryDate</td>
+            <td>@item.Link</td>
+            <td><input type="button" value="Edit" onclick="ViewResourceDetails('@item.ResoucecatagoryDetailsPK')" /><input type="button" value="Del" onclick="DelResourceDetails('@item.ResoucecatagoryDetailsPK')" /></td>
+        </tr>
+            }
+        }
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#hdnidResouceID").val('@Model.ResourceID');
+    })  
+    function ViewResourceDetails(ResoucecatagoryDetailsPK) {
+        $("#hdnidResourceChildID").val(ResoucecatagoryDetailsPK);
+        $.post("../../UserManagement/EditResourceContent", $("#fromAddContent").serialize())
+            .done(function (data) {
+                debugger;
+                $("#divid_PartialCreateResourceDetails").html('');
+                $("#divid_PartialCreateResourceDetails").html(data);
+                $("#divResorceMain").attr('disabled', 'disabled');
+                $("#divResorceMain :input").attr('disabled', 'disabled');  
+                $("#btnaddContent").prop('value', 'Update'); 
+            })
+    }
+    function DelResourceDetails(ResoucecatagoryDetailsPK) {
+        $("#hdnidResourceChildID").val(ResoucecatagoryDetailsPK);
+        $.post("../../UserManagement/DeleteResourceDetails", $("#fromAddContent").serialize())
+            .done(function (data) {
+                debugger;
+                $("#dividContentManagementDeatils").html('');
+                $("#dividContentManagementDeatils").html(data);
+                $("#divResorceMain").attr('disabled', 'disabled');
+                $("#divResorceMain :input").attr('disabled', 'disabled');
+                $("#ddlContentType").val('Select');
+                $("#ddlContentLanguage").val('Select');
+                $("#idEffectiveDate").val('');
+                $("#idExpiryDate").val('');
+                $("#idFileDescription").val('');
+                $("#file_name").val('');
+            })
+    }
+   
+</script>

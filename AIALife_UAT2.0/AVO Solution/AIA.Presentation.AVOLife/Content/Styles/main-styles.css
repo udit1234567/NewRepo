@@ -1,0 +1,786 @@
+﻿/*
+//*********************************************************************
+// Sr. No.		        : 1
+// Program Author      	: Nirmal Patel
+//Work Item             : 1374
+// Date Of Change    	: 01/08/2012 
+// Change Description  	: 1. Style for common product listing.
+//                      : 2. Changed the Menu design
+//*********************************************************************
+*/
+/*
+//*********************************************************************
+// Sr. No.		        : 1
+// Program Author      	: Eram Shaikh
+//Work Item             : 1374
+// Date Of Change    	: 01/08/2012 
+// Change Description  	: 1. Style for common product listing.
+//*********************************************************************
+*/
+/*
+//*********************************************************************
+// Sr. No.		        : 3
+// Program Author      	: Eram Shaikh
+//Work Item             : 1374
+// Date Of Change    	: 06/12/2012 
+// Change Description  	: 1. Added margin top.
+//*********************************************************************
+//*********************************************************************
+// Sr. No.		        : 4
+// Program Author      	: Prasun Prakash
+//Work Item             : 2180
+// Date Of Change    	: 19/03/2013
+// Change Description  	: 1. Increase the width of the class which is used for backoffice menu
+//*********************************************************************
+//*************************************************************************************************************
+//Sr. No.               : 5
+//Program Author	    : Sarath Nair[892329]
+//BRD/CR/Codesk No		: Win NO : 2461
+//Create Date   		: 16/07/2013
+//Description           : Under ECOM Back Office, a new menu has been added for creating user id and assigning 
+//                        a new or existing role for a new employee.
+//*****************************************************************************************************************
+//*************************************************************************************************************
+//Sr. No.               : 6
+//Program Author	    : Yogesh[891442]
+//BRD/CR/Codesk No		: Win NO : 2946
+//Create Date   		: 12/2/2014
+//Description           : Nonlife Product Listing Name Modified. NL Product Listing Buttons Width increased
+//*****************************************************************************************************************
+//*************************************************************************************************************
+//Sr. No.               : 7
+//Program Author	    : Prasun Prakash[891810]
+//BRD/CR/Codesk No		: Win NO : 3495
+//Create Date   		: 19/08/2014
+//Description           : Changes related to Eworksite carelines and logo, created 2 extra css class which is used in master page
+//*****************************************************************************************************************
+*/
+
+/*  ------ MAIN CSS Document for Kotak Securities - developed by Vishal Vaidya (vishalyvaidya@gmail.com) for Ameya Infovision ------ */
+body, div {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 14px;
+    color: black;
+}
+p {
+	margin-bottom:13px;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight:normal;
+}
+
+/*a, a:link {
+	color:#000;
+}*/
+a:visited {
+	text-decoration:inherit;
+}
+a:hover {
+	color: #333333;
+	text-decoration:none
+}
+/* ------------------ STRUCTRE  ------------------ */
+#wrapper {
+	width:980px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	background-color:#FFFFFF;
+}
+/*  ------------------ HEADER  ------------------ */
+#header {
+	float:left;
+	width:980px;
+	height:90px;
+}
+.disabledCheckbox
+{
+    opacity: .4;
+    filter: alpha(opacity=20);
+    cursor: default;
+}
+#header .logobox {
+	float:left;
+	width:300px;
+	height:auto;
+	padding-top:10px;
+	padding-left:5px;
+}
+#header .toplinks
+{
+	float:right;
+	width:392px;/* Changed by Nirmal for Header links alignment.*/
+	font-size:12px;
+	background:#f6f6f6;
+	padding:7px;
+}
+/*7. Prasun Prakash[891810] - Start*/
+#header .toplinksWithNoBG
+{
+	float:right;
+	width:392px;/* Changed by Nirmal for Header links alignment.*/
+	font-size:12px;
+	padding:7px;
+}
+/*7. Prasun Prakash[891810] - End*/
+/*  ------------------ MENU NAVIGATION  ------------------ */
+#mainmenus 
+{
+    /*Changed By Nirmal 1.2: Changed the design of menu*/
+	width:1012px;/*4. Prasun Prakash[891810] - Changed.*/
+	height:32px;
+	margin-top:1px;
+	background:#931201;
+	float:left;
+	color:#FFFFFF;
+	padding-top:0px;
+	padding-left:0px;
+}
+/*5. Sarath Nair[892329] - Start - Added mainmenusBO to increase the width of ECOM - BackOffice menubar to add a new menu  */
+#mainmenusBO
+{
+    width:1104px;
+	height:32px;
+	margin-top:1px;
+	background:#931201;
+	float:left;
+	color:#FFFFFF;
+	padding-top:0px;
+	padding-left:0px;    
+}
+/*5. Sarath Nair[892329] - End - */
+
+/*  ------------------ CORE CONTENT / DATA ------------------ */
+
+#maincontent
+{
+	width:980px;
+	float:left;
+	margin-top:10px;
+}
+
+#subnav
+{
+	background:#f2f2f2;
+	width:180px;
+	float:right;
+	padding:7px;
+	padding-left:10px;
+}
+#subnav a:link
+{
+	text-decoration:none;
+	position: relative; /*5. Sarath Nair[892329] - Added position property to adjust the increase in mainmenuBO's width */
+}
+#subnav a:hover
+{
+	text-decoration:underline;
+}
+
+/* ----------------LOGIN ZONE ------------------ */
+#loginpagetitle
+{
+	border:1px #e5e5e5 solid;
+	padding:10px;
+	font-size:23px;
+	color:#931201;
+	float:left;
+	width:960px;
+	height:auto;
+	margin-top:10px;
+}
+
+#logininfo
+{
+	width:925px;
+	float:left;
+	padding:10px 5px 10px 50px
+}
+#logininfo-innerpage
+{
+	width:955px;
+	float:left;
+	padding:10px 5px 5px 20px;
+	color:#666666;
+}
+/*7. Prasun Prakash[891810] - Start*/
+#logininfo-innerpageMaster
+{
+	width:728px;
+	float:left;
+	padding:10px 5px 5px 20px;
+	color:#666666;
+}
+/*7. Prasun Prakash[891810] - End*/
+#innerpagetitle
+{
+	padding:7px;
+	margin-top:5px;
+	font-size:21px;
+	color:#931201;
+	float:left;
+	width:960px;
+	height:auto;
+	border-bottom:1px #999999 solid;
+}
+
+.logintableheading
+{
+	background:#931201;
+	color:#FFFFFF;
+	font-size:14px;
+	font-weight:bold;
+	text-transform:uppercase;
+	padding:7px;
+}
+.tableborder
+{
+	border:1px solid #931201;
+}
+
+#logincontent
+{
+	width:980px;
+	float:left;
+	padding-top:30px;
+	padding-bottom:30px;
+}
+
+.greybox
+{
+	background:#f1f1f1;
+}
+
+.smallgreytxt
+{
+	font-size:11px;
+	color:#555555;
+}
+
+/*---------------- table data styles  ----------------*/
+
+.tablebg
+{
+ background:#cccccc;
+}
+.tablecellhead
+{
+	font-size: 14px;
+	font-weight: bold;
+	color: #990000;
+	background:#eeeeee;
+	padding-left:10px;
+}
+
+.gridcellhead
+{
+	font-size: 13px;
+	font-weight: bold;
+	color: #000000;
+	background:#eeeeee;
+	padding-left:10px;
+	text-align:center;
+}
+
+.datacells
+{
+	background:#FFFFFF;
+	padding-left:5px;
+}
+
+
+/* ----------------FORMS ------------------ */
+/************* Eram :3.1- Start .(Added margin top) */
+.textinput
+{
+	font-size:14px;
+	color:#000000;
+	padding:5px;
+	border:solid 1px #777777;
+	margin-top: 5px;
+    font-weight:300;
+}
+/************* Eram :3.1- end .(Added margin top) */
+.textinput:focus
+{
+	font-size:14px;
+	color:#000000;
+	padding:5px;
+	border:solid 1px #990000;
+}
+
+.mandatory
+{
+	font-size:14px;
+	font-weight:bold;
+	color:red;
+}
+.inputbtn
+{
+	background:#931201;
+	color:#FFFFFF;
+	font-size:14px;
+	font-weight:bold;
+	padding:5px;
+	cursor:pointer;
+}
+
+.inputbtn:disabled
+{
+    background:#ededed;
+    padding:5px 10px;
+    font-weight:bold;
+    font-size:11px;
+    border-left:1px #c4c4c4 solid;
+    border-top:1px #c4c4c4 solid;
+    border-right:1px #9f9f9f solid;
+    border-bottom:1px #9f9f9f solid;
+    color:#838383;
+    text-decoration:none;
+}
+
+
+.inputbtn2
+{
+	background:#cccccc;
+	color:#000000;
+	font-size:14px;
+	font-weight:bold;
+	padding:5px;
+	cursor:pointer;
+}
+.textbtn
+{
+	background:#eeeeee;
+	color:#FFFFFF;
+	font-size:13px;
+	font-weight:bold;
+	padding:4px 7px;
+	border:1px #a7a7a7 solid;
+	cursor: pointer;
+}
+
+
+/*  ------------------ FOOTER  ---tn--------------- */
+#footer a:link
+{
+	text-decoration:none;
+}
+#footer a:hover
+{
+	text-decoration:underline;
+}
+
+#footer2 a:link
+{
+	text-decoration:none;
+}
+#footer2 a:hover
+{
+	text-decoration:underline;
+}
+
+#footer {
+	width:965px;
+	float:left;
+	color:#333333;
+	background:#eeeeee;
+	padding-left:15px;
+	padding-top:8px;
+	margin-top:10px;
+	height:55px;
+	line-height:24px;
+	font-size:12px;
+}
+#footer2 {
+	width:965px;
+	float:left;
+	color:#333333;
+	padding-left:15px;
+	padding-bottom:10px;
+	margin-top:5px;
+	margin-bottom:10px;
+	line-height:20px;
+	font-size:12px;
+}
+
+.smalltxt
+{
+	font-size:11px;
+}
+
+.ErrorLabel
+{
+	/*background:url(../images/icon-error.gif) no-repeat;*/
+    padding-left:20px;
+    /* Edited by saroj mehul*/
+    /*height:20px;*/
+    color:#C00;
+    font-weight:bold;
+    display:block;
+}
+
+
+.SuccessLabel { color: Green; font-weight: bold;}
+.DisplayNone { display:none;}
+.LabelTxt {border:none; background:transparent; text-align:right}
+.AmountTextBox { text-align:right; }
+
+/* Added by Nirmal Patel(nirmal@bcod.co.in) Bcod Web Solutions. */
+/* Start */
+.dv_Login_Life
+{
+    margin-top:50px;
+    text-align:center;
+}
+/* End */
+
+/* Added by Saroj - Mehul  Bcod Web Solutions */
+.tablebg .ErrorLabel, .tbl .ErrorLabel 
+{
+	padding:4px 0px;
+		}
+
+input[type="radio"] 
+{
+	vertical-align: calc(-2px);
+	margin-left:1px;
+	}
+
+table.bordertable td  
+{
+	background: none repeat scroll 0 0 #FFFFFF; padding:4px;
+	}
+
+table.bordertable 
+{
+	margin-top:20px; background: none repeat scroll 0 0 #CCCCCC;
+	}
+
+.div-rd 
+{
+	width:50%;
+	}
+
+table.bordertable input[type="text"] 
+{
+	background:#ffffff;
+	border:solid 1px #cfcfcf;
+	padding:4px;
+	}
+
+table.bordertable select 
+{
+	padding:4px;
+	background:#ffffff;
+	border:solid 1px #cfcfcf;
+	}
+
+/* end */
+
+
+/* ************ Nirmal :1.1- start .(Style for common product listing)*/
+a, a:link {
+	/*color:whhite; commented by soumya*/ 
+	text-decoration:none;
+}
+
+a:hover {
+	color: #fff;
+}
+
+.products-page-me {
+	width:880px;
+	display:block;
+	margin:0 auto;
+}
+
+
+.boxbg1_me {
+	background: none repeat scroll 0 0 #CCCCCC;
+	float: left;
+	font-size: 14px;
+	width: 420px;
+}
+
+.boxbg2_me {
+	background: none repeat scroll 0 0 #CCCCCC;
+	float: right;
+   font-size: 14px;
+	margin-right: 0px;
+	width: 420px;
+}
+
+.pro-cell-head-me {
+	font-weight:normal; 
+	text-align:center;
+	padding:5px; 
+	background: none repeat scroll 0 0 #CCCCCC;
+	color: #990000;
+	font-size: 20px;
+}
+
+.datacells-me {
+	background: none repeat scroll 0 0 #EEEEEE;
+}
+
+.cell-div-me { 
+	display:block;
+	padding: 3px 0;
+}
+
+.cell-data-me { 
+	float: left;
+	padding: 3px 16px;
+    width: 205px;
+}
+
+input.pro-inputbtn-me {
+	background: none repeat scroll 0 0 #B22C1B;
+	border-color: #D3857C #701C11 #4B120B #C2594B;
+    border-style: solid;
+	border-width: 1px;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: bold;
+    padding: 5px 10px;
+	width: 172px;
+	margin-bottom: 6px;
+}
+/* 6.Yogesh[891442] Start Added for NonLife Product List Button width increases*/
+input.pro-inputbtn-me2 { 
+	background: none repeat scroll 0 0 #B22C1B;
+	border-color: #D3857C #701C11 #4B120B #C2594B;
+    border-style: solid;
+	border-width: 1px;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 300;
+    padding: 5px 10px;
+	width: 183px;
+	margin-bottom: 6px;
+}
+
+.pro-button-me2 {
+	float:right;
+	width:183px;
+}
+/* 6. Yogesh[891442] End*/
+input.pro-inputbtn-me:hover {
+	background:none repeat scroll 0 0 #FFE575;
+	color:#7C0E00;
+}
+
+.prodiv-box-me {
+	min-height:247px; 
+	padding: 6px;
+}
+
+.prodiv-box-me:after {
+	content:" ";
+	clear:both;
+	 display: block;
+}
+
+.pro-logindiv-me {
+	text-align: center;
+	padding: 5px 0 17px;
+    font-size: 12px;
+}
+
+.image-left-me {
+	float:left;
+}
+
+.pro-button-me {
+	float:right;
+	width:176px;
+}
+
+a.pro-login-me {
+	background: none repeat scroll 0 0 #CCCCCC;
+	border-color: #D3857C #701C11 #4B120B #C2594B;
+    border-style: solid;
+	border-width: 1px;
+	color: #B22C1B;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: bold;
+    padding: 5px 21px;
+	width: 100px;
+}
+
+a.pro-login-me:hover {
+	background:none repeat scroll 0 0 #FFE575;
+	color:#7C0E00;
+}
+
+	
+/* ************ Nirmal :1.1- end .(Style for common product listing)*/
+
+
+/************* Eram :2.1- end .(Style For Lead Generation) */
+
+.request_form_page {
+		border: 1px solid #CCCCCC;
+		display: block;
+		margin: 0 auto;
+		padding: 16px;
+		width: 44em;
+		font-size:11px;
+		background:#fffadd;
+	}
+
+	ul.new_request {
+		clear: both;
+		color: #000000;
+		font-size: 11px;
+		list-style: none outside none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	ul.new_request li {
+		clear: both;
+		display: block;
+		margin-bottom: 5px;
+	}
+
+	ul.new_request li:after {
+		content:" ";
+		visibility: hidden;
+		clear: both;
+		display: block;
+	}
+	
+	ul.new_request li div.field_name {
+		float: left;
+		padding-top: 4px;
+		width: 165px;
+		height: 36px;
+
+	}
+
+	.text_box_me {
+		float:left;
+	}
+
+	h1.title_request {
+		border-bottom: 1px dotted #CCCCCC;
+		color: #931201;
+		font-size: 20px;
+		font-weight: normal;
+		margin: 0 0 5px;
+		padding-bottom: 8px;
+	}
+
+	span.sol_text {
+		float: left;
+		padding:0 0 20px;
+		color:##931201;
+	}
+
+	input.input_request {
+		background: none repeat scroll 0 0 #FAFAFA;
+	    border: 1px solid #CFCFCF;
+	    font-size: 12px;
+	    height: 18px;
+	    width: 200px;
+		clear: both;
+		display: block;
+	}
+
+	select.select_request {
+		background: none repeat scroll 0 0 #FAFAFA;
+	    border: 1px solid #CFCFCF;
+	    font-size: 12px;
+	    height: 21px;
+	    width: 202px;
+		clear: both;
+		display: block;
+	}
+
+	.check_text_me {
+		 width: 91%;
+		 float:left;
+	}
+
+	.check_box_me {
+		float:left; 
+		margin:0 10px 0 0;
+		padding:0px;
+	}
+
+	input.req-btn-me {
+		background: none repeat scroll 0 0 #B22C1B;
+		border-color: #D3857C #701C11 #4B120B #C2594B;
+	    border-style: solid;
+		border-width: 1px;
+		color: #FFFFFF;
+		cursor: pointer;
+		font-size: 12px;
+		font-weight: bold;
+	    padding: 5px 10px;
+		width: 150px;
+		margin-bottom: 6px;
+		margin-left: 166px;
+	}
+
+	input.req-btn-me:hover {
+		background:none repeat scroll 0 0 #FFE575;
+		color:#7C0E00;
+	}
+
+	li.req-btn-center {
+		 margin-top: 10px;
+	}
+
+	.request_form_page .validation_me {
+		color: Red;
+		font-size:12px;
+		font-style: italic;
+		font-weight: normal;
+	}
+
+	.fields_required_me {
+		float:right;
+		font-size:12px;
+		color:red;
+	}
+	
+/************* Eram :2.1- end .(Style For Lead Generation) */
+
+
+.tablebg_borderblk
+{
+ background:#333333;
+ margin:22px;
+}
+/*************form text box color */
+.form-control {
+    color: black;
+    text-transform: uppercase;
+}
+
+    input[type=text].rupee {
+    background-image: url(http://i.imgur.com/Fd7NROx.png);
+    border: 1px solid #aaa;
+    padding: 5px;
+    padding-left: 20px;
+    background-size: 10px 15px;
+    background-repeat: no-repeat;
+    background-position: 8px 6px;
+}
+     .responsive-image{
+        width: 91.8%;
+        max-width: 100%;
+        height: auto;
+}
+          .responsive-image1{
+        max-width: 100%;
+        height: auto;
+}

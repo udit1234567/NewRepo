@@ -1,0 +1,331 @@
+﻿@model  AIA.Life.Models.Opportunity.Prospect
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using System.Globalization;
+@{
+    ViewBag.Title = "HealthCalcReport";
+    Layout = null;
+}
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>*@
+<link rel="stylesheet" href="~/Content/Styles/BootSideMenu.css">
+@*<script src="~/Content/Scripts/BootSideMenu.js"></script>*@
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+@*<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>*@
+@*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">*@
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.5/chosen.css" />*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.5/chosen.jquery.js"></script>*@
+<script src="~/Content/Scripts/jspdf.min.js"></script>
+<script src="~/Content/Scripts/jquery-2.2.4.min.js"></script>
+<script src="~/Content/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/Scripts/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Scripts/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/Scripts/chosen.css" rel="stylesheet" />
+<script src="~/Content/Scripts/chosen.jquery.js"></script>
+<script src="~/Scripts/SuspectScript/Suspectscript.js"></script>
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+@Html.HiddenFor(x => x.Salutation, new { @id = "txtSalutation" })
+@Html.HiddenFor(x => x.LastName, new { @id = "txtLastName" })
+@Html.HiddenFor(a => a.Name, new { @id = "txtName" })
+@Html.HiddenFor(a => a.objAddress.Address1, new { @id = "txtAddress" })
+@Html.HiddenFor(a => a.objAddress.State, new { @id = "txtState" })
+@Html.HiddenFor(a => a.objAddress.District, new { @id = "txtDistrict" })
+@Html.HiddenFor(a => a.objAddress.City, new { @id = "txtCity" })
+<div class="clearfix"></div>
+@*<head>
+    <title>Health Fund Analysis</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>*@
+@*<div>
+
+    <img src="~/Content/Images/AIA Pdf image.jpg" style="width:1000px; margin-bottom:5px" />
+</div>*@
+<body style="font-family: AIA Everest;">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <table style="background-color: #c31433; width: 1349px; height: 200px;">
+        <tbody style="width: 810px; float: left; padding: 32px 0px 0px 40px;">
+            <tr>
+                <td>
+                    <img src="~/Content/Images/logo.jpg"/>
+                </td>
+            </tr>
+        </tbody>
+
+        <tbody style="width: 526px; float: right; color: #fff; font-size: 18px; padding: 15px 0px;">
+            <tr>
+                <td>
+                    AIA Insurance Lanka PLC (Co. No. PQ 18)<br>
+                    AIA Tower P O Box 2088<br>
+                    92, Dharmapala Mawatha, Colombo 07<br>
+                    Sri Lanka<br>
+                    T: (+94 11) 231 0000 F:(+94 11) 244 7620<br>
+                    E: lk.info@aia.com<br><br>
+
+                    AIALIFE.COM.LK
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+                    <table style="width: 100%;">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center; font-size: 25px; font-weight: bold; padding: 10px; color: #000;">Health Fund Analysis of
+                                    <label type="label" id="PDFName"> </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 1314px; margin: 0px auto;">
+                        <tbody style="background-color: #e5f7fd;">
+
+                            <!--1st Row-->
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Age at Next Birthday</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Wealth Planner Name</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Date/Time</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.AgeNextBdy</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.CreatedBy</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;"><label id="txtTime"></label></td>
+                            </tr>
+
+                            <!--2nd Row-->
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">WP Agent Code</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">WP Contact Number</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;"></td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.WPCode</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.WPPhone</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 1314px; margin: 20px auto;">
+                        <tbody style="background-color: #e5f7fd;">
+
+                            <!--1st Row-->
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Who pays current Hospital Bills?</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Who will takes care of your hospital expenses during your retirement?</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Are you ready for the other health adversities in life?</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.HospitalBills
+                                </td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.HospitalRtrExp</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.adversities</td>
+                            </tr>
+                           
+                            <!--2nd Row-->
+                            <tr style="margin: 20px auto;">
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px;font-size: 20px;">Is your existing solution sufficient to meet increasing health expenses? Available Annual Amount</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Coverage</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px;font-size: 20px;">Adequacy</td>
+                            </tr>
+
+                            <tr style="margin: 20px auto;">
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.objannualamount</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.objcoverage</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;">@Model.objNeedAnalysis.objadequacy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 1314px; margin: 20px auto;">
+                        <tbody>
+                            <tr style="background-color: #c2c2c2;">
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;"></td>
+                                <td style="width: 303px; float: right; padding: 10px 0px 10px 30px;font-size: 20px;font-weight: bold;">Current Requirement (LKR)</td>
+                                <td style="width: 303px; float: right; padding: 10px 0px 10px 30px;font-size: 20px;font-weight: bold;">Available Fund (LKR)</td>
+                                <td style="width: 303px; float: right; padding: 10px 0px 10px 30px;font-size: 20px;font-weight: bold;">Gap (LKR)</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">Reserves of Critical Illness</td>
+                                <td style="width: 303px; float: right; padding: 10px 0px 10px 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.CriticalRequiremenent))
+                                </td>
+                                <td style="width: 303px; float: right; padding: 10px 0px 10px 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.CriticalFund))
+                                </td>
+                                <td style="width: 303px; float: right; padding: 10px 20px 10px 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.CriticalGap))
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">Reserves for Hospitalization</td>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.HospitalizationRequiremenent))
+                                </td>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.HospitalizationFund))
+                                
+                                </td>
+                                <td style="width: 303px; float: left; padding: 10px 20px 10px 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.HospitalizationGap))
+                                
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">Cash for additional expense/ Loss of income</td>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.additionalexpenseRequiremenent))
+                                </td>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.additionalexpenseFund))
+                                </td>
+                                <td style="width: 303px; float: left; padding: 10px 20px 10px 30px;font-size: 20px;">
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.additionalexpenseGap))
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <img src='@Html.DisplayFor(model => model.HealthByteArraygraph).ToHtmlString()' width="1300" height="900" /> 
+</body>
+
+<script>
+    $('#ddlAdversities').chosen();
+    $('#ddlAdversities_chosen').css("width", "40%");
+    $('#ddlAdversities_chosen').css("background-color", "#fff");
+
+    $(document).ready(function () {
+        var Salutation = $('#txtSalutation').val();
+        var FirstName = $('#txtName').val();
+        FirstName = Capitalizing(FirstName);
+        var LastName = $('#txtLastName').val();
+        LastName = Capitalizing(LastName);
+        $('#PDFName').text(Salutation+" "+FirstName + " " + LastName);
+        $('#PDFAddress').val($('#txtAddress').val() + " , " + $('#txtCity').val() + " , " + $('#txtDistrict').val() + " , " + $('#txtState').val());
+        var dt = new Date();
+        var utc = dt.getTime() + (dt.getTimezoneOffset() * 60000);
+        var nd = new Date(utc + (3600000 * +5.5));
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var minutes = (nd.getMinutes() < 10 ? '0' : '') + nd.getMinutes()
+        var time = nd.getDate() + " " + monthNames[nd.getMonth()] + " " + nd.getFullYear() + " " + nd.getHours() + ":" + minutes;
+        $('#txtTime').text(time);
+        debugger;
+        function HealthAmChart() {
+
+            var CriticalGap = parseInt($("#hdntxtCriticalGap").val());
+            if (isNaN(CriticalGap)) {
+                CriticalGap = 0;
+            }
+            var HospitalizationGap = parseInt($("#hdntxtHospitalizationGap").val())
+            if (isNaN(HospitalizationGap)) {
+                HospitalizationGap = 0;
+            }
+            var AdditionalexpenseGap = parseInt($("#hdntxtAdditionalexpenseGap").val());
+            if (isNaN(AdditionalexpenseGap)) {
+                AdditionalexpenseGap = 0;
+            }
+            //var AvailableFund = AvailableFund1+AvailableFund2+AvailableFund3;
+            //var Requirement1 = parseInt($("#txtAdditionalexpenseRequiremenent").val()); //+ parseInt($("#txtHospitalizationRequiremenent").val()) + parseInt($("#txtCriticalRequiremenent").val());
+            //if (isNaN(Requirement1)) {
+            //    Requirement1 = 0;
+            //}
+            //var Requirement2 = parseInt($("#txtHospitalizationRequiremenent").val()) //+ parseInt($("#txtCriticalRequiremenent").val());
+            //if (isNaN(Requirement2)) {
+            //    Requirement2 = 0;
+            //}
+            //var Requirement3 = parseInt($("#txtCriticalRequiremenent").val());
+            //if (isNaN(Requirement3)) {
+            //    Requirement3 = 0;
+            //}
+            //var Requirement = Requirement1+Requirement2+Requirement3;
+            var chart1 = AmCharts.makeChart("healthchartdiv", {
+                "type": "serial",
+                "theme": "light",
+                "marginRight": 70,
+                "dataProvider": [{
+                    "country": "Reserve for Critical Illness",
+                    "visits": CriticalGap,
+                    "color": "#FF0F00"
+                }, {
+                    "country": "Reserve for Hospitalization",
+                    "visits": HospitalizationGap,
+                    "color": "#FF6600"
+                }, {
+                    "country": "Cash for additional expense/ Loss of income",
+                    "visits": AdditionalexpenseGap,
+                    "color": "#FF9E01"
+                }],
+                "valueAxes": [{
+                    "axisAlpha": 0,
+                    "position": "left",
+                    "minimum": 0,
+                    "integersOnly": true,
+                    "title": ""
+                }],
+                "startDuration": 1,
+                "graphs": [{
+                    "balloonText": "<b>[[category]]: [[value]]</b>",
+                    "fillColorsField": "color",
+                    "fillAlphas": 0.9,
+                    "lineAlpha": 0.2,
+                    "type": "column",
+                    "valueField": "visits"
+                }],
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+                "categoryField": "country",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "labelRotation": 0,
+
+                    "autoWrap": true
+                },
+                "export": {
+                    "enabled": true
+                },
+                "addClassNames": true,
+                "allLabels": [{
+                    "text": "Fund Requirement",
+                    "x": "!320",
+                    "y": "!15",
+                    "bold": true,
+                    "align": "right"
+                }, {
+                    "text": "Amount",
+                    "rotation": 270,
+                    "x": "1",
+                    "y": "200",
+                    "bold": true,
+                    "align": "right"
+                }]
+
+            });
+        }
+    });
+    function Capitalizing(str) {
+        str = str.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+            return letter.toUpperCase();
+        });
+        return str;
+    }
+</script>

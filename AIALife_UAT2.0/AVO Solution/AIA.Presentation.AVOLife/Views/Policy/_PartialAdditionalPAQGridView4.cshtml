@@ -1,0 +1,189 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+@{
+    //ViewBag.Title = "_PartialAdditionalPAQGridView1";
+    int MemberIndex = Model.AssuredIndex;
+    string PAQTableIDGridView4 = "tblPAQGridView4" + MemberIndex;
+    string PAQID1 = "Row_PAQGridInfoFour" + MemberIndex;
+    string RemoveID = "btnRemovePAQAssetsGridInfo" + MemberIndex;
+
+}
+
+<div class="grid-scroll">
+    <table class="table" id="@PAQTableIDGridView4">
+
+        <thead>
+            <tr>
+                <th></th>
+                <th>Assets</th>
+                <th>Assets Total</th>
+                <th>Liabilities</th>
+                <th>Liabilities Total</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr id="Row_PAQGridInfoFour1">
+                <td></td>
+
+                <td>@Html.Label("Property")</td>
+                <td>@Html.CurrencyTextBoxFor(m => m.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsProperty, new { @class = "form-control", @id = "txtPAQAssetsProperty" + MemberIndex, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)",@onchange = "AddAsset(" + MemberIndex + ")"}, Model.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsProperty)</td>
+                <td>@Resources.GetLabelName("Mortgages")</td>
+                <td>@Html.CurrencyTextBoxFor(m => m.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQLiabilitiesMortgages, new { @class = "form-control", @id = "txtPAQLiabilitiesMortgages" + MemberIndex, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "AddLibalities(" + MemberIndex + ")"}, Model.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQLiabilitiesMortgages)</td>
+                <td style="display:none">
+
+                    @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.QuestionsId, new { })
+                </td>
+
+            </tr>
+            <tr id="Row_PAQGridInfoFour2">
+                <td></td>
+
+                <td>@Resources.GetLabelName("Investment")</td>
+                <td>@Html.CurrencyTextBoxFor(m => m.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsInvestment, new { @class = "form-control", @id = "txtPAQAssetsInvestment" + MemberIndex, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "AddAsset(" + MemberIndex + ")"}, Model.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsInvestment)</td>
+                <td>@Resources.GetLabelName("Loans")</td>
+                <td>@Html.CurrencyTextBoxFor(m => m.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQLiabilitiesLoans, new { @class = "form-control", @id = "txtPAQLiabilitiesLoans" + MemberIndex, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "AddLibalities(" + MemberIndex + ")"}, Model.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQLiabilitiesLoans)</td>
+                <td style="display:none">
+
+                    @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.QuestionsId, new { })
+                </td>
+
+            </tr>
+            <tr id="Row_PAQGridInfoFour3">
+                <td></td>
+
+                <td>@Resources.GetLabelName("Equities")</td>
+                <td>@Html.CurrencyTextBoxFor(m => m.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsEquities, new { @class = "form-control", @id = "txtPAQAssetsEquities" + MemberIndex, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "AddAsset(" + MemberIndex + ")"}, Model.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsEquities)</td>
+                <td>@Resources.GetLabelName("Others(Please Specify)")</td>
+                <td>@Html.CurrencyTextBoxFor(m => m.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQLiabilitiesOthers, new { @class = "form-control", @id = "txtPAQLiabilitiesOthers" + MemberIndex, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "AddLibalities(" + MemberIndex + ")"}, Model.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQLiabilitiesOthers)</td>
+                <td style="display:none">
+
+                    @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.QuestionsId, new { })
+                </td>
+
+            </tr>
+            <tr id="Row_PAQGridInfoFour4">
+                <td></td>
+
+                <td>@Resources.GetLabelName("Others(Please Specify)")</td>
+                <td>@Html.CurrencyTextBoxFor(m => m.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsOther, new { @class = "form-control", @id = "txtPAQAssetsOther" + MemberIndex, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "AddAsset(" + MemberIndex + ")"}, Model.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsOther)</td>
+                <td>@Html.Label("")</td>
+                <td>@Html.Label("")</td>
+                <td style="display:none">
+
+                    @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.QuestionsId, new { })
+                </td>
+
+            </tr>
+            <tr id="Row_PAQGridInfoFour5">
+                <td></td>
+
+                <td>@Html.Label("Total")</td>
+                <td>@Html.ReadCurrencyTextBoxFor(m => m.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsTotal, new { @class = "form-control", @id = "txtPAQAssetsTotal" + MemberIndex, @readonly = "readonly", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" }, Model.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsTotal)</td>
+                <td>@Html.Label("Total")</td>
+                <td>@Html.ReadCurrencyTextBoxFor(m => m.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQLiabilitiesTotal, new { @class = "form-control", @id = "txtPAQLiabilitiesTotal" + MemberIndex, @readonly = "readonly", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)"}, Model.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.PAQAssetsTotal)</td>
+                <td style="display:none">
+
+                    @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].ObjAssetsandLiabilitiesPAQ4Details.QuestionsId, new { })
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    var lstAssets = @(Html.Raw(Json.Encode(Model.lstPAQAssets)));
+    var lstLiabilities = @(Html.Raw(Json.Encode(Model.lstPAQLiabilities)));
+    function AddAsset(MemberIndex)
+    {
+        debugger;
+        f1("txtPAQAssetsProperty"+MemberIndex)
+        var Property=parseInt($("#hdntxtPAQAssetsProperty"+MemberIndex).val())
+        if(isNaN(Property))
+        {
+            Property=0;
+        }
+        f1("txtPAQAssetsInvestment"+MemberIndex)
+        var Investment=parseInt($("#hdntxtPAQAssetsInvestment"+MemberIndex).val())
+        if(isNaN(Investment))
+        {
+            Investment=0;
+        }
+        f1("txtPAQAssetsEquities"+MemberIndex)
+        var Equities=parseInt($("#hdntxtPAQAssetsEquities"+MemberIndex).val())
+        if(isNaN(Equities))
+        {
+            Equities=0;
+        }
+        f1("txtPAQAssetsOther"+MemberIndex)
+        var Other=parseInt($("#hdntxtPAQAssetsOther"+MemberIndex).val())
+        if(isNaN(Other))
+        {
+            Other=0;
+        }
+
+        var Total=Property+Investment+Equities+Other;
+        $("#hdntxtPAQAssetsTotal"+MemberIndex).val(Total);
+        f2("txtPAQAssetsTotal"+MemberIndex)
+
+    }
+    function AddLibalities(MemberIndex)
+    {
+        debugger;
+        f1("txtPAQLiabilitiesOthers"+MemberIndex)
+        var Other=parseInt($("#hdntxtPAQLiabilitiesOthers"+MemberIndex).val())
+        if(isNaN(Other))
+        {
+            Other=0;
+        }
+        f1("txtPAQLiabilitiesLoans"+MemberIndex)
+        var Loans=parseInt($("#hdntxtPAQLiabilitiesLoans"+MemberIndex).val())
+        if(isNaN(Loans))
+        {
+            Loans=0;
+        }
+        f1("txtPAQLiabilitiesMortgages"+MemberIndex)
+        var Mortgages=parseInt($("#hdntxtPAQLiabilitiesMortgages"+MemberIndex).val())
+        if(isNaN(Mortgages))
+        {
+            Mortgages=0;
+        }
+
+        var Total=Mortgages+Loans+Other;
+        $("#hdntxtPAQLiabilitiesTotal"+MemberIndex).val(Total);
+        f2("txtPAQLiabilitiesTotal"+MemberIndex)
+
+
+
+
+
+    }
+    function f1(id) {
+
+        var res = $('#' + id).val();
+        if (res == "") {
+            res = "0";
+        }
+        $('#' + id).val(parseInt(res.replace(/,/g, '')).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+        $('#hdn' + id).val(res.replace(/,/g, ''));
+    }
+    function f2(id) {
+
+        var res = $('#hdn' + id).val();
+        if (res != undefined) {
+            $('#' + id).val(parseInt(res.replace(/,/g, '')).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+        }
+    }
+
+</script>
+
+
+
+
+

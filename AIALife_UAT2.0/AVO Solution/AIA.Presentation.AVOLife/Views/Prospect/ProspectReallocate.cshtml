@@ -1,0 +1,51 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+
+@{
+    ViewBag.Title = "ProspectReallocate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+       @@media screen and (min-width:320px) and (max-width:768px){
+ .no-more-tables table, thead, tbody, th, td, tr
+    {
+       
+        float:none;
+       
+    }
+}
+</style>
+
+<div class="panel panel-default">
+    <div class="panel-body" style="color: white;
+    font-weight: 600;">New Business - Prospect - Prospect Re-Allocate</div>
+</div>
+
+<div class="" id="divProspectReAllocateGrid" style="overflow-x:auto;">
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.get("../Prospect/SearchProspectReAllocateDetails", $("").serialize())
+               .done(function (data) {
+                   $("#divProspectReAllocateGrid").html(data);
+               }).
+               fail(function () {
+                   $("#divProspectReAllocateGrid").html("No Records Found");
+               });
+
+    });
+</script>
+

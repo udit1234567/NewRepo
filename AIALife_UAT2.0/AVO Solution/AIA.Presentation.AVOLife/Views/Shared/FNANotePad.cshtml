@@ -1,0 +1,36 @@
+﻿<script src="~/Scripts/Signature/jquery.signaturepad.min.js"></script>
+
+<div class="sigPad" id="Spousesmoothed" style="width:404px;">
+
+    <ul class="sigNav">
+        <li class="clearButton"><a href="#clear">Clear</a></li>
+    </ul>
+    <div class="sig sigWrapper" style="height:auto;">
+        <div class="typed"></div>
+        <canvas class="pad" width="540" height="250" style="border-style:dashed;border-color:antiquewhite" id="NotePadID"></canvas>
+        <input type="hidden" name="NotePad" class="output" id="NotePadValue">
+    </div>
+</div>
+<script src="~/Scripts/Signature/numeric-1.2.6.min.js"></script>
+<script src="~/Scripts/Signature/bezier.js"></script>
+<script src="~/Scripts/Signature/jquery.signaturepad.min.js"></script>
+<script src="~/Scripts/Signature/json2.min.js"></script>
+
+<script>
+                $(document).ready(function() {
+                    $('#Spousesmoothed').signaturePad({
+                drawOnly:true,
+                drawBezierCurves:true,
+                lineTop:200
+                });
+                });
+
+    //function getDetails() {
+    //    var canvasid = document.getElementById("NotePadID");
+    //    var output = $('.output').val();
+    //    return { SpouseSignature: output }
+    //            }
+
+</script>
+
+

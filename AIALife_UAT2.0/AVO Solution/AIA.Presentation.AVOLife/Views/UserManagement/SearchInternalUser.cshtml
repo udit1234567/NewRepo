@@ -1,0 +1,178 @@
+﻿@model AIA.Life.Models.UserManagement.SearchInternalUser
+@{
+    
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+    });
+    function SearchInternalUser() {
+        var result = ValidateFields();
+        if (result == true) {
+            $.post("../../UM/UserManagement/GetSearchInternalUsersGrid", $("#frmSearchInternalUser").serialize())
+                 .done(function (data) {
+                     $("#divPartialInterUserGrid").show();
+                     $("#divPartialInterUserGrid").html(data);
+                 }).
+                 fail(function () {
+                     $("#divPartialInterUserGrid").html("Failed to fetch data");
+                 });
+        }
+
+
+    }
+    function ValidateFields() {
+
+        if (($('#txtStaffCode').val() == "") &&
+            ($('#txtStaffName').val() == "") &&
+            (($('#ddlBranch').val() == "") || ($('#ddlBranch option:selected').val() == "Select") || ($('#ddlBranch option:selected').val() == "")) &&
+            (($('#ddlDepartment option:selected').val() == "Select") || ($('#ddlDepartment option:selected').val() == "")) &&
+            (($('#dpFromDate').val() == "") || ($('#dpToDate').val() == ""))) {
+            
+            writeMultipleMessage("error", "Please Provide Employee code/Staff Name/Branch/Department/From and To date", 'txtStaffCode');
+            return false;
+        }
+        
+        var result = CompareTwoDates($("#dpFromDate").val(), $("#dpToDate").val(), 'dpToDate', ' To Date can not be lesser than From date');
+        if (!result) {
+            return result;
+        }
+        else {
+            writeMultipleMessage("error", "", 'dpPolicyEnd');
+       
+            writeMultipleMessage("error", "", 'txtStaffCode');
+            return true;
+        }
+
+    }
+    function CompareTwoDates(toDate, fromDate, id, msg) {
+        var dtRegex = new RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/]\d{4}$/);
+        var result = dtRegex.test(toDate);
+        if (result) {
+            var toDate = (toDate).split("/");
+        }
+        else {
+            var toDate = (toDate).split("-");
+        }
+
+        var result = dtRegex.test(fromDate);
+        if (result) {
+            var fromDate = (fromDate).split("/");
+        }
+        else {
+            var fromDate = (fromDate).split("-");
+        }
+
+        toDateYear = toDate[2];
+        toDateMonth = toDate[1];
+        toDateDay = toDate[0];
+
+        fromDateyear = fromDate[2];
+        fromDatemonth = fromDate[1];
+        fromDateday = fromDate[0];
+
+        var toDate = new Date(toDateYear, toDateMonth, toDateDay);
+        var fromDate = new Date(fromDateyear, fromDatemonth, fromDateday);
+        var diff = (fromDate - toDate) / 1000 / 60 / 60 / 24;
+
+        if (diff < 0) {
+            writeMultipleMessage("error", msg, id);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", '', id);
+            return true;
+        }
+    }
+</script>
+<h2>Search/Modify Internal User</h2><br />
+@using (Html.BeginForm("", "", FormMethod.Post, new { @id = "frmSearchInternalUser" }))
+{
+    <div id="divSearchPage" style="top:25%;position:absolute">
+        <div class="col-sm-12 form-group" style="padding:5px">
+            <div class="col-lg-6 col-sm-6">
+                <label class="col-lg-5 col-sm-5 text-right">Employee Code<span class="mandatory">*</span></label>
+                <div class="col-lg-7 col-sm-7">
+                    @Html.TextBoxFor(a => a.StaffCode, new { @id = "txtStaffCode", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+                <label class="col-lg-5 col-sm-5 text-right">Staff Name<span class="mandatory">*</span></label>
+                <div class="col-lg-7 col-sm-7">
+                    @Html.TextBoxFor(a => a.StaffName, new { @id = "txtStaffName", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        </div>
+        <div class="col-sm-12 form-group" style="padding:5px">
+            <div class="col-lg-6 col-sm-6">
+                <label class="col-lg-5 col-sm-5 text-right">Branch<span class="mandatory">*</span></label>
+                <div class="col-lg-7 col-sm-7">
+                    @Html.DropDownListFor(a => a.BranchCode, new SelectList(Model.lstBranchCode, "ID", "Value"), "Select", new { @id = "ddlBranch", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+                <label class="col-lg-5 col-sm-5 text-right">Department<span class="mandatory">*</span></label>
+                <div class="col-lg-7 col-sm-7">
+                    @Html.DropDownListFor(a => a.Department, new SelectList(Model.lstDepartment, "ID", "Value"), "Select", new { @id = "ddlDepartment", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12"></div>
+        <div class="col-sm-12 form-group" style="padding:5px">
+            <div class="col-lg-6 col-sm-6">
+                <label class="col-lg-5 col-sm-5  control-label text-right ">
+                    Date Of Joining from<span class="mandatory">*</span>
+                </label>
+                <div class="col-sm-7">
+                    @Html.iNubeDatePickerFor(a => a.fromDate, new { @class = "form-control", @id = "dpFromDate" })@* @MinDate = DateTime.Now.ToString("MM/dd/yyyy"),*@
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+                <label class="col-lg-5 col-sm-5  control-label text-right ">
+                    Date Of Joining to<span class="mandatory">*</span>
+                </label>
+                <div class="col-sm-7">
+                    @Html.iNubeDatePickerFor(a => a.toDate, new { @class = "form-control", @id = "dpToDate" })@* @MinDate = DateTime.Now.ToString("MM/dd/yyyy"),*@
+                </div>
+            </div>
+        </div>
+        @*
+             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <div class="col-lg-6 col-md-4 col-sm-6">
+                <label class="col-lg-5 col-sm-5 text-right">Function</label>
+                <div class="col-lg-7 col-sm-7">
+                    @Html.DropDownListFor(a => a.Function, new SelectList(Model.lstUserFunction, "ID", "Value"), "Select", new { @id = "ddlFunction", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-4 col-sm-6">
+                <label class="col-lg-5 col-sm-5 text-right">Title</label>
+                <div class="col-lg-7 col-sm-7">
+                    @Html.DropDownListFor(a => a.Title, new SelectList(Model.lstUserTitle, "ID", "Value"), "Select", new { @id = "ddlTitle", @class = "form-control" })
+                </div>
+            </div>
+
+             </div>*@
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12"></div>
+        <div class="col-sm-12 align-center form-group">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+            <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                <input type="button" class="btn btn-default" value="Search" onclick="SearchInternalUser()" />
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                <input type="button" class="btn btn-default" value="Cancel" onclick="window.location.href = '../../Panel/Index'" />
+            </div>
+            @*<div class="col-lg-3"></div>*@
+        </div>
+        <br />
+
+        <div id="divPartialInterUserGrid" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="display:none;padding: 8px;overflow-y:scroll; height: 250px">
+
+        </div>
+    </div>
+}
+
+
+

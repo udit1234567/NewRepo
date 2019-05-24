@@ -1,0 +1,601 @@
+﻿@model AIA.Life.Models.Opportunity.QuoteList
+@using AIA.Presentation.Helpers
+@using AIAResources;
+
+@{
+    int count = 1, tabCount = 1;
+    int GlobalCount = 0;
+
+    
+    int QuoteCount = 0;
+    if (Model.objListQuote != null && Model.objListQuote.Count() > 0)
+    {
+        QuoteCount = Model.objListQuote.Count();
+    }
+}
+
+<link href="~/Content/Styles/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Content/Scripts/bootstrap-multiselect.js"></script>
+<style>
+    .nav-pills > li.active > a {
+        background-color: #D31145 !important;
+    }
+
+    .plan-desc {
+        background-color: #fdf0bc;
+        background: -webkit-linear-gradient(#fdf0bc, #f5f3ea); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#fdf0bc, #f5f3ea); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#fdf0bc, #f5f3ea); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#fdf0bc, #f5f3ea);
+        border-radius: 4px;
+    }
+
+    .nav > li > a:hover, .nav > li > a:focus {
+        text-decoration: none;
+        background-color: #eee;
+    }
+
+    .nav-tabs > li > a, .nav-pills > li > a {
+        font-size: 18px;
+        background-color: #B8123E!important;
+        color: #fff;
+    }
+
+    /*.width {
+        width: 12% !important;
+    }*/
+
+
+    @@media only screen and (min-width:497px) and  (max-width: 800px) {
+
+        /* Force table to not be like tables anymore */
+
+        /* Force table to not be like tables anymore */
+        .no-more-tables table, thead, tbody, th, td, tr {
+            float: none !important;
+        }
+
+        .width {
+            width: 38% !important;
+        }
+    }
+     @@media only screen and (min-width:320px) and (max-width: 496px) {
+        .width {
+            width: 60% !important;
+        }
+    }
+</style>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+    <ul class="nav nav-pills list-add">
+        @foreach (var item in Model.objListQuote)
+        {
+            string QuoteName = Resources.GetLabelName("Quotation") + count;
+            if (count == 1)
+            {
+
+                <li class="active width">
+                    <a data-toggle="pill" href="#tab_Q_@count">@QuoteName</a>
+                </li>
+
+            }
+            else
+            {
+                <li class="width"><a data-toggle="pill" href="#tab_Q_@count">@QuoteName</a></li>
+
+            }
+
+            count++;
+        }
+
+
+    </ul>
+    <div class="tab-content product-tab">
+        <div class="modal fade" id="AFCModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>@Resources.GetLabelName("Congratulations you are among AFC customers list")</p>
+                        <ul>
+                            <li>
+                                <p>@Resources.GetLabelName("A dedicated Relationship Officer")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Personalized attention to claim requests")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Prioritized contact center assistance")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Dedicated email service (afc@aia.com)")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Priority service for new policy requests")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Second Medical Opinion service from “Med Net”")</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal fade" id="LessAFCModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>@Resources.GetLabelName("You are currently short of X amt from being AFC customer")</p>
+                        <ul>
+                            <li>
+                                <p>@Resources.GetLabelName("A dedicated Relationship Officer")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Personalized attention to claim requests")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Prioritized contact center assistance")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Dedicated email service (afc@aia.com)")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Priority service for new policy requests")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Second Medical Opinion service from “Med Net”")</p>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @foreach (var Assured in Model.objListQuote)
+                    {
+                        Model.SelectedQuote = GlobalCount;
+                        if (tabCount == 1)
+                        {
+                <div class="tab-pane fade in active" id="tab_Q_@tabCount">
+                    <div>
+
+
+                        @Html.Partial("~/Views/Prospect/ProductDetails.cshtml", Model)
+
+
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane" id="tab_Q_@tabCount">
+                    <div>
+
+
+                        @Html.Partial("~/Views/Prospect/ProductDetails.cshtml", Model)
+
+
+
+                    </div>
+                </div>
+            }
+        tabCount++;
+            GlobalCount++;
+
+        }
+
+
+
+
+    </div>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="QuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body" id="QuoteModalBody">
+
+            </div>
+            <div class="modal-footer">
+                 @if (!Model.IsForCounterOffer)
+                 {
+                     <button type="button" id="btnCreateProposal" class="btn btn-secondary" data-dismiss="modal" onclick="CreateProposal()">Create Proposal</button>
+                 }
+                 else
+                 {
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="SubmitCounterOfferQuote()">Submit</button>
+                 }
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        //var a = (100 / $(".list-add li").length) + '%';
+        //var b = (parseInt(a) - 1) + '%';
+        //$('.list-add li').width(b);
+        
+        var objListQuote = @Model.objListQuote.Count();
+        var MarritalStaus = $('#ddlMaritalStatus option:selected').val();
+        var Gender = $('#ddlGender option:selected').val();
+
+        for(i=0; i< objListQuote; i++)
+        {
+            if(MarritalStaus=="15")
+            {
+                $('#IsSpouseCoveredYes'+i).attr('disabled', true);
+            }
+            else{
+                $('#IsSpouseCoveredYes'+i).removeAttr('disabled');
+            }
+            if(Gender == "20")
+            {
+                $('#ddlSpouseGender'+i+' option[value="20"]').attr('disabled', true);
+                $('#ddlSpouseGender'+i+' option[value="21"]').removeAttr('disabled');
+            }
+            else if(Gender == "21")
+            {
+                $('#ddlSpouseGender'+i+' option[value="21"]').attr('disabled', true);
+                $('#ddlSpouseGender'+i+' option[value="20"]').removeAttr('disabled');
+            }
+
+        }
+
+    });
+
+    //function ShowSpouseChildDetails(divid) {
+    //    $('#' + divid).show();
+    //}
+    function CreateProposal() {
+        $('#fromQuotePage').attr('action', "/Policy/CreateProposal");
+        document.forms["fromQuotePage"].submit();
+    }
+    function SubmitCounterOfferQuote() {
+        $('#fromQuotePage').attr('action', "/Policy/SubmitCounterOfferQuote");
+        document.forms["fromQuotePage"].submit();
+    }
+    function CancelCounterOfferQuote() {
+        $('#fromQuotePage').attr('action', "/Policy/CancelCounterOfferQuote");
+        document.forms["fromQuotePage"].submit();
+    }
+    function HideSpouseDetails(divid) {
+        $('#' + divid).hide();
+        var _index = divid.split('_')[1];
+        $('#ddlSpouseGender'+_index+'').val('');
+        $('#dtSpouseCoveredDOB'+_index+'').val('');
+        $('#txtSpouseCoveredAge'+_index+'').val('');
+        $('#ddlSpouseOccupation'+_index+'').val('');
+    }
+
+    //function HideChildDetails(divid) {
+    //    //
+    //    var index = divid.split("_")[1];
+    //    $('#' + divid).hide();
+    //    $("#divListChilddetails_" + index).hide();
+    //    $('#txtNoofChilds' + index).val('');
+
+    //}
+
+    function ValidateMemberDetails(index) {
+
+        var SpouseValue = $('input[name=IsSpouseCovered]:checked', '#fromQuotePage' + index).val();
+        if (SpouseValue == 'True') {
+
+            if ($('#ddlSpouseGender' + index).val() == 'Select' || $('#ddlSpouseGender' + index).val() == '') {
+                writeMultipleMessage("error", "Please select Spouse Gender.", 'ddlSpouseGender' + index);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", 'ddlSpouseGender' + index);
+            }
+
+            //if ($('#dtSpouseCoveredDOB' + index).val() == '' && $('#txtSpouseCoveredAge' + index).val() == '') {
+            //    writeMultipleMessage("error", "Please Enter Spouse DOB or Age.", 'dtSpouseCoveredDOB' + index);
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'dtSpouseCoveredDOB' + index);
+            //}
+
+            //if ($('#txtSpouseCoveredAge' + index).val() == '') {
+            //    writeMultipleMessage("error", "Please Enter Spouse Age", 'txtSpouseCoveredAge' + index);
+            //    return false;
+            //}
+            //else {
+            //    writeMultipleMessage("error", "", 'txtSpouseCoveredAge' + index);
+            //}
+
+            if ($('#ddlSpouseOccupation' + index).val() == '' || $('#ddlSpouseOccupation' + index).val() == 'Select') {
+                writeMultipleMessage("error", "Please select Spouse Occupation", 'ddlSpouseOccupation' + index);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", 'ddlSpouseOccupation' + index);
+            }
+        }
+        var ChildValue = $('input[name=IsChildCovered]:checked', '#fromQuotePage' + index).val();
+        if (ChildValue == 'True') {
+
+            var txt = $('#txtNoofChilds' + index).val();
+
+            if (txt != undefined && txt != '') {
+
+                writeMultipleMessage("error", "", 'txtNoofChilds' + index);
+
+                for (i = 0; i < parseInt(txt) ; i++) {
+                    var ControlID = 'txtChildAge' + i + index;
+                    var ChildRelation = 'ChildRelationShip' + i +index;
+                    if ($('#' + ControlID).val() == '' || $('#' + ControlID).val() == undefined || $('#' + ControlID).val() == 0) {
+                        writeMultipleMessage("error", "Please Enter Child Age", ControlID);
+                        return false;
+                    }
+                    else {
+                        if ($('#' + ControlID).val() > 18) {
+                            writeMultipleMessage("error", "Please Enter child age Should be below 18 Years.", ControlID);
+                            return false;
+                        }
+                        else {
+                            writeMultipleMessage("error", "", ControlID);
+                        }
+                    }
+                    if ($('#' + ChildRelation +' option:selected').text() == 'Select') {
+                        writeMultipleMessage("error", "Please Select Relationship with Child.", ChildRelation);
+                        return false;
+                    }
+                    else {
+                        writeMultipleMessage("error", "", ChildRelation);
+                    }
+                }
+            }
+            else {
+
+                writeMultipleMessage("error", "Please Enter no of Childs", 'txtNoofChilds' + index);
+                return false;
+            }
+        }
+        return true;
+    }
+ 
+    function ValidatePremium(index)
+    {
+        var PolicyTerm = parseInt($('#ddlPolicyTerm' + index).val());
+        var PremiumTerm = parseInt($('#ddlPremiumTerm' + index).val());
+
+        if(PremiumTerm > PolicyTerm)
+        {
+            writeMultipleMessage("error", "Premium Term can not be greater than Policy Term.", 'ddlPremiumTerm' + index);
+            return false;
+        }
+        else
+        {
+            writeMultipleMessage("error", "", 'ddlPremiumTerm' + index);
+            return true;
+        }
+    }
+
+
+
+    function SetSIBenefitValue(value, id) {
+        $('#' + id).val(value);
+    }
+
+    function SetSIBenefitSliderValue(id) {
+       if( $('#txtBenefitSI' + id).val() !=''  ||$('#txtBenefitSI' + id).val() != undefined)
+        {
+
+            var value = parseInt($('#txtBenefitSI' + id).val());
+            var MinValue =0;
+            if( $('#Min' + id).val() != undefined || $('#Min' + id).val() !='')
+            {
+                MinValue = parseInt($('#Min' + id).val());
+            }
+            var MaxValue =0;
+            if( $('#Max' + id).val() != undefined || $('#Max' + id).val() !='')
+            {
+                MaxValue = parseInt($('#Max' + id).val());
+            }
+
+            if (value != '' && value != undefined) {
+
+                $('#RangeSI_' + id).val(value);
+                if(value <MinValue)
+                {
+                 //   $('#txtBenefitSI' + id).val(MinValue);
+                }
+                else if(value >MaxValue)
+                {
+                    $('#txtBenefitSI' + id).val(MaxValue);
+                }
+
+            }
+
+
+        }
+
+
+    }
+    //function CalculateQuotePremium(index) {
+    //    $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
+    //    $('#HdnContactID'+index).attr('disabled',false);
+    //    $.post("/Policy/CalculateQuotePremium", $("#fromQuotePage"+index).serialize())
+    //   .done(function (data) {
+    //       if(data.Message =="Success")
+    //       {
+    //           debugger
+    //           $("#txtAnnualPremium" + index).val(data.AnnualPremium);
+    //           $("#txtHalfYearlyPremium" + index).val(data.HalfYearlyPremium);
+    //           $("#txtQuaterlyPremium" + index).val(data.QuaterlyPremium);
+    //           $("#txtMonthlyPremium" + index).val(data.MonthlyPremium);
+    //           $("#txtBasicPremium" + index).val(data.BasicPremium);
+    //           $("#txtCess" + index).val(data.Cess);
+    //           $("#txtVat" + index).val(data.VAT);
+    //           $("#hdnPolicyFee" + index).val(data.PolicyFee);
+    //           $('#divButtons_' + index).show();
+    //           $('#BenifitOvervieModelbody_'+index).html(data.STRHtml);
+    //           $('#divIllustration').html(data.STRPremiumHtml);
+    //           $('#buttonBenefitOverview_'+index).show();
+    //           // $('#buttonPremiumOverview_'+index).show();
+    //           $('#btnCalculate_'+index).hide();
+
+    //           $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', true);
+
+    //       }
+    //       else{
+    //       }
+
+
+    //   }).
+    //   fail(function () {
+    //   });
+    //}
+
+    function ModifyQuote(index)
+    {
+        $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
+        $('#buttonBenefitOverview_'+index).hide();
+        $('#btnCalculate_'+index).show();
+        $('#divButtons_'+index).hide();
+    }
+
+    //function SaveQuotation(index) {
+
+    //    $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
+
+    //    $('#HdnContactID'+index).attr('disabled',false);
+    //    $.post("/Policy/SaveQuotation", $("#fromQuotePage" + index).serialize(), function (data) {
+    //        if (data.Message == 'Success') {
+
+    //            $("#hdnQuoteNo"+index).val(data.QuoteNo);
+    //            var Message = '<p> Data Saved Successfully. Quote No is ' + data.QuoteNo + ' </p>';
+    //            $('#QuoteModalBody').html(Message);
+
+    //            $("#QuoteModal").modal("show");
+    //        }
+    //        else {
+
+    //            var Message = '<p> Some Error Occured</p>';
+    //            $('#QuoteModalBody').html(Message);
+    //            $("#QuoteModal").modal("show");
+    //        }
+    //    });
+
+    //}
+    function LoadQuotePool() {
+        window.location.href = '/Policy/Quote';
+    }
+    function DisplayBenifitOverview(index){
+        $("#BenifitOvervieModel_"+index).modal("show");
+    }
+    function DisplayPremiumOverview(index){
+        $("#PremiumOvervieModel_"+index).modal("show");
+    }
+
+    //calculate the age based on dateof birth selection
+    function ageCount(index) {
+        var dob =$("#dtSpouseCoveredDOB"+index+"").val();
+        var controlid = 'dtSpouseCoveredDOB' + index;
+        if (dob == "") {
+            $("#txtSpouseCoveredAge"+index+"").val('');
+            return;
+        }
+        if (!ValidateDOB(controlid)) {
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth. It cannot be future date.", controlid);
+            return false;
+        }
+        else{
+            writeMultipleMessage("error", "", controlid);
+
+        }
+        if (dob != '') {
+            var d = new Date();
+            var currentYear = d.getFullYear();
+            var currentMonth = d.getMonth() + 1;
+            var currentDate = d.getDate();
+            var arr = dob.split('/');
+            var birthYear = arr[2];
+            var birthMonth = arr[1];
+            var birthdate = arr[0];
+            var calYear = currentYear - birthYear;
+            var CalMonth = currentMonth - birthMonth;
+            var calcAge = 0;
+            if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                calYear--;
+            }
+
+            $("#txtSpouseCoveredAge"+index+"").val(calYear);
+        }
+    }
+    function ValidateDOB(controlid) {
+
+        var dob = $('#' + controlid).val();
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+        var arrDOB = dob.split('/');
+        var birthDay = arrDOB[0];
+        var birthMonth = arrDOB[1];
+        var birthYear = arrDOB[2];
+        var arrCurrentDate = currentDate.split('/');
+        var currentDay = arrCurrentDate[0];
+        var currentMonth = arrCurrentDate[1];
+        var currentYear = arrCurrentDate[2];
+        if (birthYear <= currentYear) {
+            if (birthMonth <= currentMonth) {
+                if (birthDay <= currentDay) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth < currentMonth) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (birthMonth > currentMonth && birthYear < currentYear) {
+                return true;
+
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+</script>

@@ -1,0 +1,63 @@
+﻿@model AIA.Life.Models.DashBoard.MyGoal
+@using AIA.Presentation.Helpers
+@{
+    ViewBag.Title = "GetmyActions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    .nav-tabs > li > a {
+        border: 2px solid #000;
+        background-color: #f8c708;
+        color: #000;
+    }
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        border: 2px solid #000;
+        background-color: #fea42a;
+        color: #000;
+    }
+    .nav-tabs > li > a:hover {
+        border: 2px solid #000;
+        background-color: #fea42a;
+        color: #000;
+    }
+    .tab-content > .tab-pane {
+        border: 2px solid #636363;
+        float: left;
+        width: 100%;
+        padding-bottom: 20px;
+    }
+    .nav-tabs, .nav-pills {
+        margin-bottom: -2px;
+    }
+    .nav > li {
+        margin-right: 10px;
+    }
+    .nav-tabs > li {
+        width: 220px;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-body" style="background-color: #fbb055;color:white;font-size:large;padding: 10px;"> Lead Management</div>
+</div>
+<div>
+    <img src="~/Content/Images/Date Picker.png" />
+</div>
+<ul class="nav nav-tabs" style="text-align:center;">
+    <li class="active">
+        <a data-toggle="tab" href="#cumulativeTarget"> Cumulative Target vs Achieved</a>
+    </li>
+    <li> <a data-toggle="tab" href="#cumulativeOwn"> Cumulative Own vs Allocated</a> </li>
+    <li> <a data-toggle="tab" href="#trendLine"> Trendline</a> </li>
+</ul>
+<div class="tab-content">
+    <div id="cumulativeTarget" class="tab-pane fade in active">
+        <img src="~/Content/Images/Lead-Target.png" style="margin-left: 250px;" />
+    </div>
+    <div id="cumulativeOwn" class="tab-pane fade">
+        <img src="~/Content/Images/Lead-Own.png" style="margin-left: 70px;"/>
+    </div>
+    <div id="trendLine" class="tab-pane fade">
+        <img src="~/Content/Images/Lead-Trendline.png" style="margin-left: 80px;" />
+    </div>
+</div>

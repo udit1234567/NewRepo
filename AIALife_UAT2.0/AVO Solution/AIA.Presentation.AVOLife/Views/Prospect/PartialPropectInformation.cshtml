@@ -1,0 +1,908 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+
+<style>
+    .textAlign {
+        text-align: center;
+    }
+
+    .bold {
+        font-weight: bold !important;
+    }
+</style>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="panel panel-default" id="pnlProposerDetails">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#collapse1" href="#collapseOne" class="collapsed">
+                    Prospect Information<span class="fields-count">2/10 <img src="~/Content/Images/portlet-expand-icon-white.png"/></span>
+</a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>Type</label>
+                            @Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>Salutation</label>
+                            @Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            @Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>Mobile</label>
+                            @Html.TextBoxFor(m => m.objClientDetails.MobileNumber, new { @class = "form-control", @id = "txtMobile", @maxlength = "9", @onkeypress = "return isNumberKey(event)", @onblur = "ValidateMobileNumber()" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>Email ID</label>
+                            @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "txtEmail", @maxlength = "50", @onblur = "validateEmailID('txtEmail','Please Enter Valid Email Id.')" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>Home</label>
+                            @Html.TextBoxFor(m => m.objClientDetails.PhoneNumber, new { @class = "form-control", @id = "txtTelephone", @maxlength = "9", @onkeypress = "return isNumberKey(event)" }) @* @onblur = "ValidatePhoneNumber()"*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>Work</label>
+                            @Html.TextBoxFor(m => m.objClientDetails.PhoneNumber, new { @class = "form-control", @id = "txtTelephone", @maxlength = "9", @onkeypress = "return isNumberKey(event)" }) @* @onblur = "ValidatePhoneNumber()"*@
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>Date Of Birth</label>
+                            @Html.iNubeDatePickerFor(m => m.objClientDetails.DOB, new { @class = "form-control", @id = "dtDOB", @MaxDate = DateTime.Now.ToString("MM/dd/yyyy"), @onChange = "ageCount()" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>Age</label>
+                            @Html.TextBoxFor(m => m.objClientDetails.Age, new { @class = "form-control", @id = "txtAge", @maxlength = "2", @onkeypress = "return isNumberKey(event)" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+
+                            <label>Occupation</label>
+                            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "", @class = "form-control" }))
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+
+                            <label>NIC</label>
+                            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "", @class = "form-control" }))
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+
+                            <label>Martial Status</label>
+                            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "", @class = "form-control" }))
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+
+                            <label>Gender</label>
+                            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "", @class = "form-control" }))
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+
+                            <label>Average Monthly Income</label>
+                            @(Html.TextBoxFor(a => a.objClientDetails.FirstName, new { id = "", @class = "form-control" }))
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div id="clientAddress">
+                        <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4">Correspondace Address:</p>
+                        @(Html.AddressFor(a => a.objClientDetails.objAddress))
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" id="pnlNeedAnalysis">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#collapse2" href="#collapseTwo" class="collapsed">
+                    Financial Need Analysis<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                </a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="panel panel-default" id="">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-target="#collapsePI1" href="#collapsePI" class="collapsed">
+                                Personal Information<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapsePI1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                        <div class="row">
+
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6"></div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                <label class="bold">Prospect</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                <label>Full Name:</label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                        <div class="row">
+
+                                            <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2"></div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                <label class="bold">Spouse</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4">Prospect:</p>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.MobileNumber, new { @class = "form-control", @id = "" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Date Of Birth</label>
+                                        @Html.iNubeDatePickerFor(m => m.objClientDetails.DOB, new { @class = "form-control", @id = "dtDOB", @MaxDate = DateTime.Now.ToString("MM/dd/yyyy"), @onChange = "ageCount()" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Age</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.PhoneNumber, new { @class = "form-control", @id = "" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>marital Status</label>
+                                        @Html.DropDownListFor(m => m.objSpouseDetials.Occupation, new SelectList("", "", ""), "Select", new { @class = "form-control", @id = "", })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Occupation</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Employer</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.PhoneNumber, new { @class = "form-control", @id = "" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4">Spouse:</p>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.MobileNumber, new { @class = "form-control", @id = "" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Date Of Birth</label>
+                                        @Html.iNubeDatePickerFor(m => m.objClientDetails.DOB, new { @class = "form-control", @id = "dtDOB", @MaxDate = DateTime.Now.ToString("MM/dd/yyyy"), @onChange = "ageCount()" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Age</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.PhoneNumber, new { @class = "form-control", @id = "" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>marital Status</label>
+                                        @Html.DropDownListFor(m => m.objSpouseDetials.Occupation, new SelectList("", "", ""), "Select", new { @class = "form-control", @id = "", })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Occupation</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Employer</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.PhoneNumber, new { @class = "form-control", @id = "" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-top: 45px;">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Dependents</th>
+                                                <th>Relationhip</th>
+                                                <th>Date Of Birth</th>
+                                                <th>Age</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1.</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>2.</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>3.</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>4.</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" id="">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-target="#collapseE2" href="#collapseE" class="collapsed">
+                                Estimation<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseE2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Food</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>House Rent/Electricity/Water/Telephone</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Clothes</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Transport</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Family Health Care</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Education Of Children</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Special Events and Entertainments</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Maid's and Other Helpers Salary</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Other Monthly Expenditure</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Total Monthly Expenditure</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.MobileNumber, new { @class = "form-control", @id = "", })
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Monthly Installments For Loans/Mortgages/Leases</label>
+                                        @Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", })
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" id="">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-target="#collapseAL3" href="#collapseAL" class="collapsed">
+                                Value Of Assets and Liabilities<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseAL3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-6 form-group">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                            <label>Assets</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Land & House</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Motor/Vehicle's</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Bank Deposit's</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Investments</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Total</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                            <label>Liabilities</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Loans</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Mortgages</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Leases</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Others</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-3 form-group">
+                                            <label>Total</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" id="">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-target="#collapseFI4" href="#collapseFI" class="collapsed">
+                                Family Income<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFI4" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-3 form-group">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                                        <div class="col-md-6 form-group textAlign">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                                        <div class="col-md-9 form-group">
+                                            <label>Monthly Income</label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                                        <div class="col-md-6 form-group textAlign">
+                                            <label class="bold">Prospect</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                                        <div class="col-md-6 form-group textAlign">
+                                            <label class="bold">Spouse</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                        <div class="col-md-6 form-group textAlign">
+                                            <label class="bold">Household Total</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+
+                                        <div class="col-md-9 form-group">
+                                            @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <p class="bold">Capital required to protect monthly expenditure</p>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                    <input type="button" class="" id="" value="*Monthly Expenditure" style="padding-left:20px;padding-right:20px;" /> X12X100
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                    <hr style="width: 12%; border-top: 1px solid #100101; padding-right: 300px;" />
+                                </div>
+                                <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">
+                                    <label>=</label>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                                    @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                    <input type="button" class="" id="" value="Rate of Interest" style="padding-left:20px;padding-right:20px;" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                <p class="bold">Less:</p>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <p>1. Personal life insurance</p>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <p>2. Savings and investments for Uncertain Events</p>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <p class="bold">Total Protection Available(1+2)</p>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    <p class="bold">The gap identified which needs to be protected</p>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                    @(Html.TextBoxFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control" }))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" id="" style="display:none">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-target="#collapseA5" href="#collapseA" class="collapsed">
+                                Analysis<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseA5" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Future Needs</th>
+                                                <th>Needs Identified</th>
+                                                <th>Value (Rs)</th>
+                                                <th>Priority</th>
+                                                <th>Product Suggestion</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>A.</td>
+                                                <td>Famiy Income Protection </td>
+                                                <td>
+
+                                                    @Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", })Yes
+                                                    @Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", })No
+
+
+                                                </td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", @placeholder = "Plan A,Plan B" })</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>B.</td>
+                                                <td>Children's Higher Education</td>
+                                                <td>
+                                                    @Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", })Yes
+                                                    @Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", })No
+                                                </td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", @placeholder = "Plan A,Plan B" })</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>C.</td>
+                                                <td>Children's Marriage</td>
+                                                <td>
+                                                    @Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", })Yes
+                                                    @Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", })No
+                                                </td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", @placeholder = "Plan A,Plan B" })</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>D.</td>
+                                                <td>Income On Retirement</td>
+                                                <td>
+                                                    @(Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", }))Yes
+                                                    @(Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", }))No
+                                                </td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", @placeholder = "Plan A,Plan B" })</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>E.</td>
+                                                <td>Funds For Sickness and Hospitalization</td>
+                                                <td>
+                                                    @(Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", }))Yes
+                                                    @(Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", }))No
+                                                </td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", @placeholder = "Plan A,Plan B" })</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>F.</td>
+                                                <td>Other Savings Needs</td>
+                                                <td>
+                                                    @(Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", }))Yes
+                                                    @(Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", }))No
+                                                </td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", @placeholder = "Plan A,Plan B" })</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>G.</td>
+                                                <td>Other Liabilities and Loans</td>
+                                                <td>
+                                                    @(Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", }))Yes
+                                                    @(Html.RadioButtonFor(a => a.IsNeedsIdentified, new { @id = "chkIsOPDreq", }))No
+                                                </td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "", @placeholder = "Plan A,Plan B" })</td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <p>Total</p>
+                                                </td>
+                                                <td>@Html.TextBoxFor(m => m.objClientDetails.EmailId, new { @class = "form-control", @id = "" })</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                                    <label for="sel1">Product(s) Selected</label>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                                    @Html.DropDownListFor(m => m.objSpouseDetials.Occupation, new SelectList("", "", ""), "Select", new { @class = "form-control", @id = "", })
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                                <label for="sel1">Comments:</label>
+                                @Html.TextAreaFor(m => m.objSpouseDetials.Occupation, new { @class = "form-control", @id = "", })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
+
+        <input type="button" class="btn btn-default" id="" value="Save" onclick="showConfirmedProspect()" style="padding-left:20px;padding-right:20px;" />
+        <input type="button" class="btn btn-default" id="" value="Cancel" onclick="" style="padding-left:20px;padding-right:20px;" />
+        <input type="button" class="btn btn-default" id="" value="Remove" onclick="" style="padding-left:20px;padding-right:20px;" />
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <label>Comments</label>
+        @Html.TextAreaFor(a => a.objClientDetails.ClientType, new { id = "", @class = "form-control", @placeholder = "Reason to Remove" })
+    </div>
+
+</div>
+<script>
+    function showConfirmedProspect() {
+
+        var NicValue = $("#txtNic").val();
+        var MaritalStatusValue = $("#txtMaritalStatus").val();
+        var GenderValue = $("#txtGender").val();
+        var AverageMonthlyIncomeValue = $("#txtAverageMonthlyIncome").val();
+
+        if (($.trim(NicValue).length > 0) && ($.trim(MaritalStatusValue).length > 0) && ($.trim(GenderValue).length > 0) && ($.trim(AverageMonthlyIncomeValue).length > 0)) {
+
+            window.location.href = "/prospect/NeedAnalysisCompleted";
+        }
+        else {
+            window.location.href = "/prospect/ConfirmedProspect";
+        }
+    }
+</script>
+
+

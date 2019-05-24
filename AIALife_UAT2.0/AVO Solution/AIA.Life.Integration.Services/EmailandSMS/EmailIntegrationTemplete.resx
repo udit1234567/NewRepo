@@ -1,0 +1,1878 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="T001" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png"alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="abc" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt; Thank you for the opportunity provided in analysing your insurance needs and to recommend some solutions!
+			&lt;br /&gt;&lt;br /&gt;Need analysis is attached herewith for your reference and kind consideration. We expect you to go through this carefully and take the best decision in the interest of your loved ones.
+			
+               
+              
+            &lt;tr&gt;&lt;td class="introContent"&gt;You could always contact our Wealth Planner on  txtWPMobileNo or directly our Head Office on 0112310310 in case you need more clarity on this!&lt;br&gt; 
+
+&lt;br&gt;All the best and take care!&lt;br&gt;
+           &lt;br&gt;&lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T002" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for the opportunity provided in analysing your insurance needs and  recommending  the best suited solution for you and your loved ones!
+
+&lt;br&gt;&lt;br&gt;Quotation generated after analysing your needs is attached here with for your reference and kind consideration. We expect you to go through this carefully and take the best decision in the interest of your loved ones. 
+
+
+			&lt;br&gt;&lt;/td&gt;&lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td class="introContent"&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+                 &lt;tr style="background-color:#dddddd; border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Quote Number&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtQuoteNo&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Product Name&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtProductName&lt;/td&gt;
+                &lt;/tr&gt;
+
+                 &lt;tr style="background-color:#dddddd;border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Premium (LKR)&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPremium/-&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Policy Term&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPolicyTerm years&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="background-color:#dddddd;border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Premium Paying Term&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPPTerm years&lt;/td&gt;
+                &lt;/tr&gt;
+
+
+               &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;You could always contact our Wealth Planner on  txtWPMobileNo or directly our Head Office on 0112310310 in case you need more clarity on this!
+&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T003" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for choosing AIA Sri Lanka as your life insurance partner and forwarding us the life insurance application!
+ 
+				&lt;br&gt;&lt;br&gt;This proposal will be the basis of the contract between you and AIA Sri Lanka as your insurance policy will be issued based on the information disclosed in this application form. 
+
+				&lt;br&gt;&lt;br&gt;Your application is being processed and we will update you on the progress. 
+			
+			&lt;/td&gt;&lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td class="introContent"&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+                 &lt;tr style="background-color:#dddddd; border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Quote Number&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtQuoteNo&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Proposal Number&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtProposalNo&lt;/td&gt;
+                &lt;/tr&gt;
+
+                 &lt;tr style="background-color:#dddddd;border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Product Name&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtProductName&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Premium&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPremium/-&lt;/td&gt;
+                &lt;/tr&gt;
+
+               &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			
+			Please keep this proposal securely saved as this is a valuable legal document which forms the basis of this insurance contract.
+ 
+				&lt;br&gt;&lt;br&gt;Please go through same carefully and get back to us immediately if you find any wrongly disclosed information / facts.
+
+				&lt;br&gt;&lt;br&gt;looking forward to serving you for many more years ! 
+
+			&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T004" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for choosing AIA Sri Lanka as you life insurance partner and forwarding us a life insurance application. 
+
+			&lt;br&gt;&lt;br&gt;We kindly request you to comply with the following requirements at your earliest possible to enable us proceed with your application. 
+
+
+			&lt;br&gt;&lt;br&gt;1. Medical examinations/ laboratory tests as stated in the attached letter. (Please take a copy of this letter when you present yourself for the medical examinations)
+
+			&lt;br&gt;2. Personal Financial questionnaire attached herewith
+
+
+			&lt;br&gt;&lt;br&gt;We will update you on the progress on receipt of the above requirements.
+
+			&lt;/td&gt;&lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td class="introContent"&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+                 &lt;tr style="background-color:#dddddd; border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Quote Number&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtQuoteNo&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Product Name&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtProductName&lt;/td&gt;
+                &lt;/tr&gt;
+
+                 &lt;tr style="background-color:#dddddd;border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Premium&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPremium/-&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Policy Start Date&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPolicyStartDate&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="background-color:#dddddd;border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Policy End Date&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPolicyEndDate&lt;/td&gt;
+                &lt;/tr&gt;
+
+
+               &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				Looking forward to serving you for many more years!
+			&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T005" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				While thanking you, we acknowledge the receipt of the following requirements for your proposal.
+				&lt;br&gt;&lt;br&gt;strQuotesTable
+				
+				&lt;br&gt;However, we are yet to receive the following requirements. We appreciate if you could forward us the same at your earliest possible to expedite the issuance of your life insurance policy.
+				&lt;br&gt;&lt;br&gt;strQuotesNonMedicalTable
+
+			&lt;/td&gt;&lt;/tr&gt;
+
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				You could always contact your Wealth Planner on txtWPMobileNo  or directly the Head Office on 0112310310 if you need more clarity in this regard.&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T006" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				We are compelled to cancel your life insurance proposal in 15 days unless you comply with the due requirements before that date. 
+
+				&lt;br&gt;&lt;br&gt;We require these information to proceed with your application and hope you will make necessary arrangements to forward us same at your earliest possible.
+
+				&lt;br&gt;&lt;br&gt;We urge you to attend this matter urgently in securing the future of you and your loved ones! 
+			&lt;/td&gt;&lt;/tr&gt;&lt;br&gt;
+
+            
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				Please contact your Wealth Planner on txtWPMobileNo or Head Office on 0112310310 if you need more clarity on this. 
+			&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T007" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				Thank you for choosing AIA Sri Lanka as your insurance partner and forwarding us the life insurance application. 
+
+				&lt;br&gt;&lt;br&gt;We have gone through same carefully and regret to inform you of our inability to offer you a life insurance cover considering your txtdeclinedecision.
+
+				&lt;br&gt;&lt;br&gt;We would request you to seek medical advice on your condition. 
+				&lt;/td&gt;&lt;/tr&gt;
+
+            
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Deposit paid towards your insurance application will be refunded to you in due course after deducting medical expenses, if any.
+
+			&lt;br&gt;&lt;br&gt;Wish you all the Best and Take care!!
+
+            &lt;br&gt;&lt;br&gt;&lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T008" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				Thank you for choosing AIA Sri Lanka as your insurance partner and forwarding us the life insurance application. 
+
+					&lt;br&gt;&lt;br&gt;We have gone through same carefully and regret to inform you of our inability to offer you a life insurance cover at this juncture, considering your txtdeclinedecision. 
+
+					&lt;br&gt;&lt;br&gt;However, we are prepared to reconsider our decision in txtDuration months subject to a fresh set of medicals.
+
+					&lt;br&gt;&lt;br&gt;Also we would request you to seek medical advice on your condition. 
+
+				&lt;/td&gt;&lt;/tr&gt;
+
+            
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Deposit paid towards your insurance application will be refunded to you in due course after deducting medical expenses, if any.
+
+			&lt;br&gt;&lt;br&gt;Wish you all the Best and Take care!!
+			&lt;br&gt;&lt;br&gt;
+
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T009" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				Thank you for choosing AIA Sri Lanka as your life insurance partner and forwarding us a life insurance application. 
+
+				&lt;br&gt;&lt;br&gt;On the request made by you, we have cancelled your life insurance application txtProposalNo and the deposit paid will be refunded to you in due course.
+ 
+				&lt;br&gt;&lt;br&gt;It was nice serving you and would prefer to serve you again should you wish to reconsider your decision at a later date. 
+
+				&lt;/td&gt;&lt;/tr&gt;
+
+            
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			You may contact your Wealth Planner txtWPMobileNo or directly the Head Office on 0112310310 for such assistance!
+
+			&lt;br&gt;&lt;br&gt;We wish you all the best !
+
+
+            &lt;br&gt;&lt;br&gt;&lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T010" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				We are pleased to inform you that we have issued your life insurance policy and we warmly welcome you on board! 
+
+				&lt;br&gt;&lt;br&gt;You will soon receive your life insurance policy and we urge you to go through same and be familiar with the terms and conditions applicable to the contract!
+
+				&lt;/td&gt;&lt;/tr&gt;
+
+            
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Looking forward for serving you for many more years,
+
+			&lt;br&gt;&lt;br&gt;All the best and take care !
+
+            &lt;br&gt;&lt;br&gt;&lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T011" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png"alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="abc" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for selecting AIA Sri Lanka as your life insurance partner and forwarding us a life insurance application. 
+
+			&lt;br&gt;&lt;br&gt;We have carefully evaluated your insurance proposal and connected reports and wish to accept the same subject to certain clauses as indicated in the attached conditional letter of acceptance. 
+
+			&lt;br&gt;&lt;br&gt;Kindly go through same and provide us with your consent to proceed with issuing the policy as stated therein. 
+
+	
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;Looking forward to serving you for many more years
+			&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T012" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png"alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="abc" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for selecting AIA Sri Lanka as your life insurance partner and forwarding us a life insurance application. 
+
+			&lt;br&gt;&lt;br&gt;We have carefully evaluated your insurance proposal and connected reports and wish to accept the same subject to certain clauses and with an additional premium as indicated in the attached conditional letter of acceptance and the revised illustration.
+
+			&lt;br&gt;&lt;br&gt;Kindly go through same and provide us with your consent to proceed with issuing the policy as stated therein. 
+
+
+
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;Looking forward to serving you for many more years
+			&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T013" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for selecting AIA Sri Lanka as your life insurance partner and forwarding us a life insurance application. 
+			&lt;br&gt;&lt;br&gt;We have carefully evaluated your insurance proposal and connected reports and wish to accept the same subject to a change in the product type you requested, some clauses and with an additional premium as indicated in the attached conditional letter of acceptance and the revised illustration.
+
+			&lt;br&gt;&lt;br&gt;Kindly go through same and provide us with your consent to proceed with issuing the policy as stated therein. 
+
+
+
+
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;Looking forward to serving you for many more years
+			&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T014" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for selecting AIA Sri Lanka as you life insurance partner and forwarding us a life insurance application. 
+			Thank you for selecting AIA Sri Lanka as you life insurance partner and forwarding us an  a life insurance application. 
+
+&lt;br&gt;&lt;br&gt;We have carefully evaluated your insurance proposal and conencted reports and wish to accept the same subject to an additional premium as indicated below.
+
+&lt;br&gt;&lt;br&gt;1. txtRequirement 1 
+
+&lt;br&gt;&lt;br&gt;Kindly comply with the requirements to proceed with issuing the policy.
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;Looking forward to serving you for many more years
+			&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T015" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for choosing AIA Sri Lanka as your life insurance partner and forwarding us a life insurance application. 
+
+			&lt;br&gt;&lt;br&gt;We kindly request you to comply with the following requirements at your earliest possible to enable us proceed with your application. 
+
+
+			&lt;br&gt;&lt;br&gt;1. Medical Documents
+            &lt;br&gt;&lt;br&gt;strQuotesTable
+			&lt;br&gt;2. Non-Medical Documents
+                                                      
+			&lt;br&gt;&lt;br&gt;strQuotesNonMedicalTable
+			&lt;br&gt;&lt;br&gt;We will update you on the progress on receipt of the above requirements.
+
+			&lt;/td&gt;&lt;/tr&gt;
+
+            
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+				Looking forward to serving you for many more years!
+			&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="T016" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;   
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;title&gt;Emailer&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+    @font-face
+    {
+      font-family:'AIAEverest-Regular';
+      src:url('../Font/AIAEverest-Regular.otf');
+    }
+      /* Default CSS */
+      body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
+      a {color: #09c;}
+      a img {border: none; text-decoration: none;}
+      table, table td {border-collapse: collapse;}
+      td, h1, h2, h3 {color: #313a42;}
+      h1, h2, h3, h4 {color: #313a42 !important; font-weight: normal; line-height: 1.2;}
+      h1 {font-size: 24px;}
+      h2 {font-size: 18px;}
+      h3 {font-size: 16px;}
+      p {margin: 0 0 1.6em 0;}
+      
+      /* Top header */
+      .topHeader {background: #c31433;}
+      
+      /* Logo (branding) */
+      .logoContainer {padding: 10px 0px; width: 320px;}
+      .logoContainer a {color: #ffffff;}
+      
+      /* Big header image */
+      .bigHeader img{display: block;}
+      .bigHeaderBackground {background-color: #E9F2F9;}
+      
+     
+      
+      .introTitle,.sectionArticleTitle {color: #f26c4f;}
+      
+      .introTitle {font-size: 18px; line-height: 1.2; text-align: left; padding: 20px 0px 15px 0px;}
+      .introContent {text-align: justify; padding: 0px 0px 20px 0px;}
+      
+      /* Footer */
+      .footer {background-color: #c31433; padding: 20px; text-align: justify;color: #ffffff;}
+      .footNotes a {color: #f26c4f; text-align: justify;}
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body style="border:1px solid black; width: 640px;margin: 0px auto" yahoofix&gt;
+    &lt;span id="body_style" style="display:block"&gt;
+      &lt;table border="1px solid black"&gt;
+        &lt;tr style="width:640px; border:1px solid #000"&gt;
+          &lt;table border="0" cellspacing="0" cellpadding="0" width="600" align="center" summary="" class="topHeader"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellspacing="0" cellpadding="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;
+                    &lt;td class="logoContainer"&gt;
+                      &lt;div align="center"&gt;
+                          &lt;img class="logo" src="txtImage1/Images/travel-logo.png" alt="Lorem logo" /&gt;
+                      &lt;/div&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary="" class="bigHeaderBackground"&gt;
+            &lt;tr&gt;
+              &lt;td&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+          &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for choosing AIA Sri Lanka as your life insurance partner and forwarding us the life insurance application!
+ 
+				&lt;br&gt;&lt;br&gt;With reference to the previous email regarding the medical examinations which you need to submit for us to consider your life insurance proposal, please refer the attached medical request letter.  You could either take a printed copy of this letter or present the soft copy of the letter to the laboratory at the time of medical examination. 
+							&lt;br&gt;&lt;br&gt;We will update you on the progress on receipt of the above requirements. 
+
+				&lt;br&gt;&lt;br&gt;looking forward to serving you for many more years ! 
+
+			&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+            &lt;strong style="font-size: 18px"&gt;AIA Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+          &lt;/table&gt;
+           &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
+            &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by AIA Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
+           &lt;/table&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+</root>

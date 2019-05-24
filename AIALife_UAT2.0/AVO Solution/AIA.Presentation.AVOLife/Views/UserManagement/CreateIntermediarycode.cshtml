@@ -1,0 +1,1241 @@
+﻿@model AIA.Life.Models.UserManagement.ImdcodeCreationModel
+@using AIA.Presentation.Helpers
+@using GridMvc.Html
+@using AIA.Life.Repository.AIAEntity
+
+@{
+    AVOAIALifeEntities Entities = new AVOAIALifeEntities();
+    List<SelectListItem> lstpremium = new List<SelectListItem>();
+    lstpremium.Add(new SelectListItem { Text = "premium", Value = "premium" });
+    var type = ViewBag.mode;
+}
+
+@Scripts.Render("~/bundles/UserManagement")
+@Scripts.Render("~/bundles/Dialog")
+@Styles.Render("~/Content/Dialogcss")
+<script type="text/javascript">
+    var ddlSmcodeval = "";
+    function showpopup() {
+        BootstrapDialog.show({
+            type: BootstrapDialog.TYPE_DANGER,
+            title: 'Search Client Code',
+            buttons: [{
+                id: 'btnClose',
+                label: 'Close',
+                cssClass: 'btn-primary',
+                autospin: false,
+                action: function (dialogRef) {
+                    dialogRef.close();
+                }
+            }],
+            closable: true,
+            size: 'size-large',
+            cssClass: 'login-dialog',
+            message: function (dialog) {
+                var $message = $('<div></div>');
+                var pageToLoad = dialog.getData('pageToLoad');
+                $message.load(pageToLoad);
+                return $message;
+            },
+            data: {
+                'pageToLoad': '../../UM/UserManagement/SearchClient'
+            }
+        });
+    }
+
+    @*function showImdHistoryPopup() {
+        var PageUrl = '@Url.Action("IMDHistory", "UserManagement")';
+        $("#divshowhistory").load(PageUrl, function () {
+            var container = $(this);
+            container.dialog({
+                height: 400,
+                width: 800,
+                maxWidth: 800,
+                modal: true,
+                fluid: true
+            }).find("form").submit(function () {
+                container.dialog("close");
+                return false;
+            });
+        });
+
+    }*@
+
+    function GetgirdCommissionDetails(commissionObj) {
+        var IsValid = true;
+        var count = 0;
+        var id;
+        var premiumclass;
+        var ContractType;
+        var Commission;
+
+        $("#Commissiondetails tbody").find("tr").each(function () {
+            premiumclass = $(this).find("[data-name=premiumclass]").find("option:selected").val();
+            ContractType = $(this).find("[data-name=ContractType]").find("option:selected").val();
+            Commission = $(this).find("[data-name=Commission]").find("input[type=text]").val();
+            commissionObj.push({ premiumclass: premiumclass, ContractType: ContractType, Commission: Commission })
+            //if (premiumclass != '' && ContractType != '' && Commission != '') {
+            //    commissionObj.push({ premiumclass: premiumclass, ContractType: ContractType, Commission: Commission })
+            //}
+        });
+    }
+    function GetgirdBranchDetails(branchObj) {
+        var IsValid = true;
+        var count = 0;
+        var Branch;
+        var Smcode;
+        var Empcode;
+        $("#Branchdetails tbody").find("tr").each(function () {
+            Branch = $(this).find("[data-name=BranchCode]").find("option:selected").val();
+            Smcode = $(this).find("[data-name=SmCode]").find("option:selected").val();
+            Empcode = $(this).find("[data-name=EmployeeCode]").find("option:selected").val();
+            if ($("#ddlImdtype option:selected").val() != 5 && Branch != '' && Smcode != '' && Empcode != '') {
+                branchObj.push({ BranchCode: Branch, SmCode: Smcode, EmployeeCode: Empcode });
+            }
+            else {
+                branchObj.push({ BranchCode: Branch, SmCode: Smcode, EmployeeCode: Empcode });
+            }
+        });
+    }
+    function GetgirdProductDetails(productObj) {
+        var IsValid = true;
+        var count = 0;
+        var lob;
+        var product;
+        var contractType;
+        var sumInsuredLimit;
+        $("#ProductDetails tbody").find("tr").each(function () {
+            lob = $(this).find("[data-name=lob]").find("option:selected").val();
+            product = $(this).find("[data-name=product]").find("option:selected").val();
+            contractType = $(this).find("[data-name=contractType]").find("option:selected").val();
+            sumInsuredLimit = $(this).find("[data-name=sumInsuredLimit]").find("input[type=text]").val();
+            if (lob != "" && product != "" && contractType != "" && sumInsuredLimit != "") {
+                productObj.push({ lob: lob, product: product, contractType: contractType, sumInsuredLimit: sumInsuredLimit });
+            }
+        });
+    }
+    function GetgirdGEBDetails(gebObj) {
+
+        var IsValid = true;
+        var count = 0;
+        var Datefrom;
+        var Dateto;
+        var Ricession;
+        var Ricommission;
+        $("#GEBDetails  tbody").find("tr").each(function () {
+            Datefrom = $(this).find("[data-name=Datefrom]").find("input[type=text]").val();
+            Dateto = $(this).find("[data-name=Dateto]").find("input[type=text]").val();
+            Ricession = $(this).find("[data-name=Ricession]").find("input[type=text]").val();
+            Ricommission = $(this).find("[data-name=Ricommission]").find("input[type=text]").val();
+            gebObj.push({ Datefrom: Datefrom, Dateto: Dateto, Ricession: Ricession, Ricommission: Ricommission });
+            //if (Datefrom != "" && Dateto != "") {
+            //    gebObj.push({ Datefrom: Datefrom, Dateto: Dateto, Ricession: Ricession, Ricommission: Ricommission });
+            //}
+
+        });
+    }
+    function GetgirdUINDetails(uinObj) {
+
+        var IsValid = true;
+        var count = 0;
+        var datefrom;
+        var UINNo;
+        var dateto;
+        $("#Uindetails  tbody").find("tr").each(function () {
+            datefrom = $(this).find("[data-name=Datefrom]").find("input[type=text]").val();
+            UINNo = $(this).find("[data-name=uinNumber]").find("input[type=text]").val();
+            dateto = $(this).find("[data-name=Dateto]").find("input[type=text]").val();
+            uinObj.push({ Datefrom: datefrom, uinNumber: UINNo, Dateto: dateto })
+            //if (datefrom != "" && UINNo != "" && dateto != "") {
+            //    uinObj.push({ Datefrom: datefrom, uinNumber: UINNo, Dateto: dateto })
+            //}
+        });
+    }
+    function SaveImdUser() {
+        EnableDisableAllControls('divClientDetailsId', true);
+        //Enable client type
+        EnableDisableAllControls("ClientTypeIndividual", true);
+        EnableDisableAllControls("ClientTypeorganization", true);
+        $(".disableDDOnEditMode").prop("disabled", false);
+        $(".employeeCode").prop("disabled", false);
+        $(".smcode").prop("disabled", false);
+        //view more button
+        if ($("#btnViewMore").is(":visible")) {
+            //ViewMoreBranchGrid();
+            $('#hdnBranchLst').val("true");
+        }
+
+        var result;
+        result = ValidateAllDetailsIMD();
+        if (!result) {
+            return false;
+        }
+
+        var commissionObj = [];
+        var branchObj = [];
+        var gebObj = [];
+        var uinObj = [];
+        var productObj = [];
+        GetgirdCommissionDetails(commissionObj);
+        //GetgirdBranchDetails(branchObj);
+        //$('#hdnBranchLst').val(JSON.stringify(branchObj));
+        GetgirdProductDetails(productObj);
+        $('#hdnProductLst').val(JSON.stringify(productObj));
+        GetgirdGEBDetails(gebObj);
+        GetgirdUINDetails(uinObj);
+        $.post("../../UserManagement/SaveImdCodeCreation?commission=" + JSON.stringify(commissionObj) + "&gebobj=" + JSON.stringify(gebObj) +
+            "&uinobj=" + JSON.stringify(uinObj), $("#Imdformcreation").serialize()).done(function (data) {
+                $('#imdModelBody').html(data);
+                //if(data.IMDDetailsID != ""){
+                //    $('#hdnImdDetailsId').val(data.IMDDetailsID);
+                //}
+                $("#imdModal").modal('show');
+                $(".disableDDOnEditMode").prop("disabled", true);
+                $(".employeeCode").prop("disabled", true);
+                //$('#btnok').show();
+            }).fail(function (data) {
+                $('#imdModelBody').html(data);
+                $("#imdModal").modal('show');
+                $(".disableDDOnEditMode").prop("disabled", true);
+                $(".employeeCode").prop("disabled", true);
+                //$('#btnok').hide();
+            });
+    }
+
+    //function CheckIMD() {
+    //    var result = false;
+    //    if ($("#ClientTypeIndividual").is(":checked")) {
+    //        writeMultipleMessage("error", '', "CorpName");
+    //        var IMDFirstName = $('#txtFirstName').val();
+    //        var IMDLastName = $('#txtLastName').val();
+    //        if (IMDFirstName == null || IMDFirstName == "") {
+    //            writeMultipleMessage("error", 'please provide FirstName', "txtFirstName");
+    //            result = false;
+    //        }
+    //        else if (IMDLastName == null || IMDLastName == "") {
+    //            writeMultipleMessage("error", 'please provide LastName', "txtLastName");
+    //            result = false;
+    //        }
+    //        else {
+    //            $.ajax({
+    //                type: "GET",
+    //                url: "../UserManagement/CheckIMDName?firstName=" + IMDFirstName + "&lastName=" + IMDLastName,
+    //                contentType: 'application/json',
+    //                dataType: "json",
+    //                async: false,
+    //                success: function (data) {
+    //                    if (data != null && data != "") {
+    //                        writeMultipleMessage("error", 'IMD Name' + " " + data + " " + 'Already Exist', "txtFirstName");
+    //                        result = false;
+    //                    }
+    //                    else {
+    //                        writeMultipleMessage("error", "", "txtFirstName");
+    //                        result = true;
+    //                    }
+    //                }
+    //            });
+    //        }
+    //    }
+    //    else {
+    //        writeMultipleMessage("error", '', "txtFirstName");
+    //        writeMultipleMessage("error", '', "txtLastName");
+    //        var IMDCorporateName = $('#CorpName').val();
+    //        if (IMDCorporateName == null || IMDCorporateName == "") {
+    //            writeMultipleMessage("error", 'please provide Corporate Name', "CorpName");
+    //            result = false;
+    //        }
+    //        else {
+    //            $.ajax({
+    //                type: "GET",
+    //                url: "../UserManagement/CheckCorporateName?corporateName=" + IMDCorporateName,
+    //                contentType: 'application/json',
+    //                dataType: "json",
+    //                async: false,
+    //                success: function (data) {
+    //                    if (data != null & data != "") {
+    //                        result = true;
+    //                        writeMultipleMessage("error", 'IMD Corporate Name' + " " + data + " " + 'Already Exist', "CorpName");
+    //                        result = false;
+    //                    }
+    //                    else {
+    //                        writeMultipleMessage("error", "", "txtuserID");
+    //                        result = true;
+    //                    }
+    //                }
+    //            });
+    //        }
+    //    }
+
+    //    return result;
+    //}
+
+    $(document).ready(function () {
+        var clientType = '@Model.ClientType.ToString().ToUpper()';
+        if (clientType == 'TRUE') {
+            ShowIndividual();
+        }
+        else {
+            ShowOrg();
+        }
+
+        if ($('#hdnImdDetailsId').val() != 0) {
+            if ('@Model.tdsDetails' != null) {
+                var isLTDS = '@Model.tdsDetails.isLTDS';
+                if (isLTDS == 'True') {
+                    ShowLTDS();
+                    $("#LTDSYes").prop('checked', true);
+                    $("#txtTDS").val('0');
+                }
+                else {
+                    HideLTDS();
+                    $("#LtdsNo").prop('checked', true);
+                    $("#txtTDS").val('5');
+                }
+            }
+            else {
+                HideLTDS();
+                $("#LtdsNo").prop('checked', true);
+                $("#txtTDS").val('5');
+            }
+        }
+        else {
+            HideLTDS();
+            $("#LtdsNo").prop('checked', true);
+            $("#txtTDS").val('5');
+        }
+
+        NumberOnly('txtmobile');
+        NumberOnly('txtofficeno');
+        NumberOnly('AddressLine1Pincode');
+        NumberOnly('txtAccountNo');
+        NumberOnly('txtclientcode');
+        NumberOnly('txtAadhaarNo');
+
+        //NoWhiteSpaces('txtFirstName');
+        //NoWhiteSpaces('txtLastName');
+        //NoWhiteSpaces('CorpName');
+        //NoWhiteSpaces('Contact');
+        NoWhiteSpaces('txtemail');
+        NoWhiteSpaces('txtSecuritycode');
+        NoWhiteSpaces('txtifsccode');
+        NoWhiteSpaces('txtmicrcode');
+        NoWhiteSpaces('txtbankcode');
+        NoWhiteSpaces('txtswiftcode');
+        NoWhiteSpaces('txtAadhaarNo');
+
+        NoSymbols('txtSecuritycode');
+        NoSymbols('txtifsccode');
+        NoSymbols('txtmicrcode');
+        NoSymbols('txtbankcode');
+        NoSymbols('txtswiftcode');
+        NoWhiteSpaces('txtAadhaarNo');
+
+        $("#AddressLine1City").prop("disabled", false);
+        $("#AddressLine1City").attr("maxlength", 30);
+        $('#AddressLine1City').focus(function () {
+            $("#AddressLine1City").prop("disabled", false);
+            $("#AddressLine1City").prop("readonly", false);
+        });
+        $("#AddressLine1City").blur(function () {
+            validateTextBox('AddressLine1City', 'Please enter City');
+        });
+        $("#AddressLine1City").keypress(function (e) {
+            return onlyAlphabets(e);
+        });
+
+        $("#AddressLine1Pincode").attr("maxlength", 6);
+        $("#AddressLine1Pincode").blur(function () {
+            ValidatePinCode();
+        });
+
+        $("#AddressLine1Address1").attr("maxlength", 30);
+        $("#AddressLine1Address2").attr("maxlength", 30);
+        $("#AddressLine1Address3").attr("maxlength", 30);
+
+        $(document.body).on('keypress', '.date input[type=text]', function (e) {
+            if (e.which != 8 && e.which != 0 && e.which != 45 && e.which != 47 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+
+        $("#txtPan").attr("maxlength", 10);
+        NoSymbols('txtPan');
+        $("#txtPan").keyup(function () {
+            this.value = this.value.toUpperCase();
+        });
+
+        $(document.body).on('keypress', '.numeric', function (e) {
+            if (e.which != 8 && e.which != 0 && e.which != 46) {
+                return false;
+            }
+        });
+
+        $(document.body).on('keypress', '.sumInsuredLimit', function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+
+        //Space validation for first & last name
+        $("#txtFirstName").keypress(function (e) {
+            if (e.which == 32 && $("#txtFirstName").val() == "") {
+                return false;
+            }
+            else if (e.which == 32 && $("#txtFirstName").val() != "") {
+                var dtRegex = new RegExp(/[ ]{1,}/);
+                var result = dtRegex.test($("#txtFirstName").val());
+                if (result) {
+                    writeMultipleMessage("error", "You can't enter two consucative spaces in first name", 'txtFirstName');
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", '', 'txtFirstName');
+                    return true;
+                }
+            }
+        });
+
+        $("#txtLastName").keypress(function (e) {
+            if (e.which == 32 && $("#txtLastName").val() == "") {
+                return false;
+            }
+            else if (e.which == 32 && $("#txtLastName").val() != "") {
+                var dtRegex = new RegExp(/[ ]{1,}/);
+                var result = dtRegex.test($("#txtLastName").val());
+                if (result) {
+                    writeMultipleMessage("error", "You can't enter two consucative spaces in Last Name", 'txtLastName');
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", '', 'txtLastName');
+                    return true;
+                }
+            }
+        });
+
+        //TDS Details
+        NumberOnly('txtTDS');
+        NumberOnly('txtLowTDSRates');
+        NumberOnly('txtThresholdAmount');
+        //NumberOnly('txtLowerTDSCertificateNumber');
+        //NumberOnly('txtServiceTaxRegistrationNumber');
+        NoWhiteSpaces('txtServiceTaxRegistrationNumber');
+        NoSymbols('txtServiceTaxRegistrationNumber');
+        NoWhiteSpaces('txtLowerTDSCertificateNumber');
+        NoSymbols('txtLowerTDSCertificateNumber');
+        //$("#txtTDS").val('0');
+        $("#txtLowTDSRates").val('3');
+        //Empty Date fields in IMD Creation
+        if ($('#hdnImdDetailsId').val() == 0) {
+            $('#dpValidityPeriodFrom').val("");
+            $('#dpValidityPeriodTo').val("");
+            $('#dpLTDSCertificateReceivedDate').val("");
+        }
+
+        //$(".smcode").attr("maxlength", 8);
+        //$(document.body).on('keypress', '.smcode', function (e) {
+        //    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && (e.which < 65 || e.which > 90) && (e.which < 97 || e.which > 122)) {
+        //        return false;
+        //    }
+        //});
+
+        $(".uinnumber").attr("maxlength", 30);
+        //$(document.body).on('keypress', '.uinnumber', function (e) {
+        //    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && (e.which < 65 || e.which > 90) && (e.which < 97 || e.which > 122)) {
+        //        return false;
+        //    }
+        //});
+
+        //$('#btnok').hide();
+
+        //Diasble Datepickers
+        //  $("#divdpLicenseExpiry span[input-group-addon]").prop("disabled", true);Panverificationdate/divLicenseExpiry
+        $("#divLicenseExpiry .input-group-addon").css("pointer-events", "none");
+        $("#Panverificationdate .input-group-addon").css("pointer-events", "none");
+        $("#btnsubmit").prop("disabled", false);
+        //disable client search in edit mode.
+        if ($('#hdnImdDetailsId').val() == 0) {
+            $("#aImdText").text('Intermediary Code Creation');
+            $("#btnClientId").prop("disabled", false);
+            $('#divImdcode').hide();
+            $(".employeeCode").prop("disabled", true);
+            $("#btnHistory").prop("disabled", true);
+            $("#divTransferCase").show();
+            $("#rdYes").prop("disabled", true);
+            $("#rdNo").prop("disabled", true);
+            $("#divProductDetails").hide();
+        }
+        else {
+            $("#aImdText").text('Intermediary Code Modification');
+            $("#btnClientId").prop("disabled", true);
+            $('#divImdcode').show();
+            $("#txtImdCode").attr("readonly", true);
+            $(".disableDDOnEditMode").prop("disabled", true);
+            $(".employeeCode").prop("disabled", true);
+            $("#btnHistory").prop("disabled", false);
+            ddlSmcodeval = $('#hdnImdCode').val();
+
+            if ($("#ddlImdtype option:selected").val() == 1) {
+                $("#divTransferCase").show();
+                if ('@Model.isTransferCase') {
+                    $("#rdYes").prop('checked', true);
+                }
+                else {
+                    $("#rdNo").prop('checked', true);
+                }
+            }
+            if (($("#ddlImdtype option:selected").val() == 88)) {
+                $("#divReportsToAadhaarNo").show();
+                //Enable Licence Number for IMD Type 88
+                $("#txtlicencenumber").attr("readonly", false);
+            }
+        }
+        //Display IMDCode
+        $('#txtImdCode').val($('#hdnImdCode').val());
+        // Added for Auto Complete
+        $('#txtifsccode').autocomplete(
+       {
+           source: '@Url.Action("BankIfscCode", "UserManagement")',
+           minLength: 6,
+           change: function (event, ui) {
+               if (ui.item) {
+                   writeMultipleMessage("error", "", 'txtifsccode');
+               } else {
+                   $("#txtifsccode").val("");
+                   writeMultipleMessage("error", "Please select a value from list", 'txtifsccode');
+                   ErrorCode = false;
+               }
+           },
+           select: function (event, ui) {
+               ValidateIfscCode();
+               return false;
+           },
+           focus: function (event, ui) {
+               $("#txtifsccode").val(ui.item.value);
+               return false;
+           }
+       });
+        // till here
+    });
+
+    function IMDHistory() {
+        var ImdCode = $('#txtImdCode').val();
+        $.ajax({
+            type: "GET",
+            url: "../../UserManagement/ImdHistory?imdcode=" + ImdCode,
+            async: false,
+            success: function (data) {
+                $('#IMDHistoryModelBody').html("");
+                $('#IMDHistoryModelBody').html(data);
+                $("#IMDHistoryModal").modal('show');
+            }
+        });
+    }
+
+    function GetEmployeeCode(e) {
+        var id = e.id;
+        var empId = $('#' + id + ' option:selected').val();
+        if ($('#hdnImdDetailsId').val() == 0 || $('#hdnImdDetailsId').val() == null) {
+            $.ajax({
+                type: "GET",
+                url: "../../UM/UserManagement/GetEmployeeCode?empID=" + empId,
+                contentType: 'application/json',
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $('#ddlempcode' + id.charAt(id.length - 1)).val(data.ID);
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "GET",
+                url: "../../UserManagement/GetEmployeeCode?empID=" + empId,
+                contentType: 'application/json',
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (id.lenght > 10) {
+                        $('#ddlempcode' + id.charAt(id.length - 1)).val(data.ID);
+                    }
+                    else
+                    {
+                        var idIndex = id.substring(id.length - (id.length - 9), (id.length));
+                        $('#ddlempcode' + idIndex).val(data.ID);
+
+                    }
+                }
+            });
+        }
+    }
+
+    function ViewMoreBranchGrid() {
+        //$("#divLoading").show();
+        var ImdCode = $('#txtImdCode').val();
+        var id = $('#hdnImdDetailsId').val();
+        $.ajax({
+            type: "GET",
+            url: "../../UserManagement/ViewMoreBranchGrid?imdcode=" + ImdCode + "&id=" + id,
+            //async: false,
+            success: function (data) {
+                $('#Branchdetails').html("");
+                $('#Branchdetails').html(data);
+                //$("#divLoading").hide();
+            }
+        });
+    }
+
+</script>
+
+@using (Html.BeginForm("SaveImdCodeCreation", "UserManagement", FormMethod.Post, new { id = "Imdformcreation" }))
+{
+    @Html.HiddenFor(a => a.ImdDetailsID, new { @id = "hdnImdDetailsId" })
+    @Html.HiddenFor(a => a.branchObj, new { @id = "hdnBranchLst" })
+    @Html.HiddenFor(a => a.productObj, new { @id = "hdnProductLst" })
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <i style="color: white;" class="icon-user"></i>
+                <a data-toggle="collapse" data-target="#collapse3" href="#collapseThree" id="aImdText" class="collapsed">
+                    <img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+
+        <div id="collapse3" class="panel-collapse in">
+            <div class="panel-body">
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right" style="padding-right: 1px;">Intermediary Type<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.DropDownListFor(a => a.ImdType, new SelectList(Model.ListIMDType, "Value", "Text"), "Select", ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control disableDDOnEditMode", @id = "ddlImdtype" } : new { @id = "ddlImdtype", @class = "form-control disableDDOnEditMode", @onblur = "validateDropDown('ddlImdtype','please select Intermediary Type')", @onchange = "DisableSmCode()" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label text-right">Status<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.DropDownListFor(a => a.ImdStatus, new SelectList(Model.lstIMDStatus, "ID", "Value"), "Select", new { @id = "ddlImdstatus", @class = "form-control", @onblur = "validateDropDown('ddlImdstatus','please select Imd status')", @onchange = "GetIMDTerminationDate()" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label text-right">Remarks</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.TextBoxFor(a => a.Remarks, new { @id = "txtImdRemarks", @class = "form-control", @onkeypress = "AlphaNumeric('txtImdRemarks')", @onblur = "ValidateChangeStatus()", @maxlength = "30" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-6" id="divTransferCase" style="display:none;">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">Transfer Case<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7 radio-inline">
+                            <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.isTransferCase, "True", ViewBag.mode == "EDIT" ? (object)new { @disabled = "disabled", @id = "rdYes" } : new { @id = "rdYes", @class = "" })) Yes</div>
+
+                            <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.isTransferCase, "False", ViewBag.mode == "EDIT" ? (object)new { @disabled = "disabled", @id = "rdNo" } : new { @id = "rdNo", @class = "", @checked = "checked" })) No</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label text-right">Intermediary Description<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.ImdDescription, new { @class = "form-control", @id = "txtImdDescription", @onkeypress = "return onlyAlphabets(event)", @onblur = "validateTextBox('txtImdDescription','please provide imd description')", @maxlength = "30" }))
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">Client Type<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7 radio-inline" id="divClientType">
+                            <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.ClientType, "True", ViewBag.mode == "EDIT" ? (object)new { @disabled = "readonly", @id = "ClientTypeIndividual" } : new { @id = "ClientTypeIndividual", @class = "", @checked = "checked", @onclick = "ShowIndividual()" })) Individual</div>
+
+                            <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.ClientType, "False", ViewBag.mode == "EDIT" ? (object)new { @disabled = "readonly", @id = "ClientTypeorganization" } : new { @id = "ClientTypeorganization", @class = "", @onclick = "ShowOrg()" }))Organization</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label text-right">Client Code</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.Clientcode, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "txtclientcode", @onblur = "CheckClientCode()" } : new { @class = "form-control", @id = "txtclientcode", @maxlength = "8", @onblur = "CheckClientCode()" }))
+                            <div class="col-lg-7 col-sm-7"></div>
+                            <div class="col-lg-7 col-sm-7"></div>
+                            <input type="button" value="Search Client" id="btnClientId" onclick="showpopup()" class="btn btn-default" style="line-height: 11px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="col-lg-4 col-sm-6"></div>
+                    <div class="col-lg-4 col-sm-6"></div>
+                    <div class="col-lg-4 col-sm-6" id="divImdcode">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">IMD Code</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.HiddenFor(a => a.Imdcode, new { @class = "form-control", @id = "hdnImdCode" }))
+                            <input type="text" id="txtImdCode" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 form-group" id="divClientDetailsId">
+                    @{
+    Html.RenderPartial("~/Areas/UM/Views/UserManagement/PartialClientDetails.cshtml", Model);
+
+                    }
+                </div>
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right"></label>
+                        <div class="col-lg-7 col-sm-7">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right"></label>
+                        <div class="col-lg-7 col-sm-7">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right"></label>
+                        <div class="col-lg-7 col-sm-7">
+                            <input type="button" value="NSDL Fetch" onclick="showNsdlFetch()" class="btn btn-default" style="width: 100px; line-height: 11px; margin-top: -6px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 ">
+                    <label class="col-lg-5 col-sm-5 control-label text-right">Pan Holder Name</label>
+                    <div class="col-lg-7 col-sm-7">
+                        @Html.TextBoxFor(a => a.PanHolderName, new { @readonly = "readonly", @class = "form-control", @id = "txtPanHolderName", @maxlength = "120" })
+                    </div>
+                </div>
+                <div class="col-lg-12 form-group">
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">Pan Verified</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.CheckBoxFor(a => a.Panverified, new { @class = "checkbox", @id = "chkPan", @onclick = "ValidatePanVerified()" })
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">Pan Verified by</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.TextBoxFor(a => a.panVerifiedBy, new { @readonly = "readonly", @class = "form-control", @id = "txtpanverifiedby", @maxlength = "12" })
+                        </div>
+                    </div>
+                    <div class="input-append date" id="Panverificationdate" data-date-format="dd-mm-yyyy">
+                        <div class="col-lg-4 col-sm-6">
+                            <label class="col-lg-5 col-sm-5  control-label text-right" style="padding-right: 9px;">
+                                Pan Verification Date
+                            </label>
+                            <div class="col-lg-7 col-sm-7 disableDP">
+                                @Html.iNubeDatePickerFor(a => a.PanVerificationDate, new { @readonly = "readonly", @class = "form-control", @id = "Panverificationdate" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-12 form-group">
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">Licence Number</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.TextBoxFor(a => a.LicenceNumber, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "txtlicencenumber" } : new { @class = "form-control", @id = "txtlicencenumber", @onkeypress = "NoSymbols('txtlicencenumber')", @onblur = "ValidateLicenceNumber()", @maxlength = "15" })
+                        </div>
+                    </div>
+                    <div class="input-append date" id="txtLicenseIssue" data-date-format="dd-mm-yyyy">
+                        <div class="col-lg-4 col-sm-6">
+                            <label class="col-lg-5 col-sm-5  control-label text-right">
+                                License Issue Date
+                            </label>
+                            <div class="col-lg-7 col-sm-7 ">
+
+                                @Html.iNubeDatePickerFor(a => a.LicenseIssueDate, new { @class = "form-control ", @id = "dpLicenseIssue", @onblur = "ValidateLicenseIssueDate()" },"ValidateLicenseIssueDate")
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <label class="col-lg-5 col-sm-5  control-label text-right" style="padding-left: 0px;">
+                                Appointment Date
+                            </label>
+                            <div class="col-lg-7 col-sm-7 ">
+                                @Html.iNubeDatePickerFor(a => a.AppointmentDate, new { @class = "form-control ", @id = "dpAppointmentdate", @onblur = "validateAppointmentDate()" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-append date" id="txtLicenseExpiry" data-date-format="dd-mm-yyyy">
+                    </div>
+
+                </div>
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="input-append date" id="dtAppointmentdate" data-date-format="dd-mm-yyyy">
+
+                        <div class="col-lg-4 col-sm-6">
+                            <label class="col-lg-5 col-sm-5  control-label text-right" style="padding-right: 8px;">
+                                License Expiry Date
+                            </label>
+                            <div class="col-lg-7 col-sm-7 disableDP" id="divLicenseExpiry">
+                                @Html.iNubeDatePickerFor(a => a.LicenseExpiryDate, new { @readonly = "readonly", @class = "form-control", @id = "dpLicenseExpiry", @onblur = "validateLicenseExpiryDate()" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-append date" id="txtImdTermination" data-date-format="dd-mm-yyyy">
+                        <div class="col-lg-4 col-sm-6">
+                            <label class="col-lg-5 col-sm-5  control-label text-left" style="padding-right: 0px;">
+                                IMD Termination Date
+                            </label>
+                            <div class="col-lg-7 col-sm-7 " id="divImdTermination">
+                                @Html.iNubeDatePickerFor(a => a.ImdTerminationDate, new { @class = "form-control ", @id = "dpImdTermination" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">FG Channel <span class="mandatory">*</span></label>
+                        <div class="col-lg-7 col-sm-7" id="divFGChannel">
+                            @Html.DropDownListFor(a => a.FGChannel, new SelectList(Model.lstChannel, "ID", "Value"), "Select", ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control disableDDOnEditMode", @id = "ddlFGchannel" } : new { @id = "ddlFGchannel", @class = "form-control", @onblur = "validateDropDown('ddlFGchannel','please select FG Channel')", @onchange = "ResetBranchSMMapping()" })
+                        </div>
+                    </div>
+                    <div id="divReportsToAadhaarNo" style="display:none;">
+                        <div class="col-lg-4 col-sm-6">
+                            <label class="col-lg-5 col-sm-5  control-label  text-right">Reports To <span class="mandatory">*</span></label>
+                            <div class="col-lg-7 col-sm-7">
+                                @Html.TextBoxFor(a => a.reportsTo, ViewBag.mode == "EDIT" ? (object)new { @class = "form-control", @id = "txtReportsTo" } : new { @class = "form-control", @id = "txtReportsTo", @onkeypress = "NoSymbols('txtReportsTo')", @maxlength = "8", @onblur = "validateReportsTo()" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-sm-6">
+                            <label class="col-lg-5 col-sm-5  control-label  text-right">Aadhaar No <span class="mandatory">*</span></label>
+                            <div class="col-lg-7 col-sm-7">
+                                @Html.TextBoxFor(a => a.aadhaarNo, ViewBag.mode == "EDIT" ? (object)new { @class = "form-control", @id = "txtAadhaarNo" } : new { @class = "form-control", @id = "txtAadhaarNo", @onkeypress = "NoSymbols('txtAadhaarNo')", @maxlength = "12", @onblur = "ValidateAadhaarNo()" })
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="col-lg-4 col-sm-6 ">
+                            <label class="col-lg-5 col-sm-5 control-label text-right">IRDA Channel <span class="mandatory">*</span></label>
+                            <div class="col-lg-7 col-sm-7">
+                                @Html.DropDownListFor(a => a.IRDA, new SelectList(Model.lstIRDAChannel, "ID", "Value"), "Select", ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "ddlIrdaChannel" } : new { @id = "ddlIrdaChannel", @class = "form-control", @onblur = "validateDropDown('ddlIrdaChannel','please select IRDA Channel')"  })
+                            </div>
+                        </div>*@
+
+                </div>
+
+                <div class="col-lg-12 col-sm-12 form-group" id="divshowClientSearch">
+                </div>
+                @*<div class="col-lg-12 col-sm-12 form-group" id="divshowhistory">
+                    </div>*@
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="modal fade" id="fetchNsdl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    NSDL Fetch
+                </div>
+                <div class="modal-body text-center">
+                    @*@Html.Action("FetchNSDL", "UserManagement")*@
+                    Unable to fetch NSDL Data. Service is not avaialble.
+                </div>
+
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    if (@Model.ImdType == 85 || @Model.ImdType == 88 || @Model.ImdDetailsID == 0)
+    {
+        <div class="panel panel-default" id="divProductDetails">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <i class="fa fa-database" style="margin-left: -3px;"></i>
+                    <a data-toggle="collapse" data-target="#collapse10" href="#collapseten" class="collapsed" style="margin-left: -2px;">
+                        Product Details<img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse10" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="col-lg-12 col-sm-12 form-group" id="ProductDetails">
+                        @{
+
+        // Html.RenderAction("GridBranchDetails", "UserManagement");
+        Html.RenderPartial("~/Areas/UM/Views/UserManagement/PartialGridProductDetails.cshtml", Model);
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <i class="fa fa-building" style="margin-left: -3px;"></i>
+                <a data-toggle="collapse" data-target="#collapse6" href="#collapsesix" class="collapsed" style="margin-left: -2px;">
+                    Branch Details<img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+        <div id="collapse6" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-lg-12 col-sm-12 form-group" id="Branchdetails">
+                    @{
+
+    // Html.RenderAction("GridBranchDetails", "UserManagement");
+    Html.RenderPartial("~/Areas/UM/Views/UserManagement/PartialGridBranchDetails.cshtml", Model);
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <i class="fa fa-database"></i>
+                <a data-toggle="collapse" data-target="#collapse4" href="#collapsefour" class="collapsed">
+                    Commission Details<img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-lg-12 form-group" id="Commissiondetails">
+                    @{
+    //Html.RenderAction("GridCommissionDetails", "UserManagement");
+    Html.RenderPartial("~/Areas/UM/Views/UserManagement/PartialGridCommissionDetails.cshtml", Model);
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <i class="fa fa-university" style="margin-left: -3px;"></i>
+                <a data-toggle="collapse" data-target="#collapse5" href="#collapsefive" class="collapsed" style="margin-left: -2px;">
+                    Bank Details
+                    <img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+        <div id="collapse5" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">Payment Type</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.DropDownListFor(a => a.bankdetails.PaymentType, new SelectList(Model.lstPaymentType, "ID", "Value"), "Select", new { @id = "ddlPaymentType", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">Account Type</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.DropDownListFor(a => a.bankdetails.AccountType, new SelectList(Model.lstAcountType, "ID", "Value"), "Select", new { @id = "ddlAcountType", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">Account Number</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.bankdetails.AccountNumber, new { @class = "form-control tbBankDetails", @id = "txtAccountNo", @onblur = "ValidateBankDetails()", @maxlength = "20" }))
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">Security Code</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.bankdetails.SecurityCode, new { @class = "form-control tbBankDetails", @id = "txtSecuritycode" }))
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">IFSC Code</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.bankdetails.IFSCCode, new { @class = "form-control tbBankDetails", @id = "txtifsccode", @maxlength = "11" }))
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">MICR Code</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.bankdetails.MICRCode, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control ", @id = "txtmicrcode" } : new { @class = "form-control tbBankDetails", @id = "txtmicrcode", @maxlength = "20" }))
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">Bank Code</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.bankdetails.BankCode, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "txtbankcode", @maxlength = "10" } : new { @class = "form-control tbBankDetails", @id = "txtbankcode", @maxlength = "10" }))
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">Branch Name</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.bankdetails.BranchName, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control", @id = "txtbranchname", @maxlength = "100" } : new { @class = "form-control tbBankDetails", @id = "txtbranchname", @onkeypress = "return onlyAlphabets(event)", @maxlength = "100" }))
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">SWIFT Code</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.bankdetails.SwiftCode, new { @class = "form-control tbBankDetails", @id = "txtswiftcode", @maxlength = "20" }))
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 form-group">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+                    <div class="col-sm-3 col-sm-push-1">
+                        <input type="button" id="btnbankdetails" value="Clear Bank Details"
+                               class="btn btn-default" onclick="clearBankDetails()" />
+                    </div>
+                    <div class="col-sm-4 "></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <i class="fa fa-inr"></i>
+                <a data-toggle="collapse" data-target="#collapse9" href="#collapsenine" class="collapsed" style="margin-left: -2px;">
+                    TDS Details
+                    <img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+        <div id="collapse9" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-lg-12 col-sm-12 form-group">
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">TDS Rate %</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.tdsDetails.TDS, new { @class = "form-control", @id = "txtTDS", @maxlength = "3", @readonly = "readonly" }))
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">Service Tax Registration Number</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.tdsDetails.serviceTaxRegistrationNumber, new { @class = "form-control", @id = "txtServiceTaxRegistrationNumber", @maxlength = "25" }))
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">LTDS Applicability<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7 radio-inline">
+                            <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.tdsDetails.isLTDS, "True", ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @id = "LTDSYes", @onclick = "ShowLTDS()" } : new { @id = "LTDSYes", @class = "", @onclick = "ShowLTDS()" })) Yes</div>
+
+                            <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.tdsDetails.isLTDS, "False", ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @id = "LtdsNo", @onclick = "HideLTDS()" } : new { @id = "LtdsNo", @class = "", @checked = "checked", @onclick = "HideLTDS()" })) No</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 form-group divLTDS">
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">Low TDS Rates<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.tdsDetails.lowTDSRates, new { @class = "form-control", @id = "txtLowTDSRates", @maxlength = "3" }))
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">Lower TDS Certificate Number<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.tdsDetails.lowerTDSCertificateNumber, new { @class = "form-control", @id = "txtLowerTDSCertificateNumber", @maxlength = "25" }))
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5  control-label text-right">Validity Period From<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7 ">
+                            @Html.iNubeDatePickerFor(a => a.tdsDetails.validityPeriodFrom, new { @class = "form-control ", @id = "dpValidityPeriodFrom" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 form-group divLTDS">
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">Validity Period To<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.iNubeDatePickerFor(a => a.tdsDetails.validityPeriodTo, new { @class = "form-control ", @id = "dpValidityPeriodTo" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">LTDS Certificate Received Date<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.iNubeDatePickerFor(a => a.tdsDetails.LTDSCertificateReceivedDate, new { @class = "form-control ", @id = "dpLTDSCertificateReceivedDate" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">Threshold Amount<span class="mandatory"> *</span></label>
+                        <div class="col-lg-7 col-sm-7">
+                            @(Html.TextBoxFor(a => a.tdsDetails.thresholdAmount, new { @class = "form-control", @id = "txtThresholdAmount", @maxlength = "10" }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <i class="fa fa-file-text-o"></i>
+                <a data-toggle="collapse" data-target="#collapse7" href="#collapseseven" class="collapsed">
+                    GEB Details<img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+        <div id="collapse7" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-3 col-sm-3  control-label  text-right">GEB Flag</label>
+                    <div class="col-lg-7 col-sm-7 radio-inline">
+                        <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.GEBFlag, true, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @id = "RbtnFlag" } : new { @id = "RbtnFlag", @class = "" })) Yes</div>
+
+                        <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.GEBFlag, false, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @id = "RbtndeFlag" } : new { @id = "RbtndeFlag", @class = "" }))No</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 form-group" id="GEBDetails">
+                    @{
+    //Html.RenderAction("GridGEBDetails", "UserManagement");
+    Html.RenderPartial("~/Areas/UM/Views/UserManagement/PartialGridGEBDetails.cshtml", Model);
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <i class="fa fa-file-text-o"></i>
+                <a data-toggle="collapse" data-target="#collapse8" href="#collapseeight" class="collapsed">
+                    UIN Details<img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+        <div id="collapse8" class="panel-collapse collapse">
+            <div class="panel-body">
+
+                <div class="col-lg-10 col-sm-10 form-group">
+                    <div class="col-lg-4 col-sm-6">
+                        <label class="col-lg-5 col-sm-5  control-label  text-right">Debtor Type</label>
+                        <div class="col-lg-7 col-sm-7 radio-inline" style="line-height: 23px;">
+                            <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.DebtorType, false, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @id = "Rdndebtor" } : new { @id = "Rdndebtor", @class = "" })) D</div>
+
+                            <div class="col-lg-6 text-left">@(Html.RadioButtonFor(a => a.DebtorType, true, ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @id = "RdndeDebtor" } : new { @id = "RdndeDebtor", @class = "" }))B</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 ">
+                        <label class="col-lg-5 col-sm-5 control-label text-right">D/Territory</label>
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.DropDownListFor(a => a.DTerritory, new SelectList(Model.lstTerritory, "ID", "Value"), "Select", ViewBag.mode == "EDIT" ? (object)new { @readonly = "readonly", @class = "form-control disableDDOnEditMode", @id = "ddlTerritory" } : new { @id = "ddlTerritory", @class = "form-control disableDDOnEditMode" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 form-group" id="Uindetails">
+                    @{
+    //Html.RenderAction("GridUINDetails", "UserManagement");
+    Html.RenderPartial("~/Areas/UM/Views/UserManagement/PartialUINDetails.cshtml", Model);
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12 form-group">
+        <div class="input-append date" id="createdate" data-date-format="dd-mm-yyyy">
+            <div class="col-lg-6 col-sm-6 form-group">
+                <label class="col-lg-5 col-sm-5  control-label text-right">
+                    Created Date/Time
+                </label>
+                <div class="col-lg-7 col-sm-7 ">
+                    @Html.TextBoxFor(a => a.CreateDate, new { @class = "form-control ", @readonly = "readonly", @id = "dtCreatedate" })
+                </div>
+            </div>
+            <div class="input-append date" id="ModifiedDate" data-date-format="dd-mm-yyyy">
+                <div class="col-lg-6 col-sm-6 form-group">
+                    <label class="col-lg-5 col-sm-5  control-label text-right">
+                        Modified Date/Time
+                    </label>
+                    <div class="col-lg-7 col-sm-7 ">
+                        @Html.TextBoxFor(a => a.ModifiedDate, new { @class = "form-control ", @readonly = "readonly", @id = "dtModifydate" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <label class="col-lg-5 col-sm-5  control-label  text-right">Created By</label>
+            <div class="col-lg-7 col-sm-7">
+                @(Html.TextBoxFor(a => a.createdByName, new { @class = "form-control", @readonly = "readonly", @id = "txtCreatedby", @maxlength = "12" }))
+                @(Html.HiddenFor(a => a.Createdby))
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <label class="col-lg-5 col-sm-5  control-label  text-right">Modified By</label>
+            <div class="col-lg-7 col-sm-7">
+                @(Html.TextBoxFor(a => a.modifiedByName, new { @class = "form-control", @readonly = "readonly", @id = "txtModifiedby", @maxlength = "12" }))
+                @(Html.HiddenFor(a => a.modifiedBy))
+            </div>
+        </div>
+
+    </div>
+}
+<div class="col-lg-12 col-sm-12 form-group">
+    <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5"></div>
+    <input type="button" id="btnHistory" value="History" onclick="IMDHistory()" class="btn btn-default">
+    <button type="button" value="Cancel" class="btn btn-default" onclick="javascript:window.location.href = '@Url.Action("Imds", "UserManagement")'">Cancel</button>
+    <input type="button" onclick="SaveImdUser()" id="btnsubmit" class="btn btn-default" value="Submit">
+</div>
+<div id="imdModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @* <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body" id="imdModelBody">
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" id="btnok" class="btn btn-default" onclick="javascript:window.location.href = '@Url.Action("Imds", "UserManagement")'">OK</button>*@
+                <button type="button" class="btn btn-default" onclick="javascript:window.location.href = '@Url.Action("Imds", "UserManagement")'">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="IMDHistoryModal" class="modal fade">
+    <div class="modal-dialog" style="width:60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">IMD History</h4>
+            </div>
+            <div class="modal-body" id="IMDHistoryModelBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ('@type' == "view") {
+            EnableDisableAllControls("collapse3", false);
+            EnableDisableAllControls("collapse6", false);
+            EnableDisableAllControls("collapse4", false);
+            EnableDisableAllControls("collapse7", false);
+            EnableDisableAllControls("collapse8", false);
+            EnableDisableAllControls("collapse5", false);
+            $("#btnsubmit").prop("disabled", true);
+        }
+    });
+</script>

@@ -1,0 +1,50 @@
+﻿@model int
+@{
+    var ReportID = Model;
+    var divID = "divChart" + Model;
+    var labelTitleId = "lblTitle" + Model;
+    var lblGrowthId = "lblGrowth" + Model;
+}
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '../Dashboard/DashBoard/MakeChart',
+            contentType: "application/json; charset=utf-8",
+            data: { ReportID: '@ReportID', UserName : '@ViewBag.UserName' },
+            dataType: "json",
+            success: function (result) {
+                $("#" + '@labelTitleId').text(result.ReportName);
+                $("#" + '@divID').css("height", result.GraphHeight);
+                $("#" + '@divID').css("width", result.GraphWidth);
+                AmCharts.makeChart('@divID', {
+                    "theme": result.Theme,
+                    "type": result.Type,
+                    "rotate": result.Rotate,
+                    "dataProvider": JSON.parse(result.strDataProvider),
+                    "valueAxes": JSON.parse(result.strvalueAxes),
+                    "startDuration": result.StartDuration,
+                    "graphs": JSON.parse(result.strlstGraphs),
+                    "plotAreaFillAlphas": result.PlotAreaFillAlphas,
+                    "categoryField": result.CategoryField,
+                    "categoryAxis": JSON.parse(result.strcategoryAxis),
+                    //"legend": {
+                    //    "useGraphSettings": true,
+                    //    "useMarkerColorForLabels": true
+                    //},
+                    "export": {
+                        "enabled": false
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+<div id='@divID'></div>
+
+
+
+

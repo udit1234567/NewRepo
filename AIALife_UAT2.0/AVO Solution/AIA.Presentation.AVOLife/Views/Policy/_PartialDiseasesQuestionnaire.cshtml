@@ -1,0 +1,281 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int Index = Model.AssuredIndex;
+    int count = 1, tabCount = 1;
+    int index = 1;  // Row Index
+    int QuestionCount = 0;
+    int SelectedCount = 0;
+    if (Model.objMemberDetails[Index].DiseasesSelected != null && Model.objMemberDetails[Index].DiseasesSelected.Count() > 0)
+    {
+        SelectedCount = Model.objMemberDetails[Index].DiseasesSelected.Count();
+    }
+    string DiseasesTabsMenus = "divDiseasesTabsMenus" + Index;
+}
+
+
+@helper CustomRowRenderingControl(AIA.Life.Models.Policy.MedicalHistoryQuestions Questions, int MemberIndex, int QuestionIndex, int RowIndex, string SubType)
+{
+string ParentId = Convert.ToString(MemberIndex) + Convert.ToString(QuestionIndex) + Convert.ToString(Questions.QuestionID);
+string ChildID = ParentId + "C";
+string Display = "none";
+if (Questions.CotrolType == "Radio")
+{
+        <tr id=@ParentId>
+            <td>@RowIndex</td>
+            <td>
+                <p>@Questions.QuestionText</p>
+            </td>
+            <td>
+                @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].Answer", "true", Questions.Answer == "true" ? true : false, new { id = "rdbtnAnswerTextYes" + MemberIndex + QuestionIndex, @onBlur = "ClearErrorMessage('rdbtnAnswerTextYes'" + MemberIndex + QuestionIndex + ")", onchange = "HideShowChildsMHRadio('" + ChildID + "','" + Questions.Value + "','" + "true" + "')" })
+                <label>Yes</label>
+                @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].Answer", "false", Questions.Answer == "false" ? true : false, new { id = "rdbtnAnswerTextNo" + MemberIndex + QuestionIndex, @onBlur = "ClearErrorMessage('rdbtnAnswerTextYes'" + MemberIndex + QuestionIndex + ")", onchange = "HideShowChildsMHRadio('" + ChildID + "','" + Questions.Value + "','" + "false" + "')" })
+                <label>No</label>
+            </td>
+            <td style="display:none">
+
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].MedicalHistoryID", Questions.MedicalHistoryID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].SubType", SubType, new { })
+
+            </td>
+        </tr>
+
+    if (Questions.SubControlType != null && Questions.SubQuestion != null)
+    {
+        if (!string.IsNullOrEmpty(Questions.Answer))
+        {
+            if (Questions.Answer == Questions.Value)
+            {
+                Display = "table-row";
+            }
+
+        }
+
+        if (Questions.SubControlType == "Textbox")
+        {
+                
+                <tr class="med-subquestion-txt" id=@ChildID style="display:@Display;text-align:right">
+                    <td></td>
+                    <td>
+                        <p>
+                            @Questions.SubQuestion
+                        </p>
+                    </td>
+                    <td>
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                            <div class="col-lg-10 col-sm-9 col-md-10 col-xs-12">
+                                @Html.TextBox("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].SubAnswer", Questions.SubAnswer == null ? "" : Questions.SubAnswer, new { @maxlength = "1000", @class = "form-control" })
+                            </div>
+
+                        </div>
+                    </td>
+
+
+                </tr>
+        }
+
+        else if (Questions.SubControlType == "Dropdown")
+        {
+
+                <tr class="med-subquestion-txt" id=@ChildID style="display:@Display;text-align:right">
+                    <td></td>
+                    <td style="text-align:right;">
+                        <p>
+                            @Questions.SubQuestion
+                        </p>
+                    </td>
+                    <td>
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                            <div class="col-lg-10 col-sm-9 col-md-10 col-xs-12">
+                                @Html.DropDownList("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].SubAnswer", new SelectList(Questions.LstDropDownvalues, "ID", "Value"), "Select", new { @id = "ddlDropDown" + MemberIndex + QuestionIndex, @class = "form-control" })
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+        }
+    }
+}
+else if (Questions.CotrolType == "TextBox")
+{
+        <tr id=@ParentId>
+            <td>@RowIndex</td>
+            <td>
+                <p>
+                    @Questions.QuestionText
+                </p>
+            </td>
+            <td>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-lg-10  col-lg-offset-2">
+                        @Html.TextBox("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].Answer", Questions.Answer == null ? "" : Questions.Answer, new { @maxlength = "1000", @class = "form-control" })
+                    </div>
+
+                </div>
+            </td>
+
+            <td style="display:none">
+
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].MedicalHistoryID", Questions.MedicalHistoryID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].SubType", SubType, new { })
+            </td>
+        </tr>
+}
+else if (Questions.CotrolType == "Dropdown")
+{
+        <tr id=@ParentId>
+            <td>@RowIndex</td>
+            <td>
+                <p>
+                    @Questions.QuestionText
+                </p>
+            </td>
+            <td>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-lg-10  col-lg-offset-2">
+                        @Html.DropDownList("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].Answer", new SelectList(Questions.LstDropDownvalues, "ID", "Value"), "Select", new { @id = "ddlDropDown" + MemberIndex + QuestionIndex, @class = "form-control" })
+                    </div>
+
+                </div>
+            </td>
+
+            <td style="display:none">
+
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].MedicalHistoryID", Questions.MedicalHistoryID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].SubType", SubType, new { })
+            </td>
+        </tr>
+}
+else if (Questions.CotrolType == "CheckBox")
+{
+        <tr id=@ParentId>
+            <td>
+                @if (Questions.Answer == "true")
+                {
+                    @Html.CheckBox("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].Answer",true, new { @id = "checkBox" + MemberIndex + QuestionIndex, @class = "form-control" })
+
+                }
+                else
+                {
+                    @Html.CheckBox("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].Answer",false, new { @id = "checkBox" + MemberIndex + QuestionIndex, @class = "form-control" })
+                  }
+            </td>
+            <td>
+                <p>
+                    @Questions.QuestionText
+                </p>
+            </td>
+            <td>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-lg-10  col-lg-offset-2">
+                    </div>
+
+                </div>
+            </td>
+
+            <td style="display:none">
+
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].MedicalHistoryID", Questions.MedicalHistoryID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].SubType", SubType, new { })
+            </td>
+        </tr>
+}
+else if (Questions.CotrolType == "Header")
+{
+        <tr id=@ParentId>
+            <td>@RowIndex</td>
+            <td>
+                <p>
+                    @Questions.QuestionText
+                </p>
+            </td>
+            <td>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-lg-10  col-lg-offset-2">
+                    </div>
+
+                </div>
+            </td>
+
+            <td style="display:none">
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].MedicalHistoryID", Questions.MedicalHistoryID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstDiseaseHistory[" + QuestionIndex + "].SubType", SubType, new { })
+            </td>
+        </tr>
+}
+}
+
+
+<div class="col-md-2 col-sm-2 col-xs-2" style="padding-right:2%;" id=@DiseasesTabsMenus>
+    <br /><br />
+    <ul class="nav nav-tabs tabs-left">
+
+        @foreach (var item in Model.objMemberDetails[Index].DiseasesSelected)
+        {
+            if (count == 1)
+            {
+                <li class="active" id="">
+                    <a href="#tab_Disease_@count" data-toggle="tab" id="TabToggle_@count">@item</a>
+                </li>
+
+
+            }
+            else
+            {
+                <li><a data-toggle="tab" href="#tab_Disease_@count">@item</a></li>
+
+            }
+            count++;
+        }
+
+    </ul>
+</div>
+<div class="col-md-10 col-sm-10 col-xs-10">
+
+    <div class="tab-content">
+
+        @foreach (var Disease in Model.objMemberDetails[Index].DiseasesSelected)
+            {
+                if (tabCount == 1)
+                {
+                <div class="tab-pane active" id="tab_Disease_@tabCount">
+
+                    <table class="table exercise-table">
+                        <tbody>
+                            @foreach (var item in Model.objMemberDetails[Index].objLstDiseaseHistory.Where(a => a.SubType == Disease).OrderBy(a => a.SequenceNo))
+                                    {
+                            @CustomRowRenderingControl(item, Index, QuestionCount, index, Disease)
+                                        index = index + 1;
+                                        QuestionCount = QuestionCount + 1;
+                                    }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane" id="tab_Disease_@tabCount">
+                    <table class="table exercise-table">
+                        <tbody>
+                            @foreach (var item in Model.objMemberDetails[Index].objLstDiseaseHistory.Where(a => a.SubType == Disease).OrderBy(a => a.SequenceNo))
+                            {
+                                @CustomRowRenderingControl(item, Index, QuestionCount, index, Disease)
+                                index = index + 1;
+                                QuestionCount = QuestionCount + 1;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            tabCount++;
+        }
+
+    </div>
+</div>

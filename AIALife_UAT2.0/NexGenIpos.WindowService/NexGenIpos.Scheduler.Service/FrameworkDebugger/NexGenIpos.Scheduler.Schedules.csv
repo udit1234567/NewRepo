@@ -1,0 +1,6 @@
+CompName, StartTime, EndTime, Repeat(millisec), UseMultiCore
+Motor,17:33:00, 23:59:00, 1200000, 1
+Health,20:00:00, 23:59:00, 1200000, 1
+IPA,20:30:00, 23:59:00, 1200000, 1
+--Marine,19:00:00, 23:59:00, 1200000, 1
+--Package,19:00:00, 23:59:00, 1200000, 1

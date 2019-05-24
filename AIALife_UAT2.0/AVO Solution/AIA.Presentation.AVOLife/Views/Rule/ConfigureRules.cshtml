@@ -1,0 +1,275 @@
+﻿@model AIA.Life.Models.UWRules.UWRule
+@using AIA.Presentation.Helpers
+@{
+    ViewBag.Title = "ConfigureRules";
+}
+<link href="~/Content/Styles/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Content/Scripts/bootstrap-multiselect.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#example-getting-started').multiselect();
+    });
+</script>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "fromRulesPage" }))
+{
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading backgroundclr" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Select Rule Parameters
+                        <img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label>Existing RuleSet Name</label>
+                            @Html.DropDownListFor(a => a.ExistingRuleSetName, new SelectList(Model.LstRuleName, "ID", "Value"), "Select", new { @id = "ddlExeRule", @class = "form-control", @onchange = "SetParameterType()" })
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label></label>
+                            <input type="button" value="Get RuleSet Info" onclick="LoadExistingRule()" style="margin-top:6%" class="btn btn-default" />
+
+
+
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label>RuleSet Name</label>
+                            @Html.TextBoxFor(a => a.RuleName, new { id = "", @class = "form-control" })
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label>Product Type</label>
+                            @Html.DropDownListFor(a => a.ClassName, new SelectList(Model.LstClass, "ID", "Value"), "Select", new { @id = "ddlClass", @class = "form-control", @onchange = "SetParameterType()" })
+
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label>Product Name</label>
+                            @if (Model.IsEditMode == true)
+                            {
+                                @Html.TextAreaFor(a=>a.StrProducts, new { @class = "form-control" })
+                            }
+                            else
+                            {
+                                <select id="example-getting-started" name="ProductName" multiple="multiple" class="form-control">
+
+                                    @foreach (var item in Model.LstProducts)
+                                    {
+                                        <option value='@item.Value'>@item.Value</option>
+                                    }
+                                </select>
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-bottom:2%">
+
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label>Description</label>
+                            @Html.TextBoxFor(a => a.Description, new { @id = "txtDescription", @class = "form-control" })
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label>Effective Date</label>
+                            @Html.iNubeDatePickerFor(a => a.EffectDate, new { @id = "DTEffectiveDate", @class = "form-control" })
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                            <label>Expiry Date</label>
+                            @Html.iNubeDatePickerFor(a => a.ExpiryDate, new { @id = "DTExpiryDate", @class = "form-control" })
+                        </div>
+
+                    </div>
+
+
+                    @if (Model.IsEditMode == true)
+                {
+                        <h2 style="margin-bottom:2%">Parameters</h2>
+                    }
+                    else
+                    {
+
+                        <h2 style="margin-bottom:2%">Add Parameters</h2>
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                <label>Parameter Name</label>
+                                @Html.DropDownList("ParamName", new SelectList(Model.LstParameters, "ID", "Value"), "Select", new { @id = "ddlParameter", @class = "form-control", @onchange = "SetParameterType()" })
+
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none">
+                                <label>Parameter Type</label>
+                                @Html.DropDownList("ParamType", new SelectList(Model.LstParameterTypes, "ID", "Value"), "Select", new { @id = "ddlParameterType", @class = "form-control" })
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                                <label for="sel1"></label>
+                                <input type="button" value="Add" onclick="AddParameters()" style="margin-top:6%" class="btn btn-default" />
+                                @*@Html.DropDownListFor(m => m.PlanName, new SelectList(Model.ListPlan, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlPlan" })*@
+
+
+
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="GRDPrameters" style="margin-top:2%">
+
+
+                        @Html.Partial("~/Views/Rule/PartialAddParameters.cshtml", Model)
+                    </div>
+
+
+                    @if (Model.IsEditMode == true)
+                {
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="GRDRuleSets" style="margin-top:2%">
+
+
+                            @Html.Partial("~/Views/Rule/PartialRuleSetList.cshtml", Model)
+                        </div>
+                    }
+
+
+                </div>
+
+                @if (Model.IsEditMode == true)
+                {
+
+                }
+                else
+                {
+                    <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;display:block" id="divButtons">
+
+                        <input type="button" class="btn btn-default" id="btnSave" value="Save" onclick="SubmitRuleInfo()" style="padding-left:20px;padding-right:20px;" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+<!-- Modal -->
+<div class="modal fade" id="QuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="QuoteModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function SetParameterType() {
+        $('#ddlParameterType').val($('#ddlParameter').val());
+    }
+    function SubmitRuleInfo() {
+        $.post("/Rule/SaveRuleInfo", $("#fromRulesPage").serialize(), function (data) {
+            if (data.Message == 'Success') {
+
+                var Message = '<p> Data Saved Successfully </p>';
+                $('#QuoteModalBody').html(Message);
+
+                $("#QuoteModal").modal("show");
+
+            }
+            else {
+
+                var Message = '<p> Some Error Occured</p>';
+                $('#QuoteModalBody').html(Message);
+                $("#QuoteModal").modal("show");
+            }
+        });
+    }
+
+    function LoadExistingRule() {
+
+        if ($('#ddlExeRule').val() != '' && $('#ddlExeRule').val() != undefined) {
+            window.location.href = "/Rule/LoadRuleInfo?RuleID=" + parseInt($('#ddlExeRule').val());
+        }
+    }
+
+
+    function DeleteRule() {
+        var url = '/Rule/DeleteRule?RuleID=' + parseInt($('#ddlExeRule').val());
+        $.post(url, function (data) {
+            if (data.Message == 'Success') {
+
+                var Message = '<p> Data Deleted Successfully </p>';
+                $('#QuoteModalBody').html(Message);
+
+                $("#QuoteModal").modal("show");
+
+            }
+            else {
+
+                var Message = '<p> Some Error Occured</p>';
+                $('#QuoteModalBody').html(Message);
+                $("#QuoteModal").modal("show");
+            }
+        });
+    }
+
+    function DeleteRuleSet(RuleSetID) {
+        
+        var url = '/Rule/DeleteRuleSet?RuleSetID=' + RuleSetID;
+        $.post(url, function (data) {
+            if (data.Message == 'Success') {
+
+                var Message = '<p> Data Deleted Successfully </p>';
+                $('#QuoteModalBody').html(Message);
+
+                $("#QuoteModal").modal("show");
+
+            }
+            else {
+
+                var Message = '<p> Some Error Occured</p>';
+                $('#QuoteModalBody').html(Message);
+                $("#QuoteModal").modal("show");
+            }
+        });
+    }
+
+
+    function ViewRuleSet(RuleID) {       
+        $.post("/Rule/FetchRuleSetCondition?RuleSetID=" + RuleID, $("#fromRulesPage").serialize(), function (data) {
+            if (data.Message == 'Success') {
+
+                var Message = '<p>' + data.Description + ' </p>';
+                $('#QuoteModalBody').html(Message);
+
+                $("#QuoteModal").modal("show");
+
+            }
+            else {
+
+                var Message = '<p> Some Error Occured</p>';
+                $('#QuoteModalBody').html(Message);
+                $("#QuoteModal").modal("show");
+            }
+        });
+
+    }
+</script>

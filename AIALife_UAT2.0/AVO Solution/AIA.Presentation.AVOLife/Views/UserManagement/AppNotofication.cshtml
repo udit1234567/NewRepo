@@ -1,0 +1,383 @@
+﻿
+@model AIA.Life.Models.UserManagement.AppNotification
+@using AIA.Presentation.Helpers
+@using GridMvc.Html
+@using AIAResources;
+<style>
+    #ISMandatory {
+        width: 25px;
+        height: 25px;
+        margin-top: 28px;
+    }
+
+    .mandatory-label {
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 26px;
+    }
+
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .inputfile-6 + label {
+        border: 2px solid #eee;
+        padding: 0;
+        height: 37px
+    }
+
+    .inputfile-6 + label {
+        color: #000;
+    }
+
+    .inputfile + label {
+        max-width: 100%;
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    .inputfile-6 + label span {
+        width: 200px;
+        min-height: 2em;
+        display: inline-block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .inputfile-6 + label span, .inputfile-6 + label strong {
+        padding: 0.625rem 1.25rem;
+    }
+
+    .inputfile + label * {
+        pointer-events: none;
+    }
+
+    .inputfile-6 + label strong {
+        height: 45%;
+        color: #f1e5e6;
+        background-color: #d31145;
+        border-radius: 3px;
+        display: inline-block;
+        position: absolute;
+        right: 17px;
+    }
+
+    .inputfile-6 + label span, .inputfile-6 + label strong {
+        padding: 0.625rem 1.25rem;
+    }
+
+    .inputfile-6 + label {
+        border: 2px solid #eee;
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .inputfile-6 + label {
+        color: #000;
+    }
+
+    .update-section {
+        border: 1px solid #d31145;
+        padding: 30px;
+    }
+</style>
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+
+        <div class="btn btn-info"><b>@Resources.GetLabelName("App Notification")</b></div>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("", "", new { ReturnUrl = "" }, FormMethod.Post, new { role = "form", id = "frmAppNotification" }))
+{
+    @Html.HiddenFor(x => x.HdnNodeID, new { @id = "hdnHdnNodeID" })
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a style="color: white;" class="icon-user"></a>
+                <a data-toggle="collapse" data-target="#collapse3" href="#collapseone" class="collapsed">
+                    App Notification 
+                </a>
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+            </h4>
+        </div>
+    </div>
+    <div class="modal fade" id="AppModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Resources.GetLabelName("App Notification")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="AppModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadHomePage()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Search Recepient")</label>
+                @Html.DropDownListFor(s => s.SelectRecepient, new SelectList(Model.LstRecepient, "ID", "Value"), "Select", new { @id = "ddlSearchRecepient", @class = "form-control", @onchange = "ChangeRecepient()" })
+            </div>
+        </div>
+        <div id="dividSelectRecepient" style="display:none">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Select ID")</label>
+                    @Html.TextBoxFor(a => a.SearchRecepient, new { @id = "idSearchRecepient", @class = "form-control", @maxlength = "15" })
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Sub Recepient")</label>
+                    @Html.DropDownListFor(s => s.SelectSubRecepient, new SelectList(Model.LstSubRecepient, "Text", "Value"), "Select", new { @id = "ddlSearchRecepient", @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group umbtn">
+                    <input type="button" name="Search" value="Add" class="btn btn-default" onclick="AddRecepient()">
+                </div>
+            </div>
+        </div>
+        <div id="dividLstIndividual">
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Enter Message")<span class="mandatory">*</span></label>
+                @Html.TextAreaFor(x => x.Message, new { @class = "form-control", @id = "idMessage", @maxlength = 400 })
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" style="text-align: center;margin-top:30px;display:block" id="divSearchButtons">
+            <input type="button" name="Search" value="Submit" class="btn btn-default" onclick="SendNotification()">
+            <input type="button" name="Clear" value="Cancel" class="btn btn-default" onclick="ClearNotification()">
+            <input type="button" name="Clear" value="Schedule" class="btn btn-default" data-toggle="modal" data-target="#mySchedule">
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="mySchedule" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Schedule</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Select Date</label>
+                            @Html.iNubeDatePickerFor(a => a.ScheduleDate, new { @class = "form-control datepicker", @id = "dtScheduleDate",@maxlength = "10"})
+                            @*<input type="text" class="form-control" />*@
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Select Time</label>
+                            <br />
+                            @*<input type="text" class="form-control" />*@
+                            <input type="time" class="form-control" name="ScheduleTime">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"onclick="CloseNotification()">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<script>
+    'use strict';
+    (function (document, window, index) {
+        var inputs = document.querySelectorAll('.inputfile');
+        Array.prototype.forEach.call(inputs, function (input) {
+            var label = input.nextElementSibling,
+                labelVal = label.innerHTML;
+
+            input.addEventListener('change', function (e) {
+                var fileName = '';
+                if (this.files && this.files.length > 1)
+                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                else
+                    fileName = e.target.value.split('\\').pop();
+
+                if (fileName)
+                    label.querySelector('span').innerHTML = fileName;
+                else
+                    label.innerHTML = labelVal;
+            });
+
+            // Firefox bug fix
+            input.addEventListener('focus', function () { input.classList.add('has-focus'); });
+            input.addEventListener('blur', function () { input.classList.remove('has-focus'); });
+        });
+    }(document, window, 0));
+    function ClearNotification() {
+        window.location.href = "/UserManagement/AppNotofication";
+    }
+    function CloseNotification() {
+        //window.location.href = "/UserManagement/AppNotofication";
+        $("#mySchedule").hide()
+    }
+    function AddRecepient() {
+        var entityVal = $("#hdnHdnNodeID").val();
+        var HdnLStdata = $("#idHdnLSTRecepient").val();
+        writeMultipleMessage("error", "", "idSearchRecepient");
+        writeMultipleMessage("error", "", "dummy2");
+        if ($("#idSearchRecepient").val() != "" && entityVal != "") {
+            $.ajax({
+                url: '@Url.Action("ValidateRecepient", "UserManagement")',
+                type: "POST",
+                async: false,
+                data: { NodeID: entityVal, HdnLSt: HdnLStdata },
+                success: function (data1) {
+                    debugger;
+                    if (data1 == "Success") {
+                        $.post("../../UserManagement/AddRecepient", $("#frmAppNotification").serialize(), function (data) {
+                            debugger;
+                            $('#dividLstIndividual').show();
+                            $('#dividLstIndividual').html('');
+                            $('#dividLstIndividual').html(data);
+                        });
+                    }
+                    else {
+                        writeMultipleMessage("error", data1, "dummy");
+                    }
+                }
+            });
+        }
+        else {
+            writeMultipleMessage("error", "Please Select Recepient ID or Name.", "idSearchRecepient");
+            return false;
+        }
+
+    }
+    function DelData(data) {
+        debugger;
+        $("#hdnHdnNodeID").val(data);
+        $.post("../../UserManagement/DeleteRecepient", $("#frmAppNotification").serialize(), function (data) {
+            $('#dividLstIndividual').show();
+            $('#dividLstIndividual').html('');
+            $('#dividLstIndividual').html(data);
+        });
+    }
+
+    function SendNotification() {
+      
+        writeMultipleMessage("error", "", "idMessage");
+        writeMultipleMessage("error", "", "ddlSearchRecepient");
+        writeMultipleMessage("error", "", "dummy2");
+        if ($("#idMessage").val() == "") {
+            writeMultipleMessage("error", "Please Enter Message.", "idMessage");
+            return false;
+        }
+        if ( $("#ddlSearchRecepient").val() == "") {
+            writeMultipleMessage("error", "Please Select Recepient Search.", "ddlSearchRecepient");
+            return false;
+        }
+      
+        if ($("#ddlSearchRecepient").val() == "2735") {
+            if ($("#idHdnLSTRecepient").val() == undefined || $("#idHdnLSTRecepient").val() == "") {
+                writeMultipleMessage("error", "Please Select Recepient Id and Add in Grid.", "dummy2");
+                return false;
+            }
+
+            $.post("../../UserManagement/SendNotificationFromFirebaseCloud", $("#frmAppNotification").serialize(), function (data) {
+
+                $('#AppModalBody').html('');
+                $('#AppModalBody').html(data.Result);
+                $("#AppModal").modal("show");
+            });
+        } else {
+            $.post("../../UserManagement/SendAppUpdate", $("#frmAppNotification").serialize(), function (data) {
+
+                $('#AppModalBody').html('');
+                $('#AppModalBody').html(data.Result);
+                $("#AppModal").modal("show");
+            });
+        }
+    }
+    function ChangeRecepient() {
+        debugger;
+        if ($("#ddlSearchRecepient").val() == "2735") {
+            $("#dividSelectRecepient").show();
+            $("#dividLstIndividual").html('');
+
+        }
+        else {
+            $("#dividSelectRecepient").hide();
+            $("#dividLstIndividual").hide();
+            $("#dividLstIndividual").html('');
+        }
+
+    }
+</script>
+<script type="text/javascript">
+
+    $('#idSearchRecepient').autocomplete(
+        {
+
+            minLength: 1,
+            source: function (request, response) {
+                $.ajax({
+                    url: '../../UserManagement/GetIndividual',
+                    type: "POST",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        debugger;
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.Value, value: item.NodeId
+                            };
+
+                        }));
+                    },
+                });
+
+
+            },
+            select: function (event, ui) {
+                $("#hdnHdnNodeID").val(ui.item.value);
+                $("#idSearchRecepient").val(ui.item.label);
+                return false;
+            },
+            focus: function (event, ui) {
+                $("#hdnHdnNodeID").val(ui.item.value);
+                $("#idSearchRecepient").val(ui.item.label);
+                return false;
+            }
+        });
+
+</script>

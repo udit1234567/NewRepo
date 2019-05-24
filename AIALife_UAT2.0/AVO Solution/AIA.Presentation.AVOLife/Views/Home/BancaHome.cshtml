@@ -1,0 +1,604 @@
+﻿@using AIAResources;
+@{
+    ViewBag.Title = "NewLayout";
+}
+<style>
+    .col-lg-4, col-lg-2, .col-lg-3, .col-lg-6, .col-lg-12, .col-lg-9, .col-lg-5, .col-sm-1, .col-lg-9, .col-lg-3 {
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+    }
+
+    blockquote, q {
+        quotes: none;
+    }
+
+        blockquote:before, blockquote:after, q:before, q:after {
+            content: '';
+            content: none;
+        }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    /*--start editing from here--*/
+    a {
+        text-decoration: none;
+    }
+
+    .txt-rt {
+        text-align: right;
+    }
+    /* text align right */
+    .txt-lt {
+        text-align: left;
+    }
+    /* text align left */
+    .txt-center {
+        text-align: center;
+    }
+    /* text align center */
+    .float-rt {
+        float: right;
+    }
+    /* float right */
+    .float-lt {
+        float: left;
+    }
+    /* float left */
+    .clear {
+        clear: both;
+    }
+    /* clear float */
+    .pos-relative {
+        position: relative;
+    }
+    /* Position Relative */
+    .pos-absolute {
+        position: absolute;
+    }
+    /* Position Absolute */
+    .vertical-base {
+        vertical-align: baseline;
+    }
+    /* vertical align baseline */
+    .vertical-top {
+        vertical-align: top;
+    }
+    /* vertical align top */
+    nav.vertical ul li {
+        display: block;
+    }
+    /* vertical menu */
+    nav.horizontal ul li {
+        display: inline-block;
+    }
+    /* horizontal menu */
+    img {
+        max-width: 100%;
+    }
+    /*--end reset--*/
+    body {
+        font-family: 'Roboto Condensed', sans-serif;
+        background: url(../images/1.png)repeat #22655c 0px 0px;
+        background-attachment: fixed;
+        background-size: 85%;
+    }
+
+    h1 {
+        font-size: 3em;
+        text-align: center;
+        color: #fff;
+        font-weight: 100;
+        font-family: 'Arima Madurai', cursive;
+    }
+
+    ul {
+        list-style: none;
+    }
+    /*-- calendar --*/
+    .main-agileits-w3layouts {
+        padding: 1em 0 1em;
+    }
+
+    .agileits-info {
+        width: 30%;
+        margin: 5em;
+    }
+    /*-- calendar-header -- */
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+        *:before,
+        *:after {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+    .custom-calendar-wrap {
+        position: relative;
+        overflow: hidden;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -o-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+    .w3ls-header {
+        background: #fff;
+        padding: 0.1em;
+        position: relative;
+        /*margin-top: -10px !important;*/
+    }
+
+    .div-header h2,
+    .div-header h3 {
+        text-align: center;
+        text-transform: uppercase;
+        margin-left: 23%;
+    }
+
+    .div-header h2 {
+        color: #555;
+        font-weight: 300;
+        font-size: 18px;
+        display: inline-block;
+        font-family: 'Arima Madurai', cursive;
+    }
+
+    .div-header h3 {
+        font-size: 21px;
+        font-weight: 700;
+        color: #D31145;
+        display: inline-block;
+        font-family: 'Arima Madurai', cursive;
+        margin-left: 10px;
+    }
+
+    .div-header nav span {
+        position: absolute;
+        top: 41px;
+        color: transparent;
+        cursor: pointer;
+        /*margin: 0 1px;*/
+        font-size: 35px;
+        line-height: 25px;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        .div-header nav span:first-child {
+            left: 15px;
+        }
+
+        .div-header nav span:nth-child(2) {
+            left: 16px;
+        }
+
+        .div-header nav span:before {
+            font-family: 'fontawesome-selected';
+            color: #D31145;
+            text-align: center;
+            -webkit-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -ms-transition: 0.5s all;
+            transition: 0.5s all;
+        }
+
+        .div-header nav span.custom-prev:before {
+            content: '\25c2';
+        }
+
+        .div-header nav span.custom-next:before {
+            content: '\25b8';
+        }
+
+        .div-header nav span.custom-current:before {
+            content: '\27a6';
+        }
+
+        .div-header nav span:hover:before {
+            color: #495468;
+        }
+
+        .div-header nav span.custom-current {
+            font-size: 25px;
+            right: 18px;
+            line-height: 21px;
+        }
+    /*-- content-reveal --*/
+    .custom-content-reveal {
+        background: rgba(246, 246, 246, 0.9);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 100;
+        top: 100%;
+        left: 0px;
+        text-align: center;
+        -webkit-transition: all 0.6s ease-in-out;
+        -moz-transition: all 0.6s ease-in-out;
+        -o-transition: all 0.6s ease-in-out;
+        -ms-transition: all 0.6s ease-in-out;
+        transition: all 0.6s ease-in-out;
+    }
+
+        .custom-content-reveal span.custom-content-close {
+            position: absolute;
+            top: 21px;
+            right: 13px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            background: #FF5722;
+            cursor: pointer;
+            line-height: 15px;
+            padding: 0;
+        }
+
+            .custom-content-reveal span.custom-content-close:after {
+                content: 'x';
+                font-size: 18px;
+                color: #fff;
+            }
+
+        .custom-content-reveal a,
+        .custom-content-reveal span {
+            font-size: 22px;
+            padding: 10px 30px;
+            display: block;
+            line-height: 1.6em;
+        }
+
+        .custom-content-reveal h4 {
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: #333;
+            padding: 20px 35px;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            border-top: 5px solid #FF5722;
+            -webkit-box-shadow: 0 1px rgba(255,255,255,0.9);
+            box-shadow: 0 1px rgba(255,255,255,0.9);
+            -moz-box-shadow: 0 1px rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+        }
+
+        .custom-content-reveal span {
+            color: #888;
+        }
+
+        .custom-content-reveal a {
+            color: #FF5722;
+        }
+
+            .custom-content-reveal a:hover {
+                color: #333;
+            }
+
+    #chartdiv {
+        width: 100%;
+        height: 213px !important;
+    }
+
+    #chartdiv2 {
+        width: 100%;
+        height: 388px !important;
+        font-size: 11px;
+        border: 1px solid #EAE6E5;
+        box-shadow: 1px 1px 2px 2px #EAE6E5;
+    }
+
+    #chartdiv4 {
+        width: 100%;
+        height: 250px !important;
+        font-size: 11px;
+        border: 1px solid #EAE6E5;
+        box-shadow: 1px 1px 2px 2px #EAE6E5;
+    }
+
+    #chartdiv3 {
+        width: 100%;
+        height: 300px !important;
+    }
+
+    .general-chart-body {
+        width: 100%;
+        font-size: 11px;
+        border: 1px solid #EAE6E5;
+        box-shadow: 1px 1px 2px 2px #EAE6E5;
+        background-color: #ffffff;
+    }
+
+    .amcharts-pie-slice {
+        transform: scale(1);
+        transform-origin: 50% 50%;
+        transition-duration: 0.3s;
+        transition: all .3s ease-out;
+        -webkit-transition: all .3s ease-out;
+        -moz-transition: all .3s ease-out;
+        -o-transition: all .3s ease-out;
+        cursor: pointer;
+        box-shadow: 0 0 30px 0 #000;
+    }
+
+    .btn:hover {
+        background-image: none !important;
+        background-color: #F9A61A !important;
+    }
+
+    .amcharts-pie-slice:hover {
+        transform: scale(1.1);
+        filter: url(#shadow);
+    }
+
+    .texture-color {
+        background-color: #EAE6E5;
+    }
+
+    #map {
+        height: 200px;
+        width: 92%;
+    }
+
+    h4 {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .carousel-control .glyphicon-chevron-right, .glyphicon-chevron-left, .carousel-control .icon-next, .carousel-control .icon-prev, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 11px !important;
+        color: white !important;
+        background-color: #D31145 !important;
+        border-radius: 50% 50% !important;
+        position: absolute;
+        top: 123px;
+        display: flex;
+        justify-content: center;
+        padding-top: 1px;
+    }
+
+    .carousel-control.left {
+        background-image: none !important;
+    }
+
+    .carousel-control.right {
+        right: 0 !important;
+        left: auto !important;
+        background-image: none !important;
+    }
+
+    .carousel-control {
+        position: absolute;
+        top: 7px;
+        bottom: 0;
+        left: 7px;
+        width: 15%;
+        font-size: 12px;
+        color: #fff;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0,0,0,.6) !important;
+        background-color: rgba(0,0,0,0) !important;
+        filter: alpha(opacity=50);
+        opacity: 1 !important;
+    }
+
+    .btn-gradient {
+        text-align: center;
+        background: #f46624 !important; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(#f46624, #fca21a) !important; /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#f46624, #fca21a) !important; /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#f46624, #fca21a) !important; /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#f46624, #fca21a) !important;
+        color: #fff !important;
+        margin-bottom: 5% !important;
+    }
+
+    .header-style {
+        color: white !important;
+        text-align: center;
+        background-color: #D9D9D9;
+    }
+
+    .header-left {
+        background-color: #D31145;
+        border-radius: 0px 4px 17px 0px;
+        color: white !important;
+        height: 51px;
+        display: flex;
+        align-items: center;
+        margin-left: -2px;
+    }
+
+        .header-left > h3 {
+            font-size: 23px !important;
+        }
+
+    .header-right {
+        background-color: #D9D9D9;
+        padding: 2% 0% 1% 0%;
+        color: white !important;
+    }
+
+    .div-header {
+    }
+
+    .div-header-h4 {
+        background-color: #D9D9D9;
+        color: #000;
+        font-weight: 600;
+        font-size: 16px !important;
+        border-radius: 10px 10px 0px 0px;
+        width: 100%;
+        margin-left: -1px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        padding-left: 22px;
+    }
+
+
+
+    .header-div-3 {
+        height: 160px;
+        border-radius: 10px 10px 0px 0px;
+        background-color: #fff;
+    }
+
+    @@media screen and (min-width: 320px) and (max-width: 480px) {
+        .general-chart-body {
+            box-shadow: none;
+            border: none;
+        }
+
+        .header-div-3 {
+            height: 150px !important;
+        }
+
+        .status-col {
+            padding-top: 40px;
+            text-align: center;
+        }
+    }
+
+    @@media screen and (max-width: 600px) {
+        .header-div-3 {
+            height: 350px !important;
+        }
+
+        .header-div-3-icon {
+            margin: 3% 0% 3% 0% !important;
+        }
+
+        .margin-res {
+            margin: 10% 0% 10% 0%;
+        }
+
+        .res-center {
+            margin: 0% 25% 0% 25% !important;
+        }
+
+        .btn-gradient {
+            width: 70% !important;
+        }
+
+        .margin-mobile {
+            margin-top: -50% !important;
+            margin-left: 15% !important;
+        }
+    }
+
+    @@media screen and (min-width: 766px) and (max-width: 1200px) {
+        .margin-res {
+            margin: 2% 0% 2% 0%;
+        }
+
+        .btn-gradient {
+            font-size: 11px !important;
+        }
+
+        .status-col {
+            padding-top: 40px;
+            text-align: center;
+        }
+    }
+
+    @@media screen and (min-width: 1200px) {
+        .header-div-3 {
+            height: 220px !important;
+        }
+    }
+
+    .header-div-3-h4 {
+        background-color: #E44D08;
+        color: #fff;
+        font-weight: 500;
+        padding: 2%;
+        border-radius: 10px 10px 0px 0px;
+        font-size: 16px !important;
+    }
+
+    .service-request-icons {
+        font-size: 60px !important;
+        background-color: #fff !important;
+        text-shadow: 1px 1px 1px 1px !important;
+        color: #1E71B7 !important;
+        margin-left: 15% !important;
+    }
+
+    .locator-div {
+        border: 1px solid #EAE6E5;
+        box-shadow: 1px 1px 2px 2px #EAE6E5;
+        background-color: #fff;
+        border-radius: 10px 10px 0px 0px;
+    }
+</style>
+<div class="texture-color">
+    <div class="col-lg-12 col-sm-12 header-style">
+        <div class="col-lg-4 col-md-6 col-sm-4 header-left">
+            <h3 style="font-weight: 500">
+                @Resources.GetLabelName("Welcome to NexGen iPoS")
+            </h3>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-12 col-sm-6 margin-res">
+            <div class="div-header">
+                <h4 class="div-header-h4"> @Resources.GetLabelName("PROPOSAL INFORMATION")</h4>
+                <div class="general-chart-body" style="height:308px;">
+                    @Html.Partial("~/Areas/Dashboard/Views/Dashboard/_PartialDrillDownChart.cshtml", 1)
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="div-header">
+                <h4 class="div-header-h4"> @Resources.GetLabelName("SALES FUNNEL")</h4>
+                <div class="general-chart-body" style="height:308px;">
+                    @Html.Partial("~/Areas/Dashboard/Views/Dashboard/_PartialFunnelChart.cshtml", 4)
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            @Html.Partial("~/Areas/Dashboard/Views/Dashboard/_PartialDailyPlanner.cshtml")
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-12 col-sm-6 margin-res">
+            <div class="div-header">
+                <h4 class="div-header-h4"> @Resources.GetLabelName("BASED ON PROPOSAL SUBMISSION DATE")</h4>
+                <div class="general-chart-body" style="height:308px;">
+                    @Html.Partial("~/Areas/Dashboard/Views/Dashboard/_PartialBarChart.cshtml", 2)
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-6 margin-res">
+            <div class="div-header">
+                <h4 class="div-header-h4"> @Resources.GetLabelName("BASED ON LAST REQUIREMENT CALLING DATE")</h4>
+                <div class="general-chart-body" style="height:308px;">
+                    @Html.Partial("~/Areas/Dashboard/Views/Dashboard/_PartialBarChart.cshtml", 3)
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-6 margin-res">
+            <div class="div-header">
+                <h4 class="div-header-h4"> @Resources.GetLabelName("MEDICAL/NON-MEDICAL")</h4>
+                <div class="general-chart-body" style="height:308px;">
+                    @Html.Partial("~/Areas/Dashboard/Views/Dashboard/_PartialPieChart.cshtml", 5)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

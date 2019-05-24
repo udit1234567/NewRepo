@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "SeeSaw";
+}
+
+
+    <style>
+        .weighing-container {
+            margin: auto;
+            margin-top: auto;
+            position: relative;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            margin-top: 149px;
+        }
+
+        .base-stand {
+            position: relative;
+            z-index: 0;
+        }
+
+        .main-stand {
+            position: absolute;
+            z-index: 1;
+            top: -24px;
+            left: 22%;
+        }
+
+        #balance-stand {
+            display: inline-block;
+        }
+
+            #balance-stand:before {
+                content: url('../../Content/Images/Assets.png');
+                position: absolute;
+                left: -30px;
+                top: 4px;
+                z-index: 2;
+            }
+
+            #balance-stand.specialbefore:before {
+                transform: rotate(15deg);
+                left: -39px;
+                top: 3px;
+                transition: transform 2s;
+            }
+
+            #balance-stand.specialbefore:after {
+                transform: rotate(15deg);
+                transition: transform 2s;
+                top: 3px;
+                right: -20px;
+            }
+
+            #balance-stand.specialafter:before {
+                transform: rotate(-15deg);
+                transition: transform 2s;
+                left: -20px;
+                top: 3px;
+            }
+
+            #balance-stand.specialafter:after {
+                transform: rotate(-15deg);
+                transition: transform 2s;
+                right: -39px;
+                top: 3px;
+            }
+
+            #balance-stand.specialbalance:before {
+                transform: rotate(0deg);
+                transition: transform 2s;
+            }
+
+            #balance-stand.specialbalance:after {
+                transform: rotate(0deg);
+                transition: transform 2s;
+            }
+
+            #balance-stand:after {
+                content: url('../../Content/Images/Liabilities.png');
+                position: absolute;
+                right: -30px;
+                top: 4px;
+                z-index: 2;
+            }
+
+        .seesaw {
+            position: relative;
+            display: inline-block;
+        }
+
+        .seesaw-stand {
+            position: absolute;
+            top: 45px;
+            left: 44%;
+        }
+    </style>
+
+    <input type="text" id="assestTotal" value="0" oninput="compareAssest()" />
+    <input type="text" id="liabilitiesTotal" value="0" oninput="compareAssest()" />
+    <input type="text" id="currentIncome" value="0" oninput="compareExpense()" />
+    <input type="text" id="livingExpense" value="0" oninput="compareExpense()" />
+    <div class="weighing-container col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+        <br />
+        <p class="base-stand">
+            <span id="balance-stand"><img src="~/Content/Images/VectorSmartObject.png"></span>
+            <img class="main-stand" src="~/Content/Images/Stand.png" />
+        </p>
+    </div>
+    <div class="weighing-container col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+        <p>
+            <span class="seesaw"><img src="~/Content/Images/seesaw.png"></span>
+            <img class="seesaw-stand" src="~/Content/Images/seesawstand.png" />
+        </p>
+    </div>
+    <script>
+
+	function compareAssest(){
+		var assestTotal=$('#assestTotal').val();
+		var liabilitiesTotal=$('#liabilitiesTotal').val();
+
+		if(parseInt(assestTotal,10)>parseInt(liabilitiesTotal,10)){
+
+     	$('#balance-stand').css({'transform':'rotate(-15deg)','transition': 'transform 2s'});
+     	$('#balance-stand').removeClass('specialbalance specialafter');
+     	$('#balance-stand').addClass('specialbefore');
+
+
+     	}
+     	else if(parseInt(assestTotal,10)<parseInt(liabilitiesTotal,10)){
+
+     		$('#balance-stand').css({'transform':'rotate(15deg)','transition': 'transform 2s'});
+     		$('#balance-stand').removeClass('specialbalance specialbefore');
+     		$('#balance-stand').addClass('specialafter');
+     	}
+     	else{
+     		$('#balance-stand').css({'transform':'rotate(0deg)','transition': 'transform 2s'});
+     		$('#balance-stand').removeClass('specialbefore specialafter');
+     		$('#balance-stand').addClass('specialbalance');
+     	}
+	}
+	  function compareExpense(){
+	  
+   	var currentIncome=$('#currentIncome').val();
+    var livingExpense=$('#livingExpense').val();
+    if(parseInt(currentIncome,10)>parseInt(livingExpense,10)){
+    	$('.seesaw').css({'transform':'rotate(-10deg)','transition': 'transform 2s'});
+   }
+   else if(parseInt(currentIncome,10)<parseInt(livingExpense,10)){
+   	$('.seesaw').css({'transform':'rotate(10deg)','transition': 'transform 2s'});
+   }
+   else{
+   		$('.seesaw').css({'transform':'rotate(0deg)','transition': 'transform 2s'});
+   }
+}
+
+
+    </script>
+
+
+

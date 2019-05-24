@@ -1,0 +1,1253 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using AIAResources
+@{
+
+}
+@Scripts.Render("~/bundles/Dialog")
+@Styles.Render("~/Content/Dialogcss")
+@Scripts.Render("~/bundles/Hierarchy")
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+@using (Html.BeginForm("", "", FormMethod.Post, new { @id = "frmHierarchyDetails", @class = "" }))
+{
+    @Html.HiddenFor(a => a.CorporateCode, new { @id = "hdnCorporateCode" })
+    @Html.HiddenFor(a => a.ChannelCode, new { @id = "hdnChannelCode", @Value = Model.ChannelCode })
+    @Html.HiddenFor(a => a.SubChannelCode, new { @id = "hdnSubChannelCode", @Value = Model.SubChannelCode })
+    @Html.HiddenFor(a => a.PartnerCode, new { @id = "hdnPartnerCode", @Value = Model.PartnerCode })
+    @Html.HiddenFor(a => a.GeoUnitCode, new { @id = "hdnGeoUnitCode", @Value = Model.GeoUnitCode })
+    @Html.HiddenFor(a => a.OrgStructureIDChannel, new { @id = "hdnOrgStructureIDChannel", @Value = Model.OrgStructureIDChannel })
+    @Html.HiddenFor(a => a.OrgStructureIDSubChannel, new { @id = "hdnOrgStructureIDSubChannel", @Value = Model.OrgStructureIDSubChannel })
+    @Html.HiddenFor(a => a.ReportingEntityId, new { @id = "hdnReportingEntityId" })
+    @Html.HiddenFor(a => a.CommunicationAddressId, new { @id = "hdnCommunicationAddressId", @Value = Model.CommunicationAddressId })
+    @Html.HiddenFor(a => a.RegistrationAddressId, new { @id = "hdnRegistrationAddressId", @Value = Model.RegistrationAddressId })
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divEntityType">
+            <div class="form-group">
+                <label>Select Entity Type<span class="mandatory">*</span></label>
+                @Html.DropDownListFor(s => s.EntityType, new SelectList(Model.LstEntityTypes, "ID", "Value"), "Select", new { @id = "ddlHierarchyEntityType", @class = "form-control", @onchange = "ShowHierarchyMenus()" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="display:none" id="divddlSubchannel">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>Select Sub Channel<span class="mandatory">*</span></label>
+                @Html.DropDownListFor(s => s.SubChannel, new SelectList(Model.LstSubChannel, "ID", "Value"), "Select", new { @id = "ddlHierarchyPartnerSubChannel", @class = "form-control", @onchange = "ShowSubChannelReporting()" })
+            </div>
+        </div>
+    </div>
+    <div style="display:none" id="divGeoUnitsTabDetails">
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divddlSubChannel">
+                <div class="form-group">
+                    <label>Select Sub Channel<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(s => s.GeoUnitsSubChannel, new SelectList(Model.LstGeoUnitsSubChannel, "ID", "Value"), "Select", new { @id = "ddlHierarchyGeoUnitsSubChannel", @class = "form-control", @onchange = "FetchSubChannelGeoPartner(), FetchGeoUnitTypesOnSubChannel()" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divGeoUnitPartnerSec">
+                <div class="form-group">
+                    <label>Select Partner<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(s => s.GeoPartner, new SelectList(Model.LstGeoPartner, "ID", "Value"), "Select", new { @id = "ddlHierarchyPartnerType", @class = "form-control", @onchange = "FetchGeoUnitTypes()" })
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divGeoUnitTypesPartners">
+                <div class="form-group">
+                    <label>Geo Unit Types<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(s => s.GeoUnitsTypes, new SelectList(Model.LstGeoUnitsTypes, "ID", "Value"), "Select", new { @id = "ddlHierarchyGeoUnitsTypes", @class = "form-control", @onchange = "ShowTabsForGeoUnit()" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2" style="padding-right:2%;display:none" id="divHierarchyTabsMenus">
+            <br /><br />
+            <ul class="nav nav-tabs tabs-left">
+                <li class="active" id="tabBasicDetails">
+                    <a href="#tab_1" data-toggle="tab" onclick="clearAllErrors()">Basic Details</a>
+                </li>
+                <li id="tabCommunicationDetails">
+                    <a href="#tab_2" data-toggle="tab" onclick="clearAllErrors()">Communication Details</a>
+                </li>
+                <li style="display:none" id="tabLiecenseDetails">
+                    <a href="#tab_9" data-toggle="tab" onclick="clearAllErrors()">License/Contract</a>
+                </li>
+                <li style="display:none" id="tabGEOUnitDetails">
+                    <a href="#tab_5" data-toggle="tab" onclick="clearAllErrors()">Geo Unit Details</a>
+                </li>
+                <li style="display:none" id="tabTargetDetails">
+                    <a href="#tab_6" data-toggle="tab" onclick="clearAllErrors()">Target Details</a>
+                </li>
+                <li style="display:none" id="tabManpowerDetails">
+                    <a href="#tab_7" data-toggle="tab" onclick="clearAllErrors()">Manpower Details</a>
+                </li>
+                <li style="display:none" id="tabPointOfContract">
+                    <a href="#tab_11" data-toggle="tab" onclick="clearAllErrors()">Point Of Contact</a>
+                </li>
+                <li style="display:none" id="tabCordinatesDetails">
+                    <a href="#tab_8" data-toggle="tab" onclick="clearAllErrors()">Coordinations</a>
+                </li>
+                <li id="tabHistoryDetails" style="display:none">
+                    <a href="#tab_3" data-toggle="tab" onclick="clearAllErrors()">History Details</a>
+                </li>
+                <li id="tabViewHierarchy" style="display:none">
+                    <a href="#tab_4" data-toggle="tab" onclick="clearAllErrors()">View Hierarchy</a>
+                </li>
+                <li style="display:none" id="tabDocumentDetails">
+                    <a href="#tab_12" data-toggle="tab" onclick="clearAllErrors()">Document Details</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10 col-sm-10 col-xs-10" style="display:none" id="divBodyHerirachyMenus">
+            <br /><br />
+            <div class="tab-content">
+                <div class="tab-pane" id="tab_1">
+                    @Html.Partial("~/Views/Hierarchy/Partialhierarchybasicdetails.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_2">
+                    @Html.Partial("~/Views/Hierarchy/Partialhierarchycommunicationdetails.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_3">
+                    @Html.Partial("~/Views/Hierarchy/PartialhierrachyHistoryDetails.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_4">
+                    @Html.Partial("~/Views/Hierarchy/PartialViewHierarchyTree.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_5">
+                    @Html.Partial("~/Views/Hierarchy/PartialgeounitsgridDetails.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_6">
+                    @Html.Partial("~/Views/Hierarchy/Partialhierarchytargetdetails.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_7">
+                    @Html.Partial("~/Views/Hierarchy/Partialgeounitsmanpowergriddetails.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_8">
+                    @Html.Partial("~/Views/Hierarchy/Partialgeounitscoordinationsdetails.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_9">
+                    @Html.Partial("~/Views/Hierarchy/PartialHierarchyLicenseDetails.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_11">
+                    @Html.Partial("~/Views/Hierarchy/PartialHierarchyPointOfContactDetails.cshtml", Model)
+                </div>
+                <div class="tab-pane" id="tab_12">
+                    @Html.Partial("~/Views/Hierarchy/PartialhierarchyTargetDocumentDetails.cshtml", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="HierarchyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="HierarchyModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var ID = '@Model.EntityType';
+        if (ID != "" && ID != undefined) {
+            ShowProcessedHierarchyMenus(ID);
+        }
+     });
+    function ShowProcessedHierarchyMenus(ID) {
+        var EntityId = "";
+        var EntityValue = "";
+        if (ID == "") {
+            var EntityId = $("#ddlHierarchyEntityType").val();
+            var EntityValue = $("#ddlHierarchyEntityType option:selected").text();
+        }
+        else {
+            EntityId = ID;
+            if (EntityId == "483" || EntityValue == "Corporate") {
+                $("#ddlHierarchyEntityType").val(EntityId);
+                $("#divHierarchyTabsMenus").show();
+                $("#tabBasicDetails").show();
+                $("#tabCommunicationDetails").show();
+                $("#tabHistoryDetails").show();
+                $("#tabViewHierarchy").show();
+                $("#divHierarchyTabsMenus").show();
+                $("#divBodyHerirachyMenus").show();
+                $("#btnBasicSaveDetails").hide();
+                $("#btnSaveCommunicationDetails").hide();
+                $("#btnBasicSubmitDetails").hide();
+                $("#tabBasicDetails").addClass("active");
+                $("#tabCommunicationDetails").removeClass("active");
+                $("#tabHistoryDetails").removeClass("active");
+                $("#tabViewHierarchy").removeClass("active");
+                $("#tab_1").addClass("active");
+                $("#tab_2").removeClass("active");
+                $("#tab_3").removeClass("active");
+                $("#tab_4").removeClass("active");
+                $("#ddlHierarchyEntityType").attr("disabled", true);
+                $("#txtHirerachyName").attr("disabled", true);
+                $("#txtHirerachyStatus").attr("disabled", true);
+                $("#txtHirerachyCode").attr("readonly", true);
+                $("#txtHirerachyYearofEstablish").attr("disabled", true);
+                $("#txtHirerachyRegistrationNum").attr("disabled", true);
+                $("#txtMobileNo").attr("disabled", true);
+                $("#txtOfficePhone1").attr("disabled", true);
+                $("#txtOfficePhone2").attr("disabled", true);
+                $("#txtFaxNo").attr("disabled", true);
+                $("#txtEmailId").attr("disabled", true);
+                $("#objCommunicationAddressAddress1").attr("disabled", true);
+                $("#objCommunicationAddressAddress2").attr("disabled", true);
+                $("#objCommunicationAddressddlProvince").attr("disabled", true);
+                $("#objCommunicationAddressddlDistrict").attr("disabled", true);
+                $("#objCommunicationAddressddlCity").attr("disabled", true);
+                $("#objCommunicationAddressPincode").attr("disabled", true);
+                $("#objRegistrationAddressAddress1").attr("disabled", true);
+                $("#objRegistrationAddressAddress2").attr("disabled", true);
+                $("#objRegistrationAddressddlProvince").attr("disabled", true);
+                $("#objRegistrationAddressddlDistrict").attr("disabled", true);
+                $("#objRegistrationAddressddlCity").attr("disabled", true);
+                $("#objRegistrationAddressPincode").attr("disabled", true);
+                $("#chkIsRegistrationAddrSame").attr("disabled", true);
+                $("#btnBasicCancelDetails").hide();
+                $("#btnCancelCommunicationDetails").hide();
+                $("#divEntityType").hide();
+                $("#ddlHierarchyHistroyDetails").val(2);
+                $("#divGridHierarchyStatusHistory").show();
+                $("#ddlHierarchyHistroyDetails").attr("disabled", true);
+            }
+            else if (EntityId == "1254" || EntityValue == "Channel") {
+                $("#ddlHierarchyEntityType").val(EntityId);
+                $("#divHierarchyTabsMenus").show();
+                $("#tabBasicDetails").show();
+                $("#tabCommunicationDetails").show();
+                $("#tabHistoryDetails").show();
+                $("#tabViewHierarchy").show();
+                $("#divBodyHerirachyMenus").show();
+                $("#divHierarchyRepositoryDetails").show();
+                $("#tabBasicDetails").addClass("active");
+                $("#tabCommunicationDetails").removeClass("active");
+                $("#tabHistoryDetails").removeClass("active");
+                $("#tabViewHierarchy").removeClass("active");
+                $("#divHierarchyEstablish").hide();
+                $("#divHierarchyRegNo").hide();
+                $("#btnBasicSaveDetails").hide();
+                $("#btnSaveCommunicationDetails").hide();
+                $("#btnBasicSubmitDetails").hide();
+                $("#tab_1").addClass("active");
+                $("#tab_2").removeClass("active");
+                $("#tab_3").removeClass("active");
+                $("#tab_4").removeClass("active");
+                $("#ddlHierarchyEntityType").attr("disabled", true);
+                $("#txtHirerachyName").attr("disabled", true);
+                $("#txtHirerachyStatus").attr("disabled", true);
+                //$("#txtHirerachyCode").attr("readonly", true);
+                $("#ddlHierarchyRepositoryType").attr("disabled", true);
+                $("#txtHirerachyReportingCode").attr("disabled", true);
+                $("#txtHirerachyReportingName").attr("disabled", true);
+                //$("#dpHierarchyEffectiveFrom").attr("disabled", true);
+                $("#txtMobileNo").attr("disabled", true);
+                $("#txtOfficePhone1").attr("disabled", true);
+                $("#txtOfficePhone2").attr("disabled", true);
+                $("#txtFaxNo").attr("disabled", true);
+                $("#txtEmailId").attr("disabled", true);
+                $("#objCommunicationAddressAddress1").attr("disabled", true);
+                $("#objCommunicationAddressAddress2").attr("disabled", true);
+                $("#objCommunicationAddressddlProvince").attr("disabled", true);
+                $("#objCommunicationAddressddlDistrict").attr("disabled", true);
+                $("#objCommunicationAddressddlCity").attr("disabled", true);
+                $("#objCommunicationAddressPincode").attr("disabled", true);
+                $("#objRegistrationAddressAddress1").attr("disabled", true);
+                $("#objRegistrationAddressAddress2").attr("disabled", true);
+                $("#objRegistrationAddressddlProvince").attr("disabled", true);
+                $("#objRegistrationAddressddlDistrict").attr("disabled", true);
+                $("#objRegistrationAddressddlCity").attr("disabled", true);
+                $("#objRegistrationAddressPincode").attr("disabled", true);
+                $("#btnBasicCancelDetails").hide();
+                $("#btnCancelCommunicationDetails").hide();
+                $("#divEntityType").hide();
+                $("#ddlHierarchyHistroyDetails").val(2);
+                $("#divGridHierarchyStatusHistory").show();
+                $("#ddlHierarchyHistroyDetails").attr("disabled", true);
+            }
+            else if (EntityId == "1255" || EntityValue == "Sub Channel") {
+                $("#ddlHierarchyEntityType").val(EntityId);
+                $("#tabBasicDetails").show();
+                $("#tabCommunicationDetails").show();
+                $("#tabHistoryDetails").show();
+                $("#tabViewHierarchy").show();
+                $("#divHierarchyTabsMenus").show();
+                $("#divBodyHerirachyMenus").show();
+                $("#chkPartnerHierarchy").show();
+                $("#divHierarchyRepositoryDetails").show();
+                $("#tabGEOUnitDetails").show();
+                $("#tabHistoryDetails").show();
+                $("#divHierarchyEstablish").hide();
+                $("#divHierarchyRegNo").hide();
+                $("#btnBasicSaveDetails").hide();
+                $("#btnSaveCommunicationDetails").hide();
+                $("#btnBasicSubmitDetails").hide();
+                $("#btnSaveLicenseDetails").hide();
+                $("#tabBasicDetails").addClass("active");
+                $("#tabCommunicationDetails").removeClass("active");
+                $("#tabGEOUnitDetails").removeClass("active");
+                $("#tabHistoryDetails").removeClass("active");
+                $("#tabViewHierarchy").removeClass("active");
+                $("#tab_1").addClass("active");
+                $("#tab_2").removeClass("active");
+                $("#tab_3").removeClass("active");
+                $("#tab_4").removeClass("active");
+                $("#tab_5").removeClass("active");
+                $("#ddlHierarchyEntityType").attr("disabled", true);
+                $("#txtHirerachyName").attr("disabled", true);
+                $("#txtHirerachyStatus").attr("disabled", true);
+                $("#txtHirerachyCode").attr("disabled", true);
+                $("#ddlHierarchyRepositoryType").attr("disabled", true);
+                $("#txtHirerachyReportingCode").attr("disabled", true);
+                $("#txtHirerachyReportingName").attr("disabled", true);
+                $("#dpHierarchyEffectiveFrom").attr("disabled", true);
+                $("#txtMobileNo").attr("disabled", true);
+                $("#txtOfficePhone1").attr("disabled", true);
+                $("#txtOfficePhone2").attr("disabled", true);
+                $("#txtFaxNo").attr("disabled", true);
+                $("#txtEmailId").attr("disabled", true);
+                $("#objCommunicationAddressAddress1").attr("disabled", true);
+                $("#objCommunicationAddressAddress2").attr("disabled", true);
+                $("#objCommunicationAddressddlProvince").attr("disabled", true);
+                $("#objCommunicationAddressddlDistrict").attr("disabled", true);
+                $("#objCommunicationAddressddlCity").attr("disabled", true);
+                $("#objCommunicationAddressPincode").attr("disabled", true);
+                $("#objRegistrationAddressAddress1").attr("disabled", true);
+                $("#objRegistrationAddressAddress2").attr("disabled", true);
+                $("#objRegistrationAddressddlProvince").attr("disabled", true);
+                $("#objRegistrationAddressddlDistrict").attr("disabled", true);
+                $("#objRegistrationAddressddlCity").attr("disabled", true);
+                $("#objRegistrationAddressPincode").attr("disabled", true);
+                $("#btnHierarchyGeo").hide();
+                $("#btnSaveGEOUnitDetails").hide();
+                $("#btnCancelGEOUnitDetails").hide();
+                $(".clsbtnGeoUnitDelete").hide();
+                $(".clsGeoUnitName").attr("disabled", true);
+                $(".clsParentEntity").attr("disabled", true);
+                $("#btnBasicCancelDetails").hide();
+                $("#btnCancelCommunicationDetails").hide();
+                $("#divEntityType").hide();
+            }
+            else if (EntityId == "1256" || EntityValue == "Partner") {
+                $("#ddlHierarchyEntityType").val(EntityId);
+                $("#tabBasicDetails").show();
+                $("#tabCommunicationDetails").show();
+                $("#tabHistoryDetails").show();
+                $("#tabViewHierarchy").show();
+                $("#divGeoUnitsTabDetails").show();
+                $("#divHierarchyTabsMenus").show();
+                $("#divBodyHerirachyMenus").show();
+                $("#tabLiecenseDetails").show();
+                $("#divHierarchyRepositoryDetails").show();
+                $("#tabGEOUnitDetails").show();
+                $("#tabTargetDetails").show();
+                $("#chkPartnerInsuranceOperations").show();
+                $("#divddlSubchannel").show();
+                $("#divddlPartnerType").show();
+                $("#tabDocumentDetails").show();
+                $("#tabPointOfContract").show();
+                $("#divGeoUnitsTabDetails").hide();
+                $("#btnBasicSaveDetails").hide();
+                $("#btnBasicCancelDetails").hide();
+                $("#btnSaveCommunicationDetails").hide();
+                $("#btnCancelCommunicationDetails").hide();
+                $("#btnBasicSubmitDetails").hide();
+                $("#btnSaveLicenseDetails").hide();
+                $("#btnCancelLicenseDetails").hide();
+                $("#divHierarchyEstablish").hide();
+                $("#divHierarchyRegNo").hide();
+                $("#btnUpdate").hide();
+                $("#btnCancel").hide();
+                $("#addRow").hide();
+                $("#tabBasicDetails").addClass("active");
+                $("#tabCommunicationDetails").removeClass("active");
+                $("#tabLiecenseDetails").removeClass("active");
+                $("#tabGEOUnitDetails").removeClass("active");
+                $("#tabTargetDetails").removeClass("active");
+                $("#tabManpowerDetails").removeClass("active");
+                $("#tabPointOfContract").removeClass("active");
+                $("#tabCordinatesDetails").removeClass("active");
+                $("#tabHistoryDetails").removeClass("active");
+                $("#tabViewHierarchy").removeClass("active");
+                $("#tabDocumentDetails").removeClass("active");
+                $("#tab_1").addClass("active");
+                $("#tab_2").removeClass("active");
+                $("#tab_3").removeClass("active");
+                $("#tab_4").removeClass("active");
+                $("#tab_5").removeClass("active");
+                $("#tab_6").removeClass("active");
+                $("#tab_7").removeClass("active");
+                $("#tab_8").removeClass("active");
+                $("#tab_9").removeClass("active");
+                //$("#tab_10").removeClass("active");
+                $("#tab_11").removeClass("active");
+                $("#tab_12").removeClass("active");
+                $("#ddlHierarchyEntityType").attr("disabled", true);
+                $("#ddlHierarchyPartnerSubChannel").attr("disabled", true);
+                $("#txtHirerachyName").attr("disabled", true);
+                $("#txtHirerachyYearofEstablish").attr("disabled", true);
+                $("#txtHirerachyRegistrationNum").attr("disabled", true);
+                $("#txtHirerachyStatus").attr("disabled", true);
+                $("#txtHirerachyCode").attr("disabled", true);
+                $("#ddlHierarchyRepositoryType").attr("disabled", true);
+                $("#txtHirerachyReportingCode").attr("disabled", true);
+                $("#txtHirerachyReportingName").attr("disabled", true);
+                $("#dpHierarchyEffectiveFrom").attr("disabled", true);
+                $("#txtMobileNo").attr("disabled", true);
+                $("#txtOfficePhone1").attr("disabled", true);
+                $("#txtOfficePhone2").attr("disabled", true);
+                $("#txtFaxNo").attr("disabled", true);
+                $("#txtEmailId").attr("disabled", true);
+                $("#txtPointPosition").attr("disabled", true);
+                $("#ddlPointSalutation").attr("disabled", true);
+                $("#txtPointFirstName").attr("disabled", true);
+                $("#txtPointMiddleName").attr("disabled", true);
+                $("#txtPointLastName").attr("disabled", true);
+                $("#txtPointSLIIRegNo").attr("disabled", true);
+                $("#txtPointMobile1").attr("disabled", true);
+                $("#txtPointMobile2").attr("disabled", true);
+                $("#txtPointOfficePhone").attr("disabled", true);
+                $("#txtPointResidencePhone").attr("disabled", true);
+                $("#txtPointofEmail").attr("disabled", true);
+                $("#txtLicenseNo").attr("disabled", true);
+                $("#dpLicenseIssuedate").attr("disabled", true);
+                $("#dpLicenseExpirydate").attr("disabled", true);
+                $("#dpContractFrom").attr("disabled", true);
+                $("#dpContractTo").attr("disabled", true);
+                $("#objCommunicationAddressAddress1").attr("disabled", true);
+                $("#objCommunicationAddressAddress2").attr("disabled", true);
+                $("#objCommunicationAddressddlProvince").attr("disabled", true);
+                $("#objCommunicationAddressddlDistrict").attr("disabled", true);
+                $("#objCommunicationAddressddlCity").attr("disabled", true);
+                $("#objCommunicationAddressPincode").attr("disabled", true);
+                $("#objRegistrationAddressAddress1").attr("disabled", true);
+                $("#objRegistrationAddressAddress2").attr("disabled", true);
+                $("#objRegistrationAddressddlProvince").attr("disabled", true);
+                $("#objRegistrationAddressddlDistrict").attr("disabled", true);
+                $("#objRegistrationAddressddlCity").attr("disabled", true);
+                $("#objRegistrationAddressPincode").attr("disabled", true);
+                $("#btnHierarchyGeo").hide();
+                $("#btnSaveGEOUnitDetails").hide();
+                $("#btnCancelGEOUnitDetails").hide();
+                $("#btnSavePrincipalDetails").hide();
+                $("#btnCancelPrincipalDetails").hide();
+                $("#btnSaveDocumentDetails").hide();
+                $("#btnCancelDocumentDetails").hide();
+                $(".clsbtnGeoUnitDelete").hide();
+                $("#ddlHierarchyPartnerTypes").attr("disabled", true);
+                $(".clsGeoUnitName").attr("disabled", true);
+                $(".clsParentEntity").attr("disabled", true);
+                $("#divEntityType").hide();
+                $("#divddlSubchannel").hide();
+                $("#divPointOfContactDetailsGrid").hide();
+            }
+            else if (EntityId == "1257" || EntityValue == "Geo Unit") {
+                $("#ddlHierarchyEntityType").val(EntityId);
+                $("#tabBasicDetails").show();
+                $("#tabCommunicationDetails").show();
+                $("#tabHistoryDetails").show();
+                $("#tabViewHierarchy").show();
+                $("#divGeoUnitsTabDetails").show();
+                $("#divHierarchyTabsMenus").show();
+                $("#divBodyHerirachyMenus").show();
+                $("#tabTargetDetails").show();
+                $("#tabManpowerDetails").show();
+                $("#tabCordinatesDetails").show();
+                $("#divHierarchyRepositoryDetails").show();
+                $("#divHierarchyGeoUnits").show();
+                $("#divHierarchyReportGeoUnits").show();
+                $("#chkPartnerHierarchy").hide();
+                $("#divHierarchyEstablish").hide();
+                $("#divHierarchyRegNo").hide();
+                $("#tabLiecenseDetails").hide();
+                $("#tabRewardsDetails").hide();
+                $("#chkPartnerInsuranceOperations").hide();
+                $("#divddlSubchannel").hide();
+                $("#divddlPartnerType").hide();
+                $("#tabDocumentDetails").hide();
+                $("#tabPointOfContract").hide();
+                $("#btnBasicSaveDetails").hide();
+                $("#btnSaveCommunicationDetails").hide();
+                $("#btnBasicSubmitDetails").hide();
+                $("#btnSaveLicenseDetails").hide();
+                $("#btnUpdate").hide();
+                $("#btnCancel").hide();
+                $("#addRow").hide();
+                $("#tabBasicDetails").addClass("active");
+                $("#tabCommunicationDetails").removeClass("active");
+                $("#tabLiecenseDetails").removeClass("active");
+                $("#tabGEOUnitDetails").removeClass("active");
+                $("#tabTargetDetails").removeClass("active");
+                $("#tabManpowerDetails").removeClass("active");
+                $("#tabPointOfContract").removeClass("active");
+                $("#tabCordinatesDetails").removeClass("active");
+                $("#tabHistoryDetails").removeClass("active");
+                $("#tabViewHierarchy").removeClass("active");
+                $("#tabDocumentDetails").removeClass("active");
+                $("#tab_1").addClass("active");
+                $("#tab_2").removeClass("active");
+                $("#tab_3").removeClass("active");
+                $("#tab_4").removeClass("active");
+                $("#tab_5").removeClass("active");
+                $("#tab_6").removeClass("active");
+                $("#tab_7").removeClass("active");
+                $("#tab_8").removeClass("active");
+                $("#tab_9").removeClass("active");
+                //$("#tab_10").removeClass("active");
+                $("#tab_11").removeClass("active");
+                $("#tab_12").removeClass("active");
+                $("#ddlHierarchyEntityType").attr("disabled", true);
+                $("#txtHirerachyName").attr("disabled", true);
+                $("#txtHirerachyStatus").attr("disabled", true);
+                $("#txtHirerachyCode").attr("disabled", true);
+                $("#txtHirerachyYearofEstablish").attr("disabled", true);
+                $("#txtHirerachyRegistrationNum").attr("disabled", true);
+                $("#txtMobileNo").attr("disabled", true);
+                $("#txtOfficePhone1").attr("disabled", true);
+                $("#txtOfficePhone2").attr("disabled", true);
+                $("#txtFaxNo").attr("disabled", true);
+                $("#txtEmailId").attr("disabled", true);
+                $("#objCommunicationAddressAddress1").attr("disabled", true);
+                $("#objCommunicationAddressAddress2").attr("disabled", true);
+                $("#objCommunicationAddressddlProvince").attr("disabled", true);
+                $("#objCommunicationAddressddlDistrict").attr("disabled", true);
+                $("#objCommunicationAddressddlCity").attr("disabled", true);
+                $("#objCommunicationAddressPincode").attr("disabled", true);
+                $("#objRegistrationAddressAddress1").attr("disabled", true);
+                $("#objRegistrationAddressAddress2").attr("disabled", true);
+                $("#objRegistrationAddressddlProvince").attr("disabled", true);
+                $("#objRegistrationAddressddlDistrict").attr("disabled", true);
+                $("#objRegistrationAddressddlCity").attr("disabled", true);
+                $("#objRegistrationAddressPincode").attr("disabled", true);
+                $("#ddlHierarchyGeoUnitsSubChannel").attr("disabled", true);
+                $("#ddlHierarchyPartnerType").attr("disabled", true);
+                $("#ddlHierarchyGeoUnitsTypes").attr("disabled", true);
+                $("#txtHirerachyReportingCode").attr("disabled", true);
+                $("#txtHirerachyReportingName").attr("disabled", true);
+                $("#divEntityType").hide();
+                $("#divddlSubchannel").hide();
+                $("#divGeoUnitsTabDetails").hide();
+                $("#btnBasicCancelDetails").hide();
+                $("#ddlHierarchyRepositoryType").attr("disabled", true);
+                $("#btnDeleteCoordinations").hide();
+                $("#btnCoordinations").hide();
+                $("#btnSaveCordinationsDetails").hide();
+                $("#btnCancelCordinationsDetails").hide();
+            }
+        }
+    }
+    function ShowHierarchyMenus() {
+        var entityVal = $("#ddlHierarchyEntityType").val();
+        var entityText = $("#ddlHierarchyEntityType option:selected").text();
+        if (entityVal != '' && entityVal != undefined) {
+        $.post("../Hierarchy/FetchHierachyCodes?EntityID=" + entityVal + "&EntityValue=" + entityText)
+            .done(function (data) {
+                clear_form_elements();
+                if (entityVal == "483" || entityText == "Corporate") {                    //$('#frmHierarchyDetails').find('input:text').val('');
+                    // $('#frmHierarchyDetails').find('option:selected').val('');
+
+                    $("#hdnCorporateCode").val(data.CorporateCode);
+                    $("#hdnChannelCode").val("");
+                    $("#hdnSubChannelCode").val("");
+                    $("#hdnPartnerCode").val("");
+                    $("#hdnGeoUnitCode").val("");
+                    //$("#txtHirerachyCode").val(data.CorporateCode);
+                    $("#divEntityType").show();
+                    $("#divHierarchyTabsMenus").hide();
+                    $("#divBodyHerirachyMenus").hide();
+                    $("#divHierarchyRepositoryDetails").hide();
+                    $("#divHierarchyEstablish").hide();
+                    $("#divHierarchyRegNo").hide();
+                    $("#chkPartnerHierarchy").hide();
+                    $("#tabGEOUnitDetails").hide();
+                    $("#tabTargetDetails").hide();
+                    $("#tabManpowerDetails").hide();
+                    $("#tabCordinatesDetails").hide();
+                    $("#divHierarchyGeoUnits").hide();
+                    $("#divHierarchyReportGeoUnits").hide();
+                    $("#divGeoUnitsTabDetails").hide();
+                    $("#tabLiecenseDetails").hide();
+                    $("#tabRewardsDetails").hide();
+                    $("#chkPartnerInsuranceOperations").hide();
+                    $("#divddlSubchannel").hide();
+                    $("#tabPointOfContract").hide();
+                    $("#divddlPartnerType").hide();
+                    $("#tabDocumentDetails").hide();
+                    $("#ddlHierarchyEntityStatusType option:contains(" + entityText + ")").attr('selected', 'selected');
+                    //$("#ddlHierarchyEntityStatusType").text(data1);
+
+                    $("#tabBasicDetails").addClass("active");
+                    $("#tabCommunicationDetails").removeClass("active");
+                    $("#tabLiecenseDetails").removeClass("active");
+                    $("#tabGEOUnitDetails").removeClass("active");
+                    $("#tabTargetDetails").removeClass("active");
+                    $("#tabManpowerDetails").removeClass("active");
+                    $("#tabPointOfContract").removeClass("active");
+                    $("#tabCordinatesDetails").removeClass("active");
+                    $("#tabHistoryDetails").removeClass("active");
+                    $("#tabViewHierarchy").removeClass("active");
+                    $("#tabDocumentDetails").removeClass("active");
+                    $("#tab_1").addClass("active");
+                    $("#tab_2").removeClass("active");
+                    $("#tab_3").removeClass("active");
+                    $("#tab_4").removeClass("active");
+                    $("#tab_5").removeClass("active");
+                    $("#tab_6").removeClass("active");
+                    $("#tab_7").removeClass("active");
+                    $("#tab_8").removeClass("active");
+                    $("#tab_9").removeClass("active");
+                    //$("#tab_10").removeClass("active");
+                    $("#tab_11").removeClass("active");
+                    $("#tab_12").removeClass("active");
+                    $("#ddlHierarchyEntityType").val(entityVal);
+                    $("#btnBasicSubmitDetails").hide();
+                    $("#txtHirerachyStatus").attr("disabled", true);
+                    writeMultipleMessage("error", "You cannot create more than one Corporate.", "ddlHierarchyEntityType");
+                }
+                else if (entityVal == "1254" || entityText == "Channel") {
+                    //$('#frmHierarchyDetails').find('input:text').val('');
+                    //$('#frmHierarchyDetails').find('option:selected').val('');
+                    $("#hdnCorporateCode").val("");
+                    $("#hdnChannelCode").val(data.ChannelCode);
+                    $("#hdnSubChannelCode").val("");
+                    $("#hdnPartnerCode").val("");
+                    $("#hdnGeoUnitCode").val("");
+                    //$("#txtHirerachyCode").val(data.ChannelCode);
+                    //$("#txtHirerachyStatus").val(1);
+                    $("#divEntityType").hide();
+                    $("#txtHirerachyCode").val();
+                    $("#ddlHierarchyRepositoryType").val(data.ReportEntityType);
+                    $("#txtHirerachyReportingCode").val(data.Code);                   
+                    $("#txtHirerachyReportingName").val(data.ReportingName);
+                    $("#dpHierarchyEffectiveFrom").val(data.Effectivefrom);
+                    $("#divHierarchyTabsMenus").show();
+                    $("#divBodyHerirachyMenus").show();
+                    $("#divHierarchyEstablish").hide();
+                    $("#divHierarchyRepositoryDetails").show();
+                    $("#divHierarchyRegNo").hide();
+                    $("#chkPartnerHierarchy").hide();
+                    $("#tabGEOUnitDetails").hide();
+                    $("#tabTargetDetails").hide();
+                    $("#tabManpowerDetails").hide();
+                    $("#tabCordinatesDetails").hide();
+                    $("#divHierarchyGeoUnits").hide();
+                    $("#divHierarchyReportGeoUnits").hide();
+                    $("#divGeoUnitsTabDetails").hide();
+                    $("#tabLiecenseDetails").hide();
+                    $("#tabRewardsDetails").hide();
+                    $("#chkPartnerInsuranceOperations").hide();
+                    $("#divddlSubchannel").hide();
+                    $("#tabPointOfContract").hide();
+                    $("#divddlPartnerType").hide();
+                    $("#tabDocumentDetails").hide();
+                    // $("#ddlHierarchyRepositoryType option:contains(" + entityText + ")").attr('selected', 'selected');
+                    //$("#ddlHierarchyRepositoryType").val(data1);
+
+                    $("#tabBasicDetails").addClass("active");
+                    $("#tabCommunicationDetails").removeClass("active");
+                    $("#tabLiecenseDetails").removeClass("active");
+                    $("#tabGEOUnitDetails").removeClass("active");
+                    $("#tabTargetDetails").removeClass("active");
+                    $("#tabManpowerDetails").removeClass("active");
+                    $("#tabPointOfContract").removeClass("active");
+                    $("#tabCordinatesDetails").removeClass("active");
+                    $("#tabHistoryDetails").removeClass("active");
+                    $("#tabViewHierarchy").removeClass("active");
+                    $("#tabDocumentDetails").removeClass("active");
+                    $("#tab_1").addClass("active");
+                    $("#tab_2").removeClass("active");
+                    $("#tab_3").removeClass("active");
+                    $("#tab_4").removeClass("active");
+                    $("#tab_5").removeClass("active");
+                    $("#tab_6").removeClass("active");
+                    $("#tab_7").removeClass("active");
+                    $("#tab_8").removeClass("active");
+                    $("#tab_9").removeClass("active");
+                    //$("#tab_10").removeClass("active");
+                    $("#tab_11").removeClass("active");
+                    $("#tab_12").removeClass("active");
+                    $("#ddlHierarchyEntityType").val(entityVal);
+                    $("#btnBasicSubmitDetails").hide();
+                    $("#objRegistrationAddressAddress1").attr("disabled", false);
+                    $("#objRegistrationAddressAddress2").attr("disabled", false);
+                    $("#objRegistrationAddressddlProvince").attr("disabled", false);
+                    $("#objRegistrationAddressddlDistrict").attr("disabled", false);
+                    $("#objRegistrationAddressddlCity").attr("disabled", false);
+                    $("#objRegistrationAddressPincode").attr("disabled", false);
+                    $("#ddlHierarchyRepositoryType").attr("disabled", true);
+                    $("#txtHirerachyReportingCode").attr("readonly", true);
+                    $("#txtHirerachyReportingName").attr("readonly", true);
+                    $("#txtHirerachyStatus").attr("disabled", true);
+                    clearAllErrors();
+                }
+                else if (entityVal == "1255" || entityText == "Sub Channel") {
+                    $("#hdnCorporateCode").val("");
+                    $("#hdnChannelCode").val("");
+                    $("#hdnSubChannelCode").val(data.SubChannelCode);
+                    $("#hdnPartnerCode").val("");
+                    $("#hdnGeoUnitCode").val("");
+                    //$("#txtHirerachyCode").val(data.SubChannelCode);
+                    $("#divEntityType").hide();
+                    $("#ddlHierarchyRepositoryType").val(data.ReportEntityType);
+                    $("#hdnReportingEntityId").val(data.ReportEntityType);
+                    $("#txtHirerachyReportingCode").val(data.Code);
+                    $("#txtHirerachyReportingName").val(data.ReportingName);
+                    $("#dpHierarchyEffectiveFrom").val(data.Effectivefrom);
+                    FetchReportingCode(data.ReportEntityType);
+                    FetchReportingName(data.ReportEntityType);
+                    $("#divHierarchyTabsMenus").show();
+                    $("#divBodyHerirachyMenus").show();
+                    $("#divHierarchyEstablish").hide();
+                    $("#chkPartnerHierarchy").show();
+                    $("#divHierarchyRepositoryDetails").show();
+                    $("#divHierarchyRegNo").hide();
+                    $("#tabGEOUnitDetails").show();
+                    $("#tabTargetDetails").hide();
+                    $("#tabManpowerDetails").hide();
+                    $("#tabCordinatesDetails").hide();
+                    $("#divHierarchyGeoUnits").hide();
+                    $("#divHierarchyReportGeoUnits").hide();
+                    $("#divGeoUnitsTabDetails").hide();
+                    $("#tabLiecenseDetails").hide();
+                    $("#tabRewardsDetails").hide();
+                    $("#chkPartnerInsuranceOperations").hide();
+                    $("#divddlSubchannel").hide();
+                    $("#tabPointOfContract").hide();
+                    $("#divddlPartnerType").hide();
+                    $("#tabDocumentDetails").hide();
+                    //$("#ddlHierarchyRepositoryType option:contains(" + entityText + ")").attr('selected', 'selected');
+                    //$("#ddlHierarchyRepositoryType").val(data1);
+                    $("#tabBasicDetails").addClass("active");
+                    $("#tabCommunicationDetails").removeClass("active");
+                    $("#tabLiecenseDetails").removeClass("active");
+                    $("#tabGEOUnitDetails").removeClass("active");
+                    $("#tabTargetDetails").removeClass("active");
+                    $("#tabManpowerDetails").removeClass("active");
+                    $("#tabPointOfContract").removeClass("active");
+                    $("#tabCordinatesDetails").removeClass("active");
+                    $("#tabHistoryDetails").removeClass("active");
+                    $("#tabViewHierarchy").removeClass("active");
+                    $("#tabDocumentDetails").removeClass("active");
+                    $("#tab_1").addClass("active");
+                    $("#tab_2").removeClass("active");
+                    $("#tab_3").removeClass("active");
+                    $("#tab_4").removeClass("active");
+                    $("#tab_5").removeClass("active");
+                    $("#tab_6").removeClass("active");
+                    $("#tab_7").removeClass("active");
+                    $("#tab_8").removeClass("active");
+                    $("#tab_9").removeClass("active");
+                    //$("#tab_10").removeClass("active");
+                    $("#tab_11").removeClass("active");
+                    $("#tab_12").removeClass("active");
+                    $("#ddlHierarchyEntityType").val(entityVal);
+                    //$("#txtHirerachyStatus").val(1);
+                    $("#objRegistrationAddressAddress1").attr("disabled", false);
+                    $("#objRegistrationAddressAddress2").attr("disabled", false);
+                    $("#objRegistrationAddressddlProvince").attr("disabled", false);
+                    $("#objRegistrationAddressddlDistrict").attr("disabled", false);
+                    $("#objRegistrationAddressddlCity").attr("disabled", false);
+                    $("#objRegistrationAddressPincode").attr("disabled", false);
+                    $("#txtHirerachyReportingCode").attr("disabled", false);
+                    $("#txtHirerachyReportingName").attr("disabled", false);
+                    $("#ddlHierarchyRepositoryType").attr("disabled", true);
+                    $("#txtHirerachyStatus").attr("disabled", true);
+                    $("#txtHirerachyReportingCode").val('');
+                    $("#txtHirerachyReportingName").val('');
+                    clearAllErrors();
+                }
+                else if (entityVal == "1256" || entityText == "Partner") {
+                    $("#hdnCorporateCode").val("");
+                    $("#hdnChannelCode").val("");
+                    $("#hdnSubChannelCode").val("");
+                    $("#hdnPartnerCode").val(data.PartnerCode);
+                    $("#hdnGeoUnitCode").val("");
+                    //$("#txtHirerachyCode").val(data.PartnerCode);
+                    $("#divGeoUnitsTabDetails").show();
+                    //$("#divHierarchyTabsMenus").show();
+                    //$("#divBodyHerirachyMenus").show();
+                    $("#tabLiecenseDetails").show();
+                    $("#divHierarchyRepositoryDetails").show();
+                    $("#tabRewardsDetails").show();
+                    $("#tabGEOUnitDetails").show();
+                    $("#tabTargetDetails").show();
+                    $("#tabManpowerDetails").hide();
+                    $("#divGeoUnitsTabDetails").hide();
+                    $("#chkPartnerInsuranceOperations").show();
+                    $("#divddlSubchannel").show();
+                    $("#chkPartnerHierarchy").hide();
+                    $("#divddlPartnerType").show();
+                    $("#tabDocumentDetails").show();
+                    $("#tabPointOfContract").show();
+                    $("#divHierarchyEstablish").hide();
+                    $("#divHierarchyRegNo").hide();
+                    //$("#txtHirerachyStatus").val(1);
+                    var lstQualification = (data.LstSubChannel);
+                    $('#ddlHierarchyPartnerSubChannel').html("");
+                    $('#ddlHierarchyPartnerSubChannel').append($('<option value=\'\'>Select</option>'));
+                    $.each(lstQualification, function (ID, option) {
+                        $('#ddlHierarchyPartnerSubChannel').append($('<option value=\'' + option.ID + '\'>' + option.Value + '</option>'));
+                    });
+                    $("#tabBasicDetails").addClass("active");
+                    $("#tabCommunicationDetails").removeClass("active");
+                    $("#tabLiecenseDetails").removeClass("active");
+                    $("#tabGEOUnitDetails").removeClass("active");
+                    $("#tabTargetDetails").removeClass("active");
+                    $("#tabManpowerDetails").removeClass("active");
+                    $("#tabPointOfContract").removeClass("active");
+                    $("#tabCordinatesDetails").removeClass("active");
+                    $("#tabHistoryDetails").removeClass("active");
+                    $("#tabViewHierarchy").removeClass("active");
+                    $("#tabDocumentDetails").removeClass("active");
+                    $("#tab_1").addClass("active");
+                    $("#tab_2").removeClass("active");
+                    $("#tab_3").removeClass("active");
+                    $("#tab_4").removeClass("active");
+                    $("#tab_5").removeClass("active");
+                    $("#tab_6").removeClass("active");
+                    $("#tab_7").removeClass("active");
+                    $("#tab_8").removeClass("active");
+                    $("#tab_9").removeClass("active");
+                    //$("#tab_10").removeClass("active");
+                    $("#tab_11").removeClass("active");
+                    $("#tab_12").removeClass("active");
+                    $("#ddlHierarchyEntityType").val(entityVal);
+
+                    $("#objRegistrationAddressAddress1").attr("disabled", false);
+                    $("#objRegistrationAddressAddress2").attr("disabled", false);
+                    $("#objRegistrationAddressddlProvince").attr("disabled", false);
+                    $("#objRegistrationAddressddlDistrict").attr("disabled", false);
+                    $("#objRegistrationAddressddlCity").attr("disabled", false);
+                    $("#objRegistrationAddressPincode").attr("disabled", false);
+                    $("#txtHirerachyReportingCode").attr("disabled", false);
+                    $("#txtHirerachyReportingName").attr("disabled", false);
+                    $("#txtHirerachyStatus").attr("disabled", true);
+                    $("#txtHirerachyReportingCode").val('');
+                    $("#txtHirerachyReportingName").val('');
+                    clearAllErrors();
+                }
+                else if (entityVal == "1257" || entityText == "Geo Unit") {
+                    //$("#txtHirerachyStatus").val(1);
+                    $("#hdnCorporateCode").val("");
+                    $("#hdnChannelCode").val("");
+                    $("#hdnSubChannelCode").val("");
+                    $("#hdnPartnerCode").val("");
+                    $("#hdnGeoUnitCode").val(data.GeoUnitCode);
+                    //$("#txtHirerachyCode").val(data.GeoUnitCode);
+                    $("#txtHirerachyCode").val();
+                    $("#ddlHierarchyRepositoryType").val(data.ReportEntityType);
+                    //FetchReportingCode(data.ReportEntityType);
+                    //FetchReportingName(data.ReportEntityType);
+                    $("#txtHirerachyReportingCode").val(data.Code);
+                    $("#txtHirerachyReportingName").val(data.ReportingName);
+                    $("#dpHierarchyEffectiveFrom").val(data.Effectivefrom);
+                    var lstQualification = (data.LstGeoUnitsSubChannel);
+                    $('#ddlHierarchyGeoUnitsSubChannel').html("");
+                    $('#ddlHierarchyGeoUnitsSubChannel').append($('<option value=\'\'>Select</option>'));
+                    $.each(lstQualification, function (ID, option) {
+                        $('#ddlHierarchyGeoUnitsSubChannel').append($('<option value=\'' + option.ID + '\'>' + option.Value + '</option>'));
+                    });
+                    $("#divGeoUnitsTabDetails").show();
+                    //$("#divHierarchyTabsMenus").show();
+                    //$("#divBodyHerirachyMenus").show();
+                    $("#tabGEOUnitDetails").hide();
+                    $("#tabTargetDetails").show();
+                    $("#tabManpowerDetails").show();
+                    $("#tabCordinatesDetails").show();
+                    $("#divHierarchyRepositoryDetails").show();
+                    $("#divHierarchyGeoUnits").show();
+                    $("#divHierarchyReportGeoUnits").show();
+                    $("#chkPartnerHierarchy").hide();
+                    $("#divHierarchyEstablish").hide();
+                    $("#divHierarchyRegNo").hide();
+                    $("#tabLiecenseDetails").hide();
+                    $("#tabRewardsDetails").hide();
+                    $("#chkPartnerInsuranceOperations").hide();
+                    $("#divddlSubchannel").hide();
+                    $("#divddlPartnerType").hide();
+                    $("#tabDocumentDetails").hide();
+                    $("#tabPointOfContract").hide();
+
+                    $("#tabBasicDetails").addClass("active");
+                    $("#tabCommunicationDetails").removeClass("active");
+                    $("#tabLiecenseDetails").removeClass("active");
+                    $("#tabGEOUnitDetails").removeClass("active");
+                    $("#tabTargetDetails").removeClass("active");
+                    $("#tabManpowerDetails").removeClass("active");
+                    $("#tabPointOfContract").removeClass("active");
+                    $("#tabCordinatesDetails").removeClass("active");
+                    $("#tabHistoryDetails").removeClass("active");
+                    $("#tabViewHierarchy").removeClass("active");
+                    $("#tabDocumentDetails").removeClass("active");
+                    $("#tab_1").addClass("active");
+                    $("#tab_2").removeClass("active");
+                    $("#tab_3").removeClass("active");
+                    $("#tab_4").removeClass("active");
+                    $("#tab_5").removeClass("active");
+                    $("#tab_6").removeClass("active");
+                    $("#tab_7").removeClass("active");
+                    $("#tab_8").removeClass("active");
+                    $("#tab_9").removeClass("active");
+                    //$("#tab_10").removeClass("active");
+                    $("#tab_11").removeClass("active");
+                    $("#tab_12").removeClass("active");
+                    $("#ddlHierarchyEntityType").val(entityVal);
+                    $("#objRegistrationAddressAddress1").attr("disabled", false);
+                    $("#objRegistrationAddressAddress2").attr("disabled", false);
+                    $("#objRegistrationAddressddlProvince").attr("disabled", false);
+                    $("#objRegistrationAddressddlDistrict").attr("disabled", false);
+                    $("#objRegistrationAddressddlCity").attr("disabled", false);
+                    $("#objRegistrationAddressPincode").attr("disabled", false);
+                    $("#txtHirerachyReportingCode").attr("disabled", false);
+                    $("#txtHirerachyReportingName").attr("disabled", false);
+                    $("#txtHirerachyStatus").attr("disabled", true);
+                    FetchReportingCodeGeoUnit(data.ReportEntityType);
+                    FetchReportingNameGeoUnit(data.ReportEntityType);
+                    $("#txtHirerachyReportingCode").val('');
+                    $("#txtHirerachyReportingName").val('');
+                    clearAllErrors();
+                }
+                else {
+                    $("#divHierarchyTabsMenus").hide();
+                    $("#divBodyHerirachyMenus").hide();
+                    $("#divGeoUnitsTabDetails").hide();
+                }
+            });
+        }
+    }
+    function clear_form_elements() {
+        jQuery("#frmHierarchyDetails").find(':input').each(function () {
+            switch (this.type) {
+                case 'password':
+                case 'text':
+                case 'textarea':
+                case 'file':
+                case 'select-one':
+                case 'select-multiple':
+                case 'date':
+                case 'number':
+                case 'tel':
+                case 'email':
+                    jQuery(this).val('');
+                    break;
+                case 'checkbox':
+                case 'radio':
+                    this.checked = false;
+                    break;
+            }
+        });
+    }
+    function ShowSubChannelReporting()
+    {
+        var Value = $("#ddlHierarchyPartnerSubChannel").val();
+        if (Value != '' && Value != undefined)
+        {
+            $.post("../Hierarchy/FetchPartnerReporting?SubChannelID=" + Value)
+                .done(function (data) {
+                    $("#ddlHierarchyRepositoryType").val(data.ReportEntityType);
+                    $("#txtHirerachyReportingCode").val(data.Code);
+                    $("#txtHirerachyReportingName").val(data.ReportingName);
+                    $("#dpHierarchyEffectiveFrom").val(data.Effectivefrom);
+                    $("#ddlHierarchyRepositoryType").attr("disabled", true);
+                    FetchReportingCode(data.ReportEntityType);
+                    FetchReportingName(data.ReportEntityType);
+                    showTabsForPartners();
+                    $("#txtHirerachyReportingCode").val('');
+                    $("#txtHirerachyReportingName").val('');
+                });
+        }
+    }
+
+    function FetchSubChannelGeoPartner() {
+        var GeoSubChannelId = $("#ddlHierarchyGeoUnitsSubChannel").val();
+        var GeoSubChannelValue = $("#ddlHierarchyGeoUnitsSubChannel option:selected").text();
+        if (GeoSubChannelId != '' && GeoSubChannelId != undefined) {
+            $.post("../Hierarchy/FetchSubChannelGeoPartner?GeoSubChannelId=" + GeoSubChannelId)
+                .done(function (data) {
+                    if (data != null) {
+                        $("#ddlHierarchyPartnerType").html(""); // clear before appending new list
+                        $('#ddlHierarchyPartnerType').append($('<option></option>').val("").html("Select"));
+                        $.each(data, function (ID, option) {
+                            $('#ddlHierarchyPartnerType').append($('<option></option>').val(option.ID).html(option.Value));
+                        });
+                    }
+                });
+        }
+    }
+    function FetchGeoUnitTypesOnSubChannel() {
+        var GeoSubChannelId = $("#ddlHierarchyGeoUnitsSubChannel").val();
+        var GeoSubChannelValue = $("#ddlHierarchyGeoUnitsSubChannel option:selected").text();
+        if (GeoSubChannelId != '' && GeoSubChannelId != undefined) {
+            $.post("../Hierarchy/FetchGeoUnitTypes?PartnerTypId=" + GeoSubChannelId)
+                .done(function (data) {
+                    if (data != null) {
+                        $("#ddlHierarchyGeoUnitsTypes").html(""); // clear before appending new list
+                        $('#ddlHierarchyGeoUnitsTypes').append($('<option></option>').val("").html("Select"));
+                        $.each(data, function (ID, option) {
+                            $('#ddlHierarchyGeoUnitsTypes').append($('<option></option>').val(option.ID).html(option.Value));
+                        });
+                    }
+                });
+        }
+        //var dt = $('#ddlHierarchyGeoUnitsTypes').val();
+        //if (dt != "" && dt != undefined) {
+        //    $("#divGeoUnitPartnerSec").hide();
+        //}
+    }
+    function FetchGeoUnitTypes() {
+        var PartnerTypId = $("#ddlHierarchyPartnerType").val();
+        var PartnerTypValue = $("#ddlHierarchyPartnerType option:selected").text();
+        if (PartnerTypId != '' && PartnerTypId != undefined) {
+            $.post("../Hierarchy/FetchGeoUnitTypes?PartnerTypId=" + PartnerTypId)
+                .done(function (data) {
+                    if (data != null) {
+                        $("#ddlHierarchyGeoUnitsTypes").html(""); // clear before appending new list
+                        $('#ddlHierarchyGeoUnitsTypes').append($('<option></option>').val("").html("Select"));
+                        $.each(data, function (ID, option) {
+                            $('#ddlHierarchyGeoUnitsTypes').append($('<option></option>').val(option.ID).html(option.Value));
+                        });
+                    }
+                });
+        }
+    }
+
+    function showTabsForPartners() {
+        $("#divHierarchyTabsMenus").show();
+        $("#divBodyHerirachyMenus").show();
+        $("#tabBasicDetails").addClass("active");
+        $("#tabCommunicationDetails").removeClass("active");
+        $("#tabLiecenseDetails").removeClass("active");
+        $("#tabGEOUnitDetails").removeClass("active");
+        $("#tabTargetDetails").removeClass("active");
+        $("#tabManpowerDetails").removeClass("active");
+        $("#tabPointOfContract").removeClass("active");
+        $("#tabCordinatesDetails").removeClass("active");
+        $("#tabHistoryDetails").removeClass("active");
+        $("#tabViewHierarchy").removeClass("active");
+        $("#tabDocumentDetails").removeClass("active");
+        $("#divEntityType").hide();
+        $("#divddlSubchannel").hide();
+    }
+
+    function ShowTabsForGeoUnit() {
+        $("#divHierarchyTabsMenus").show();
+        $("#divBodyHerirachyMenus").show();
+        $("#tab_1").addClass("active");
+        $("#tab_2").removeClass("active");
+        $("#tab_3").removeClass("active");
+        $("#tab_4").removeClass("active");
+        $("#tab_5").removeClass("active");
+        $("#tab_6").removeClass("active");
+        $("#tab_7").removeClass("active");
+        $("#tab_8").removeClass("active");
+        $("#tab_9").removeClass("active");
+        //$("#tab_10").removeClass("active");
+        $("#tab_11").removeClass("active");
+        $("#tab_12").removeClass("active");
+
+        $("#divEntityType").hide();
+        $("#divGeoUnitsTabDetails").hide();
+        $("#ddlHierarchyRepositoryType").attr("disabled", false);
+        $("#txtHirerachyReportingCode").val('');
+        $("#txtHirerachyReportingName").val('');
+        FetchReportingCodeGeoUnit(data.ReportEntityType);
+        FetchReportingNameGeoUnit(data.ReportEntityType);
+    }
+
+    function FetchReportingCode(ReportingEntityType) {
+        var ReportingEntityCode;
+        //if (ReportingEntityCode != "" && ReportingEntityCode != undefined) { }
+        $("#txtHirerachyReportingCode").autocomplete({
+            appendTo: '#DivOtherMemberDetails',
+            minLength: 1,
+            ReportingEntityCode: $("#txtHirerachyReportingCode").val(),
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Hierarchy/LoadReportingEntityCode?ReportingEntityType=' + ReportingEntityType,
+                    type: "POST",
+                    dataType: "json",
+                    data: { ReportingEntityCode: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item, idx) {
+                            return {
+                                label: item.Text,
+                                value: item.Value,
+                                id: item.ID
+                            };
+
+                        }));
+                    },
+                });
+            },
+            select: function (event, ui) {
+
+                var data = ui.item.value;
+                var arr = data.split(',');
+                var ReportingCode = arr[0];
+                $.ajax({
+                    url: '/Hierarchy/LoadReportingEntityCodeAndName',
+                    type: "POST",
+                    dataType: "json",
+                    data: { ReportingEntityCode: ReportingCode },
+                    success: function (data) {
+                        $('#txtHirerachyReportingName').val(data[0].ReportingName);
+                        $('#txtHirerachyReportingCode').val(data[0].ReportingCode);
+                    }
+
+                });
+            },
+        });
+    }
+
+    function FetchReportingName(ReportingEntityType) {
+        var ReportingEntityName;
+        //if (ReportingEntityCode != "" && ReportingEntityCode != undefined) { }
+        $("#txtHirerachyReportingName").autocomplete({
+            appendTo: '#DivOtherMemberDetails',
+            minLength: 1,
+            ReportingEntityName: $("#txtHirerachyReportingName").val(),
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Hierarchy/LoadReportingEntityName?ReportingEntityType=' + ReportingEntityType,
+                    type: "POST",
+                    dataType: "json",
+                    data: { ReportingEntityName: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item, idx) {
+                            return {
+                                label: item.Text,
+                                value: item.Value,
+                                id: item.ID
+                            };
+
+                        }));
+                    },
+                });
+            },
+            select: function (event, ui) {
+                var data = ui.item.value;
+                var arr = data.split(',');
+                var ReportingCode = arr[0];
+                $.ajax({
+                    url: '/Hierarchy/LoadReportingEntityCodeAndName',
+                    type: "POST",
+                    dataType: "json",
+                    data: { ReportingEntityCode: ReportingCode },
+                    success: function (data) {
+                        $('#txtHirerachyReportingCode').val(data[0].ReportingCode);
+                        $('#txtHirerachyReportingName').val(data[0].ReportingName);
+                    }
+                });
+            },
+        });
+    }
+
+
+    //Autofetching ReportingCode Temporary
+    function FetchReportingCodeGeoUnit(ReportingEntityType) {
+        var ReportingEntityCode;
+        //if (ReportingEntityCode != "" && ReportingEntityCode != undefined) { }
+        $("#txtHirerachyReportingCode").autocomplete({
+            appendTo: '#DivOtherMemberDetails',
+            minLength: 1,
+            ReportingEntityCode: $("#txtHirerachyReportingCode").val(),
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Hierarchy/LoadReportingEntityCodeGeoUnit?ReportingEntityType=' + ReportingEntityType,
+                    type: "POST",
+                    dataType: "json",
+                    data: { ReportingEntityCode: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item, idx) {
+                            return {
+                                label: item.Text,
+                                value: item.Value,
+                                id: item.ID
+                            };
+
+                        }));
+                    },
+                });
+            },
+            select: function (event, ui) {
+
+                var data = ui.item.value;
+                var arr = data.split(',');
+                var ReportingCode = arr[0];
+                $.ajax({
+                    url: '/Hierarchy/LoadReportingEntityCodeAndNameGeoUnit',
+                    type: "POST",
+                    dataType: "json",
+                    data: { ReportingEntityCode: ReportingCode },
+                    success: function (data) {
+                        $('#txtHirerachyReportingName').val(data[0].ReportingName);
+                        $('#txtHirerachyReportingCode').val(data[0].ReportingCode);
+                    }
+
+                });
+            },
+        });
+    }
+      //Autofetching ReportingCode Temporary
+    function FetchReportingNameGeoUnit(ReportingEntityType) {
+        var ReportingEntityName;
+        //if (ReportingEntityCode != "" && ReportingEntityCode != undefined) { }
+        $("#txtHirerachyReportingName").autocomplete({
+            appendTo: '#DivOtherMemberDetails',
+            minLength: 1,
+            ReportingEntityName: $("#txtHirerachyReportingName").val(),
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Hierarchy/LoadReportingEntityNameGeoUnit?ReportingEntityType=' + ReportingEntityType,
+                    type: "POST",
+                    dataType: "json",
+                    data: { ReportingEntityName: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item, idx) {
+                            return {
+                                label: item.Text,
+                                value: item.Value,
+                                id: item.ID
+                            };
+
+                        }));
+                    },
+                });
+            },
+            select: function (event, ui) {
+                var data = ui.item.value;
+                var arr = data.split(',');
+                var ReportingCode = arr[0];
+                $.ajax({
+                    url: '/Hierarchy/LoadReportingEntityCodeAndName',
+                    type: "POST",
+                    dataType: "json",
+                    data: { ReportingEntityCode: ReportingCode },
+                    success: function (data) {
+                        $('#txtHirerachyReportingCode').val(data[0].ReportingCode);
+                        $('#txtHirerachyReportingName').val(data[0].ReportingName);
+                    }
+                });
+            },
+        });
+    }
+</script>

@@ -1,0 +1,97 @@
+﻿
+@model AIA.Life.Models.UWRules.UWRule
+
+@using GridMvc.Html
+@using AIA.Presentation.Helpers
+
+@Html.Grid(Model.LstRuleParameters).Named("GridParameterDetails").Columns(columns =>
+{
+
+columns.Add(a => a.ParameterName).Titled("ParameterName").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("Name", a.ParameterName, new { @class = "form-control", @style = "width:100%", @readonly = "readonly" }));
+columns.Add(a => a.Parametertype).Titled("Parametertype").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("Percenatge", a.Parametertype, new { @class = "form-control", @style = "width:100%" , @readonly = "readonly" }));
+columns.Add(a => a.ParameterID, true).Titled("ParameterID").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("Percenatge", a.ParameterID, new { @class = "form-control", @style = "width:100%" , @readonly = "readonly" }));
+
+columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center").SetWidth("10%").RenderValueAs(@<text>
+        <input type="button" id="btnDeleteNomineeGridRow" value="Delete" class="btn btn-default form-control " onclick="DeleteParameterRow(this)" /></text>);
+
+}).Selectable(true)
+
+
+
+<script type="text/javascript">
+
+    var ParameterIndex = 0;
+
+    function AddParameters() {
+        
+        // For Removing No Records Row
+        if (ParameterIndex == 0) {
+            $("#GRDPrameters tbody").find("tr").each(function (index) {
+                $(this).remove();
+            });
+        }
+        var ParmeterID = parseInt($('#ddlParameter').val());
+        var parameterText =  $("#ddlParameter option:selected").text();
+      var parameterTypeText=  $("#ddlParameterType option:selected").text();
+
+        
+        //if ( == 'ListOfValue')
+        var _RowID = 'ParameterRow' + ParameterIndex;
+
+        newRow = " <tr class='grid-row' id='" + _RowID + "' ><td class='grid-cell' data-name='ParameterName'><input name='LstRuleParameters[" + ParameterIndex + "].ParameterName' type='text' class='form-control'  value='" + parameterText + "'  id=\'ParameterName" + ParameterIndex + "\'   readonly></input></td>" +
+       " <td class='grid-cell' data-name='Parametertype'><input name='LstRuleParameters[" + ParameterIndex + "].Parametertype' type='text' class='form-control' value='" + parameterTypeText + "'   id=\'Parametertype" + ParameterIndex + "\'    readonly></input></td>" +
+        "<td class='grid-cell' data-name='ParameterID' style='display:none'><input name='LstRuleParameters[" + ParameterIndex + "].ParameterID' type='text' class='form-control' value='" + ParmeterID + "'   id=\'ParameterID" + ParameterIndex + "\'    readonly></input></td>" +
+       "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'DeleteParameterRow" + ParameterIndex + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteParameterRow(\"" + _RowID + "\")' /></td></tr>";
+        $('#GRDPrameters tbody:last').append(newRow);
+
+
+
+        ParameterIndex = ParameterIndex + 1;
+    }
+    function DeleteParameterRow(id) {
+        var jsonParameterObj = [];
+        var _PrevNomineeIndex = ParameterIndex;
+        var _PrevRowID = 'ParameterRow' + _PrevNomineeIndex;
+        if (id == _PrevRowID) {
+            $('#' + id).remove();
+        }
+        else {
+            $('#' + id).remove();
+            // For getting Current Data in Grid
+            var _index = 0
+            $("#GRDPrameters tbody").find("tr").each(function (index) {
+                _Index = _index;
+                ParameterName = $(this).find("[data-name=ParameterName]").find("input[type=text]").val();
+                Parametertype = $(this).find("[data-name=Parametertype]").find("input[type=text]").val();
+                ParameterID = $(this).find("[data-name=ParameterID]").find("input[type=text]").val();
+
+                jsonParameterObj.push({ _Index: _Index, ParameterName: ParameterName, Parametertype: Parametertype, ParameterID: ParameterID });
+                _index = _index + 1;
+            })
+            // Emptying Grid
+            $("#GRDPrameters tbody").find("tr").each(function (index) {
+                $(this).remove();
+            });
+
+            // Rearranging Grid Content For Model Binding
+
+            $.each(jsonParameterObj, function (index, value) {
+                var i = index;
+                var _RowID = 'ParameterRow' + jsonParameterObj[i]._Index;
+
+                newRow = " <tr class='grid-row' id='" + _RowID + "' ><td class='grid-cell' data-name='ParameterName'><input name='LstRuleParameters[" + jsonParameterObj[i]._Index + "].ParameterName' type='text' class='form-control'   value='" + jsonParameterObj[i].ParameterName + "'  id=\'ParameterName" + jsonParameterObj[i]._Index + "\'  readonly></input></td>" +
+       " <td class='grid-cell' data-name='Parametertype'><input name='LstRuleParameters[" + jsonParameterObj[i]._Index + "].Parametertype' type='text' class='form-control'  value='" + jsonParameterObj[i].Parametertype + "'    id=\'Parametertype" + jsonParameterObj[i]._Index + "\'  readonly></input></td>" +
+            "<td class='grid-cell' data-name='ParameterID' style='display:none'><input name='LstRuleParameters[" + jsonParameterObj[i]._Index + "].ParameterID' type='text' class='form-control'   value='" + jsonParameterObj[i].ParameterID + "'    id=\'ParameterID" + jsonParameterObj[i]._Index + "\'   readonly></input ></td>" +
+       "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'DeleteParameterRow" + jsonParameterObj[i]._Index + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteParameterRow(\"" + _RowID + "\")' /></td></tr>";
+                $('#GRDPrameters tbody:last').append(newRow);
+                ParameterIndex = jsonParameterObj[i]._Index + 1;
+            });
+
+
+
+
+        }
+
+
+    }
+</script>

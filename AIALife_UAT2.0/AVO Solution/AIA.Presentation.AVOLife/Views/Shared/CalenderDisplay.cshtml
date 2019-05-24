@@ -1,0 +1,75 @@
+﻿
+@{
+    var ddlOptions = new List<SelectListItem>();
+    ddlOptions.Add(new SelectListItem() { Text = "Motor", Value = "1" });
+    ddlOptions.Add(new SelectListItem() { Text = "Health", Value = "2" });
+    ddlOptions.Add(new SelectListItem() { Text = "Marine", Value = "3" });
+    string selected = "0";
+}
+
+
+<style>
+    .fc-scroller {
+        overflow-y: hidden !important;
+    }
+
+    .fc-day-header {
+        color: white;
+        background-color: firebrick;
+    }
+
+    .fc-state-highlight, fc-today {
+        background-color: gray !important;
+        color: white;
+    }
+</style>
+
+<div id="calendar" style="width: 96%; margin:2%; margin-top: 10px;border-color:none;">
+
+</div>
+<br />
+<div style="width: 96%;padding-bottom:20px;" class="cal-Select">
+    <label for="ddlCat">Select Category</label>
+    <div>
+        @Html.DropDownList(selected, new SelectList(@ddlOptions, "value", "Text"), "Select", new { @id = "ddlCat", @class = "form-control" })
+    </div>
+</div>
+<script>
+
+    $('#calendar').fullCalendar({
+        height: 280,
+        theme: false,
+        dayClick: function (date, jsEvent, view) {
+
+        },
+        events: {
+
+        },
+        eventClick: function (calEvent, jsEvent, view) {
+            var data = {
+                //theDate: calEvent.start._i,
+                theDate: moment(calEvent.start).format('DD/MM/YYYY'),
+                product: $('#ddlCat').val(),
+                value: calEvent.title
+            }
+            alert("Category = "+data.product + ",  Date = " + data.theDate + ", Data = " + data.value);
+
+        },
+        editable: false,
+
+        eventRender: function (event, element) {
+        },
+        renderEvent: function (event, element) {
+        }
+    });
+
+    $('#ddlCat').on('change', function (e) {
+
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('removeEventSources');
+        $('#calendar').fullCalendar('addEventSource', "/Home/FetchCalenderEvents?category=" + $('#ddlCat').val());
+        $('#calendar').fullCalendar('rerenderEvents');
+    })
+
+
+</script>

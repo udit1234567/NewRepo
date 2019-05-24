@@ -1,0 +1,206 @@
+﻿@model AIA.Life.Models.Opportunity.LifeQuote
+@using AIAResources;
+@{
+    ViewBag.Title = "QuotationPool";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+
+    @@media screen and (min-width:320px) and (max-width:768px) {
+        .no-more-tables table, thead, tbody, th, td, tr {
+            float: none;
+        }
+    }
+</style>
+
+@*<div class="panel panel-default">
+        <div class="panel-body" style="color: white;font-size: 16px;
+        font-weight: 600;">New Business - Quotation - Load Quotation</div>
+    </div>*@
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+        
+        <a href="/Policy/Quote" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Quotation")</a>
+       
+        <div class="btn btn-info"><b>@Resources.GetLabelName("Load Quotation")</b></div>
+
+    </div>
+</div>
+<br />
+<div class="form-group" style="margin-left: 32%;">
+    <input type="button" class="btn btn-default" id="" value="View PDF" onclick="ViewPdf()" style="padding-left:20px;padding-right:20px;" />
+    @*<input type="button" class="btn btn-default" id="" value="Print PDF" onclick="PrintPdf()" style="padding-left:20px;padding-right:20px;" />*@
+    <input type="button" class="btn btn-default" id="" value="Email PDF" onclick="EmailPopup()" style="padding-left:20px;padding-right:20px;" />
+</div>
+<div class="col-lg-12">
+    <div class="iGrid" id="divQuotationPoolGrid">
+        @*@Html.Partial("~/Views/Policy/PartialQuotationPoolGrid.cshtml", Model)*@
+    </div>
+</div>
+@*<div id="EmailPDFSent" style="display:none;">
+    </div>*@
+<div class="modal fade" id="SuspectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body" id="SuspectModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadQuotationPool()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="SendEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body" id="EmailAddress">
+                <span>Enter email ids</span>
+                @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", @id = "Txtemailaddress" })
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="EmailPdf()">Send</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadQuotationPool()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
+    <input type="button" class="btn btn-default" id="" value="Create Proposal" onclick="CreateProposal()" style="padding-left:20px;padding-right:20px;" />
+    <input type="button" class="btn btn-default" id="" value="Modify Quote" onclick="ModifyQuote()" style="padding-left:20px;padding-right:20px;" />
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "get",
+            url: '/Policy/PartialQuotationPoolGrid',
+            type: 'POST',
+            dataType: 'html',
+            contentType: 'application/json; charset=utf-8', success: function (data) {
+                $("#divQuotationPoolGrid").html(data);
+            }
+        });
+    });
+    var QuoteNo = '';
+    var ProductCode = '';
+    var Preferredlanguage = '';
+    function CreateProposal() {
+        var checkcount = $('#divQuotationPoolGrid').find('input[type=radio]:checked').length;
+        if (checkcount > 0) {
+            window.location.href = "/Policy/Proposal?QuoteNo=" + QuoteNo;
+            writeMultipleMessage("error", "", "IsSelected");
+        }
+        else {
+            writeMultipleMessage("error", "Please select Quotation.", "IsSelected");
+            return false;
+        }
+    }
+    function ViewPdf() {
+        var checkcount1 = $('#divQuotationPoolGrid').find('input[type=radio]:checked').length;
+        if (checkcount1 > 0) {
+
+            window.location.href = "/Reports/ReportForCashQuotation?QuoteNo=" + QuoteNo + "&ProductCode=" + ProductCode + "&PreferredLanguage=" + Preferredlanguage;
+            writeMultipleMessage("error", "", "IsSelected");
+        }
+        else {
+            writeMultipleMessage("error", "Please select Quotation.", "IsSelected");
+            return false;
+        }
+    }
+    function EmailPopup() {
+        var checkcount1 = $('#divQuotationPoolGrid').find('input[type=radio]:checked').length;
+        if (checkcount1 > 0) {
+            writeMultipleMessage("error", "", "IsSelected");
+            $.post("../Policy/FetchEmailAddress?QuoteNo=" + QuoteNo)
+            .done(function (data) {
+             
+                $("#Txtemailaddress").val(data);
+                $("#SendEmailModal").modal("show");
+            })
+
+        }
+        else {
+            writeMultipleMessage("error", "Please select Quotation.", "IsSelected");
+            return false;
+        }
+    }
+    function EmailPdf() {
+       
+        var checkcount1 = $('#divQuotationPoolGrid').find('input[type=radio]:checked').length;
+        if (checkcount1 > 0) {
+            var EmailAddress = $("#Txtemailaddress").val();
+            $.post("../Policy/SendQuoteMail?QuoteNo=" + QuoteNo + "&ProductCode=" + ProductCode + "&PreferredLanguage=" + Preferredlanguage + "&EmailAddress=" + EmailAddress)
+                .done(function (data) {
+                    var Image = '<img class="Img-align" src="../Images/checked1.png" />'
+                    Message = '<p class="text-center"> ' + data + ' </p>';
+
+                    $('#SuspectModalBody').append(Image);
+                    $('#SuspectModalBody').append(Message);
+                    $("#SuspectModal").modal("show");
+                }).
+           fail(function (data) {
+               var Image = '<img class="Img-align" src="../Images/cancel1.png" />'
+               Message = '<p class="text-center"> Email PDF sending failed </p>';
+               $('#SuspectModalBody').append(Image);
+               $('#SuspectModalBody').append(Message);
+               $("#SuspectModal").modal("show");
+               // writeSuccessMessage("error", "Email PDF sending failed");
+           });
+        }
+        else {
+            writeMultipleMessage("error", "Please select Quotation.", "IsSelected");
+            return false;
+        }
+    }
+    function SetQuoteNo(quoteNo, productCode, preferredLanguage) {
+        QuoteNo = quoteNo;
+        ProductCode = productCode;
+        Preferredlanguage = preferredLanguage;
+    }
+    function ModifyQuote() {
+        var checkcount = $('#divQuotationPoolGrid').find('input[type=radio]:checked').length;
+
+        if (checkcount > 0) {
+            window.location.href = "/Policy/ModifyQuote?QuoteNo=" + QuoteNo;
+            writeMultipleMessage("error", "", "IsSelected");
+
+        }
+        else {
+            writeMultipleMessage("error", "Please select Quotation.", "IsSelected");
+            return false;
+        }
+
+    }
+    function LoadQuotationPool() {
+        window.location.href = "/Policy/QuotationPool";
+    }
+</script>

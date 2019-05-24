@@ -1,0 +1,324 @@
+﻿@model AIA.Life.Models.Payment.PaymentModel
+@using GridMvc.Html
+@using AIA.Presentation.Helpers
+
+<div class="panel panel-default" id="divAmountPaidDetail" style="display:none">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i class="fa fa-building-o"></i>
+            <a data-toggle="collapse" data-target="#collapsePaymentOptions" href="#collapseThree" class="collapsed">
+                Total Amount Paid By
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+            </a>
+        </h4>
+    </div>
+    <div id="collapsePaymentOptions" class="panel-collapse in">
+        <div class="col-lg-12 panel-body form-group" id="pnlPaymentOptionsBody">
+            <div class="col-lg-12 col-sm-12 form-group">
+                <div class="col-lg-4 col-sm-6 ">
+
+                    <div class="form-group">
+                        <label>Cheque</label>
+                        @Html.TextBoxFor(x => x.chequeAmount, new { @class = "form-control", @onkeypress = "return validateFloatKeyPress(this, event)" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 ">
+
+                    <div class="form-group">
+                        <label>DD</label>
+                        @Html.TextBoxFor(x => x.ddAmount, new { @class = "form-control", @onkeypress = "return validateFloatKeyPress(this, event)" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 ">
+
+                    <div class="form-group">
+                        <label>Cash</label>
+                        @Html.TextBoxFor(x => x.cashAmount, new { @class = "form-control", @onkeypress = "return validateFloatKeyPress(this, event)" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-12 col-sm-12 form-group">
+                <div class="col-lg-4 col-sm-6 ">
+
+                    <div class="form-group">
+                        <label>Payable Amount</label>
+                        @Html.TextBoxFor(x => x.PayableAmount, new { @readonly = "readonly", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 ">
+                    <div class="form-group">
+                        <label>Total Paying Amount</label>
+                        @Html.TextBoxFor(x=>x.PayingAmount, new { @readonly = "readonly", @class = "form-control", @id = "TotalPayingAmount" })
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+            <div class="gridcontent">
+
+                @Html.Grid(Model.lstInsumentDetails).Named("GridInstrumentDetails").Columns(columns =>
+           {
+           columns.Add(a => a.ClientName).Titled("Client Name").Encoded(false).Sanitized(false).SetWidth(20);
+           columns.Add(a => a.InstrumentNo).Titled("Instrument No").Encoded(false).Sanitized(false).SetWidth(20);
+           //columns.Add(a => a.BankName).Titled("").Encoded(false).Sanitized(false).SetWidth(0);
+          // columns.Add(a => a.BranchName).Titled("").Encoded(false).Sanitized(false).SetWidth(0);
+           columns.Add(a => a.ProposalNumber).Titled("Proposal Number/Request Number").Encoded(false).Sanitized(false).SetWidth(30);
+           //columns.Add(a => a.InstrumentNo).Titled("InstrumentNo").Encoded(false).Sanitized(false).SetWidth(20);
+           columns.Add(a => a.MethodofPayment).Titled("Payment Method").Encoded(false).Sanitized(false).SetWidth(15);
+           columns.Add(a => a.PremiumAmount).Titled("Premium Amount").Encoded(false).Sanitized(false).SetWidth(15);
+           columns.Add(a => a.AmountPaid).Titled("Amount Paid").Encoded(false).Sanitized(false).SetWidth(15);
+           columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center").SetWidth("10%").RenderValueAs(@<text>
+                    <input type="button" id="btnDeleteInstrumentGridRow" value="Delete" class="btn btn-default " onclick="DeleteInstrument(this)" /></text>);
+
+           }).Selectable(true)
+
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .table th {
+        color: white !important;
+        text-align: center;
+    }
+   
+</style>
+<script type="text/javascript">
+
+    var InstrumentIndex = 0;
+    function AddDetailsTogrid() {
+        
+        var PaymentOption = '';
+        var AmountPaid = '';
+        var clientName = '';
+        var txtcheque = 0;
+        var txtdd = 0;
+
+        ChequePaymentOption = $('#chequeRelationship option:selected').text();
+        if (ChequePaymentOption == 'Cheque' || ChequePaymentOption == 'Bankers Cheque') {
+            txtcheque = $('#txtChequeAmount').val();
+        }
+        else if (ChequePaymentOption == 'DD') {
+            txtdd = $('#txtChequeAmount').val();
+        }
+
+        var txtcash = $('#PayingcashAmount').val();
+
+        // calling calculation function for all Paying Amount
+        SumofAllPayingAmount(txtcheque, txtdd, txtcash);
+    
+        var selectedpaymentmode = $('input[name=PaymentOption]:checked').val()
+
+        // checking mandatory fied in Payment Option section
+        if (selectedpaymentmode == 'CQ') {
+            PaymentOption = $('#chequeRelationship option:selected').text();
+            AmountPaid = $('#txtChequeAmount').val();
+            AmountPaid = AmountPaid == null || AmountPaid == 'undefined' ? 0 : parseFloat(AmountPaid);
+            clientName = $('#txtName').val();
+
+            if ($("#txtName").val() == "") {
+                writeMultipleMessage("error", "Pleae Enter Name.", "txtName");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtName");
+            }
+            if ($("#ddlRelationship option:selected").val() == "") {
+                writeMultipleMessage("error", "Pleae Enter Payer Relationship.", "ddlRelationship");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlRelationship");
+            }
+
+            if ($("#txtChequeAmount").val() == "") {
+                writeMultipleMessage("error", "Pleae Enter Cheque/DD Amount.", "txtChequeAmount");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtChequeAmount");
+            }
+
+            if ($("#txtInstrumentNo").val() == "") {
+                writeMultipleMessage("error", "Pleae Enter Instrument Number.", "txtInstrumentNo");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtInstrumentNo");
+            }
+
+            if ($("#txtBankname").val() == "") {
+                writeMultipleMessage("error", "Pleae Enter Bank Name.", "txtBankname");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtBankname");
+            }
+            if ($("#txtBranchName").val() == "") {
+                writeMultipleMessage("error", "Pleae Enter Branch Name.", "txtBranchName");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtBranchName");
+            }
+            if ($("#dpInstrumentDate").val() == "") {
+                writeMultipleMessage("error", "Pleae Enter Instrument Date", "dpInstrumentDate");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "dpInstrumentDate");
+            }
+        }
+        if (selectedpaymentmode == 'Cash') {
+            PaymentOption = selectedpaymentmode;
+            AmountPaid = $('#PayingcashAmount').val()
+            AmountPaid = AmountPaid == null || AmountPaid == 'undefined' ? 0 : parseFloat(AmountPaid);
+            clientName = $('#ClientName').val();
+            //var cashAmount = $("#PayingcashAmount").val()
+            $('#cashAmount').val(AmountPaid);
+            if ($("#cashAmount").val() == "") {
+                writeMultipleMessage("error", "Pleae Enter Cash Amount.", "cashAmount");
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "cashAmount");
+            }
+        }
+
+        $('#divAmountPaidDetail').show();
+        // For Removing No Records Row
+        if (InstrumentIndex == 0) {
+            $("#PaymentinstrumentGrid tbody").find("tr").each(function (index) {
+                $(this).remove();
+            });
+        }
+
+        var _RowID = 'InstrumentRow' + InstrumentIndex;
+
+        var ProposalNo = '';
+        var premimum = '';
+        var InstrumentNo = '';
+        var Bankname = '';
+        var Branchname = '';
+        var InstrumentDate = '';
+        
+        ProposalNo = $('#hdnQuoteNo').val();
+        premimum = $('#PremimumAmount').val();
+        $('#PayableAmount').val(premimum);
+        InstrumentNo = $('#txtInstrumentNo').val();
+        Bankname = $('#txtBankname').val();
+        Branchname = $('#txtBranchName').val();
+        InstrumentDate = $('#dpInstrumentDate').val();
+
+        newRow = "<tr class='grid-row' id='" + _RowID + "' >" +
+            "<td class='grid-cell' data-name='ClientName'><input name='lstInsumentDetails[" + InstrumentIndex + "].ClientName' type='hidden' class='form-control'  value='" + clientName + "'    id=\'ClientName" + InstrumentIndex + "\'></input><span>" + clientName + "</span></td>" +//<span id=\'ClientName" + InstrumentIndex + "\'>" + clientName + " </span></td>" +
+            "<td class='grid-cell hidden' data-name='InstrumentNo' ><input name='lstInsumentDetails[" + InstrumentIndex + "].InstrumentNo' type='hidden' class='form-control'   id=\'InstrumentNo" + InstrumentIndex + "\'   value='" + InstrumentNo + "'></input><span>" + InstrumentNo + " </span></td>" +
+            "<td class='grid-cell hidden' data-name='BankName' ><input name='lstInsumentDetails[" + InstrumentIndex + "].BankName' type='hidden' class='form-control'   id=\'BankName" + InstrumentIndex + "\'   value='" + Bankname + "'></input><span>" + Bankname + " </span></td>" +
+            "<td class='grid-cell hidden' data-name='Branchname' ><input name='lstInsumentDetails[" + InstrumentIndex + "].Branchname' type='hidden' class='form-control'   id=\'Branchname" + InstrumentIndex + "\'   value='" + Branchname + "'></input><span>" + Branchname + " </span></td>" +
+            "<td class='grid-cell hidden' data-name='Instrumentdate' ><input name='lstInsumentDetails[" + InstrumentIndex + "].Instrumentdate' type='hidden' class='form-control'   id=\'Instrumentdate" + InstrumentIndex + "\'   value='" + InstrumentDate + "'></input><span>" + InstrumentDate + " </span></td>" +
+            "<td class='grid-cell' data-name='ProposalNumber' ><input name='lstInsumentDetails[" + InstrumentIndex + "].ProposalNumber' type='hidden' class='form-control'   id=\'ProposalNumber" + InstrumentIndex + "\'   value='" + ProposalNo + "'></input><span>" + ProposalNo + " </span></td>" +
+             "<td class='grid-cell' data-name='MethodofPayment' ><input name='lstInsumentDetails[" + InstrumentIndex + "].MethodofPayment' type='hidden' class='form-control'   id=\'MethodofPayment" + InstrumentIndex + "\'    value='" + PaymentOption + "'></input><span>" + PaymentOption + " </span></td>" +
+              "<td class='grid-cell' data-name='PremiumAmount' ><input name='lstInsumentDetails[" + InstrumentIndex + "].PremiumAmount' type='hidden' class='form-control'   id=\'PremiumAmount" + InstrumentIndex + "\'    value='" + premimum + "'></input><span>" + premimum + " </span></td>" +
+               "<td class='grid-cell' data-name='TotalPayableAmount' ><input name='lstInsumentDetails[" + InstrumentIndex + "].AmountPaid' type='hidden' class='form-control'   id=\'TotalPaidAmount" + AmountPaid + "\'    value='" + AmountPaid + "'></input><span>" + AmountPaid + " </span></td>" +
+                "<td class='grid-cell' data-name='Delete'><span class='glyphicon glyphicon-trash' id=\'deleteGridRow" + InstrumentIndex + "\' onclick='DeleteInstrument(\"" + _RowID + "\")' / ></span></td></tr>";
+        $('#PaymentinstrumentGrid tbody:last').append(newRow);
+        var modeofpaymentinGrid = $('#MethodofPayment' + InstrumentIndex + '').text();
+       
+        InstrumentIndex = InstrumentIndex + 1;
+        $('#PaymentinstrumentGrid').show();
+    }
+
+    function DeleteInstrument(id) {
+        
+        var jsonInstrumentObj = [];
+        var _PrevNomineeIndex = InstrumentIndex;
+        var _PrevRowID = 'InstrumentRow' + _PrevNomineeIndex;
+        if (id == _PrevRowID) {
+            $('#' + id).remove();
+            InstrumentIndex = 0;
+        }
+        else {
+            $('#' + id).remove();
+            // For getting Current Data in Grid
+            var _index = 0
+            $("#PaymentinstrumentGrid tbody").find("tr").each(function (index) {
+                _Index = _index;
+                ClientName = $(this).find("[data-name=ClientName]").find("span").text();
+                //InstrumentNo = $(this).find("[data-name=ProposalNumber]").find("span").text();
+                ProposalNumber = $(this).find("[data-name=ProposalNumber]").find("span").text();
+                MethodofPayment = $(this).find("[data-name=MethodofPayment]").find("span").text();
+                PremiumAmount = $(this).find("[data-name=PremiumAmount]").find("span").text();
+                TotalPayableAmount = $(this).find("[data-name=TotalPayableAmount]").find("span").text();
+
+
+                jsonInstrumentObj.push({ _Index: _Index, ClientName: ClientName, InstrumentNo: InstrumentNo, MethodofPayment: MethodofPayment, PremiumAmount: PremiumAmount });
+
+                _index = _index + 1;
+            })
+            // Emptying Grid
+            //$("#PaymentinstrumentGrid tbody").find("tr").each(function (index) {
+            //    $(this).remove();
+            //});
+
+            // Rearranging Grid Content For Model Binding
+
+            $.each(jsonInstrumentObj, function (index, value) {
+                var i = index;
+                var _RowID = 'InstrumentRow' + jsonInstrumentObj[i]._Index;
+                newRow = "<tr class='grid-row' id='" + _RowID + "' >" +
+             "<td class='grid-cell' data-name='ClientName' ><span id=\'ClientName" + jsonInstrumentObj[i]._Index + "\'></span></td>" +
+              "<td class='grid-cell' data-name='ProposalNumber' ><span  id=\'ProposalNumber" + jsonInstrumentObj[i]._Index + "\'></span></td>" +
+              "<td class='grid-cell' data-name='MethodofPayment' ><span id=\'MethodofPayment" + jsonInstrumentObj[i]._Index + "\'></span></td>" +
+               "<td class='grid-cell' data-name='PremiumAmount' ><span id=\'PremiumAmount" + jsonInstrumentObj[i]._Index + "\'></span></td>" +
+                "<td class='grid-cell' data-name='TotalPayableAmount' ><span id=\'TotalPaidAmount" + jsonInstrumentObj[i]._Index + "\'></span></td>" +
+                 "<td class='grid-cell' data-name='Delete'><span class='glyphicon glyphicon-trash' id=\'deleteGridRow" + jsonInstrumentObj[i]._Index + "\' onclick='DeleteInstrument(\"" + _RowID + "\")' / ></span></td></tr>";
+
+                InstrumentIndex = jsonInstrumentObj[i]._Index + 1;
+            });
+
+        }
+
+
+    }
+
+    var chequeAmount1 = 0;
+    var ddAmount1 = 0;
+    var cashAmount1 = 0;
+    function SumofAllPayingAmount(chequeAmount, ddAmount, cashAmount) {
+        var selectedpaymentmode = $('input[name=PaymentOption]:checked').val();
+        if (selectedpaymentmode == 'CQ') {
+            PaymentOption = $('#chequeRelationship option:selected').text();
+            switch (PaymentOption) {
+                case 'Cheque':
+                    chequeAmount = (chequeAmount == null || chequeAmount == 'undefined' || chequeAmount == 'NaN' || chequeAmount == "") ? 0 : parseFloat(chequeAmount);
+                    chequeAmount1 += chequeAmount;
+                    $('#chequeAmount').val(chequeAmount1);
+                    break;
+
+                case 'DD':
+                    ddAmount = (ddAmount == null || ddAmount == 'undefined' || ddAmount == 'NaN' || ddAmount == "") ? 0 : parseFloat(ddAmount);
+                    ddAmount1 += ddAmount;
+                    $('#ddAmount').val(ddAmount1);
+                    break;
+
+                case 'Bankers Cheque':
+                    break;
+
+            }
+
+        }
+
+        else if (selectedpaymentmode == 'Cash') {
+            cashAmount = (cashAmount == null || cashAmount == 'undefined' || cashAmount == 'NaN' || cashAmount == "") ? 0 : parseFloat(cashAmount);
+            cashAmount1 += cashAmount;
+            $('#cashAmount').val(cashAmount);
+        }
+
+        var TotalPayingAmount = chequeAmount1 + ddAmount1 + cashAmount1;
+        TotalPayingAmount = TotalPayingAmount == "" ? 0 : parseFloat(TotalPayingAmount);
+        $('#TotalPayingAmount').val(TotalPayingAmount);
+    }
+
+</script>

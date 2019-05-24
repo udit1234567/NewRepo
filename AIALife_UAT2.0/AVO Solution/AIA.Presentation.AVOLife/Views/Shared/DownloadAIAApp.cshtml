@@ -1,0 +1,104 @@
+﻿@model AIA.Life.Models.Common.DownloadApp
+<link href="~/Content/Styles/NewLayout.css" rel="stylesheet" type="text/css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .AIAappHeader {
+        height: 60px;
+        background-color: #D31145;
+    }
+
+    .btn.large {
+        font-size: 15px;
+        padding: 9px 14px 9px;
+        border-radius: 6px;
+    }
+
+    /*.btn:hover {
+        color: #d31145;
+    }*/
+      .btn-default
+    {
+        border-radius: 0 !important;
+        min-width: 200px;
+    }
+    .btn-default {
+    color: #fff;
+    font-weight: 300;
+    background-color: #d31145;
+    border-color: #fff;
+        border-width: 1px;
+    padding: 6px 13px;
+}
+    .btn {
+    border-width: 1;
+    padding: 7px 14px;
+    font-size: 17px;
+    outline: none !important;
+    background-image: none !important;
+    filter: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    text-shadow: none;
+    display:inline-block !important
+}
+    a{
+        text-decoration:none !important;
+    }
+    hr{
+       border: 1px dotted #eee;
+}
+    @@media (max-width: 400px) {
+  .col-xs-12 {
+    width: 75%;
+  }
+}
+    .col-xs-12 {
+    width: 100%;
+}
+      
+</style>
+<div class="container">
+    <header class="AIAappHeader">
+        <img src="~/Content/Images/AIA-white.png" alt="logo" class="logo-default" height="56px"/>
+        @*<img src="/Content/Images/AIA-inside.png" alt="logo" class="logo-default" height="46px">*@
+
+    </header>
+    <section>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h2>Download AIA Application</h2>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            Please use the links below to download the application
+        </div>
+        <hr />
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <strong>AIA - Version 0.0.10.7</strong>
+        </div>
+        <br />
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p><strong>What's New:</strong></p>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p><strong>......</strong></p>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p><strong>.....</strong></p>
+        </div>
+        <hr />
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 split">
+           
+                <input class="btn btn-default space" href="itms-services://?action=download-manifest&amp;url=https://iposnguat.aialife.com.lk/APKVersion/IOS/manifest.plist" value="Download iOS Application">
+           
+  
+
+        <input class="btn btn-default space" href="https://iposnguat.aialife.com.lk/APKVersion/Android/aia.apk" value="Download Android Application">
+   
+
+                </div>
+
+    </section>
+
+</div>
+
+  

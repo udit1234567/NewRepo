@@ -1,0 +1,96 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+    @using GridMvc.Html
+@{ 
+
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse25" href="#collapseTwentyFive" id="pnlGeoUnitDetails" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                Coordinations
+            </a>
+        </h4>
+    </div>
+    <div id="collapse25" class="panel-collapse in">
+        <div class="panel-body">
+            <div>                   
+                <input type="button" id="btnCoordinations" class="btn btn-default" style="width:150px" value="Add Coordination" onclick="ShowGeounitSearchdetails()" />                    
+                </div>                          
+            <div id="divGridHierarchyCoordinationdetails">   
+                
+            </div>
+            <input type="button" id="btnDeleteCoordinations" class="btn btn-default" style="width:100px" value="Delete" onclick="DeleteCoordination()" />
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <br />
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <input type="button" value="Save" id="btnSaveCordinationsDetails" class="btn btn-default" style="width:100px" onclick="SaveHierarchyCoordinationDetails()">
+                <input type="button" value="Submit" id="btnCordinationsSubmitDetails" class="btn btn-default" style="width:100px;display:none" onclick="SubmitGeoUnitDetails()">
+                <input type="button" value="Cancel" id="btnCancelCordinationsDetails" class="btn btn-default" style="width:100px" onclick="return location.href = '../Home/Index'">
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="HierarchyCoordinationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="HierarchyCoordinationModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="SaveCoordinationPopUpData()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+                        $.ajaxSetup({
+                            cache: false
+                        });
+                        pageGrids.GridHierarchyManpowerDetails.ajaxify({
+
+                        });
+                    }
+    });
+    
+                function DeleteCoordination()
+                {                    
+                    for (var CoordinateID=1; CoordinateID <=@Model.ObjCoordination.Count;CoordinateID++) {
+                        if ($("#CoordinationID" + CoordinateID).is(":Checked")) {
+                            var DependentGridCount = '@Model.ObjCoordination.Count';
+                            $("#CoordinationID" + CoordinateID).closest("tr").remove();
+                            DependentGridCount--;
+                        }
+                    }
+    }
+                function ShowGeounitSearchdetails()
+                {                    
+                    $.post("../Hierarchy/LoadCoordinationDetails", $("#frmHierarchyDetails").serialize())
+                        .done(function (data) {
+                            $('#HierarchyCoordinationModalBody').html(data);
+                            $("#HierarchyCoordinationModal").modal("show");
+                            }).
+                            fail(function () {
+                                BootstrapDialog.alert("Data sumbission Failed. Try after some Time");
+                            });                    
+                }               
+</script>

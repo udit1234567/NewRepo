@@ -1,0 +1,153 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+
+    int Index = Model.AssuredIndex;
+    string AIAWithoutInsuranceGrid = "tblAIAWithoutInsuranceGrid" + Index;
+    string RowIndexID = "Row_AIAInsuranceWithoutDetails" + Index;
+    string RowRemoveID = "btnRemoveAIAInsuranceWithoutDetails" + Index;
+
+    string SubGrid = "DivOtherInsuranceDetalisSUBGrid" + Index;
+    int LifeAssuredOtherInsuranceCount = 0;
+    string PanleID = "DivPanelOtherInsurance" + Index;
+    string PanleNavigatorheader = "#PanelOtherInsurance" + Index;
+    string PanleNavigator = "PanelOtherInsurance" + Index;
+    string AddButtonID = "btnAddMainOtherInsu" + Index;
+    string UpdateButtonID = "btnUpdateMainOtherInsu" + Index;
+    string CancelButtonID = "btnCancelMainOtherInsu" + Index;
+    string GridDivID = "GrdOtherInsu" + Index;
+    string TableID = "tbladditional" + Index;
+    string jpolicy = "j-policy" + Index;
+    string opolicy = "o-policy" + Index;
+    string yesbtn = "yesbtn" + Index;
+    string Nobtn = "Nobtn" + Index;
+    string head = "head" + Index;
+    string footer1 = "footer1" + Index;
+    string otherpolicy = "other-policy" + Index;
+
+}
+
+<div class="grid-scroll">
+    <div class="table-responsive policy-table">
+        <table class="table" id="@AIAWithoutInsuranceGrid">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="textAlign">Insurance Company Name</th>
+                    <th class="textAlign">Policy/Prop.Number</th>
+                    <th class="textAlign">Sum Assured</th>
+                    <th class="textAlign">Accidental Death Benefit</th>
+                    <th class="textAlign">CRITICAL ILLNESS BENIFIT(LKR)</th>
+                    <th class="textAlign">Total Permanent Disability/Waiver of Premium (LKR)</th>
+                    <th class="textAlign">Hospitalization daily benefit</th>
+                    <th class="textAlign">Current Status</th>
+                    <th><input type="button" id="btnAddAIAInsuranceWithoutDetails" value="+" onclick="AddAIAInsuranceWithoutDetails('@AIAWithoutInsuranceGrid','@Index')" /></th>
+                </tr>
+            </thead>
+            <tbody>
+
+               @if (Model.objMemberDetails[Index].objLifeAssuredOtherInsurance != null)
+               {
+                for (int i = 0; i < Model.objMemberDetails[Index].objLifeAssuredOtherInsurance.Count(); i++)
+                {
+                        <tr id="Row_AIAInsuranceWithoutDetails">
+                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].CompanyName, new { @class = "form-control", @id = "txtCompanyName" + Index + i })</td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].PolicyNo, new { @class = "form-control", @id = "txtPolicyNo" + Index + i })</td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].TotalSAAtDeath, new { @class = "form-control", @onchange = "Insurancef1(id)", @id = "txtDeathAmount" + Index + i, @onkeypress = "return isNumberKey(event)" })</td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].AccidentalBenefitAmount, new { @class = "form-control", @onchange = "Insurancef1(id)", @id = "txtAccidentAmount" + Index + i, @onkeypress = "return isNumberKey(event)" })</td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].CriticalIllnessBenefit, new { @class = "form-control", @onchange = "Insurancef1(id)", @id = "txtCriticalAmount" + Index + i, @onkeypress = "return isNumberKey(event)" })</td>
+                            <td>@Html.TextBoxFor(m => m.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].HospitalizationReimbursement, new { @class = "form-control", @onchange = "Insurancef1(id)", @id = "txtTotalpermanentdisability" + Index + i, @onkeypress = "return isNumberKey(event)" })</td>
+                            <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].HospitalizationPerDay, new { @class = "form-control", @onchange = "Insurancef1(id)", @id = "txtTotalHospitalization" + Index + i, @onkeypress = "return isNumberKey(event)" })</td>
+                            <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].CurrentStatus, new { @class = "form-control", @id = "txtCurrentStatus" + Index + i })</td>
+                            <td style="display:none">
+                                @Html.HiddenFor(m => m.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].IsDeleted, new { @class = "form-control", @id = "txtAIAWithoutInsuranceIsDeleted" + Index + i })
+                                @*@Html.HiddenFor(a => a.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].otherQuestionsId, new { })*@
+                            </td>
+                            <td style="display:none">@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeAssuredOtherInsurance[i].OtherInsuranceId, new { id = "txtOtherInsuranceID" + Index + LifeAssuredOtherInsuranceCount, @class = "form-control" })</td>
+                            <td><input type="button" id='@RowRemoveID@i' value="-" onclick="RemoveAIAInsuranceWithoutDetailse('@RowIndexID@i',@i,@Index)" /></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    function AddAIAInsuranceWithoutDetails(DivID, MemberIndex) {
+
+            var newCurrentMDRow;
+            var Index = GetGridIndex(DivID);
+
+            var CompanyName = 'txtCompanyName' + MemberIndex + Index;
+            var PolicyNo = 'txtPolicyNo' + MemberIndex + Index;
+            var DeathAmount = 'txtDeathAmount' + MemberIndex + Index;
+            var AccidentAmount = 'txtAccidentAmount' + MemberIndex + Index;
+            var CriticalAmount = 'txtCriticalAmount' + MemberIndex + Index;
+            var TotalPermanentDisability = 'txtTotalpermanentdisability' + MemberIndex + Index;
+            var TotalHospitalization = 'txtTotalHospitalization' + MemberIndex + Index;
+            var CurrentStatus = 'txtCurrentStatus' + MemberIndex + Index;
+
+
+            var IsDeleted = 'txtAIAWithoutInsuranceIsDeleted' + MemberIndex + Index;
+            var Remove = 'btnRemoveAIAInsuranceWithoutDetails' + MemberIndex + Index;
+            var rowNumber = Index + 1;
+            var RowId = "Row_AIAInsuranceWithoutDetails" + MemberIndex + Index;
+
+            newCurrentMDRow = "<tr id='" + RowId + "' >" +
+                  "<td>" + "" + "</td>" +
+                  "<td><input value='' class='form-control' style='' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].objLifeAssuredOtherInsurance[" + Index + "].CompanyName' id=\'" + CompanyName + "'/>" +
+                  "<td><input value='' class='form-control' style='' type='text'  name='objMemberDetails[" + MemberIndex + "].objLifeAssuredOtherInsurance[" + Index + "].PolicyNo' id=\'" + PolicyNo + "'/>" +
+                  "<td><input value='' class='form-control' style='' type='text' onchange='Insurancef1(id)' name='objMemberDetails[" + MemberIndex + "].objLifeAssuredOtherInsurance[" + Index + "].TotalSAAtDeath' id=\'" + DeathAmount + "'/>" +
+                  "<td><input value='' class='form-control' style='' type='text' onchange='Insurancef1(id)' name='objMemberDetails[" + MemberIndex + "].objLifeAssuredOtherInsurance[" + Index + "].AccidentalBenefitAmount' id=\'" + AccidentAmount + "'/>" +
+                  "<td><input value='' class='form-control' style='' type='text' onchange='Insurancef1(id)' name='objMemberDetails[" + MemberIndex + "].objLifeAssuredOtherInsurance[" + Index + "].CriticalIllnessBenefit' id=\'" + CriticalAmount + "'/>" +
+                  "<td><input value='' class='form-control' style='' type='text' onchange='Insurancef1(id)' name='objMemberDetails[" + MemberIndex + "].objLifeAssuredOtherInsurance[" + Index + "].HospitalizationReimbursement' id=\'" + TotalPermanentDisability + "'/>" +
+                   "<td><input value='' class='form-control' style='' type='text' onchange='Insurancef1(id)' name='objMemberDetails[" + MemberIndex + "].objLifeAssuredOtherInsurance[" + Index + "].HospitalizationPerDay' id=\'" + TotalHospitalization + "'/>" +
+                  "<td><input value='' class='form-control' style='' type='text'  name='objMemberDetails[" + MemberIndex + "].objLifeAssuredOtherInsurance[" + Index + "].CurrentStatus' id=\'" + CurrentStatus + "'/>" +
+
+                  "<td style='display:none'><input value='' class='form-control' type='hidden' name='objMemberDetails[" + MemberIndex + "].objLifeAssuredOtherInsurance[" + Index + "].IsDeleted' id=\'" + IsDeleted + "' /></td>" +
+                  "<td><input value='-' type='button' onclick='RemoveAIAInsuranceWithoutDetailse(\"" + RowId + "\",\"" + Index + "\",\"" + MemberIndex + "\")' class='form-control' id=\'" + Remove + "'/></td>" + "</tr>";
+            $('#' + DivID + ' tbody:last').append(newCurrentMDRow);
+        }
+
+    function RemoveAIAInsuranceWithoutDetailse(DivID, index,MemberIndex) {
+        $('#txtAIAWithoutInsuranceIsDeleted' + MemberIndex + index).val(true);
+       // $('#txtAIAWithoutInsuranceIsDeleted' + SpouseMemberIndex + index).val(true);
+        var policyid = '@Model.PolicyID';
+        $('#txtAIAWithoutInsuranceIsDeleted' + MemberIndex + index).val(true);
+        if (policyid > 0) {
+            $("#DivAIAwithoutInsurnceDetails tbody").find("tr").each(function (id) {
+                if (index == id) {
+                    $('#txtAIAWithoutInsuranceIsDeleted' + MemberIndex + index).val(true);
+                    //$('#txtAIAWithoutInsuranceIsDeleted' + SpouseMemberIndex + index).val(true);
+                    $(this).hide();
+                }
+            });
+        }
+
+        if (policyid = 0) {
+            $("#DivAIAwithoutInsurnceDetails tbody").find("tr").each(function (id) {
+                if (index == id) {
+                    $('#txtAIAWithoutInsuranceIsDeleted' + MemberIndex + index).val(true);
+                    //$('#txtAIAWithoutInsuranceIsDeleted' + SpouseMemberIndex + index).val(true);
+                    $(this).hide();
+                }
+            });
+            $('#' + DivID).hide();
+        }
+        $('#' + DivID).hide();
+    }
+    
+    function Insurancef1(id) {
+        var res = $('#' + id).val();
+        $('#' + id).val(parseInt(res.replace(/,/g, '')).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+        $('#hdn' + id).val(res.replace(/,/g, ''));
+    }
+</script>
+
+
+
+

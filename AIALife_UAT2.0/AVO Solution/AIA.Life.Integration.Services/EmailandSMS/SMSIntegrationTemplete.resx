@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="S001" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, We have emailed you the completed Financial Need Analysis. Please speak to your Wealth Planner/FPE on txtWPMobileNo for any clarification - AIA Insurance                                     txtSMSEnvironment
+</value>
+  </data>
+  <data name="S002" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, We have emailed you the life insurance quotation. Please speak to your Wealth Planner/FPE on txtWPMobileNo for any clarification - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S003" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, Your life insurance application txtProposalNo is successfully submitted. It is being processed and we will update you on the progress. Call 0112310310 for clarifications - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S004" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, We have emailed you a copy of the life insurance proposal form. Call  0112310310 for any clarifications.
+txtSMSEnvironment</value>
+  </data>
+  <data name="S005" xml:space="preserve">
+    <value>iPoS Notice: Life proposal txtProposalNo introduced by you has been received by life underwriting department today - Life Ops</value>
+  </data>
+  <data name="S006" xml:space="preserve">
+    <value>
+iPoS Notice: Life proposal txtProposalNo is pending. Please check NexGen iPoS - Web or emails for further details and inform the customer - Life Ops
+txtSMSEnvironment</value>
+  </data>
+  <data name="S007" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, We need more information to process your life insurance application txtProposalNo. We have emailed you the details. Your Wealth Planner/FPE  will contact you shortly - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S008" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, We have emailed you some additional requirements needed to process your life insurance application. Call 0112310310 for clarifications - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S009" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, Thank you for submitting us the outstanding requirements. We have emailed you the details. Your Wealth Planner/FPE will contact you shortly - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S010" xml:space="preserve">
+    <value>
+iPoS Notice: Proposal txtProposalNo - Thank you for submitting us the outstanding requirements. Please check NexGen iPoS - Web or emails for further details and inform the customer - Life Ops 
+ txtSMSEnvironment</value>
+  </data>
+  <data name="S011" xml:space="preserve">
+    <value>
+	Dear txtSalutation. txtSurname, Kind reminder on the further requirements under your insurance application. These requirements are essential to process your application - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S012" xml:space="preserve">
+    <value>
+iPoS Notice: The premium amount of LKR txtPremium is needed to accept the Proposal (No: txtProposalNo) - Life Ops
+txtSMSEnvironment</value>
+  </data>
+  <data name="S013" xml:space="preserve">
+    <value>
+iPoS Notice: Proposal txtProposalNo will be cancelled on txtProposalEndDate  due to non-completion of due requirements. Please comply with the requirements ASAP - Life Ops
+txtSMSEnvironment</value>
+  </data>
+  <data name="S014" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, We are compelled to cancel your life insurance proposal txtProposalNo on txtProposalEndDate  unless due requirements are received. Please comply with the due requirements at your earliest - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S015" xml:space="preserve">
+    <value>
+iPoS Notice: Proposal txtProposalNo has been declined due to txtHealthconditionOccupation - Life Ops 
+txtSMSEnvironment</value>
+  </data>
+  <data name="S016" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, Regret to inform you of our inability to issue a life insurance policy on your life based on the findings of your txtHealthconditionOccupation - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S017" xml:space="preserve">
+    <value>
+iPoS Notice: Proposal txtProposalNo has been postponed due to txtHealthconditionOccupation - Life Ops
+txtSMSEnvironment</value>
+  </data>
+  <data name="S018" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, Regret to inform you of our inability to issue a life cover on your life at this juncture based on your txtHealthconditionOccupation. We are prepared to reconsider our decision in txtMonths months - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S019" xml:space="preserve">
+    <value>
+iPoS Notice: Proposal txtProposalNo has been withdrawn due to non-submission of pending requirements - Life Ops
+txtSMSEnvironment</value>
+  </data>
+  <data name="S020" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, Your life insurance Proposal txtProposalNo was cancelled due to non-submission of due requirements. Call 0112310310 for clarifications - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S021" xml:space="preserve">
+    <value>
+iPoS Notice: Proposal txtProposalNo has been cancelled as requested by the customer - Life Ops
+txtSMSEnvironment</value>
+  </data>
+  <data name="S022" xml:space="preserve">
+    <value>
+iPoS Notice: Congratulations! Your Proposal txtProposalNo is accepted - Life Ops
+txtSMSEnvironment
+</value>
+  </data>
+  <data name="S023" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, We are happy to announce that your life insurance proposal has been accepted. Your Insurance Policy will be sent to you soon - AIA Insurance
+ txtSMSEnvironment</value>
+  </data>
+  <data name="S024" xml:space="preserve">
+    <value>
+Dear txtSalutation. txtSurname, Your e-policy txtPolicyNo has been emailed to you. Call 0112310310 for any clarifications - AIA Insurance
+txtSMSEnvironment</value>
+  </data>
+  <data name="S025" xml:space="preserve">
+    <value>
+iPoS Notice: e-policy txtPolicyNo has been emailed to the customer - Life Ops
+txtSMSEnvironment</value>
+  </data>
+</root>

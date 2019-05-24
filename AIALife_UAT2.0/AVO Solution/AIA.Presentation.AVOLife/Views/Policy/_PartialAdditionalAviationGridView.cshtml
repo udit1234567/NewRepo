@@ -1,0 +1,68 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="textAlign"></th>
+                <th class="textAlign">@Resources.GetLabelName("Hrs. in last 12 mths")</th>
+                <th class="textAlign">@Resources.GetLabelName("Est. hrs next 12 mths")</th>
+                <th class="textAlign">@Resources.GetLabelName("Total hrs. to date")</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Resources.GetLabelName("Scheduled Airlines")</td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>@Resources.GetLabelName("Non scheduled Airlines")</td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>@Resources.GetLabelName("Other commercial flying")</td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>@Resources.GetLabelName("Private flying (club)")</td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>@Resources.GetLabelName("Private flying (private)")</td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>@Resources.GetLabelName("Helicopters")</td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>@Resources.GetLabelName("Gliders")</td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>@Resources.GetLabelName("Any other (give details)")</td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+                <td><input type="text" name="name" value="" class="form-control" /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

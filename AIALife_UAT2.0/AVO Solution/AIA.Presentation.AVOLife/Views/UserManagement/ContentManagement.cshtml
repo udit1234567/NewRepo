@@ -1,0 +1,73 @@
+﻿@model AIA.Life.Models.UserManagement.ContentManagement
+@using AIA.Presentation.Helpers
+@using GridMvc.Html;
+@using Grid.Mvc.Ajax.GridExtensions
+@using AIAResources;
+
+@Styles.Render("~/Content/AjaxGridCss")
+@Scripts.Render("~/bundles/UserManagement")
+@Scripts.Render("~/bundles/Dialog")
+@Styles.Render("~/Content/Dialogcss")
+
+@using (Html.BeginForm("", "", new { ReturnUrl = "" }, FormMethod.Post, new { role = "form", id = "fromContentMngt" }))
+{
+    @*<div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <i style="color: white;" class="icon-user"></i>
+                    <a data-toggle="collapse" data-target="#collapse3" href="#collapseone" class="collapsed">
+                        User Access <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    </a>
+                </h4>
+            </div>
+        </div>*@
+    
+    <div class="table-responsive">
+        <input type="button" value="Create" onclick="CreateNew()"/>
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    Resource Catagory
+                </th>
+                <th>Effective Date</th>
+                <th>Expiry Date</th>
+                <th>View/Del</th>
+            </tr>
+            @if (Model.lstContentManagement != null && Model.lstContentManagement.Count() > 0)
+            {
+                foreach (var item in Model.lstContentManagement)
+                {
+                    <tr>
+                        <td>@item.Resoucecatagory</td>
+                        <td>@item.EffectiveDate</td>
+                        <td>@item.ExpiryDate</td>
+                        <td><input type="button" value="View" onclick="ViewResource('@item.ResourceID')"/><input type="button" value="Del" onclick="DelResource('@item.ResourceID')" /></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+}
+<script type="text/javascript">
+    function CreateNew() {
+        window.location.href = '/UserManagement/CreateResource';
+    }
+    function DelResource(ResourceID) {
+        window.location.href = '/UserManagement/DeleteResource?ResourceID='+ ResourceID
+        //$.post("../../UserManagement/CreateResource?ResourceID="+ ResourceID)
+        //    .done(function (data) {
+        //        debugger;
+        //        $("#dividResourcedetails").html('');
+        //        $("#dividResourcedetails").html(data);              
+        //    })
+    }
+    function ViewResource(ResourceID) {
+        window.location.href = '/UserManagement/CreateResource?ResourceID=' + ResourceID
+        //$.post("../../UserManagement/CreateResource?ResourceID="+ ResourceID)
+        //    .done(function (data) {
+        //        debugger;
+        //        $("#dividResourcedetails").html('');
+        //        $("#dividResourcedetails").html(data);              
+        //    })
+    }
+</script>

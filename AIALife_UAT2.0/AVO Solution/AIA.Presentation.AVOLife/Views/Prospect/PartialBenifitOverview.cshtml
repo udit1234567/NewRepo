@@ -1,0 +1,54 @@
+﻿@model AIA.Life.Models.Opportunity.LifeQuote
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int GlobalCount = 0;
+}
+<div class="table-responsive" >
+@if (Model.ListAssured != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="font-weight: bold">@Resources.GetLabelName("Select Your Riders")</th>
+                
+                @foreach (var item in Model.ListAssured)
+                {
+                    <th style="font-weight: bold"@Resources.GetLabelName(item)></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var benifit in Model.LstBenefitOverView.ToList())
+            {
+                <tr>
+                    <td>
+                        @benifit.BenifitName
+                        @Html.HiddenFor(m => m.LstBenefitOverView[GlobalCount].BenifitName, new { })
+                        @Html.HiddenFor(m => m.LstBenefitOverView[GlobalCount].BenefitID)
+                        @Html.HiddenFor(m => m.LstBenefitOverView[GlobalCount].MemberBenifitID)
+                        @Html.HiddenFor(m => m.LstBenefitOverView[GlobalCount].AssuredMember)
+
+                    </td>
+                    @for (int i = 0; i < benifit.objBenefitMemberRelationship.Count(); i++)
+                    {
+                        <td style="height:82px;text-align:center">
+                            @Html.TextBoxFor(m => m.LstBenefitOverView[GlobalCount].objBenefitMemberRelationship[i].RiderSI, new { @readonly = "readonly", @class="form-control" })
+                            @Html.HiddenFor(m => m.LstBenefitOverView[GlobalCount].objBenefitMemberRelationship[i].Member_Relationship)
+                            @Html.HiddenFor(m => m.LstBenefitOverView[GlobalCount].objBenefitMemberRelationship[i].Assured_Name)
+                            <br/>
+                            @Html.TextBoxFor(m => m.LstBenefitOverView[GlobalCount].objBenefitMemberRelationship[i].Rider_Premium, new { @readonly = "readonly", @class = "form-control" })
+                        
+                        </td>
+                    }
+                </tr>
+
+                GlobalCount++;
+
+
+            }
+        </tbody>
+
+    </table>
+}
+</div>

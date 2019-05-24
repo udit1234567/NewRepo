@@ -1,0 +1,174 @@
+﻿@model AIA.Life.Models.Opportunity.QuoteList
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int ChildCount = 0;
+    int Index = Model.SelectedQuote;
+    int QuoteIndex = Model.objListQuote[Model.SelectedQuote].QuoteIndex;
+    if (!string.IsNullOrEmpty(Model.objListQuote[Model.SelectedQuote].NoofChilds))
+    {
+        ChildCount = Convert.ToInt32(Model.objListQuote[Model.SelectedQuote].NoofChilds);
+    }
+}
+
+<div>
+
+    @if (ChildCount > 0)
+    {
+        for (int c = 0; c < ChildCount; c++)
+        {
+            <div>
+                @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objChildDetials[c].CurrentAge, new { @id = "hdnChildCurrentage" + Model.SelectedQuote })
+                @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].ChildDeleteIndex, new { @id = "hdnChildDeleteIndex" + Model.SelectedQuote })
+                @if (Model.IsForCounterOffer)
+                {
+                    <div class='form-group'>
+                        <i class="fa fa-minus-square-o" onclick="DeleteChild('@Model.SelectedQuote','@c')" style="color:red;margin-top:33px"></i>
+                    </div>
+                }
+                <div class='col-md-4 col-sm-4 col-xs-12 col-lg-4'>
+                    <div class='form-group'>
+                        <label> @Resources.GetLabelName("Child Name") @(c + 1)</label>
+                        @{
+                            if (Model.IsForCounterOffer)
+                            {
+                                @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objChildDetials[c].Name, new { @class = "form-control", @id = "txtChildName" + Model.SelectedQuote + c, @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")", @readonly = "readonly", @maxlength = 60 })
+
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objChildDetials[c].Name, new { @class = "form-control", @id = "txtChildName" + Model.SelectedQuote + c, @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")", @maxlength = 60, @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
+                            }
+                        }
+
+
+                    </div>
+                </div>
+
+                <div class='col-md-4 col-sm-4 col-xs-12 col-lg-4'>
+                    <div class='form-group'>
+                        <label> @Resources.GetLabelName("Child DOB") @(c + 1)</label>
+                        @Html.iNubeDatePickerFor(a => a.objListQuote[Model.SelectedQuote].objChildDetials[c].DateofBirth, new { @class = "form-control datepicker", @id = "dtChildDOB" + Model.SelectedQuote + c, @onblur = "ageProspectCount(" + Model.SelectedQuote + "," + c + "),ClearBenifitDetails(" + Model.SelectedQuote + ")", @maxlength = "10", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+
+                    </div>
+                </div>
+
+
+
+                <div class='col-md-4 col-sm-4 col-xs-12 col-lg-4'>
+                    <div class='form-group'>
+                        <label> @Resources.GetLabelName("Child Age at Next Birthday") @(c + 1)</label>
+                        @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objChildDetials[c].AgeNextBirthday, new { @class = "form-control", maxlength = "2", @id = "txtChildAge" + Model.SelectedQuote + c, onkeypress = "return isNumberKey(event)", @readonly = "readonly", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+                    </div>
+                </div>
+
+
+                <div class='col-md-4 col-sm-4 col-xs-12 col-lg-4'>
+                    <div class='form-group'>
+                        <label> @Resources.GetLabelName("Gender") @(c + 1)</label>
+
+                        @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objChildDetials[c].Gender, new SelectList(Model.objListQuote[Model.SelectedQuote].objProspect.lstGender, "Value", "Text", Model.objListQuote[Model.SelectedQuote].objChildDetials[c].Gender), "Select", new { @class = "form-control", @id = "ddlChildGender" + Model.SelectedQuote + c, @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+
+
+
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+
+        }
+    }
+    <div class="clearfix"></div>
+</div>
+<script type="text/javascript">
+    @*$(document).ready(function () {
+        debugger
+        var txt = $('#txtNoofChilds' +@Index).val();
+        var val = parseInt(txt);
+        for(i=0;i<=val;i++)
+        {
+            var ChildRelationship = $("#HdnRelationship" + i).val();
+            if (ChildRelationship == "Son")
+            {
+                if($("ddlGender"+i).length>1)
+                {
+                    $("ddlGender"+i).val("M")
+                }else{
+                    alert("1");
+                }
+            }
+            if (ChildRelationship == "Daughter") {
+                if($("ddlGender"+i).length>1)
+                {
+                    $("ddlGender"+ i).val("F")
+                }
+                else{
+                    alert('no');
+                }
+            }
+        }
+    })*@
+
+    function ageProspectCount(d,e) {
+        debugger
+        var NoOfChild = $('#txtNoofChilds' + @QuoteIndex).val();
+
+        var dob = $('#dtChildDOB'+d+e).val();
+
+        var controlid = 'dtChildDOB'+d+e;
+        if (dob == "") {
+            $('#txtChildAge'+d+e).val('');
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth.", controlid);
+            return false;
+        }
+        if (!ValidateDOB(controlid)) {
+            $('#txtChildAge'+d+e).val('');
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth. It Cannot be Future Date.", controlid);
+            return false;
+        }
+        else {
+            if (dob != '') {
+                var dt = new Date();
+                var currentYear = dt.getFullYear();
+                var currentMonth = dt.getMonth() + 1;
+                var currentDate = dt.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var BirthDate= new Date(parseInt(dob));
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;// monthDiff(BirthDate,dt); //
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
+                }
+                dob=birthdate+"-"+birthMonth+"-"+birthYear;
+                $.post("../Policy/GetChildAge?Dob=" + dob)
+
+                     .done(function (data) {
+                         if (data != null) {
+                             if(data < 90)
+                             {
+                                 $('#txtChildAge' + d + e).val("");
+                                 writeMultipleMessage('error', ' Child Age at Next BirthDay should be more than 90 days ', 'txtChildAge' + d+e);
+                                 return false;
+                             }
+                             else {
+                                 $('#txtChildAge'+ d + e).val(calYear+1);
+                                 $('#hdnChildCurrentage').val(calYear);
+                                 writeMultipleMessage("error", "", 'txtChildAge' + d+e);
+
+                             }
+                         }
+
+                     });
+
+                writeMultipleMessage("error", "", controlid);
+            }
+        }
+    }
+
+
+</script>

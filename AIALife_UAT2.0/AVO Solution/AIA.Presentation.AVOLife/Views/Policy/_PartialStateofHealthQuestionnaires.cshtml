@@ -1,0 +1,183 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIAResources;
+@{
+    int Index = Model.AssuredIndex;
+    int index = 1;  // Row Index
+    // int QuestionCount = 0;
+    string PanleID = "DivPanelStateMedicalHistory" + Index;
+    string PanleNavigatorheader = "#PanelStateMedicalHistory" + Index;
+    string PanleNavigator = "PanelStateHealthMedicalHistory" + Index;
+    //string GetDisease = "btnStateGetDisease" + Index;
+    //string GetDiseasesIndex = "DivStateDiseasesQuestionnaireDetails" + Index;
+    int QuestionCount = 0;
+
+}
+<style>
+    .med-subquestion-multiselect button {
+        width: 100% !important;
+    }
+
+    .open > .dropdown-menu {
+        display: block;
+        top: 40px;
+        left: 0;
+        width: 94%;
+        height: 149px;
+        overflow-y: scroll;
+    }
+</style>
+<link href="~/Content/Styles/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Content/Scripts/bootstrap-multiselect.js"></script>
+
+@*State of Health Questions*@
+@helper CustomRowRenderingControl(List<AIA.Life.Models.Common.QuestionsList> lstQuestions, int MemberIndex,int QuestionIndex,  int RowIndex)
+{
+    <style>
+        .question-count {
+            width: 5%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 9px!important;
+        }
+
+        .question-text {
+            display: inline-block;
+            width: 90%;
+            vertical-align: top;
+                word-break: break-word;
+        }
+    </style>
+foreach (var Questions in lstQuestions)
+{
+    string ParentId = Convert.ToString(MemberIndex) + Convert.ToString(QuestionIndex) + Convert.ToString(Questions.QuestionID);
+    string ChildID = ParentId + "C";
+    
+    int Index = 1;
+    //string MultiSelectID = "ddlMultiSelect" + MemberIndex;
+    //string MultiSelectClass = "multiselect-ui" + MemberIndex;
+    string Display = "none";
+
+    if (Questions.ControlType == "Radio")
+    {
+            <div class="medical" id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                    <p>
+                        <span class="question-count">@QuestionIndex</span>
+                        <span class="question-text"> @Questions.QuestionText</span>
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+
+                    @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].Answer", "true", Questions.Answer == "true" ? true : false, new { @class = "radio-button", id = "rdbtnAnswerTextYes" + MemberIndex + QuestionIndex, onchange = "HideShowStateChildsAdditionalRadio('" + ChildID + "','" + Questions.Value + "','" + "true" + "')" })
+                    <label>Yes</label>
+                    @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].Answer", "false", Questions.Answer == "false" ? true : false, new { @class = "radio-button", id = "rdbtnAnswerTextNo" + MemberIndex + QuestionIndex, onchange = "HideShowStateChildsAdditionalRadio('" + ChildID + "','" + Questions.Value + "','" + "false" + "')" })
+                    <label>No</label>
+
+                </div>
+
+                <div >
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+        if (Questions.LstQuestionsTypes != null)
+        {
+            if (Questions.LstQuestionsTypes.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(Questions.Answer))
+                {
+                    if (Questions.Answer == Questions.Value)
+                    {
+                        Display = "table-row";
+                    }
+                }
+
+                <div class="med" id=@ChildID style="display:@Display; text-align:right">
+                    <div>
+                        <p>
+                            @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, QuestionIndex, Index)
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+
+    }
+    else if (Questions.ControlType == "TextBox")
+    {
+            <div class="medical" id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+
+                    <p>
+                        <span class="question-count">@QuestionIndex</span>
+                        <span class="question-text"> @Questions.QuestionText</span>
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space" >
+                    @Html.TextBox("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].Answer", Questions.Answer == null ? "" : Questions.Answer, new { @maxlength = "1000", @class = "form-control" })
+                </div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }
+    @*else if (Questions.ControlType == "GridView")
+    {
+            <div class="medical-questions" id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 QuesBox-Space">
+
+                    <p>
+                        <span class="question-count"></span>
+                        <span class="question-text"> @Questions.QuestionText</span>
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                    @Html.TextBox("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].Answer", Questions.Answer == null ? "" : Questions.Answer, new { @maxlength = "1000", @class = "form-control" })
+                </div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLststateofhelath[" + QuestionIndex + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }*@
+QuestionIndex++;
+        @*@(index = index + 1);
+            @(QuestionCount = QuestionCount + 1);*@
+}
+
+}
+
+<div id=@PanleNavigator class="panel-collapse" role="tabpanel" aria-labelledby=@PanleID>
+    <div class="panel-body">
+        <div>
+            @if (Model.objMemberDetails[Index].objLststateofhelath != null && Model.objMemberDetails[Index].objLststateofhelath.Count() > 0)
+            {
+                // Row Index
+                @CustomRowRenderingControl(Model.objMemberDetails[Index].objLststateofhelath.OrderBy(a => a.SequenceNo).ToList(), Index, QuestionCount, index)
+                index = index + 1;
+                QuestionCount = QuestionCount + 1;
+            }
+        </div>
+    </div>
+</div>
+<script>
+    function HideShowStateChildsAdditionalRadio(ID, Value, ControlValue) {
+
+        if (Value == ControlValue) {
+            $('#' + ID).show();
+        }
+        else {
+            $('#' + ID).hide();
+        }
+
+    }
+</script>

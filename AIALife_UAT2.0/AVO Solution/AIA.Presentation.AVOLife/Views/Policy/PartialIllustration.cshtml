@@ -1,0 +1,141 @@
+﻿@model AIA.Life.Models.Opportunity.QuoteList
+@using AIAResources;
+
+@using System.Globalization;
+@{
+
+    int Index = Model.SelectedQuote;
+    string PanleID = "DivPanelBenefits" + Index;
+    string PanleNavigatorheader = "#PanelBenefits" + Index;
+    string PanleNavigator = "PanelBenefits" + Index;
+    //  int count = 1, tabCount = 1;
+    // int GlobalCount = 0;
+
+
+}
+
+<fieldset id="illustration-grid">
+    <legend>@Resources.GetLabelName("Illustration")</legend>
+    <div class="table-responsive">
+        @if (Model.objListQuote[Index].objProductDetials.PlanCode != "HPA")
+        {
+            <table class="table table-bordered" style="width:970px">
+                <colgroup span="2"></colgroup>
+                <colgroup span="2"></colgroup>
+                <tr>
+                    <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Policy Year")</th>
+                    <th colspan=2 scope="colgroup" class="textAlign">@Resources.GetLabelName("Aggregate Premium")</th>
+                    <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Premiums for additional Benefits")</th>
+                    <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Total Annual Premium")</th>
+                    <th colspan=3 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Rate of 4% p.a.")</th>
+                    <th colspan=3 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Rate of 8% p.a.")</th>
+                    <th colspan=3 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Rate of 12% p.a.")</th>
+                </tr>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">@Resources.GetLabelName("Annual Basic Premium")</th>
+                    <th scope="col">@Resources.GetLabelName("Premium for main Benefits")</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">@Resources.GetLabelName("Investment Account Balance (at year end)")</th>
+                    <th scope="col">@Resources.GetLabelName("Surrender Value (at year end)")</th>
+                    <th scope="col">@Resources.GetLabelName("Monthly Draw Down (at yearly start)")</th>
+                    <th scope="col">@Resources.GetLabelName("Investment Account Balance (at year end)")</th>
+                    <th scope="col">@Resources.GetLabelName("Surrender Value (at year end)")</th>
+                    <th scope="col">@Resources.GetLabelName("Monthly Draw Down (at yearly start)")</th>
+                    <th scope="col">@Resources.GetLabelName("Investment Account Balance (at year end)")</th>
+                    <th scope="col">@Resources.GetLabelName("Surrender Value (at year end)")</th>
+                    <th scope="col">@Resources.GetLabelName("Monthly Draw Down (at yearly start)")</th>
+                </tr>
+
+                @{
+                    if (Model.objListQuote[Index].LstIllustation.Count > 0)
+                    {
+                        foreach (var item in Model.objListQuote[Index].LstIllustation)
+                        {
+                            if (item.PolicyYear <= Convert.ToInt32(Model.objListQuote[Model.SelectedQuote].objProductDetials.PolicyTerm))
+                            {
+                <tr>
+                    <td class="textAlign">@item.PolicyYear</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.BasicPremium))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.MainBenefitsPremium))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.AdditionalBenefitsPremiums))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.TotalPremium))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.FundBalanceDiv4))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.SurrenderValueDiv4))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.DrawDownDiv4))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.FundBalanceDiv8))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.SurrenderValueDiv8))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.DrawDownDiv8))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.FundBalanceDiv12))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.SurrenderValueDiv12))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.DrawDownDiv12))</td>
+                </tr>
+                            }
+
+
+                        }
+                    }
+                }
+
+
+            </table>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered" style="width:970px">
+                            <colgroup span="2"></colgroup>
+                            <colgroup span="2"></colgroup>
+                            <tr>
+                                <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Policy Year")</th>
+                                <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Total Premium Payable")</th>
+                                <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Unallocated Premium")</th>
+                                <th colspan=2 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Return @ 4% ")</th>
+                                <th colspan=2 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Return @ 8% ")</th>
+                                <th colspan=3 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Return @ 12%")</th>
+                            </tr>
+                            <tr>
+                                <th scope="col"></th>                           
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col">@Resources.GetLabelName("Fund Value")</th>
+                                <th scope="col">@Resources.GetLabelName("Surrender Value")</th>                          
+                                <th scope="col">@Resources.GetLabelName("Fund Value")</th>
+                                <th scope="col">@Resources.GetLabelName("Surrender Value")</th>
+                                <th scope="col">@Resources.GetLabelName("Fund Value")</th>
+                                <th scope="col">@Resources.GetLabelName("Surrender Value")</th>
+                                
+                            </tr>
+
+                            @{
+                                if (Model.objListQuote[Index].LstIllustation.Count > 0)
+                                {
+                                    foreach (var item in Model.objListQuote[Index].LstIllustation)
+                                    {
+                                        if (item.PolicyYear <= Convert.ToInt32(Model.objListQuote[Model.SelectedQuote].objProductDetials.PolicyTerm))
+                                        {
+                                            <tr>
+                                                <td class="textAlign">@item.PolicyYear</td>                                              
+                                                <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.TotalPremium))</td>
+                                                <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.UnAllocatedPremium))</td>
+                                                <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.FundBalanceDiv4))</td>
+                                                <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.SurrenderValueDiv4))</td>                                               
+                                                <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.FundBalanceDiv8))</td>
+                                                <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.SurrenderValueDiv8))</td>                                               
+                                                <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.FundBalanceDiv12))</td>
+                                                <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.SurrenderValueDiv12))</td>                                               
+                                            </tr>
+                                        }
+
+
+                                    }
+                                }
+                            }
+
+
+                        </table>
+                                }
+
+    </div>
+</fieldset>
+

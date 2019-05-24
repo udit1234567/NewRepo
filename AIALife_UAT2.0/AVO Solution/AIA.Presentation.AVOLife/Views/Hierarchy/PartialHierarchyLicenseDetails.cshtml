@@ -1,0 +1,114 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using AIA.Presentation.Helpers
+@{
+
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse25" href="#collapseTweentyFive" id="pnlLicenseDetails" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                License/Contract Details
+            </a>
+        </h4>
+    </div>
+    <div id="collapse25" class="panel-collapse in">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div>
+                    <h4><b>License Details</b></h4>
+                    <br />
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>License No<span class="mandatory">*</span></label>
+                        @Html.TextBoxFor(a => a.LicenseNo, new { @class = "form-control", @id = "txtLicenseNo", @maxlength="20", @onchange = "clearAllErrors()" })
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>Issue Date<span class="mandatory">*</span></label>
+                        @Html.iNubeDatePickerFor(a => a.IssueDate, new { @class = "form-control ", @id = "dpLicenseIssuedate", @onblur = "GetExpiryDate()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>Expiry Date<span class="mandatory">*</span></label>
+                        @Html.iNubeDatePickerFor(a => a.ExperiyDate, new { @class = "form-control ", @id = "dpLicenseExpirydate", @onchange = "clearAllErrors()" })
+                    </div>
+                </div>
+                
+                </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+               <div>
+                   <br />
+                   <h4><b>Contract Details</b></h4>
+                   <br />
+               </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>Contract Effective From<span class="mandatory">*</span></label>
+                        @Html.iNubeDatePickerFor(a => a.ContractEffetiveFrom, new { @class = "form-control ", @id = "dpContractFrom", @onchange = "clearAllErrors()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>Contract Effective To<span class="mandatory">*</span></label>
+                        @Html.iNubeDatePickerFor(a => a.ContractEffetiveTo, new { @class = "form-control ", @id = "dpContractTo", @onchange = "clearAllErrors()" })
+                    </div>
+                </div>
+            </div>
+</div>
+</div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <br />
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <input type="button" value="Save" id="btnSaveLicenseDetails" class="btn btn-default" style="width:100px" onclick="SaveHierarchyLicenseDetails()">
+            <input type="button" value="Cancel" id="btnCancelLicenseDetails" class="btn btn-default" style="width:100px" onclick="return location.href = '../Home/Index'">
+        </div>
+    </div>
+</div>
+@*<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse26" href="#collapseTweentySix" id="pnlContractDetails" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+               License/Contract Details
+            </a>
+        </h4>
+    </div>
+    <div id="collapse26" class="panel-collapse in">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>License No<span class="mandatory">*</span></label>
+                        @Html.TextBoxFor(a => a.LicenseNo, new { @class = "form-control", @id = "txtLicenseNo", @onblur = "validateTextBox('txtLicenseNo','please provide License No')" })
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>Contract Effective From<span class="mandatory">*</span></label>
+                        @Html.iNubeDatePickerFor(a => a.IssueDate, new { @class = "form-control ", @id = "dpLicenseIssuedate" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>Contract Effective To<span class="mandatory">*</span></label>
+                        @Html.iNubeDatePickerFor(a => a.ExperiyDate, new { @class = "form-control ", @id = "dpLicenseExpirydate" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@

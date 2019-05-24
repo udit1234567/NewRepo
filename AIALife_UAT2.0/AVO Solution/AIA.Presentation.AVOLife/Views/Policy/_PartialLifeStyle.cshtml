@@ -1,0 +1,709 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+
+@{
+
+    int Index = Model.AssuredIndex;
+    string PanleID = "DivPanelLifeStyle" + Index;
+    string PanleNavigatorheader = "#PanelLifeStyle" + Index;
+    string PanleNavigator = "PanelLifeStyle" + Index;
+    int QuestionCount = 0;
+    int index = 0;
+    int QuestionIndex = 0;
+
+    ViewBag.QuestionIndex1 = -1;
+    int LifeStyleQuestionCount = 0;
+    int LifeStyleQuestionCount1 = 0;
+    string SmokeDisplayID = "DivSmoke" + Index;
+    string SmokeDisplayStyle = "none";
+    string AlcoholDisplayID = "DivAlcohol" + Index;
+    string AlcoholDisplayStyle = "none";
+    string TableID = "DivSmokeTable" + Index;
+    string TableID1 = "DivAlcoholTable" + Index;
+
+    string WUNameProp = "objMemberDetails[" + Index + "].objLifeStyleQuetions.WeightUnit";
+    string HUNameProp = "objMemberDetails[" + Index + "].objLifeStyleQuetions.HeightUnit";
+
+}
+<style>
+    .btn span.glyphicon {
+        opacity: 0;
+    }
+
+    .btn.active span.glyphicon {
+        opacity: 1;
+    }
+</style>
+
+@helper CustomRowRenderingControl(List<AIA.Life.Models.Common.QuestionsList> lstLifeQuestions, int MemberIndex, int QuestionInd, int RowIndex, int SubRowIndex = 0, int SuperSubRowIndex = 0, string IsChild = null, string IsSubChild = null)
+{
+    <style>
+        .question-count {
+            width: 5%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 9px!important;
+        }
+
+        .question-text {
+            display: inline-block;
+            width: 90%;
+            vertical-align: top;
+                word-break: break-word;
+        }
+    </style>
+int QuestionIndex = QuestionInd;
+foreach (var Questions in lstLifeQuestions)
+{
+    ViewBag.QuestionIndex1 = ViewBag.QuestionIndex1 + 1;
+    int i = ViewBag.QuestionIndex1;
+    string ParentId = Convert.ToString(MemberIndex) + Convert.ToString(QuestionIndex) + Convert.ToString(Questions.QuestionID);
+    string ChildID = ParentId + "C";
+    
+    if (IsSubChild == "True")
+    {
+        SuperSubRowIndex++;
+    }
+    else if (IsChild == "True")
+    {
+        SubRowIndex++;
+    }
+    else
+    {
+        RowIndex++;
+    }
+
+    string Display = "none";
+
+    if (Questions.ControlType == "Radio")
+    {
+        string ClassName = string.Empty;
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "Childlifestyle-questions"; }
+        else { ClassName = "lifestyle-questions"; }
+            <div class=@ClassName id=@ParentId>
+                <div class="row">
+
+                    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12 QuesBox-Space">
+                        <p>
+                            @if (IsSubChild == "True")
+                        {
+                                <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex </span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                                <span class="question-count">@RowIndex.@SubRowIndex </span>
+                        }
+                        else
+                        {
+                                <span class="question-count">@RowIndex</span>
+                        }
+
+                            <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                        </p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 radiobtn-space">
+
+                        @Html.RadioButton("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].Answer", "true", Questions.Answer == "true" ? true : false, new { @class = "med-radio-button", id = "rdbtnAnswerTextYes" + MemberIndex + QuestionIndex, onchange = "HideShowChildsLFRadio('" + ChildID + "','" + Questions.Value + "','" + "true" + "')" })
+                        <label>@Resources.GetLabelName("Yes")</label>
+                        @Html.RadioButton("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].Answer", "false", Questions.Answer == "false" ? true : false, new { @class = "med-radio-button", id = "rdbtnAnswerTextNo" + MemberIndex + QuestionIndex, onchange = "HideShowChildsLFRadio('" + ChildID + "','" + Questions.Value + "','" + "false" + "')" })
+                        <label>@Resources.GetLabelName("No")</label>
+
+                    </div>
+
+                    <div>
+                        @Html.Hidden("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].QuestionID", Questions.QuestionID, new { })
+                        @Html.Hidden("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                    </div>
+                </div>
+            </div>
+        if (Questions.LstQuestionsTypes != null)
+        {
+            if (Questions.LstQuestionsTypes.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(Questions.Answer))
+                {
+                    if (Questions.Answer == Questions.Value)
+                    {
+                        Display = "div";
+                    }
+                }
+                
+                <div class="lifestyle-subquestion-txt" id=@ChildID style="display:@Display; text-align:right">
+                    <div>
+                        <p>
+                            @if (IsChild == "True")
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, SubRowIndex, 0, "False", "True")
+                            }
+                            else
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, 0, 0, "True", "False")
+                            }
+
+                        </p>
+                    </div>
+                </div>
+                }
+            }
+        }
+        else if (Questions.ControlType == "TextBox")
+        {
+            string ClassName = string.Empty;
+            if (IsChild == "True" || IsSubChild == "True")
+            { ClassName = "Childlifestyle-questions"; }
+            else { ClassName = "lifestyle-questions"; }
+            <div class=@ClassName id=@ParentId>
+                <div class="row">
+
+                    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                        <p>
+                            @if (IsSubChild == "True")
+                        {
+                                <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                                <span class="question-count">@RowIndex.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                                <span class="question-count">@RowIndex</span>
+                        }
+                            <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                        </p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space">
+                        @Html.TextBox("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].Answer", Questions.Answer == null ? "" : Questions.Answer, new { @maxlength = "1000", @class = "form-control" })
+                    </div>
+                </div>
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }
+    QuestionIndex++;
+}
+}
+
+
+@helper CustomRowRenderingControlEasyPension(List<AIA.Life.Models.Common.QuestionsList> lstEasypensionLifeQuestions, int MemberIndex, int QuestionInd, int RowIndex, int SubRowIndex = 0, int SuperSubRowIndex = 0, string IsChild = null, string IsSubChild = null)
+{
+    <style>
+        .question-count {
+            width: 5%;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 9px !important;
+        }
+
+        .question-text {
+            display: inline-block;
+            width: 90%;
+            vertical-align: top;
+                word-break: break-word;
+        }
+    </style>
+int QuestionIndex = QuestionInd;
+foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
+{
+    ViewBag.QuestionIndex1 = ViewBag.QuestionIndex1 + 1;
+    int i = ViewBag.QuestionIndex1;
+    string ParentId = Convert.ToString(MemberIndex) + Convert.ToString(QuestionIndex) + Convert.ToString(EasyPensionQuestions.QuestionID);
+    string ChildID = ParentId + "C";
+
+    if (IsSubChild == "True")
+    {
+        SuperSubRowIndex++;
+    }
+    else if (IsChild == "True")
+    {
+        SubRowIndex++;
+    }
+    else
+    {
+        RowIndex++;
+    }
+
+    string Display = "none";
+
+    if (EasyPensionQuestions.ControlType == "Radio")
+    {
+        string ClassName = string.Empty;
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "Childeasypensionlifestyle-questions"; }
+        else { ClassName = "Easypensionlifestyle-questions"; }
+        <div class=@ClassName id=@ParentId>
+            <div class="row">
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12 QuesBox-Space">
+                    <p>
+                        @if (IsSubChild == "True")
+                    {
+                            <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex </span>
+                    }
+                    else if (IsChild == "True")
+                    {
+                            <span class="question-count">@RowIndex.@SubRowIndex </span>
+                    }
+                    else
+                    {
+                            <span class="question-count">@RowIndex</span>
+                    }
+
+                        <span class="question-text"> @Resources.GetLabelName(EasyPensionQuestions.QuestionText)</span>
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 radiobtn-space">
+                    @*<label class="btn radio-btn-group" id="idYes" onclick="BtnClick(id)">*@
+                        @Html.RadioButton("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].Answer", "true", EasyPensionQuestions.Answer == "true" ? true : false, new { @class = "med-radio-button", id = "rdbtnAnswerTextYes" + MemberIndex + QuestionIndex, onchange = "HideShowChildsLFRadio('" + ChildID + "','" + EasyPensionQuestions.Value + "','" + "true" + "')" })
+                        @*<span class="glyphicon glyphicon-ok"></span>*@
+                        <span>@Resources.GetLabelName("Yes")</span>
+                    @*</label>*@
+                    @*<label class="btn radio-btn-group" id="idNo" onclick="BtnClick(id)">*@
+                        @Html.RadioButton("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].Answer", "false", EasyPensionQuestions.Answer == "false" ? true : false, new { @class = "med-radio-button", id = "rdbtnAnswerTextNo" + MemberIndex + QuestionIndex, onchange = "HideShowChildsLFRadio('" + ChildID + "','" + EasyPensionQuestions.Value + "','" + "false" + "')" })
+                        @*<span class="glyphicon glyphicon-ok"></span>*@
+                        <span style="color:black">@Resources.GetLabelName("No")</span>
+                    @*</label>*@
+
+</div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].QuestionID", EasyPensionQuestions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].MemberQuestionID", EasyPensionQuestions.MemberQuestionID, new { })
+                </div>
+            </div>
+        </div>
+        if (EasyPensionQuestions.LstQuestionsTypes != null)
+        {
+            if (EasyPensionQuestions.LstQuestionsTypes.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(EasyPensionQuestions.Answer))
+                {
+                    if (EasyPensionQuestions.Answer == EasyPensionQuestions.Value)
+                    {
+                        Display = "div";
+                    }
+                }
+
+                <div class="Easypensionlifestyle-subquestion-txt" id=@ChildID style="display:@Display; text-align:right">
+                    <div>
+                        <p>
+                            @if (IsChild == "True")
+                            {
+                                @CustomRowRenderingControlEasyPension(EasyPensionQuestions.LstQuestionsTypes, MemberIndex, i, RowIndex, SubRowIndex, 0, "False", "True")
+                            }
+                            else
+                            {
+                                @CustomRowRenderingControlEasyPension(EasyPensionQuestions.LstQuestionsTypes, MemberIndex, i, RowIndex, 0, 0, "True", "False")
+                            }
+
+                        </p>
+                    </div>
+                </div>
+                }
+            }
+        }
+        else if (EasyPensionQuestions.ControlType == "TextBox")
+        {
+            string ClassName = string.Empty;
+            if (IsChild == "True" || IsSubChild == "True")
+            { ClassName = "Childeasypensionlifestyle-questions"; }
+            else { ClassName = "Easypensionlifestyle-questions"; }
+            <div class=@ClassName id=@ParentId>
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                        <p>
+                            @if (IsSubChild == "True")
+                        {
+                                <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                                <span class="question-count">@RowIndex.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                                <span class="question-count">@RowIndex</span>
+                        }
+                            <span class="question-text"> @Resources.GetLabelName(EasyPensionQuestions.QuestionText)</span>
+                        </p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space">
+                        @Html.TextBox("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].Answer", EasyPensionQuestions.Answer == null ? "" : EasyPensionQuestions.Answer, new { @maxlength = "1000", @class = "form-control" })
+                    </div>
+
+                    <div>
+                        @Html.Hidden("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].QuestionID", EasyPensionQuestions.QuestionID, new { })
+                        @Html.Hidden("objMemberDetails[" + MemberIndex + "].Questions[" + i + "].MemberQuestionID", EasyPensionQuestions.MemberQuestionID, new { })
+                    </div>
+                </div>
+            </div>
+    }
+    QuestionIndex++;
+}
+}
+
+@Html.HiddenFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.MemberLifeStyleID, new { })
+
+      
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                @Resources.GetLabelName("Height"):<br />
+                @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.Height, new { id = "txtHeight"+Index,@value = "0'", @class = "form-control col-md-4 col-sm-4 col-xs-12 col-lg-4", @maxlength = "4", @style = "width:60%;border-top-right-radius:0;border-bottom-right-radius:0", onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)", @onchange = "HeightFunction(id)",@onblur= "HeightFunction(this)" })
+               
+                @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.HeightFeets, new SelectList(Model.LstHeightFeets, "ID", "Text", Model.objMemberDetails[Index].objLifeStyleQuetions.HeightFeets), new { @class = "form-control col-md-2 col-sm-2 col-xs-12 col-lg-2", @style = "width:35%;border-top-left-radius: 0;border-bottom-left-radius: 0;", @id = "ddlHeightFeets" + index })
+                   
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                @Resources.GetLabelName("Weight"):<br />
+                @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.Weight, new { id = "txtWeight"+Index, @class = "form-control col-md-4 col-sm-4 col-xs-12 col-lg-4", @maxlength = "3", @style = "width:60%;border-top-right-radius:0;border-bottom-right-radius:0", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "WeightFunction(this)", @onblur = "WeightFunction(this)" })
+                    <select class="form-control col-md-2 col-sm-2 col-xs-12 col-lg-2" style="width:35%;border-top-left-radius: 0;border-bottom-left-radius: 0;" name=@WUNameProp>
+                        <option value="Kg">Kg's</option>
+                    </select>
+                
+           </div>
+<br/>
+<br/>
+<br/>
+   
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+   
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="usr">@Resources.GetLabelName("Do You Consume Tobacco ?")</label>
+    </div>
+    @*<div class="btn-group radiobtn-toggle" data-toggle="buttons">
+        @*style="background-color:#b3adad;border-color:#313131" btn-success btn-primary
+        <label class="btn radio-btn-group" id="idYes" onclick="BtnClick(id)">
+            @Html.RadioButtonFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.IsSmoker, true, new { @autocomplete = "off", @id = "rdbSmokerYes" + Index, onchange = "HideShowLifeStyleControls('" + SmokeDisplayID + "','" + "Yes" + "')" })
+            <span class="glyphicon glyphicon-ok"></span>
+            <span>@Resources.GetLabelName("Yes")</span>
+        </label>
+        @*style="background-color:white;border-color:#313131"
+        <label class="btn radio-btn-group" id="idNo" onclick="BtnClick(id)">
+            @Html.RadioButtonFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.IsSmoker, false, new { @autocomplete = "off", @id = "rdbSmokerNo" + Index, onchange = "HideShowLifeStyleControls('" + SmokeDisplayID + "','" + "No" + "')" })
+            <span class="glyphicon glyphicon-ok"></span>
+            <span style="color:black">@Resources.GetLabelName("No")</span>
+        </label>
+
+    </div>*@
+    <div class="col-md-1 col-sm-2 col-xs-3 col-lg-1">
+        <label class="radio-inline">
+            @Html.RadioButtonFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.IsSmoker, true, new { @id = "rdbSmokerYes" + Index, onchange = "HideShowLifeStyleControls('" + SmokeDisplayID + "','" + "Yes" + "')" })
+            @Resources.GetLabelName("Yes")
+        </label>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-3 col-lg-1">
+        <label class="radio-inline">
+             @Html.RadioButtonFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.IsSmoker, false, new { @id = "rdbSmokerNo" + Index, onchange = "HideShowLifeStyleControls('" + SmokeDisplayID + "','" + "No" + "')"})
+            @Resources.GetLabelName("No")
+        </label>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="display:@SmokeDisplayStyle;padding:20px;margin-bottom:10px;" id=@SmokeDisplayID>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label>@Resources.GetLabelName("Type"):</label>
+            @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.SmokeType, new SelectList(Model.lstSmokeTypes, "ID", "Value"), new { @class = "form-control", @id = "ddlTypeSmoke" + Index })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label>@Resources.GetLabelName("How many sticks per day?"):</label>
+            @Html.DropDownListFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.SmokeQuantity, new SelectList(Model.lstSmokeAndAlcholQuantity, "Value", "Text"), new { @class = "form-control", @id = "txtSmokeQuantity" + Index })
+        </div>
+        
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label>@Resources.GetLabelName("How Long(Years)?")</label>
+            @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.SmokeDuration, new { id = "txtSmokeDuration" + Index, @class = "form-control", @onkeypress = "return isNumberKey(event)", @maxlength = "2" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <input class="btn btn-default" style="margin-top: 8%;width: 23%;height: 39px; margin-bottom:5%" type="button" onclick="AddLifeStyleSmokeRow('@TableID', '@Index')" value="Add">
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="table-responsive">
+        <table class="table style-table" id=@TableID>
+            <thead>
+                <tr>
+                    <th class="textAlign">Type</th>
+                    <th class="textAlign">How many sticks per day?</th>
+                    @*<th class="textAlign">@Resources.GetLabelName("Per")</th>*@
+                    <th class="textAlign">How Long(Years)?</th>
+
+                    <th class="textAlign">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.objMemberDetails[Index].objLifeStyleQuetions != null)
+            {
+                for (int i = 0; i < Model.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails.Count(); i++)
+                {
+                    string _RowID = "Smoker" + Index + i;
+            <tr id='@_RowID'>
+                <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].SmokeType, new { id = "ddlTypeSmoke" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>
+                <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].SmokeQuantity, new { id = "txtSmokeQuantity" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>
+                @*<td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].SmokePerDay, new { id = "ddlSmokePerDay" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>*@
+                <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].SmokeDuration, new { id = "txtSmokeDuration" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>
+                <td style="display:none">@Html.HiddenFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].AdditionalLifeStyleID, new { id = "hdnAdditionalLifeStyle" + Index + LifeStyleQuestionCount, @class = "form-control" })</td>
+                <td style="display:none">@Html.HiddenFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].Isdeleted, new { id = "txtIsDeleted" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>
+                
+                <td>
+                    <input type="button" id="btnDeleteLifeStyleSmoke" value="Delete" class="btn btn-default " onclick="DeleteLifeStyleQARow('@TableID','@Index','@LifeStyleQuestionCount')" />
+                </td>
+            </tr>
+                    LifeStyleQuestionCount++;
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12  form-group">
+    
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="usr">@Resources.GetLabelName("Do You Consume Alcohol?")</label>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-3 col-lg-1 form-group">
+        <label class="radio-inline">
+            @Html.RadioButtonFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.IsAlcholic, true, new { @id = "rdbAlcoholYes" + Index, onchange = "HideShowLifeStyleControls('" + AlcoholDisplayID + "','" + "Yes" + "')" })
+
+            @Resources.GetLabelName("Yes")
+        </label>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-3 col-lg-1 form-group">
+        <label class="radio-inline">
+            @Html.RadioButtonFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.IsAlcholic, false,  new { @id = "rdbAlcoholNo" + Index, onchange = "HideShowLifeStyleControls('" + AlcoholDisplayID + "','" + "No" + "')" })
+            @Resources.GetLabelName("No")
+        </label>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="display:@AlcoholDisplayStyle;padding:20px;margin-bottom:10px;" id=@AlcoholDisplayID>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 ">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="sel1">@Resources.GetLabelName("Type"):</label>
+            @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.AlcholType, new SelectList(Model.lstAlcoholTypes, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlAlcholType" + Index, })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Quantity(ml):")</label>
+            @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.AlcholQuantity, new { id = "txtAlcholQuantity" + Index, @class = "form-control", @onkeypress = "return isNumberKey(event)", @maxlength = "4" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Per"):</label>
+            @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.AlcholPerDay, new SelectList(Model.lstSmokeAndAlcholPer, "ID", "Value"), new { @class = "form-control", @id = "ddlAlcholPerDay" + Index, })
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 ">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label>@Resources.GetLabelName("How Long(Years)?")</label>
+            @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.AlcholDuration, new { id = "txtAlcholDuration" + Index, @class = "form-control", @onkeypress = "return isNumberKey(event)", @maxlength = "2" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <input class="btn btn-default" style="margin-top: 8%;width: 23%;height: 39px; margin-bottom:5%" type="button" onclick="AddLifeStyleAlcholRow('@TableID1','@Index')" value="Add">
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="table-responsive">
+        <table class="table style-table" id=@TableID1>
+            <thead>
+                <tr>
+                    <th class="textAlign">Type</th>
+                    <th class="textAlign">Number</th>
+                    <th class="textAlign">Per</th>
+                    <th class="textAlign">How Long(Years)?</th>
+
+                    <th class="textAlign">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.objMemberDetails[Index].objLifeStyleQuetions != null)
+            {
+                for (int i = 0; i < Model.objMemberDetails[Index].objLifeStyleQuetions.objAlcoholDetails.Count(); i++)
+                {
+
+                    string _RowID = "Alcohol" + Index + i;
+                        <tr id='@_RowID'>
+                            <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objAlcoholDetails[i].AlcholType, new { id = "ddlAlcholType" + Index + LifeStyleQuestionCount1, @class = "form-control", @readonly = "readonly" })</td>
+                            <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objAlcoholDetails[i].AlcholQuantity, new { id = "txtAlcholQuantity" + Index + LifeStyleQuestionCount1, @class = "form-control", @readonly = "readonly" })</td>
+                            <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objAlcoholDetails[i].AlcholPerDay, new { id = "ddlAlcholPerDay" + Index + LifeStyleQuestionCount1, @class = "form-control", @readonly = "readonly" })</td>
+                            <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objAlcoholDetails[i].AlcholDuration, new { id = "txtAlcholDuration" + Index + LifeStyleQuestionCount1, @class = "form-control", @readonly = "readonly" })</td>
+                            <td style="display:none">@Html.HiddenFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objAlcoholDetails[i].AdditionalLifeStyleID, new { id = "hdnAdditionalLifeStyleID" + Index + LifeStyleQuestionCount1, @class = "form-control", @readonly = "readonly" })</td>
+                            <td style="display:none">@Html.HiddenFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objAlcoholDetails[i].Isdeleted, new { id = "txtAlIsDeleted" + Index + LifeStyleQuestionCount1, @class = "form-control" })</td>
+                            <td>
+                                <input type="button" id="btnDeleteLifeStyleAlcholQA" value="Delete" class="btn btn-default " onclick="DeleteLifeStyleAlcholRow('@TableID1','@Index','@LifeStyleQuestionCount1')" />
+                            </td>
+                        </tr>
+                    LifeStyleQuestionCount1++;
+                }
+            }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (Model.PlanName == "Easy Pensions")
+{
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+        <div>
+            @if (Model.objMemberDetails[Index].LstEasyPensionQuestions != null && Model.objMemberDetails[Index].LstEasyPensionQuestions.Count() > 0)
+            {
+                // Row Index
+                @CustomRowRenderingControlEasyPension(Model.objMemberDetails[Index].LstEasyPensionQuestions.OrderBy(a => a.SequenceNo).ToList(), Index, QuestionIndex, index, 0, 0, "False", "False")
+                index = index + 1;
+                QuestionCount = QuestionCount + 1;
+            }
+        </div>
+
+    </div>
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+    <div>
+        @if (Model.objMemberDetails[Index].Questions != null && Model.objMemberDetails[Index].Questions.Count() > 0)
+        {
+            // Row Index
+            @CustomRowRenderingControl(Model.objMemberDetails[Index].Questions.OrderBy(a => a.SequenceNo).ToList(), Index, QuestionIndex, index, 0, 0, "False", "False")
+            index = index + 1;
+            QuestionCount = QuestionCount + 1;
+        }
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var IsSmoker = '@Model.objMemberDetails[Model.AssuredIndex].objLifeStyleQuetions.IsSmoker';
+        if (IsSmoker == "True") {
+            $("#DivSmoke" + '@Model.AssuredIndex').show();
+        }
+        @*if (IsSmoker == "False") {
+            $("#rdbSmokerNo" + '@Model.AssuredIndex').prop('checked', false);
+            if (@Model.PolicyID > 0) {
+                $("#rdbSmokerNo" + '@Model.AssuredIndex').prop('checked', true);
+            }
+        }*@
+       
+        var IsAlcohol = '@Model.objMemberDetails[Model.AssuredIndex].objLifeStyleQuetions.IsAlcholic';
+        if (IsAlcohol == "True") {
+            $("#DivAlcohol" + '@Model.AssuredIndex').show();
+        }
+        @*if (IsAlcohol == "False") {
+            $("#rdbAlcoholNo" + '@Model.AssuredIndex').prop('checked', false);
+            if (@Model.PolicyID > 0) {
+                $("#rdbAlcoholNo" + '@Model.AssuredIndex').prop('checked', true);
+            }
+        }*@
+    });
+    function HideShowLifeStyleControls(ID, Value) {
+        if (Value == 'Yes') {
+            $('#' + ID).show();
+        }
+
+        else {
+            $('#' + ID).hide();
+        }
+    }
+
+    function HideShowChildsLFRadio(ID, Value, ControlValue) {
+
+        if (Value == ControlValue) {
+            $('#' + ID).show();
+        }
+        else {
+            $('#' + ID).hide();
+        }
+    }
+
+    function toggleIcon(e) {
+        $(e.target)
+
+            .prev('.panel-heading')
+            .find('.more-less')
+            .toggleClass('glyphicon-plus glyphicon-minus');
+    }
+    $('.panel').on('hidden.bs.collapse', toggleIcon);
+    $('.panel').on('shown.bs.collapse', toggleIcon);
+
+    function HeightFunction(index)
+    {
+        var Heightvalue = $("#txtHeight0").val();
+        if (Heightvalue < 90) {
+            $("#checkboxDeclaration").prop("checked", false);
+            writeMultipleMessage("error", "Enter Minimum  Height Must be Above 90 cms", "txtHeight0");
+           
+        }
+        else if (Heightvalue > 220) {
+            $("#checkboxDeclaration").prop("checked", false);
+            writeMultipleMessage("error", "Enter Maximum  Height Must be Below 220 cms", "txtHeight0");
+            
+        }
+        else {
+            writeMultipleMessage("error", "", "txtHeight0");
+        }
+        if ($("#txtHeight1").val() != 0) {
+            var SpouseHeightvalue = $("#txtHeight1").val();
+            if (SpouseHeightvalue < 90) {
+                $("#checkboxDeclaration").prop("checked", false);
+                writeMultipleMessage("error", "Enter Minimum  Height Must be Above 90 cms", "txtHeight1");
+               
+            }
+            else if (SpouseHeightvalue > 220) {
+                $("#checkboxDeclaration").prop("checked", false);
+                writeMultipleMessage("error", "Enter Maximum  Height Must be Below 220 cms", "txtHeight1");
+               
+            }
+            else {
+                writeMultipleMessage("error", "", "txtHeight1");
+            }
+        }
+
+    }
+    function WeightFunction()
+    {
+       
+        var Weightvalue = $("#txtWeight0").val();
+        if (Weightvalue < 20) {
+            $("#checkboxDeclaration").prop("checked", false);
+            writeMultipleMessage("error", "Enter Minimum Weight Must be Above 20 Kg's", "txtWeight0");
+            
+        }
+        else if(Weightvalue > 160)
+        {
+            $("#checkboxDeclaration").prop("checked", false);
+            writeMultipleMessage("error", "Enter Maximum Weight Must be Below 160 Kg's", "txtWeight0");
+            
+        }
+        else
+        {
+            writeMultipleMessage("error", "", "txtWeight0");
+        }
+
+        if ($("#txtWeight1").val() != 0) {
+            var SpouseWeightvalue = $("#txtWeight1").val();
+            if (SpouseWeightvalue < 20) {
+                $("#checkboxDeclaration").prop("checked", false);
+                writeMultipleMessage("error", "Enter Minimum Weight Must be Above 20 Kg's", "txtWeight1");
+            }
+            else if (SpouseWeightvalue > 160) {
+                $("#checkboxDeclaration").prop("checked", false);
+                writeMultipleMessage("error", "Enter Maximum Weight Must be Below 160 Kg's", "txtWeight1");
+            }
+            else {
+                writeMultipleMessage("error", "", "txtWeight1");
+            }
+        }
+    }
+
+</script>

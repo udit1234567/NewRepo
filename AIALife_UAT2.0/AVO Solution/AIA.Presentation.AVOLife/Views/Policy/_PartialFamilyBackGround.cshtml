@@ -1,0 +1,289 @@
+﻿
+
+@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+
+    int Index = Model.AssuredIndex;
+    int index = 0;  // Row Index
+    int QuestionCount = 0;
+    int QuestionIndex = 0;
+
+    ViewBag.QuestionIndex1 = -1;
+    string PanleID = "DivPanelFamilyBG" + Index;
+    string PanleNavigatorheader = "#PanelFamilyBG" + Index;
+    string PanleNavigator = "PanelFamilyBG" + Index;
+
+    string TableID = "DivFamilyBGTable" + Index;
+    string SubGrid = "DivFamilyBGSUBGrid" + Index;
+    string FamilyMemberTableID = "DivFamilyMemberHistory" + Index;
+    string FamilyBackGroundTableID = "DivFamilyBackGroundHistoryDetails" + Index;
+    int FamilyMemberCount = 0;
+
+
+}
+
+@helper CustomRowRenderingControl(List<AIA.Life.Models.Common.QuestionsList> lstFamilyQuestions, int MemberIndex, int QuestionInd, int RowIndex, int SubRowIndex = 0, int SuperSubRowIndex = 0, string IsChild = null, string IsSubChild = null)
+{
+    <style>
+        .question-count {
+            width: 5%;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 9px !important;
+        }
+
+        .question-text {
+            display: inline-block;
+            width: 90%;
+            vertical-align: top;
+                word-break: break-word;
+        }
+    </style>
+int QuestionIndex = QuestionInd;
+foreach (var Questions in lstFamilyQuestions)
+{
+    ViewBag.QuestionIndex1 = ViewBag.QuestionIndex1 + 1;
+    int i = ViewBag.QuestionIndex1;
+    int AssuredIndex = Model.AssuredIndex;
+    string ParentId = Convert.ToString(MemberIndex) + Convert.ToString(QuestionIndex) + Convert.ToString(Questions.QuestionID);
+    string ChildID = ParentId + "C";
+    string TableID = "DivFamilyBGTable" + AssuredIndex;
+    string Display = "none";
+    if (IsSubChild == "True")
+    {
+        SuperSubRowIndex++;
+    }
+    else if (IsChild == "True")
+    {
+        SubRowIndex++;
+    }
+    else
+    {
+        RowIndex++;
+    }
+   
+
+    if (Questions.ControlType == "Radio")
+    {
+        string ClassName = string.Empty;
+        if (IsChild == "True" || IsSubChild == "True")
+        { ClassName = "Childfamilyquestions"; }
+        else { ClassName = "family-questions"; }
+        <div class=@ClassName id=@ParentId>
+
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+                <p>
+                    @if (IsSubChild == "True")
+                    {
+                        <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex </span>
+                    }
+                    else if (IsChild == "True")
+                    {
+                        <span class="question-count">@RowIndex.@SubRowIndex </span>
+                    }
+                    else
+                    {
+                        <span class="question-count">@RowIndex</span>
+                    }
+                    <span class="question-text">@Resources.GetLabelName(Questions.QuestionText)</span>
+                </p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 radiobtn-space">
+
+                @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstFamily[" + i + "].Answer", "true", Questions.Answer == "true" ? true : false, new { @class = "med-radio-button", id = "rdbtnAnswerTextYes" + MemberIndex + QuestionIndex, onchange = "HideShowChildsFamilyRadio('" + ChildID + "','" + Questions.Value + "','" + "true" + "'), ShowFamilyBackGroundTable('" + TableID + "'," + MemberIndex + ")" }) 
+                <label>@Resources.GetLabelName("Yes")</label>
+                @Html.RadioButton("objMemberDetails[" + MemberIndex + "].objLstFamily[" + i + "].Answer", "false", Questions.Answer == "false" ? true : false, new { @class = "med-radio-button", id = "rdbtnAnswerTextNo" + MemberIndex + QuestionIndex, onchange = "HideShowChildsFamilyRadio('" + ChildID + "','" + Questions.Value + "','" + "false" + "'), HideFamilyBackGroundTable('" + TableID + "'," + MemberIndex + ")" })
+                <label>@Resources.GetLabelName("No")</label>
+
+            </div>
+
+            <div>
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstFamily[" + i + "].QuestionID", Questions.QuestionID, new { })
+                @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstFamily[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+            </div>
+
+        </div>
+        if (Questions.LstQuestionsTypes != null)
+        {
+            if (Questions.LstQuestionsTypes.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(Questions.Answer))
+                {
+                    if (Questions.Answer == Questions.Value)
+                    { Display = "div"; }
+                }
+                <div class="family-subquestion-txt" id=@ChildID style="display:@Display; text-align:right">
+                    <div>
+                        <p>
+                            @if (IsChild == "True")
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, SubRowIndex, 0, "False", "True")
+                            }
+                            else
+                            {
+                                @CustomRowRenderingControl(Questions.LstQuestionsTypes, MemberIndex, i, RowIndex, 0, 0, "True", "False")
+                            }
+                        </p>
+                    </div>
+                </div>
+                }
+            }
+
+
+        }
+        else if (Questions.ControlType == "TextBox")
+        {
+            string ClassName = string.Empty;
+            if (IsChild == "True" || IsSubChild == "True")
+            { ClassName = "Childfamilyquestions"; }
+            else { ClassName = "family-questions"; }
+            <div class=@ClassName id=@ParentId>
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
+
+                    <p>
+                        @if (IsSubChild == "True")
+                        {
+                            <span class="question-count">@RowIndex.@SubRowIndex.@SuperSubRowIndex</span>
+                        }
+                        else if (IsChild == "True")
+                        {
+                            <span class="question-count">@RowIndex.@SubRowIndex</span>
+                        }
+                        else
+                        {
+                            <span class="question-count">@RowIndex</span>
+                        }
+                        <span class="question-text"> @Resources.GetLabelName(Questions.QuestionText)</span>
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-box-space">
+                    @Html.TextBox("objMemberDetails[" + MemberIndex + "].objLstFamily[" + i + "].Answer", Questions.Answer == null ? "" : Questions.Answer, new { @maxlength = "1000", @class = "form-control" })
+                </div>
+
+                <div>
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstFamily[" + i + "].QuestionID", Questions.QuestionID, new { })
+                    @Html.Hidden("objMemberDetails[" + MemberIndex + "].objLstFamily[" + i + "].MemberQuestionID", Questions.MemberQuestionID, new { })
+                </div>
+
+            </div>
+    }
+    QuestionIndex++;
+}
+}
+@*Panel Family BackGround Questions*@
+
+<div class="panel-body">
+    <div>
+        @if (Model.objMemberDetails[Index].objLstFamily != null && Model.objMemberDetails[Index].objLstFamily.Count() > 0)
+        {
+            // Row Index
+            @CustomRowRenderingControl(Model.objMemberDetails[Index].objLstFamily.OrderBy(a => a.SequenceNo).ToList(), Index, QuestionIndex, 0, 0, 0, "False", "False")
+            index = index + 1;
+            QuestionCount = QuestionCount + 1;
+        }
+    </div>
+</div>
+
+
+<div class="col-md-12 col-sm-12  col-lg-12 form-group" style="margin-top: 20px;display:none;"  id="@FamilyMemberTableID">
+    <input type="button" class="btn btn-default" value="Add Family Member History" onclick="AddFamilyBackGroundRow('@TableID','@Index')" style="padding-left:20px;padding-right:20px;" />
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 familyGrid">
+    <div class="table-responsive" id="@FamilyBackGroundTableID" style="display:none;">
+        <table class="table table-bordered" id=@TableID>
+            <thead class="backgroundclr">
+                <tr>
+                    <th class="textAlign"></th>
+                    <th class="textAlign" colspan="2">If Living</th>
+                    <th class="textAlign" colspan="2">If Deseased</th>
+                    <th class="textAlign"></th>
+                </tr>
+                <tr>
+                    <th class="textAlign">Relationship</th>
+                    <th class="textAlign">Present Age</th>
+                    <th class="textAlign">State of Health</th>
+                    <th class="textAlign">Age at Death</th>
+                    <th class="textAlign">Cause</th>
+                    <th class="textAlign">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.objMemberDetails[Index].objLstFamilyBackground.Count(); i++)
+            {
+                string _RowID = "FamilyRow" + Index + i;
+                    <tr id='@_RowID'>
+                        <td>@Html.DropDownListFor(a => a.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].FamilyPersonType, new SelectList(Model.lstFamilyBackGroundRelationship, "ID", "Value", Model.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].FamilyPersonType), new { id = "DDLRelationShipWithMember" + Index + FamilyMemberCount, @class = "form-control", @onchange = "validateFamilyHistory('" + TableID + "'," + Index + "," + FamilyMemberCount + ")" })</td>
+                        <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].PresentAge, new { id = "PresentAge" + Index + FamilyMemberCount, @class = "form-control", @maxlength = "3", @onkeypress = "return isNumberKey(event)" })</td>
+                        <td>@Html.DropDownListFor(a => a.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].StateOfHealth, new SelectList(Model.lstSateofHealth, "ID", "Value", Model.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].StateOfHealth), new { id = "DDLStateOfHealth" + Index + FamilyMemberCount, @class = "form-control", @onchange = "AddFamilyStateOfHealthGridRow('" + TableID + "'," + Index + "," + FamilyMemberCount + ")" })</td>
+                        <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].AgeAtDeath, new { id = "AgeAtDeath" + Index + FamilyMemberCount, @class = "form-control", @maxlength = "3", @onkeypress = "return isNumberKey(event)" })</td>
+                        <td>@Html.DropDownListFor(a => a.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].Cause, new SelectList(Model.lstCauseOfDeath, "ID", "Value", Model.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].Cause), "", new { id = "DDLCause" + Index + FamilyMemberCount, @class = "form-control" })</td>
+                        <td style="display:none">@Html.HiddenFor(a => a.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].Isdeleted, new { id = "txtFamilyIsDeleted" + Index + FamilyMemberCount, @class = "form-control", @readonly = "readonly" })</td>
+                        <td>
+                            <input type="button" id="btnDeleteFamilyBackGround" value="Delete" class="btn btn-default " onclick="DeleteFamilyBackGroundRow('@TableID','@Index','@FamilyMemberCount')" />
+                        </td>
+                        <td style="display:none">@Html.TextBoxFor(a => a.objMemberDetails[Index].objLstFamilyBackground[FamilyMemberCount].FamilyBackgroundId, new { id = "FamilyBackgroundId" + Index + FamilyMemberCount, @class = "form-control" })</td>
+
+                    </tr>
+                FamilyMemberCount++;
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var index = '@Model.AssuredIndex';
+        if ($("input[id='rdbtnAnswerTextYes" + index + "0']").is(':checked') == true) {
+            $("#DivFamilyMemberHistory" + index).show();
+            $("#DivFamilyBackGroundHistoryDetails" + index).show();
+        }
+        $("#DivFamilyBGTable" + @Model.AssuredIndex + " tbody").find("tr").each(function (gridid) {
+            var StateofHealth = $("#DDLStateOfHealth" + index + gridid).val();
+            var CauseOfDeath = $("#DDLCause" + index + gridid).val();
+            if (CauseOfDeath != '' && CauseOfDeath != null)
+            {
+                $("#DDLStateOfHealth" + index + gridid).val('');
+                StateofHealth = '';
+            }
+            if (StateofHealth != '' && StateofHealth != null) {
+                $("#AgeAtDeath" + index + gridid).val('');
+                $("#AgeAtDeath" + index + gridid).attr("readonly", true);
+                $("#DDLCause" + index + gridid).val('');
+                $("#DDLCause" + index + gridid).prop('disabled', true);
+            }
+            else if (CauseOfDeath != '' && CauseOfDeath != null) {
+                $("#PresentAge" + index + gridid).val('');
+                $("#PresentAge" + index + gridid).attr("readonly", true);
+                $("#DDLStateOfHealth" + index + gridid).val('');
+                $("#DDLStateOfHealth" + index + gridid).prop('disabled', true);
+            }
+        });
+    });
+
+    function HideShowChildsFamilyRadio(ID, Value, ControlValue) {
+        if (Value == ControlValue) {
+            $('#' + ID).show();
+        }
+        else {
+            $('#' + ID).hide();
+        }
+    }
+    function ShowFamilyBackGroundTable(DivID, MemberIndex) {
+        $("#DivFamilyMemberHistory" + MemberIndex).show();
+        $("#DivFamilyBackGroundHistoryDetails" + MemberIndex).show();
+    }
+    function HideFamilyBackGroundTable(DivID, MemberIndex) {
+        $("#DivFamilyMemberHistory" + MemberIndex).hide();
+        $("#DivFamilyBackGroundHistoryDetails" + MemberIndex).hide();
+    }
+
+
+
+</script>
+

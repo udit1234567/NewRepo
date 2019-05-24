@@ -1,0 +1,136 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+@using AIA.Presentation.Helpers
+@using GridMvc.Html;
+@using Grid.Mvc.Ajax.GridExtensions
+@using AIAResources;
+
+@Styles.Render("~/Content/AjaxGridCss")
+@Scripts.Render("~/bundles/UserManagement")
+@Scripts.Render("~/bundles/Dialog")
+@Styles.Render("~/Content/Dialogcss")
+<script src="~/Scripts/fileinput.js"></script>
+<script>
+    function ValidateUser() {
+        if ($("#txtUserID").val() == "")
+        {
+            writeMultipleMessage("error", "Please Enter UserId", "txtUserID");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtUserID");          
+        
+       
+        $("#hdnUserID").val($("#txtUserID").val())
+        $.ajax({
+            url: "../../UserManagement/ValidateUserDetails",
+            data: $("#fromUserAccess").serialize(),
+            type: "POST",
+            success: function (data) {
+                               
+                if (data.AddOn == "error") {
+                    EnableQuotePage();
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Note',
+                        closable: true,
+                        size: 'size-large',
+                        message: data.Errormsg,
+                        buttons: [{
+                            label: 'OK',
+                            action: function (dialogItself) {
+                                dialogItself.close();
+                            }
+                        }]
+                    });
+
+                }
+                else {
+               
+                    $("#dividUserDetails").html('');
+                    $("#dividUserDetails").show();
+                    $("#dividUserDetails").html(data);
+                    $("#ddlstatus").prop("disabled", true);
+                }
+            },
+            error: function () {
+                $("#dividUserDetails").html("No record found. Try after some Time");
+            }
+        });
+        }
+    }
+    function GetProductPrivilages(type) {
+        debugger;
+        if (type == "Paymentmode") {
+            var url = '@Url.Action("PaymentTree", "UserManagement")';
+            $('#idproductpaymnetmode').load(url, { userId: $("#txtUserID").val() });
+            $('#idproductpaymnetmode').show();
+        } else {
+              var url = '@Url.Action("MenuTree", "UserManagement")';
+            $('#idMenu').load(url, { userId: $("#txtUserID").val() });
+            $('#idMenu').show();
+        }
+    }
+</script>
+
+@*<ul class="nav nav-pills fixing-list-width" style="padding:0 15px;">
+        <li class="active">
+            <a data-toggle="pill" href="#collapseUP" class="collapsed">
+                <i class="fa fa-info"></i>
+                @Resources.GetLabelName("User Profile")
+            </a>
+        </li>
+        <li>
+            <a data-toggle="pill" href="#collapsePP" class="collapsed" id="needidentificationtab">
+                <i class="fa fa-question"></i>
+                @Resources.GetLabelName("Payment/Menu-Product Priveleges")
+            </a>
+        </li>
+
+    </ul>*@
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+
+        <div class="btn btn-info"><b>@Resources.GetLabelName("Access Permission")</b></div>
+    </div>
+</div>
+<br />
+
+@using (Html.BeginForm("", "", new { ReturnUrl = "" }, FormMethod.Post, new { role = "form", id = "fromUserAccess" }))
+{
+    @*<div id="collapseUP" class="tab-pane fade in active">*@
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a style="color: white;" class="icon-user"></a>
+                <a data-toggle="collapse" data-target="#collapse3" href="#collapseone" class="collapsed">
+                    User Access <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+    </div>
+
+    <div id="collapse3" class="panel-collapse in">
+        <div class="col-lg-12 col-sm-12 form-group">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChilName">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("User ID")<span class="mandatory">*</span></label>
+                    @Html.HiddenFor(x => x.UserName, new { @id = "hdnUserID" })
+                    @(Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @id = "txtUserID", @onkeypress = "return return isAlphaNumberKeyback(this)" }))
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group umbtn">
+                    <input type="button" value="Validate" id="btnClientCreateUser" onclick="ValidateUser()" class="btn btn-default" style="width:130px">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dividUserDetails">
+    </div>  
+}

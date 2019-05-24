@@ -1,0 +1,98 @@
+﻿@model  AIA.Life.Models.Opportunity.QuoteList
+@using AIA.Presentation.Helpers
+@using AIAResources;
+
+
+<div class="col-lg-12 col-sm-12 prospectinfo-item">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Do You Have Any Ongoing Proposal With AIA")</label>
+        </div>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            @Html.RadioButtonFor(a => a.ObjQuotationPreviousInsurance.OnGoingProposalWithAIA, 1, new { @id = "rbtnOnGoingProposalWithAIA", @onclick = "ShowTextBox1()" })<span class="checkboxtext">@Resources.GetLabelName("Yes")</span>
+            @Html.RadioButtonFor(a => a.ObjQuotationPreviousInsurance.OnGoingProposalWithAIA, 2, new { @id = "rbtnOnGoingProposalWithAIA", @onclick = "ShowTextBox1()" })<span class="checkboxtext">@Resources.GetLabelName("No")</span>
+
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3"></div>
+</div>
+
+<div class="col-lg-12 col-sm-12 prospectinfo-item" id="divTxt1" style="display:none">
+    <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("How Many")</label>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+        <div class="form-group">
+            @Html.TextBoxFor(a => a.ObjQuotationPreviousInsurance.NoOfOnGoingProposalWithAIA, new { @class = "form-control", @id = "txtNoOfOnGoingProposalWithAIA", @onblur = "LoadPreviousInsuranceGrid()", onkeypress = "return isNumberKey(event)" })
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6"></div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Have You Taken Any Policy Previously with AIA")</label>
+        </div>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            @Html.RadioButtonFor(a => a.ObjQuotationPreviousInsurance.PreviousPolicyWithAIA, 1, new { @id = "rbtnPreviousPolicyWithAIA",@onclick= "ShowTextBox2()" })<span class="checkboxtext">@Resources.GetLabelName("Yes")</span>
+            @Html.RadioButtonFor(a => a.ObjQuotationPreviousInsurance.PreviousPolicyWithAIA, 2, new { @id = "rbtnPreviousPolicyWithAIA",@onclick = "ShowTextBox2()"})<span class="checkboxtext">@Resources.GetLabelName("No")</span>
+
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3"></div>
+</div>
+<div class="col-lg-12 col-sm-12 prospectinfo-item" id="divTxt2" style="display:none">
+    <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("How Many")</label>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+        <div class="form-group">
+            @Html.TextBoxFor(a => a.ObjQuotationPreviousInsurance.NoOfPreviousPolicyWithAIA, new { @class = "form-control", @id = "txtNoOfPreviousPolicyWithAIA",@onblur= "LoadPreviousInsuranceGrid()", @onkeypress = "return isNumberKey(event)" })
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6"></div>
+</div>
+<script type="text/javascript">
+    function ShowTextBox1()
+    {
+        var rbtnOnGoingProposalWithAIA =$('input[id=rbtnOnGoingProposalWithAIA]:checked').val();        
+        if (rbtnOnGoingProposalWithAIA==1)
+        {
+            $("#divTxt1").show();
+          
+        }   
+        else {
+            $("#divTxt1").hide();
+            $("#divPreviousDetailsGrid").hide();
+        }
+    }
+    function ShowTextBox2() {        
+        var rbtnPreviousPolicyWithAIA = $('input[id=rbtnPreviousPolicyWithAIA]:checked').val();
+        if (rbtnPreviousPolicyWithAIA == 1) {
+            $("#divTxt2").show();
+           
+        }
+        else {
+            $("#divTxt2").hide();
+            $("#divPreviousDetailsGrid").hide();
+            
+        }
+    }
+    
+    
+</script>
+

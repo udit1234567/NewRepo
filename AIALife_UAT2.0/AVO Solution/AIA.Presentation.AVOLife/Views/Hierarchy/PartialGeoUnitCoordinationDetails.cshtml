@@ -1,0 +1,81 @@
+﻿
+@model AIA.Life.Models.Hierarchy.HierarchyData
+@using GridMvc.Html
+@{
+
+}
+                @Html.Grid(Model.ObjCoordination).Named("GridHierarchyManpowerDetails").Columns(columns =>
+           {
+           //columns.Add(a => a.CoordinateID).Titled("").Encoded(false).Sanitized(false).RenderValueAs(a=>Html.CheckBox("CoordinationID"+a.CoordinateID,a.IsChkCoordinateID, new { @id= "CoordinationID"+a.CoordinateID,@class= "form-control numeric", Style = "height:17px;width:17px" }));
+           //columns.Add(a => a.CoordinationSearchID).Titled("").Encoded(false).Sanitized(false).SetWidth("3%").RenderValueAs(a => Html.CheckBox(a.CoordinationSearchID.ToString(), a.IsCoordinationSearch, new { @id = "CoordinationSearchID" + a.CoordinationSearchID, @class = "form-control numeric", Style = "height:14px;width:14px", CoordinationSearchID = a.CoordinationSearchID, SearchCode = a.Partner }));
+           columns.Add(a => a.CoordinationSearchID).Titled("").Encoded(false).Sanitized(false).SetWidth("5%").RenderValueAs(a => Html.CheckBox("CoordinationSearchID" + a.CoordinationSearchID, a.IsCoordinationSearch, new { @id = "CoordinationSearchID" + a.CoordinationSearchID, @class = "form-control numeric", Style = "height:17px;width:17px" }));
+           columns.Add(a => a.CoordinateID).Titled("").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Hidden(a.CoordinateID.ToString(), new { CoordinateID = a.CoordinateID, @id = "hdnCoordinateID" + a.CoordinationSearchID }));
+           columns.Add(a => a.Partner).Titled("Partner").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Label(a.Partner, new { Partner = a.Partner, @id = "lblPartner" + a.CoordinationSearchID }));
+           columns.Add(a => a.Geounittype).Titled("Geo Unit Type").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Label(a.Geounittype, new { Geounittype = a.Geounittype, @id = "lblGeounittype" + a.CoordinationSearchID }));
+           columns.Add(a => a.Geounitname).Titled("Name").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Label(a.Geounitname, new { Geounitname = a.Geounitname, @id = "lblGeounitname" + a.CoordinationSearchID }));
+           columns.Add(a => a.Code).Titled("Code").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Label(a.Code, new { Code = a.Code, @id = "lblCode" + a.CoordinationSearchID }));
+            @*columns.Add().Titled("").Encoded(false).Sanitized(false).Css("text-center").SetWidth("10%").RenderValueAs(@<text>
+                <input type="button" id="btnGEOUnitsdeleteRow" value="-" style="padding:8px;" class="btn btn-default " onclick="DeleteRow(this)" /></text>);*@
+           }).WithPaging(9).WithMultipleFilters()
+           
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+                        $.ajaxSetup({
+                            cache: false
+                        });
+                        pageGrids.GridHierarchyManpowerDetails.ajaxify({
+
+                        });
+                    }
+    });
+
+                function DeleteCoordination()
+                {
+                    for (var CoordinateID=1; CoordinateID <=@Model.ObjCoordination.Count;CoordinateID++) {
+                        if ($("#CoordinationID" + CoordinateID).is(":Checked")) {
+                            var DependentGridCount = '@Model.ObjCoordination.Count';
+                            $("#CoordinationID" + CoordinateID).closest("tr").remove();
+                            DependentGridCount--;
+                        }
+                    }
+    }
+                function ShowGeounitSearchdetails()
+                {
+                    $.post("../Hierarchy/LoadCoordinationDetails", $("#frmHierarchyDetails").serialize())
+                        .done(function (data) {
+                            $('#HierarchyCoordinationModalBody').html(data);
+                            $("#HierarchyCoordinationModal").modal("show");
+                            }).
+                            fail(function () {
+                                BootstrapDialog.alert("Data sumbission Failed. Try after some Time");
+                            });
+                }               
+               
+                function GetCoordinationGridData(Grid) {                    
+                    var IsValid = true;
+                    var count = 0;
+                    var id;
+                    var CoordinateID;
+                    var Partner;
+                    var Geounittype;
+                    var Geounitname;
+                    var Code;
+                    $("#divGridHierarchyCoordinationdetails tbody").find("tr").each(function () {                        
+                        //CoordinateID = $(this).find("[data-name=CoordinateID]").val();     
+                        Partner = $(this).find("[data-name=Partner]").text();                        
+                        Geounittype = $(this).find("[data-name=Geounittype]").text();
+                        Geounitname = $(this).find("[data-name=Geounitname]").text();
+                        Code = $(this).find("[data-name=Code]").text();
+                        if ((Partner != '' && Partner != undefined) && (Geounittype != '' && Geounittype != undefined) && (Geounitname != '' && Geounitname != undefined) && (Code != '' && Code != undefined)) {
+                            Grid.push({
+                                Partner: Partner, Geounittype: Geounittype, Geounitname: Geounitname, Code: Code
+                            })
+                        }
+                    });
+                }
+
+</script>

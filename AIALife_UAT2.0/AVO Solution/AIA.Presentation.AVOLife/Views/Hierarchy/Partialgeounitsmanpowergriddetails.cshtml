@@ -1,0 +1,45 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+    @using GridMvc.Html
+@{ 
+
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse24" href="#collapseTwentyFour" id="pnlGeoUnitDetails" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                Manpower Details
+            </a>
+        </h4>
+    </div>
+    <div id="collapse24" class="panel-collapse in">
+        <div class="panel-body">
+            <div id="divGridHierarchyManpowerdetails">
+                @Html.Grid(Model.ObjManpowerDetails).Named("GridHierarchyManpowerDetails").Columns(columns =>
+           {
+           columns.Add(a => a.Position).Titled("Position").Encoded(false).Sanitized(false);
+           columns.Add(a => a.Designation).Titled("Parent Entity").Encoded(false).Sanitized(false);
+           columns.Add(a => a.NoofEmployees).Titled("Parent Entity").Encoded(false).Sanitized(false);
+           @*columns.Add().Titled("").Encoded(false).Sanitized(false).Css("text-center").SetWidth("10%").RenderValueAs(@<text>
+                    <input type="button" id="btnGEOUnitsdeleteRow" value="-" style="padding:8px;" class="btn btn-default " onclick="DeleteRow(this)" /></text>);*@
+           }).WithPaging(9).WithMultipleFilters().EmptyText("")
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $(".grid-mvc").gridmvc().pageGrids;
+                    if ('@TempData["Load"]' == "FirstTime") {
+                        $.ajaxSetup({
+                            cache: false
+                        });
+                        pageGrids.GridHierarchyManpowerDetails.ajaxify({
+
+                        });
+                    }
+    });
+    </script>

@@ -1,0 +1,81 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+@{
+    int MemberIndex = Model.AssuredIndex;
+    string TableID1 = "tblMedicalDocInfo" + MemberIndex;
+}
+
+<div class="grid-scroll">
+    <table class="table" id="@TableID1">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name of Doctor, Hospital or Clinic</th>
+                <th>Address</th>
+                <th>Date of Last Consult</th>
+                <th><input type="button" id="btnAddDocInfo" value="+" onclick="AddDocInfo('@TableID1','@MemberIndex')" /></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.objMemberDetails[MemberIndex].LstMedicalDoctorsQuestionnariesDetails != null)
+            {
+                for (int i = 0; i < Model.objMemberDetails[MemberIndex].LstMedicalDoctorsQuestionnariesDetails.Count(); i++)
+                {
+                    <tr id="Row_DocInfo_@i@MemberIndex">
+                        <td></td>
+                        <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalDoctorsQuestionnariesDetails[i].varcharFiled1, new { @class = "form-control", @id = "txtDoctorsName" + MemberIndex + i, @onkeypress = "return onlyAlphabets(event)" })</td>
+                        <td>@Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalDoctorsQuestionnariesDetails[i].varcharFiled2, new { @class = "form-control", @id = "txtDoctorsAddress" + MemberIndex + i, onkeypress = "return onlyAlphabets(event)" })</td>
+                        <td>@Html.iNubeDatePickerFor(m => m.objMemberDetails[MemberIndex].LstMedicalDoctorsQuestionnariesDetails[i].DateFiled1, new { @class = "form-control datepicker", @id = "DpDateOfDocInfo" + MemberIndex + i })</td>
+
+                        <td style="display:none">
+                            @Html.TextBoxFor(m => m.objMemberDetails[MemberIndex].LstMedicalDoctorsQuestionnariesDetails[i].IsDeleted, new { @class = "form-control", @id = "txtDocInfoIsDeleted" + MemberIndex + i })
+                            @Html.HiddenFor(a => a.objMemberDetails[MemberIndex].LstMedicalDoctorsQuestionnariesDetails[i].QuestionsId, new { @class = "form-control", @id = "txtDoctorsQuestionID" + MemberIndex + i })
+                        </td>
+                        <td><input type="button" id="btnRemoveDocInfo" value="-" onclick="RemoveDocInfo('Row_DocInfo_@i@MemberIndex', @i,@MemberIndex)" /></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function AddDocInfo(DivID, MemberIndex) {
+
+        var newDocInfoRow;
+        var Index = GetGridIndex(DivID);
+
+        var varcharFiled1 = 'txtDoctorsName' + MemberIndex + Index;
+        var varcharFiled2 = 'txtDoctorsAddress' + MemberIndex + Index;
+        var DateFiled1 = 'DpDateOfDocInfo' + MemberIndex + Index;
+        var DoctorsQuestionID = 'txtDoctorsQuestionID' + MemberIndex + Index;
+        var IsDeleted = 'txtDocInfoIsDeleted' + MemberIndex + Index;
+        var Remove = 'btnRemoveDocInfo' + MemberIndex + Index;
+        var rowNumber = Index + 1;
+        var RowId = "Row_DocInfo" + MemberIndex + Index;
+        var DocInfodateMarkUp = "<td><div id='DpDateOfDocInfo" + MemberIndex + Index + "' class='input-group date' data-date-format='DD/MM/YYYY'><input class='form-control datepicker' data-role='htmlDatePicker' data-val='true' data-val-date='The field DateOfBirth must be a date.' id=\'" + DateFiled1 + "' maxlength='10' name='objMemberDetails[" + MemberIndex + "].LstMedicalDoctorsQuestionnariesDetails[" + Index + "].DateFiled1' type='text' value='' /><span class='input-group-addon' style='padding:0px'><span class='fa fa-calendar'></span></span></div></td>";
+
+        newDocInfoRow = "<tr id='" + RowId + "' >" +
+            "<td>" + "" + "</td>" +
+              "<td><input value='' class='form-control' type='text' onkeypress = 'return onlyAlphabets(event)' name='objMemberDetails[" + MemberIndex + "].LstMedicalDoctorsQuestionnariesDetails[" + Index + "].varcharFiled1' id=\'" + varcharFiled1 + "'/>" +
+              "<td><input value='' class='form-control' type='text'  name='objMemberDetails[" + MemberIndex + "].LstMedicalDoctorsQuestionnariesDetails[" + Index + "].varcharFiled2' id=\'" + varcharFiled2 + "'/>" +
+               DocInfodateMarkUp +
+               "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstMedicalDoctorsQuestionnariesDetails[" + Index + "].QuestionsId' id=\'" + DoctorsQuestionID + "' /></td>" +
+              "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].LstMedicalDoctorsQuestionnariesDetails[" + Index + "].IsDeleted' id=\'" + IsDeleted + "' /></td>" +
+              "<td><input value='-' type='button' onclick='RemoveDocInfo(\"" + RowId + "\",\"" + Index + "\")' class='form-control' id=\'" + Remove + "'/></td>" + "</tr>";
+        $('#' + DivID + ' tbody:last').append(newDocInfoRow);
+        $(function () { $('#DpDateOfDocInfo' + MemberIndex + Index).datetimepicker({ format: 'DD/MM/YYYY', useCurrent: false }); });
+    }
+
+    function RemoveDocInfo(DivID, index,MemberIndex) {
+
+        $('#txtDocInfoIsDeleted' +MemberIndex+ index).val(true);
+
+        writeMultipleMessage("error", "", "txtDoctorsName" + index + "");
+        writeMultipleMessage("error", "", "txtDoctorsAddress" + index + "");
+
+        $('#' + DivID).hide();
+    }
+</script>
+

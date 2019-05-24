@@ -1,0 +1,201 @@
+﻿@model AIA.Life.Models.UserManagement.ImdcodeCreationModel
+@using GridMvc.Html
+@using Grid.Mvc.Ajax.GridExtensions
+@{
+    //FutureGeneraliEntities Entities = new FutureGeneraliEntities();
+
+    //var FetchBranchDetails = new List<iNubeModels.UM.BranchDetails>(){
+
+    //    new iNubeModels.UM.BranchDetails() {BranchCode="123",BranchName="corp",EmployeeCode="Employee",SmCode="sm", Index="1" }
+    //}.AsQueryable();
+
+    int count = 0;
+    AjaxGrid<AIA.Life.Models.UserManagement.BranchDetails> Branchgrid = null;
+    Branchgrid = (AjaxGrid<AIA.Life.Models.UserManagement.BranchDetails>)new AjaxGridFactory().CreateAjaxGrid(Model.lstBranchDetails.AsQueryable(), 1, false);
+}
+
+<script src="~/Scripts/gridmvc.js"></script>
+<script src="~/Scripts/gridmvc-ext.js"></script>
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+<script src="~/Scripts/gridmvc.lang.fr.js"></script>
+<script src="~/Scripts/gridmvc.lang.ru.js"></script>
+<script src="~/Scripts/gridmvc.customwidgets.js"></script>
+<script src="~/Scripts/ladda-bootstrap/ladda.min.js"></script>
+<script src="~/Scripts/ladda-bootstrap/spin.min.js"></script>
+<script src="~/Scripts/URI.js"></script>
+
+<script type="text/javascript">
+    var branchGridData=[];
+    var GblEmpcode="";
+    var ddlsmcodeval="";
+
+    $(document).ready(function(){
+
+        ddlsmcodeval= $("#ddlsmcode0 :selected").val();
+        if($('#hdnImdDetailsId').val()==0)
+        {
+            $(".smcode").prop("disabled", false);
+        }
+        else
+        {
+            $(".smcode").prop("disabled", true);
+        }
+
+        var branchData = @(Html.Raw(Json.Encode(Model.lstBranchDetails)));
+        if(branchData!=null){
+            if(branchData.length > 0){
+                for(i=0;i<branchData.length;i++) {
+                    branchGridData.push({Index:branchData[i].Index});
+                    GblEmpcode=branchData[0].EmployeeCode;
+                }
+            }
+        }
+
+        //Delete grid row
+        //$('td .deleteBranchRow').click(function() {
+        //    $(this).closest('tr').find('.RowIndex').val(true);
+        //    $(this).closest('tr').hide();
+   
+        //})
+
+    });
+
+    function DeleteBranchRow(e)
+    {
+        $("#tblGridBranchDetails tr").eq(parseInt(e) + 1).find('.RowIndex').val(true);
+        $("#tblGridBranchDetails tr").eq(parseInt(e) + 1).hide();
+    }
+
+    function AssignEmpCode(e)
+    {
+        GblEmpcode=$("#Branchdetails .employeeCode :selected").val();
+    }
+
+    function AddBranchGridRow() {
+        var length = (branchGridData.length);
+        var oldEmpCode=GblEmpcode;   //$('#ddlempcode' + branchGridData.length).val();
+
+        branchGridData.push({Index:length});
+        var branchcodeId = 'ddlbranch' + length;
+        var smcodeId = 'ddlsmcode' + length;
+        var employeecodeId = 'ddlempcode' + length;
+        var RowIndexId = 'hdnRowIndexID'+ length;
+        var deleteBranchRowId = 'btnImdDelete'+ length;
+        var gridindex=length.toString().trim();
+        //var newRow = "<tr class='grid-row'><td><select class='form-control branchCode' id=\'" + branchcodeId + "\' onchange='GetSmCodeForBranch("+gridindex+")'></select></td><td><select class='form-control smcode' id=\'" + smcodeId + "\' onchange='GetEmployeeCode(this)'></select></td> <td class='grid-cell' data-name='EmployeeCode'><select class='form-control employeeCode' id=\'" + employeecodeId + "\' readonly></select></td> <td class='grid-cell' data-name=''> <input type='button' value='Delete' class='btn btn-default deleteBranchRow' style='margin-top: -6px;'></td></tr>";
+        var newRow = "<tr><td><select class='form-control branchCode' id=\'" + branchcodeId + "\' name='listBranchDetails["+gridindex+"].BranchCode' onchange='GetSmCodeForBranch("+gridindex+")'></select></td><td><select class='form-control smcode' id=\'" + smcodeId + "\' name='listBranchDetails["+gridindex+"].SmCode' onchange='GetEmployeeCode(this)'></select></td> <td><select class='form-control employeeCode' name='listBranchDetails["+gridindex+"].EmployeeCode' id=\'" + employeecodeId + "\' readonly></select></td> <td> <input id=\'" + deleteBranchRowId + "\' type='button' value='Delete' class='btn btn-default deleteBranchRow' onclick = 'DeleteBranchRow("+gridindex+")' style='margin-top: -6px;'> <input class='RowIndex' data-val='true' data-val-required='The rowIndexID field is required.' id=\'" + RowIndexId + "\' name='listBranchDetails["+gridindex+"].rowIndexID' type='hidden' value='False'> </td></tr>";
+        var branchcodeData = @(Html.Raw(Json.Encode(Model.lstBranchCode)));
+
+        var smCodeData = @(Html.Raw(Json.Encode(Model.lstSMCode)));
+
+        var empCodeData = @(Html.Raw(Json.Encode(Model.lstEmpcode)));
+
+        $('#Branchdetails tbody:last').append(newRow);
+
+        var items="";
+        items += '<option Value=>Select</option>';
+        $.each(branchcodeData, function( index, itemData) {
+            items += '<option Value='+itemData.ID+'>'+itemData.Value+'</option>';
+        });
+        $("#"+branchcodeId).append(items);
+
+        items="";
+        items += '<option Value=>Select</option>';
+        $.each(smCodeData,function( index, itemData) {
+            items += '<option Value='+itemData.ID+'>'+itemData.Value+'</option>';
+        });
+        $("#"+smcodeId).append(items);
+
+        items="";
+        items += '<option Value=>Select</option>';
+        $.each(empCodeData,function( index, itemData) {
+            items += '<option Value='+itemData.ID+'>'+itemData.Value+'</option>';
+        });
+        $("#"+employeecodeId).append(items);
+
+        //Check for IMD Type if it is type 5 then SMCode should Disable
+        if ($("#ddlImdtype option:selected").val() == 5) {
+            if($('#hdnImdDetailsId').val()!=0)
+            {
+                $("#"+smcodeId).val(ddlsmcodeval);
+            }
+            $(".smcode").prop("disabled", true);
+            $("#"+employeecodeId).val(GblEmpcode);
+            if($('#hdnImdDetailsId').val()==0)
+            {
+                $(".smcode").val('');
+            }
+            if(oldEmpCode!="")
+            {
+                $(".employeeCode").attr("disabled", true);
+            }
+
+            $("#"+employeecodeId).val(oldEmpCode);
+        }
+        else {
+            $(".smcode").prop("disabled", true);
+            $(".employeeCode").attr("disabled", true);
+        }
+    }
+
+</script>
+
+<div class="content table-responsive table-full-width">
+    <table class="table table-hover table-striped" id="tblGridBranchDetails">
+        <thead>
+            <tr>
+
+                <th>Branch Code</th>
+                <th>SM Code</th>
+                <th>Employee Code</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.lstBranchDetails.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        @Html.DropDownListFor(a => a.listBranchDetails[i].BranchCode, new SelectList(Model.lstBranchCode, "ID", "Value", Model.listBranchDetails[i].BranchCode), "Select", new { @id = "ddlbranch" + i, @class = "form-control branchCode", @onchange = "GetSmCodeForBranch(" + i + ")" })
+                    </td>
+
+                    <td>
+                        @Html.DropDownListFor(a => a.listBranchDetails[i].SmCode, new SelectList(Model.lstSMCode, "ID", "Value", Model.listBranchDetails[i].SmCode), "Select", new { @id = "ddlsmcode" + i, @class = "form-control smcode", @onchange = "GetEmployeeCode(this)" })
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(a => a.listBranchDetails[i].EmployeeCode, new SelectList(Model.lstEmpcode, "ID", "Value", Model.listBranchDetails[i].EmployeeCode), "Select", new { @readonly = "readonly", @id = "ddlempcode" + i, @class = "form-control employeeCode", @onchange = "AssignEmpCode(event)" })
+                    </td>
+
+                    <td>
+                        <input type="button" id="btnImdDelete" value="Delete" class="btn btn-default deleteBranchRow" onclick="DeleteBranchRow('@i')" style="margin-top: -6px;" />
+                        @Html.HiddenFor(a => a.listBranchDetails[i].rowIndexID, new { @id = "hdnRowIndexID" + i, @class = "RowIndex" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+@* @Html.Grid(Branchgrid).Named("GridBranchDetails").Columns(columns =>
+    {
+        columns.Add(a => a.BranchCode).Titled("Branch Code").Encoded(false).Sanitized(false).RenderValueAs(a => Html.DropDownList(a.BranchCode, new SelectList(Model.lstBranchCode, "ID", "Value", a.BranchCode), "Select", new { @id = "ddlbranch" + a.Index, @class = "form-control branchCode", @onchange = "GetSmCodeForBranch(" + a.Index + ")" }));
+        //columns.Add(a => a.SmCode).Titled("SM Code").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("txtsmcode" + a.Index, a.SmCode, new { @id = "txtsmcode" + a.Index, @class = "form-control smcode" }));
+        columns.Add(a => a.SmCode).Titled("SM Code").Encoded(false).Sanitized(false).RenderValueAs(a => Html.DropDownList(a.SmCode, new SelectList(Model.lstSMCode, "ID", "Value", a.SmCode), "Select", new { @id = "ddlsmcode" + a.Index, @class = "form-control smcode", @onchange = "GetEmployeeCode(this)" }));
+        columns.Add(a => a.EmployeeCode).Titled("Employee Code").Encoded(false).Sanitized(false).RenderValueAs(a => Html.DropDownList(a.EmployeeCode, new SelectList(Model.lstEmpcode, "ID", "Value", a.EmployeeCode), "Select", new { @readonly = "readonly", @id = "ddlempcode" + a.Index, @class = "form-control employeeCode",@onchange="AssignEmpCode(event)" }));
+        //columns.Add(a => a.EmployeeCode).Titled("Employee Code").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("EmployeeCode" + a.Index, a.EmployeeCode, new { @readonly = "readonly", @id = "txtEmployeeCode" + a.Index, @class = "form-control employeeCode" }));
+        columns.Add().Titled("DELETE").Encoded(false).Sanitized(false).RenderValueAs(@<text>
+      <input type="button" id="btnImdDelete"  value="Delete" class="btn btn-default deleteBranchRow"/style="margin-top: -6px;" /></text>);
+    })*@
+
+@if (@Model.isViewMore)
+{
+    <input type="button" value="View More" id="btnViewMore" onclick="ViewMoreBranchGrid()" class="btn btn-default" style="margin-top: 3px;">
+}
+else
+{
+    <input type="button" value="Add" id="btnBranchRowAdd" onclick="AddBranchGridRow()" class="btn btn-default" style="margin-top: 3px;">
+}

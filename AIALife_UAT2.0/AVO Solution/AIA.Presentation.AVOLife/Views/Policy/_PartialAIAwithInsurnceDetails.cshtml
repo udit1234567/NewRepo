@@ -1,0 +1,24 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    int Index = Model.AssuredIndex;
+    string PreviousInsuranceDetailsTableID = "divPolicyPreviousDetailsGrid" + Index;
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="policy-table">
+    <div class="table-responsive policy-table" id="policyinsurancetable">
+        @*@Html.Partial("~/Views/Policy/_PartialLifePrevoiusInsuranceDetailsGrid.cshtml", Model)*@
+        <div id="@PreviousInsuranceDetailsTableID"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var MemberIndex = '@Model.AssuredIndex';
+        $.post("../Policy/LoadPolicyPreviousInsuranceGrid", $("#fromProposalPage").serialize(), function (data) {
+            $("#divPolicyPreviousDetailsGrid" + MemberIndex).html(data);
+            $("#divPolicyPreviousDetailsGrid" + MemberIndex).show();
+        });
+    });
+</script>

@@ -1,0 +1,37 @@
+﻿
+
+@model AIA.Life.Models.Opportunity.Prospect
+@using GridMvc.Html
+
+
+@Html.Grid(Model.ObjProspectPool).Named("GridProspectPoolDetails").Columns(columns =>
+{
+    columns.Add(a => a.ProspectId).Titled("").Encoded(false).Sanitized(false).SetWidth(1).RenderValueAs(a => Html.RadioButton("ProspectId", a.ProspectId, new { @id = "rdnProspectId" + a.ProspectId, @onclick = "showPartialProspectScreen(" + a.ProspectId + ")", @class = "form-control numeric", Style = "height:14px;width:14px" }));
+    columns.Add(a => a.ProspectType).Titled("Type").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProspectName).Titled("Name").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProspectMobile).Titled("Mobile").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProspectHome).Titled("Home").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProspectWork).Titled("Office No").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProspectEmail).Titled("Email").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProspectNicNo).Titled("NIC").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProspectDaysleft).Titled("Days Left").Encoded(false).Sanitized(false).Filterable(true);
+}).WithPaging(5).WithMultipleFilters()
+
+<style type="text/css">
+    .table th {
+        color: white !important;
+        text-align: center;
+    }
+</style>
+
+
+<script type="text/javascript">
+
+    function showPartialProspectScreen(id) {
+        
+        SelectedAnalysisID = id;
+    }
+
+
+
+</script>

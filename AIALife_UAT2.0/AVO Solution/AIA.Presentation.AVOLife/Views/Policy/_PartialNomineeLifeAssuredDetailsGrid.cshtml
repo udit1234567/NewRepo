@@ -1,0 +1,77 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using GridMvc.Html
+@{
+    var LifeAssuredChilds = Model.ObjNomineeLifeAssuredDetails;
+}
+<div class="table-responsive policy-table">
+@Html.Grid(LifeAssuredChilds).Named("GridNomineeLifeAssuredDetails").Columns(columns =>
+{
+    columns.Add(a => a.Index).Titled("").Encoded(false).Sanitized(false).RenderValueAs(a => Html.RadioButton("LifeAssuredChilds[" + a.Index + "].Index", a.Index, new { @id = "rdnRelationShiIndex_" + a.Index, @onclick = "SetRelationShipWithPropspect(id)", @class = "form-control numeric", Style = "height:14px;width:14px" }));
+    //columns.Add(a => a.RelationShipWithPropspectID, true).Titled("").Encoded(false).Sanitized(false);
+    //columns.Add(a => a.RelationShipwithProposer, true).Titled("RelationShipwithProposer").Encoded(false).Sanitized(false);
+    columns.Add(a => a.Salutation).Titled("Salutation").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("LifeAssuredChilds[" + a.Index + "].Salutation", a.Salutation, new { @readonly = "readonly", @id = "txtNomineeLifeAssuredSalutation" + a.Index, @class = "form-control" })); ;
+    columns.Add(a => a.FirstName).Titled("Given Name").Encoded(false).Sanitized(false).SetWidth(40).RenderValueAs(a => Html.TextBox("LifeAssuredChilds[" + a.Index + "].FirstName", a.FirstName, new { @readonly = "readonly", @id = "txtNomineeLifeAssuredFirstName" + a.Index, @class = "form-control" }));
+    columns.Add(a => a.LastName).Titled("Sur Name").Encoded(false).Sanitized(false).SetWidth(50).RenderValueAs(a => Html.TextBox("LifeAssuredChilds[" + a.Index + "].LastName", a.LastName, new { @readonly = "readonly", @id = "txtNomineeLifeAssuredLastName" + a.Index, @class = "form-control" }));
+    columns.Add(a => a.NewNICNO).Titled("NIC No").Encoded(false).Sanitized(false).SetWidth(40).RenderValueAs(a => Html.TextBox("LifeAssuredChilds[" + a.Index + "].NewNICNO", a.NewNICNO, new { @readonly = "readonly", @id = "txtNomineeLifeAssuredNICNumber" + a.Index, @class = "form-control" }));
+    columns.Add(a => a.DateOfBirth).Titled("DateOfBirth").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("LifeAssuredChilds[" + a.Index + "].DateOfBirth", a.DateOfBirth, new { @readonly = "readonly", @id = "txtNomineeLifeAssuredDOB" + a.Index, @class = "form-control" }));
+    columns.Add(a => a.Gender).Titled("Gender").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("LifeAssuredChilds[" + a.Index + "].Gender", a.Gender, new { @readonly = "readonly", @id = "txtNomineeLifeAssuredGender" + a.Index, @class = "form-control" }));
+    columns.Add(a => a.GenderText,true).Titled("GenderText").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("LifeAssuredChilds[" + a.Index + "].GenderText", a.GenderText, new { @readonly = "readonly", @id = "txtNomineeLifeAssuredGenderText" + a.Index, @class = "form-control" }));
+    columns.Add(a => a.MaritialStatus).Titled("MaritialStatus").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("LifeAssuredChilds[" + a.Index + "].MaritialStatus", a.MaritialStatus, new { @readonly = "readonly", @id = "txtNomineeLifeAssuredMaritialStatus" + a.Index, @class = "form-control" }));
+    columns.Add(a => a.MobileNo).Titled("Mobile No").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("LifeAssuredChilds[" + a.Index + "].MobileNo", a.MobileNo, new { @readonly = "readonly", @id = "txtNomineeLifeAssuredMobileNo" + a.Index, @class = "form-control" }));
+}).WithPaging(8)
+</div>
+    <script>
+        //var DivID = 0;
+        //$(document).ready(function () {
+        //    var Index = GetNomineeGridIndex(DivID);
+        //    //var Index = ID - 1;
+        //    var date = $('#txtNomineeLifeAssuredDOB' + Index).val().split(" ")[0];
+        //    //if (date != "" && date != undefined && date != null) {
+        //        var DateOfBirth = date.split(' ')[0];
+        //        var dateArr;
+        //        if (DateOfBirth.split('-')[1] != undefined) {
+        //            dateArr = DateOfBirth.split('-');
+        //        }
+        //        else
+        //            dateArr = DateOfBirth.split('/');
+        //        var DOB = dateArr[0] + '/' + dateArr[1] + '/' + dateArr[2];
+        //   // }
+        //    //var DOB = $("#txtNomineeLifeAssuredDOB0").val();
+        //    //var DateofBirth = DOB.split[0];
+        //    $("#txtNomineeLifeAssuredDOB" + Index).val(DOB);
+        //});
+        //DivID
+        //function GetNomineeGridIndex(DivID) {
+        //    var _index = 0;
+        //    var HasData = false;
+        //    $("#divNomineeDetailsGrid tbody").find("tr").each(function (index) {
+        //        _index = index;
+        //        HasData = true;
+        //    });
+        //    //$("#GridNomineeDetails tbody").find("tr").each(function (index) {
+        //    //    _index = index;
+        //    //    HasData = true;
+        //    //});
+            
+        //    if (HasData) {
+        //        _index = _index + 1;
+        //    }
+        //    return _index;
+        //}
+
+        //function GetNGridIndex(DivID) {
+        //    var _index = 0;
+        //    var HasData = false;
+        //    $("#GridNomineeLifeAssuredDetails tbody").find("tr").each(function (index) {
+        //        _index = index;
+        //        HasData = true;
+        //    });
+        //    if (HasData) {
+        //        _index = _index + 1;
+        //    }
+        //    return _index;
+        //}
+
+        //var DivID = 0;
+      
+    </script>

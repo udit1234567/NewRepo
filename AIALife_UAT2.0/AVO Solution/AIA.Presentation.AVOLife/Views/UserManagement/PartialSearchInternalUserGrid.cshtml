@@ -1,0 +1,87 @@
+﻿@model Grid.Mvc.Ajax.GridExtensions.AjaxGrid<AIA.Life.Models.UserManagement.SearchInternalUser>
+@using GridMvc.Html
+@using GridMvc.Pagination
+@using GridMvc.Sorting
+
+@{
+    var data = ViewBag.Data;
+    string PageName = ViewBag.PageName;
+    var res = string.Empty;
+    if (TempData["Load"] == "FirstTime")
+    {
+        res = data.StaffCode + "," + data.BranchCode + "," + data.Function + "," + data.Title+","+data.isSearch;
+    }
+
+    Model.AjaxGridSettings.PagePartitionSize = 15;
+ 
+  }
+
+ 
+    @Html.Grid(Model).Named("SearchInternalUser").Columns(columns =>
+  {
+    columns.Add(a => a.EmpId,true).Encoded(false).Sanitized(false).SetWidth(20);
+    if (data.isSearch==true)
+    {
+        columns.Add(a => a.StaffCode).Titled("StaffCode").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.ActionLink(a.StaffCode, "ModifyInternalUser", "UserManagement", new { EmpBranchId = a.EmpId ,isSearch=true}, null));  
+    }
+    else if(PageName == "Assign Internal user Privilages")
+    {
+        columns.Add(a => a.StaffCode).Titled("StaffCode").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.ActionLink(a.StaffCode, "AssignPermissions", "UserManagement", new { UserID = a.EmpId }, null));
+    
+    }
+    else
+    {
+        columns.Add(a => a.StaffCode).Titled("StaffCode").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.ActionLink(a.StaffCode, "ModifyInternalUser", "UserManagement", new { EmpBranchId = a.EmpId }, null));  
+   
+    }
+    columns.Add(a => a.StaffName).Titled("StaffName").Encoded(false).Sanitized(false).SetWidth(20);
+    columns.Add(a => a.Function).Titled("Function").Encoded(false).Sanitized(false).SetWidth(20);
+    columns.Add(a => a.DepartmentDesc).Titled("Department").Encoded(false).Sanitized(false).SetWidth(20);
+    columns.Add(a => a.Title).Titled("Title").Encoded(false).Sanitized(false).SetWidth(20);
+    columns.Add(a => a.BranchCode).Titled("BranchCode").Encoded(false).Sanitized(false).SetWidth(20);
+    columns.Add(a => a.ChannelCode).Titled("ChannelCode").Encoded(false).SetWidth(20);
+  }).WithPaging(4).Selectable(true)
+
+
+<script src="~/Scripts/gridmvc.js"></script>
+<script src="~/Scripts/gridmvc-ext.js"></script>
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+<script src="~/Scripts/gridmvc.lang.fr.js"></script>
+<script src="~/Scripts/gridmvc.lang.ru.js"></script>
+<script src="~/Scripts/gridmvc.customwidgets.js"></script>
+<script src="~/Scripts/ladda-bootstrap/ladda.min.js"></script>
+<script src="~/Scripts/ladda-bootstrap/spin.min.js"></script>
+<script src="~/Scripts/URI.js"></script>
+
+
+
+<script type="text/javascript">
+    var searchIMDCode = "";
+    var firstName = "";
+    var lastName = "";
+    var imdName = "";
+    $(document).ready(function () {
+
+        $(".grid-mvc").gridmvc().pageGrids;
+        pageGrids.SearchInternalUser.onRowSelect(function (e) {
+            staffcode = e.row.StaffCode;
+            branchcode = e.row.BranchCode;
+            functionname = e.row.Function;
+            Titlename = e.row.Title;
+
+        })
+
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: false
+            });
+            pageGrids.SearchInternalUser.ajaxify({
+                getData: '../../UserManagement/LoadNxtInternalUser?Details=' + '@res',
+                getPagedData: '../../UserManagement/LoadNxtInternalUser?Details=' + '@res'
+            });
+        }
+
+    });
+
+
+    </script>

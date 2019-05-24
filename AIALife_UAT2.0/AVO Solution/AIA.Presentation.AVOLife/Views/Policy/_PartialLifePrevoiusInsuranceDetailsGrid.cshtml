@@ -1,0 +1,49 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using GridMvc.Html
+@using AIAResources;
+@{
+    var CompanyName = Resources.GetLabelName("Name Of The Insured Comapany");
+    var PolicyNo = Resources.GetLabelName("Policy/Proposal Number");
+    var TotalSAAtDeath = Resources.GetLabelName("Sum Assured (LKR)");
+    var AccidentalBenefitAmount = Resources.GetLabelName("Accidental Death Benifit(LKR)");
+    var PermanentDisability = Resources.GetLabelName("Total Permanent Disability/Waiver Of Premium(LKR)");
+    var CriticalIllnessBenifit = Resources.GetLabelName("Critical Illness Benifit(LKR)");
+    var Status = Resources.GetLabelName("Status");
+
+     }
+
+@Html.Grid(Model.ObjAIALifeAssuredOtherInsurance).Named("LifePreviousInsuranceListGrid").Columns(columns =>
+{
+    columns.Add(a => a.CompanyName).Titled("Company Name").Encoded(false).Sanitized(false);
+    columns.Add(a => a.PolicyNo).Titled("Policy No").Encoded(false).Sanitized(false);
+    columns.Add(a => a.TotalSAAtDeath).Titled("Total SA At Death").Encoded(false).Sanitized(false);
+    columns.Add(a => a.AccidentalBenefitAmount).Titled("Accidental Benefit Amount").Encoded(false).Sanitized(false);
+    columns.Add(a => a.IllNessBenifit).Titled("Critical Illness Benefit").Encoded(false).Sanitized(false);
+    columns.Add(a => a.PermanentDisability).Titled("Permanent Disability").Encoded(false).Sanitized(false);
+    columns.Add(a => a.HospitalizationPerDay).Titled("Hospitalization Daily Benefit").Encoded(false).Sanitized(false);
+    columns.Add(a => a.CurrentStatus).Titled("Status").Encoded(false).Sanitized(false);
+}).WithMultipleFilters()
+<style type="text/css">
+
+ 
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        /*background-color: #B8123E !important;*/
+    }
+
+    @@media screen and (min-width:320px) and (max-width:768px) {
+        .no-more-tables table, thead, tbody, th, td, tr {
+            font-size: 16px !important;
+    font-weight: 300 !important;
+            float: none;
+        }
+    }
+</style>
+<script>
+
+</script>
+

@@ -1,0 +1,139 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+@using AIA.Presentation.Helpers
+@using GridMvc.Html
+@using AIAResources;
+
+@Styles.Render("~/Content/AjaxGridCss")
+<script src="~/Scripts/UserManagement/URI.js"></script>
+<script type="text/javascript">
+    function CheckFtpFile() {
+
+        $.post("../../UserManagement/CheckFileInURL")
+            .done(function (data) {
+
+            });
+    }
+    function SearchUserToGrid() {
+        //txtImdcode, txtImdFirstName, txtImdLastName, DdlBranch, DdlFgChannel
+
+        $.post("../../UserManagement/UsersDetails", $("#frmUserSearch").serialize())
+            .done(function (data) {
+
+                $("#divUserSearchDetail").html(data);
+            }).
+            fail(function () {
+                $("#divUserSearchDetail").html("Failed to fetch data");
+            });
+    }
+
+</script>
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+
+        <div class="btn btn-info"><b>@Resources.GetLabelName("Search User ID")</b></div>
+    </div>
+</div>
+<br />
+<div class="panel-default panel">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a style="color: white;" class="icon-user"></a>
+            <a data-toggle="collapse" data-target="#collapseSearch" href="#collapseone" class="collapsed">
+                Search Users <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+            </a>
+        </h4>
+    </div>
+    <div id="collapseSearch" class="panel-collapse in">
+
+       
+        @using (Html.BeginForm("ModifyUserGrid", "UserManagement", FormMethod.Post, new { @id = "frmUserSearch", @class = "", oncontextmenu = "return false;" }))
+        {
+
+
+            <div class="form-group" id="divUserCreation" style="background-color: White;" oncontextmenu="return false;">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>@Resources.GetLabelName("User Code")<span class="mandatory">*</span></label>
+                            @(Html.TextBoxFor(a => a.UserCode, new { @class = "form-control", @id = "txtUsercode", @onkeypress = "return isAlphaNumberKeyback(event)" }))
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>@Resources.GetLabelName("User Name")<span class="mandatory">*</span></label>
+                            @(Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @id = "txtUserName", @onkeypress = "return isAlphaNumberKeyback(event)" }))
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>@Resources.GetLabelName("Device ID")<span class="mandatory">*</span></label>
+                            @(Html.TextBoxFor(a => a.DeviceID, new { @class = "form-control", @id = "DeviceID" }))
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" style="text-align: center;margin-top:30px;display:block" id="divSearchButtons">
+                        <input type="button" name="Search" value="Search" onclick="SearchUserDetails()" class="btn btn-default" />
+                        <input type="button" name="Clear" value="Clear" onclick="ClearGrid()" class="btn btn-default" />
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div id="divUserSearchDetailgrid">
+            </div>
+            <div id="divUserSearchDetail">
+            </div>
+
+        }
+    </div>
+    </div>
+<script type="text/javascript">
+    function SearchUserDetails() {
+        
+        
+        $('#divUserSearchDetail').hide();
+        if ($("#txtUsercode").val() == "" && $("#txtUserName").val() == "" && $("#DeviceID").val() == "")
+        {
+            writeMultipleMessage("error", "Please Enter User code or User name or Device id", "txtUsercode");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtUsercode");
+        
+        $.ajax({
+            url: "../../UserManagement/GetAllUserDetails",
+            data: $("#frmUserSearch").serialize(),
+            type: "POST",
+            success: function (data) {
+                $("#divUserSearchDetailgrid").html('');
+                $("#divUserSearchDetailgrid").show();
+                $("#divUserSearchDetailgrid").html(data);
+            },
+            error: function () {
+                $("#divUserSearchDetailgrid").html("No record found. Try after some Time");
+            }
+        });
+        }
+    }
+    function ClearGrid()
+    {
+        var Usercode=$("#txtUsercode").val()
+        var Username=$("#txtUserName").val()
+        var DeviceId = $("#DeviceID").val()
+        if(Usercode !="" ||Username !="" ||DeviceId !="")
+        {
+            $("#txtUsercode").val('')
+            $("#txtUserName").val('')
+            $("#DeviceID").val('')
+        }
+    }
+
+</script>

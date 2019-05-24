@@ -1,0 +1,80 @@
+﻿
+@model AIA.Life.Models.Policy.ProposalInbox
+@using GridMvc.Html
+
+@Html.Grid(Model.objProposalDetails).Named("GridProposalincompletePoolDetails").Columns(columns =>
+{
+    //columns.Add(a => a.PolicyID).Titled("").Encoded(false).Sanitized(false).SetWidth("5%").RenderValueAs(a => Html.RadioButton("PolicyID", a.QuoteNo, new { @id = "rdnQuotationId" + a.PolicyID, @onclick = "SetPolicyID('" + a.PolicyID + "','" + a.QuoteNo + "','" + a.ProductCode + "')", @class = "form-control numeric", Style = "height:14px;width:14px" }));
+    columns.Add(a => a.QuoteNo,true).Titled("Quote No").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProposalNo).Titled("Proposal No").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.FullName).Titled("Proposer Name").Encoded(false).Sanitized(false).Filterable(true);
+    //columns.Add(a => a.Salutation).Titled("Salutation").Encoded(false).Sanitized(false).Filterable(true);
+    //columns.Add(a => a.FirstName).Titled("Given Name").Encoded(false).Sanitized(false).Filterable(true);
+    //columns.Add(a => a.Surname).Titled("Surname").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.NIC).Titled("NIC").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.LeadNo).Titled("Lead Number").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.Banca).Titled("Banca Introducer Code").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProposalStatus).Titled("Proposal Status").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.ProductCode,true).Titled("").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Hidden("ProductCode", a.ProductCode, new { @class = "form-control ProductCode" }));
+    columns.Add(a=>a.PreferredLanguage,true).Titled("").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Hidden("PreferredLanguage", a.PreferredLanguage, new { @class = "form-control PreferredLanguage" }));
+    columns.Add(a => a.PolicyID).Titled("Action To Be").Encoded(false).Sanitized(false).RenderValueAs(a => CustomRenderingOfColumn(a));
+    columns.Add().Titled("").Encoded(false).Sanitized(false).Filterable(true).RenderValueAs(a => CustomPrintProposal(a));
+}).WithPaging(5).WithMultipleFilters()
+@helper CustomRenderingOfColumn(AIA.Life.Models.Policy.InboxDetails InboxDetails)
+{
+    if (InboxDetails.ProposalStatus == "Payment Pending")
+    {
+        <a href="javascript:void(0);" onclick="PendingPayment('@AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt(InboxDetails.QuoteNo)')">Proceed To Payment</a>        
+    }
+    else
+    {
+        <a href="javascript:void(0);" onclick="ModifyProposal('@AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt((InboxDetails.PolicyID).ToString())')">Modify Proposal</a>
+    }
+}
+@helper CustomPrintProposal(AIA.Life.Models.Policy.InboxDetails InboxDetails)
+{
+    <a href="javascript:void(0);" onclick="PrintProposal('@AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt(InboxDetails.QuoteNo)','@AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt(InboxDetails.ProductCode)','@AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt(InboxDetails.PreferredLanguage)')">Download Proposal</a>
+}
+
+
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+
+    @@media screen and (min-width:320px) and (max-width:768px) {
+        .no-more-tables table, thead, tbody, th, td, tr {
+            float: none;
+        }
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: false
+            });
+            pageGrids.GridProposalincompletePoolDetails.ajaxify({
+                getData: '../Policy/SearchproposalIncompleteDetails',
+                getPagedData: '../Policy/SearchproposalIncompleteDetails',
+            });
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+

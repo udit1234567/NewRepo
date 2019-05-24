@@ -1,0 +1,216 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+@using AIA.Presentation.Helpers
+@using GridMvc.Html;
+@using Grid.Mvc.Ajax.GridExtensions
+@using AIAResources;
+
+@Styles.Render("~/Content/AjaxGridCss")
+@Scripts.Render("~/bundles/UserManagement")
+@Scripts.Render("~/bundles/Dialog")
+@Styles.Render("~/Content/Dialogcss")
+<script src="~/Scripts/fileinput.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#txtUserRole").prop("disabled", true);
+
+    })
+    function ValidateUserName() {
+
+        var UserCode = $("#txtUserCode").val().toUpperCase();
+        var UserName = $("#txtUserName").val().toUpperCase();
+        var status = $("#ddlstatus").val();
+        var AuthLimit = $("#txtAuthLimit option:selected").text();
+
+        if(UserCode =="")
+        {
+            writeMultipleMessage("error", "Please Enter UW Name", "txtUserCode");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtUserCode");
+
+        }
+        if (UserName == "") {
+            writeMultipleMessage("error", "Please Enter UserName", "txtUserName");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtUserName");
+
+        }
+        //if (UserCode != UserName) {
+        //    writeMultipleMessage("error", "UserCode And UserName Should Be Same For UnderWriter ", "txtUserName");
+        //    return false;
+        //}
+        //else {
+        //    writeMultipleMessage("error", "", "txtUserName");
+
+        //}
+
+        if (status == "0") {
+            writeMultipleMessage("error", "User can be created with Active Status Only", "ddlstatus");
+            return false;
+
+        }
+        else {
+            writeMultipleMessage("error", "", "ddlstatus");
+
+        }
+        if (AuthLimit == "Select") {
+            writeMultipleMessage("error", "Please Select Authorization Limit", "txtAuthLimit");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtAuthLimit");
+            return true;
+        }
+    }
+
+    function SaveUser() {
+        $("#txtUserRole").prop("disabled", false);
+        if (!ValidateUserName()) {
+            return false;
+        }
+        $.post("../../UserManagement/UserCreation", $("#fromCreateUser").serialize(), function (data) {
+
+            if (data.StatusCode == "Failure") {
+                writeMultipleMessage("error", "User is not listed in ADSL site", "dummy");
+                return false;
+            }
+           if (data.StatusCode == "Duplicate") {
+                writeMultipleMessage("error", "Duplicate Users are not allowed to create", "dummy");
+                return false;
+            }
+           if (data.StatusCode == "Error") {
+                writeMultipleMessage("error", "Database Update Failed", "dummy");
+            }
+            else {
+                $('#QuoteModalBody').empty();
+                var Image = '<img class="Img-align" src="../Images/checked1.png" />'
+                var Message = '<p class="text-center">User is Created sucessfully .</p>';
+                $('#QuoteModalBody').append(Image);
+                $('#QuoteModalBody').append(Message);
+                $("#QuoteModal").modal("show");
+            }
+        });
+    }
+    function LoadHomePage() {
+        var CloseWindow = $('#hdnCloseWindow').val();
+        if (CloseWindow == "true") {
+            window.close();
+        }
+        else {
+            window.location.href = '/UserManagement/CreateUser';
+        }
+    }
+</script>
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+
+        <div class="btn btn-info"><b>@Resources.GetLabelName("Create User")</b></div>
+    </div>
+</div>
+<br />
+
+@using (Html.BeginForm("", "", new { ReturnUrl = "" }, FormMethod.Post, new { role = "form", id = "fromCreateUser" }))
+{
+   @Html.HiddenFor(a => a.PageName, new {@id="txtPageName"})
+    <div class="modal fade" id="QuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                    <h5 class="modal-title">@Resources.GetLabelName("Message")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+                <div class="modal-body" id="QuoteModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadHomePage()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a style="color: white;" class="icon-user"></a>
+                <a data-toggle="collapse" data-target="#collapse3" href="#collapseone" class="collapsed">
+                    User Creation <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse in">
+
+
+            <div class="col-lg-12 col-sm-12 form-group">
+
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChilName">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("UW Name")<span class="mandatory">*</span></label>
+                        @*@(Html.TextBoxFor(a => a.UserCode, new { @class = "form-control", @id = "txtUserCode", @onkeypress = "return isAlphaNumberKeyback(event)" }))*@
+                        @(Html.TextBoxFor(a => a.UserCode, new { @class = "form-control", @id = "txtUserCode", @onkeypress = "return AlphabetsWithSpace(event)" }))
+
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChildGender">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("Username")<span class="mandatory">*</span></label>
+                        @*@(Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @id = "txtUserName", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)" }))*@
+                        @(Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @id = "txtUserName", @onkeypress = "return isAlphaNumberKeyback(event)" }))
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("User Status")<span class="mandatory">*</span></label>
+
+                        @Html.DropDownListFor(a => a.UserStatus, new SelectList(Model.lstUserstatus, "ID", "Value", "selected"), new { @class = "form-control", @id = "ddlstatus" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("User Role")<span class="mandatory">*</span></label>
+                        @Html.DropDownListFor(a => a.UserRole, new SelectList(Model.LstUserRole, "Text", "Value", "UW User"), new { @class = "form-control", @id = "txtUserRole" })
+                        @*@(Html.TextBoxFor(a => a.UserRole, new { @class = "form-control", @id = "txtUserRole", @Value = "UW User", @readonly = "readonly" }))*@
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("Mobile Number")</label>
+                        @(Html.TextBoxFor(a => a.MobileNo, new { @class = "form-control", @id = "txtMobileNo", @maxlength = "16", @onkeypress = "return isNumberKey(event)" }))
+                    </div>
+                </div>
+                @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>@Resources.GetLabelName("Reporting Code")</label>
+                            @(Html.TextBoxFor(a => a.ReportingCode, new { @class = "form-control", @id = "txtReportingCode" }))
+                        </div>
+                    </div>*@
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label>@Resources.GetLabelName("Authorization Limit")<span class="mandatory">*</span></label>
+                        @Html.DropDownListFor(a => a.AuthLimit, new SelectList(Model.LstAuthLimit, "Text", "Value"), "Select", new { @class = "form-control", @id = "txtAuthLimit", @onkeypress = "return isNumberKey(event)" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top:30px;display:block" id="divSearchButtons">
+                    <input type="button" value="Submit" id="btnClientCreateUser" onclick="SaveUser()" class="btn btn-default" style="width:130px">
+                    <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/Users?Type=Agent'" class="btn btn-default" style="width:100px">
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

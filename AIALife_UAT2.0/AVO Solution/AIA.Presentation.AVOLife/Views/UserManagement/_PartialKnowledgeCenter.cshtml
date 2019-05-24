@@ -1,0 +1,196 @@
+﻿@model AIA.Life.Models.UserManagement.ContentManagement 
+
+<script>
+
+    $(document).ready(function () {
+        //stopVideo("")
+    });
+
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+    $(".Close-button").click(function () {
+        stopVideo("")
+    })
+
+    //onYouTubeIframeAPIReady();
+
+    function onYouTubeIframeAPIReady() {
+        console.log("YOU")
+        player1 = new YT.Player('player1', {
+            videoId: 'kbq_2h8MNLg',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        player2 = new YT.Player('player2', {
+            videoId: 'GQ4ZC7L_K7E',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        player3 = new YT.Player('player3', {
+            videoId: 'HEuqz7MQdZE',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        player4 = new YT.Player('player4', {
+            videoId: 'eqIFz6Y5DzI',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        player5 = new YT.Player('player5', {
+            videoId: 'r4MGLkxBDEk',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        player6 = new YT.Player('player6', {
+            videoId: 'HXYjPUu8lZw',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        player7 = new YT.Player('player7', {
+            videoId: 'RnP5YxBZL18',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        player8 = new YT.Player('player8', {
+            videoId: '6J1fnzyj68M',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        player9 = new YT.Player('player9', {
+            videoId: 'M8hQjXmTJPY',
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+    function openProduct(evt, productName) {
+        console.log("OPend")
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(productName).style.display = "block";
+        evt.currentTarget.className += " active";
+        stopVideo("");
+    }
+    function onPlayerStateChange(event) {
+        //debugger;
+        if (event.data == YT.PlayerState.PLAYING) {
+            stopVideo(event.target.a.id);
+        }
+    }
+    var player1, player2, player3, player4, player5, player6, player7, player8, player9,stopVideo;
+    function stopVideo(player_id) {
+        if (player_id != "player1") {
+            //player_id.addEventListener("click", function () {
+                // player.pauseVideo();
+            player1.stopVideo(player_id);
+            //});
+
+        }
+        if (player_id != "player2") {
+            player2.stopVideo();
+        }
+        if (player_id != "player3") {
+            player3.stopVideo();
+        }
+        if (player_id != "player4") {
+            player4.stopVideo();
+        }
+        if (player_id != "player5") {
+            player5.stopVideo();
+        }
+        if (player_id != "player6") {
+            player6.stopVideo();
+        }
+        if (player_id != "player7") {
+            player7.stopVideo();
+        }
+        if (player_id != "player8") {
+            player8.stopVideo();
+        }
+        if (player_id != "player9") {
+            player9.stopVideo();
+        }
+    }
+
+    var tag = document.createElement('script');
+    tag.src = "//www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+</script>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">RESOURCE CENTER</h4>
+    <div class="Close-button" style="right: 0;top: 0;position: absolute;margin-top: 10px;"> <button type="button" class="btn btn-default" data-dismiss="modal"><img src="~/Content/Images/Close-128.png" height="20" width="20" /></button></div>
+
+</div>
+<div class="modal-body">
+    <div class="tab">
+        <button class="tablinks active" onclick="openProduct(event, 'Marketing')" id="defaultOpen">Marketing Content</button>
+        <button class="tablinks" onclick="openProduct(event, 'Company')">Company Profile</button>
+        <button class="tablinks" onclick="openProduct(event, 'Brochure')">Product Brochures</button>
+        <button class="tablinks" onclick="openProduct(event, 'AIAFirst')">AIA First Class</button>
+        <button class="tablinks" onclick="openProduct(event, 'ProductVideo')">Product Videos</button>
+        <button class="tablinks" onclick="openProduct(event, 'Recruitment')">Recruitment Videos</button>
+        <button class="tablinks" onclick="openProduct(event, 'customer')">Customer Testimonial</button>
+        <button class="tablinks" onclick="openProduct(event, 'posm')">POSM</button>
+        <button class="tablinks" onclick="openProduct(event, 'csr')">CSR</button>
+    </div>
+
+    <div id="Marketing" class="tabcontent" width="100%" height="100%" style="overflow-x:scroll;">
+        @Html.Partial("~/Views/Knowledge_Center/MarketingView.cshtml")
+    </div>
+    <div id="Company" class="tabcontent" width="100%" height="100%" style="overflow-x:scroll;">
+        @Html.Partial("~/Views/Knowledge_Center/CompanyView.cshtml")
+    </div>
+
+    <div id="Brochure" class="tabcontent" width="100%" height="100%" style="overflow-x:scroll;">
+        @Html.Partial("~/Views/Knowledge_Center/MarketView.cshtml")
+
+    </div>
+    <div id="AIAFirst" class="tabcontent" width="100%" height="100%" style="overflow-x:scroll;">
+        @Html.Partial("~/Views/Knowledge_Center/AIAFirstView.cshtml")
+    </div>
+
+    <div id="ProductVideo" class="tabcontent" width="100%" height="100%" style="overflow-x:scroll;">
+        @Html.Partial("~/Views/Knowledge_Center/ProductView.cshtml")
+    </div>
+    <div id="Recruitment" class="tabcontent" width="100%" height="100%" style="overflow-x:scroll;">
+        @Html.Partial("~/Views/Knowledge_Center/RecruitmentView.cshtml")
+    </div>
+    <div id="customer" class="tabcontent" width="100%" height="100%" style="overflow-x:scroll;">
+        @Html.Partial("~/Views/Knowledge_Center/CustomerView.cshtml")
+
+    </div>
+    <div id="posm" class="tabcontent" width="100%" height="100%" style="overflow-x:scroll;">
+        @Html.Partial("~/Views/Knowledge_Center/PosmView.cshtml")
+
+    </div>
+    <div id="csr" class="tabcontent">
+        @Html.Partial("~/Views/Knowledge_Center/CsrView.cshtml")
+
+    </div>
+    <div class="clearfix"></div>
+
+</div>
+<div class="modal-footer">
+
+</div>
+

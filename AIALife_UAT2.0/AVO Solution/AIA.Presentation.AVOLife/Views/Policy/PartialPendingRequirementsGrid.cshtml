@@ -1,0 +1,51 @@
+﻿
+@model AIA.Life.Models.Policy.UWInbox
+@using GridMvc.Html
+@{ 
+    Layout = null;
+}
+@Html.Grid(Model.LstProposals).Named("GridPendingRequirementsDetails").Columns(columns =>
+{
+    columns.Add(a => a.ProposalNo).Titled("Proposal No").Encoded(false).Sanitized(false).Filterable(true).RenderValueAs(c => @Html.ActionLink(c.ProposalNo, "ModifyProposal", "Policy", new { PolicyID =AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt(c.PolicyId.ToString()) }, null));
+    columns.Add(a => a.QuoteNo).Titled("Quote No").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.InsuredName).Titled("PROPOSER NAME").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.PlanName).Titled("Plan Name").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.Premium,true).Titled("Premium (LKR)").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.Premiumlkr).Titled("Premium (LKR)").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.IssuedDate).Titled("Issue Date").Encoded(false).Sanitized(false).Filterable(true);
+
+}).WithPaging(5).WithMultipleFilters()
+
+<style type="text/css">
+    .table th {
+        /*background-color: #fbd99d;*/
+        color: white !important;
+        text-align: center;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: false
+            });
+            pageGrids.GridPendingRequirementsDetails.ajaxify({
+                getData: '../Policy/ProposalPendingRequirementsNextPage',
+                getPagedData: '../Policy/ProposalPendingRequirementsNextPage',
+            });
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+

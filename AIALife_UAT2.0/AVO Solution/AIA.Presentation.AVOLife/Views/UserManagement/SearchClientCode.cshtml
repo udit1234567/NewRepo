@@ -1,0 +1,106 @@
+﻿@model iNubeModels.UM.SearchClientCodeDetails
+@using iNubeControls
+@using GridMvc.Html
+
+@{
+    var lstsearch = new List<iNubeModels.UM.SearchClientCodeDetails>()
+            {
+                new iNubeModels.UM.SearchClientCodeDetails()
+             { ClientCode = "ClientCode", FirstName = "FirstName", LastName = "LastName", CorporateName = "CorporateName", PAN = "PAN" },
+              new iNubeModels.UM.SearchClientCodeDetails()
+             { ClientCode = "smCode", FirstName = "FirstName", LastName = "LastName", CorporateName = "CorporateName", PAN = "PAN" },
+               new iNubeModels.UM.SearchClientCodeDetails()
+             { ClientCode = "123", FirstName = "clientname", LastName = "LastName", CorporateName = "CorporateName", PAN = "PAN" }
+            }.AsQueryable();
+    var ajaxGrid = new Grid.Mvc.Ajax.GridExtensions.AjaxGridFactory();
+    var grid = ajaxGrid.CreateAjaxGrid(lstsearch, 1, false);
+    
+    //List<iNubeModels.UM.SearchClientCodeDetails> lstsearch = new List<iNubeModels.UM.SearchClientCodeDetails>();
+    //lstsearch.Add(new iNubeModels.UM.SearchClientCodeDetails { ClientCode = "ClientCode", FirstName = "FirstName", LastName = "LastName",CorporateName="CorporateName",PAN="PAN" });
+     
+}
+
+@Styles.Render("~/Content/AjaxGridCss") 
+ 
+@using (Ajax.BeginForm("", "", new AjaxOptions
+    {
+        HttpMethod = "Post",
+
+    }, new { @id = "ClientSearchcodefrm", @class = "form-group" }))
+{     
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#collapse1" href="#collapseone" class="collapsed">Search Client Code <img style="float: right;" src="~/FG/Images/portlet-expand-icon-white.png">
+                </a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-lg-12 col-sm-12 form-group">
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label  text-right">Client Code</label>
+                     <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.ClientCode, new { @class = "form-control", @id = "txtClientcode" }))
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label text-right">First Name</label>
+                    <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.FirstName, new { @class = "form-control", @id = "txtFirstName" }))
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label  text-right">LastName</label>
+                    <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.LastName, new { @class = "form-control", @id = "txtLastName" }))
+                    </div>
+                </div>
+            </div>
+                 <div class="col-lg-12 col-sm-12 form-group">
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label  text-right">PAN</label>
+                     <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.PAN ,new { @class = "form-control", @id = "txtPan" }))
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <label class="col-lg-5 col-sm-5  control-label text-right">Corporate Name</label>
+                    <div class="col-lg-7 col-sm-7">
+                       @(Html.TextBoxFor(a => a.CorporateName, new { @class = "form-control", @id = "txtCorpName" }))
+                    </div>
+                </div>
+                
+            </div>
+               <div class="col-sm-12 form-group">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+                <div class="col-sm-3 col-sm-push-1">
+                    <input type="button" id="btnSearch" name="Search" value="Search" 
+                        class="btn btn-default" />
+                </div>
+                <div class="col-sm-4 "></div>
+            </div>
+                  
+                <div class="col-md-12 form-group" id="ClientSearchDetail">
+             
+                      @Html.Grid(lstsearch).Named("ClientSearchGrid").Columns(columns => 
+                    {
+                        columns.Add(c => c.ClientCode).Titled("Client Code").Sortable(true);
+                        columns.Add(c => c.FirstName).Titled("First Name");
+                        columns.Add(c => c.LastName).Titled("Last Name");
+                        columns.Add(c => c.CorporateName).Titled("Corporatename");
+                        columns.Add(c => c.PAN).Titled("Pan");
+                    }).WithPaging(2)
+                </div>
+                <div class="col-sm-12 form-group">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+                <div class="col-sm-3 col-sm-push-1">
+                    <input type="button" id="btnok"  value="OK" 
+                        class="btn btn-default" />
+                </div>
+                <div class="col-sm-4 "></div>
+            </div>
+            </div>
+        </div>
+        </div>
+}

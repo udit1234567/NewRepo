@@ -1,0 +1,106 @@
+﻿@model AIA.Life.Models.DashBoard.GraphDetails
+@{
+
+}
+
+
+@*<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>*@
+<div id="chartdiv"></div>
+
+<style>
+    #chartdiv {
+  width: 100%;
+  height: 500px;
+}
+</style>
+
+
+<script>
+    var jsonObj=  @Html.Raw(Json.Encode(Model));
+    var chartData = JSON.parse(jsonObj.strDataProvider);
+    $.each(chartData, function (index, value) {
+
+        try {
+            chartData[index].data = JSON.parse(chartData[index].data);
+
+        } catch (e) {
+
+        }
+    });
+   
+    var chart = AmCharts.makeChart("chartdiv", {
+      //  "type": "serial",
+        "type": jsonObj.Type,
+        // "creditsPosition": "top-right",
+        // "autoMargins": false,
+        //"marginLeft": 30,
+        //"marginRight": 8,
+        //"marginTop": 10,
+        //"marginBottom": 26,
+        "titles": [{
+            "text": jsonObj.ReportName
+        }],
+        "dataProvider": chartData,
+        "startDuration":jsonObj.StartDuration,
+        //"graphs": [{
+        //    "alphaField": "alpha",
+        //    "balloonText": "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span> <br>[[description]]",
+        //    "dashLengthField": "dashLengthColumn",
+        //    "fillAlphas": 1,
+        //    "title": "Income",
+        //    "type": "column",
+        //    "valueField": "income",
+        //    "urlField": "url"
+        //}],
+        "graphs": JSON.parse(jsonObj.strlstGraphs),
+       // "categoryField": "category",
+        "categoryField":  jsonObj.CategoryField,
+        //"categoryAxis": {
+        //    "gridPosition": "start",
+        //    "axisAlpha": 0,
+        //    "tickLength": 0
+        //}
+        "categoryAxis":JSON.parse(jsonObj.strcategoryAxis)
+    });
+
+    chart.addListener("clickGraphItem", function (event) {
+        if ('object' === typeof event.item.dataContext.data) {
+
+            // set the monthly data for the clicked month
+            event.chart.dataProvider = event.item.dataContext.data;
+
+            // update the chart title
+           // event.chart.titles[0].text = event.item.dataContext.category + ' monthly data';
+
+            // let's add a label to go back to yearly data
+            event.chart.addLabel(
+              35, 20,
+              "< Go back",
+              undefined,
+              15,
+              undefined,
+              undefined,
+              undefined,
+              true,
+              'javascript:resetChart();');
+
+            // validate the new data and make the chart animate again
+            event.chart.validateData();
+            event.chart.animateAgain();
+        }
+    });
+
+    // function which resets the chart back to yearly data
+    function resetChart() {
+        chart.dataProvider = chartData;
+        //chart.titles[0].text = 'Yearly data';
+
+        // remove the "Go back" label
+        chart.allLabels = [];
+
+        chart.validateData();
+        chart.animateAgain();
+    }
+</script>

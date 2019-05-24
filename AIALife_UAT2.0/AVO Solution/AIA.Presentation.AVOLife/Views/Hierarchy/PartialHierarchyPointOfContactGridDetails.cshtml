@@ -1,0 +1,193 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using AIA.Presentation.Helpers
+@using GridMvc.Html
+
+
+@{
+
+}
+@Html.HiddenFor(a => a.PointofContractData, new { @id= "hdnPointofContractData" })
+
+<div class="col-lg-12 iGrid" id="grdPointOfContactsDetails">
+
+    @Html.Grid(Model.LstPointOfContacts).Named("grdPointOfContactDetails").Columns(columns =>
+{
+columns.Add(a => a.Position).Titled("Position").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("Position", a.Position, new { @id = "txtPointPosition" + a.Index, @class = "form-control" }));
+columns.Add(m => m.Salutation, true).Titled("Salutation").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("Salutation", a.Salutation, new { @id = "ddlSalutation" + a.Index, @class = "form-control" }));
+columns.Add(a => a.FirstName).Titled("First Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("FirstName", a.FirstName, new { @id = "txtPointFirstName" + a.Index, @class = "form-control" }));
+columns.Add(a => a.MiddleName, true).Titled("MiddleName").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("MiddleName", a.MiddleName, new { @id = "txtMiddleName" + a.Index, @class = "form-control" }));
+columns.Add(a => a.LastName).Titled("Last Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("LastName", a.LastName, new { @id = "txtPointLastName" + a.Index, @class = "form-control" }));
+columns.Add(a => a.SLIIRegNo, true).Titled("SLIIRegNo").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("SLIIRegNo", a.SLIIRegNo, new { @id = "txtSLIIRegNo" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Mobile1).Titled("Mobile No 1").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("Mobile1", a.Mobile1, new { @id = "txtPointMobile1" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Mobile2, true).Titled("Mobile2").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("Mobile2", a.Mobile2, new { @id = "txtMobile2" + a.Index, @class = "form-control" }));
+columns.Add(a => a.OfficePhone, true).Titled("OfficePhone").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("OfficePhone", a.OfficePhone, new { @id = "txtOfficePhone" + a.Index, @class = "form-control" }));
+columns.Add(a => a.ResidencePhone, true).Titled("ResidencePhone").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("ResidencePhone", a.ResidencePhone, new { @id = "txtResidencePhone" + a.Index, @class = "form-control" }));
+columns.Add(a => a.Email, true).Titled("Email").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("Email", a.Email, new { @id = "txtPointofEmail" + a.Index, @class = "form-control" }));
+
+columns.Add().Titled("").Encoded(false).Sanitized(false).Css("text-center").SetWidth("10%").RenderValueAs(@<text>
+        <input type="button" id="btnEditRow" value="Edit" style="padding:8px;" class="btn btn-default " onclick="EditRow(this)" /></text>);
+columns.Add().Titled("").Encoded(false).Sanitized(false).Css("text-center").SetWidth("10%").RenderValueAs(@<text>
+        <input type="button" id="btnDeleteGridRow" value="Delete" class="btn btn-default " onclick="DeleteRow(this)" /></text>);
+}).WithPaging(5).WithMultipleFilters().EmptyText("")
+</div>
+
+
+<script>
+    var Length = 0;
+    function AddRow() {        
+        if (Length == 0) {
+            $("#divPointOfContactDetailsGrid tbody").find("tr").each(function (index) {
+                $(this).remove();
+            });
+        }
+        var RowID = "RowMember" + Length;
+        var jsonObj = [];
+        var Position = $('#txtPointPosition').val();
+        var Salutation = parseInt($('#ddlPointSalutation').val());
+        var FirstName = $('#txtPointFirstName').val();
+        var MiddleName = $('#txtPointMiddleName').val();
+        var LastName = $('#txtPointLastName').val();
+        var SLIIRegNo = $('#txtPointSLIIRegNo').val();
+        var Mobile1 = $('#txtPointMobile1').val();
+        var Mobile2 = $('#txtPointMobile2').val();
+        var OfficePhone = $('#txtPointOfficePhone').val();
+        var ResidencePhone = $('#txtPointResidencePhone').val();
+        var Email = $('#txtPointofEmail').val();
+        var newRow = " <tr class='grid-row' id='" + RowID + "'><td class='grid-cell' data-name='Position'><input name='LstPointOfContacts[" + Length + "].Position' type='text' class='form-control'  value='" + Position + "' id=\'txtPointPosition" + Length + "\'></input></td>" +
+            "<td class='grid-cell' data-name='FirstName'><input name='LstPointOfContacts[" + Length + "].FirstName' type='text' class='form-control'  value='" + FirstName + "' id=\'txtPointFirstName" + Length + "\'></input></td>" +
+            "<td class='grid-cell' data-name='LastName'><input name='LstPointOfContacts[" + Length + "].LastName' type='text' class='form-control'  value='" + LastName + "' id=\'txtPointLastName" + Length + "\'></input></td>" +
+            "<td class='grid-cell' data-name='Mobile1'><input name='LstPointOfContacts[" + Length + "].Mobile1' type='text' class='form-control'  value='" + Mobile1 + "' id=\'txtPointMobile1" + Length + "\'></input></td>" +
+
+            "<td class='grid-cell' style='display:none'  data-name='Salutation'><input name='objMemberDetails[" + Length + "].Salutation' type='hidden' class='form-control'  value='" + Salutation + "'  id=\'ddlPointSalutation" + Length + "\'></input></td>" +
+            "<td class='grid-cell' style='display:none'  data-name='Middlename'><input name='objMemberDetails[" + Length + "].MiddleName' type='hidden' class='form-control'  value='" + MiddleName + "'  id=\'txtPointMiddleName" + Length + "\'></input></td>" +
+            "<td class='grid-cell' style='display:none'  data-name='SLIIRegNo'><input name='objMemberDetails[" + Length + "].SLIIRegNo' type='hidden' class='form-control'  value='" + SLIIRegNo + "'  id=\'txtPointSLIIRegNo" + Length + "\'></input></td>" +
+            "<td class='grid-cell' style='display:none'  data-name='Mobile2'><input name='objMemberDetails[" + Length + "].Mobile2' type='hidden' class='form-control'  value='" + Mobile2 + "'  id=\'txtPointMobile2" + Length + "\'></input></td>" +
+            "<td class='grid-cell' style='display:none'  data-name='OfficePhone'><input name='objMemberDetails[" + Length + "].OfficePhone' type='hidden' class='form-control'  value='" + OfficePhone + "'  id=\'txtPointOfficePhone" + Length + "\'></input></td>" +
+            "<td class='grid-cell' style='display:none'  data-name='ResidencePhone'><input name='objMemberDetails[" + Length + "].ResidencePhone' type='hidden' class='form-control'  value='" + ResidencePhone + "'  id=\'txtPointResidencePhone" + Length + "\'></input></td>" +
+            "<td class='grid-cell' style='display:none'  data-name='Email'><input name='objMemberDetails[" + Length + "].Email' type='hidden' class='form-control'  value='" + Email + "'  id=\'txtPointofEmail" + Length + "\'></input></td>" +
+
+        "<td class='grid-cell text-center' data-name='Delete'><input class='btn btn-default' id=\'deleteGridRow" + Length + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteRow(\"" + RowID + "\")' /></td>" +
+        "<td class='grid-cell text-center' data-name='Edit'><input class='btn btn-default' id=\'EditGridRow" + Length + "\' style='margin-top: 3px;' type='button' value='Edit' onclick='EditRow(\"" + Length + "\")' /></td></tr>";
+
+        $('#divPointOfContactDetailsGrid tbody:last').append(newRow);
+
+        RefreshData();
+        Length = Length + 1;
+    }
+
+    var updateID = 0;
+    function EditRow(id) {        
+        updateID = id;
+        var Position = $('#txtPointPosition' + id).val();
+        var Salutation = $('#ddlPointSalutation' + id).val();
+        var FirstName = $('#txtPointFirstName' + id).val();
+        var MiddleName = $('#txtPointMiddleName' + id).val();
+        var LastName = $('#txtPointLastName' + id).val();
+        var SLIIRegNo = $('#txtPointSLIIRegNo' + id).val();
+        var Mobile1 = $('#txtPointMobile1' + id).val();
+        var Mobile2 = $('#txtPointMobile2' + id).val();
+        var OfficePhone = $('#txtPointOfficePhone' + id).val();
+        var ResidencePhone = $('#txtPointResidencePhone' + id).val();
+        var Email = $('#txtPointofEmail' + id).val();
+
+        $('#txtPointPosition').val(Position);
+        $('#ddlPointSalutation').val(Salutation);
+        $('#txtPointFirstName').val(FirstName);
+        $('#txtPointMiddleName').val(MiddleName);
+        $('#txtPointLastName').val(LastName);
+        $('#txtPointSLIIRegNo').val(SLIIRegNo);
+        $('#txtPointMobile1').val(Mobile1);
+        $('#txtPointMobile2').val(Mobile2);
+        $('#txtPointOfficePhone').val(OfficePhone);
+        $('#txtPointResidencePhone').val(ResidencePhone);
+        $('#txtPointofEmail').val(Email);
+
+        $("#divAddRow").hide();
+        $("#divUpdateRow").show();
+    }
+    function Cancel() {
+
+        $('#divUpdateRow').hide();
+        $('#divAddRow').show();
+
+        RefreshData();
+    }
+
+    function RefreshData() {
+
+        $('#txtPointPosition').val('');
+        $('#ddlPointSalutation').val('Select');
+        $('#txtPointFirstName').val('');
+        $('#txtPointMiddleName').val('');
+        $('#txtPointLastName').val('');
+        $('#txtPointSLIIRegNo').val('');
+        $('#txtPointMobile1').val('');
+        $('#txtPointMobile2').val('');
+        $('#txtPointOfficePhone').val('');
+        $('#txtPointResidencePhone').val('');
+        $('#txtPointofEmail').val('');
+       
+    }
+
+    function UpdateRow() {        
+        $('#txtPointPosition' + updateID).val($('#txtPointPosition').val());
+        $('#ddlPointSalutation' + updateID).val($('#ddlPointSalutation').val());
+        $('#txtPointFirstName' + updateID).val($('#txtPointFirstName').val());
+        $('#txtPointMiddleName' + updateID).val($('#txtPointMiddleName').val());
+        $('#txtPointLastName' + updateID).val($('#txtPointLastName').val());
+        $('#txtPointSLIIRegNo' + updateID).val($('#txtPointSLIIRegNo').val());
+        $('#txtPointMobile1' + updateID).val($('#txtPointMobile1').val());
+        $('#txtPointMobile2' + updateID).val($('#txtPointMobile2').val());
+        $('#txtPointOfficePhone' + updateID).val($('#txtPointOfficePhone').val());
+        $('#txtPointResidencePhone' + updateID).val($('#txtPointResidencePhone').val());
+        $('#txtPointofEmail' + updateID).val($('#txtPointofEmail').val());
+        Cancel();
+        RefreshData();        
+    }
+
+    function DeleteRow(id) {
+        $('#' + id).remove();
+    }
+    var id = 0;
+    function getPointofContactDetails(Grid)
+    {
+        var position;
+        var firstname;
+        var middlename;
+        var lastname;
+        var mobileno;
+        var salutation;
+        var SLIIRegNo;
+        var mobile2;
+        var OfficePh;
+        var ResidencePh;
+        var Email;        
+        $("#divPointOfContactDetailsGrid tbody").find("tr").each(function () {
+            position = $(this).find("[data-name=Position]").find("input[type=text]").val();
+            firstname = $(this).find("[data-name=FirstName]").find("input[type=text]").val();
+            //salutation = $(this).find("[data-name=Salutation]").find("option:selected").val();
+            lastname = $(this).find("[data-name=LastName]").find("input[type=text]").val();
+            mobileno = $(this).find("[data-name=Mobile1]").find("input[type=text]").val();
+            SLIIRegNo = $('#txtPointSLIIRegNo' + id).val();            
+            mobile2 = $('#txtPointMobile2' + id).val();
+            OfficePh = $('#txtPointOfficePhone' + id).val();
+            ResidencePh = $('#txtPointResidencePhone' + id).val();
+            Email = $('#txtPointofEmail' + id).val();
+            salutation = $('#ddlPointSalutation' + id).val();            
+            lastname = $('#txtPointMiddleName' + id).val();
+            //SLIIRegNo = $(this).find("[data-name=SLIIRegNo]").find("input[type=text]").val();
+            //mobile2 = $(this).find("[data-name=Mobile2]").find("input[type=text]").val();
+            //OfficePh = $(this).find("[data-name=OfficePhone]").find("input[type=text]").val();
+            //ResidencePh = $(this).find("[data-name=ResidencePhone]").find("input[type=text]").val();
+            //Email = $(this).find("[data-name=Email]").find("input[type=text]").val();   
+            //middlename = $(this).find("[data-name=MiddleName]").find("input[type=text]").val();   
+            if (position != '' && firstname != '' && lastname != '' && mobileno != '') {
+                Grid.push({
+                    Position: position, FirstName: firstname, LastName: lastname, Mobile1: mobileno, Middlename: middlename, Email: Email, ResidencePhone: ResidencePh, OfficePhone: OfficePh, Mobile2: mobile2, SLIIRegNo: SLIIRegNo, Salutation: salutation, Index: id
+                })
+            }
+            id++;
+        });
+        $("#hdnPointofContractData").val(JSON.stringify(Grid))
+    }
+</script>

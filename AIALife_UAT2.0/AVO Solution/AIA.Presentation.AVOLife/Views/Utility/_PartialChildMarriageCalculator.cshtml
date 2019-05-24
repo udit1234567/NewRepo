@@ -1,0 +1,246 @@
+﻿
+@{
+    Layout = null;
+}
+<meta name="viewport" content="width=device-width , initial-scale=1" />
+<head>
+
+    <script type="text/javascript">
+        var cmCalculator = new Array();
+        $(document).ready(function () {
+
+            document.getElementById("cmChildCurrentAge").value = 10;
+            document.getElementById("cmChildMarriageAge").value = 25;
+            document.getElementById("cmAmountNeeded").value = 1000000;
+            CMCalculate();
+        });
+        function oncmChildCurrentAgeSlide(e) {
+            document.getElementById("cmChildCurrentAge").value = e.value;
+            CMCalculate();
+        }
+        function oncmChildMarriageAgeSlide(e) {
+            document.getElementById("cmChildMarriageAge").value = e.value;
+            CMCalculate();
+        }
+        function oncmAmountNeededSlide(e) {
+            document.getElementById("cmAmountNeeded").value = e.value;
+            CMCalculate();
+        }
+        function getCMCA() {
+            return $("#cmChildCurrentAgeID").data("tSlider");
+        }
+        function getCMMA() {
+            return $("#cmChildMarriageAgeID").data("tSlider");
+        }
+        function getCMAN() {
+            return $("#cmAmountNeededID").data("tSlider");
+        }
+        function onChangeCMANText() {
+            var cmamSlider = getCMAN();
+            cmamSlider.value($("#cmAmountNeeded").val());
+            CMCalculate();
+        }
+        function onChangeCMMAText() {
+            var cmmaSlider = getCMMA();
+            cmmaSlider.value($("#cmChildMarriageAge").val());
+            CMCalculate();
+        }
+        function onChangeCMCAText() {
+            var cmcaSlider = getCMCA();
+            cmcaSlider.value($("#cmChildCurrentAge").val());
+            CMCalculate();
+        }
+        function CMCalculate() {            
+            var cmCurrentAge = document.getElementById("cmChildCurrentAge").value;
+            var cmMarriageAge = document.getElementById("cmChildMarriageAge").value;
+            var cmAmntReq = document.getElementById("cmAmountNeeded").value;
+            var InvestmentReturn = 8;
+            var RiseInCost = 7;
+            var _duration = cmMarriageAge - cmCurrentAge;
+            var first = Math.pow((1 + (RiseInCost / 100)), _duration);
+            var _futureMarriageCost = (Math.round(cmAmntReq * first));
+            var _pmtFactor = ((Math.pow((1 + (InvestmentReturn) / 100), _duration)) - 1) / (InvestmentReturn / 100);
+            var _neededMonthlySavings = (Math.round((_futureMarriageCost / _pmtFactor) / 12));
+            document.getElementById("CMAmntReq").innerHTML = _futureMarriageCost;
+            document.getElementById("CMAddAmnt").innerHTML = _neededMonthlySavings;
+            var asmptn = document.getElementById("lblCMAssumptions");
+            asmptn.style.display = "block";
+            var amntreq = document.getElementById("CMAmntReqdef");
+            amntreq.style.display = "block";
+            var adamnt = document.getElementById("CMAdditionalAmountNeeded");
+            adamnt.style.display = "block";
+            cmCalculator = [
+                {
+                    "cat": "Current Marriage Cost",
+                    "value": cmAmntReq
+                },
+                {
+                    "cat": "Future Marriage Cost",
+                    "value": _futureMarriageCost
+                }];
+            createChart('divChildMarriageCalculator', cmCalculator, 'cat', 'value', 'Child Marriage Calculator')
+        }
+        function onChangeCMCAText() {
+            var slider = getSlider();
+            slider.value($("#cmChildCurrentAge").val());
+            CMCalculate();
+        }
+
+
+        function checkIt(evt) {
+            evt = (evt) ? evt : window.event
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                status = "This field accepts numbers only."
+                return false
+            }
+            status = ""
+            return true
+        }
+        $(function () {
+            $("#ChildCurrentAgeDiv").slider({
+                range: true,
+                min: 0,
+                max: 10,
+                value: 8,
+                slide: function (event, result) {
+                    oncmChildCurrentAgeSlide(result);
+                }
+            });
+            $("#ChildMarriageAgeDiv").slider({
+                range: true,
+                min: 18,
+                max: 35,
+                value: 25,
+                slide: function (event, result) {
+                    oncmChildMarriageAgeSlide(result);
+                }
+
+            });
+            $("#AmountForMarriageDiv").slider({
+                range: true,
+                min: 200000,
+                value: 1000000,
+                max: 10000000,
+                slide: function (event, result) {
+                    oncmAmountNeededSlide(result);
+                }
+            });
+
+        });
+
+
+
+    </script>
+</head>
+
+
+<div class="panel panel-default col-lg-12 col-md-12" style="margin-top:10px;">
+    <div class="panel-heading">
+        <h4 class="panel-title" style=" text-align: left;">
+            <a href="#collapsablePanelOne" data-toggle="collapse" data-parent="accordion" class="accordion-toggle">
+                Child's Marriage Calculator
+                <i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+            </a>
+        </h4>
+    </div>
+    <div class="panel-collapse collapse in" id="collapsablePanelOne" style="background-color:white">
+        <div id="SubContent" class="panel-body">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top:20px;">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-7 col-sm-7">
+                    </div>
+                    <div class="col-lg-5 col-sm-5">
+                        <label id="lblCMAssumptions" style="color: black; font-weight:bold;">
+                            Assumptions
+                        </label>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-lg-7 col-sm-7">
+                    </div>
+                    <div class="col-lg-5 col-sm-5">
+                        <label id="CMAmntReqdef" style="color: black; float:left; font-weight:bold;">
+                            Amount required for Future Marriage
+                        </label>
+                        <label id="CMAmntReq" style="color: Red; margin-left: 7px; float: left; font-weight:bold;">
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-lg-7 col-sm-7">
+                    </div>
+                    <div class="col-lg-5 col-sm-5">
+                        <label id="CMAdditionalAmountNeeded" style="color: black; float: left; font-weight:bold;">
+                            Monthly Investments needed to acheive your goal
+                        </label>
+                        <label id="CMAddAmnt" style="color: red; margin-left: 7px; float: left; font-weight:bold;">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12">
+                <div class="col-lg-6 col-md-6" style="padding-top:30px;">
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:5px;">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <label style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                                Child's Current Age
+                            </label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" id="ChildCurrentAgeDiv" style="margin-left:10px; margin-right:10px">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2" style="margin-right:10px;">
+                            @Html.TextBox("ChildCurrentAge","", new { @class = "form-control", @id = "cmChildCurrentAge", @style = "width:90px; height:20px" })
+                        </div>
+                        <label class="col-lg-2 col-md-2 col-sm-2" style="font-weight:bold">
+                            Years
+                        </label>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-bottom:5px;">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <label style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                                Child's Marriage Age
+                            </label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" id="ChildMarriageAgeDiv" style="margin-left:10px; margin-right:10px">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2" style="margin-right:10px;">
+                            @Html.TextBox("ChildMarriageAge", "", new { @class = "form-control", @id = "cmChildMarriageAge", @style = "width:90px; height:20px" })
+                        </div>
+                        <label class="col-lg-2 col-md-2 col-sm-2" style="font-weight:bold">
+                            Years
+                        </label>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:5px;">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <label style="color: Black; display: block; float: left; width: 130px; font-weight:bold;">
+                                Amount Needed For The Marriage
+                            </label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" id="AmountForMarriageDiv" style="margin-left:10px; margin-right:10px;">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            @Html.TextBox("AmountForMarriage","", new { @class = "form-control", @id = "cmAmountNeeded", @style = "width:90px; height:20px" })
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <label>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divChildMarriageCalculator" style="height: 250px; position: relative;">
+                        <label></label>
+                    </div>
+                </div>
+
+            </div>
+</div>
+        </div>
+    </div>
+

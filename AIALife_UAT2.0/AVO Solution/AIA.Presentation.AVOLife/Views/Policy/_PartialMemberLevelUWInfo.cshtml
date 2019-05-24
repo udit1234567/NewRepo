@@ -1,0 +1,644 @@
+﻿@model AIA.Life.Models.Policy.Policy
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using AIA.CrossCutting;
+@{
+
+    int Index = Model.AssuredIndex;
+    string PanleID = "DivPanelLifeStyle" + Index;
+    string PanleNavigatorheader = "#PanelLifeStyle" + Index;
+    string PanleNavigator = "PanelLifeStyle" + Index;
+    decimal MemberID = Model.objMemberDetails[Index].MemberID;
+
+    if (Model.objMemberDetails[Index].ObjUwDecision != null)
+    {
+        Model.objMemberDetails[Index].ObjUwDecision.DecisionDate = Model.objMemberDetails[Index].ObjUwDecision.DecisionDate == null ? DateTime.Now : Model.objMemberDetails[Index].ObjUwDecision.DecisionDate;
+        if (Model.objMemberDetails[Index].ObjUwDecision.CommencementDate.HasValue)
+        {
+            if (Model.objMemberDetails[Index].ObjUwDecision.CommencementDate.Value.Date > DateTime.Now.Date)
+            { }
+            else
+            { Model.objMemberDetails[Index].ObjUwDecision.CommencementDate = DateTime.Now; }
+        }
+        else
+        { Model.objMemberDetails[Index].ObjUwDecision.CommencementDate = DateTime.Now; }
+    }
+}
+
+@if (Model.objMemberDetails[Index].RelationShipWithPropspect == "267" || Model.objMemberDetails[Index].RelationShipWithPropspect == "268")
+{
+
+    <div class="panel panel-default" id="pnlMemberLevelUWInfoForm" onchange="SetMandatoryHighlightBlank('pnlMemberLevelUWInfoForm', false)">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#UwSummary_@Index" href="#collapseA" class="collapsed">
+                    @Resources.GetLabelName("Summary")   <img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" /><span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span></span>
+                </a>
+            </h4>
+        </div>
+        <div id="UwSummary_@Index" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("Name")</label>
+                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.Name, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("Age")</label>
+                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.Age, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("Occupation")</label>
+                        @Html.DropDownListFor(m => m.objMemberDetails[Index].ObjUwDecision.objMemberSummary.Occupation, new SelectList(Model.lstOccupation, "Value", "Text", Model.objMemberDetails[Index].ObjUwDecision.objMemberSummary.Occupation), "Select", new { @class = "form-control", @id = "ddlUWMemberRelationWithProposer", @onchange = "OnSelfShowDetails()" })
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("SAR")</label>
+                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.SAR, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("FAL")</label>
+                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.FAL, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("Total Annual Premium")</label>
+                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.TotalAnnualPremium, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("BMI Value")</label>
+                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.BMIValue, new { id = "txtMemberBMIValue", @class = "form-control", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("AFC")</label>
+                        @Html.CheckBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.AFC, new { id = "txtMemberNameWithInitials", @onkeypress = "return onlyAlphabets(event)", @disabled = "disabled" })
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+}
+<div class="panel panel-default" id="pnlMemberLevelUWFailedRules" onchange="SetMandatoryHighlightBlank('pnlMemberLevelUWFailedRules', false)">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-target="#UwDeviation_@Index" href="#collapseA" class="collapsed">
+                @Resources.GetLabelName("Underwriting Failed Rules")   <img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" /><span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span></span>
+            </a>
+        </h4>
+    </div>
+    <div id="UwDeviation_@Index" class="panel-collapse collapse">
+        @for (int j = 0; j < Model.objMemberDetails[Index].ObjUwDecision.lstMemberDeviationrules.Count(); j++)
+        {
+            <div class="panel-body">
+                <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
+                    <p>
+                        @Model.objMemberDetails[Index].ObjUwDecision.lstMemberDeviationrules[j].Deviation
+                    </p>
+                    @Html.HiddenFor(a => a.objMemberDetails[Index].ObjUwDecision.lstMemberDeviationrules[j].MemberDeviationid, new { @id = "MemberDeviationID" + Index + j, })
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="DeviationDecision_@Index">
+                    @Html.DropDownListFor(a => a.objMemberDetails[Index].ObjUwDecision.lstMemberDeviationrules[j].Decision, new SelectList(Model.objMemberDetails[Index].ObjUwDecision.lstMemberDeviationrules[j].LstDecision, "ID", "Value", Model.objMemberDetails[Index].ObjUwDecision.lstMemberDeviationrules[j].Decision), "Select", new { @id = "ddlDeviation" + Index + j, @class = "form-control MemberDeviation", @onchange = "UpdateDeviationStatus('" + Index + "','" + j + "')" })<span class="mandatory"></span>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="panel panel-default" id="pnlMemberLevelUWDocuments" onchange="SetMandatoryHighlightBlank('pnlMemberLevelUWDocuments', false)">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-target="#UwDocuments_@Index" href="#collapseA" class="collapsed">
+                @Resources.GetLabelName("Documents")<img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" /><span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span></span>
+            </a>
+        </h4>
+    </div>
+    <div id="UwDocuments_@Index" class="panel-collapse collapse">
+        <div class="panel-body table-responsive">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label> @Resources.GetLabelName("Document Type")  </label>
+                    @Html.DropDownListFor(a => a.objMemberDetails[Index].ObjUwDecision.DocumentType, new SelectList(Model.LstDocument, "Value", "Text"), "Select", new { @id = "ddlDocument" + Index, @class = "form-control", @onchange = "LoadAdditionalDocument('" + Index + "')" })
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" id="DivMultiSelect_@Index">
+                    <label> @Resources.GetLabelName("Select Additional Document")</label>
+                    <select id="multiAdditionalDocument_@Index" multiple="multiple" style="width:600px;"></select>
+
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" style="display:none" id="divMedicalDocument_@Index">
+                    <label> @Resources.GetLabelName("Select Additional Document")</label>
+                    <select id="multiAdditionalDocument1_@Index" multiple="multiple" class="form-control btn-blo" style="width:600px;">
+                        @foreach (var item in Model.LstAdditionalMedicalDocument)
+                        {
+                            <option value='@item.Value'>@item.Value</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" style="display:none" id="divNonMedicalDocument_@Index">
+                    <label> @Resources.GetLabelName("Select Additional Document")</label>
+                    <select id="multiAdditionalDocument2_@Index" multiple="multiple" class="form-control btn-blo" style="width:600px;">
+                        @foreach (var item in Model.LstAdditionalNonMedicalDocument)
+                        {
+                            <option value='@item.Value'>@item.Value</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                    <input type="submit" id="btnAdd" value="Add" class="btn btns" onclick="AddDocuments('@Index')" />
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <label>@Resources.GetLabelName("Medical Fee Paid by")</label>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                    @(Html.RadioButtonFor(a => a.objMemberDetails[Index].ObjUwDecision.MedicalFeePaidBy, MedicalFeePaidBy.PaidByAIA, new { @id = "MedicalFeePaidByAIA" + Index }))@Resources.GetLabelName("By AIA")
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    @(Html.RadioButtonFor(a => a.objMemberDetails[Index].ObjUwDecision.MedicalFeePaidBy, MedicalFeePaidBy.PaidByCustomer, new { @id = "MedicalFeePaidByCustomer" + Index }))@Resources.GetLabelName("By Customer")
+                    </div>
+
+
+
+            </div>
+            <div class="clearfix"></div>
+            <div>
+                <h4 style="font-style:inherit">
+                    @Resources.GetLabelName("Medical Document Details")
+
+                </h4>
+            </div>
+            <div>
+                <table class="table table-bordered" id="MedicalGrid_@Index">
+                    <thead>
+                        <tr>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Document")</th>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Link")</th>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Status")</th>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Date")</th>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Remarks")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @{
+                            int _MedicalDocCount = 0;
+                            foreach (var item in Model.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (item.IsNewDocumentAddedbyUW)
+                                        {
+                                            <span>* </span>@item.Document
+                                        }
+                                        else
+                                        {
+                                            @item.Document
+                                        }
+                                        @Html.HiddenFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].DocType, new { })
+                                        @Html.HiddenFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].DocumentId, new { })
+                                        @Html.HiddenFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].Document, new { })
+                                    </td>
+                                    <td>
+                                        @if (Model.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].LstFileLinks != null)
+                                        {
+
+                                            for (int z = 0; z < Model.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].LstFileLinks.Count(); z++)
+                                            {
+                                                if (!string.IsNullOrEmpty(Model.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].LstFileLinks[z].Link))
+                                                {
+                                                    @Html.ActionLink(Model.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].LstFileLinks[z].FileName, "DownloadPolicyDocument", "Utility", new { FilePath = Model.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].LstFileLinks[z].Link }, new { @id = "lnkExistingFileName", target = "_blank" })
+                                                    <br />
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DropDownListFor(m => m.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].Status, new SelectList(item.LstStatus, "ID", "Value", Model.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].Status), "Select", new { @class = "form-control MedicalDocDecision", @id = "ddlStatusMedical" + Index + _MedicalDocCount, @onchange = "UpdateMemberDecisionOptions('" + Index + "')" })
+                                    </td>
+                                    <td>
+                                        @Html.iNubeDatePickerFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].DateTime, new { @class = "form-control datepicker", @id = "dtDocReceivedDate" + Index + _MedicalDocCount })
+                                    </td>
+                                    <td>
+
+                                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWMedicalDocument[_MedicalDocCount].Remarks, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                _MedicalDocCount++;
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="clearfix"></div>
+            <div>
+                <h4 style="font-style:inherit">
+                    @Resources.GetLabelName("Non Medical Document Details")
+
+                </h4>
+            </div>
+
+            <div>
+                <table class="table table-bordered" id="NonMedicalGrid_@Index">
+                    <thead>
+                        <tr>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Document")</th>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Link")</th>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Status")</th>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Date")</th>
+                            <th style="font-weight: bold">@Resources.GetLabelName("Remarks")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            int _NonMedicalDocCount = 0;
+                            foreach (var item in Model.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument)
+                            {
+
+                                <tr>
+                                    <td>
+                                        @if (item.IsNewDocumentAddedbyUW)
+                                        {
+                                            <span>* </span>@item.Document
+                                        }
+                                        else
+                                        {
+                                            @item.Document
+                                        }
+                                        @Html.HiddenFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].DocType, new { })
+                                        @Html.HiddenFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].DocumentId, new { })
+                                        @Html.HiddenFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].Document, new { })
+                                    </td>
+                                    <td>
+                                        @if (Model.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].LstFileLinks != null)
+                                        {
+
+                                            for (int z = 0; z < Model.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].LstFileLinks.Count(); z++)
+                                            {
+                                                if (!string.IsNullOrEmpty(Model.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].LstFileLinks[z].Link))
+                                                {
+                                                    @Html.ActionLink(Model.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].LstFileLinks[z].FileName, "DownloadPolicyDocument", "Utility", new { FilePath = Model.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].LstFileLinks[z].Link }, new { @id = "lnkExistingFileName", target = "_blank" })
+                                                    <br />
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DropDownListFor(m => m.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].Status, new SelectList(item.LstStatus, "ID", "Value", Model.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].Status), "Select", new { @class = "form-control NonMedicalDocDecision", @id = "ddlStatusNonMedical" + Index + _NonMedicalDocCount, @onchange = "UpdateMemberDecisionOptions('" + Index + "')" })
+                                    </td>
+                                    <td>
+                                        @Html.iNubeDatePickerFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].DateTime, new { @class = "form-control datepicker", @id = "dtProspectDOB" + Index + _NonMedicalDocCount })
+                                    </td>
+                                    <td>
+
+                                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.lstUWNonMedicalDocument[_NonMedicalDocCount].Remarks, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                _NonMedicalDocCount++;
+                            }
+
+                        }
+
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+            <br />
+        </div>
+    </div>
+
+</div>
+
+<div class="panel panel-default" id="pnlMemberLevelUWDecision" onchange="SetMandatoryHighlightBlank('pnlMemberLevelUWDecision', false)">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-target="#UwDecision_@Index" href="#collapseA" class="collapsed">
+                @Resources.GetLabelName("Decision")    <img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" /><span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span></span>
+            </a>
+        </h4>
+    </div>
+    <div id="UwDecision_@Index" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                    <label> @Resources.GetLabelName("Underwriting Decision")<span class="mandatory">*</span></label>
+
+                    @Html.DropDownListFor(a => a.objMemberDetails[Index].ObjUwDecision.Decision, new SelectList(Model.LstDecision, "ID", "Value", Model.objMemberDetails[Index].ObjUwDecision.Decision), "Select", new { @id = "ddlUWMemberlevelDecision" + Index, @class = "form-control", @onchange = "DerivePolicylevelDecision('" + Index + "'), Re_LoadUWReasonandMedicalCodes('" + Index + "')" })
+                </div>
+                @{
+                    string ReasonDisplay = "none";
+                    
+                    if (Model.objMemberDetails[Index].ObjUwDecision.Decision == "187" || Model.objMemberDetails[Index].ObjUwDecision.Decision == "1176" || Model.objMemberDetails[Index].ObjUwDecision.Decision == "1449" || Model.objMemberDetails[Index].ObjUwDecision.Decision == "2299")
+                    {
+                        ReasonDisplay = "block";
+                    }
+
+                    @*Add Dropdown field*@
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group" id="ddlUWReason_@Index" style="display:@ReasonDisplay">
+                        <label> @Resources.GetLabelName("Underwriting Reason")<span class="mandatory">*</span></label>
+
+                        @Html.DropDownListFor(a => a.objMemberDetails[Index].ObjUwDecision.UWReason, new SelectList(Model.LstReason,"Value","Text", Model.objMemberDetails[Index].ObjUwDecision.UWReason), "Select", new
+                   {
+                       @id = "ddlUWMemberLevelReason" + Index,
+                       @class = "form-control" ,@onchange= "Re_LoadMedicalCodes('" + Index + "')"})
+                    </div>
+
+                    string DurationDisplay = "none";
+                    if (Model.objMemberDetails[Index].ObjUwDecision.Decision == "1449")
+                    {
+                        DurationDisplay = "block";
+                    }
+
+                    @*Add Text field*@
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group" id="ddlUWMonth_@Index" style="display:@DurationDisplay">
+                        <label> @Resources.GetLabelName("Duration (in months)")<span class="mandatory">*</span></label>
+                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.UWMonth, new { id = "txtUWMemberLevelMonth" + Index, @class = "form-control", @onkeypress = "return isNumberKey(event)", @maxlength = "3" })
+
+                    </div>
+
+                }
+
+
+            </div>            
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                @{
+                    string MedicalCodeDisplay = "none";
+                    if (Model.objMemberDetails[Index].ObjUwDecision.Decision == "187" || Model.objMemberDetails[Index].ObjUwDecision.Decision == "1449")
+                    {
+                        MedicalCodeDisplay = "block";
+                    }
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 form-group" id="ddlUWMedicalCodes_@Index" style="display:@MedicalCodeDisplay">
+                        <label> @Resources.GetLabelName("Underwriting Medical Codes")<span class="mandatory">*</span></label>
+                        <select id="ddlUWMemberLevelMedicalCodes_@Index" class="multiselect-ui_@Index form-control" multiple="multiple" style="display:inline-block; width:600px;">
+                            @foreach (var item in Model.LstMedicalCodes)
+                            {
+                                <option value='@item.Value'>@item.Text</option>
+                            }
+                        </select>
+                        @Html.HiddenFor(a => a.objMemberDetails[Index].ObjUwDecision.UWMedicalCode, new { @id = "HdnSelectedUWMedicalCode_" + Index })
+                        @*@Html.DropDownListFor(a => a.objMemberDetails[Index].ObjUwDecision.UWMedicalCode, new SelectList(Model.LstMedicalCodes, "Value","Text"), "Select", new{@id = "ddlUWMemberLevelMedicalCodes" + Index, @class = "form-control"})*@
+                    </div>
+                }
+                <div class="col-lg-4 col-md-4">
+                    @{
+                        string _MemberDecision = Model.objMemberDetails[Index].ObjUwDecision.Decision;
+                        string DisableControl = string.Empty;
+                        if (_MemberDecision != "186")
+                        { DisableControl = "disabled"; }
+                        <p>
+                            <input value="Apply Loading" class="btn btn-default uwbtn" @DisableControl type="button" id="ApplyLoadingButtion_@Index" onclick="ShowLoadingInfo('@MemberID')">
+                        </p>
+                    }
+
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+                <div class="col-lg-6 col-md-6">
+                    <label> @Resources.GetLabelName("Remarks")</label>
+                    @Html.TextAreaFor(a => a.objMemberDetails[Index].ObjUwDecision.Remarks, new { @class = "form-control" })
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="panel panel-default" id="pnlMemberLevelUWHistory" onchange="SetMandatoryHighlightBlank('pnlMemberLevelUWHistory',false)">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-target="#UwHistory_@Index" href="#proposalhistory" class="collapsed">
+                @Resources.GetLabelName("History") <img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" /><span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span></span>
+            </a>
+        </h4>
+    </div>
+    <div id="UwHistory_@Index" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="col-lg-4 col-md-4  col-sm-4 col-xs-12">
+                <ul class="history-timeline">
+                    @{
+                        int _histroryCount = 0;
+                        foreach (var MemberUWHistory in Model.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory)
+                        {
+                            string _SectionID = "proposal-member-details" + _histroryCount;
+                            <li id="@_SectionID" onclick="displayHistoryDetails(id)">
+                                <div class="history-proposal-details">
+                                    <p class="history-proposal-date">
+                                        <span>
+                                            @Model.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory[_histroryCount].Day
+                                            &nbsp; @Model.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory[_histroryCount].Month
+                                            &nbsp; @Model.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory[_histroryCount].Year
+                                        </span>
+                                    </p>
+                                    <ul class="history-proposal-customer-status">
+                                        <li class="history-proposal-status">@Model.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory[_histroryCount].Decision</li>
+                                        <li class="history-proposal-name">@Model.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory[_histroryCount].UWName</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            _histroryCount++;
+                        }
+                    }
+
+                </ul>
+            </div>
+            <div class="history-panel-details col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                @{
+                    int _histroryCount1 = 0;
+                    foreach (var MemberUWHistory in Model.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory)
+                    {
+
+                        string _SubSectionID = "proposal-member-details" + _histroryCount1 + "-documentslist";
+                        <div id="@_SubSectionID" style="display:none">
+
+
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <label>@Resources.GetLabelName("Proposal Received Date")</label>
+                                @Html.iNubeDatePickerFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory[_histroryCount1].ProposalReceivedDate, new { @class = "form-control datepicker" })
+
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <label>@Resources.GetLabelName("UW Name")</label>
+                                <input class="form-control" type="text" value="@Model.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory[_histroryCount1].UWName" />
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="table-responsive">
+                                <table class="table uwtable" style="margin-top:20px;">
+                                    <thead>
+                                        <tr>
+                                            <th> @Resources.GetLabelName("List of Documents")</th>
+                                            <th> @Resources.GetLabelName("Received Date") &amp; @Resources.GetLabelName("Time")</th>
+                                            <th> @Resources.GetLabelName("Status")</th>
+                                            <th> @Resources.GetLabelName("Remarks")</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var DocInfo in Model.objMemberDetails[Index].ObjUwDecision.objMemberUWHistory[_histroryCount1].objListDocuments)
+                                            {
+                                                <tr>
+                                                    <td>@DocInfo.Document</td>
+                                                    <td>@DocInfo.DateTime</td>
+                                                    <td>@DocInfo.Status</td>
+                                                    <td>@DocInfo.Remarks</td>
+
+                                                </tr>
+
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        _histroryCount1++;
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //$('.multiselect-container li input').prop('disabled', false);
+        SetMandatoryHighlightBlank('pnlMemberLevelUWInfoForm', true);
+        SetMandatoryHighlightBlank('pnlMemberLevelUWFailedRules', true);
+        SetMandatoryHighlightBlank('pnlMemberLevelUWFailedRules', true);
+        SetMandatoryHighlightBlank('pnlMemberLevelUWDocuments', true);
+        SetMandatoryHighlightBlank('pnlMemberLevelUWDecision', true);
+        SetMandatoryHighlightBlank('pnlMemberLevelUWHistory', true);
+        $('#multiAdditionalDocument_' + '@Index').multiselect();
+        $('#multiAdditionalDocument1_' + '@Index').multiselect();
+        $('#multiAdditionalDocument2_' + '@Index').multiselect();
+        //$('#ddlUWMemberLevelMedicalCodes_' + @Index).multiselect();
+
+        if ($("#HdnSelectedUWMedicalCode_@Index").val() != null) {
+            var values = $("#HdnSelectedUWMedicalCode_@Index").val();
+            $.each(values.split(","), function (i, e) {
+                try {
+                    $("#ddlUWMemberLevelMedicalCodes_@Index option[value='" + e + "']").prop("selected", true);
+                } catch (e) {
+
+                }
+            });
+        }
+        $('.multiselect-ui_@Index').multiselect({
+
+            includeSelectAllOption: false,
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            filterPlaceholder: 'Search for something...',
+            onChange: function (option, checked) {
+                debugger;
+                // Get selected options.
+                var selectedOptions = $('.multiselect-ui_@Index option:selected');
+                var ln = $('#dates-field2').children('option').length;
+                if (selectedOptions.length >= 3) {
+                    // Disable all other checkboxes.
+                    var nonSelectedOptions = $('.multiselect-ui_@Index option').filter(function () {
+                        return !$(this).is(':selected');
+
+                    });
+
+                    nonSelectedOptions.each(function () {
+                        //  var input = $('input[value="' + $(this).val() + '"]');
+                        var input = $('#ddlUWMedicalCodes_@Index').find('.multiselect-container').find('input[value="' + $(this).val() + '"]');
+                        input.prop('disabled', true);
+                        input.parent('li').addClass('disabled');
+                    });
+                    selectedOptions.each(function () {
+                        //var input = $('input[value="' + $(this).val() + '"]');
+                        var input = $('#ddlUWMedicalCodes_@Index').find('.multiselect-container').find('input[value="' + $(this).val() + '"]');
+                        input.prop('disabled', false);
+                        input.parent('li').removeClass('disabled');
+                    });
+                }
+                else {
+                    // Enable all checkboxes.
+                    $('.multiselect-ui_@Index option').each(function () {
+                        //var input = $('input[value="' + $(this).val() + '"]');
+                        var input = $('#ddlUWMedicalCodes_@Index').find('.multiselect-container').find('input[value="' + $(this).val() + '"]');
+
+                        input.prop('disabled', false);
+                        input.parent('li').addClass('disabled');
+
+                    });
+                }
+            }
+        });
+
+        var selectedOptions = $("#ddlUWMemberLevelMedicalCodes_@Index option:selected");
+        var ln = $('#dates-field2').children('option').length;
+        if (selectedOptions.length >= 3) {
+            // Disable all other checkboxes.
+            var nonSelectedOptions = $("#ddlUWMemberLevelMedicalCodes_@Index option").filter(function () {
+                return !$(this).is(':selected');
+
+            });
+
+            nonSelectedOptions.each(function () {
+                //var input = $('input[value="' + $(this).val() + '"]');
+                var input = $('#ddlUWMedicalCodes_@Index').find('.multiselect-container').find('input[value="' + $(this).val() + '"]');
+
+                input.prop('disabled', true);
+                input.parent('li').addClass('disabled');
+            });
+            selectedOptions.each(function () {
+                //var input = $('input[value="' + $(this).val() + '"]');
+                var input = $('#ddlUWMedicalCodes_@Index').find('.multiselect-container').find('input[value="' + $(this).val() + '"]');
+                input.prop('disabled', false);
+                input.parent('li').removeClass('disabled');
+            });
+        }
+        else {
+            // Enable all checkboxes.
+            $("#ddlUWMemberLevelMedicalCodes_@Index option").each(function () {
+                //var input = $('input[value="' + $(this).val() + '"]');
+                var input = $('#ddlUWMedicalCodes_@Index').find('.multiselect-container').find('input[value="' + $(this).val() + '"]');
+                input.prop('disabled', false);
+                input.parent('li').addClass('disabled');
+
+            });
+        }
+
+
+    });
+    function FetchSelectedMedicalCode() {
+        var IsValid = true;
+        var count = 0;
+        var ID;
+        for (var i=0;i<=@Index;i++)
+        {
+            var items = [];
+            $('#ddlUWMemberLevelMedicalCodes_'+i+' option:selected').each(function () { items.push($(this).val()); });
+            $('#HdnSelectedUWMedicalCode_'+i).val(JSON.stringify(items));
+        }
+    }
+</script>

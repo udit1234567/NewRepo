@@ -1,0 +1,164 @@
+﻿
+@model AIA.Life.Models.Common.MemberDetails
+@using AIA.Presentation.Helpers
+@using AIAResources;
+<style>
+    .addmore i{
+        color:red;
+    }
+</style>
+<form id="MemberLoadingForm">
+
+    @Html.HiddenFor(a=>a.MemberID, new {@value=Model.MemberID })
+    <input type="hidden" name="@Html.NameFor(x => Model.ExtraPremium)" value="@Model.ExtraPremium" />
+    @*@Html.HiddenFor(a=>a.ExtraPremium, new { @value = Model.ExtraPremium })*@
+    <div class="table-responsive" style="overflow:visible">
+        <table class="table uwtable" id="UWLoadingGrid">
+            <thead>
+                <tr>
+                    <th>Beneift List</th>
+                    <th>Sum Assured</th>
+                    <th>Premium</th>
+                    <th>Loading Type</th>
+                    <th>Amount/Percentage</th>
+                    <th>Extra Premium</th>
+                    <th>Loading Basis</th>
+                    <th>Exclusion</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int RiderCount = 0;
+                    foreach (var Rider in Model.objBenifitDetails.Where(a=>a.IsDeleted !=true))
+                    {
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(a => a.objBenifitDetails[RiderCount].MemberBenifitID, new { @id = "MemberRiderID" + RiderCount })
+                                @Html.HiddenFor(a => a.objBenifitDetails[RiderCount].MemberBenefitDetailID, new { @id = "MemberRiderDetailID" + RiderCount })
+                                @Rider.BenifitName
+                                @Html.HiddenFor(a => a.objBenifitDetails[RiderCount].BenifitName, new { @id = "RiderName" + RiderCount })
+                                @Html.HiddenFor(a => a.objBenifitDetails[RiderCount].IsDeleted, new { @id = "IsDeleted" + RiderCount })
+                            </td>
+                            <td>
+                                @Rider.RiderSuminsured
+                                @Html.HiddenFor(a => a.objBenifitDetails[RiderCount].RiderSuminsured, new { @id = "RiderSI" + RiderCount })
+                                @Html.HiddenFor(a => a.objBenifitDetails[RiderCount].BenefitID, new { @id = "BenifitID" + RiderCount })
+                            </td>
+                            <td>
+                                @Rider.RiderPremium
+                                @Html.HiddenFor(a => a.objBenifitDetails[RiderCount].RiderPremium, new { @id = "RiderPremium" + RiderCount })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(a => a.objBenifitDetails[RiderCount].LoadingType, new SelectList(Model.LstLoadingType, "ID", "Text", Model.objBenifitDetails[RiderCount].LoadingType), "Select", new { @class = "form-control", @id = "LoadingType" + RiderCount })
+                            </td>
+                            <td>@Html.TextBoxFor(a => a.objBenifitDetails[RiderCount].LoadingAmount, new { @class = "form-control", @id = "LoadingAmount" + RiderCount })  </td>
+                            <td>@Html.TextBoxFor(a => a.objBenifitDetails[RiderCount].ExtraPremium, new { @class = "form-control", @id = "ExtraPremium" + RiderCount , @Value=Model.objBenifitDetails[RiderCount].ExtraPremium, @readonly ="readonly"})  </td>
+                            <td>
+                                @Html.DropDownListFor(a => a.objBenifitDetails[RiderCount].LoadingBasis, new SelectList(Model.LstLoadingBasis, "ID", "Text", Model.objBenifitDetails[RiderCount].LoadingBasis),"Select", new { @class = "form-control", @id = "LoadingBasis" + RiderCount })
+                            </td>
+                            <td style="display:none">@Html.TextBoxFor(a => a.objBenifitDetails[RiderCount].TotalPremium, new { @class = "form-control", @id = "TotalPremium" + RiderCount, @Value = Model.objBenifitDetails[RiderCount].TotalPremium, @readonly = "readonly" })  </td>
+                            <td>@Html.TextBoxFor(a => a.objBenifitDetails[RiderCount].Exclusion, new { @class = "form-control", @id = "Exclusion" + RiderCount })</td>
+                            <td class="addmore"><i class="fa fa-plus" onclick="AddNewRowForLoading('@RiderCount')"> </i></td>
+                        </tr>
+                        RiderCount++;
+                    }
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</form>
+
+<script>
+    var LstLoadingType = @(Html.Raw(Json.Encode(Model.LstLoadingType)));
+    var LstLoadingBasis = @(Html.Raw(Json.Encode(Model.LstLoadingBasis)));
+    function GetGridIndex(DivID) {
+        var _index = 0;
+        var HasData = false;
+        $("#" + DivID + " tbody").find("tr").each(function (index) {
+            _index = index;
+            HasData = true;
+        });
+        if (HasData) {
+            _index = _index + 1;
+        }
+        return _index;
+    }
+    function AddNewRowForLoading(Index){
+
+        var _index=GetGridIndex('UWLoadingGrid');
+        var RiderName =$('#RiderName'+Index).val();
+        var MemberRiderID =$('#MemberRiderID'+Index).val();
+        var RiderSI =$('#RiderSI'+Index).val();
+        var RiderPremium =$('#RiderPremium'+Index).val();
+        var LoadingType =$('#LoadingType'+Index).val();
+        var LoadingAmount =$('#LoadingAmount'+Index).val();
+        var ExtraPremium =$('#ExtraPremium'+Index).val();
+        var LoadingBasis =$('#LoadingBasis'+Index).val();
+        var Exclusion =$('#Exclusion'+Index).val();
+        var BenifitID =$('#BenifitID'+Index).val();
+        
+        var LoadingTypeID ='LoadingType'+_index;
+        var LoadingBasisID ='LoadingBasis'+_index;
+        var _RowID="Loading"+_index;
+        var  newRow = "<tr  id='"+_RowID+"'>" +
+             "<td>"+RiderName+" <input type='hidden' class='form-control'  name='objBenifitDetails["+_index+"].BenifitName' value='"+RiderName+"' id='RiderName"+_index+"' />  <input type='hidden' class='form-control'  name='objBenifitDetails["+_index+"].MemberBenifitID'  value='"+MemberRiderID+"' id='MemberRiderID"+_index+"' /> <input type='hidden' class='form-control'  name='objBenifitDetails["+_index+"].IsDeleted'   id='IsDeleted"+_index+"' /></td>"+
+            "<td>"+RiderSI+" <input type='hidden' class='form-control'  name='objBenifitDetails["+_index+"].RiderSuminsured'  value='"+RiderSI+"' id='RiderSI"+_index+"' />  <input type='hidden' class='form-control'  name='objBenifitDetails["+_index+"].BenefitID'  value='"+BenifitID+"' id='BenifitID"+_index+"' /></td>"+
+            "<td>"+RiderPremium+" <input type='hidden' class='form-control'  name='objBenifitDetails["+_index+"].RiderPremium'  value='"+RiderPremium+"' id='RiderPremium"+_index+"' /></td>"+
+            "<td><select class='form-control'  id=\'" + LoadingTypeID + "\'  name='objBenifitDetails["+_index+"].LoadingType'><option>Select</option></select></td>" +
+            "<td><input type='text' class='form-control'  id='LoadingAmount"+_index+"'  name='objBenifitDetails["+_index+"].LoadingAmount' /></td>" +
+            "<td><input type='text' class='form-control' id='ExtraPremium"+_index+"' name='objBenifitDetails["+_index+"].ExtraPremium' /></td>" +
+            "<td><select class='form-control'  id=\'" + LoadingBasisID + "\'   name='objBenifitDetails["+_index+"].LoadingBasis'><option>Select</option></select></td>" +
+            "<td><input type='text' class='form-control' id='Exclusion"+_index+"' name='objBenifitDetails["+_index+"].Exclusion'/></td>" +
+           "<td class='addmore'><i class='fa fa-plus'  onclick='AddNewRowForLoading("+_index+")'> </i>  <i class='fa fa-minus'  onclick='DeleteLoadingRow("+_index+")'> </i></td>";
+           //"<td><input type='button' class='btn btns' value='A' onclick='AddNewRowForLoading("+_index+")'/><input type='button' class='btn btns' value='D' onclick='DeleteLoadingRow("+_index+")'/></td>"+
+            +"</tr>";
+        $('#UWLoadingGrid'+' tbody:last').append(newRow);
+
+        var _Items = "";
+        $.each(LstLoadingType, function (ID, option) {
+            _Items += '<option Value='+ option.ID + '>'+option.Text + '</option>';
+        });
+        $('#'+LoadingTypeID ).append(_Items);
+        _Items = "";
+        $.each(LstLoadingBasis, function (ID, option) {
+            _Items += '<option Value='+ option.ID + '>'+option.Text + '</option>';
+        });
+        $('#'+LoadingBasisID ).append(_Items);
+
+    }
+
+    function DeleteLoadingRow(_index)
+    {
+        $('#IsDeleted'+_index).val('True');
+        $('#Loading'+_index).hide();
+
+    }
+
+    function CalculateOnLoading()
+    {
+        $.post("/Policy/CalculateLoadingPremium", $("#MemberLoadingForm").serialize(), function (data) {
+            $('#DivLoading').html('');
+            $('#DivLoading').html(data);
+            $("#applyLoading").modal("show");
+            $('#btnLoadingSave').show();
+        });
+    }
+
+    function SaveLoading() {
+        $.post("/Policy/SaveLoadingDetails", $("#MemberLoadingForm").serialize(), function (data) {
+            $("#hdnIsApplyLoading").val("True");
+            $('#btnLoadingSave').hide();
+            $('#btnLoadingCalc').hide();           
+        });
+    }
+
+    function CancelModal()
+    {
+        $('#btnLoadingCalc').show();  
+        $('#btnLoadingSave').hide();
+    }
+</script>

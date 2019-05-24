@@ -1,0 +1,40 @@
+﻿@model  AIA.Life.Models.Policy.Policy
+@using AIA.Life.Models.Opportunity
+@using AIAResources;
+@{ 
+    LifeQuote objLifeQuote = new LifeQuote();
+}
+<div class="panel panel-default">
+    <div class="panel-heading backgroundclr" role="tab" id="headingFive">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+               @Resources.GetLabelName("Medical History")
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+            </a>
+        </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+        <div class="panel-body">
+            @Html.Partial("~/Views/Policy/PartialMedicalHistory.cshtml", Model)            
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading backgroundclr" role="tab" id="headingSeven">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+               @Resources.GetLabelName("Benefit / Coverage Details")
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+            </a >
+        </h4 >
+    </div>
+    <div id = "collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+        <div class="panel-body">
+            <div id = "DivProposalBenifitDetails" >
+            @Html.Action("ProductLifeDetails", "Policy", Model)
+            @*@Html.Partial("~/Views/Prospect/ProductDetails.cshtml", objLifeQuote)*@
+        </div>
+    </div>
+</div>
+</div>

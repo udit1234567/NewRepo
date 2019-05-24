@@ -1,0 +1,966 @@
+﻿
+@{
+    ViewBag.Title = "UnderWriter";
+}
+<link href="~/Content/Styles/under-writer.css" rel="stylesheet" />
+<script src="~/Content/Scripts/bootstrap-multiselect.js"></script>
+<style>
+    .nav-tabs > li > a, .nav-pills > li > a {
+        padding: 11px 52px;
+    }
+
+    .upload-doc input[type="file"] {
+        display: none;
+    }
+
+    .upload-doc i {
+        color: #000;
+        font-size: 27px;
+    }
+
+    .document-link-list i {
+        background-color: #B8123E;
+        color: white;
+        margin-left: 12px;
+        padding: 4px;
+        border-radius: 2px;
+    }
+
+    .upload-status i {
+        background-color: #00c700;
+        color: white;
+        margin-left: 12px;
+        padding: 4px;
+        border-radius: 2px;
+    }
+
+    .document-link-list li {
+        list-style: none;
+        text-align: left;
+    }
+</style>
+
+<!---------content-------------------->
+
+<div class="box-container">
+    <div class="showSingle col-lg-3 col-md-3 col-sm-6 col-xs-12" target="1">
+        <div id="underwritingpool">
+            <p class="text-box">UnderWriting Pool<i class="fa fa-angle-right "></i></p>
+            <p class="container-icon"><img src="~/Content/Images/pool.png" /><span class="number-box">300</span></p>
+        </div>
+    </div>
+    <div class="showSingle col-lg-3 col-md-3 col-sm-6 col-xs-12" target="2">
+        <div id="incompleteUnderwriting">
+            <p class="text-box">Incomplete Underwriting<i class="fa fa-angle-right "></i></p>
+            <p class="container-icon"><img src="~/Content/Images/incomplete.png" /><span class="number-box">630</span></p>
+            <ul class="incompleteUnderWriting-submenu">
+                <li>Outstanding<span class="case-count">20</span></li>
+                <li>Counter Offer<span class="case-count">20</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="showSingle col-lg-3 col-md-3 col-sm-6 col-xs-12" target="3">
+        <div id="submittedUnderwriting">
+            <p class="text-box">Submitted Underwriting<i class="fa fa-angle-right "></i> </p>
+            <p class="container-icon"><img src="~/Content/Images/submitted.png" /><span class="number-box">120</span></p>
+            <ul class="submittedUnderWriting-submenu">
+                <li>Accept<span class="case-count">20</span></li>
+                <li>Decline<span class="case-count">20</span></li>
+                <li>Postpone<span class="case-count">20</span></li>
+                <li>Withdrawn<span class="case-count">20</span></li>
+                <li>Not taken Up<span class="case-count">20</span></li>
+                <li>Refer to senior UW<span class="case-count">20</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="showSingle col-lg-3 col-md-3 col-sm-6 col-xs-12" target="4">
+        <div id="allocate">
+            <p class="text-box">Allocate<i class="fa fa-angle-right "></i> </p>
+            <p class="container-icon"><img src="~/Content/Images/Allocate.png" /> <span class="number-box">56</span></p>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div id="div1" class="targetDiv" style="display:none;">
+
+    <div class="clearfix"></div>
+    <div class="table-responsive">
+        <table id="" class="table underwritingPool-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Proposal Number</th>
+                    <th>First Name</th>
+                    <th>NIC</th>
+                    <th>Mobile</th>
+                    <th>Home</th>
+                    <th>Work</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+        </table>
+
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<div id="div2" class="targetDiv" style="display:none;">
+    <div class="table-responsive">
+        <table id="" class="table incompleteUnderWriting-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Proposal Number</th>
+                    <th>First Name</th>
+                    <th>NIC</th>
+                    <th>Mobile</th>
+                    <th>Home</th>
+                    <th>Work</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div id="div3" class="targetDiv" style="display:none;">
+    <div class="table-responsive">
+        <table id="" class="table submittedUnderWriting-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Proposal Number</th>
+                    <th>First Name</th>
+                    <th>NIC</th>
+                    <th>Mobile</th>
+                    <th>Home</th>
+                    <th>Work</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div id="div4" class="targetDiv" style="display:none;">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <p class="grid-box">Underwriter Name<span class="case-count">20</span></p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <p class="grid-box">Underwriter Name<span class="case-count">20</span></p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <p class="grid-box">Underwriter Name<span class="case-count">20</span></p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <p class="grid-box">Underwriter Name<span class="case-count">20</span></p>
+    </div>
+    <div class="clearfix"></div>
+    <input class="btn btn-default" id="allocatebtn" value="Allocate" type="button">
+    <div class="clearfix"></div>
+    <div class="table-responsive">
+        <table id="" class="table allocate-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Proposal Number</th>
+                    <th>First Name</th>
+                    <th>NIC</th>
+                    <th>Mobile</th>
+                    <th>Home</th>
+                    <th>Work</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<ul class="nav nav-pills">
+    <li class="active">
+        <a data-toggle="pill" href="#UwMainLife" class="collapsed">
+            Main Life
+        </a>
+    </li>
+    <li>
+        <a data-toggle="pill" href="#UwSpouse" class="collapsed">
+            Spouse
+        </a>
+    </li>
+    <li>
+        <a data-toggle="pill" href="#UwChildren" class="collapsed">
+            Children
+        </a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div id="UwMainLife" class="tab-pane fade in active">
+        <div class="panel-group" id="uwaccordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#UwDeviation" data-parent="#uwaccordion" href="#collapseA" class="collapsed">
+                            Deviation<img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" />
+                        </a>
+                    </h4>
+                </div>
+                <div id="UwDeviation" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                <label>UW Failed Reasons</label>
+                                <textarea class="form-control"></textarea>
+                            </p>
+                            <p class="col-lg-2 col-md-2 col-xs-6">
+                                <label>Action</label>
+                                <select class="form-control">
+                                    <option>Refer to Sr. UW</option>
+                                    <option>Waive off</option>
+                                </select>
+                            </p>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <p class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                <label>UW Failed Reasons</label>
+                                <textarea class="form-control"></textarea>
+                            </p>
+                            <p class="col-lg-2 col-md-2 col-xs-6">
+                                <label>Action</label>
+                                <select class="form-control">
+                                    <option>Refer to Sr. UW</option>
+                                    <option>Waive off</option>
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#UwDocuments" data-parent="#uwaccordion" href="#collapseA" class="collapsed">
+                            Documents<img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" />
+                        </a>
+                    </h4>
+                </div>
+                <div id="UwDocuments" class="panel-collapse collapse">
+                    <div class="panel-body table-responsive">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <label>Document Type</label>
+                            <select class="form-control document-type">
+                                <option value="0">Medical Document</option>
+                                <option value="1">Non-Medical Document</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                            <label>Select Additional Documents</label>
+                            <select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+                                <option>Doc1</option>
+                                <option>Doc2</option>
+                                <option>Doc3</option>
+                                <option>Doc4</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <input value="ADD" class="btn btn-default uwbtn" type="button" onclick="addMedicalDetails()">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="uwmedicaldetails-tables">
+                            <table class="table UwMedical-table">
+                                <caption>Medical Documents Details</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Documents</th>
+                                        <th>Status</th>
+                                        <th>Date &amp; Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Blood Test</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>R&#8208;Received</option>
+                                                <option>A&#8208;Auto Required</option>
+                                                <option>W&#8208;Waived</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:400px">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Urine Test</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>R&#8208;Received</option>
+                                                <option>A&#8208;Auto Required</option>
+                                                <option>W&#8208;Waived</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:400px">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lipid Test</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>R&#8208;Received</option>
+                                                <option>A&#8208;Auto Required</option>
+                                                <option>W&#8208;Waived</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:400px">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table UwNonMedical-table">
+                                <caption>Non-Medical Documents Details</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Documents</th>
+                                        <th>Status</th>
+                                        <th>Date &amp; Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Age Proof</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>R&#8208;Received</option>
+                                                <option>A&#8208;Auto Required</option>
+                                                <option>O&#8208;Outstanding</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:400px">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address Proof</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>R&#8208;Received</option>
+                                                <option>A&#8208;Auto Required</option>
+                                                <option>O&#8208;Outstanding</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:400px">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Income Proof</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>R&#8208;Received</option>
+                                                <option>A&#8208;Auto Required</option>
+                                                <option>O&#8208;Outstanding</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:400px">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <label>Remarks for Advisor</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <p class="col-lg-4 col-sm-4">
+                            <input value="Update Status" class="btn btn-default uwbtn" type="button">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#UwDecision" data-parent="#uwaccordion" href="#collapseA" class="collapsed">
+                            Decision<img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" />
+                        </a>
+                    </h4>
+                </div>
+                <div id="UwDecision" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <label>Underwriting Decision</label>
+                            <select class="form-control">
+                                <option>Accept</option>
+                            </select>
+                        </p>
+                        <p class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <label>Decision Date</label>
+                            <input type="date" class="form-control" />
+                        </p>
+                        <p class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <label>Commencement Date</label>
+                            <input type="date" class="form-control" />
+                        </p>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <label>Remarks</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <p class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <input value="Apply Loading" class="btn btn-default uwbtn" data-toggle="modal" data-target="#applyLoading" type="button">
+                        </p>
+                        <!-- Modal -->
+                        <div id="applyLoading" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Apply Loading</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="table-responsive" style="overflow:visible">
+                                            <table class="table uwtable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Beneift List</th>
+                                                        <th>Sum Assured</th>
+                                                        <th>Premium</th>
+                                                        <th>Loading Type</th>
+                                                        <th>Amount/Percentage</th>
+                                                        <th>Extra Premium</th>
+                                                        <th>Loading Basis</th>
+                                                        <th>Exclusion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><select class="form-control"><option></option></select></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><select class="form-control"><option></option></select></td>
+                                                        <td><select class="form-control"><option></option></select></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default uwbtn">Calculate</button>
+                                        <button type="button" class="btn btn-default uwbtn" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#UwDocuments1" data-parent="#uwaccordion" href="#collapseA" class="collapsed">
+                            Upload Documents<img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" />
+                        </a>
+                    </h4>
+                </div>
+                <div id="UwDocuments1" class="panel-collapse collapse">
+                    <div class="panel-body table-responsive">
+                        <table class="table UwMedical-table">
+                            <thead>
+                                <tr>
+                                    <th>Document Type</th>
+                                    <th>Upload</th>
+                                    <th>Link</th>
+                                    <th>Received</th>
+                                    <th>Date &amp; Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control">
+                                            <option>Document Type</option>
+                                        </select>
+                                    </td>
+                                    <td class="upload-doc">
+                                        <label for="filesToUpload">
+                                            <i class="fa fa-upload"></i>
+                                        </label>
+                                        <input type="File" name="filesToUpload" id="filesToUpload" multiple="" onChange="Handlechange(id)">
+                                        <output id="list"></output>
+                                    </td>
+                                    <td class="document-link-list"><ul></ul></td>
+                                    <td class="upload-status"><i class="fa fa-check"></i></td>
+                                    <td><span>7-03-2018 </span><span>10:20AM</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="UwChildren" class="tab-pane fade">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#UwchildDecision" data-parent="#uwaccordion" href="#UwDecision" class="collapsed">
+                        Decision<img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" />
+                    </a>
+                </h4>
+            </div>
+            <div id="UwchildDecision" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active"><a data-toggle="pill" href="#child1">CHILD1</a></li>
+                            <li><a data-toggle="pill" href="#child2">CHILD2</a></li>
+                            <li><a data-toggle="pill" href="#child2">CHILD3</a></li>
+                            <li><a data-toggle="pill" href="#child4">CHILD4</a></li>
+                            <li><a data-toggle="pill" href="#child5">CHILD5</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9" style="padding-left:20px">
+                        <p class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <label>Underwriting Decision</label>
+                            <select class="form-control">
+                                <option></option>
+                            </select>
+                        </p>
+                        <p class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <label>Decision Date</label>
+                            <input type="date" class="form-control" />
+                        </p>
+                        <p class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <label>Commencement Date</label>
+                            <input type="date" class="form-control" />
+                        </p>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <label>Remarks</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <p class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                            <input value="Apply Loading" class="btn btn-default uwbtn" data-toggle="modal" data-target="#applyLoading1" type="button">
+                        </p>
+                        <!-- Modal -->
+                        <div id="applyLoading1" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Apply Loading</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="table-responsive">
+                                            <table class="table uwtable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Beneift List</th>
+                                                        <th>Sum Assured</th>
+                                                        <th>Premium</th>
+                                                        <th>Loading Type</th>
+                                                        <th>Amount/Percentage</th>
+                                                        <th>Extra Premium</th>
+                                                        <th>Loading Basis</th>
+                                                        <th>Exclusion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><select class="form-control"><option></option></select></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><select class="form-control"><option></option></select></td>
+                                                        <td><select class="form-control"><option></option></select></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default uwbtn">Calculate</button>
+                                        <button type="button" class="btn btn-default uwbtn" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!----end of tab content-->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-target="#proposalhistory" data-parent="#" href="#proposalhistory" class="collapsed">
+                History<img src="~/Content/Images/plus.png" style="float: left;width:20px" id="plusimg" onclick="changeImage()" />
+            </a>
+        </h4>
+    </div>
+    <div id="proposalhistory" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div class="col-lg-4 col-md-4  col-sm-4 col-xs-12">
+              <ul class="history-timeline">
+                  <li id="proposal-member-details" onclick="displayHistoryDetails(id)">
+                      <div class="history-proposal-details">
+                          <p class="history-proposal-date"><span>19 Nov 2017</span></p>
+                          <ul class="history-proposal-customer-status">
+                              <li class="history-proposal-status">Pending</li>
+                              <li class="history-proposal-name">Veerabhadra</li>
+                          </ul>
+                      </div>
+                  </li>
+                  <li id="proposal-member-details1" onclick="displayHistoryDetails(id)">
+                      <div class="history-proposal-details">
+                          <p class="history-proposal-date"><span>19 Nov 2017</span></p>
+                          <ul class="history-proposal-customer-status">
+                              <li class="history-proposal-status">Pending</li>
+                              <li class="history-proposal-name">Veerabhadra</li>
+                          </ul>
+                      </div>
+                  </li>
+                  <li id="proposal-member-details2" onclick="displayHistoryDetails(id)">
+                      <div class="history-proposal-details">
+                          <p class="history-proposal-date"><span>19 Nov 2017</span></p>
+                          <ul class="history-proposal-customer-status">
+                              <li class="history-proposal-status">Pending</li>
+                              <li class="history-proposal-name">Veerabhadra</li>
+                          </ul>
+                      </div>
+                  </li>
+                  <li id="proposal-member-details3" onclick="displayHistoryDetails(id)">
+                      <div class="history-proposal-details">
+                          <p class="history-proposal-date"><span>19 Nov 2017</span></p>
+                          <ul class="history-proposal-customer-status">
+                              <li class="history-proposal-status">Pending</li>
+                              <li class="history-proposal-name">Veerabhadra</li>
+                          </ul>
+                      </div>
+                  </li>
+                  <li id="proposal-member-details4" onclick="displayHistoryDetails(id)">
+                      <div class="history-proposal-details">
+                          <p class="history-proposal-date"><span>19 Nov 2017</span></p>
+                          <ul class="history-proposal-customer-status">
+                              <li class="history-proposal-status">Pending</li>
+                              <li class="history-proposal-name">Veerabhadra</li>
+                          </ul>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+            <div class="history-panel-details col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div id="proposal-member-details-documentslist" style="display:none">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label>Proposal Received Date</label>
+                        <input class="form-control" type="text" />
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label>UW Name</label>
+                        <input class="form-control" type="text" />
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                        <table class="table uwtable" style="margin-top:20px;">
+                            <thead>
+                                <tr>
+                                    <th>List of Documents</th>
+                                    <th>Received Date &amp; Time</th>
+                                    <th>Status</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="proposal-member-details1-documentslist" style="display:none">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label>Proposal Received Date1</label>
+                        <input class="form-control" type="text" />
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label>UW Name</label>
+                        <input class="form-control" type="text" />
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                        <table class="table uwtable" style="margin-top:20px;">
+                            <thead>
+                                <tr>
+                                    <th>List of Documents</th>
+                                    <th>Received Date &amp; Time</th>
+                                    <th>Status</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+            <script>
+           
+       
+                function Handlechange(id) {
+                  
+
+                    var input = document.getElementById(id);
+                    
+                  
+                  
+                    var ul = $("#" + id).parent().parent().find('.document-link-list').children('ul');
+                    ul.innerHTML = "";
+                  
+                    for (var i = 0; i < input.files.length; i++) {
+                        //var file = document.getElementById(id).files[i];
+                        var li = document.createElement("li");
+                        li.innerHTML = input.files[i].name;
+                       
+                        //if (file) {
+                        //    // create reader
+                        //    var reader = new FileReader();
+                        //    reader.readAsText(file);
+                        //    reader.onload = function (e) {
+                        //        // browser completed reading file - display it
+                        //        alert(e.target.result);
+                        //    };
+                        //}
+
+                        var remove = document.createElement("span");
+                        remove.innerHTML = '<span id="delete-link' + i + '" onclick="deleteImage(id)"><i class="fa fa-close"></i></span>';
+                        ul.append(li);
+                        li.appendChild(remove);
+
+                    }
+
+
+                }
+
+
+                function deleteImage(id) {
+                   
+                    var id = "#" + id;
+                    $(id).parent().parent().remove();
+                    names.push(elem.files[i].name);
+                    console.log(names);
+                }
+  $(document).ready(function(){
+   $('.targetDiv').hide();
+   $('.targetDiv').first().show();
+   $('.showSingle').first().addClass('selected');
+   $('.showSingle').click(function () {
+    $('.targetDiv').hide();
+    $('.showSingle').removeClass('selected');
+    $('#div' + $(this).attr('target')).show();
+    //$(this).addClass('selected');
+});
+
+  })
+            </script>
+
+            <script type="text/javascript">
+    $(document).ready(function() {
+        $('.multiselect-ui').multiselect({
+            onChange: function(option, checked) {
+                // Get selected options.
+                var selectedOptions = $('.multiselect-ui option:selected');
+                  var ln = $('#dates-field2').children('option').length;
+
+                    // Enable all checkboxes.
+                    $('.multiselect-ui option').each(function() {
+                        var input = $('input[value="' + $(this).val() + '"]');
+                        input.prop('disabled', false);
+                        input.parent('li').addClass('disabled');
+
+                    });
+
+            }
+        });
+    });
+
+	 $(document).ready(function() {
+        $("#getvalues").click(function(){
+            var list = [];
+            $.each($("input[type='checkbox']:checked"), function(){
+                list.push($(this).val());
+            });
+            alert(list.join(", "));
+        });
+    });
+
+	 function addMedicalDetails() {
+	     var selectedOptions = $('.multiselect-ui option:selected');
+	     var selectedValue = $('.document-type option:selected').val();
+	     for (i = 0; i < selectedOptions.length; i++) {
+	         var row="<tr><td>gh</td><td><select class='form-control'><option></option></select></td>" +
+                 "<td></td></tr>"
+	         $('.uwmedicaldetails-tables').children().eq(selectedValue).append(row);
+	     }
+	 }
+	 $(function () {
+	     $('#datetimepicker1').datetimepicker();
+	 });
+	 function displayHistoryDetails(id) {
+	     var historyid = "#" + id + "-documentslist";
+	     $('.history-timeline').children().find('.history-proposal-details').removeClass('history-heighlight-details');
+	     $('.history-panel-details>div').hide();
+	     $("#" + id).find('.history-proposal-details').addClass('history-heighlight-details');
+	     $(historyid).toggle();
+	 }
+            </script>

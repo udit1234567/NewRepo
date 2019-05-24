@@ -1,0 +1,208 @@
+﻿/* Sidenav for Docs
+-------------------------------------------------- */
+
+.bs-docs-sidenav {
+    /*width: 228px;*/
+    margin: 30px 0 0;
+    padding: 0;
+    background-color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+
+    .bs-docs-sidenav > li > a {
+        display: block;
+        /*width: 190px;*/
+        margin: 0 0 -1px;
+        padding: 8px 14px;
+    }
+
+    .bs-docs-sidenav > li:first-child > a {
+        -webkit-border-radius: 6px 6px 0 0;
+        -moz-border-radius: 6px 6px 0 0;
+        border-radius: 6px 6px 0 0;
+    }
+
+    .bs-docs-sidenav > li:last-child > a {
+        -webkit-border-radius: 0 0 6px 6px;
+        -moz-border-radius: 0 0 6px 6px;
+        border-radius: 0 0 6px 6px;
+    }
+
+    .bs-docs-sidenav > .active > a {
+        position: relative;
+        z-index: 2;
+        padding: 9px 15px;
+        border: 0;
+        text-shadow: 0 1px 0 rgba(0,0,0,.15);
+        -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+        -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+        box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+    }
+    /* Chevrons */
+    .bs-docs-sidenav .icon-chevron-right {
+        float: right;
+        margin-top: 2px;
+        margin-right: -6px;
+        opacity: .25;
+    }
+
+    .bs-docs-sidenav > li > a:hover {
+        background-color: #f5f5f5;
+    }
+
+    .bs-docs-sidenav a:hover .icon-chevron-right {
+        opacity: .5;
+    }
+
+    .bs-docs-sidenav .active .icon-chevron-right,
+    .bs-docs-sidenav .active a:hover .icon-chevron-right {
+        background-image: url(../img/glyphicons-halflings-white.png);
+        opacity: 1;
+    }
+
+    .bs-docs-sidenav.affix {
+        top: 40px;
+    }
+
+    .bs-docs-sidenav.affix-bottom {
+        position: absolute;
+        top: auto;
+        bottom: 270px;
+    }
+
+#body {
+    margin-top: 90px;
+}
+
+.leftMenu {
+    padding-left: 0px;
+}
+
+.topMenu {
+    background-color: #000000 !important;
+}
+
+.marginRight10 {
+    margin-right: 10px;
+}
+
+.topMenu li {
+    color: #A6DDF6!important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+    .topMenu li a {
+        color: #A6DDF6!important;
+    }
+
+        .topMenu li a:hover {
+            color: #ffffff!important;
+            font-size: 16px;
+            font-weight: bold;
+            background: #428BCA!important;
+        }
+
+.header {
+    text-align: center !important;
+}
+
+.rightContentShadow {
+}
+
+#modal-background.active, #divBusyIndicator.active{
+    display: block;
+}
+    .text_over_image {
+        background: url(../../../Content/Images/Loading.gif) no-repeat; /* image to display */
+        width: 100px; /* width of image */
+        height: 5px; /* height of image */
+        color: #000000; /* text color */
+        font-size: 12px; /* font size */
+        font-weight: bold; /* font weight */
+      
+        padding-left: 5px; /* left position of text */
+        padding-top: 84px; /* top position of text */
+        overflow: hidden;
+        position: absolute; /* so div won't change size */
+        z-index: 100004;
+        text-align: center;
+        position: fixed;
+        top: 40%;
+        left: 40%;
+        display: none;
+        
+        /*background-color: white;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        box-shadow: 0 0 20px 0 #222;
+        -webkit-box-shadow: 0 0 20px 0 #222;
+        -moz-box-shadow: 0 0 20px 0 #222;*/
+    }
+
+
+
+/*Added by Ravi  for Responsive tables*/
+@media only screen and (max-width: 800px) {
+
+    /* Force table to not be like tables anymore */
+
+    /* Force table to not be like tables anymore */
+    #no-more-tables table,
+    #no-more-tables thead,
+    #no-more-tables tbody,
+    #no-more-tables th,
+    #no-more-tables td,
+    #no-more-tables tr {
+        display: block;
+    }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        #no-more-tables thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+    #no-more-tables tr {
+        border: 1px solid #ccc;
+    }
+
+    #no-more-tables td {
+        /* Behave  like a &quot;row&quot; */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        white-space: normal;
+        text-align: left;
+    }
+
+        #no-more-tables td:before {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        /*
+	Label the data
+	*/
+        #no-more-tables td:before {
+            content: attr(data-title);
+        }
+}
+    /*ends here*/
+

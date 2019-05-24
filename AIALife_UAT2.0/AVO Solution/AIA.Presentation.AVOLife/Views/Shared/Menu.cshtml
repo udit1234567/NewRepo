@@ -1,0 +1,18 @@
+﻿
+@using AIA.Presentation.Helpers
+@{
+    
+    string appName = null;
+    var userName= HttpContext.Current.User.Identity.Name;
+  
+    
+}
+
+
+
+
+<ul class="page-sidebar-menu page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+  
+     @Html.iNubeLeftMenu(appName,userName)
+ 
+  </ul>

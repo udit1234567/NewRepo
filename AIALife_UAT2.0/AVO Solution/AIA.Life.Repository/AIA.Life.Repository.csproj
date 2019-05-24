@@ -1,0 +1,1069 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{461EBE40-E4C4-4275-A1B2-88AA3AA66708}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AIA.Life.Repository</RootNamespace>
+    <AssemblyName>AIA.Life.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AIAEntity\AIAEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AIAEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\AIAEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\AIAEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AIAEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Application.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\AspNetRole.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\AspNetUser.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\AspNetUserClaim.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\AspNetUserLogin.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\GetIntroducerCode_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\MATURITY_BENEFIT_PREMIUM_PAYING_MODE_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SmartPensionsPlanChoices_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_BeneficiaryDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CashAdvanceQuoteBenefits_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CashAdvanceQuote_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_ChildLifeDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLABenefitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLAChild1BenifitDetails1_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLAChild1BenifitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLAChild2BenifitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLAChild3BenifitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLAChild4BenifitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLAChild5BenifitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLAMainLifeBenifitDetails1_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLAMainLifeBenifitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLAMemberDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLASpouseBenifitDetails1_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_CLASpouseBenifitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_Dividendrates_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_EveryYearDrawDownDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_GetFALDetailsForQuote_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_GetOccupationalLoadingDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_GetPreviousPolicyDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_GetSARAndFALDetailsForQuote_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_GetSARDetailsForQuote_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_GetSARDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_MainLifeDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_MedicalExaminerReport_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_MedicalReqCoverLettertoAssured_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_MonthlyDrawDownDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_PolicyBenefitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_PolicyDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_PolicyOwnerDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_PolicyPDFDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_ProposalForm_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_ProposalPDF_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_ProposalPremiumDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_QuoteandillustrationPDF_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_QuoteDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\SP_QuotePDFDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\sp_SmartPensionsPlanChoices_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_spouseLifeDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Sp_UWDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblAddress.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblAllocationRate.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblAppVersion.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblAuditDepartmentClearance.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblAuthority_RuleCategoryMap.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblBankInfo.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblChannelAllocation.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblContact.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblContactDependent.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblContactDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblCorporate.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblCustomer.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblDashboardReport.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblDashboardReportGraph.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblDashboardSubReport.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblDashboardXAxi.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblDependant.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblDevicedetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblDiscountLoadingChart.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblEmergencyDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblEmployee.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblFinanceDepartmentClearance.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblFundCalc.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblGlobalLanguage.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblHealthCalculator.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblHierarchyCoordination.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblHRMDepartmentClearance.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblILIntegration.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblIMasInviewArea.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblIMasInviewCaterory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblIntegrationTxnLog.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblLifeNeedAnalysi.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblLifeQQ.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblLog.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblLogILUpdate.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblLogSM.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblLogTPService.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tbllogxml.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMapGradeChallenge.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasAccountType.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasAgentStatu.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasAllMenuType.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasArea.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasAuthority.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasBancaBranch.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasBankMaster.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasBasicRate.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasBenefit.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasBranch.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasChallange.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblmasChannel.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasCityDistrictProvince.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasCommonType.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasCommonTypesJ.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasCountry.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasDataType.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasDesignation.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblmasDoctor.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasDocument.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasEmployee.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasExam.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasGCEGrade.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasGCESubject.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasGrade.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasHeaderData.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasILClient.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasILPolicy.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasILPolicyRider.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasIMOUser.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasInterviewerChallenge.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasInterviewGuide.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasLifeClass.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasLifeHierarchyTree.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasLifeOccupation.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasLifePricingRate.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasLifeProduct.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasLifeQuestionnaire.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasMedicalCheckUpRule.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasMedicalLab.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasMedicalReport.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasNeed.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasNICBlacklist.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasNomineeRalationship.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasOccupation.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasParameter.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasPasswordQuestion.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasPaymentType.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasPermission.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasPermissionNew.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasPlan.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasPolicyTerm.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasPolicyType.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasPositionDesignation.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasPositionType.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasProductPlan.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasRecieptingBankCode.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasRiskType.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasRuleCategory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasRuleParameter.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMasSAM.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMemberAdditionalLifeStyleDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMemberBenefitOtherDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMemberDeviationHistory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMemberDeviationInfo.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMemberLevelDecision.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMemberLevelDecisionHistory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMemberLifeStyleDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblMemberQuestion.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeed.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedCalculator.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedEducationCalculator.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedEduForeign.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedEduGCEAL.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedEduHigher.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedEduLocal.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedFinancialNeed.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedHealthCalculator.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedHumanValueCalculator.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedRetirementCalculator.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedSaveCar.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedSaveHouse.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedSaveOther.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedSaveTour.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedSaveWedding.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNeedSavingCalculator.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNomineeDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblNumberingScheme.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblOpportunity.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblOpportunityApproval.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblOpportunityHistory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblOrganization.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblOrgOffice.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblOrgOfficeHistory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblOrgStructure.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblParameter.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPayment.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPaymentInstrumentDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicy.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyCLAQuote.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyClient.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyDocument.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyDocumentHistory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyExtension.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyFinancialDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyIllustration.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyImdPayment.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyLifeRiskInfo.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyMedicalHistory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyMemberBenefitDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyMemberClaimInfo.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyMemberDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyMemberFamilyHistory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyMemberInsuranceInfo.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyMemberTest.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyNomineeDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyPaymentMap.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyRelationship.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyRisk.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyUWAllocation.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyUWRemark.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPolicyUWRemarkHistory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPosition.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPreviousInsurenceInfo.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblPrevPolicy.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProdRiderDocumentMap.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProduct.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductAssumptionMap.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductParameter.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductPaymentMap.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductPlanRider.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductPlanRiderDiscountLoadingMap.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductPlanRiderOccupationChart.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductPlanRiderParameter.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductQuestionMapping.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductRider.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductRiderParameter.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductRiderRateParameter.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProductRisk.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProposalDecisionMatrix.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProposalMemberDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProposalPremium.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspect.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectDocument.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectEducation.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectEducationDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectExam.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectGradeHistroy.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectInterviewCriteria.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectInview.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectOfficial.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectReference.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblProspectTrainingDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblQuestionDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblQuoteDrawDownDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblQuoteIllustration.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblQuoteMemberBeniftDetial.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblQuoteMemberDetial.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblResourceCatagory.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblResourceCategoryDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblRider.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblRule.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblRuleParameter.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblRuleSet.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblServiceAuthenticationDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblServiceLog.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblSpecialAchievement.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblSubFunctionMapping.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblSupervisorDecision.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblSuspect.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblTransaction.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserAccount.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserAvalibility.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserChannelMap.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserDetail.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserExtension.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserHomepage.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserOTP.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserPermission.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserPhoto.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUserProductPermission.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUWAllocation.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUWProposal.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUWReason.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblUWRemark.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\tblValidateField.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\User.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\UsersInRole.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_CovLetterDetails_PDF_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_fetchDeclinedRiders_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetAggrementpdf_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetBenefitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetDFIllustration_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetDocumentsForPDF_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetHierarchyStructure_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetIdentificationform_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetMemberBenefitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetMenuHierarchy_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetMenuPermissions_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetOngoingProposalDetails_Pdf_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetOngoingProposalDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\Usp_GetOutStandingDocList_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_Getpersonaldatapdf_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetPolicySchedule_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetPremiumPerFrequency_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetPremiumWithDecimals_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetPremium_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetPreviousPolicyDetailsForUW_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetPreviousPolicyDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetPreviousPolicyRiderSIDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetPreviousPolicyRiderSI_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetProductPermissions_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetQuoteIllustration_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetResouceDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetRiderRates1_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetRiderRates_bak3005_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetRiderRates_ForPrd3_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetRiderRates_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetSLIIEXAMAPPLICATIONPDF_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetUserDetailsByNodeiD_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_GetUserDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_GetUserHierarchy_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\USP_OrgSearch_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_PolicyBefenitDetails_PDF_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_PolicyDetails_PDF_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_ReportPF_BeneficiaryDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_ReportPF_FamilyHistory_Self_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_ReportPF_FamilyHistory_Spouse_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_ReportPF_FemaleLives_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_ReportPF_HabitLifeStyle_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_ReportPF_HabitMoreDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_ReportPF_OtherInfo_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_ReportPF_PolicyBenefitDetails_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AIAEntity\usp_ReportPF_StateofHealth_Result.cs">
+      <DependentUpon>AIAEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="AIAEntity\AIAEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AIAEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AIAEntity\AIAEntity.edmx.diagram">
+      <DependentUpon>AIAEntity.edmx</DependentUpon>
+    </None>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AIAEntity\AIAEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AIAEntity.Context.cs</LastGenOutput>
+      <DependentUpon>AIAEntity.edmx</DependentUpon>
+    </Content>
+    <Content Include="AIAEntity\AIAEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AIAEntity.edmx</DependentUpon>
+      <LastGenOutput>AIAEntity.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

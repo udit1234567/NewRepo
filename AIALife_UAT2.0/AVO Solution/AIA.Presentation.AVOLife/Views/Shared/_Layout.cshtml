@@ -1,0 +1,616 @@
+﻿@{ 
+    string VerNo = System.Configuration.ConfigurationSettings.AppSettings["VersionNo"].ToString();
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>AIA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    @Styles.Render("~/Content/JSStyles")
+    @Styles.Render("~/Content/JSLayout")
+    @Scripts.Render("~/bundles/Scripts")
+    @Scripts.Render("~/bundles/amcharts")
+    @Scripts.Render("~/bundles/MvcAjaxScript")
+    <link rel="stylesheet" href="~/Content/Styles/BootSideMenu.css">
+    <script src="~/Content/Scripts/BootSideMenu.js"></script>
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    
+@*<script language="javascript" src="https://momentjs.com/downloads/moment.js"></script>
+<script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>*@
+
+    @{
+        string userName = string.Empty;
+        string AppCookie = string.Empty;
+        // string AppName=
+
+        if (Request.IsAuthenticated)
+        {
+            userName = HttpContext.Current.User.Identity.Name;
+            AppCookie = AIA.Presentation.Helpers.HelperMethods.GetApplicationName();
+        }
+
+    }
+    <style>
+        #containerMain{
+            position:relative;
+            min-height:1px;
+        }
+        body {
+            padding-bottom: 70px;
+        }
+
+        .ui-autocomplete {
+            max-height: 300px;
+            max-width: 270px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+            /* add padding to account for vertical scrollbar */
+            padding-right: 20px !important;
+            background-color: #f9f9f9;
+        }
+
+            .ui-autocomplete li {
+                list-style: none;
+            }
+
+        .ui-helper-hidden-accessible {
+            display: none;
+        }
+
+        .user {
+            padding: 5px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .bootsidemenu-right {
+            width: 27% !important %;
+        }
+
+        .utility.icon {
+            background-image: url('../Content/Images/Menu@0,32x.png');
+        }
+
+        .toggler {
+            width: 38px;
+        }
+
+        .bootsidemenu-right > .toggler {
+            left: -38px;
+            background-image: url("../Content/Images/Menu@0,32x.png");
+        }
+
+        #back2Top {
+            width: 40px;
+            line-height: 40px;
+            overflow: hidden;
+            z-index: 999;
+            display: none;
+            cursor: pointer;
+            -moz-transform: rotate(270deg);
+            -webkit-transform: rotate(270deg);
+            -o-transform: rotate(270deg);
+            -ms-transform: rotate(270deg);
+            transform: rotate(270deg);
+            position: fixed;
+            bottom: 50px;
+            right: 0;
+            background-color: #DDD;
+            color: #555;
+            text-align: center;
+            font-size: 30px;
+            text-decoration: none;
+        }
+
+            #back2Top:hover {
+                background-color: #DDF;
+                color: #000;
+            }
+
+        .responsive-scroll-top {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="page-boxed page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed-hide-logo" id="layout">
+
+
+
+    <div id="modal-background"></div>
+    @*<div id="divBusyIndicator" class="text_over_image">
+            Please Wait...
+        </div>*@
+    <div id="divBusyIndicator" class="maindivLoading" style="display: none">
+        <p>
+            <img src="~/Content/Images/AIA-loader-4 (1).gif" width="200" height="200"/>
+            @*<img src="~/Content/Images/AIA-loadernew.gif" width="200" height="200"/>*@
+            @*<img src="~/Content/Images/AIA-loader-new.gif" width="200" height="200"/>*@
+            @*<img src="../../../Content/Images/Loading.gif" width="200" height="200">*@
+           
+        </p>
+       @*<div class="loader">
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__ball"></div>
+    <p>Loading...</p>
+        </div>*@
+        
+    </div>
+
+
+
+
+    @if (Request.IsAuthenticated)
+    {
+
+        <!-- BEGIN HEADER -->
+        <!---knowledge popup---->
+
+        <!--Modal-->
+        <div class="modal fade" id="knowledgeModal" role="dialog" style="display:none" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" id="knowledgebody">
+
+
+                    @*@Html.Partial("~/Views/Home/_PartialKnowledgeCenter.cshtml");*@
+
+                </div>
+            </div>
+        </div>
+
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner container">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <img src="~/Content/Images/AIA-inside.png" alt="logo" class="logo-default" height="46px" />
+
+
+                </div>
+                <div class="menu-toggler sidebar-toggler">
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <p class="responsive-scroll-top">
+                    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse" onclick="CalcArea()"></a>
+                </p>
+                    <a id="back2Top"  class="BacktoTop" title="Back to top" href="#">&#10148;</a>
+                <div class="page-top">
+                    <!-- BEGIN HEADER SEARCH BOX -->
+                    <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+                    <!-- END HEADER SEARCH BOX -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <li data-toggle="modal" data-target="#knowledgeModal" onclick="LoadKnowledgeCenter()"><img src="~/Content/Images/Knowledge Center_Icon.png" /></li>
+                            <li><img src="~/Content/Images/E.png" onclick="SetCulture('en-IN')" /></li>
+                            <li><img src="~/Content/Images/S.png" onclick="SetCulture('si-LK')" /></li>
+                            <li id="tamil"><img src="~/Content/Images/T.png" onclick="SetCulture('ta-IN')" /></li>
+
+                            <li class="dropdown dropdown-user">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+
+                                    <img alt="" class="img-circle" src="~/Images/male.png" />
+
+                                    <span class="username username-hide-on-mobile">@userName</span>
+                                    <i class="fa fa-angle-down"></i>
+
+                                </a>
+
+                                @Html.Partial("MyMenu")
+                            </li>
+
+                            <!-- END USER LOGIN DROPDOWN -->
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END PAGE TOP -->
+
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+    }
+    <div class="clearfix">
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+
+
+
+        <img src="~/Content/Images/AIA-loader-4 (1).gif" id="loading" style="width:50px;height:50px;display:none" />
+
+
+        <!-- BEGIN CONTAINER -->
+        <div class="container">
+
+            <div class="page-container">
+                <!-- BEGIN SIDEBAR -->
+                <div class="page-sidebar-wrapper">
+
+                    <div class="page-sidebar navbar-collapse collapse">
+
+
+                        @Html.Partial("Menu")
+
+
+                        <!-- END SIDEBAR MENU -->
+                    </div>
+                </div>
+
+                <!-- END SIDEBAR -->
+                <!-- BEGIN CONTENT -->
+                <div class="page-content-wrapper" style="background-color:#fff;">
+                    <div class="page-content">
+                        <div class="LayoutBody" id="layoutBody">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT -->
+
+            </div>
+
+        </div>
+        <!-- END CONTAINER -->
+    }
+    else
+    {
+
+        <div id="body">
+            <div class="page-header navbar navbar-fixed-top">
+                <div>
+                    <div class="header">
+                        <div class="page-header-inner container">
+                            <div class="page-top" style="background: none repeat scroll 0% 0% #fff;height:90px">
+                                <div class="page-logo">
+                                    <img src="/Content/Images/AIA.png" style="height:90px !important">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="background-image: url('../Images/login-bg.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-position: center center; min-height: 575px; padding-left: 10px; padding-right: 10px;">
+
+                @RenderBody()
+            </div>
+        </div>
+
+    }
+    <div class="clearfix"></div>
+    <footer>
+        @*<div class="content-wrapper mainDiv">
+                <div id="containerMain" class="containerMain">
+                </div>
+            </div>*@
+        @*navbar-fixed-bottom*@
+        <div class="navbar navbar-fixed-bottom" id="containerMain">
+            <div>
+            </div>
+        </div>
+        <div class="navbar copyright-content">
+            <div style="text-align:center">
+               Copyright &copy; AIA Insurance Lanka PLC @DateTime.Now.Year. All Rights Reserved. NexGen iPoS - Web Version @VerNo
+
+
+            </div>
+
+        </div>
+    </footer>
+
+
+
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        function stopBodyScrolling(bool) {
+            if (bool === true) {
+               
+                document.body.addEventListener("touchmove", freezeVp, false);
+            } else {
+                document.body.removeEventListener("touchmove", freezeVp, false);
+            }
+        }
+        var freezeVp = function (e) {
+          
+                $("body").bind(
+                    'touchmove',
+                     function (e) {
+                         e.preventDefault();
+                     }
+                );
+            }
+      
+
+        $(window).on('shown.bs.modal', function() { 
+            debugger;
+            stopBodyScrolling(true);
+        })
+       $(window).on('hidden.bs.modal', function() { 
+           stopBodyScrolling(false);
+        })
+        $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
+        $.fn.modal.prototype.constructor.Constructor.DEFAULTS.keyboard = false;
+        var defaultLang = "en-IN";
+       
+        //window.setInterval(function () {
+        //    var elem = document.getElementById('Marketing');
+        //    elem.scrollTop = elem.scrollHeight;
+        //}, 5000);
+        //$(document).ready(function () {
+        //    $('#rightMenu').BootSideMenu({
+        //        side: "right",
+        //        autoClose: true,
+        //        closeOnClick: true,
+        //        pushBody: false,
+        //        remember: false,
+        //    });
+        //});
+
+
+ //$(document).ready(function () {
+                //    $('.signaturePad').click(function () {
+                //        $(document).load($(window).bind("resize", checkPosition));
+                //    })
+                //})
+                ////$(document).load($(window).bind("resize", checkPosition));
+
+                //function checkPosition() {
+                //    if ($(window).width() < 480) {
+                //        $("#SignatureID").attr('width', '320');
+                //    }
+                //   else if ($(window).width() < 768) {
+                //        $("#SignatureID").attr('width', '420');
+                //   }
+                //   else {
+                //       $("#SignatureID").attr('width', '540');
+                //   }
+                //}
+
+        
+        $(document).ready(function () {
+            Layout.init(); // init layout
+            // wireUpEvents();
+          
+            $(window).resize(function () {
+                height = $(window).height();
+                var a = height;
+                var bodyheight = $(window).height();
+                var headerheight = $('.page-top').height();
+                var footerheight = $('footer').height();
+                var imgHeight = bodyheight - (headerheight + footerheight);
+                var width = $(window).width();
+                var sidebarWidth = $('.page-sidebar').width();
+                imgWidth = width - sidebarWidth;
+                $('.bg-img').css('width', imgWidth + 'px');
+                if (a >= 462) {
+                    $('.page-content').css('min-height', +imgHeight + 'px');
+                   }
+                else {
+                    $('.page-content').css('min-height', +imgHeight + 'px');
+                }
+                $('.page-content').css('min-height', +imgHeight + 'px');
+              
+            if ($(window).width() < 300) {
+                    $(".pad").attr('width', '200');
+                //$(".datepicker-hidekeypad").attr('readonly', 'readonly');
+
+                }
+                else if ($(window).width() < 380) {
+                    $(".pad").attr('width', '240');
+                    //$(".datepicker-hidekeypad").attr('readonly', true);
+                    //$(".datepicker").keypress(function (event) { event.preventDefault(); });
+                }
+               
+                else if (($(window).width() < 480)&&( $(window).width() > 400)) {
+                    $(".pad").attr('width', '320');
+                
+                    //$(".datepicker-hidekeypad").attr('readonly', true);
+                    //$(".datepicker").keypress(function (event) { event.preventDefault(); });
+                }
+                else if ($(window).width() < 768) {
+                    $(".pad").attr('width', '420');
+                    //$(".datepicker-hidekeypad").attr('readonly', true);
+                    //$(".datepicker").keypress(function (event) { event.preventDefault(); });
+                }
+                else {
+                    $(".pad").attr('width', '540');
+                    //$(".datepicker-hidekeypad").attr('readonly', false);
+                }
+            });
+                $('.signaturePad').click(function () {
+                    $(document).load($(window).bind("resize", checkPadsize));
+                })
+            //$(document).load($(window).bind("resize", checkPosition));
+
+            function checkPadsize() {
+            if ($(window).width() < 300) {
+                $(".pad").attr('width', '200');
+                //$(".datepicker-hidekeypad").attr('readonly', 'readonly');
+
+            }
+                else if ($(window).width() < 380) {
+                    $(".pad").attr('width', '240');
+                    //$(".datepicker-hidekeypad").attr('readonly', 'readonly');
+
+                }
+              
+                else if ($(window).width() < 480) {
+                    $(".pad").attr('width', '320');
+                    //$(".datepicker-hidekeypad").attr('readonly', 'readonly');
+                }
+                else if ($(window).width() < 768) {
+                    $(".pad").attr('width', '420');
+                    //$(".datepicker-hidekeypad").attr('readonly', 'readonly');
+                }
+                else {
+                    $(".pad").attr('width', '540');
+                    //$(".datepicker-hidekeypad").attr('readonly', 'readonly');
+                }
+            }
+            $("#back2Top").click(function (event) {
+                event.preventDefault();
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+                return false;
+            });
+        });
+        $(document).ready(function () {
+            $('.sidebar-toggler').click(function () {
+                $('.page-content-wrapper .page-content').toggleClass('page-content-width1');
+                var src1 = "/Content/Images/AIA-inside.png";
+                var src2 = "/Content/Images/aia-logo-collapse.png";
+                var src = $('.logo-default').attr('src');
+               if(src == src1){$('.logo-default').attr('src',src2);}
+                else{$('.logo-default').attr('src',src1);}
+
+            });
+            if ($('input').length > 0 && $('input').val() != '') {
+                $(this).addClass('blank-field-hightlight')
+            }
+
+        })
+        function SetCulture(cul) {
+
+            localStorage.setItem("currentlng", cul);
+            $.ajax({
+                type: 'POST',
+                url: '/Account/SetCulture?culture=' + cul,
+                //data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    location.reload(true);
+
+                },
+                fail: function () {
+
+                }
+            });
+
+
+
+        }
+
+        $(document).ready(function () {
+  
+            var lastSelectedTab = localStorage.getItem("currentlng");
+
+            if (lastSelectedTab == "ta-IN") {
+                //alert(lastSelectedTab);
+                $('.page-content').addClass('tamilstyle');
+                $('.page-sidebar-wrapper').addClass('tamilstyle');
+
+        }
+      })
+
+        $(document).ajaxSend(function (event, jqXHR, settings) {            
+            if (settings.url.toLowerCase().indexOf("api/master") >= 0) {
+
+            }
+            else {
+
+                $("#layout").css({ "opacity": "1" })
+               $("#divBusyIndicator").show();
+               
+            }
+        });        
+        $(document).ajaxComplete(function (event, jqXHR, settings) {            
+            if (settings.url.toLowerCase().indexOf("api/master") >= 0) {
+
+            }
+            else {
+
+                $("#layout").css({ "opacity": "1" })
+               $("#divBusyIndicator").hide();
+               
+            }
+        });
+        //$.ajaxSetup({
+        //    type: 'POST',
+        //    headers: { "cache-control": "no-cache" },
+        //    error: function (jqXHR, exception) {
+        //        $("#layout").css({ "opacity": "1" })
+        //        toggleBusyIndicator("hide");
+        //        debugger;
+        //        $("#divBusyIndicator").hide();
+        //        if (jqXHR.status == 401) {
+        //            window.location = '../../Account/Login';
+        //        }
+        //    }
+        //});
+        $.ajaxSetup({
+            type: 'POST',
+            beforeSend: function () {                
+                $("#divBusyIndicator").show();
+            },
+            complete: function () {                
+                $("#divBusyIndicator").hide();
+            }
+        });        
+        
+        function LoadKnowledgeCenter() {
+
+ @*$.ajax({
+                url: '@Url.Action("home", "LoadKnowledge")',
+                type: 'GET',
+                cache: false,
+                data: { }
+            }).done(function (result) {
+                $('#knowledgebody').html(result);
+            });*@
+
+            $.post("../UserManagement/LoadKnowledge")
+            .done(function (data) {
+                $('#knowledgebody').html(data);
+                $("#knowledgeModal").show();
+                $("#knowledgeModal").modal("show");
+            });
+            //$.ajax({
+            //    url: '/Hierarchy/LoadReportingEntityCodeAndName',
+            //    type: "POST",
+            //    dataType: "json",
+            //    data: { ReportingEntityCode: ReportingCode },
+            //    success: function (data) {
+
+            //    }
+            //});
+            //alert("knowledge clicked");
+        }
+        function CalcArea() {
+            var ulWidth = 0;
+            $("li").each(function () {
+                ulWidth = ulWidth + $(this).width()
+            });
+            //alert(ulWidth);
+            $('body').scrollTop(0);
+        }
+        $('.responsive-scroll-top').click(function () {
+           $('html').scrollTop(0);
+        })
+        /*Scroll to top when arrow up clicked BEGIN*/
+        $(window).scroll(function () {
+            var height = $(window).scrollTop();
+            if (height > 100) {
+                $('#back2Top').fadeIn();
+            } else {
+                $('#back2Top').fadeOut();
+            }
+        });
+     
+    </script>
+
+</body>
+</html>

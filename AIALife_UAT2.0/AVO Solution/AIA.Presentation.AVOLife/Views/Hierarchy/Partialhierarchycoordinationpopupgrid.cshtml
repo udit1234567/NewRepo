@@ -1,0 +1,80 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using GridMvc.Html
+@{ 
+
+}
+<div id="divGridHierarchyCoordinationSearchDetails">
+@Html.Grid(Model.ObjCoordinationSearchData).Named("GridHierarchyCoordinationSearchDetails").Columns(columns =>
+{
+    //columns.Add(a => a.CoordinationSearchID).Titled("").Encoded(false).Sanitized(false).RenderValueAs(a => Html.CheckBox("CoordinationSearchID" + a.CoordinationSearchID, a.IsCoordinationSearch, new { @id = "CoordinationSearchID" + a.CoordinationSearchID, @class = "form-control numeric", Style = "height:17px;width:17px" }));
+    columns.Add(a => a.CoordinationSearchID).Titled("").Encoded(false).Sanitized(false).SetWidth("3%").RenderValueAs(a => Html.CheckBox(a.CoordinationSearchID.ToString(), a.IsCoordinationSearch, new { @id = "CoordinationSearchID" + a.CoordinationSearchID, @class = "form-control numeric", Style = "height:14px;width:14px", CoordinationSearchID = a.CoordinationSearchID, SearchCode = a.Partner }));
+    columns.Add(a => a.Partner).Titled("Partner").Encoded(false).Sanitized(false);
+    columns.Add(a => a.Geounittype).Titled("Geo Unit Type").Encoded(false).Sanitized(false);
+    columns.Add(a => a.Geounitname).Titled("Geo Unit Name").Encoded(false).Sanitized(false);
+    columns.Add(a => a.Code).Titled("Geo Unit Code").Encoded(false).Sanitized(false);/*.RenderValueAs(a => @Html.TextBox("DateOfBirth" + a.StartDate, a.StartDate, new { @class = "form-control", @onchange = "ValidateAgeNew(this)", @onblur = "ValidateDateOfBirth(this)", @id = "txtStartDOB" + a.TrainingID }));*/
+                                                                                     /*.RenderValueAs(a => @Html.TextBox("DateOfBirth" + a.EndDate, a.EndDate, new { @class = "form-control", @onchange = "ValidateAgeNew(this)", @onblur = "ValidateDateOfBirth(this)", @id = "txtEndDOB" + a.TrainingID }));*/
+                                                                                     /*.RenderValueAs(a => Html.TextBox("Mode" + a.Mode, a.Mode, new { @id = "txtMode" + a.TrainingID, @class = "form-control numeric" }));*/
+                                                                                     //*.RenderValueAs(a => Html.TextBox("CandiateNo" + a.CandiateNo, a.CandiateNo, new { @id = "txtCandiateNo" + a.TrainingID, @class = "form-control numeric" }));*/
+                                                                                     //columns.Add(a => a.Subchannel).Titled("Sub Channel").Encoded(false).Sanitized(false);/*.RenderValueAs(a => Html.TextBox("place" + a.Place, a.Place, new { @id = "txtplace" + a.Place, @class = "form-control numeric" }));*/
+                                                                                     // columns.Add(a => a.Channel).Titled("Channel").Encoded(false).Sanitized(false);/*.RenderValueAs(a => @Html.DropDownList(a.Status, new SelectList(Model.LstPosition, "ID", "Value", a.Status), new { @class = "form-control", @name = "ddlTrainingStatus", @id = "ddlTrainingStatus" + a.TrainingID }));*/
+}).WithPaging(5).WithMultipleFilters().EmptyText("")
+    <div>
+        @*<input type="button" id="btnSelectCoordinations" class="btn btn-default" style="width:100px" value="Save"/>*@
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: false
+            });
+            pageGrids.GridHierarchyCoordinationSearchDetails.ajaxify({
+
+            });
+        }
+    });    
+    function SaveCoordinationPopUpData(){        
+        var CoordinationCode = $("#txtCoordinationCode").val();
+        var CoordinationName = $("#txtCoordinationUnitName").val();     
+        $.post("../Hierarchy/LoadCoordinationSrchDetails?CoordinationCode=" + CoordinationCode + "&CoordinationName=" + CoordinationName, $("#frmHierarchyDetails").serialize())
+               .done(function (data) {               
+                   $("#divGridHierarchyCoordinationdetails").html(data);
+
+               }).
+               fail(function () {
+                   $("#divGridHierarchyCoordinationdetails").html("No Records Found");
+               });
+    }
+    @*function SaveCoordinationPopUpData(){    
+        var DataSerializer = "";
+        var i = 0;
+        var data;
+        var lstCoordinationSearchData = @(Html.Raw(Json.Encode(Model.ObjCoordinationSearchData)));
+        for (var CoordinationSearchID = 1; CoordinationSearchID <=@Model.ObjCoordinationSearchData.Count;CoordinationSearchID++) {
+            var data = $("#CoordinationSearchID" + lstCoordinationSearchData[i].CoordinationSearchID).text();
+            if ($("#CoordinationSearchID" +lstCoordinationSearchData[i].CoordinationID).is(":Checked")) {
+                DataSerializer = DataSerializer + $("#CoordinationSearchID" + lstCoordinationSearchData[i].CoordinationID).text() + ",";
+                data = $("#CoordinationSearchID" + lstCoordinationSearchData[i].CoordinationID);
+            }
+            i++;                
+        }
+        DataSerializer = DataSerializer.slice(0, -1);           
+        if (DataSerializer == "" || DataSerializer == null) {
+          
+        }
+        else {
+        var Grid = [];
+            getCoordinationDetails(Grid);           
+            $.post("../../Hierarchy/CoordinationPopoupGridTasks?getCoordinationDetails=" + JSON.stringify(Grid), $("#frmHierarchyDetails").serialize())            
+                .done(function (data) {                  
+                    $('#divGridHierarchyManpowerdetails').html(data);                   
+                }).
+                fail(function () {
+                    $("#divGridHierarchyManpowerdetails").html("No Records Found");
+                });
+        }
+    }*@
+</script>

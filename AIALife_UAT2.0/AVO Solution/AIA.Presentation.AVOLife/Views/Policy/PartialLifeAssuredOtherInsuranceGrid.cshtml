@@ -1,0 +1,39 @@
+﻿
+@model AIA.Life.Models.Policy.Policy
+@using GridMvc.Html
+@{ 
+
+    int Index = Model.Index;
+}
+
+@Html.Grid(Model.objMemberDetails[Index].objLifeAssuredOtherInsurance).Named("GridLifeAssuredOtherInsuranceDetails").Columns(columns =>
+{
+columns.Add(a => a.CompanyName).Titled("Company Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.PolicyNo).Titled("Policy/Prop.No").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.TotalSAAtDeath).Titled("Total SA at Death").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.AccidentalBenefitAmount,true).Titled("Accidental Benefit Ammount").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.CriticalIllnessBenefit,true).Titled("Critical Illness Benefit").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.HospitalizationPerDay,true).Titled("Hospitalization Per Day").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add(a => a.CurrentStatus).Titled("Current Status").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+columns.Add().Titled("Delete").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(@<text>
+        <input type="button" id="btnHSDeleteGridRow" value="Delete" class="btn btn-default " onclick="DeleteMainOtherInsuranceRow(this)" /></text>);
+columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(@<text>
+    <input type="button" id="btnHSDeleteGridRow" value="Delete" class="btn btn-default " onclick="EditMainOtherInsuranceRow(this)" /></text>);
+})
+
+<style type="text/css">
+    .table th {
+        color: white !important;
+        text-align: center;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+

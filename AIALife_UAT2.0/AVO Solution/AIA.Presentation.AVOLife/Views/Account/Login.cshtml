@@ -1,0 +1,260 @@
+﻿@using AIA.Presentation.AVOLife.Models
+@model LoginViewModel
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+@using AIAResources;
+@{
+    string CultureCookie = string.Empty;
+    var culture = string.Empty;
+    CultureCookie = AIA.Presentation.Helpers.HelperMethods.GetCulture();
+
+    if (string.IsNullOrEmpty(CultureCookie))
+    {
+        culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+    }
+    else
+    {
+        culture = CultureCookie.ToLowerInvariant();
+    }
+    var ErrorMessage = ViewBag.LoginErrMsg;
+}
+
+@helper selected(string c, string culture)
+{
+if (c == culture)
+{
+        @:checked="checked"
+    }
+}
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+
+    <title>AIA</title>
+    <style>
+        body {
+            background-image: url('../Images/login-bg.jpg');
+            background-repeat: no-repeat;
+            background-position: 100% 0;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            display: block;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+
+        .imgcontainer {
+            text-align: center;
+        }
+
+        #log {
+            text-align: center;
+            font-size: 22px;
+            color: #2f2f2f;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        #usrtxt {
+            text-align: left;
+            font-size: 18px;
+            color: #5b5b5b;
+        }
+
+        #usr {
+            padding: 8px;
+            border: 1px solid #a6a6a6;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #pass {
+            padding: 8px;
+            border: 1px solid #a6a6a6;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+
+        a {
+            color: #a7a7a7;
+        }
+
+            a:hover {
+                text-decoration: none;
+                color: #f39e1b;
+            }
+
+
+        #but {
+            background-color: #B8123E;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            border-color: white;
+        }
+    </style>
+    @Scripts.Render("~/bundles/Scripts")
+    <link href="~/Content/formvalidation/css/formValidation.min.css" rel="stylesheet" />
+    <script src="~/Content/formvalidation/js/formValidation.min.js"></script>
+    <script src="~/Content/formvalidation/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row" style="margin-top:100px;"></div>
+        <div class="container-fluid">
+            <div class="row">
+
+
+                @using (Html.BeginForm("LdapLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", id = "fromLoginPage", autocomplete = "off" }))
+                {
+                    @Html.AntiForgeryToken()                    
+                    <div class="col-sm-4 col-sm-push-8 col-md-4 col-md-push-8 col-lg-4 col-lg-push-8 " style="background-color:#ffffff;padding:8px;">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="imgcontainer">
+                            
+                     
+                                <img src="~/Content/Images/AIA.jpg" />
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12" id="log">
+                            Login Details
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-12" id="usrtxt">
+                            <label>Username</label>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "User Name", required = "", autofocus = "" })
+                            @*<input type="text" id="usr" required />*@
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12" style="text-align:left;font-size:18px;color:#5b5b5b">
+                            <label>Password</label>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Password", required = "", type = "password", id = "txtPassword" })
+                            @*<input type="password" id="pass" required />*@
+                            <br />
+                        </div>                                            
+                        <div class="col-sm-12 col-md-12 col-lg-12" style="text-align:right;">                            
+                            @*@Html.ActionLink("Un-lock User?", "GetUnlockAccount", "UserManagement")*@
+                        </div>
+                        <ul>
+                            <li style="color:red">
+                                @Html.ValidationSummary(true)
+                            </li>
+                        </ul>
+                        
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <button class="btn btn-primary btn-lg" style="text-align:center" id="but" type="button" onclick="Login()">Login</button>
+                            <br /><br /><br />
+                        </div>    
+                    </div>
+                    
+                }
+
+
+                <div class="col-sm-8 col-sm-pull-4 col-md-8 col-md-pull-4 col-lg-8 col-lg-pull-4">
+                    <br /><br /><br /><br /><br /><br /><br />
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>
+
+<script>
+
+    $(document).keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            Login();
+        }
+    });
+
+    function Login() {
+        var encoded = btoa($("#txtPassword").val());
+        $("#txtPassword").val(encoded);
+        //var IsChecked = $("#chkRememberMe").is(":checked");
+        //if (IsChecked) {
+        //    $("#chkRememberMe").val(true);
+        //}
+        document.getElementById("fromLoginPage").submit();
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {        
+        $('#fromLoginPage')
+        .formValidation({
+            framework: 'bootstrap',
+            excluded: [':disabled', ':hidden', ':not(:visible)'],
+            icon: {
+
+            },
+            // This option will not ignore invisible fields which belong to inactive panels
+            excluded: ':disabled',
+            fields: {
+
+                Email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Email Address is required'
+                        }
+                    }
+                },
+                Password: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Password is required.'
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+
+
+    });
+    var culturechecked = true;
+
+
+    function GetLanguage(event) {
+        var cul = $('#' + event.id).val();
+       // var cul = $('[name="culture"]:checked').val()
+        // location.href = '../Account/SetCulture?culture=' + cul;
+        $.ajax({
+            type: 'POST',
+            url: '/Account/SetCulture?culture=' + cul,
+            //data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                   // location.reload(true);
+
+            },
+            fail: function () {
+
+            }
+        });
+
+    }
+</script>

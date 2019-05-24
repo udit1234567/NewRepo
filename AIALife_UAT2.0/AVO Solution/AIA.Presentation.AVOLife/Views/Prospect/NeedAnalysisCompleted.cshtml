@@ -1,0 +1,106 @@
+﻿@model AIA.Life.Models.Opportunity.Prospect
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@{
+    ViewBag.Title = "NeedAnalysisCompleted";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .panel-default {
+        /*border-color: #eee !important;*/
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+
+    @@media screen and (min-width:320px) and (max-width:768px) {
+        .no-more-tables table, thead, tbody, th, td, tr {
+            float: none;
+        }
+    }
+</style>
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+<script src="~/Scripts/ladda-bootstrap/ladda.min.js"></script>
+<script src="~/Scripts/ladda-bootstrap/spin.min.js"></script>
+<script src="~/Scripts/gridmvc.js"></script>
+<script src="~/Scripts/gridmvc.min.js"></script>
+<script src="~/Scripts/gridmvc-ext.js"></script>
+<script src="~/Scripts/gridmvc.lang.fr.js"></script>
+<script src="~/Scripts/gridmvc.lang.ru.js"></script>
+<script src="~/Scripts/gridmvc.customwidgets.js"></script>
+<script src="~/Scripts/URI.js"></script>
+
+@*<script>
+        var SelectedAnalysisID = 0;
+        function showQuotation() {
+
+            window.location.href = "/Policy/Quotation?ContactID="+SelectedAnalysisID;
+        }
+    </script>*@
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+     
+        <a href="Prospect/Prospect" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Prospect")</a>
+    
+        <div class="btn btn-info"><b>@Resources.GetLabelName("Need Analysis Completed")</b></div>
+
+    </div>
+</div>
+@*<div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
+        <input type="button" class="btn btn-default" id="" value="Create Quote" onclick="showQuotation()" style="padding-left:20px;padding-right:20px;" />
+    </div>*@
+
+@*<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divProspectListGrid">
+        @Html.Partial("~/Views/Prospect/AnalysisCompletedPool.cshtml", Model)
+    </div>*@
+
+
+<div class="col-lg-12">
+    <div class="iGrid" id="divProspectPoolGrid">
+        @*@Html.Partial("~/Views/Prospect/PartialProspectPoolGrid.cshtml", Model)*@
+    </div>
+</div>
+<div class="col-md-12" id="divPartialProspectScreen" style="display:none">
+    @*@Html.Partial("~/Views/Prospect/PartialProspectScreen.cshtml", Model)*@
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "get",
+            url: '/Prospect/_PartialNeedAnalysisCompletedPoolGrid',
+            type: 'POST',
+            dataType: 'html',
+            contentType: 'application/json; charset=utf-8', success: function (data) {
+                $("#divProspectPoolGrid").html(data);
+            }
+        });
+    });
+    function toggleBusyIndicator(status) {
+        status = (status != undefined && status != null) ? status.toLowerCase() : "hide";
+        if (status == "show") {
+            $("#modal-background").addClass("active");
+            $("#divBusyIndicator").addClass("active");
+            $("#layoutBody").addClass("active");
+        }
+        else {
+            $("#modal-background").removeClass("active");
+            $("#divBusyIndicator").removeClass("active");
+            $("#layoutBody").removeClass("active");
+        }
+    }
+
+</script>
+

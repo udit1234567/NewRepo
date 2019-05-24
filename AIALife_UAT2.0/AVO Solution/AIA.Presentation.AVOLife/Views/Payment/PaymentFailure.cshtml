@@ -1,0 +1,40 @@
+﻿@{
+    /**/
+
+    Layout = null;
+}
+@Styles.Render("~/Content/JSStyles")
+@Styles.Render("~/Content/JSLayout")
+@Scripts.Render("~/bundles/Scripts")
+@Scripts.Render("~/bundles/amcharts")
+@Scripts.Render("~/bundles/MvcAjaxScript")
+<div>
+    <img class="Img-align" src="../Images/cancel1.png" />
+</div>
+
+<div class="text-center-pay">
+    @if (string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <p class="text-center-pay">Sorry!! Your payment is not Successfull. Please contact the Admin for more information with your reference number.</p>
+    }
+    else
+    {
+        <p class="text-center-pay">@ViewBag.Message</p>
+    }
+</div>
+<div class="text-center">
+    <button type="button" class="btn btn-secondary btn-pay" data-dismiss="modal" onclick="RedirecttoIncompletePage()">OK</button>
+</div>
+<script>
+    function RedirecttoIncompletePage() {
+        debugger;
+        var CloseWindow = @ViewBag.CloseWindow;
+        if (CloseWindow == true) {
+            window.close();
+        }
+        else {
+            window.top.location.href = "/policy/proposalIncomplete";
+            return false;
+        }
+    }
+</script>

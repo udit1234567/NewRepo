@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:q0="http://jic/"
+  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<soapenv:Header>
+</soapenv:Header>
+<soapenv:Body>
+<q0:saveSMSData>
+<userID>INUBEAVO</userID>
+<password>nubeavo26</password>
+<mobileNo></mobileNo>
+<message></message>
+<category></category>
+<user></user>
+<ipAddress></ipAddress>
+</q0:saveSMSData>
+</soapenv:Body>
+</soapenv:Envelope>
+
+

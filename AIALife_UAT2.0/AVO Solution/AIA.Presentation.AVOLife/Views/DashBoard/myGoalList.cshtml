@@ -1,0 +1,672 @@
+﻿@model AIA.Life.Models.DashBoard.MyGoal
+@using AIA.Presentation.Helpers
+@using GridMvc.Html
+@{
+    ViewBag.Title = "myGoalList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .nav-tabs > li > a {
+        border: 2px solid #000;
+        background-color: #f8c708;
+        color: #000;
+    }
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        border: 2px solid #000;
+        background-color: #fea42a;
+        color: #000;
+    }
+    .nav-tabs > li > a:hover {
+        border: 2px solid #000;
+        background-color: #fea42a;
+        color: #000;
+    }
+    .tab-content > .tab-pane {
+        border: 2px solid #636363;
+        float: left;
+        width: 100%;
+        padding-bottom: 20px;
+    }
+    .nav-tabs, .nav-pills {
+        margin-bottom: -2px;
+    }
+    .nav > li {
+        margin-right: 10px;
+    }
+    .nav-tabs > li {
+        width: 150px;
+    }
+    .col-lg-9 {
+        width: 25%;
+    }
+
+    #dplaptoptargetDate {
+        width: 198px;
+    }
+
+    #dpmotorAchievementDate {
+        width: 198px;
+    }
+
+    #dpvehicletargetDate {
+        width: 198px;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table-bordered tr:nth-child(odd) {
+        background-color: white;
+    }
+
+    .table-bordered tr:nth-child(even) {
+        background-color: #fdf0bc;
+        background: linear-gradient(#fdf0bc, #f5f3ea);
+    }
+
+    .table-bordered thead tr th {
+        background-color: #fea42a;
+        border: 1px solid #636363;
+        word-wrap: break-word;
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .table-bordered tbody tr td {
+        border: 1px solid #636363;
+    }
+
+    .tblmyPanel > thead > tr > th {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .tblmyPanel > tbody > tr > td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .tblSuspect > thead > tr > td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .tblSuspect > tbody > tr > td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .tblmyIncome > thead > tr > td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .tblmyIncome > tbody > tr > td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+</style>
+<script type="text/javascript">
+    //$(function () {
+    //    $("#tabs").tabs();
+    //});
+    //$(document).ready(function () {
+    //    $('.menuLink').click(function () {
+    //        
+    //        $('a').removeClass('active');
+    //        $(this).addClass('active');
+    //    });
+    //});
+</script>
+<div class="panel panel-default">
+    <div class="panel-body" style="background-color: #fbb055;color:white;font-size:large;padding: 10px;">My Goal</div>
+</div>
+<ul class="nav nav-tabs" style="text-align:center;">
+    <li class="active"><a data-toggle="tab" href="#myDream">My Dream</a></li>
+    <li><a data-toggle="tab" href="#myGoal">My Goal</a></li>
+    <li><a data-toggle="tab" href="#myPlan">My Plan</a></li>
+</ul>
+
+@*<ul class="nav nav-tabs">
+        <li class="active"><a href="#myDream">My Dream</a></li>
+        <li><a href="#myGoal">My Goal</a></li>
+        <li><a href="#myPlan">My Plan</a></li>
+    </ul>*@
+<div class="tab-content">
+    <div id="myDream" class="tab-pane fade in active">
+        <table style="width:50%">
+            <tr>
+                <td>
+                    <label style="font-weight:bold;margin-left:50px;margin-top: 20px;font-size:medium;">My Dream</label>
+                </td>
+                <td style="margin-top: 20px;">
+                    @Html.DropDownListFor(a => a.mydreamOptions, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlmyDream", @class = "form-control", @style = "width: 200px;margin-top: 20px;" })
+                </td>
+            </tr>
+        </table><br />
+        <div class="col-lg-9 col-sm-9 col-xs-9" style="width: 340px;">
+            <div class="box-heading" style="background-color:khaki;margin-left: 20px;border:1px solid black;">
+                <p style="margin-left:90px;font-weight:bold;">Laptop / Tab / Mobile</p>
+                <p><img src="~/Content/Images/laptop.png" style="width:130px;height:80px;margin-left:90px;" /></p>
+                <p>
+                    <div class="progress" style="height: 12px;width: 250px;margin-left: 30px;">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%">
+                        </div>
+                        <div class="progress-bar progress-bar-warning" role="progressbar" style="width:30%">
+                        </div>
+                        <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
+                        </div>
+                    </div>
+                    @*<div class="progress progress-striped active progress-success" style="height: 14px;width:200px;margin-left:60px;">
+                            <div id="ProgressBar" class="progress-bar" role="progressbar" runat="server" area-valuenow="80"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                            </div>
+                        </div>*@
+                </p>
+                <p style="margin-left:100px;font-weight:bold;">Achievement 80%</p>
+                <div style="background-color:darkred;height: 420px;">
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Make</label>
+                            @Html.DropDownListFor(a => a.laptopMake, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlMake", @class = "form-control", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Model</label>
+                            @Html.DropDownListFor(a => a.laptopModel, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlMake", @class = "form-control", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Memory Space</label>
+                            @Html.TextBoxFor(a => a.laptopmemorySpace, new { @class = "form-control", @id = "txtmemSpace", @maxlength = "15", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Price</label>
+                            @Html.TextBoxFor(a => a.laptopPrice, new { @class = "form-control", @id = "txtPrice", @maxlength = "15", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Target Achievement Date</label>
+                            @Html.iNubeDatePickerFor(a => a.laptoptargetDate, new { @class = "form-control ", @id = "dplaptoptargetDate", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-sm-9 col-xs-9" style="width: 340px;">
+            <div class="box-heading" style="background-color:khaki;margin-left: 20px;border:1px solid black;">
+                <p style="margin-left:120px;font-weight:bold;">Motor Cycle</p>
+                <p><img src="~/Content/Images/Bike1.png" style="width:130px;height:80px;margin-left:90px;" /></p>
+                <p>
+                    <div class="progress" style="height: 12px;width: 250px;margin-left: 30px;">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%">
+                        </div>
+                        <div class="progress-bar progress-bar-warning" role="progressbar" style="width:30%">
+                        </div>
+                        <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
+                        </div>
+                    </div>
+                    @*<div class="progress progress-striped active progress-success" style="height: 14px;width:200px;margin-left:60px;">
+                            <div id="ProgressBar" class="progress-bar" role="progressbar" runat="server" aria-valuenow="45"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                            </div>
+                        </div>*@
+                </p>
+                <p style="margin-left:100px;font-weight:bold;">Achievement 45%</p>
+                <div style="background-color:dodgerblue;height: 420px;">
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Make</label>
+                            @Html.DropDownListFor(a => a.motorCycleMake, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlmotorMake", @class = "form-control", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Model</label>
+                            @Html.DropDownListFor(a => a.motorcycleModel, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlmotorModel", @class = "form-control", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Colour</label>
+                            @Html.DropDownListFor(a => a.motorcycleColour, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlmotorClr", @class = "form-control", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Price</label>
+                            @Html.TextBoxFor(a => a.motorcyclePrice, new { @class = "form-control", @id = "txtmotorPrice", @maxlength = "15", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Target Achievement Date</label>
+                            @Html.iNubeDatePickerFor(a => a.motorcycletargetDate, new { @class = "form-control ", @id = "dpmotorAchievementDate", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-sm-9 col-xs-9" style="width: 340px;">
+            <div class="box-heading" style="background-color:khaki;margin-left: 20px;border:1px solid black;">
+                <p style="margin-left:60px;font-weight:bold;">Motor Vehicle Car / Van / SUV</p>
+                <p style="align-content:center;"><img src="~/Content/Images/car.png" style="width:130px;height:80px;margin-left:90px;" /></p>
+                <p>
+                    <div class="progress" style="height: 12px;width: 250px;margin-left: 30px;">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%">
+                        </div>
+                        <div class="progress-bar progress-bar-warning" role="progressbar" style="width:30%">
+                        </div>
+                        <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
+                        </div>
+                    </div>
+                    @*<div class="progress progress-striped active progress-success" style="height: 14px;width:200px;margin-left:60px;">
+                            <div id="ProgressBar" class="progress-bar" role="progressbar" runat="server" aria-valuenow="90"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                            </div>
+                        </div>*@
+                </p>
+                <p style="margin-left:100px;font-weight:bold;">Achievement 90%</p>
+                <div style="background-color:darkgreen;height: 420px;">
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Make</label>
+                            @Html.DropDownListFor(a => a.vehicleMake, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlvehicleMake", @class = "form-control", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Model</label>
+                            @Html.DropDownListFor(a => a.vehicleModel, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlvehicleModel", @class = "form-control", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Seating Capacity</label>
+                            @Html.DropDownListFor(a => a.vehicleseatingCapacity, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlseatCapacity", @class = "form-control", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Colour</label>
+                            @Html.DropDownListFor(a => a.vehicleColour, new SelectList("", "ID", "Value"), "Select", new { @id = "ddlvehicleClr", @class = "form-control", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label style="margin-left: 35px;color: white;">Price</label>
+                            @Html.TextBoxFor(a => a.vehiclePrice, new { @class = "form-control", @id = "txtvehiclePrice", @maxlength = "15", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <span style="margin-left: 35px;color: white;">Target Achievement Date</span>
+                            @Html.iNubeDatePickerFor(a => a.vehicletargetDate, new { @class = "form-control ", @id = "dpvehicletargetDate", @style = "margin-left: 35px;" })
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myGoal" class="tab-pane fade">
+        <table id="tblmyGoal" class="table table-bordered" style="margin: 2%;width: 96%;">
+            <thead>
+                <tr>
+                    <th style="margin-left:20px;text-align:center;"><img src="~/Content/Images/My Dream@0,32x.png" style="margin-left:15px;" /><br />My Dreams</th>
+                    <th style="margin-left:20px;text-align:center;"><img src="~/Content/Images/Value of dream@0,32x.png" style="margin-left:15px;" /><br />Value of the Dream</th>
+                    <th style="margin-left:20px;text-align:center;"><img src="~/Content/Images/Target Date@0,32x.png" style="margin-left:15px;" /><br />Target Date of Achievement</th>
+                    <th style="margin-left:20px;text-align:center;"><img src="~/Content/Images/Remaining time@0,32x.png" style="margin-left:15px;" /><br />Remaining time for accomplishment(No of months)</th>
+                    <th style="margin-left:20px;text-align:center;"><img src="~/Content/Images/Monthly Savings@0,32x.png" style="margin-left:15px;" /><br />Monthly saving needed for the goal from TODAY</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Dream 1</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>Dream 2</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>Dream 3</td><td></td><td></td><td></td><td></td></tr>
+                @*@foreach (var item in Model)
+                    {
+                    <tr>
+                    <th scope="row">@item.</th>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Department</td>
+                    <td>
+                    <a data-value="@item.Id"
+                    href="javascript:void(0)" class="btnEdit">Edit</a>
+                    </td>
+                    </tr>
+                    }*@
+                <tr>
+                    <td colspan="4" style="font-weight:bold;">
+                        Total Monthly Saving Needed To accomplish All My Dreams
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="font-weight:bold;">
+                        Monthly Saving % From My Income
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="font-weight:bold;color:#fbb055;font-size:medium;">
+                        Monthly Income To Achieve All My Goals
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="myPlan" class="tab-pane fade">
+        <div class="panel-group" id="accordion" style="margin:2%">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#myplanPanel">
+                            My Plan
+                        </a>
+                    </h4>
+                </div>
+                <div id="myplanPanel" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <table style="width:80%" class="tblmyPanel">
+                            <thead>
+                                <tr>
+                                    <th style="font-size:20px;width:270px;">Key Performance Indicators</th>
+                                    <th style="padding-left:95px;">Value(Daily)</th>
+                                    <th style="padding-left:7px;">Value(Weekly)</th>
+                                    <th style="padding-left:12px;">Value(Monthly)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Number of policies
+                                    </td>
+                                    <td style="padding-left:95px;">
+                                        @Html.TextBoxFor(a => a.dailypolicyNoValue, new { @class = "form-control", @id = "txtdailypolicyNo", @maxlength = "15" })
+                                    </td>
+                                    <td style="padding-left:7px;">
+                                        @Html.TextBoxFor(a => a.weeklypolicyNoValue, new { @class = "form-control", @id = "txtweeklypolicyNo", @maxlength = "15" })
+                                    </td>
+                                    <td style="padding-left:12px;">
+                                        @Html.TextBoxFor(a => a.monthlypolicyNoValue, new { @class = "form-control", @id = "txtmonthlypolicyNo", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>My Average Policy Value</td>
+                                    <td style="padding-left:95px;">
+                                        @Html.TextBoxFor(a => a.dailyavgpolicyValue, new { @class = "form-control", @id = "txtdailypolicyValue", @maxlength = "15" })
+                                    </td>
+                                    <td style="padding-left:7px;">
+                                        @Html.TextBoxFor(a => a.weeklyavgpolicyValue, new { @class = "form-control", @id = "txtweeklypolicyValue", @maxlength = "15" })
+                                    </td>
+                                    <td style="padding-left:12px;">
+                                        @Html.TextBoxFor(a => a.monthlyavgpolicyValue, new { @class = "form-control", @id = "txtmonthlypolicyValue", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>MY MCFP</td>
+                                    <td style="padding-left:95px;">
+                                        @Html.TextBoxFor(a => a.dailyMCFPValue, new { @class = "form-control", @id = "txtdailyMCFPvalue", @maxlength = "15" })
+                                    </td>
+                                    <td style="padding-left:7px;">
+                                        @Html.TextBoxFor(a => a.weeklyMCFPValue, new { @class = "form-control", @id = "txtweeklyMCFPvalue", @maxlength = "15" })
+                                    </td>
+                                    <td style="padding-left:12px;">
+                                        @Html.TextBoxFor(a => a.monthlyMCFPValue, new { @class = "form-control", @id = "txtmonthlyMCFPvalue", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>My Year 1 Persistancy</td>
+                                    <td style="padding-left:95px;">
+                                        @Html.TextBoxFor(a => a.dailyyear1PValue, new { @class = "form-control", @id = "txtdailyPersistancy1", @maxlength = "15" })
+                                    </td>
+                                    @*<td style="padding-left:7px;">
+                                        @Html.TextBoxFor(a => a.weeklyyear1PValue, new { @class = "form-control", @id = "txtweeklyPersistancy1", @maxlength = "15" })
+                                    </td>
+                                    <td style="padding-left:12px;">
+                                        @Html.TextBoxFor(a => a.monthlyyear1PValue, new { @class = "form-control", @id = "txtmonthlyPersistancy1", @maxlength = "15" })
+                                    </td>*@
+                                </tr>
+                                <tr>
+                                    <td>My Year 2 Persistancy</td>
+                                    <td style="padding-left:95px;">
+                                        @Html.TextBoxFor(a => a.dailyyear2PValue, new { @class = "form-control", @id = "txtdailyPersistancy2", @maxlength = "15" })
+                                    </td>
+                                    @*<td style="padding-left:7px;">
+                                        @Html.TextBoxFor(a => a.weeklyyear2PValue, new { @class = "form-control", @id = "txtweeklyPersistancy2", @maxlength = "15" })
+                                    </td>
+                                    <td style="padding-left:12px;">
+                                        @Html.TextBoxFor(a => a.monthlyyear2PValue, new { @class = "form-control", @id = "txtmonthlyPersistancy2", @maxlength = "15" })
+                                    </td>*@
+                                </tr>
+                                <tr>
+                                    <td>My Year 3 Persistancy</td>
+                                    <td style="padding-left:95px;">
+                                        @Html.TextBoxFor(a => a.dailyyear3PValue, new { @class = "form-control", @id = "txtdailyPersistancy3", @maxlength = "15" })
+                                    </td>
+                                    @*<td style="padding-left:7px;">
+                                        @Html.TextBoxFor(a => a.weeklyyear3PValue, new { @class = "form-control", @id = "txtweeklyPersistancy3", @maxlength = "15" })
+                                    </td>
+                                    <td style="padding-left:12px;">
+                                        @Html.TextBoxFor(a => a.monthlyyear3PValue, new { @class = "form-control", @id = "txtmonthlyPersistancy3", @maxlength = "15" })
+                                    </td>*@
+                                </tr>
+                            </tbody>
+                        </table>
+                        <img src="~/Content/Images/My Activities.png" style="width: 100%;" />
+                        @*<table style="width:100%" class="tblSuspect">
+                            <thead>
+                                <tr>
+                                    <th>Per Month</th>
+                                    <th>Value(Daily)</th>
+                                    <th>Value(Weekly)</th>
+                                    <th>Value(Monthly)</th>
+                                    <th>Conversion Ratio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Number of suspects
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.dailysuspectsValue, new { @class = "form-control", @id = "txtdailysuspectNo" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.weeklysuspectsValue, new { @class = "form-control", @id = "txtweeklysuspectNo" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.monthlysuspectsValue, new { @class = "form-control", @id = "txtmonthlysuspectNo" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.suspectConvRatioValue, new { @class = "form-control", @id = "txtsuspectconvRatio" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Number of Confirmed Prospects</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.dailycnfmprospectsValue, new { @class = "form-control", @id = "txtdailyProspects" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.weeklycnfmprospectsValue, new { @class = "form-control", @id = "txtweeklyProspects" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.monthlycnfmprospectsValue, new { @class = "form-control", @id = "txtmonthlyProspects" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.prospectConvRatioValue, new { @class = "form-control", @id = "txtprospectconvRatio" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Number of Customer Appointments</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.dailycustappointValue, new { @class = "form-control", @id = "txtdailycustomerApp" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.weeklycustappointValue, new { @class = "form-control", @id = "txtweeklycustomerApp" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.monthlycustappointValue, new { @class = "form-control", @id = "txtmonthlycustomerApp" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.custappointConvRatioValue, new { @class = "form-control", @id = "txtcustomerconvRatio" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Number of Need Analysis</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.dailyneedanalysisValue, new { @class = "form-control", @id = "txtdailyNeed" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.weeklyneedanalysisValue, new { @class = "form-control", @id = "txtweeklyNeed" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.monthlyneedanalysisValue, new { @class = "form-control", @id = "txtmonthlyNeed" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.needanalysisConvRatioValue, new { @class = "form-control", @id = "txtNeedconvRatio" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Number of Quotations / Appointments</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.dailyquotationValue, new { @class = "form-control", @id = "txtdailyquotationNo" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.weeklyquotationValue, new { @class = "form-control", @id = "txtweeklyquotationNo" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.monthlyquotationValue, new { @class = "form-control", @id = "txtmonthlyquotationNo" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.quotationConvRatioValue, new { @class = "form-control", @id = "txtquotationconvRatio" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Number of proposals</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.dailyproposalValue, new { @class = "form-control", @id = "txtdailyProposals" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.weeklyproposalValue, new { @class = "form-control", @id = "txtweeklyProposals" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.monthlyproposalValue, new { @class = "form-control", @id = "txtmonthlyProposals" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.proposalConvRatioValue, new { @class = "form-control", @id = "txtproposalconvRatio" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>*@
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#myincomePanel">
+                            My Income
+                        </a>
+                    </h4>
+                </div>
+                <div id="myincomePanel" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table style="width:80%" class="tblmyIncome">
+                            <thead>
+                                <tr>
+                                    <th>MY INCOME</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        First Month Commission
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.firstmonthcommValue, new { @class = "form-control", @id = "txtCommision" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>First Month Incentive</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.firstmonthincentiveValue, new { @class = "form-control", @id = "txtincentiveValue" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>First Year Commission(2nd-12th month)</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.firstyearcommValue, new { @class = "form-control", @id = "txtcommisionValue" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Renewal Commission</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.renewalcommValue, new { @class = "form-control", @id = "txtrenewalValue" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>OR</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.orValue, new { @class = "form-control", @id = "txtORValue" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>OR on OR</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.oronORValue, new { @class = "form-control", @id = "txtORonORValue" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Package</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.packageValue, new { @class = "form-control", @id = "txtpackageValue" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:bold">Total Income</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.totalIncomeValue, new { @class = "form-control", @id = "txttotalValue" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style="font-weight:bold">Value</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:bold">NEEDED MONTHLY INCOME TO ACHIEVE ALL MY GOALS</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.monthlyIncomeValue, new { @class = "form-control", @id = "txtmonthlyIncomeValue" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:bold">MY INCOME BASED ON MY PLAN</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.planincomeValue, new { @class = "form-control", @id = "txtplanincomeValue" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:bold">SURPLUS / SHORTFALL BETWEEN MY DREAMS AND MY PLAN</td>
+                                    <td>
+                                        @Html.TextBoxFor(a => a.dreamandplanValue, new { @class = "form-control", @id = "txtdreamplanValue" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

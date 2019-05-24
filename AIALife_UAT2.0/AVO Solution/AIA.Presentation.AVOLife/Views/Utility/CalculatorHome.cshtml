@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "CalculatorHome";
+}
+@Styles.Render("~/Content/themes/base/css")
+<script src="~/Scripts/ChartsScript/ChartScript.js"></script>
+<style>
+    .modal-content {
+        width: 150% !important;
+    }
+</style>
+<div>
+    <script type="text/javascript">
+        var calculatormaintype = null;
+        $(document).ready(function () {
+          //  document.getElementById("retirement").style.color = "white";
+          //  document.getElementById("humanLifeValue").style.color = "white";
+          //  document.getElementById("childEducation").style.color = "white";
+          //  document.getElementById("childMarriage").style.color = "white";
+          //  document.getElementById("investment").style.color = "white";
+          ////  document.getElementById("premium").style.color = "white";
+            $('#calculator').load("/Utility/RetirementCalculator?IsWeb=True&frompage=calculatorHome");
+        });
+        function setCalculator(calcType) {
+            if (calcType == "rc") {
+                //document.getElementById("retirement").style.color = "black";
+                //document.getElementById("humanLifeValue").style.color = "white";
+                //document.getElementById("childEducation").style.color = "white";
+                //document.getElementById("childMarriage").style.color = "white";
+                //document.getElementById("investment").style.color = "white";
+              //  document.getElementById("premium").style.color = "white";
+                $('#calculator').load("/Utility/RetirementCalculator?IsWeb=True&frompage=calculatorHome");
+
+            }
+            else if (calcType == "hlvc") {
+                //document.getElementById("humanLifeValue").style.color = "black";
+                //document.getElementById("retirement").style.color = "white";
+                //document.getElementById("childEducation").style.color = "white";
+                //document.getElementById("childMarriage").style.color = "white";
+                //document.getElementById("investment").style.color = "white";
+               // document.getElementById("premium").style.color = "white";
+                $('#calculator').load("/Utility/HumanLifeValueCalculator?IsWeb=True&frompage=calculatorHome");
+            }
+            else if (calcType == "cec") {
+                //document.getElementById("childEducation").style.color = "black";
+                //document.getElementById("humanLifeValue").style.color = "white";
+                //document.getElementById("retirement").style.color = "white";
+                //document.getElementById("childMarriage").style.color = "white";
+                //document.getElementById("investment").style.color = "white";
+               // document.getElementById("premium").style.color = "white";
+                $('#calculator').load("/Utility/ChildEducationCalculator?IsWeb=True&frompage=calculatorHome");
+            }
+            else if (calcType == "cmc") {
+                //document.getElementById("childMarriage").style.color = "black";
+                //document.getElementById("childEducation").style.color = "white";
+                //document.getElementById("humanLifeValue").style.color = "white";
+                //document.getElementById("retirement").style.color = "white";
+                //document.getElementById("investment").style.color = "white";
+              //  document.getElementById("premium").style.color = "white";
+                $('#calculator').load("/Utility/ChildMarriageCalculator?IsWeb=True&frompage=calculatorHome");
+            }
+            else if (calcType == "ic") {
+                //document.getElementById("investment").style.color = "black";
+                //document.getElementById("childMarriage").style.color = "white";
+                //document.getElementById("childEducation").style.color = "white";
+                //document.getElementById("humanLifeValue").style.color = "white";
+                //document.getElementById("retirement").style.color = "white";
+               // document.getElementById("premium").style.color = "white";
+                $('#calculator').load("/Utility/InvestmentsCalculator?IsWeb=True&frompage=calculatorHome");
+            }
+            else if (calcType == "pc") {
+                //document.getElementById("premium").style.color = "black";
+                //document.getElementById("investment").style.color = "white";
+                //document.getElementById("childMarriage").style.color = "white";
+                //document.getElementById("childEducation").style.color = "white";
+                //document.getElementById("humanLifeValue").style.color = "white";
+               // document.getElementById("retirement").style.color = "white";
+                $('#calculator').load("/Utility/PremiumCalculator?IsWeb=True&frompage=calculatorHome");
+            }
+            else {
+            }
+        }
+    </script>
+</div>
+
+
+<div class="=col-lg-12 form-group" style="margin-top:30px;">
+    <div class="=col-lg-2 col-md-2 col-sm-2">
+        <input id="retirement" class="btn btn-default" type="button" style="cursor: pointer;width:155px; height:32px;" onclick="setCalculator('rc');" value="Retirement" />
+    </div>
+    <div class="=col-lg-2 col-md-2 col-sm-2">
+        <input id="humanLifeValue" class="btn btn-default" type="button" style="width:158px; height:32px;" onclick="setCalculator('hlvc');" value="Life Value" />
+    </div>
+    <div class="=col-lg-2 col-md-2 col-sm-2">
+        <input id="childEducation" class="btn btn-default" type="button" style="width: 158px; height: 32px;" onclick="setCalculator('cec');" value="Childs Education" />
+    </div>
+    <div class="=col-lg-2 col-md-2 col-sm-2">
+        <input id="childMarriage" class="btn btn-default" type="button" style="width: 158px; height: 32px;" onclick="setCalculator('cmc');" value="Childs Marriage" />
+    </div>
+    <div class="=col-lg-2 col-md-2 col-sm-2">
+        <input id="investment" class="btn btn-default" type="button" onclick="setCalculator('ic');" style="width: 155px; height: 32px;" value="Investment" />
+    </div>
+    @*<div class="=col-lg-2 col-md-2 col-sm-2">
+        <input id="premium" class="btn btn-default" type="button" style="width:155px; height:32px; color:#ffffff; background-color:#d71212;" onclick="setCalculator('pc');"
+               value="Premium Calculator" />
+    </div>*@
+</div>
+
+
+<div id="calculator" style="margin-top: 25px;">
+</div>
+
+

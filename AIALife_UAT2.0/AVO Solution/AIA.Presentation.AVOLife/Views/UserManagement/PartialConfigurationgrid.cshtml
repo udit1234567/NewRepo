@@ -1,0 +1,22 @@
+﻿
+@model AIA.Life.Models.UserManagement.Configuration
+@using GridMvc.Html
+@{
+
+}
+@Html.Grid(Model.ObjConfigurationGridData).Named("GridConfigurationDetails").Columns(columns =>
+{
+    //columns.Add(a => a.CoordinationSearchID).Titled("").Encoded(false).Sanitized(false).SetWidth("5%").RenderValueAs(a => Html.CheckBox("CoordinationSearchID" + a.CoordinationSearchID, a.IsCoordinationSearch, new { @id = "CoordinationSearchID" + a.CoordinationSearchID, @class = "form-control numeric", Style = "height:17px;width:17px" }));
+    columns.Add(a => a.ConvertionID).Titled("").Encoded(false).Sanitized(false).RenderValueAs(a => Html.Hidden(a.ConvertionID.ToString(), new { ConvertionID = a.ConvertionID, @id = "hdnConvertionID" }));
+    columns.Add(a => a.ConvertionFrom).Titled("Convertion from").Encoded(false).Sanitized(false).SetWidth("33%").RenderValueAs(a => Html.Label(a.ConvertionFrom, new { ConvertionFrom = a.ConvertionFrom, @id = "lblConvertionFrom" }));
+    columns.Add(a => a.ConvertionTo).Titled("Convertion To").Encoded(false).Sanitized(false).SetWidth("33%").RenderValueAs(a => Html.Label(a.ConvertionTo, new { ConvertionTo = a.ConvertionTo, @id = "lblConvertionTo" }));
+    columns.Add(a => a.SpecifiedTimeLine).Titled("Time Line").Encoded(false).Sanitized(false).SetWidth("25%").Filterable(true).RenderValueAs(a => Html.TextBox("SpecifiedTimeLine", a.SpecifiedTimeLine, new { @id = "txtTimeLine", @class = "form-control" })).Format("<img src ='" + @Url.Content("~/Content/Images/time.png") + "' />");
+}).WithPaging(8).WithMultipleFilters()
+<div class="col-md-offset-4">
+    <div class="form-group">
+        @*<img src="~/Content/Images/time.png" />*@
+        <input type="button" value="Save" id="btnSaveTimeLineDetails" class="btn btn-default" style="width:100px" onclick="">
+        <input type="button" value="Cancel" id="btnCancelTimeLineDetails" class="btn btn-default" style="width:100px" onclick="">
+              </div>
+        </div>
+

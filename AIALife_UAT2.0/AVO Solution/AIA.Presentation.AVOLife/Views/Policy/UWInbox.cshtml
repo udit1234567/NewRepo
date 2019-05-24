@@ -1,0 +1,68 @@
+﻿@model Grid.Mvc.Ajax.GridExtensions.AjaxGrid<AIA.Life.Models.Policy.InboxProposals>
+@using GridMvc.Html
+@{ 
+
+    Layout = null;
+}
+
+@Html.Grid(Model).Named("GridUWPoolDetails").Columns(columns =>
+{
+    columns.Add(a => a.ProposalNo).Titled("Proposal No").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(c => @Html.ActionLink(c.ProposalNo, "ModifyProposal", "Policy", new { PolicyID =AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt(c.PolicyId.ToString()), userType="UW" }, null));
+    columns.Add(a => a.QuoteNo).Titled("Quote No").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.InsuredName).Titled("Last Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.NIC).Titled("NIC").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.PlanName).Titled("Plan Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    //columns.Add(a => a.PolicyTerm).Titled("PolicyTerm").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.Premium).Titled("Premium").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.Channel).Titled("Channel").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.NoofDays).Titled("Days Count").Encoded(false).Sanitized(false).SetWidth(80).Filterable(true);
+}).WithPaging(5).WithMultipleFilters()
+
+<link href="~/Content/ladda-bootstrap/ladda-themeless.min.css" rel="stylesheet" />
+@Scripts.Render("~/bundles/GridMVC")
+<style>
+    .panel-default {
+        border-color: #eee !important;
+        margin-bottom: 5px;
+    }
+
+    .panel {
+        background-color: #B8123E !important;
+    }
+
+    @@media screen and (min-width:320px) and (max-width:768px) {
+        .no-more-tables table, thead, tbody, th, td, tr {
+            float: none;
+        }
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function ()
+    {        
+        //$(".grid-mvc").gridmvc().pageGrids;
+        if ('@TempData["Load"]' == "FirstTime") {
+            $.ajaxSetup({
+                cache: true
+            });
+            pageGrids.GridUWPoolDetails.ajaxify({
+                getData: '../Policy/SearchUWPoolDetails',
+                getPagedData: '../Policy/SearchUWPoolDetails',
+            });
+        }
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

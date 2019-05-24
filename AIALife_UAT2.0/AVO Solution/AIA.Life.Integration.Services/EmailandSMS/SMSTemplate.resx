@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EmailNotification" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;table style="width: 629px; height: 100px; border-right: #C21B17 1px solid; border-top: #C21B17 1px solid;
+            border-left: #C21B17 1px solid; border-bottom: #C21B17 1px solid;" id="TABLE3"&gt;
+            &lt;tr&gt;
+                &lt;td style="width: 46px;"&gt;
+                  
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr style="height: 10px; width: 716px;"&gt;
+                &lt;td style="height: 9px; width: 716px; text-align: center" colspan="1"&gt;
+                    &lt;table style="width: 590px; border-collapse: collapse; text-align: center;"&gt;
+                        &lt;tr&gt;
+                            &lt;td rowspan="35" style="width: 60px; text-align: left"&gt;
+                            &lt;/td&gt;
+                            &lt;td style="text-align: left; color: #000000;" class="style1"&gt;
+                                &lt;span style="font-size: 8pt; font-family: Verdana"&gt;Dear User,&lt;/span&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #C21B17; text-align: left" class="style2"&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="text-align: left; color: #000000;" class="style3"&gt;
+                                &lt;span style="font-size: 8pt; font-family: Verdana"&gt;Greetings from AIA.                                   
+                                &lt;/span&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        
+&lt;tr&gt;
+                            &lt;td style="text-align: left; color: #000000;" class="style3"&gt;
+                                &lt;span style="font-size: 8pt; font-family: Verdana"&gt;
+                                    Thank you for choosing AIA as your insurance solutions provider.
+                                &lt;/span&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #000000; text-align: left" class="style3"&gt;
+                                &lt;span style="font-size: 8pt; font-family: Verdana"&gt;AIA, a total insurance solution company in Srilanka offers various insurance policies/plans.&lt;/span&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+&lt;tr&gt;
+                            &lt;td style="text-align: left; color: #000000;" class="style4"&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #C21B17; text-align: left" class="style4"&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+&lt;tr&gt;
+                            &lt;td style="text-align: left; color: #fbb055;" class="style4"&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #fbb055; text-align: left" class="style4"&gt;
+                              
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #fbb055; text-align: left" class="style4"&gt;
+                                &amp;nbsp;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #fbb055; text-align: left" class="style4"&gt;
+                                &amp;nbsp;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #fbb055; text-align: left" class="style6"&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="text-align: left" class="style4"&gt;
+                             
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #fbb055; text-align: left" class="style6"&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="text-align: left" class="style4"&gt;
+                                &lt;table style="width: 557px; border-collapse: collapse;"&gt;
+                                    &lt;tr style="background-color: #fbb055"&gt;
+                                        &lt;td style="width: 55%; text-align: center; border-right: #f0f0f0 1px solid; height: 25px;"&gt;
+                                            &lt;span style="font-size: 8pt; font-family: Verdana; color: #FFFFFF;"&gt;&lt;strong&gt;Procedure
+                                                to access the "AIA portal”: &lt;/strong&gt;&lt;/span&gt;
+                                        &lt;/td&gt;
+                                    &lt;/tr&gt;
+                                    &lt;tr&gt;
+                                        &lt;td colspan="3" style="height: 4px"&gt;
+                                        &lt;/td&gt;
+                                    &lt;/tr&gt;
+                                    &lt;tr style="background-color: #e3f4fe"&gt;
+                                        &lt;td style="width: 53%; height: 20px; text-align: left;"&gt;
+                                            &lt;span style="font-size: 8pt; font-family: Verdana; color: #000000;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                                &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style="font-size: 6pt; color: #000000; font-family: Wingdings 2"&gt;-&lt;/span&gt;&amp;nbsp;
+                                                Step 1: click on txtportalURL&lt;/span&gt;
+                                        &lt;/td&gt;
+                                    &lt;/tr&gt;
+                                    &lt;tr style="background-color: #e3f4fe"&gt;
+                                        &lt;td style="width: 33%; text-align: left; height: 16px;"&gt;
+                                            &lt;span style="font-size: 8pt; font-family: Verdana; color: #000000;"&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;
+                                                &amp;nbsp;&lt;span style="font-size: 6pt; color: #000000; font-family: Wingdings 2"&gt;- &lt;span
+                                                    style="font-size: 8pt; font-family: Verdana"&gt;&lt;/span&gt;&lt;/span&gt;&amp;nbsp;Step 2: Login
+                                                with your credentials&lt;/span&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;a href="http://182.156.210.122:208/"&gt;http://182.156.210.122:208//&lt;/a&gt; 
+                                        &lt;/td&gt;
+                                    &lt;/tr&gt;
+                                    &lt;tr style="background-color: #e3f4fe"&gt;
+                                        &lt;td colspan="3" style="height: 3px"&gt;
+                                        &lt;/td&gt;
+                                    &lt;/tr&gt;
+                                &lt;/table&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #C21B17; text-align: left" class="style5"&gt;
+                                &lt;table style="border-right: #cc0000 1px solid; border-top: #cc0000 1px solid; border-left: #cc0000 1px solid;
+                                    width: 557px; border-bottom: #cc0000 1px solid; border-collapse: collapse"&gt;
+                                    &lt;tr&gt;
+                                        &lt;td style="width: 350px"&gt;
+                                            &lt;strong&gt;&lt;span style="font-size: 8pt; color: #000000; font-family: Verdana"&gt;&amp;nbsp;&amp;nbsp;User
+                                                Name: &lt;/span&gt;&lt;/strong&gt;&lt;span style="font-size: 8pt; color: #000000; font-family: Verdana"&gt;
+                                                    txtUserName &lt;/span&gt;
+                                        &lt;/td&gt;
+                                        &lt;td width="250px"&gt;
+                                            &lt;strong&gt;&lt;span style="font-size: 8pt; color: #000000; font-family: Verdana"&gt;Password:&lt;/span&gt;&lt;/strong&gt;
+                                            &lt;span style="font-size: 8pt; color: #000000; font-family: Verdana"&gt;txtPassword &lt;/span&gt;
+                                        &lt;/td&gt;
+                                    &lt;/tr&gt;
+                                &lt;/table&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="text-align: left" class="style3"&gt;
+                                &amp;nbsp;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="text-align: left; color: #000000;" class="style3"&gt;
+                                &lt;span style="font-size: 8pt; font-family: Verdana"&gt;Best Regards,&lt;/span&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="text-align: left; color: #000000;" class="style4"&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #000000; text-align: left" class="style4"&gt;
+                              
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="text-align: left; color: #000000;" class="style3"&gt;
+                                &lt;span style="font-size: 8pt; font-family: Verdana"&gt;AIA Insurance&lt;/span&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+&lt;tr&gt;
+                            &lt;td style="text-align: left; color: #000000;" class="style4"&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #000000; text-align: left" class="style4"&gt;
+                               
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+&lt;tr&gt;
+                            &lt;td style="text-align: left; color: #000000;" class="style4"&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #000000; text-align: left" class="style4"&gt;
+                               
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #000000; text-align: left" class="style3"&gt;
+                                &lt;span style="font-size: 8pt; font-family: Verdana"&gt;To buy or know more about AIA products please visit http://www.AIA.com/&lt;/span&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style="color: #000000; text-align: left" class="style3"&gt;
+                                &amp;nbsp;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                     
+                    &lt;/table&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+           
+        &lt;/table&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="PasswordResetSuccess" xml:space="preserve">
+    <value>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt; &lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	    &lt;p&gt;
+	Dear User,	
+&lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;
+Greetings From AIA.
+&lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;
+Your password has been changed successfully as per request.
+&lt;/p&gt;
+&lt;br/&gt;
+        
+           
+      &lt;h3&gt;Thanks,&lt;br/&gt;
+          Team AIA.&lt;/h3&gt;
+	    &lt;br/&gt;
+           
+	&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="SendOTPEmail" xml:space="preserve">
+    <value>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt; &lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	    &lt;p&gt;
+	Dear User,	
+&lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;
+Greetings From AIA.
+&lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;
+Your OTP for password reset is txtOTP, Please do not share OTP,as it is confidential.
+&lt;/p&gt;
+&lt;br/&gt;
+        
+           
+      &lt;h3&gt;Thanks,&lt;br/&gt;
+          Team AIA.&lt;/h3&gt;
+	    &lt;br/&gt;
+           
+	&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+</root>

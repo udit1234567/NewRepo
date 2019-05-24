@@ -1,0 +1,278 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@using AIA.Presentation.Helpers;
+@{
+
+}
+<div id="tab_1" class="panel panel-default tab-pane active">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i style="color: white;"></i>
+            <a data-toggle="collapse" data-target="#collapse3" href="#collapseThree" id="aImdText" class="collapsed">
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                Basic Details
+            </a>
+        </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse in">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyName">
+                    <div class="form-group">
+                        <label>
+                            Name <span class="mandatory">*</span>
+                        </label>
+                        @Html.TextBoxFor(a => a.Name, new { @id = "txtHirerachyName", @class = "form-control", @maxlength = "25", @onchange = "ClearErrOnChange()" })                     
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyEstablish">
+                    <div class="form-group">
+                        <label>
+                            Year of Establishment<span class="mandatory">*</span>
+                        </label>
+                        @Html.TextBoxFor(a => a.YearofEstablish, new { @id = "txtHirerachyYearofEstablish", @class = "form-control", @maxlength = "4", @onkeypress = "return isNumberKey(event)" })
+                        @*@Html.iNubeDatePickerFor(a => a.YearofEstablish, new { @class = "form-control datepicker", @id = "dpHirerachyYearofEstablish" })*@
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyRegNo">
+                    <div class="form-group">
+                        <label>
+                            Registration Number
+                        </label>
+                        @Html.TextBoxFor(a => a.RegNo, new { @id = "txtHirerachyRegistrationNum", @class = "form-control", @maxlength = "15", @onkeypress = "return isAlphaNumberKeyback(event)" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="display:none" id="divddlPartnerType">
+                    <div class="form-group">
+                        <label>
+                            Partner Type<span class="mandatory">*</span>
+                        </label>
+                        @Html.DropDownListFor(s => s.PartnerType, new SelectList(Model.LstPartnertypes, "ID", "Value"), "Select", new { @id = "ddlHierarchyPartnerTypes", @class = "form-control", @onchange = "LoadPartnerCode(), ClearErrOnChange()" })
+                    </div>
+                </div>
+                @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label>
+                                Entity Type<span class="mandatory">*</span>
+                            </label>
+                            @Html.DropDownListFor(s => s.EntityType,new SelectList(Model.LstEntityTypes,"ID","Value"),new { @id = "ddlHierarchyEntityStatusType", @class = "form-control"})
+                        </div>
+                    </div>*@
+                @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyGeoUnits" style="display:none">
+                    <div class="form-group">
+                        <label>
+                            Geo Unit Type<span class="mandatory">*</span>
+                        </label>
+                        @Html.DropDownListFor(s => s.EntityType, new SelectList("", "", ""), new { @id = "ddlHierarchygeounittypes", @class = "form-control", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>*@
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyStatus">
+                    <div class="form-group">
+                        <label>Status</label>
+                        @Html.DropDownListFor(s => s.Status, new SelectList(Model.LstStatus, "ID", "Value"), "Select", new { @id = "txtHirerachyStatus", @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyCode">
+                    <div class="form-group">
+                        <label>
+                            Code
+                        </label>
+                        @Html.TextBoxFor(a => a.Code, new { @id = "txtHirerachyCode", @class = "form-control", @onkeypress = "return isNumberKey(event)", @readonly = "readonly" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <br />
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="display:none" id="chkPartnerHierarchy">
+                    <div class="form-group">
+                        @(Html.CheckBoxFor(a => a.IsPartnerHierarchy, new { @id = "chkHierarchyPartnerDetails", @style = "margin-right: 10px;", @onclick = "HideGeoHierarchyDetails()" }))This entity is for Partner Hierarchy
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <br />
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="display:none" id="chkPartnerInsuranceOperations">
+                    <div class="form-group">
+                        @(Html.CheckBoxFor(a => a.IsPartnerInsuranceType, new { @id = "chkHierarchyInsurance", @style = "margin-right: 10px;", @onclick = "HideGeoHierarchyParentDetails()" }))Insurance Operations are Centralized
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="display:none" id="divHierarchyRepositoryDetails">
+                <div>
+                    <br />
+                    <h4><b>Reporting Details</b></h4>
+                    <br />
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyReportingEntityType">
+                    <div class="form-group">
+                        <label>
+                            Entity Type<span class="mandatory">*</span>
+                        </label>
+                        @Html.DropDownListFor(s => s.ReportEntityType, new SelectList(Model.LstReportEntityType, "ID", "Value"), new { @id = "ddlHierarchyRepositoryType", @class = "form-control", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyReportingCode">
+                    <div class="form-group">
+                        <label>
+                            Code<span class="mandatory">*</span>
+                        </label>
+                        @Html.TextBoxFor(a => a.ReportingCode, new { @id = "txtHirerachyReportingCode", @class = "form-control", @maxlength = "12", @onchange = "ClearErrOnChange(), ReportingCodeAutoComplete()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyReportingName">
+                    <div class="form-group">
+                        <label>
+                            Name <span class="mandatory">*</span>
+                        </label>
+                        @Html.TextBoxFor(a => a.ReportingName, new { @id = "txtHirerachyReportingName", @class = "form-control", @maxlength = "25", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>
+                @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyReportGeoUnits" style="display:none">
+                        <div class="form-group">
+                            <label>
+                                Geo Unit Type<span class="mandatory">*</span>
+                            </label>
+                            @Html.DropDownListFor(s => s.EntityType, new SelectList("", "", ""), new { @id = "ddlHierarchyReportgeounittypes", @class = "form-control", @onchange = "ClearErrOnChange()" })
+                        </div>
+                    </div>*@
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divHierarchyEffectiveFrom">
+                    <div class="form-group">
+                        <label>
+                            Effective From<span class="mandatory">*</span>
+                        </label>
+                        @Html.iNubeDatePickerFor(a => a.Effectivefrom, new { @class = "form-control ", @id = "dpHierarchyEffectiveFrom", @MinDate = DateTime.Now, @readonly = "readonly", @onchange = "ClearErrOnChange()" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <br />
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <input type="button" value="Save" id="btnBasicSaveDetails" class="btn btn-default" style="width:100px" onclick="SaveHierarchyBasicDetails()">
+                        <input type="button" value="Cancel" id="btnBasicCancelDetails" class="btn btn-default" style="width:100px" onclick="return location.href = '../Home/Index'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">   
+    $(document).ready(function () {        
+        //var ReportingEntityCode;
+        //var ReportingType = $("#hdnReportingEntityId").val();
+        //$("#txtHirerachyReportingCode").autocomplete({
+        //    appendTo: '#DivOtherMemberDetails',
+        //    minLength: 1,
+        //    ReportingEntityCode: $("#txtHirerachyReportingCode").val(),          
+        //    source: function (request, response) {
+        //        debugger
+        //        $.ajax({
+        //            url: '/Hierarchy/LoadReportingEntityCode?ReportingType=' + ReportingType,
+        //            type: "POST",
+        //            dataType: "json",
+        //            data: { ReportingEntityCode: request.term },
+        //            success: function (data) {
+        //                response($.map(data, function (item, idx) {
+        //                    return {
+        //                        label: item.Text,
+        //                        value: item.Value,
+        //                        id: item.ID
+        //                    };
+
+        //                }));
+        //            },
+        //        });
+        //    },
+        //    select: function (event, ui) {
+
+        //        var data = ui.item.value;
+        //        var arr = data.split(',');
+        //        var ReportingCode = arr[0];
+        //        $.ajax({
+        //            url: '/Hierarchy/LoadReportingEntityCodeAndName',
+        //            type: "POST",
+        //            dataType: "json",
+        //            data: { ReportingEntityCode: ReportingCode },
+        //            success: function (data) {
+        //                $('#txtHirerachyReportingName').val(data[0].ReportingName);
+        //                $('#txtHirerachyReportingCode').val(data[0].ReportingCode);
+        //            }
+
+        //        });
+        //    },
+        //});
+
+        //var ReportingEntityName;
+        //$("#txtHirerachyReportingName").autocomplete({
+        //    appendTo: '#DivOtherMemberDetails',
+        //    minLength: 1,
+        //    ReportingEntityName: $("#txtHirerachyReportingName").val(),
+        //    source: function (request, response) {
+        //        $.ajax({
+        //            url: '/Hierarchy/LoadReportingEntityName',
+        //            type: "POST",
+        //            dataType: "json",
+        //            data: { ReportingEntityName: request.term },
+        //            success: function (data) {
+        //                response($.map(data, function (item, idx) {
+        //                    return {
+        //                        label: item.Text,
+        //                        value: item.Value,
+        //                        id: item.ID
+        //                    };
+
+        //                }));
+        //            },
+        //        });
+        //    },
+        //    select: function (event, ui) {
+        //        var data = ui.item.value;
+        //        var arr = data.split(',');
+        //        var ReportingCode = arr[0];
+        //        $.ajax({
+        //            url: '/Hierarchy/LoadReportingEntityCodeAndName',
+        //            type: "POST",
+        //            dataType: "json",
+        //            data: { ReportingEntityCode: ReportingCode },
+        //            success: function (data) {
+        //                $('#txtHirerachyReportingCode').val(data[0].ReportingCode);
+        //                $('#txtHirerachyReportingName').val(data[0].ReportingName);
+        //            }                });
+        //    },
+        //});
+    });
+    function HideGeoHierarchyDetails() {
+        if ($("#chkHierarchyPartnerDetails").is(":checked"))
+            $("#tabGEOUnitDetails").hide();
+        else
+            $("#tabGEOUnitDetails").show();
+    }
+    function HideGeoHierarchyParentDetails() {
+        if ($("#chkHierarchyInsurance").is(":checked")){
+            $("#tabGEOUnitDetails").hide();
+            $("#divGeoUnitTypesPartners").hide();
+        }          
+        else {
+            $("#tabGEOUnitDetails").show();
+            $("#divGeoUnitTypesPartners").show();
+        }           
+    }  
+    function LoadPartnerCode() {
+        var PartnerTypeId = $("#ddlHierarchyPartnerTypes").val();
+        var PartnerTypeValue = $("#ddlHierarchyPartnerTypes option:selected").text();
+        if (PartnerTypeId != '' && PartnerTypeId != undefined) {
+            $.post("../Hierarchy/LoadPartnerCode?PartnerTypeId=" + PartnerTypeId)
+                .done(function (data) {
+                    if (data != null) {
+                        //$('#txtHirerachyCode').val(data);
+                        $('#hdnPartnerCode').val(data);
+                    }
+                });
+        }
+    }
+</script>

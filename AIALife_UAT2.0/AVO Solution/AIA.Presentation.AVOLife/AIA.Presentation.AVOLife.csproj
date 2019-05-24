@@ -1,0 +1,2955 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FF4D050E-9A22-4A1C-8E1A-644F8AB1C63F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AIA.Presentation.AVOLife</RootNamespace>
+    <AssemblyName>AIA.Presentation.AVOLife</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Fonet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=52effa152c4a9dc6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fonet.1.0\lib\net20\Fonet.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.CommonProtos, Version=1.2.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.CommonProtos.1.2.0\lib\net45\Google.Api.CommonProtos.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Api.Gax, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.2.6.0\lib\net45\Google.Api.Gax.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax.Grpc, Version=2.3.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.Grpc.2.3.0\lib\net45\Google.Api.Gax.Grpc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.36.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.36.0\lib\net45\Google.Apis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.36.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.36.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.36.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.36.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.36.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.36.0\lib\net45\Google.Apis.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.36.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.36.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Apis.Vision.v1, Version=1.36.0.1369, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Vision.v1.1.36.0.1369\lib\net45\Google.Apis.Vision.v1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Cloud.Vision.V1, Version=1.2.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Cloud.Vision.V1.1.2.0\lib\net45\Google.Cloud.Vision.V1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.LongRunning, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.LongRunning.1.0.0\lib\net45\Google.LongRunning.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Grid.Mvc.Ajax">
+      <HintPath>..\packages\Grid.Mvc.Ajax.1.0.31\lib\Grid.Mvc.Ajax.dll</HintPath>
+    </Reference>
+    <Reference Include="GridMvc">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grpc.Auth.1.10.0\lib\net45\Grpc.Auth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grpc.Core.1.10.0\lib\net45\Grpc.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.WebForms.12.0.2402.15\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="paycorp-client-csharp%28v1.5.6%29, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\paycorp-client-csharp(v1.5.6).dll</HintPath>
+    </Reference>
+    <Reference Include="reCAPTCHA.MVC">
+      <HintPath>..\packages\reCAPTCH.MVC.1.0.1\lib\net45\reCAPTCHA.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Interactive.Async, Version=3.2.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.2.0\lib\net46\System.Interactive.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.0\lib\net40\System.Web.Providers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ApplicationInsights">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AIAQuoteDataSet.Designer.cs" />
+    <Compile Include="AIAQuoteDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AIAQuoteDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="AVOAIAlifeDataSet0.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet1.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet10.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet10a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet11a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet12.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet13.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet14.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet15.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet1a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet2.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet5.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet5a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet6a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet7.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet7a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet8.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet9a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSet9aa.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetBenifitDetails.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeDataSetBenifitDetails.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeDataSetEDO10.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU11.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU12.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU13.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU1a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU1b.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU2.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU3.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU4.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU5.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU6.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU7.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU9self.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetEDU9Spouse.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetFamilyHis.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGETmemberBenifitSinhala.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeDataSetGETmemberBenifitSinhala.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeDataSetGold10.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold11.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold1a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold1b.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold2.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold3.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold5.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold7.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold8.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold9a.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetGold9b.Designer.cs" />
+    <Compile Include="AVOAIAlifeDataSetLoyality.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeDataSetLoyality.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeDataSetMember.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeDataSetMember.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeDataSetMemberBenefit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeDataSetMemberBenefit.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeDataSetMemberBenifitSBG.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeDataSetMemberBenifitSBG.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeDataSetPlanChoice.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeDataSetPlanChoice.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeDataSetReportData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeDataSetReportData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeEducation.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeEducation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeEducationplan.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeEducationplan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeEducationPlanDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeEducationPlanDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeMemberBenifit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeMemberBenifit.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeProposal1.Designer.cs" />
+    <Compile Include="AVOAIAlifeProposal2.Designer.cs" />
+    <Compile Include="AVOAIAlifeProposal3.Designer.cs" />
+    <Compile Include="AVOAIAlifeProposal4.Designer.cs" />
+    <Compile Include="AVOAIAlifeReportData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeReportData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AVOAIAlifeReportlabel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AVOAIAlifeReportlabel.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AllocationController.cs" />
+    <Compile Include="Controllers\AgentonBoardingController.cs" />
+    <Compile Include="Controllers\API\AIAServiceController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PolicyController.cs" />
+    <Compile Include="Controllers\ProspectController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\RuleController.cs" />
+    <Compile Include="Controllers\SuspectController.cs" />
+    <Compile Include="Controllers\UserManagementController.cs" />
+    <Compile Include="Controllers\UtilityController.cs" />
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Dataset7.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dataset7.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandling\ErrorLogging.cs" />
+    <Compile Include="ExceptionHandling\TransactionLog.cs" />
+    <Compile Include="GenericCodes\GenerateCodes.cs" />
+    <Compile Include="GenericCodes\LoginUser.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CurrencyTextbox.cs" />
+    <Compile Include="Helpers\DateTimePickers.cs" />
+    <Compile Include="Helpers\HelperMethods.cs" />
+    <Compile Include="Helpers\JsonToIMG.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\amcharts_3.21.14\amcharts\amcharts.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\funnel.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\gantt.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\gauge.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIcon.gif" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconBlack.gif" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconH.gif" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconHBlack.gif" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectBig.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectBig.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectBigBlack.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectBigBlack.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectBigBlackH.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectBigBlackH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectBigH.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectBigH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectSmall.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectSmall.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectSmallBlack.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectSmallBlack.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectSmallBlackH.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectSmallBlackH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectSmallH.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRectSmallH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundBig.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundBig.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundBigBlack.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundBigBlack.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundBigBlackH.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundBigBlackH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundBigH.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundBigH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundSmall.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundSmall.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundSmallBlack.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundSmallBlack.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundSmallBlackH.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundSmallBlackH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundSmallH.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\dragIconRoundSmallH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\eraserIcon.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\eraserIconH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\export.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\exportWhite.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\lens.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\lens.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\lensWhite.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\lensWhite.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\lensWhite_old.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\lens_old.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\pencilIcon.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\pencilIconH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\xIcon.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\images\xIconH.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\az.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\bg.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\cs.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\de.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\es.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\fi.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\fo.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\fr.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\hr.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\hu.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\id.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\is.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\it.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\ja.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\ko.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\lt.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\lv.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\mk.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\mn.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\mt.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\nl.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\no.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\pl.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\pt.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\ro.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\ru.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\rw.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\sk.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\sl.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\so.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\th.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\tr.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\uk.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\lang\zh.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern1.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern10.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern11.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern12.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern13.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern14.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern15.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern16.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern17.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern18.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern19.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern2.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern20.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern21.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern3.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern4.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern5.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern6.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern7.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern8.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\black\pattern9.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\chalk\pattern1.jpg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\chalk\pattern1r.jpg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\chalk\pattern2.jpg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\chalk\pattern3.jpg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\chalk\pattern4.jpg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\chalk\pattern5.jpg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\chalk\pattern6.jpg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern1.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern10.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern11.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern12.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern13.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern14.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern15.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern16.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern17.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern18.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern19.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern2.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern20.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern21.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern3.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern4.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern5.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern6.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern7.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern8.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\patterns\white\pattern9.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\pie.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\animate.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\animate.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\examples\funnel.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\examples\pie.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\examples\radar.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\examples\serial_column.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\examples\serial_line.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\examples\xy.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\index.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\dataloader.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\dataloader.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\gantt_json.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\gauge_json.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\map_json.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\map_json_external_function.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\pie_csv.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\pie_json.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\serial2_json.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\serial_csv.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\serial_json.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\serial_with_dynamic_graphs.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\stock_csv_data_and_events.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\stock_csv_progressbar.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\index.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\lang\cs.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\lang\en.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\lang\fr.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\lang\lt.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\license.txt" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\.gitignore" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\advanced.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\export.config.advanced.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\export.config.default.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\funnel.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\gantt.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\gauge.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\images\bicycle.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\images\car.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\images\motorcycle.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\index.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\map.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\pie1.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\pie2.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\pie3.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\pie4.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\radar.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\serial1.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\serial2.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\serial3.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\stock.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\examples\xy.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\export.css" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\export.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\export.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\index.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\cs.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\de.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\en.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\es.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\fr.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\hu.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\it.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\ko.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\lt.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\pl.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\pt.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\tr.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\lang\zh.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\blob.js\blob.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\classList.js\classList.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\classList.js\classList.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\fabric.js\fabric.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\fabric.js\fabric.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\FileSaver.js\FileSaver.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\FileSaver.js\FileSaver.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\jszip\jszip.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\jszip\jszip.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\pdfmake\pdfmake.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\pdfmake\pdfmake.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\pdfmake\vfs_fonts.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\xlsx\xlsx.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\xlsx\xlsx.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\1.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\10.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\11.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\12.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\13.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\14.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\15.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\16.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\17.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\18.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\19.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\2.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\20.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\21.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\22.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\23.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\24.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\25.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\26.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\27.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\28.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\29.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\3.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\30.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\31.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\4.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\5.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\6.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\7.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\8.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\shapes\9.svg" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\funnel.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\gantt.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\gauge.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\images\bicycle.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\images\car.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\images\motorcycle.png" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\index.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\map.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\pie1.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\pie2.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\pie3.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\radar.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\serial1.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\serial2.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\serial3.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\stock.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\examples\xy.html" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\index.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\license.txt" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\responsive.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\responsive.min.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\radar.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\serial.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\themes\black.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\themes\chalk.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\themes\dark.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\themes\light.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\themes\patterns.js" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\xy.js" />
+    <Content Include="Content\amcharts_3.21.14\changeLog.txt" />
+    <Content Include="Content\amcharts_3.21.14\images\logo.png" />
+    <Content Include="Content\amcharts_3.21.14\images\style.css" />
+    <Content Include="Content\amcharts_3.21.14\index.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\angularGauge.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\angularGaugeWithTwoAxes.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\area100PercentStacked.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\areaStacked.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\areaWithTimeBasedData.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\bar3D.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\barAndLineMix.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\barClustered.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\barFloating.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\barStacked.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\barWithBackgroundImage.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\bulletChart.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\candleStick.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\candleStickProMode.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\clock.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\clockWithTwoFaces.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\column100PercentStacked.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\column3D.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\column3DStacked.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\columnAndLineMix.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\columnCylinders.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\columnRotatedSeries.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\columnSimple.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\columnStacked.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\columnStackedAndClustered.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\columnWithGradientFills.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\columnWithImages.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\columnWithPatterns.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\errorChart.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\fillBetweenTwoLines.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\funnelChart.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\handDrawnChart.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\0.gif" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\1.gif" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\2.gif" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\3.gif" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\bg.jpg" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\bgSky.jpg" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\bicycle.png" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\board.jpg" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\car.png" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\motorcycle.png" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\redstar.png" />
+    <Content Include="Content\amcharts_3.21.14\samples\images\star.png" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineSmoothed.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineStep.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineStepNoRisers.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithChangingColor.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithCustomBullets.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithDataGaps.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithDateBasedData.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithDifferentBulletSizes.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithDurationOnValueAxis.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithFilledValueRanges.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithLogarithmicValueAxis.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithMultipleValueAxes.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithReversedValueAxis.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\lineWithTrendLines.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\mekkoChart.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\microCharts.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\ohlc.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\pie3D.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\pieDonut3D.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\pieSimple.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\pieWithLegend.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\pieWithPatterns.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\pyramidChart.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\pyramidChart3D.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\radarPolar.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\radarSimple.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\style.css" />
+    <Content Include="Content\amcharts_3.21.14\samples\waterFallChart.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\xyBubbleSimple.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\xyBubbleWithZoom.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\xyDateBased.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\xyError.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\xyScatter.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_CSS_animations.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_exporting_to_multiple_formats.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_angularGauge.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_areaStacked.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_barAndLineMix.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_ganttDateBased.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_ganttTimeBased.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_lineWithFilledValueRanges.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_lineWithScrollAndZoom.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_lineWithTrendLines.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_mekkoChart.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_pieWithLegend.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_radarSimple.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_usingDifferentLanguage.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_xyBubbleWithZoom.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_JSON_xyWithGuides.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_SVG_filters.html" />
+    <Content Include="Content\amcharts_3.21.14\samples\_usingThemes.html" />
+    <Content Include="Content\amcharts_3.21.14\thirdPartySoftwareList.txt" />
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-dialog.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Dashboard.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\AIAEverest-Bold.svg" />
+    <Content Include="Content\fonts\AIAEverest-Condensed.svg" />
+    <Content Include="Content\fonts\AIAEverest-CondensedMedium.svg" />
+    <Content Include="Content\fonts\AIAEverest-ExtraBold.svg" />
+    <Content Include="Content\fonts\AIAEverest-Medium.svg" />
+    <Content Include="Content\fonts\AIAEverest-Regular.svg" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="Content\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\formvalidation\css\formValidation.min.css" />
+    <Content Include="Content\formvalidation\js\bootstrap.min.js" />
+    <Content Include="Content\formvalidation\js\formValidation.min.js" />
+    <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\gridmvc.datepicker.css" />
+    <Content Include="Content\gridmvc.datepicker.min.css" />
+    <Content Include="Content\iControlGrid.css" />
+    <Content Include="Content\Images\%28Group%29 copy.png" />
+    <Content Include="Content\Images\%28Group%29copy.png" />
+    <Content Include="Content\Images\accent.png" />
+    <Content Include="Content\Images\admin.png" />
+    <Content Include="Content\Images\AgentLogin.jpg" />
+    <Content Include="Content\Images\AIA Education Plan E.jpg" />
+    <Content Include="Content\Images\AIA Logo.jpg" />
+    <Content Include="Content\Images\AIA-inside.jpg" />
+    <Content Include="Content\Images\AIA-inside.png" />
+    <Content Include="Content\Images\aia-logo-collapse.png" />
+    <Content Include="Content\Images\AIA-SmartBuilder-E-001.jpg" />
+    <Content Include="Content\Images\AIA.jpg" />
+    <Content Include="Content\Images\AIA.png" />
+    <Content Include="Content\Images\AIALogo.jpg" />
+    <Content Include="Content\Images\AIA_Background.png" />
+    <Content Include="Content\Images\AIA_csr-2.png" />
+    <Content Include="Content\Images\AIA_CSR.png" />
+    <Content Include="Content\Images\AIA_Custom_Base.png" />
+    <Content Include="Content\Images\AIA_Figure_Includ.png" />
+    <Content Include="Content\Images\AIA_Geographical_spread.png" />
+    <Content Include="Content\Images\AIA_Group_pic.png" />
+    <Content Include="Content\Images\AIA_Health-Protector-Brochure-E-001.jpg" />
+    <Content Include="Content\Images\AIA_History_Co.png" />
+    <Content Include="Content\Images\AIA_Innovation.png" />
+    <Content Include="Content\Images\AIA_international_Ranking.png" />
+    <Content Include="Content\Images\AIA_Investment_ASSET.png" />
+    <Content Include="Content\Images\AIA_Last_Market.png" />
+    <Content Include="Content\Images\AIA_Management_People.png" />
+    <Content Include="Content\Images\AIA_Market_Share.png" />
+    <Content Include="Content\Images\AIA_Pink.png" />
+    <Content Include="Content\Images\AIA_Product_Service.png" />
+    <Content Include="Content\Images\AIA_Prod_Serv.png" />
+    <Content Include="Content\Images\AIA_Special_achive.png" />
+    <Content Include="Content\Images\AIA_Srilanka.png" />
+    <Content Include="Content\Images\AIA_Start_Logo.jpg" />
+    <Content Include="Content\Images\AIA_Start_Logo.png" />
+    <Content Include="Content\Images\AIA_Strength.png" />
+    <Content Include="Content\Images\AIA_Wealth.png" />
+    <Content Include="Content\Images\AIA_White.png" />
+    <Content Include="Content\Images\AIIA_BG.jpg" />
+    <Content Include="Content\Images\Allocate.png" />
+    <Content Include="Content\Images\Appreciation Feeback.png" />
+    <Content Include="Content\Images\Arrows.png" />
+    <Content Include="Content\Images\Assets.png" />
+    <Content Include="Content\Images\assign-previlage-pink.png" />
+    <Content Include="Content\Images\assign-previlage.png" />
+    <Content Include="Content\Images\ATM%400,32x.png" />
+    <Content Include="Content\Images\auto.png" />
+    <Content Include="Content\Images\bank.png" />
+    <Content Include="Content\Images\bike-new.png" />
+    <Content Include="Content\Images\bike.png" />
+    <Content Include="Content\Images\Bike1.png" />
+    <Content Include="Content\Images\Birthdays%400,84x.png" />
+    <Content Include="Content\Images\Brosure1.PNG" />
+    <Content Include="Content\Images\Brosure2.jpg" />
+    <Content Include="Content\Images\bullet.png" />
+    <Content Include="Content\Images\Bussiness Figures.png" />
+    <Content Include="Content\Images\CALENDAR.GIF" />
+    <Content Include="Content\Images\calendar.png" />
+    <Content Include="Content\Images\Car%400,64x.png" />
+    <Content Include="Content\Images\car-new.png" />
+    <Content Include="Content\Images\car.png" />
+    <Content Include="Content\Images\car1.png" />
+    <Content Include="Content\Images\Chat%400,32x.png" />
+    <Content Include="Content\Images\Circle.png" />
+    <Content Include="Content\Images\Claim Information.png" />
+    <Content Include="Content\Images\Claim Status.png" />
+    <Content Include="Content\Images\Close-128.png" />
+    <Content Include="Content\Images\Company Profile%400,32x.png" />
+    <Content Include="Content\Images\Competition Status.png" />
+    <Content Include="Content\Images\config-create.png" />
+    <Content Include="Content\Images\Contact No%400,32x.png" />
+    <Content Include="Content\Images\cover-details.png" />
+    <Content Include="Content\Images\create-employee.png" />
+    <Content Include="Content\Images\create-hierarchy.png" />
+    <Content Include="Content\Images\create-prospect.png" />
+    <Content Include="Content\Images\create-suspect.png" />
+    <Content Include="Content\Images\create-user-pinkl.png" />
+    <Content Include="Content\Images\create-user.png" />
+    <Content Include="Content\Images\critical.png" />
+    <Content Include="Content\Images\CustomerLogin.jpg" />
+    <Content Include="Content\Images\Date Picker.png" />
+    <Content Include="Content\Images\details.png" />
+    <Content Include="Content\Images\Download &amp; Email.png" />
+    <Content Include="Content\Images\E.png" />
+    <Content Include="Content\Images\Emoty Bar.png" />
+    <Content Include="Content\Images\Endorsement Request.png" />
+    <Content Include="Content\Images\error.jpg" />
+    <Content Include="Content\Images\Events%400,84x.png" />
+    <Content Include="Content\Images\female.png" />
+    <Content Include="Content\Images\FGlogo.png" />
+    <Content Include="Content\Images\FnaIcons\Bank loans%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Buy car_property%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Charity_Donation%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Children Wedding%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Clothes%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Confirmed Prospect.png" />
+    <Content Include="Content\Images\FnaIcons\Create Suspect.png" />
+    <Content Include="Content\Images\FnaIcons\Credit card%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Education%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Education.png" />
+    <Content Include="Content\Images\FnaIcons\Entertainment%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\EPF balance%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Fixed Deposit%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Food%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Generate Quotation.png" />
+    <Content Include="Content\Images\FnaIcons\Gratutity%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Health%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\health.png" />
+    <Content Include="Content\Images\FnaIcons\Income%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Incomplete Proposal.png" />
+    <Content Include="Content\Images\FnaIcons\Interest%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Jewellery%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Land_Building &amp; House%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Lease_Installment%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Living expenses%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Load Quotation.png" />
+    <Content Include="Content\Images\FnaIcons\Loan Payment%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Medicine%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Monthly Allocation%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Need Analysis Completed.png" />
+    <Content Include="Content\Images\FnaIcons\Other%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Pending Requirements.png" />
+    <Content Include="Content\Images\FnaIcons\Pension Fund%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\penson.png" />
+    <Content Include="Content\Images\FnaIcons\Protection%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\protection.png" />
+    <Content Include="Content\Images\FnaIcons\Rent%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Retirement%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\saving.png" />
+    <Content Include="Content\Images\FnaIcons\Savings%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Settlement of loans%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Shares%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Submitted Proposal.png" />
+    <Content Include="Content\Images\FnaIcons\Suspect Pool.png" />
+    <Content Include="Content\Images\FnaIcons\Transport &amp; Fuel%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Vacation%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Vehicles%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Water_Electricity%400,25x.png" />
+    <Content Include="Content\Images\FnaIcons\Wedding%400,25x.png" />
+    <Content Include="Content\Images\fna_1%281%29.png" />
+    <Content Include="Content\Images\fna_1%282%29.png" />
+    <Content Include="Content\Images\fna_1%283%29.png" />
+    <Content Include="Content\Images\fna_1%284%29.png" />
+    <Content Include="Content\Images\fna_1%285%29.png" />
+    <Content Include="Content\Images\fna_2%281%29.png" />
+    <Content Include="Content\Images\fna_2%282%29.png" />
+    <Content Include="Content\Images\fna_2%283%29.png" />
+    <Content Include="Content\Images\fna_2%284%29.png" />
+    <Content Include="Content\Images\fna_2%285%29.png" />
+    <Content Include="Content\Images\fna_3%281%29.png" />
+    <Content Include="Content\Images\fna_3%282%29.png" />
+    <Content Include="Content\Images\fna_3%283%29.png" />
+    <Content Include="Content\Images\fna_3%284%29.png" />
+    <Content Include="Content\Images\fna_3%285%29.png" />
+    <Content Include="Content\Images\fna_4%281%29.png" />
+    <Content Include="Content\Images\fna_4%282%29.png" />
+    <Content Include="Content\Images\fna_4%283%29.png" />
+    <Content Include="Content\Images\fna_4%284%29.png" />
+    <Content Include="Content\Images\fna_4%285%29.png" />
+    <Content Include="Content\Images\fna_5%281%29.png" />
+    <Content Include="Content\Images\fna_5%282%29.png" />
+    <Content Include="Content\Images\fna_5%283%29.png" />
+    <Content Include="Content\Images\fna_5%284%29.png" />
+    <Content Include="Content\Images\fna_5%285%29.png" />
+    <Content Include="Content\Images\Forma 1 copy 8.png" />
+    <Content Include="Content\Images\Forma 1-1.png" />
+    <Content Include="Content\Images\Forma 1-10.png" />
+    <Content Include="Content\Images\Forma 1-11.png" />
+    <Content Include="Content\Images\Forma 1-12.png" />
+    <Content Include="Content\Images\Forma 1-13.png" />
+    <Content Include="Content\Images\Forma 1-14.png" />
+    <Content Include="Content\Images\Forma 1-15.png" />
+    <Content Include="Content\Images\Forma 1-16.png" />
+    <Content Include="Content\Images\Forma 1-17.png" />
+    <Content Include="Content\Images\Forma 1-2.png" />
+    <Content Include="Content\Images\Forma 1-3.png" />
+    <Content Include="Content\Images\Forma 1-4.png" />
+    <Content Include="Content\Images\Forma 1-5.png" />
+    <Content Include="Content\Images\Forma 1-6.png" />
+    <Content Include="Content\Images\Forma 1-7.png" />
+    <Content Include="Content\Images\Forma 1-8.png" />
+    <Content Include="Content\Images\Forma 1-9.png" />
+    <Content Include="Content\Images\Forma 1.png" />
+    <Content Include="Content\Images\Forma1-18.png" />
+    <Content Include="Content\Images\Forma1-19.png" />
+    <Content Include="Content\Images\Forma1-20.png" />
+    <Content Include="Content\Images\Gym%400,32x.png" />
+    <Content Include="Content\Images\health.png" />
+    <Content Include="Content\Images\heroAccent.png" />
+    <Content Include="Content\Images\hierarchy.png" />
+    <Content Include="Content\Images\home-pink.png" />
+    <Content Include="Content\Images\home-white.png" />
+    <Content Include="Content\Images\image.jpg" />
+    <Content Include="Content\Images\incomplete.png" />
+    <Content Include="Content\Images\info.png" />
+    <Content Include="Content\Images\infoSearch.png" />
+    <Content Include="Content\Images\inspection.png" />
+    <Content Include="Content\Images\Insurance Details.png" />
+    <Content Include="Content\Images\iNubeLogo.png" />
+    <Content Include="Content\Images\janashakthi-inside.jpg" />
+    <Content Include="Content\Images\janashakthi.png" />
+    <Content Include="Content\Images\janashakti.jpg" />
+    <Content Include="Content\Images\Knowledge Center%400,32x.png" />
+    <Content Include="Content\Images\Knowledge Center_Icon.png" />
+    <Content Include="Content\Images\landing-page-cropped.jpg" />
+    <Content Include="Content\Images\laptop.png" />
+    <Content Include="Content\Images\layer-4%403x.png" />
+    <Content Include="Content\Images\layer-4.png" />
+    <Content Include="Content\Images\Layer1.png" />
+    <Content Include="Content\Images\Lead-Own.png" />
+    <Content Include="Content\Images\Lead-Target.png" />
+    <Content Include="Content\Images\Lead-Trendline.png" />
+    <Content Include="Content\Images\Liabilities.png" />
+    <Content Include="Content\Images\line-icons.png" />
+    <Content Include="Content\Images\Loading.gif" />
+    <Content Include="Content\Images\Location_Garage.png" />
+    <Content Include="Content\Images\Location_Hospital.png" />
+    <Content Include="Content\Images\Location_User.png" />
+    <Content Include="Content\Images\Locator%400,32x.png" />
+    <Content Include="Content\Images\Locator.png" />
+    <Content Include="Content\Images\login-bg.jpg" />
+    <Content Include="Content\Images\login-image.png" />
+    <Content Include="Content\Images\login-image2.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\magnifier.png" />
+    <Content Include="Content\Images\male.png" />
+    <Content Include="Content\Images\marine.png" />
+    <Content Include="Content\Images\MDRT Qualification%28New%29.png" />
+    <Content Include="Content\Images\MDRT Qualification.png" />
+    <Content Include="Content\Images\Medal%400,28x.png" />
+    <Content Include="Content\Images\Menu%400,32x.png" />
+    <Content Include="Content\Images\minus.png" />
+    <Content Include="Content\Images\misc.png" />
+    <Content Include="Content\Images\misc1.png" />
+    <Content Include="Content\Images\Monthly Savings%400,32x.png" />
+    <Content Include="Content\Images\My Actions%28New%29.png" />
+    <Content Include="Content\Images\My Actions%400,84x.png" />
+    <Content Include="Content\Images\My Actions.png" />
+    <Content Include="Content\Images\My Activities.png" />
+    <Content Include="Content\Images\My Calander_Birthday.png" />
+    <Content Include="Content\Images\My Calander_events.png" />
+    <Content Include="Content\Images\My Calander_renewals.png" />
+    <Content Include="Content\Images\My Calendar%28New%29.png" />
+    <Content Include="Content\Images\My Calendar.png" />
+    <Content Include="Content\Images\My Competition 1%400,84x.png" />
+    <Content Include="Content\Images\My Competition%400,84x.png" />
+    <Content Include="Content\Images\My Customer%28New%29.png" />
+    <Content Include="Content\Images\My Customer.png" />
+    <Content Include="Content\Images\My Customers%400,84x.png" />
+    <Content Include="Content\Images\My Dream%400,32x.png" />
+    <Content Include="Content\Images\My Goal 1.png" />
+    <Content Include="Content\Images\My Goal%400,84x.png" />
+    <Content Include="Content\Images\My Goal%400,96x.png" />
+    <Content Include="Content\Images\My Goal.png" />
+    <Content Include="Content\Images\my-business-white.png" />
+    <Content Include="Content\Images\my-business.png" />
+    <Content Include="Content\Images\My-copetetion-dash-doard.png" />
+    <Content Include="Content\Images\Need Analysis-default.png" />
+    <Content Include="Content\Images\Need Analysis-hover.png" />
+    <Content Include="Content\Images\need.png" />
+    <Content Include="Content\Images\NexGen-IPoS-logo-K20.png" />
+    <Content Include="Content\Images\office%400,32x.png" />
+    <Content Include="Content\Images\orderedList2.png" />
+    <Content Include="Content\Images\orderedList3.png" />
+    <Content Include="Content\Images\orderedList4.png" />
+    <Content Include="Content\Images\orderedList5.png" />
+    <Content Include="Content\Images\orderedList6.png" />
+    <Content Include="Content\Images\orderedList7.png" />
+    <Content Include="Content\Images\orderedList8.png" />
+    <Content Include="Content\Images\orderedList9.png" />
+    <Content Include="Content\Images\Payment-button-1.png" />
+    <Content Include="Content\Images\Payment-button-2.png" />
+    <Content Include="Content\Images\Payment-button-3.png" />
+    <Content Include="Content\Images\Payment-button-4.png" />
+    <Content Include="Content\Images\Payment-button-5.png" />
+    <Content Include="Content\Images\payment-pink.png" />
+    <Content Include="Content\Images\payment-white.png" />
+    <Content Include="Content\Images\pencil.png" />
+    <Content Include="Content\Images\penson.png" />
+    <Content Include="Content\Images\plus.png" />
+    <Content Include="Content\Images\Policy-black.png" />
+    <Content Include="Content\Images\Policy.png" />
+    <Content Include="Content\Images\pool.png" />
+    <Content Include="Content\Images\portlet-expand-icon-white.png" />
+    <Content Include="Content\Images\Premium Calculator%400,32x.png" />
+    <Content Include="Content\Images\Premium Outstanding.png" />
+    <Content Include="Content\Images\Proceed to Calculator-default.png" />
+    <Content Include="Content\Images\Proceed to Calculator-hover.png" />
+    <Content Include="Content\Images\Product Details.png" />
+    <Content Include="Content\Images\Product Presentation.png" />
+    <Content Include="Content\Images\Profile%400,32x.png" />
+    <Content Include="Content\Images\Proposal-black.png" />
+    <Content Include="Content\Images\Proposal.png" />
+    <Content Include="Content\Images\Prospect-black%282%29.png" />
+    <Content Include="Content\Images\Prospect-black.png" />
+    <Content Include="Content\Images\prospect.png" />
+    <Content Include="Content\Images\Quotation-black.png" />
+    <Content Include="Content\Images\Quotation.png" />
+    <Content Include="Content\Images\quote-1.png" />
+    <Content Include="Content\Images\quote-10.png" />
+    <Content Include="Content\Images\quote-11.png" />
+    <Content Include="Content\Images\quote-12.png" />
+    <Content Include="Content\Images\quote-13.png" />
+    <Content Include="Content\Images\quote-14.png" />
+    <Content Include="Content\Images\quote-15.png" />
+    <Content Include="Content\Images\quote-16.png" />
+    <Content Include="Content\Images\quote-17.png" />
+    <Content Include="Content\Images\quote-18.png" />
+    <Content Include="Content\Images\quote-19.png" />
+    <Content Include="Content\Images\quote-2.png" />
+    <Content Include="Content\Images\quote-20.png" />
+    <Content Include="Content\Images\quote-21.png" />
+    <Content Include="Content\Images\quote-22.png" />
+    <Content Include="Content\Images\quote-3.png" />
+    <Content Include="Content\Images\quote-4.png" />
+    <Content Include="Content\Images\quote-5.png" />
+    <Content Include="Content\Images\quote-6.png" />
+    <Content Include="Content\Images\quote-7.png" />
+    <Content Include="Content\Images\quote-8.png" />
+    <Content Include="Content\Images\quote-9.png" />
+    <Content Include="Content\Images\Ramana.jpg" />
+    <Content Include="Content\Images\Rates &amp; Calculators.png" />
+    <Content Include="Content\Images\Ravi.png" />
+    <Content Include="Content\Images\Recruitment.png" />
+    <Content Include="Content\Images\Rectangle 1 copy.png" />
+    <Content Include="Content\Images\Rectangle 1.png" />
+    <Content Include="Content\Images\red-logo.png" />
+    <Content Include="Content\Images\Remaining time%400,32x.png" />
+    <Content Include="Content\Images\Renewals%400,84x.png" />
+    <Content Include="Content\Images\Resend%400,32x.png" />
+    <Content Include="Content\Images\Retrigger Mails%400,32x.png" />
+    <Content Include="Content\Images\RupeeSymbol.png" />
+    <Content Include="Content\Images\S.png" />
+    <Content Include="Content\Images\search%400,32x.png" />
+    <Content Include="Content\Images\search-pink.png" />
+    <Content Include="Content\Images\search.png" />
+    <Content Include="Content\Images\seesaw.png" />
+    <Content Include="Content\Images\seesawstand.png" />
+    <Content Include="Content\Images\Service Request Status.png" />
+    <Content Include="Content\Images\Service Request.png" />
+    <Content Include="Content\Images\Shape 1.png" />
+    <Content Include="Content\Images\Shape 11 copy.png" />
+    <Content Include="Content\Images\Shape11.png" />
+    <Content Include="Content\Images\Shape111.png" />
+    <Content Include="Content\Images\sidebar-toggler-red.png" />
+    <Content Include="Content\Images\sidebar-toggler.png" />
+    <Content Include="Content\Images\SM Renewal.png" />
+    <Content Include="Content\Images\Smart-Pensions-brochure-E-001.jpg" />
+    <Content Include="Content\Images\Stand.png" />
+    <Content Include="Content\Images\Status Enquiry%400,32x.png" />
+    <Content Include="Content\Images\Status Enquiry%400,48x.png" />
+    <Content Include="Content\Images\Status%400,32x.png" />
+    <Content Include="Content\Images\Submitted Proposal.png" />
+    <Content Include="Content\Images\submitted.png" />
+    <Content Include="Content\Images\success.png" />
+    <Content Include="Content\Images\Suspect Pool.png" />
+    <Content Include="Content\Images\suspect-pink.png" />
+    <Content Include="Content\Images\suspect-white.png" />
+    <Content Include="Content\Images\T.png" />
+    <Content Include="Content\Images\Target Date%400,32x.png" />
+    <Content Include="Content\Images\task-list.png" />
+    <Content Include="Content\Images\taxi.png" />
+    <Content Include="Content\Images\time.png" />
+    <Content Include="Content\Images\Transaction ID%400,32x.png" />
+    <Content Include="Content\Images\Travel.png" />
+    <Content Include="Content\Images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\Images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\Images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\Images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\Images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\Images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Images\upload-signature.png" />
+    <Content Include="Content\Images\Utilities.png" />
+    <Content Include="Content\Images\Value of dream%400,32x.png" />
+    <Content Include="Content\Images\VectorSmartObject.png" />
+    <Content Include="Content\Images\Vehicle Inspection.png" />
+    <Content Include="Content\Images\warning.png" />
+    <Content Include="Content\Images\welcome-bg-1.jpg" />
+    <Content Include="Content\Images\white-logo.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\ladda-bootstrap\ladda-themeless.min.css" />
+    <Content Include="Content\login.css" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\Popup.css" />
+    <Content Include="Content\Scripts\BootSideMenu.js" />
+    <Content Include="Content\Scripts\bootstrap-multiselect.js" />
+    <Content Include="Content\Scripts\css3-mediaqueries.js" />
+    <Content Include="Content\Scripts\layout.js" />
+    <Content Include="Content\Scripts\metronic.js" />
+    <Content Include="Content\Styles\BootSideMenu.css" />
+    <Content Include="Content\Styles\bootstrap-multiselect.css" />
+    <Content Include="Content\Styles\Components.css" />
+    <Content Include="Content\Styles\FG-Main.css" />
+    <Content Include="Content\Styles\font-awesome.css" />
+    <Content Include="Content\Styles\Grey.css" />
+    <Content Include="Content\Styles\Gridmvc.css" />
+    <Content Include="Content\Styles\layout.css" />
+    <Content Include="Content\Styles\main-styles.css" />
+    <Content Include="Content\Styles\NewLayout.css" />
+    <Content Include="Content\Styles\simple-line-icons.css" />
+    <Content Include="Content\Styles\under-writer.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\TreeView.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\accident.png" />
+    <Content Include="Images\AIA Login Logo.jpg" />
+    <Content Include="Images\best-per.png" />
+    <Content Include="Images\Best-Performer-BG-1.png" />
+    <Content Include="Images\besticon.png" />
+    <Content Include="Images\big-header.jpg" />
+    <Content Include="Images\branches.png" />
+    <Content Include="Images\C-1.png" />
+    <Content Include="Images\C-2.png" />
+    <Content Include="Images\C-3.png" />
+    <Content Include="Images\C-4.png" />
+    <Content Include="Images\calculator.png" />
+    <Content Include="Images\Car-1.png" />
+    <Content Include="Images\car.png" />
+    <Content Include="Images\chin-1.png" />
+    <Content Include="Images\chin-2.png" />
+    <Content Include="Images\ChoiceChinnappa.jpg" />
+    <Content Include="Images\chola-ms.png" />
+    <Content Include="Images\claim.png" />
+    <Content Include="Images\Competation.png" />
+    <Content Include="Images\contest.png" />
+    <Content Include="Images\CVideo.jpg" />
+    <Content Include="Images\Dash-N-1.png" />
+    <Content Include="Images\Down-Arrow.png" />
+    <Content Include="Images\down-arrow1.png" />
+    <Content Include="Images\dwn.png" />
+    <Content Include="Images\edit.png" />
+    <Content Include="Images\ERS-Download.png" />
+    <Content Include="Images\FeedBack.png" />
+    <Content Include="Images\female.png" />
+    <Content Include="Images\garages.png" />
+    <Content Include="Images\Greeting.png" />
+    <Content Include="Images\health.png" />
+    <Content Include="Images\home.png" />
+    <Content Include="Images\hospitals.png" />
+    <Content Include="Images\icon-md.gif" />
+    <Content Include="Images\janashakti.jpg" />
+    <Content Include="Images\janashaktilogo.jpg" />
+    <Content Include="Images\knowledge.png" />
+    <Content Include="Images\Learn.png" />
+    <Content Include="Images\Left.png" />
+    <Content Include="Images\login-bg.jpg" />
+    <Content Include="Images\LoginAIA.jpg" />
+    <Content Include="Images\logout.png" />
+    <Content Include="Images\Mail.png" />
+    <Content Include="Images\male.png" />
+    <Content Include="Images\MDMessage.png" />
+    <Content Include="Images\memberstatus.png" />
+    <Content Include="Images\minu-12x12.png" />
+    <Content Include="Images\minu-18x18.png" />
+    <Content Include="Images\minus.png" />
+    <Content Include="Images\P-1.png" />
+    <Content Include="Images\P-2.png" />
+    <Content Include="Images\P-3.png" />
+    <Content Include="Images\pendingrenewal.png" />
+    <Content Include="Images\ph.png" />
+    <Content Include="Images\Phone.png" />
+    <Content Include="Images\Photo.png" />
+    <Content Include="Images\plus-18x18.png" />
+    <Content Include="Images\plus.png" />
+    <Content Include="Images\points.png" />
+    <Content Include="Images\Premium-Rater.png" />
+    <Content Include="Images\Reward-1.png" />
+    <Content Include="Images\Reward.png" />
+    <Content Include="Images\Right.png" />
+    <Content Include="Images\sidebar-toggler-red.png" />
+    <Content Include="Images\Slider-1.jpg" />
+    <Content Include="Images\Slider-3.jpg" />
+    <Content Include="Images\T-3-Frame.png" />
+    <Content Include="Images\T-3.png" />
+    <Content Include="Images\travel-logo.png" />
+    <Content Include="Images\travel.png" />
+    <Content Include="Images\Up-Arrow.png" />
+    <Content Include="Images\Up-Black.png" />
+    <Content Include="Images\Up-Blue.png" />
+    <Content Include="Images\Up-Red.png" />
+    <Content Include="Policy\ContactID_103\Spousesignature.png" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\AgentonBoarding\AgentonBoardingScripts.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-dialog.js" />
+    <Content Include="Scripts\bootstrap-dialog.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Content\bootstrap-dialog.less" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\ChartsScript\ChartScript.js" />
+    <Content Include="Scripts\ChartsScript\jquery.amchartExtension.js" />
+    <Content Include="Scripts\ChartsScript\jquery.color.js" />
+    <Content Include="Scripts\ChartsScript\RandomColours.js" />
+    <Content Include="Scripts\gridmvc.min.js.map" />
+    <Content Include="Content\bootstrap-datepicker.css.map" />
+    <Content Include="Content\bootstrap-datepicker.min.css.map" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.min.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\fonts\AIAEverest-Bold.eot" />
+    <Content Include="Content\fonts\AIAEverest-Bold.ttf" />
+    <Content Include="Content\fonts\AIAEverest-Bold.woff" />
+    <Content Include="Content\fonts\AIAEverest-Bold.woff2" />
+    <Content Include="Content\fonts\AIAEverest-Condensed.eot" />
+    <Content Include="Content\fonts\AIAEverest-Condensed.ttf" />
+    <Content Include="Content\fonts\AIAEverest-Condensed.woff" />
+    <Content Include="Content\fonts\AIAEverest-Condensed.woff2" />
+    <Content Include="Content\fonts\AIAEverest-CondensedMedium.eot" />
+    <Content Include="Content\fonts\AIAEverest-CondensedMedium.ttf" />
+    <Content Include="Content\fonts\AIAEverest-CondensedMedium.woff" />
+    <Content Include="Content\fonts\AIAEverest-CondensedMedium.woff2" />
+    <Content Include="Content\fonts\AIAEverest-ExtraBold.eot" />
+    <Content Include="Content\fonts\AIAEverest-ExtraBold.ttf" />
+    <Content Include="Content\fonts\AIAEverest-ExtraBold.woff" />
+    <Content Include="Content\fonts\AIAEverest-ExtraBold.woff2" />
+    <Content Include="Content\fonts\AIAEverest-Medium.eot" />
+    <Content Include="Content\fonts\AIAEverest-Medium.ttf" />
+    <Content Include="Content\fonts\AIAEverest-Medium.woff" />
+    <Content Include="Content\fonts\AIAEverest-Medium.woff2" />
+    <Content Include="Content\fonts\AIAEverest-Regular.eot" />
+    <Content Include="Content\fonts\AIAEverest-Regular.ttf" />
+    <Content Include="Content\fonts\AIAEverest-Regular.woff" />
+    <Content Include="Content\fonts\AIAEverest-Regular.woff2" />
+    <Content Include="Content\Knowledge_Center\6977_AIA_Smart Builder Gold E.pdf" />
+    <Content Include="Content\Knowledge_Center\7048_AIA_ Easy Pension Brochure_E.PDF" />
+    <Content Include="Content\Knowledge_Center\AIA Education Plan E.pdf" />
+    <Content Include="Content\Knowledge_Center\AIA SmartBuilder E.pdf" />
+    <Content Include="Content\Knowledge_Center\AIA_Health Protector Brochure E.pdf" />
+    <Content Include="Content\Knowledge_Center\Ipos Translation - Sinhala.pdf" />
+    <Content Include="Content\Knowledge_Center\Ipos_Text_Final.pdf" />
+    <Content Include="Content\Knowledge_Center\Smart Pensions brochure E.pdf" />
+    <Content Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetBenifitDetails.xsc">
+      <DependentUpon>AVOAIAlifeDataSetBenifitDetails.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet0.xsc">
+      <DependentUpon>AVOAIAlifeDataSet0.xsd</DependentUpon>
+    </Content>
+    <Content Include="AIAQuoteDataSet.xsc">
+      <DependentUpon>AIAQuoteDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="AIAQuoteDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AIAQuoteDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AIAQuoteDataSet.xss">
+      <DependentUpon>AIAQuoteDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="Areas\Dashboard\Views\web.config" />
+    <Content Include="Areas\Dashboard\Views\Dashboard\ReportViewer.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Dashboard\_PartialBarChart.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Dashboard\_PartialFunnelChart.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Dashboard\_PartialDrillDownChart.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Dashboard\_PartialPieChart.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Dashboard\_PartialDailyPlanner.cshtml" />
+    <None Include="AVOAIAlifeDataSet0.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet01.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet0.xss">
+      <DependentUpon>AVOAIAlifeDataSet0.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet1.xsc">
+      <DependentUpon>AVOAIAlifeDataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet16.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet1.xss">
+      <DependentUpon>AVOAIAlifeDataSet1.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet10.xsc">
+      <DependentUpon>AVOAIAlifeDataSet10.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet10.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet101.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet10.xss">
+      <DependentUpon>AVOAIAlifeDataSet10.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet10a.xsc">
+      <DependentUpon>AVOAIAlifeDataSet10a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet10a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet10a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet10a.xss">
+      <DependentUpon>AVOAIAlifeDataSet10a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet11a.xsc">
+      <DependentUpon>AVOAIAlifeDataSet11a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet11a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet11a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet11a.xss">
+      <DependentUpon>AVOAIAlifeDataSet11a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet12.xsc">
+      <DependentUpon>AVOAIAlifeDataSet12.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet12.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet121.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet12.xss">
+      <DependentUpon>AVOAIAlifeDataSet12.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet13.xsc">
+      <DependentUpon>AVOAIAlifeDataSet13.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet13.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet131.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet13.xss">
+      <DependentUpon>AVOAIAlifeDataSet13.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet14.xsc">
+      <DependentUpon>AVOAIAlifeDataSet14.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet14.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet141.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet14.xss">
+      <DependentUpon>AVOAIAlifeDataSet14.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet15.xsc">
+      <DependentUpon>AVOAIAlifeDataSet15.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet15.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet151.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet15.xss">
+      <DependentUpon>AVOAIAlifeDataSet15.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet1a.xsc">
+      <DependentUpon>AVOAIAlifeDataSet1a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet1a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet1a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet1a.xss">
+      <DependentUpon>AVOAIAlifeDataSet1a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet2.xsc">
+      <DependentUpon>AVOAIAlifeDataSet2.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet21.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet2.xss">
+      <DependentUpon>AVOAIAlifeDataSet2.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet5.xsc">
+      <DependentUpon>AVOAIAlifeDataSet5.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet51.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet5.xss">
+      <DependentUpon>AVOAIAlifeDataSet5.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet5a.xsc">
+      <DependentUpon>AVOAIAlifeDataSet5a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet5a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet5a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet5a.xss">
+      <DependentUpon>AVOAIAlifeDataSet5a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet6.xsc">
+      <DependentUpon>AVOAIAlifeDataSet6.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet6.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet61.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet6.xss">
+      <DependentUpon>AVOAIAlifeDataSet6.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet6a.xsc">
+      <DependentUpon>AVOAIAlifeDataSet6a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet6a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet6a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet6a.xss">
+      <DependentUpon>AVOAIAlifeDataSet6a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet7.xsc">
+      <DependentUpon>AVOAIAlifeDataSet7.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet7.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet71.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet7.xss">
+      <DependentUpon>AVOAIAlifeDataSet7.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet7a.xsc">
+      <DependentUpon>AVOAIAlifeDataSet7a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet7a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet7a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet7a.xss">
+      <DependentUpon>AVOAIAlifeDataSet7a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet8.xsc">
+      <DependentUpon>AVOAIAlifeDataSet8.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet8.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet81.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet8.xss">
+      <DependentUpon>AVOAIAlifeDataSet8.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet9a.xsc">
+      <DependentUpon>AVOAIAlifeDataSet9a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet9a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet9a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet9a.xss">
+      <DependentUpon>AVOAIAlifeDataSet9a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSet9aa.xsc">
+      <DependentUpon>AVOAIAlifeDataSet9aa.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSet9aa.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSet9aa1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSet9aa.xss">
+      <DependentUpon>AVOAIAlifeDataSet9aa.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetBenifitDetails.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetBenifitDetails.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetBenifitDetails.xss">
+      <DependentUpon>AVOAIAlifeDataSetBenifitDetails.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetLoyality.xsc">
+      <DependentUpon>AVOAIAlifeDataSetLoyality.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGETmemberBenifitSinhala.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGETmemberBenifitSinhala.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDO10.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDO10.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDO10.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDO101.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDO10.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDO10.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU11.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU11.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU11.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU111.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU11.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU11.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU12.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU12.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU12.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU121.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU12.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU12.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU13.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU13.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU13.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU131.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU13.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU13.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU1a.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU1a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU1a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU1a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU1a.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU1a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU1b.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU1b.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU1b.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU1b1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU1b.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU1b.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU2.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU2.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU21.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU2.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU2.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU3.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU3.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU31.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU3.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU3.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU4.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU4.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU41.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU4.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU4.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU5.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU5.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU51.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU5.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU5.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU6.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU6.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU6.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU61.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU6.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU6.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU7.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU7.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU7.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU71.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU7.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU7.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU9self.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU9self.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU9self.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU9self1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU9self.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU9self.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetEDU9Spouse.xsc">
+      <DependentUpon>AVOAIAlifeDataSetEDU9Spouse.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetEDU9Spouse.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetEDU9Spouse1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetEDU9Spouse.xss">
+      <DependentUpon>AVOAIAlifeDataSetEDU9Spouse.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetFamilyHis.xsc">
+      <DependentUpon>AVOAIAlifeDataSetFamilyHis.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetFamilyHis.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetFamilyHis1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetFamilyHis.xss">
+      <DependentUpon>AVOAIAlifeDataSetFamilyHis.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGETmemberBenifitSinhala.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGETmemberBenifitSinhala.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGETmemberBenifitSinhala.xss">
+      <DependentUpon>AVOAIAlifeDataSetGETmemberBenifitSinhala.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold10.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold10.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold10.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold101.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold10.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold10.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold11.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold11.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold11.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold111.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold11.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold11.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold1a.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold1a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold1a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold1a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold1a.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold1a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold1b.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold1b.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold1b.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold1b1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold1b.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold1b.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold2.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold2.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold21.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold2.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold2.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold3.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold3.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold31.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold3.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold3.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold4.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold4.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold41.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold4.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold4.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold5.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold5.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold51.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold5.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold5.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold7.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold7.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold7.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold71.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold7.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold7.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold8.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold8.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold8.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold81.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold8.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold8.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold9a.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold9a.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold9a.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold9a1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold9a.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold9a.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetGold9b.xsc">
+      <DependentUpon>AVOAIAlifeDataSetGold9b.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetGold9b.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetGold9b1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetGold9b.xss">
+      <DependentUpon>AVOAIAlifeDataSetGold9b.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetLoyality.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetLoyality.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetLoyality.xss">
+      <DependentUpon>AVOAIAlifeDataSetLoyality.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetReportData.xsc">
+      <DependentUpon>AVOAIAlifeDataSetReportData.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetMember.xsc">
+      <DependentUpon>AVOAIAlifeDataSetMember.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetMember.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetMember.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetMember.xss">
+      <DependentUpon>AVOAIAlifeDataSetMember.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetMemberBenifitSBG.xsc">
+      <DependentUpon>AVOAIAlifeDataSetMemberBenifitSBG.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetMemberBenefit.xsc">
+      <DependentUpon>AVOAIAlifeDataSetMemberBenefit.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetMemberBenefit.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetMemberBenefit.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetMemberBenefit.xss">
+      <DependentUpon>AVOAIAlifeDataSetMemberBenefit.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetMemberBenifitSBG.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetMemberBenifitSBG.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetMemberBenifitSBG.xss">
+      <DependentUpon>AVOAIAlifeDataSetMemberBenifitSBG.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeDataSetPlanChoice.xsc">
+      <DependentUpon>AVOAIAlifeDataSetPlanChoice.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetPlanChoice.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetPlanChoice.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetPlanChoice.xss">
+      <DependentUpon>AVOAIAlifeDataSetPlanChoice.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeDataSetReportData.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeDataSetReportData.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeDataSetReportData.xss">
+      <DependentUpon>AVOAIAlifeDataSetReportData.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeEducationPlanDataSet.xsc">
+      <DependentUpon>AVOAIAlifeEducationPlanDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeEducation.xsc">
+      <DependentUpon>AVOAIAlifeEducation.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeEducation.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeEducation.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeEducation.xss">
+      <DependentUpon>AVOAIAlifeEducation.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeEducationplan.xsc">
+      <DependentUpon>AVOAIAlifeEducationplan.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeEducationplan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeEducationplan.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeEducationplan.xss">
+      <DependentUpon>AVOAIAlifeEducationplan.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeEducationPlanDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeEducationPlanDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeEducationPlanDataSet.xss">
+      <DependentUpon>AVOAIAlifeEducationPlanDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeMemberBenifit.xsc">
+      <DependentUpon>AVOAIAlifeMemberBenifit.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeMemberBenifit.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeMemberBenifit.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeMemberBenifit.xss">
+      <DependentUpon>AVOAIAlifeMemberBenifit.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeReportlabel.xsc">
+      <DependentUpon>AVOAIAlifeReportlabel.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeReportData.xsc">
+      <DependentUpon>AVOAIAlifeReportData.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeProposal1.xsc">
+      <DependentUpon>AVOAIAlifeProposal1.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeProposal1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeProposal11.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeProposal1.xss">
+      <DependentUpon>AVOAIAlifeProposal1.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeProposal2.xsc">
+      <DependentUpon>AVOAIAlifeProposal2.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeProposal2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeProposal21.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeProposal2.xss">
+      <DependentUpon>AVOAIAlifeProposal2.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeProposal3.xsc">
+      <DependentUpon>AVOAIAlifeProposal3.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeProposal3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeProposal31.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeProposal3.xss">
+      <DependentUpon>AVOAIAlifeProposal3.xsd</DependentUpon>
+    </Content>
+    <Content Include="AVOAIAlifeProposal4.xsc">
+      <DependentUpon>AVOAIAlifeProposal4.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeProposal4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeProposal41.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeProposal4.xss">
+      <DependentUpon>AVOAIAlifeProposal4.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeReportData.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeReportData.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeReportData.xss">
+      <DependentUpon>AVOAIAlifeReportData.xsd</DependentUpon>
+    </Content>
+    <None Include="AVOAIAlifeReportlabel.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AVOAIAlifeReportlabel.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AVOAIAlifeReportlabel.xss">
+      <DependentUpon>AVOAIAlifeReportlabel.xsd</DependentUpon>
+    </Content>
+    <Content Include="Content\Knowledge_Center\1st class Brochure E Final.pdf" />
+    <Content Include="Content\Knowledge_Center\7943_AIA Corporate Profile E.PDF" />
+    <Content Include="Content\Knowledge_Center\7943_AIA Corporate Profile S.PDF" />
+    <Content Include="Content\Knowledge_Center\7943_AIA Corporate Profile T.PDF" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\bower.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\LICENSE" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\package.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\animate\README.md" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\bower.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\gantt.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\gauge.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\map.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\map_areas.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\MSFT.csv" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\MSFT_events.csv" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\pie.csv" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\pie.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\serial.csv" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\serial.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\serial2.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\examples\data\TXN.csv" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\package.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\dataloader\readme.md" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\bower.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\pdfmake\pdfmake.min.js.map" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\xlsx\LICENSE" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\libs\xlsx\xlsx.min.map" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\LICENSE" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\package.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\export\README.md" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\bower.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\package.json" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\readme.md" />
+    <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\responsive.min.js.map" />
+    <None Include="DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <Content Include="Dataset7.xsc">
+      <DependentUpon>Dataset7.xsd</DependentUpon>
+    </Content>
+    <None Include="Dataset7.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Dataset7.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Dataset7.xss">
+      <DependentUpon>Dataset7.xsd</DependentUpon>
+    </Content>
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Reports\AgentonBoarding\ARAgreement.rdlc" />
+    <Content Include="Reports\MedicalExaminerReportForm.rdlc" />
+    <Content Include="Reports\MedicalReqtCoveringLettertoAssured.rdlc" />
+    <Content Include="Reports\MedicalReqtCoveringLettertoLab.rdlc" />
+    <Content Include="Reports\AgentonBoarding\Identificationform.rdlc" />
+    <Content Include="Reports\AgentonBoarding\PersonalDataForm.rdlc" />
+    <Content Include="Reports\AgentonBoarding\SLIIExamination.rdlc" />
+    <Content Include="Reports\CLAdocument.rdlc" />
+    <Content Include="Reports\EasypenionpolicyscheduleinTamil.rdlc" />
+    <Content Include="Reports\EasypensionpolicyscheduleinSinhala.rdlc" />
+    <Content Include="Reports\EasypensionquotationinSinhala.rdlc" />
+    <Content Include="Reports\EasypensionquotationinTamil.rdlc" />
+    <Content Include="Reports\EducationplanpolicyscheduleinSinhala.rdlc" />
+    <Content Include="Reports\EducationplanpolicyscheduleinTamil.rdlc" />
+    <Content Include="Reports\EducationplanquotationinSinhala.rdlc" />
+    <Content Include="Reports\EducationplanquotationinTamil.rdlc" />
+    <Content Include="Reports\HealthprotectorpolicyscheduleinTamil.rdlc" />
+    <Content Include="Reports\HealthprotectorquotationinSinhala.rdlc" />
+    <Content Include="Reports\HealthprotectorquotationinTamil.rdlc" />
+    <Content Include="Reports\IllustrationofEasypension.rdlc" />
+    <Content Include="Reports\IllustrationofEducationplan.rdlc" />
+    <Content Include="Reports\IllustrationofHealthprotector.rdlc" />
+    <Content Include="Reports\IllustrationofPriorityvalue.rdlc" />
+    <Content Include="Reports\IllustrationofSmartbuilder.rdlc" />
+    <Content Include="Reports\IllustrationofSmartbuildergold.rdlc" />
+    <Content Include="Reports\IllustrationofSmartpensions.rdlc" />
+    <Content Include="Reports\PolicyscheduleforEducationplan.rdlc" />
+    <Content Include="Reports\PolicyScheduleforPriorityvalue.rdlc" />
+    <Content Include="Reports\PolicyScheduleforSmartbuilder.rdlc" />
+    <Content Include="Reports\PolicyScheduleforSmartbuildergold.rdlc" />
+    <Content Include="Reports\PolicyScheduleforSmartPension.rdlc" />
+    <Content Include="Reports\PriorityvaluepolicyscheduleinSinhala.rdlc" />
+    <Content Include="Reports\PriorityvaluepolicyscheduleinTamil.rdlc" />
+    <Content Include="Reports\ProposalforSmartbuildergold.rdlc" />
+    <Content Include="Reports\QuotationinTamilforEducationplan.rdlc" />
+    <Content Include="Reports\Salesillustrationforeasypensions.rdlc" />
+    <Content Include="Reports\SmartbuildergoldpolicyscheduleinSinhala.rdlc" />
+    <Content Include="Reports\SmartbuildergoldpolicyscheduleinTamil.rdlc" />
+    <Content Include="Reports\SmartbuildergoldquotationinSinhala.rdlc" />
+    <Content Include="Reports\SmartbuildergoldquotationinTamil.rdlc" />
+    <Content Include="Reports\SmartbuilderpolicyscheduleinSinhala.rdlc" />
+    <Content Include="Reports\SmartbuilderpolicyscheduleinTamil.rdlc" />
+    <Content Include="Reports\SmartbuilderquotationinSinhala.rdlc" />
+    <Content Include="Reports\SmartbuilderquotationinTamil.rdlc" />
+    <Content Include="Reports\SmartpensionpolicyscheduleinSinhala.rdlc" />
+    <Content Include="Reports\SmartpensionpolicyscheduleinTamil.rdlc" />
+    <Content Include="Reports\SmartpensionquotationinSinhala.rdlc" />
+    <Content Include="Reports\SmartpensionquotationinTamil.rdlc" />
+    <Content Include="Reports\UWDeclineAVR.rdlc" />
+    <Content Include="Reports\UWDeclinegridmedicals.rdlc" />
+    <Content Include="Reports\UWDeclineReport.rdlc" />
+    <Content Include="Reports\UWHealthfirstCLA.rdlc" />
+    <Content Include="Reports\UWNTUReport.rdlc" />
+    <Content Include="Reports\UWNTUwithMedicalcopies.rdlc" />
+    <Content Include="Reports\UWNTUWithoutmedicals.rdlc" />
+    <Content Include="Reports\UWPostponeAVR.rdlc" />
+    <Content Include="Reports\UWPostponegridmedicals.rdlc" />
+    <Content Include="Reports\UWPostponeReport.rdlc" />
+    <Content Include="QuotePdfDoc\Q180001918-02636657241114628993.pdf" />
+    <Content Include="QuotePdfDoc\Q180001940-01636658860584994349.pdf" />
+    <Content Include="QuotePdfDoc\Q180001954-01636659632039574377.pdf" />
+    <Content Include="QuotePdfDoc\Q180001959-01636659799253909296.pdf" />
+    <Content Include="QuotePdfDoc\Q180001960-01636661250821668242.pdf" />
+    <Content Include="QuotePdfDoc\Q180001960-01636661261941212729.pdf" />
+    <Content Include="QuotePdfDoc\Q180001962-01636661248890200946.pdf" />
+    <Content Include="QuotePdfDoc\Q180001964-02636662100546933443.pdf" />
+    <Content Include="QuotePdfDoc\Q180001966-01636662097357711400.pdf" />
+    <Content Include="QuotePdfDoc\Q180001969-01636662128919022371.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662136663545048.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662144507115080.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662147633814258.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662148435781149.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662150744103147.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662153767746968.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662155618997162.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662157132750895.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662157404174156.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662166383747725.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662169389153916.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662175825854493.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662178982800859.pdf" />
+    <Content Include="QuotePdfDoc\Q180001970-01636662181004188499.pdf" />
+    <Content Include="QuotePdfDoc\QBBB180001448-03636638874989254503.pdf" />
+    <Content Include="QuotePdfDoc\QBBB180001570-01636638861997409885.pdf" />
+    <Content Include="QuotePdfDoc\QBBB180001928-02636658084833053006.pdf" />
+    <Content Include="Reports\PolicyBook.pdf" />
+    <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\css3-mediaqueries.js" />
+    <Content Include="Scripts\d3\c3.js" />
+    <Content Include="Scripts\d3\d3.js" />
+    <Content Include="Scripts\fileinput.js" />
+    <Content Include="Scripts\fileinput.min.js" />
+    <Content Include="Scripts\fullcalendar.js" />
+    <Content Include="Scripts\gridmvc-ext.js" />
+    <Content Include="Scripts\gridmvc.customwidgets.js" />
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.fr.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
+    <Content Include="Scripts\Hierarchy\Hierarchy.js" />
+    <Content Include="Scripts\iNube.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-migrate-1.2.1.js" />
+    <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.ui.dialog.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jssor.slider BS.min.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\ladda-bootstrap\ladda.js" />
+    <Content Include="Scripts\ladda-bootstrap\ladda.min.js" />
+    <Content Include="Scripts\ladda-bootstrap\spin.js" />
+    <Content Include="Scripts\ladda-bootstrap\spin.min.js" />
+    <Content Include="Scripts\layout.js" />
+    <Content Include="Scripts\metronic.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\ProductFlow\PropoalScript.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\Signature\bezier.js" />
+    <Content Include="Scripts\Signature\flashcanvas.js" />
+    <Content Include="Scripts\Signature\jquery.signaturepad.css" />
+    <Content Include="Scripts\Signature\jquery.signaturepad.min.js" />
+    <Content Include="Scripts\Signature\json2.min.js" />
+    <Content Include="Scripts\Signature\numeric-1.2.6.min.js" />
+    <Content Include="Scripts\SuspectScript\Suspectscript.js" />
+    <Content Include="Scripts\typeahead.js" />
+    <Content Include="Scripts\typeahead.min.js" />
+    <Content Include="Scripts\URI.js" />
+    <Content Include="Scripts\UserManagement\URI.js" />
+    <Content Include="Scripts\UserManagement\UserManagement.js" />
+    <Content Include="signatureimage\signatureQL-BBB-17-000000024-01.png" />
+    <Content Include="signatureimage\signatureQL-BBB-17-000000026-01.png" />
+    <Content Include="signatureimage\signatureQL-BBB-17-000000030-01.png" />
+    <Content Include="signatureimage\signatureQL-BBB-17-000000035-01.png" />
+    <Content Include="signatureimage\signatureQL-BBB-17-000000036-01.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\AgentHome.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_AjaxGridPager.cshtml" />
+    <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
+    <Content Include="Views\Shared\CalenderDisplay.cshtml" />
+    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Shared\MyMenu.cshtml" />
+    <Content Include="Views\Shared\_PartialFinancialSummaryChart2.cshtml" />
+    <Content Include="Views\Manage\JeevithaVardana.cshtml" />
+    <Content Include="Views\Policy\ModifyQuote.cshtml" />
+    <Content Include="Views\Prospect\ProductDetails.cshtml" />
+    <Content Include="Views\Policy\PartialProspectReAllocateGrid.cshtml" />
+    <Content Include="Views\Policy\PartialQuotationReAllocateGrid.cshtml" />
+    <Content Include="Views\Policy\PartialProposalReAllocateGrid.cshtml" />
+    <Content Include="Views\Policy\PartialQuotationPoolGrid.cshtml" />
+    <Content Include="Views\Policy\PartialProspectListGrid.cshtml" />
+    <Content Include="Views\Prospect\Prospect.cshtml" />
+    <Content Include="Views\Suspect\Allocate.cshtml" />
+    <Content Include="Views\Suspect\ModifySuspect.cshtml" />
+    <Content Include="Views\Suspect\NewSuspect.cshtml" />
+    <Content Include="Views\Suspect\Suspect.cshtml" />
+    <Content Include="Views\Suspect\SuspectPool.cshtml" />
+    <Content Include="Views\Policy\Proposal.cshtml" />
+    <Content Include="Views\Policy\Quotation.cshtml" />
+    <Content Include="Views\Policy\Quote.cshtml" />
+    <Content Include="Views\Policy\Home.cshtml" />
+    <Content Include="Views\Prospect\ProspectPool.cshtml" />
+    <Content Include="Views\Policy\QuotationPool.cshtml" />
+    <Content Include="Views\Prospect\ConfirmedProspect.cshtml" />
+    <Content Include="Views\Policy\proposalIncomplete.cshtml" />
+    <Content Include="Views\Prospect\ProspectReallocate.cshtml" />
+    <Content Include="Views\Policy\QuotationReAllocate.cshtml" />
+    <Content Include="Views\Policy\ProposalReAllocate.cshtml" />
+    <Content Include="Views\Policy\PartialLifeAssuredMemberDetailsGrid.cshtml" />
+    <Content Include="Views\Policy\PartialLifeAssuredOtherInsuranceGrid.cshtml" />
+    <Content Include="Views\Policy\PartialNomineeDetailsGrid.cshtml" />
+    <Content Include="Views\Prospect\NeedAnalysisCompleted.cshtml" />
+    <Content Include="Views\Policy\PartialSubmittedProposalsGrid.cshtml" />
+    <Content Include="Views\Policy\PartialPendingRequirementsGrid.cshtml" />
+    <Content Include="Views\Policy\ProposalSubmitted.cshtml" />
+    <Content Include="Views\Policy\ProposalPendingRequirements.cshtml" />
+    <Content Include="Views\Policy\PartialSpouseInsuranceGrid.cshtml" />
+    <Content Include="Views\Prospect\ModifyQuote.cshtml" />
+    <Content Include="Views\Prospect\PartialClientDetails.cshtml" />
+    <Content Include="Views\Prospect\PartialNeedAnalysis.cshtml" />
+    <Content Include="Views\Prospect\PartialPropectInformation.cshtml" />
+    <Content Include="Views\Prospect\PartialProspectListGrid.cshtml" />
+    <Content Include="Views\Prospect\PartialProspectPoolGrid.cshtml" />
+    <Content Include="Views\Prospect\PartialProspectReAllocateGrid.cshtml" />
+    <Content Include="Views\Policy\proposalHome.cshtml" />
+    <Content Include="Views\Prospect\ProspectScreen.cshtml" />
+    <Content Include="Views\Prospect\PartialNeedsIdentified.cshtml" />
+    <Content Include="Views\Suspect\PartialSuspectPoolGrid.cshtml" />
+    <Content Include="Views\Suspect\PartialSuspectReAllocationGrid.cshtml" />
+    <Content Include="Views\Policy\PartialMedicalHistory.cshtml" />
+    <Content Include="Views\Policy\BenifitAndMedicalHistoryDetails.cshtml" />
+    <Content Include="Views\Policy\DocumentUpload.cshtml" />
+    <Content Include="Views\Policy\PartialFamilyBackGround.cshtml" />
+    <Content Include="Views\Prospect\AnalysisCompletedPool.cshtml" />
+    <Content Include="Views\Payment\ProposalPayment.cshtml" />
+    <Content Include="Views\Payment\PartialProposalGrid.cshtml" />
+    <Content Include="Views\Payment\PartialPaymentInstrumentdetails.cshtml" />
+    <Content Include="Views\Policy\UWProposal.cshtml" />
+    <Content Include="Views\Rule\ConfigureRules.cshtml" />
+    <Content Include="Views\Rule\PartialAddParameters.cshtml" />
+    <Content Include="Views\Rule\SetRule.cshtml" />
+    <Content Include="Views\Rule\PartialRuleParameters.cshtml" />
+    <Content Include="Views\Policy\UWInbox.cshtml" />
+    <Content Include="Views\Policy\PartialUnderwriterReview.cshtml" />
+    <Content Include="Views\Policy\PartialProposalBenifitCovers.cshtml" />
+    <Content Include="Views\Rule\PartialRuleSetList.cshtml" />
+    <Content Include="Views\Utility\CalculatorHome.cshtml" />
+    <Content Include="Views\Utility\_PartialChildEducationCalculator.cshtml" />
+    <Content Include="Views\Utility\_PartialHumanLifeValueCalculator.cshtml" />
+    <Content Include="Views\Utility\_PartialChildMarriageCalculator.cshtml" />
+    <Content Include="Views\Utility\_PartialInvestmentCalculator.cshtml" />
+    <Content Include="Views\Utility\_PartialRetirementCalculator.cshtml" />
+    <Content Include="Views\Shared\AddSignature.cshtml" />
+    <Content Include="Views\Policy\PartialIllustration.cshtml" />
+    <Content Include="Views\Policy\_PartialProposalForm.cshtml" />
+    <Content Include="Views\Policy\_PartialProposerDetails.cshtml" />
+    <Content Include="Views\Policy\_PartialMemberDetails.cshtml" />
+    <Content Include="Views\Policy\_PartialQuestionnaire.cshtml" />
+    <Content Include="Views\Policy\_PartialLifeStyle.cshtml" />
+    <Content Include="Views\Policy\_PartialFamilyBackGround.cshtml" />
+    <Content Include="Views\Policy\_PartialOtherInsurnceDetails.cshtml" />
+    <Content Include="Views\Policy\_PartialAdditionalQuestionnaire.cshtml" />
+    <Content Include="Views\Policy\PartialPremiumDetails.cshtml" />
+    <Content Include="Views\Policy\DeclarationAndDocuments.cshtml" />
+    <Content Include="Views\Policy\QuickQuoteDetails.cshtml" />
+    <Content Include="Views\Policy\GetDynamicTabs.cshtml" />
+    <Content Include="Uploads\AccountStatement_SEPTEMBER_2017.pdf" />
+    <Content Include="Views\Prospect\PartialPremiumOverview.cshtml" />
+    <Content Include="Views\Prospect\PartialBenifitOverview.cshtml" />
+    <Content Include="Views\Policy\PartialBenifitOverview.cshtml" />
+    <Content Include="Views\Policy\PartialPremiumOverview.cshtml" />
+    <Content Include="Views\UserManagement\ChangePassword.cshtml" />
+    <Content Include="Views\UserManagement\CreateIntermediarycode.cshtml" />
+    <Content Include="Views\UserManagement\CreateUser.cshtml" />
+    <Content Include="Views\UserManagement\ForgotPassword.cshtml" />
+    <Content Include="Views\UserManagement\GridUserDetailsPartial.cshtml" />
+    <Content Include="Views\UserManagement\IntermediaryPrivilages.cshtml" />
+    <Content Include="Views\UserManagement\MenuTree.cshtml" />
+    <Content Include="Views\UserManagement\ModifyInternalUser.cshtml" />
+    <Content Include="Views\UserManagement\ModifyUser.cshtml" />
+    <Content Include="Views\UserManagement\PartialClientDetails.cshtml" />
+    <Content Include="Views\UserManagement\PartialGridBranchDetails.cshtml" />
+    <Content Include="Views\UserManagement\PartialSearchInternalUserGrid.cshtml" />
+    <Content Include="Views\UserManagement\PaymentModes.cshtml" />
+    <Content Include="Views\UserManagement\PaymentView.cshtml" />
+    <Content Include="Views\UserManagement\ProductPrivilages.cshtml" />
+    <Content Include="Views\UserManagement\ProductSpecificPrivilages.cshtml" />
+    <Content Include="Views\UserManagement\ProductTree.cshtml" />
+    <Content Include="Views\UserManagement\ResetPassword.cshtml" />
+    <Content Include="Views\UserManagement\Roles.cshtml" />
+    <Content Include="Views\UserManagement\SearchClient.cshtml" />
+    <Content Include="Views\UserManagement\SearchClientCode.cshtml" />
+    <Content Include="Views\UserManagement\SearchClientCodeGrid.cshtml" />
+    <Content Include="Views\UserManagement\SearchInternalUser.cshtml" />
+    <Content Include="Views\UserManagement\UnlockAccount.cshtml" />
+    <Content Include="Views\UserManagement\Users.cshtml" />
+    <Content Include="Views\UserManagement\ResetForgotPassword.cshtml" />
+    <Content Include="Views\Policy\_PartialMedicalTests.cshtml" />
+    <Content Include="Views\Payment\PartialPaymentProposalScreen.cshtml" />
+    <Content Include="Views\Payment\PaymentPolicyView.cshtml" />
+    <Content Include="Views\Policy\_PartialDiseasesQuestionnaire.cshtml" />
+    <Content Include="Views\Payment\PartialPaymentProposalScreen.cshtml" />
+    <Content Include="Views\Payment\PaymentPolicyView.cshtml" />
+    <Content Include="Views\Policy\_PartialIncompleteProposalDetails.cshtml" />
+    <Content Include="Views\UserManagement\Configuration.cshtml" />
+    <Content Include="Views\UserManagement\PartialConfigurationgrid.cshtml" />
+    <Content Include="Views\Prospect\_PartialPrevoiusInsuranceDetailsGrid.cshtml" />
+    <Content Include="Views\Prospect\_PartialPreviousInsuranceDetails.cshtml" />
+    <Content Include="Views\Prospect\CreateProspect.cshtml" />
+    <Content Include="Views\Home\BancaHome.cshtml" />
+    <Content Include="Views\Home\UnderwriterHome.cshtml" />
+    <Content Include="Views\Policy\PartialClientDetails.cshtml" />
+    <Content Include="Views\Policy\PartialUploadedDocuments.cshtml" />
+    <Content Include="Views\Suspect\PartialModifySuspect.cshtml" />
+    <Content Include="Views\Prospect\QuotationProspectScreen.cshtml" />
+    <Content Include="Views\Policy\_PartialMemberLevelUWInfo.cshtml" />
+    <Content Include="Views\Allocation\_PartialAllocationScreen.cshtml" />
+    <Content Include="Views\Allocation\PartialAllocationSummary.cshtml" />
+    <Content Include="Views\Prospect\_PartialChildDetails.cshtml" />
+    <Content Include="Views\Policy\_PartialStateofHealthQuestionnaires.cshtml" />
+    <Content Include="Views\Reports\UWDecisionReport.cshtml" />
+    <Content Include="Views\Policy\_PartialAdditionalAviationGridView.cshtml" />
+    <Content Include="Views\Policy\_PartialMedicalArthritisCurrentlyMDGridView.cshtml" />
+    <Content Include="Views\Policy\_PartialMedicalArthritisDoctorsGridView.cshtml" />
+    <Content Include="Views\Policy\_PartialMedicalArthritisPastMDGridView.cshtml" />
+    <Content Include="Views\Policy\_PartialMedicalArthritisTestGridView.cshtml" />
+    <Content Include="Views\Prospect\_PartialNeedAnalysisCompletedPoolGrid.cshtml" />
+    <Content Include="Views\Policy\_PartialMemberLoadingInfo.cshtml" />
+    <Content Include="Views\Allocation\_PartialManualAllocationDetails.cshtml" />
+    <Content Include="Views\Allocation\_PartialAllocateGrid.cshtml" />
+    <Content Include="Views\Allocation\_PartialResetGrid.cshtml" />
+    <Content Include="Views\Policy\PartialUWProcessedInbox.cshtml" />
+    <Content Include="Views\Knowledge_Center\MarketView.cshtml" />
+    <Content Include="Views\Knowledge_Center\ProductView.cshtml" />
+    <Content Include="Views\Knowledge_Center\RecruitmentView.cshtml" />
+    <Content Include="Views\Knowledge_Center\CustomerView.cshtml" />
+    <Content Include="Views\Knowledge_Center\PosmView.cshtml" />
+    <Content Include="Views\Knowledge_Center\CsrView.cshtml" />
+    <Content Include="Views\Knowledge_Center\MarketingView.cshtml" />
+    <Content Include="Views\Home\UnAuthorized.cshtml" />
+    <Content Include="Views\Payment\PaymentFailure.cshtml" />
+    <Content Include="Views\Payment\PaymentSuccess.cshtml" />
+    <Content Include="Views\Reports\NeedIdentifyReport.cshtml" />
+    <Content Include="Views\Reports\SavingCalcReport.cshtml" />
+    <Content Include="Views\Reports\EduCalcReport.cshtml" />
+    <Content Include="Views\Reports\HealthCalcReport.cshtml" />
+    <Content Include="Views\Reports\RetirementCalcReport.cshtml" />
+    <Content Include="Views\Reports\HumanValueCalcReport.cshtml" />
+    <Content Include="Views\Reports\FNAReport.cshtml" />
+    <Content Include="Views\Policy\_PartialMedicalDocumentDetails.cshtml" />
+    <Content Include="Views\Shared\AddSpouseSignature.cshtml" />
+    <Content Include="Views\Suspect\PartialAllocateSuspectGrid.cshtml" />
+    <Content Include="Views\Policy\_PartialLifePrevoiusInsuranceDetailsGrid.cshtml" />
+    <Content Include="Views\Home\ProcessIMO.cshtml" />
+    <Content Include="Views\Prospect\PartialBenifitDetails.cshtml" />
+    <Content Include="Views\Account\InValidPage.cshtml" />
+    <Content Include="Views\Policy\PartialGetDynamicTabs.cshtml" />
+    <Content Include="Views\Policy\_PartialAdditionalPAQGridView1.cshtml" />
+    <Content Include="Views\Policy\_PartialAdditionalPAQGridView2.cshtml" />
+    <Content Include="Views\Policy\_PartialAdditionalPAQGridView3.cshtml" />
+    <Content Include="Views\Policy\_PartialAdditionalPAQGridView4.cshtml" />
+    <Content Include="Views\Home\NewLayout.cshtml" />
+    <Content Include="Views\Policy\PartialGetDynamicTabs.cshtml" />
+    <Content Include="Uploads\SampleLabLetter.pdf" />
+    <Content Include="Views\Shared\AddWPSignature.cshtml" />
+    <Content Include="Views\Shared\QuoteAddSignature.cshtml" />
+    <Content Include="Views\Shared\QuoteAddWPSignature.cshtml" />
+    <Content Include="Views\Knowledge_Center\AIAFirstView.cshtml" />
+    <Content Include="Views\Knowledge_Center\CompanyView.cshtml" />
+    <Content Include="Views\Payment\LoadSampathPG.cshtml" />
+    <Content Include="Views\UserManagement\AppNotofication.cshtml" />
+    <Content Include="Views\UserManagement\AppUpdate.cshtml" />
+    <Content Include="Views\UserManagement\_PartialDeviceHistory.cshtml" />
+    <Content Include="Views\UserManagement\_PartialRecepient.cshtml" />
+    <Content Include="Views\UserManagement\_PartialUserAccess.cshtml" />
+    <Content Include="Views\UserManagement\_PartialUserSearch.cshtml" />
+    <Content Include="Views\UserManagement\_PartialValidatedUser.cshtml" />
+    <Content Include="Views\UserManagement\UserAccess.cshtml" />
+    <Content Include="Views\Shared\FNANotePad.cshtml" />
+    <Content Include="Views\Prospect\NewProspectScreen.cshtml" />
+    <Content Include="Views\Prospect\PartialNeedAnalysisCompletedPoolGrid.cshtml" />
+    <Content Include="Views\Prospect\PartialProposalBenifitDetails.cshtml" />
+    <Content Include="Views\Prospect\_PartialChildren.cshtml" />
+    <Content Include="Views\Policy\_PartialAIACompanyClaimsInsurnceDetails.cshtml" />
+    <Content Include="Views\Policy\_PartialAIAwithInsurnceDetails.cshtml" />
+    <Content Include="Views\Policy\_PartialAIAwithoutInsurnceDetails.cshtml" />
+    <Content Include="Views\Policy\CreateQuotation.cshtml" />
+    <Content Include="Views\Policy\_PartialNomineeLifeAssuredDetailsGrid.cshtml" />
+    <Content Include="Views\Home\_PartialKnowledgeCenter.cshtml" />
+    <Content Include="Views\Payment\ProcessPayment.cshtml" />
+    <Content Include="Views\Error\AuthorizeError.cshtml" />
+    <Content Include="Views\Policy\ProcessProposal.cshtml" />
+    <Content Include="Views\UserManagement\ContentManagement.cshtml" />
+    <Content Include="Views\UserManagement\_PartialResourceDetails.cshtml" />
+    <Content Include="Views\UserManagement\CreateResource.cshtml" />
+    <Content Include="Views\UserManagement\_PartialCreateResourceDetails.cshtml" />
+    <Content Include="Views\UserManagement\_PartialKnowledgeCenter.cshtml" />
+    <Content Include="Views\UserManagement\LoadKnowledge.cshtml" />
+    <Content Include="Views\UserManagement\_PartialKnowledgeCenterDetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Dashboard\Models\" />
+    <Folder Include="Areas\Dashboard\Views\Shared\" />
+    <Folder Include="ContentUpload\" />
+    <Folder Include="Scripts\ProspectScript\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AIA.CrossCutting\AIA.CrossCutting.csproj">
+      <Project>{1de15d59-354e-4ff3-bd4a-f19d4f358a96}</Project>
+      <Name>AIA.CrossCutting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIA.Life.Business\AIA.Life.Business.csproj">
+      <Project>{0C3FAC49-6237-4786-952F-9B0BFEC99CBE}</Project>
+      <Name>AIA.Life.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIA.Life.Models\AIA.Life.Models.csproj">
+      <Project>{9c4e7c0d-1581-481b-aed9-bd8dd2419061}</Project>
+      <Name>AIA.Life.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIA.Life.Repository\AIA.Life.Repository.csproj">
+      <Project>{461ebe40-e4c4-4275-a1b2-88aa3aa66708}</Project>
+      <Name>AIA.Life.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIAResources\AIAResources.csproj">
+      <Project>{52357b31-e52a-4817-b011-bf6853fbb874}</Project>
+      <Name>AIAResources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\AFCCoverLetter.rdlc" />
+    <EmbeddedResource Include="Reports\CLAdocument.rdlc" />
+    <EmbeddedResource Include="Reports\EasypenionpolicyscheduleinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\EasypensionpolicyscheduleinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\EasyPensionProposalinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\EasypensionquotationinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\EasypensionquotationinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\EducationplanpolicyscheduleinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\EducationplanpolicyscheduleinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\EducationplanProposalinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\EducationplanquotationinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\EducationplanquotationinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\HealthProtectorAndSmartPensionsCoveringLetter.rdlc" />
+    <EmbeddedResource Include="Reports\HealthprotectorpolicyscheduleinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\HealthprotectorpolicyscheduleinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\HealthprotectorproposalinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\HealthprotectorquotationinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\HealthprotectorquotationinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\IllustrationofEasypension.rdlc" />
+    <EmbeddedResource Include="Reports\IllustrationofEducationplan.rdlc" />
+    <EmbeddedResource Include="Reports\IllustrationofHealthprotector.rdlc" />
+    <EmbeddedResource Include="Reports\IllustrationofPriorityvalue.rdlc" />
+    <EmbeddedResource Include="Reports\IllustrationofSmartbuilder.rdlc" />
+    <EmbeddedResource Include="Reports\IllustrationofSmartbuildergold.rdlc" />
+    <EmbeddedResource Include="Reports\IllustrationofSmartpensions.rdlc" />
+    <EmbeddedResource Include="Reports\iNube Proposal Form.rdlc" />
+    <EmbeddedResource Include="Reports\OtherProductsCoveringLetter.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforEasyPensions.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforEasyPensions_Sinhala.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforEasyPensions_Tamil.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyscheduleforEducationplan%28Sinhala%29.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyscheduleforEducationplan%28Tamil%29.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyscheduleforEducationplan.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyscheduleforHealthprotector.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyscheduleforHealthprotectorSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyscheduleforHealthprotectorTamil.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforPriorityvalue.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforSmartbuilder.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforSmartbuildergold.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforSmartbuildergoldSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforSmartbuildergoldTamil.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforSmartbuilder_Sinhala.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforSmartbuilder_Tamil.rdlc" />
+    <EmbeddedResource Include="Reports\PolicyScheduleforSmartPension.rdlc" />
+    <EmbeddedResource Include="Reports\PriorityvaluepolicyscheduleinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\PriorityvaluepolicyscheduleinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\PriorityvalueproposalinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforEasypension.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProposalforEducationplan.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforEducationplan_Sinhala.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforEducationplan_Tamil.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforHealthprotector.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforHealthprotectorTamil.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforHealthprotector_Sinhala.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalformforEasypension.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforPriorityvalue.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforSmartbuilder%28Sinhala%29.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforSmartbuilder%28Tamil%29.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforSmartbuilder.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforSmartbuildergold.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforSmartbuildergoldSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforSmartbuildergoldTamil.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalforSmartpensions.rdlc" />
+    <EmbeddedResource Include="Reports\ProposalMedicalLetter.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforEasypension.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforEducationplan%28Sinhala%29.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforEducationplan%28Tamil%29.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforEducationplan.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforHealthprotector.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforPriorityvalue.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforSmartBuilder.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\QuotationforSmartbuildergold.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforSmartpensions.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationinTamilforEducationplan.rdlc" />
+    <EmbeddedResource Include="Reports\Salesillustrationforeasypensions.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuildergoldpolicyscheduleinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuildergoldpolicyscheduleinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuildergoldproposlinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuildergoldquotationinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuildergoldquotationinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuilderpolicyscheduleinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuilderpolicyscheduleinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuilderproposalinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuilderquotationinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\SmartbuilderquotationinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\SmartpensionpolicyscheduleinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\SmartpensionpolicyscheduleinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\SmartpensionproposalinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\SmartpensionquotationinSinhala.rdlc" />
+    <EmbeddedResource Include="Reports\SmartpensionquotationinTamil.rdlc" />
+    <EmbeddedResource Include="Reports\UWDeclineAVR.rdlc" />
+    <EmbeddedResource Include="Reports\UWDeclinegridmedicals.rdlc" />
+    <EmbeddedResource Include="Reports\UWDeclineReport.rdlc" />
+    <EmbeddedResource Include="Reports\UWHealthfirstCLA.rdlc" />
+    <EmbeddedResource Include="Reports\UWNTUReport.rdlc" />
+    <EmbeddedResource Include="Reports\UWNTUwithMedicalcopies.rdlc" />
+    <EmbeddedResource Include="Reports\UWNTUWithoutmedicals.rdlc" />
+    <EmbeddedResource Include="Reports\UWPostponeAVR.rdlc" />
+    <EmbeddedResource Include="Reports\UWPostponegridmedicals.rdlc" />
+    <EmbeddedResource Include="Reports\UWPostponeReport.rdlc" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>64476</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:64478/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

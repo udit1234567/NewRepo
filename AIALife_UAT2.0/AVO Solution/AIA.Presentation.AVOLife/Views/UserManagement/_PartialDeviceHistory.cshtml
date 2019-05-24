@@ -1,0 +1,53 @@
+﻿@model AIA.Life.Models.UserManagement.CreateUserModel
+<h4 class="panel-title">
+    <i style="color: white;" class="icon-user"></i>
+    <a data-toggle="collapse" data-target="#collapse3" href="#collapseone" class="collapsed">
+        Device Mapping <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+    </a>
+</h4>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Device ID
+            </th>
+            <th>Device Name</th>
+        </tr>
+
+        <tr>
+            <td>@Model.objDeviceDetails.DeviceID</td>
+            <td>@Model.objDeviceDetails.DeviceName</td>
+        </tr>
+
+    </table>
+</div>
+<br />
+<h4 class="panel-title">
+    <i style="color: white;" class="icon-user"></i>
+    <a data-toggle="collapse" data-target="#collapse3" href="#collapseone" class="collapsed">
+        Device History <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+    </a>
+</h4>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Device ID
+            </th>
+            <th>Device Name</th>
+            <th>Date of change</th>
+        </tr>
+        @if (Model.LstDeviceDetails != null && Model.LstDeviceDetails.Count() > 0)
+        {
+            foreach (var item in Model.LstDeviceDetails)
+            {
+                <tr>
+                    <td>@item.DeviceID</td>
+                    <td>@item.DeviceName</td>
+                    <td>@item.UPdatedDate</td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+

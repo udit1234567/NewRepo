@@ -1,0 +1,278 @@
+﻿@model AIA.Life.Models.Reports.UWDecisionReport
+@using AIA.Presentation.Helpers
+@using AIAResources;
+@using GridMvc.Html
+@{
+    Layout = null;
+    int count = Model.objMemberDetails.Count();
+}
+
+
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+    <link href="~/Content/Styles/NewLayout.css" rel="stylesheet" />
+    <link href="~/Content/Styles/layout.css" rel="stylesheet" />
+    <link href="~/Content/Styles/Grey.css" rel="stylesheet" />
+    <link href="~/Content/Styles/Components.css" rel="stylesheet" />
+    <!-- jQuery library -->
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+    <!-- Latest compiled JavaScript -->
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+    <style>
+        .pdf-content {
+            padding: 40px 40px;
+        }
+
+            .pdf-content li {
+                list-style: none;
+            }
+            .col-width{
+                width:33%;
+                padding-right:20px;
+                display:inline-block;
+                vertical-align:top;
+            }
+            .col-width label,.col-width div{
+                display:inline-block;
+               
+              }
+            .col-width label{
+                padding-right:20px;
+            }
+            .form-group .col-width:last-child{
+                padding-right:0;
+            }
+
+    </style>
+
+
+    <div class="pdf-content col-lg-12">
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <h2  style="font-weight:bold;color:red">AIA Insurance Lanka PLC</h2>
+            <h3 style="color:red"> Underwriting Summary Sheet</h3>
+            <br />
+        </div>
+
+        <div class="col-lg-12  form-group ">
+            <div class="col-width">
+                <label>Policy No:</label>
+                <div>
+                    @Model.PolicyNo
+                    
+                </div>
+            </div>
+            <div class="col-width">
+                <label>Product:</label>
+                <div>
+                    @Model.Product
+                    
+                </div>
+            </div>
+            <div class="col-width">
+                <label >Commencement:</label>
+                <div>
+                    @Model.Commencement
+                    
+                </div>
+            </div>
+        </div>
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        @{
+                    foreach (var Member in Model.objMemberDetails)
+                    {
+                <th colspan="2"> @Member.AssuredName</th>
+                    }
+                        }
+
+
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <tr>
+                        <th scope="row" style="text-align:left">Name</th>
+                        @{
+                    for (int i = 0; i < Model.objMemberDetails.Count(); i++)
+                    {
+                <td colspan="2" style="text-align:left">@Model.objMemberDetails[i].Name</td>
+
+                    }
+                        }
+                    </tr>
+
+                    <tr>
+                        <th scope="row" style="text-align:left">Age</th>
+                        @{
+                    for (int i = 0; i < Model.objMemberDetails.Count(); i++)
+                    {
+                <td colspan="2" style="text-align:left">@Model.objMemberDetails[i].Age</td>
+
+                    }
+                        }
+                    </tr>
+
+                    <tr>
+                        <th scope="row" style="text-align:left">Occupation</th>
+                        @{
+                    for (int i = 0; i < Model.objMemberDetails.Count(); i++)
+                    {
+                <td colspan="2" style="text-align:left">@Model.objMemberDetails[i].Occupation</td>
+
+                    }
+                        }
+                    </tr>
+
+                    @{
+                if (Model.objLstRiderInfo != null && Model.objLstRiderInfo.Count() > 0)
+                {
+            <tr>
+                <th scope="row" style="text-align:left">COVERS OPTED</th>
+                @for (int j = 0; j < count; j++)
+                       {
+                        <th scope="row" style="text-align:left">CURRENT</th>
+                        <th scope="row" style="text-align:left">TOTAL</th>
+                       }
+            </tr>
+                    foreach (var Member in Model.objMemberDetails)
+                    {
+                        for (int f = 0; f < Model.objLstRiderInfo.Count(); f++)
+                        {
+
+            <tr>
+                <td style="text-align:left">@Model.objLstRiderInfo[f].RiderName</td>
+                @for (int j = 0; j < count; j++)
+                                {
+                                <td style="text-align:left">@Model.objLstRiderInfo[f].objBenefitMemberRelationship[j].RiderCurrentSI</td>
+                                <td style="text-align:left">@Model.objLstRiderInfo[f].objBenefitMemberRelationship[j].RiderTotalSI</td>
+                                }
+            </tr>
+                        }
+                    }
+                }
+                    }
+
+                    <tr>
+                        <th scope="row" style="text-align:left">Medical SAR</th>
+                        @{
+                    for (int i = 0; i < Model.objMemberDetails.Count(); i++)
+                    {
+                <td colspan="2" style="text-align:left">@Model.objMemberDetails[i].MedicalSAR</td>
+
+                    }
+                        }
+                    </tr>
+
+                    <tr>
+                        <th scope="row" style="text-align:left">Financial SAR</th>
+                        @{
+                    for (int i = 0; i < Model.objMemberDetails.Count(); i++)
+                    {
+                <td colspan="2" style="text-align:left">@Model.objMemberDetails[i].FinancialSAR</td>
+
+                    }
+                        }
+                    </tr>
+
+
+                    <tr>
+                        <th scope="row" style="text-align:left">Medical requirements </th>
+                        @{
+                    for (int i = 0; i < Model.objMemberDetails.Count(); i++)
+                    {
+                <td colspan="2" style="text-align:left">
+                    <ul>
+                        @foreach (var doc in Model.objMemberDetails[i].ListMedicalRequirements)
+                                {
+                                <li>@doc</li>
+                                }
+                    </ul>
+
+
+                </td>
+
+                    }
+                        }
+                    </tr>
+
+                    <tr>
+                        <th scope="row" style="text-align:left">Other requirements</th>
+                        @{
+                    for (int i = 0; i < Model.objMemberDetails.Count(); i++)
+                    {
+                <td colspan="2" style="text-align:left">
+                    <ul>
+                        @foreach (var doc in Model.objMemberDetails[i].ListFianacialRequirements)
+                                {
+                                <li>@doc</li>
+                                }
+                    </ul>
+
+
+                </td>
+
+                    }
+                        }
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <br />
+        <br />
+        @{
+    foreach (var Member in Model.objMemberDetails)
+    {
+    <h2>UW Rules (@Member.AssuredName) </h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Failed Rule</th>
+                <th>UW'S Comment</th>
+                <th>User</th>
+                <th>Date & Time</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Deviation in Member.objUWDeviations)
+                {
+                <tr>
+                    <td style="text-align:left">
+                        @Deviation.DeviationMessage
+                    </td>
+                    <td style="text-align:left">
+                        @Deviation.Remarks
+                    </td>
+                    <td style="text-align:left">
+                        @Deviation.User
+                    </td>
+                    <td style="text-align:left">
+                        @Deviation.Date
+                    </td>
+                </tr>
+                }
+
+
+        </tbody>
+    </table>
+    <br />
+    <br />
+    }
+        }
+
+      <h2>UW Decision</h2>
+       <ul>
+           <li>
+             @Model.Decision   by   System on STD terms on  @Model.DateTime
+           </li>
+       </ul>
+
+    </div>
+

@@ -1,0 +1,82 @@
+﻿@*<style>
+    .youtube-popup {
+        position: relative;
+        width: 654px;
+        height: 315px;
+    }
+
+        .youtube-popup > div {
+            position: absolute;
+            width: 560px;
+            height: 315px;
+            top: 0;
+            z-index: 100;
+        }
+</style>
+
+<div class="auto-resizable-iframe">
+    <div id="player6">
+        <br />
+        <div class="youtube-popup">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/HXYjPUu8lZw" frameborder="0"  allowfullscreen></iframe>
+           <div></div>
+        </div>
+    </div>
+    <div id="player7">
+        <br />
+        <div class="youtube-popup">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/RnP5YxBZL18" frameborder="0"  allowfullscreen></iframe>
+          <div>
+          </div>
+        </div>
+    </div><br />
+<div id="player8">
+    <br />
+    <div class="youtube-popup">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/6J1fnzyj68M" frameborder="0"  allowfullscreen></iframe>
+       <div></div>
+    </div>
+        <br />
+    </div>
+</div>
+<script>
+    $('.youtube-popup > div').click(function () {
+        window.open($(this).parent().children('iframe').attr("src"));
+    });
+</script>*@
+<style>
+    .embed-responsive {
+        position: relative;
+        display: block;
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+</style>
+<div class="auto-resizable-iframe">
+    <div class='embed-responsive pop-style'>
+        <br />
+        <a href="https://www.youtube.com/embed/HXYjPUu8lZw" width="100%" height="100%" target="_blank">
+            <img src="~/Content/Images/Youtube6.png" width="100%"/>
+
+        </a>
+        <br />
+    </div>
+    <div class='embed-responsive pop-style'>
+        <br />
+        <a href="https://www.youtube.com/embed/RnP5YxBZL18" width="100%" height="100%" target="_blank">
+            <img src="~/Content/Images/Youtube7.png" width="100%"/>
+
+        </a>
+        <br />
+    </div>
+    <div class='embed-responsive pop-style'>
+        <br />
+        <a href="https://www.youtube.com/embed/6J1fnzyj68M" width="100%" height="100%" target="_blank">
+            <img src="~/Content/Images/Youtube8.png" width="100%"/>
+
+        </a>
+        <br />
+    </div>
+
+</div>

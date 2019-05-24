@@ -1,0 +1,118 @@
+﻿@model AIA.Life.Models.DashBoard.GraphDetails
+@{
+
+}
+
+@*<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>*@
+<div id="chartdiv"></div>
+
+
+<style>
+    body {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#chartdiv {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+}
+</style>
+<script>
+  var jsonObj=  @Html.Raw(Json.Encode(Model));
+  var chartData = JSON.parse(jsonObj.strDataProvider);
+    $.each(chartData, function (index, value) {
+
+        try {
+            chartData[index].data = JSON.parse(chartData[index].data);
+
+        } catch (e) {
+
+        }
+    });
+
+    // create pie chart
+    var chart = AmCharts.makeChart("chartdiv", {
+        "type": "pie",
+        "dataProvider": chartData,
+        "valueField": "value",
+        "titleField": "title",
+        "labelText": "[[title]]: [[value]]",
+        "outlineAlpha": 0.4,
+        "depth3D": jsonObj.Depth3D,
+        "angle": jsonObj.Angle,
+        "pullOutOnlyOne": true,
+        "titles": [{
+            "text": jsonObj.ReportName
+        }],
+        "allLabels": []
+    });
+
+    // initialize step array
+    chart.drillLevels = [{
+        "title": jsonObj.ReportName,
+        "data": chartData
+    }];
+
+    // add slice click handler
+    chart.addListener("clickSlice", function (event) {
+
+        // get chart object
+        var chart = event.chart;
+
+        // check if drill-down data is avaliable
+        if (event.dataItem.dataContext.data !== undefined) {
+
+            // save for back button
+            chart.drillLevels.push(event.dataItem.dataContext);
+
+            // replace data
+            chart.dataProvider = event.dataItem.dataContext.data;
+
+            // replace title
+            chart.titles[0].text = event.dataItem.dataContext.title;
+
+            // add back link
+            // let's add a label to go back to yearly data
+            event.chart.addLabel(
+              0, 25,
+              "< Go back",
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              'javascript:drillUp();');
+
+            // take in data and animate
+            chart.validateData();
+            chart.animateAgain();
+        }
+    });
+    function drillUp() {
+
+        // get level
+        chart.drillLevels.pop();
+        var level = chart.drillLevels[chart.drillLevels.length - 1];
+
+        // replace data
+        chart.dataProvider = level.data;
+
+        // replace title
+        chart.titles[0].text = level.title;
+
+        // remove labels
+        if (chart.drillLevels.length === 1)
+            chart.clearLabels();
+
+        // take in data and animate
+        chart.validateData();
+        chart.animateAgain();
+    }
+
+
+
+</script>

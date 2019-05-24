@@ -1,0 +1,192 @@
+﻿@model AIA.Life.Models.Hierarchy.HierarchyData
+@{
+
+}
+@Scripts.Render("~/bundles/Dialog")
+@Styles.Render("~/Content/Dialogcss")
+@Scripts.Render("~/bundles/Hierarchy")
+@using (Html.BeginForm("", "", FormMethod.Post, new { @id = "frmHierarchySearch", @class = "" }))
+{
+    @Html.HiddenFor(a => a.SearchCodeGrid, new { @id = "hdnSearchCodeGrid" });
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <i style="color: white;"></i>
+                <a data-toggle="collapse" data-target="#collapse15" href="#collapseFiftyneen" id="pnlSearchDetails" class="collapsed">
+                    <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    Search
+                </a>
+            </h4>
+        </div>
+        <div id="collapse15" class="panel-collapse in">
+            <div class="panel-body">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divSearchCode">
+                        <div class="form-group">
+                            <label>Code</label>
+                            @Html.TextBoxFor(a => a.SearchCode, new { @class = "form-control", @id = "txtSearchCode", @maxlength = "20", @Onblur = "OnChangeCode()" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divSearchName">
+                        <div class="form-group">
+                            <label>Name</label>
+                            @Html.TextBoxFor(a => a.SearchName, new { @class = "form-control", @id = "txtSearchName", @maxlength = "20", @onkeypress = "return onlyAlphabets(event)", @Onblur = "OnChangeName()" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divStatus">
+                        <div class="form-group">
+                            <label>Status</label>
+                            @Html.DropDownListFor(s => s.SearchStatus, new SelectList(Model.LstStatus, "ID", "Value"), "Select", new { @id = "ddlSearchHirerachyStatus", @class = "form-control", @OnChange = "OnChangeStatus()" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divNICNo">
+                        <div class="form-group">
+                            <label>Entity Type</label>
+                            @Html.DropDownListFor(s => s.SearchEntityType, new SelectList(Model.LstEntityTypes, "ID", "Value"), "Select", new { @id = "ddlSearchHierarchyEntityType", @class = "form-control", @OnChange = "OnChangeEntityType()" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top:30px;display:block" id="divSearchButtons">
+                    <input type="button" value="Search" id="btnClientId" onclick="showSearchHierachyGrid()" class="btn btn-default" style="width:100px">
+                    <input type="button" value="Clear" id="btnClearAll" onclick="ClearAllFields()" class="btn btn-default" style="width:100px">
+                </div>
+                <br />
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div id="divHierarchySearchGrid"></div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divSearchQuickAction" style="display:none">
+        <div class="col-lg-6 col-sm-6">
+            <div class="col-lg-4 col-sm-4 control-label text-right">Quick Action<span class="mandatory"> *</span></div>
+            <div class="col-lg-8 col-sm-8">
+                @Html.DropDownListFor(a => a.SearchAction, new SelectList(Model.LstSearchAction, "ID", "Value"), "Select", new { @id = "ddlSearchQuickAction", @class = "form-control", @onblur = "Checksearchsubaction()", @style = "width:300px" })<br />
+                <div id="divddlSearchSubQuickAction" style="display:none">
+                    @Html.DropDownListFor(a => a.SearchSubAction, new SelectList("", "", ""), "Select", new { @id = "ddlSearchSubQuickAction", @class = "form-control", @onblur = "validateYear('txtSLIIQualification')", @style = "width:300px" })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-sm-1">
+            <input type="button" value="GO" id="divsearchNICGO" onclick="ShowQuickAction()" class="btn btn-default" style="width:100px">
+        </div>
+        <div class="col-lg-5 col-sm-5">
+        </div>
+
+    </div>
+}
+<script type="text/javascript">
+    function showSearchHierachyGrid() {
+      var Code= $("#txtSearchCode").val();
+      var Name = $("#txtSearchName").val();
+      var Status = $('#ddlSearchHirerachyStatus option:selected').text();
+      var Entity = $('#ddlSearchHierarchyEntityType option:selected').text();
+      if ((Code == null || Code == "") && (Name == null || Name == "") && (Status == null || Status == "Select") && (Entity == null || Entity == "Select")) {
+          writeMultipleMessage("error", "Please Provide Atleast one Field", "txtSearchCode");
+          return false;
+      }
+      else {
+          writeMultipleMessage("error", "", "txtSearchCode");
+          $.post("../Hierarchy/SearchHierarchyGrid", $("#frmHierarchySearch").serialize())
+              .done(function (data) {
+                  $("#divHierarchySearchGrid").html(data);
+                      $("#divSearchQuickAction").show();
+                      $("#divsearchNICGO").show();
+              }).
+              fail(function (data) {
+              });
+      }
+    }
+    function ShowQuickAction() {
+        clearAllErrors();        
+        var DataSerializer = "";
+        var i = 0;
+        var data;
+        var SearchID;
+        var Count = 0;
+        $("#divHierarchySearchGrid tbody").find("tr").each(function () {            
+            SearchID = $(this).find("[data-name=SearchID]").find("input[type='radio']:checked").val();           
+            if (SearchID != "" && SearchID != null)
+            {
+                Count++;
+            }            
+        });      
+        if (Count == 0) {
+        writeMultipleMessage("error", "Please select at least one data in Grid", 'data');
+        return false;
+    }
+    writeMultipleMessage("error", "", 'data');
+    var SearchQuickActionId = $("#ddlSearchQuickAction").val();
+    var SearchQuickActionVal = $("#ddlSearchQuickAction option:selected").text();
+    if (validateDropDown('ddlSearchQuickAction', 'All mandatory fields are required') == false) {
+        return false;
+    }
+    if (SearchQuickActionId != '' && SearchQuickActionId != undefined) {
+        if (SearchQuickActionId == "1" && SearchQuickActionVal == "View") {
+            $("#frmHierarchySearch").attr('action', '/Hierarchy/Hierarchy');
+            document.forms["frmHierarchySearch"].submit();
+        }
+    }
+}
+    function ClearAllFields()
+    {
+        clearAllErrors();
+        $("#txtSearchCode").val("");
+        $("#txtSearchName").val("");
+        //$('#ddlSearchHirerachyStatus').html("");
+        //$('#ddlSearchHirerachyStatus').append($('<option value=\'\'>Select</option>'));
+        //$('#ddlHierarchyEntityType').html("");
+        //$('#ddlHierarchyEntityType').append($('<option value=\'\'>Select</option>'));
+        $("#divHierarchySearchGrid").empty();
+        $("#divSearchQuickAction").hide();
+        FetchEntityTypes();
+        FetchStatus();
+    }
+    function FetchEntityTypes() {
+        $.post("../Hierarchy/FetchEntityTypes")
+            .done(function (data) {
+                if (data != null) {
+                    $('#ddlSearchHierarchyEntityType').html(""); // clear before appending new list
+                    $('#ddlSearchHierarchyEntityType').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#ddlSearchHierarchyEntityType').append($('<option value=\'' + option.ID + '\'>' + option.Value + '</option>'));
+                    });
+                }
+            });
+    }
+    function FetchStatus() {
+        $.post("../Hierarchy/FetchStatus")
+            .done(function (data) {
+                if (data != null) {
+                    $('#ddlSearchHirerachyStatus').html(""); // clear before appending new list
+                    $('#ddlSearchHirerachyStatus').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#ddlSearchHirerachyStatus').append($('<option value=\'' + option.ID + '\'>' + option.Value + '</option>'));
+                    });
+                }
+            });
+    }
+    function OnChangeCode() {
+        $("#txtSearchName").val('');
+        FetchStatus();
+        FetchEntityTypes();
+    }
+    function OnChangeName() {
+        $("#txtSearchCode").val('');
+        FetchStatus();
+        FetchEntityTypes();
+    }
+    function OnChangeStatus() {
+        $("#txtSearchCode").val('');
+        $("#txtSearchName").val('');
+        FetchEntityTypes();
+    }
+    function OnChangeEntityType() {
+        $("#txtSearchCode").val('');
+        $("#txtSearchName").val('');
+        FetchStatus();
+    }
+</script>

@@ -1,0 +1,55 @@
+﻿@model int
+@{
+    var ReportID = Model;
+    var divID = "divChart" + Model;
+    var labelTitleId = "lblTitle" + Model;
+    var lblGrowthId = "lblGrowth" + Model;
+}
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '../DashBoard/MakeChart',
+            contentType: "application/json; charset=utf-8",
+            data: { ReportID: '@ReportID' },
+            dataType: "json",
+            success: function (result) {
+                $("#" + '@labelTitleId').text(result.ReportName);
+                if('@ReportID'==1||'@ReportID'==2||'@ReportID'==3||'@ReportID'==4||'@ReportID'==5||'@ReportID'==6){
+                    $("#" +'@lblGrowthId').text(result.Growth);
+                }
+                $("#" + '@divID').css("height", result.GraphHeight);
+                $("#" + '@divID').css("width", result.GraphWidth);
+                AmCharts.makeChart('@divID', {
+                    "theme": result.Theme,
+                    "type": result.Type,
+                    "rotate": result.Rotate,
+                    "dataProvider": JSON.parse(result.strDataProvider),
+                    "valueAxes": JSON.parse(result.strvalueAxes),
+                    "startDuration": result.StartDuration,
+                    "graphs": JSON.parse(result.strlstGraphs),
+                    "plotAreaFillAlphas": result.PlotAreaFillAlphas,
+                    "categoryField": result.CategoryField,
+                    "categoryAxis": JSON.parse(result.strcategoryAxis),
+                    "legend": {
+                        "useGraphSettings": true,
+                        "useMarkerColorForLabels": true
+                    },
+                    "export": {
+                        "enabled": false
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<div style="border:1px solid">
+    <label>&nbsp;</label>
+    <label id='@labelTitleId' style="color: #333;font-weight: bold;font-size: 14px;"></label>
+    <label id='@lblGrowthId' style="color: #00cc00;font-size: 14px;float:right;"></label>
+    <div id='@divID'></div>
+</div>
+
+
