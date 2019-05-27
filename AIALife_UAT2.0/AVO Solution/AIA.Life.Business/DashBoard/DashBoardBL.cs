@@ -12,7 +12,7 @@ namespace AIA.Life.Business.DashBoard
         public GraphDetails GenerateDashboardData(GraphDetails objGraphDetails)
         {
             #region Call API
-            objGraphDetails = WebApiLogic.GetPostComplexTypeToAPI<GraphDetails>(objGraphDetails, "GenerateDashboardData", "DashBoard");
+            objGraphDetails = WebApiLogic.GetPostComplexTypeToAPI<GraphDetails>(objGraphDetails, "LoadDashboardData", "DashBoard");
             #endregion
             return objGraphDetails;
         }

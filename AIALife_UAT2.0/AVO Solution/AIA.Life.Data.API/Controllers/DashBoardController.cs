@@ -11,7 +11,8 @@ namespace AIA.Life.Data.API.Controllers
 {
     public class DashBoardController : ApiController
     {
-        public GraphDetails GenerateDashboardData(GraphDetails objGraphDetails)
+        [HttpPost]
+        public GraphDetails LoadDashboardData(GraphDetails objGraphDetails)
         {
             DashBoardLogic objLogic = new DashBoardLogic();            
             return objLogic.GenerateDashboardData(objGraphDetails);

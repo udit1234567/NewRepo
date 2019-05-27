@@ -23,7 +23,9 @@ namespace AIA.Life.Business
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 HttpClient client = new HttpClient();
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 client.BaseAddress = new Uri(_url);
+                client.DefaultRequestHeaders.Accept.Clear();
                 client.Timeout = TimeSpan.FromSeconds(900);
                 // Add an Accept header for JSON format.
                 client.DefaultRequestHeaders.Accept.Add(
@@ -112,6 +114,7 @@ namespace AIA.Life.Business
             try
             {
                 HttpClient client = new HttpClient();
+
                 client.BaseAddress = new Uri(_url);
                 // Add an Accept header for JSON format.
                 client.DefaultRequestHeaders.Accept.Add(

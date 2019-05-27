@@ -950,9 +950,21 @@
     <Content Include="Content\Images\AgentLogin.jpg" />
     <Content Include="Content\Images\AIA Education Plan E.jpg" />
     <Content Include="Content\Images\AIA Logo.jpg" />
+    <Content Include="Content\Images\AIA Pdf image.jpg" />
+    <Content Include="Content\Images\AIA-BG-1.png" />
+    <Content Include="Content\Images\AIA-BG-2.png" />
+    <Content Include="Content\Images\AIA-BG.jpg" />
+    <Content Include="Content\Images\AIA-BG.png" />
+    <Content Include="Content\Images\AIA-building.jpg" />
+    <Content Include="Content\Images\aia-image.jpg" />
     <Content Include="Content\Images\AIA-inside.jpg" />
     <Content Include="Content\Images\AIA-inside.png" />
+    <Content Include="Content\Images\AIA-loader-4 %281%29.gif" />
+    <Content Include="Content\Images\AIA-loader-new.gif" />
+    <Content Include="Content\Images\AIA-loader1.gif" />
+    <Content Include="Content\Images\AIA-loadernew.gif" />
     <Content Include="Content\Images\aia-logo-collapse.png" />
+    <Content Include="Content\Images\AIA-Mobile-BG.jpg" />
     <Content Include="Content\Images\AIA-SmartBuilder-E-001.jpg" />
     <Content Include="Content\Images\AIA.jpg" />
     <Content Include="Content\Images\AIA.png" />
@@ -1014,8 +1026,10 @@
     <Content Include="Content\Images\Company Profile%400,32x.png" />
     <Content Include="Content\Images\Competition Status.png" />
     <Content Include="Content\Images\config-create.png" />
+    <Content Include="Content\Images\Confirmed Prospect1.png" />
     <Content Include="Content\Images\Contact No%400,32x.png" />
     <Content Include="Content\Images\cover-details.png" />
+    <Content Include="Content\Images\Create Lead1.png" />
     <Content Include="Content\Images\create-employee.png" />
     <Content Include="Content\Images\create-hierarchy.png" />
     <Content Include="Content\Images\create-prospect.png" />
@@ -1024,12 +1038,15 @@
     <Content Include="Content\Images\create-user.png" />
     <Content Include="Content\Images\critical.png" />
     <Content Include="Content\Images\CustomerLogin.jpg" />
+    <Content Include="Content\Images\danger-icon-1.png" />
+    <Content Include="Content\Images\danger-icon-2.png" />
     <Content Include="Content\Images\Date Picker.png" />
     <Content Include="Content\Images\details.png" />
     <Content Include="Content\Images\Download &amp; Email.png" />
     <Content Include="Content\Images\E.png" />
     <Content Include="Content\Images\Emoty Bar.png" />
     <Content Include="Content\Images\Endorsement Request.png" />
+    <Content Include="Content\Images\english.png" />
     <Content Include="Content\Images\error.jpg" />
     <Content Include="Content\Images\Events%400,84x.png" />
     <Content Include="Content\Images\female.png" />
@@ -1130,6 +1147,7 @@
     <Content Include="Content\Images\Forma1-18.png" />
     <Content Include="Content\Images\Forma1-19.png" />
     <Content Include="Content\Images\Forma1-20.png" />
+    <Content Include="Content\Images\Generate Quotation1.png" />
     <Content Include="Content\Images\Gym%400,32x.png" />
     <Content Include="Content\Images\health.png" />
     <Content Include="Content\Images\heroAccent.png" />
@@ -1137,6 +1155,7 @@
     <Content Include="Content\Images\home-pink.png" />
     <Content Include="Content\Images\home-white.png" />
     <Content Include="Content\Images\image.jpg" />
+    <Content Include="Content\Images\Incomplete Proposals1.png" />
     <Content Include="Content\Images\incomplete.png" />
     <Content Include="Content\Images\info.png" />
     <Content Include="Content\Images\infoSearch.png" />
@@ -1150,14 +1169,18 @@
     <Content Include="Content\Images\Knowledge Center_Icon.png" />
     <Content Include="Content\Images\landing-page-cropped.jpg" />
     <Content Include="Content\Images\laptop.png" />
+    <Content Include="Content\Images\Layer 2.png" />
     <Content Include="Content\Images\layer-4%403x.png" />
     <Content Include="Content\Images\layer-4.png" />
     <Content Include="Content\Images\Layer1.png" />
+    <Content Include="Content\Images\Lead Pool1.png" />
     <Content Include="Content\Images\Lead-Own.png" />
     <Content Include="Content\Images\Lead-Target.png" />
     <Content Include="Content\Images\Lead-Trendline.png" />
+    <Content Include="Content\Images\LeadAllocation.png" />
     <Content Include="Content\Images\Liabilities.png" />
     <Content Include="Content\Images\line-icons.png" />
+    <Content Include="Content\Images\Load Quotation1.png" />
     <Content Include="Content\Images\Loading.gif" />
     <Content Include="Content\Images\Location_Garage.png" />
     <Content Include="Content\Images\Location_Hospital.png" />
@@ -1167,14 +1190,19 @@
     <Content Include="Content\Images\login-bg.jpg" />
     <Content Include="Content\Images\login-image.png" />
     <Content Include="Content\Images\login-image2.png" />
+    <Content Include="Content\Images\logo.jpg" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\L_3A28.tmp.PNG" />
     <Content Include="Content\Images\magnifier.png" />
     <Content Include="Content\Images\male.png" />
     <Content Include="Content\Images\marine.png" />
+    <Content Include="Content\Images\mCash1.png" />
+    <Content Include="Content\Images\mCashNew.png" />
     <Content Include="Content\Images\MDRT Qualification%28New%29.png" />
     <Content Include="Content\Images\MDRT Qualification.png" />
     <Content Include="Content\Images\Medal%400,28x.png" />
     <Content Include="Content\Images\Menu%400,32x.png" />
+    <Content Include="Content\Images\menu-icon%282%29.png" />
     <Content Include="Content\Images\minus.png" />
     <Content Include="Content\Images\misc.png" />
     <Content Include="Content\Images\misc1.png" />
@@ -1201,11 +1229,18 @@
     <Content Include="Content\Images\my-business-white.png" />
     <Content Include="Content\Images\my-business.png" />
     <Content Include="Content\Images\My-copetetion-dash-doard.png" />
+    <Content Include="Content\Images\Need Analysis Completed1.png" />
     <Content Include="Content\Images\Need Analysis-default.png" />
     <Content Include="Content\Images\Need Analysis-hover.png" />
     <Content Include="Content\Images\need.png" />
     <Content Include="Content\Images\NexGen-IPoS-logo-K20.png" />
+    <Content Include="Content\Images\Notepad new.png" />
+    <Content Include="Content\Images\Notepad-hover.png" />
+    <Content Include="Content\Images\Notepad.png" />
+    <Content Include="Content\Images\NotepadNew.png" />
     <Content Include="Content\Images\office%400,32x.png" />
+    <Content Include="Content\Images\Offline Payment Icon1.png" />
+    <Content Include="Content\Images\Offline Payment IconNew.png" />
     <Content Include="Content\Images\orderedList2.png" />
     <Content Include="Content\Images\orderedList3.png" />
     <Content Include="Content\Images\orderedList4.png" />
@@ -1222,6 +1257,7 @@
     <Content Include="Content\Images\payment-pink.png" />
     <Content Include="Content\Images\payment-white.png" />
     <Content Include="Content\Images\pencil.png" />
+    <Content Include="Content\Images\Pending Requirements1.png" />
     <Content Include="Content\Images\penson.png" />
     <Content Include="Content\Images\plus.png" />
     <Content Include="Content\Images\Policy-black.png" />
@@ -1230,8 +1266,12 @@
     <Content Include="Content\Images\portlet-expand-icon-white.png" />
     <Content Include="Content\Images\Premium Calculator%400,32x.png" />
     <Content Include="Content\Images\Premium Outstanding.png" />
+    <Content Include="Content\Images\Proceed to Calculator new.png" />
     <Content Include="Content\Images\Proceed to Calculator-default.png" />
     <Content Include="Content\Images\Proceed to Calculator-hover.png" />
+    <Content Include="Content\Images\Proceed to Calculator1.png" />
+    <Content Include="Content\Images\Proceed to FNA new.png" />
+    <Content Include="Content\Images\Proceed to FNA1.png" />
     <Content Include="Content\Images\Product Details.png" />
     <Content Include="Content\Images\Product Presentation.png" />
     <Content Include="Content\Images\Profile%400,32x.png" />
@@ -1264,6 +1304,7 @@
     <Content Include="Content\Images\quote-7.png" />
     <Content Include="Content\Images\quote-8.png" />
     <Content Include="Content\Images\quote-9.png" />
+    <Content Include="Content\Images\quote-contact.png" />
     <Content Include="Content\Images\Ramana.jpg" />
     <Content Include="Content\Images\Rates &amp; Calculators.png" />
     <Content Include="Content\Images\Ravi.png" />
@@ -1277,6 +1318,7 @@
     <Content Include="Content\Images\Retrigger Mails%400,32x.png" />
     <Content Include="Content\Images\RupeeSymbol.png" />
     <Content Include="Content\Images\S.png" />
+    <Content Include="Content\Images\Sampath_Paycorp.png" />
     <Content Include="Content\Images\search%400,32x.png" />
     <Content Include="Content\Images\search-pink.png" />
     <Content Include="Content\Images\search.png" />
@@ -1290,6 +1332,7 @@
     <Content Include="Content\Images\Shape111.png" />
     <Content Include="Content\Images\sidebar-toggler-red.png" />
     <Content Include="Content\Images\sidebar-toggler.png" />
+    <Content Include="Content\Images\sinhala.png" />
     <Content Include="Content\Images\SM Renewal.png" />
     <Content Include="Content\Images\Smart-Pensions-brochure-E-001.jpg" />
     <Content Include="Content\Images\Stand.png" />
@@ -1297,12 +1340,14 @@
     <Content Include="Content\Images\Status Enquiry%400,48x.png" />
     <Content Include="Content\Images\Status%400,32x.png" />
     <Content Include="Content\Images\Submitted Proposal.png" />
+    <Content Include="Content\Images\Submitted Proposals1.png" />
     <Content Include="Content\Images\submitted.png" />
     <Content Include="Content\Images\success.png" />
     <Content Include="Content\Images\Suspect Pool.png" />
     <Content Include="Content\Images\suspect-pink.png" />
     <Content Include="Content\Images\suspect-white.png" />
     <Content Include="Content\Images\T.png" />
+    <Content Include="Content\Images\tamil.png" />
     <Content Include="Content\Images\Target Date%400,32x.png" />
     <Content Include="Content\Images\task-list.png" />
     <Content Include="Content\Images\taxi.png" />
@@ -1320,9 +1365,20 @@
     <Content Include="Content\Images\Value of dream%400,32x.png" />
     <Content Include="Content\Images\VectorSmartObject.png" />
     <Content Include="Content\Images\Vehicle Inspection.png" />
+    <Content Include="Content\Images\Visa MasterNew.png" />
+    <Content Include="Content\Images\Visa-MasterCard.png" />
     <Content Include="Content\Images\warning.png" />
     <Content Include="Content\Images\welcome-bg-1.jpg" />
     <Content Include="Content\Images\white-logo.png" />
+    <Content Include="Content\Images\Youtube1.png" />
+    <Content Include="Content\Images\Youtube2.png" />
+    <Content Include="Content\Images\Youtube3.png" />
+    <Content Include="Content\Images\Youtube4.png" />
+    <Content Include="Content\Images\Youtube5.png" />
+    <Content Include="Content\Images\Youtube6.png" />
+    <Content Include="Content\Images\Youtube7.png" />
+    <Content Include="Content\Images\Youtube8.png" />
+    <Content Include="Content\Images\Youtube9.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
@@ -2322,6 +2378,7 @@
     <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\package.json" />
     <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\readme.md" />
     <Content Include="Content\amcharts_3.21.14\amcharts\plugins\responsive\responsive.min.js.map" />
+    <Content Include="Content\Images\white.zip" />
     <None Include="DataSet1.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
@@ -2346,6 +2403,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="Properties\PublishProfiles\AVOLife - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\AVOLife - Web Deploy1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Reports\AgentonBoarding\ARAgreement.rdlc" />
     <Content Include="Reports\MedicalExaminerReportForm.rdlc" />
@@ -2935,16 +2994,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>
   <Import Project="..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -259,3 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/AIALife_UAT2.0/AVO Solution/AIA.Life.Data.API/Properties/PublishProfiles
+/AIALife_UAT2.0/AVO Solution/AIA.Presentation.AVOLife/Properties/PublishProfiles
+*.json

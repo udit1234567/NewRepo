@@ -37,7 +37,7 @@ function AlphabetsWithSpace(evt) {
     return true;
 }
 function AlphabetsWithSpacecommaandslash(evt) {
-    debugger;
+    //debugger;
     //var charCode = (evt.which) ? evt.which : event.keyCode
     //if (!((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || (charCode == 32) || (charCode == 8) || (charCode == 39)))
     //    return false;
