@@ -3,7 +3,7 @@
 @using AIAResources;
 
 
-<div class="col-lg-12 col-sm-12 prospectinfo-item">
+<div class="col-lg-12 col-sm-12 prospectinfo-item" style="display:none">
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label>@Resources.GetLabelName("Do You Have Any Ongoing Proposal With AIA")</label>
@@ -35,7 +35,7 @@
     </div>
     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6"></div>
 </div>
-<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item" style="display:none">
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label>@Resources.GetLabelName("Have You Taken Any Policy Previously with AIA")</label>
@@ -66,7 +66,11 @@
     </div>
     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6"></div>
 </div>
+
 <script type="text/javascript">
+
+    
+
     function ShowTextBox1()
     {
         var rbtnOnGoingProposalWithAIA =$('input[id=rbtnOnGoingProposalWithAIA]:checked').val();        

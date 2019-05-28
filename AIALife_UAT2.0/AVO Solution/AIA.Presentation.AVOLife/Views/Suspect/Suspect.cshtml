@@ -56,9 +56,9 @@
         <div class="visible-lg-block">
             @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
         </div>
-        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #5a73ef;"></a>
       
-        <div class="btn btn-info"><b>@Resources.GetLabelName("Lead")</b></div>
+        <div class="btn btn-info" style="max-width:80px"><b>@Resources.GetLabelName("Lead")</b></div>
     </div>
 </div>
 @*<div class="panel panel-default">
@@ -69,7 +69,7 @@
 <div id="navContainer">
     <div class="collapse navbar-collapse Main-collapse" id="navbar-collapse-1">
         <div class="navbar-nav list" id="divNav">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav flex-row">
                 @if (lstPermissions.Contains(18))
                 {
                     <li class="dropdown liClass">

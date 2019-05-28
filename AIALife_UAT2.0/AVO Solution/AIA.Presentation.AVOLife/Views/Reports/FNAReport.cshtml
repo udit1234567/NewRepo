@@ -114,25 +114,25 @@
                             <tr>
                                 <td style="width: 400px; float: left; padding: 10px 0px 0px 30px; font-size: 20px;">From Year</td>
                                 <td style="width: 400px; float: left; padding: 10px 0px 0px 30px; font-size: 20px;">To Year</td>
-                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px; font-size: 20px;">Inflation Rate</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px; font-size: 20px;">Inflation Rate(%)</td>
                             </tr>
 
                             <tr>
                                 <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold; font-size: 20px;">@Model.objNeedAnalysis.FNAFromYear</td>
                                 <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold; font-size: 20px;">@Model.objNeedAnalysis.FNAToYear</td>
-                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold; font-size: 20px;">@Model.objNeedAnalysis.FNAInflationRate<label> % </label></td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold; font-size: 20px;">@Model.objNeedAnalysis.FNAInflationRate <labek> Years</labek></td>
                             </tr>
 
                             <!--4th Row-->
                             <tr>
                                 <td style="width: 400px; float: left; padding: 10px 0px 0px 30px; font-size: 20px;">Plan No of Years</td>
-                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px; font-size: 20px;">Interest Rate</td>
+                                <td style="width: 400px; float: left; padding: 10px 0px 0px 30px; font-size: 20px;">Interest Rate(%)</td>
                                 <td style="width: 400px; float: left; padding: 10px 0px 0px 30px; font-size: 20px;"></td>
                             </tr>
 
                             <tr>
-                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold; font-size: 20px;">@Model.objNeedAnalysis.FNAPlanNoYear <label>Years</label></td>
-                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold; font-size: 20px;">@Model.objNeedAnalysis.FNAIntrestRate<label>%</label></td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold; font-size: 20px;">@Model.objNeedAnalysis.FNAFromYear</td>
+                                <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold; font-size: 20px;">@Model.objNeedAnalysis.FNAFromYear</td>
                                 <td style="width: 400px; float: left; padding: 0px 0px 0px 30px; font-weight: bold;font-size: 20px;"></td>
                             </tr>
                         </tbody>
@@ -144,7 +144,7 @@
                                 <td style="width: 250px; display:flex; float: left; background-color: #d11144; padding: 10px;font-size: 21px;font-weight: bold;">Protect your Wealth</td>
                             </tr>
                             <tr style="margin: 10px 0px;">
-                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-size: 18px; font-weight: bold; font-size: 20px;">Current Assets</td>
+                                <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-size: 18px; font-weight: bold; font-size: 21px;">Current Assets</td>
                                 <td style="width: 300px; float: left; padding: 10px 0px 0px 30px; font-size: 18px; font-weight: bold; text-align: right; padding-right: 30px;"></td>
                             </tr>
                             <tr>
@@ -252,7 +252,7 @@
                                     <table style="width: 300px; margin: 20px auto;">
                                         <tbody style="background-color: #d7d7d7; margin-top: 20px;">
                                             <tr>
-                                                <td style="padding: 30px; text-align:center; font-size:18px; font-weight:bold;">Net Assets<br /> (LKR)<label style="margin-left: 10px;">
+                                                <td style="padding: 30px; text-align:center; font-size:18px; font-weight:bold;">Net Assets (LKR)<label style="margin-left: 10px;">
                                                     @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(@Model.objNeedAnalysis.objAssetsAndLiabilities.NetAssests))
                                                     
                                                     </label></td>
@@ -267,10 +267,10 @@
                     <table style="width: 600px; float: left; margin-left: 30px; margin-top: 20px;">
                         <tbody>
                             <tr style="padding: 10px; color: #fff; font-size: 18px; margin-bottom: 10px;">
-                                <td style="width: 250px; display:flex; float: left; @*background-color: #d11144*@; height: 45px; padding: 10px;font-size: 21px;font-weight: bold;"></td>
+                                <td style="width: 250px; display:flex; float: left; padding: 10px; min-height: 45.71px"></td>
                             </tr>
                             <tr style="margin: 10px 0px;">
-                                <td style="width: 250px; float: left; padding: 10px 0px 0px 30px; font-size: 18px; font-weight: bold;font-size: 20px;">Current Liabilities</td>
+                                <td style="width: 250px; float: left; padding: 10px 0px 0px 30px; font-size: 18px; font-weight: bold;font-size: 21px;">Current Liabilities</td>
                                 <td style="width: 200px; float: left; padding: 10px 0px 0px 30px; font-size: 18px; font-weight: bold; text-align: right; padding-right: 30px;"></td>
                             </tr>
                             <tr>
@@ -378,7 +378,7 @@
                             </tr>
 
                             <tr>
-                                <td style="width: 250px; float: left; padding: 40px 0px 0px 30px; font-weight: bold; font-size: 18px;font-size: 20px;">Total</td>
+                                <td style="width: 250px; float: left; padding: 60px 0px 0px 30px; font-weight: bold; font-size: 18px;font-size: 20px;">Total</td>
                                @if (@Model.objNeedAnalysis.objAssetsAndLiabilities.LiabilityTotal != 0 || @Model.objNeedAnalysis.objAssetsAndLiabilities.LiabilityTotal != null)
                                {
                                 <td style="width: 200px; float: left; padding: 10px 0px 0px 30px; font-weight: bold; text-align: right; padding-right: 30px;font-size: 20px;">
@@ -403,7 +403,7 @@
 
                             <tr>
                                 <td>
-                                    <table style="width: 370px; margin: 20px auto;">
+                                    <table style="width: 270px; margin: 20px auto;">
                                         <tbody style="background-color: #d7d7d7; margin-top: 20px;">
                                             <tr>
                                                 <td style="padding:30px; text-align:center; font-size:18px; font-weight:bold;">Fund Requirement For Asset Protection (LKR)<label style="margin-left: 10px;">
@@ -534,10 +534,10 @@
                     <table style="width:600px; float: left; margin-left: 30px; margin-top: 20px;">
                         <tbody>
                             <tr style="padding: 10px; color: #fff; font-size: 18px; margin-bottom: 10px;">
-                                <td style="width: 200px; display:flex; float: left; @*background-color: #d11144*@; height:45px; padding: 10px;font-size: 21px;font-weight: bold">Protect your Income</td>
+                                <td style="width: 250px; display:flex; float: left; padding: 10px; min-height: 45.71px"></td>
                             </tr>
                             <tr style="margin: 10px 0px;">
-                                <td style="width: 250px; float: left; padding: 10px 0px 0px 30px; font-size: 18px; font-weight: bold;font-size:20px;">Current Annual Income</td>
+                                <td style="width: 250px; float: left; padding: 10px 0px 0px 30px; font-size: 18px; font-weight: bold;font-size:21px;">Current Annual Income</td>
                                 <td style="width: 250px; float: left; padding: 10px 0px 0px 30px; font-size: 18px; font-weight: bold; text-align: right; padding-right: 30px;"></td>
                             </tr>
                             <tr>
@@ -663,9 +663,9 @@
 
                             <tr style="background-color: #c2c2c2; margin-top: 10px 0px;">
                                 <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size:20px;"></td>
-                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold">Current Requirement (LKR)</td>
-                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold">Available Fund (LKR)</td>
-                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold">Gap (LKR)</td>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Current Requirement (LKR)</td>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Available Fund (LKR)</td>
+                                <td style="width: 303px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Gap (LKR)</td>
                             </tr>
 
                             <tr>
@@ -734,12 +734,12 @@
                             </tr>
 
                             <tr style="background-color: #c2c2c2; margin-top: 10px;">
-                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px; font-weight: bold">Future Financial Needs</td>
-                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px; font-weight: bold">Beneficiary</td>
-                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold">Current Requirement (LKR)</td>
-                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold">Estimated Amount (LKR)</td>
-                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold">Available Fund (LKR)</td>
-                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold">Gap (LKR)</td>
+                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Future Financial Needs</td>
+                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Beneficiary</td>
+                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Current Requirement (LKR)</td>
+                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Estimated Amount (LKR)</td>
+                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Available Fund (LKR)</td>
+                                <td style="width: 202px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Gap (LKR)</td>
                             </tr>
                             @if (Model.objNeedAnalysis.objFinancialNeeds != null && Model.objNeedAnalysis.objFinancialNeeds.Count > 0)
                             {
@@ -826,8 +826,8 @@
 
                             <tr style="background-color: #c2c2c2; margin-top: 10px;">
                                 <td style="width: 404px; float: left; padding: 10px 0px 10px 30px;font-size:20px;"></td>
-                                <td style="width: 404px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold">Lump sum requirement any given time (LKR)</td>
-                                <td style="width: 404px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold">Lump sum requirement at Maturity (LKR)</td>
+                                <td style="width: 404px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Lump sum requirement any given time (LKR)</td>
+                                <td style="width: 404px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Lump sum requirement at Maturity (LKR)</td>
                             </tr>
 
                             <tr>
@@ -873,9 +873,9 @@
                         <tbody>
 
                             <tr style="background-color: #c2c2c2; margin-top: 10px;">
-                                <td style="width: 404px; float: left; padding: 10px 0px 10px 30px;font-size:20px;font-weight: bold"">Existing Policy</td>
-                                <td style="width: 404px; text-align: right; float: left; padding: 10px 80px 10px 30px;font-size:20px;font-weight: bold">Emergency Funds requirement Due to Death or Permeant Disability (LKR)</td>
-                                <td style="width: 404px; text-align: right; float: left; padding: 10px 100px 10px 30px;font-size:20px;font-weight: bold">Maturity Funds (LKR)</td>
+                                <td style="width: 404px; float: left; padding: 10px 0px 10px 30px;font-size:20px;">Existing Policy</td>
+                                <td style="width: 404px; text-align: right; float: left; padding: 10px 80px 10px 30px;font-size:20px;">Emergency Funds requirement Due to Death or Permeant Disability (LKR)</td>
+                                <td style="width: 404px; text-align: right; float: left; padding: 10px 100px 10px 30px;font-size:20px;">Maturity Funds (LKR)</td>
                             </tr>
 
                             <tr>

@@ -14,12 +14,13 @@
     @Styles.Render("~/Content/JSLayout")
     @Scripts.Render("~/bundles/Scripts")
     @Scripts.Render("~/bundles/amcharts")
-    @Scripts.Render("~/bundles/MvcAjaxScript")
+        @Scripts.Render("~/bundles/MvcAjaxScript")
+        <link href="~/Content/Styles/Msite.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/Styles/BootSideMenu.css">
     <script src="~/Content/Scripts/BootSideMenu.js"></script>
+
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    
-@*<script language="javascript" src="https://momentjs.com/downloads/moment.js"></script>
+    @*<script language="javascript" src="https://momentjs.com/downloads/moment.js"></script>
 <script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>*@
 
     @{
@@ -38,6 +39,7 @@
         #containerMain{
             position:relative;
             min-height:1px;
+            bottom:0;
         }
         body {
             padding-bottom: 70px;
@@ -115,6 +117,7 @@
         .responsive-scroll-top {
             margin-bottom: 0;
         }
+       
     </style>
 </head>
 <body class="page-boxed page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed-hide-logo" id="layout">
@@ -170,10 +173,10 @@
 
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->
-            <div class="page-header-inner container">
+            <div class="page-header-inner row top-bar-header col-lg-12">
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
-                    <img src="~/Content/Images/AIA-inside.png" alt="logo" class="logo-default" height="46px" />
+                    <img src="~/Content/Images/iNubeLogo.png" alt="logo" class="logo-default" height="30px" />
 
 
                 </div>
@@ -234,7 +237,7 @@
 
 
         <!-- BEGIN CONTAINER -->
-        <div class="container">
+        <div>
 
             <div class="page-container">
                 <!-- BEGIN SIDEBAR -->
@@ -276,7 +279,7 @@
                         <div class="page-header-inner container">
                             <div class="page-top" style="background: none repeat scroll 0% 0% #fff;height:90px">
                                 <div class="page-logo">
-                                    <img src="/Content/Images/AIA.png" style="height:90px !important">
+                                    <img src="/Content/Images/iNubeLogo.png" style="height:90px !important">
                                 </div>
                             </div>
                         </div>
@@ -291,25 +294,25 @@
 
     }
     <div class="clearfix"></div>
-    <footer>
+    @*<footer>
         @*<div class="content-wrapper mainDiv">
                 <div id="containerMain" class="containerMain">
                 </div>
             </div>*@
         @*navbar-fixed-bottom*@
-        <div class="navbar navbar-fixed-bottom" id="containerMain">
+        @*<div class="navbar-fixed-bottom" id="containerMain">
             <div>
             </div>
         </div>
         <div class="navbar copyright-content">
-            <div style="text-align:center">
+            <div class="col-lg-12" style="text-align:center">
                Copyright &copy; AIA Insurance Lanka PLC @DateTime.Now.Year. All Rights Reserved. NexGen iPoS - Web Version @VerNo
 
 
             </div>
 
         </div>
-    </footer>
+    </footer>*@
 
 
 
@@ -342,9 +345,9 @@
        $(window).on('hidden.bs.modal', function() { 
            stopBodyScrolling(false);
         })
-        $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
-        $.fn.modal.prototype.constructor.Constructor.DEFAULTS.keyboard = false;
-        var defaultLang = "en-IN";
+        //$.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';
+        //$.fn.modal.prototype.constructor.Constructor.DEFAULTS.keyboard = false;
+        //var defaultLang = "en-IN";
        
         //window.setInterval(function () {
         //    var elem = document.getElementById('Marketing');
@@ -468,10 +471,13 @@
             });
         });
         $(document).ready(function () {
-            $('.sidebar-toggler').click(function () {
+           
+            $('.sidebar-toggler').bind('click', function () {
+                    debugger;
+
                 $('.page-content-wrapper .page-content').toggleClass('page-content-width1');
-                var src1 = "/Content/Images/AIA-inside.png";
-                var src2 = "/Content/Images/aia-logo-collapse.png";
+                var src1 = "/Content/Images/inube.png";
+                var src2 = "/Content/Images/iNubeLogo.png";
                 var src = $('.logo-default').attr('src');
                if(src == src1){$('.logo-default').attr('src',src2);}
                 else{$('.logo-default').attr('src',src1);}
@@ -572,7 +578,7 @@
                 $('#knowledgebody').html(result);
             });*@
 
-            $.post("../UserManagement/LoadKnowledge")
+            $.post("../Home/LoadKnowledge")
             .done(function (data) {
                 $('#knowledgebody').html(data);
                 $("#knowledgeModal").show();

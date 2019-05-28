@@ -83,7 +83,7 @@ foreach (var Questions in lstLifeQuestions)
         { ClassName = "Childlifestyle-questions"; }
         else { ClassName = "lifestyle-questions"; }
             <div class=@ClassName id=@ParentId>
-                <div class="row">
+                <div class="row col-lg-12">
 
                     <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12 QuesBox-Space">
                         <p>
@@ -155,7 +155,7 @@ foreach (var Questions in lstLifeQuestions)
             { ClassName = "Childlifestyle-questions"; }
             else { ClassName = "lifestyle-questions"; }
             <div class=@ClassName id=@ParentId>
-                <div class="row">
+                <div class="row col-lg-12">
 
                     <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
                         <p>
@@ -349,28 +349,25 @@ foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
 
 @Html.HiddenFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.MemberLifeStyleID, new { })
 
-      
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                @Resources.GetLabelName("Height"):<br />
-                @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.Height, new { id = "txtHeight"+Index,@value = "0'", @class = "form-control col-md-4 col-sm-4 col-xs-12 col-lg-4", @maxlength = "4", @style = "width:60%;border-top-right-radius:0;border-bottom-right-radius:0", onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)", @onchange = "HeightFunction(id)",@onblur= "HeightFunction(this)" })
-               
-                @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.HeightFeets, new SelectList(Model.LstHeightFeets, "ID", "Text", Model.objMemberDetails[Index].objLifeStyleQuetions.HeightFeets), new { @class = "form-control col-md-2 col-sm-2 col-xs-12 col-lg-2", @style = "width:35%;border-top-left-radius: 0;border-bottom-left-radius: 0;", @id = "ddlHeightFeets" + index })
-                   
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                @Resources.GetLabelName("Weight"):<br />
-                @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.Weight, new { id = "txtWeight"+Index, @class = "form-control col-md-4 col-sm-4 col-xs-12 col-lg-4", @maxlength = "3", @style = "width:60%;border-top-right-radius:0;border-bottom-right-radius:0", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "WeightFunction(this)", @onblur = "WeightFunction(this)" })
-                    <select class="form-control col-md-2 col-sm-2 col-xs-12 col-lg-2" style="width:35%;border-top-left-radius: 0;border-bottom-left-radius: 0;" name=@WUNameProp>
-                        <option value="Kg">Kg's</option>
-                    </select>
-                
-           </div>
-<br/>
-<br/>
-<br/>
-   
+      <div class="col-lg-12 row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 row">
+        @Resources.GetLabelName("Height"):<br />
+        @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.Height, new { id = "txtHeight"+Index,@value = "0'", @class = "form-control col-md-4 col-sm-4 col-xs-12 col-lg-4", @maxlength = "4", @style = "width:60%;border-top-right-radius:0;border-bottom-right-radius:0", onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)", @onchange = "HeightFunction(id)",@onblur= "HeightFunction(this)" })
 
-<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+        @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.HeightFeets, new SelectList(Model.LstHeightFeets, "ID", "Text", Model.objMemberDetails[Index].objLifeStyleQuetions.HeightFeets), new { @class = "form-control col-md-2 col-sm-2 col-xs-12 col-lg-2", @style = "width:35%;border-top-left-radius: 0;border-bottom-left-radius: 0;", @id = "ddlHeightFeets" + index })
+
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 row">
+        @Resources.GetLabelName("Weight"):<br />
+        @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.Weight, new { id = "txtWeight"+Index, @class = "form-control col-md-4 col-sm-4 col-xs-12 col-lg-4", @maxlength = "3", @style = "width:60%;border-top-right-radius:0;border-bottom-right-radius:0", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "WeightFunction(this)", @onblur = "WeightFunction(this)" })
+        <select class="form-control col-md-2 col-sm-2 col-xs-12 col-lg-2" style="width:35%;border-top-left-radius: 0;border-bottom-left-radius: 0;" name=@WUNameProp>
+            <option value="Kg">Kg's</option>
+        </select>
+
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group row">
    
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
         <label for="usr">@Resources.GetLabelName("Do You Consume Tobacco ?")</label>
@@ -404,32 +401,33 @@ foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
     </div>
 </div>
 
-<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="display:@SmokeDisplayStyle;padding:20px;margin-bottom:10px;" id=@SmokeDisplayID>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row" style="display:@SmokeDisplayStyle;padding:20px;margin-bottom:10px;" id=@SmokeDisplayID>
 
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-            <label>@Resources.GetLabelName("Type"):</label>
-            @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.SmokeType, new SelectList(Model.lstSmokeTypes, "ID", "Value"), new { @class = "form-control", @id = "ddlTypeSmoke" + Index })
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-            <label>@Resources.GetLabelName("How many sticks per day?"):</label>
-            @Html.DropDownListFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.SmokeQuantity, new SelectList(Model.lstSmokeAndAlcholQuantity, "Value", "Text"), new { @class = "form-control", @id = "txtSmokeQuantity" + Index })
-        </div>
-        
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Type"):</label>
+        @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.SmokeType, new SelectList(Model.lstSmokeTypes, "ID", "Value"), new { @class = "form-control", @id = "ddlTypeSmoke" + Index })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("How many sticks per day?"):</label>
+        @Html.DropDownListFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.SmokeQuantity, new SelectList(Model.lstSmokeAndAlcholQuantity, "Value", "Text"), new { @class = "form-control", @id = "txtSmokeQuantity" + Index })
     </div>
 
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-            <label>@Resources.GetLabelName("How Long(Years)?")</label>
-            @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.SmokeDuration, new { id = "txtSmokeDuration" + Index, @class = "form-control", @onkeypress = "return isNumberKey(event)", @maxlength = "2" })
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-            <input class="btn btn-default" style="margin-top: 8%;width: 23%;height: 39px; margin-bottom:5%" type="button" onclick="AddLifeStyleSmokeRow('@TableID', '@Index')" value="Add">
-        </div>
+
+
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("How Long(Years)?")</label>
+        @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.SmokeDuration, new { id = "txtSmokeDuration" + Index, @class = "form-control", @onkeypress = "return isNumberKey(event)", @maxlength = "2" })
     </div>
-    <div class="clearfix"></div>
-    <div class="table-responsive">
-        <table class="table style-table" id=@TableID>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="text-align:center">
+        <input class="btn btn-default" style="width: 23%;height: 39px; margin-bottom:20px" type="button" onclick="AddLifeStyleSmokeRow('@TableID', '@Index')" value="Add">
+    </div>
+
+    
+    <div class="table-responsive iGrid">
+        <table class="table style-table grid-table table-striped" id=@TableID>
             <thead>
                 <tr>
                     <th class="textAlign">Type</th>
@@ -446,8 +444,8 @@ foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
                 for (int i = 0; i < Model.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails.Count(); i++)
                 {
                     string _RowID = "Smoker" + Index + i;
-            <tr id='@_RowID'>
-                <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].SmokeType, new { id = "ddlTypeSmoke" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>
+            <tr id='@_RowID' class="grid-row">
+                <td class='grid-cell' data-name='Type' data-label='Type'>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].SmokeType, new { id = "ddlTypeSmoke" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>
                 <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].SmokeQuantity, new { id = "txtSmokeQuantity" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>
                 @*<td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].SmokePerDay, new { id = "ddlSmokePerDay" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>*@
                 <td>@Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.objSmokeDetails[i].SmokeDuration, new { id = "txtSmokeDuration" + Index + LifeStyleQuestionCount, @class = "form-control", @readonly = "readonly" })</td>
@@ -466,7 +464,7 @@ foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
     </div>
 </div>
 
-<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12  form-group">
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12  form-group row">
     
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
         <label for="usr">@Resources.GetLabelName("Do You Consume Alcohol?")</label>
@@ -486,8 +484,8 @@ foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
     </div>
 </div>
 
-<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="display:@AlcoholDisplayStyle;padding:20px;margin-bottom:10px;" id=@AlcoholDisplayID>
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 ">
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row" style="display:@AlcoholDisplayStyle;padding:20px;margin-bottom:10px;" id=@AlcoholDisplayID>
+   
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
             <label for="sel1">@Resources.GetLabelName("Type"):</label>
             @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.AlcholType, new SelectList(Model.lstAlcoholTypes, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlAlcholType" + Index, })
@@ -500,8 +498,8 @@ foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
             <label for="usr">@Resources.GetLabelName("Per"):</label>
             @Html.DropDownListFor(m => m.objMemberDetails[Index].objLifeStyleQuetions.AlcholPerDay, new SelectList(Model.lstSmokeAndAlcholPer, "ID", "Value"), new { @class = "form-control", @id = "ddlAlcholPerDay" + Index, })
         </div>
-    </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 ">
+   
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
             <label>@Resources.GetLabelName("How Long(Years)?")</label>
             @Html.TextBoxFor(a => a.objMemberDetails[Index].objLifeStyleQuetions.AlcholDuration, new { id = "txtAlcholDuration" + Index, @class = "form-control", @onkeypress = "return isNumberKey(event)", @maxlength = "2" })
@@ -510,9 +508,9 @@ foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
             <input class="btn btn-default" style="margin-top: 8%;width: 23%;height: 39px; margin-bottom:5%" type="button" onclick="AddLifeStyleAlcholRow('@TableID1','@Index')" value="Add">
         </div>
     </div>
-    <div class="clearfix"></div>
-    <div class="table-responsive">
-        <table class="table style-table" id=@TableID1>
+   
+    <div class="table-responsive iGrid">
+        <table class="table style-table grid-table table-striped" id=@TableID1>
             <thead>
                 <tr>
                     <th class="textAlign">Type</th>
@@ -552,7 +550,7 @@ foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
 
 @if (Model.PlanName == "Easy Pensions")
 {
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
 
         <div>
             @if (Model.objMemberDetails[Index].LstEasyPensionQuestions != null && Model.objMemberDetails[Index].LstEasyPensionQuestions.Count() > 0)
@@ -567,7 +565,7 @@ foreach (var EasyPensionQuestions in lstEasypensionLifeQuestions)
     </div>
 }
 
-<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
 
     <div>
         @if (Model.objMemberDetails[Index].Questions != null && Model.objMemberDetails[Index].Questions.Count() > 0)

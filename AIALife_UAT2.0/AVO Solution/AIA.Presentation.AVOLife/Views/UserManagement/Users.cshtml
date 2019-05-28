@@ -27,23 +27,10 @@
     }
 
 </script>
-<div>
-
-    <div class="btn-group btn-breadcrumb breadcrumb-default">
-
-        <div class="visible-lg-block">
-            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
-        </div>
-        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
-
-        <div class="btn btn-info"><b>@Resources.GetLabelName("Search User ID")</b></div>
-    </div>
-</div>
-<br />
 <div class="panel-default panel">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a style="color: white;" class="icon-user"></a>
+            @*<a style="color: white;" class="icon-user"></a>*@
             <a data-toggle="collapse" data-target="#collapseSearch" href="#collapseone" class="collapsed">
                 Search Users <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
             </a>
@@ -56,7 +43,7 @@
         {
 
 
-            <div class="form-group" id="divUserCreation" style="background-color: White;" oncontextmenu="return false;">
+            <div class="form-group" style="background-color: White;" oncontextmenu="return false;">
 
                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -99,7 +86,7 @@
     function SearchUserDetails() {
         
         
-        $('#divUserSearchDetail').hide();
+        
         if ($("#txtUsercode").val() == "" && $("#txtUserName").val() == "" && $("#DeviceID").val() == "")
         {
             writeMultipleMessage("error", "Please Enter User code or User name or Device id", "txtUsercode");

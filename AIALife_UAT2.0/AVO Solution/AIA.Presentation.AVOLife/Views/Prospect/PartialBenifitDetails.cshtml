@@ -11,80 +11,85 @@
     </div>*@
 
 <style>
-    label-type {
+    /*.label-type {
         display: block;
         height: 34px;
         font-size: 14px;
         color: #555555;
         background-color: #ffffff;
+    }*/
+
+    .divhideshow input {
+        margin-top: 5px;
+    }
+    #DivBenefitDetails_10 .risk-info-div:nth-child(1) .divhideshow {
+        display: block;
+    }
+    #DivBenefitDetails_10 .risk-info-div:nth-child(2) .divhideshow {
+        display: block;
+    }
+    #DivBenefitDetails_10 .risk-info-div:last-child .divhideshow {
+        display: block;
+    }
+
+     .divhideshow {
+        display: none;
     }
 </style>
 
 <div class="table-responsive iGrid">
-
-    <table class="table table-bordered" id="BenifitTable_@Model.SelectedQuote">
-
-        <thead>
-            <tr>
-                <th style="font-weight: bold;text-align:center;width:30%;">Select Your Benifits</th>
-                <th style="font-weight: bold;text-align:center;width:20%;">Sum Assured (LKR)</th>
-                <th style="font-weight: bold;text-align:center;width:15%;">Premium (LKR)</th>
-                <th style="font-weight: bold;text-align:center;width:15%;">Loading (LKR)</th>
-                <th style="font-weight: bold;text-align:center;width:20%;">Total Premium (LKR)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails.Count; i++)
-            {
-                string BenifitName = "LstBenifitDetails[" + i + "].BenifitName";
-                string Val = "LstBenifitDetails[" + i + "].Suminsured." + "valueAsNumber";
-                string SilbID = "lblBenefitSI" + Model.SelectedQuote + MemberIndex + i;
-                string SitxtID = "txtBenefitSI" + Model.SelectedQuote + MemberIndex + i;
-                string ridtxtID = "txtBenefitPremium" + Model.SelectedQuote + MemberIndex + i;
-                string loadinglbID = "lblLoadingAmount" + Model.SelectedQuote + MemberIndex + i;
-                string tplbID = "lblTotalPremium" + Model.SelectedQuote + MemberIndex + i;
-                <tr>
-                    <th class="iGridHeader">Select your Benefit</th>
-                    <td>
-                        
+    <div id="BenifitTable_@Model.SelectedQuote">
+        @for (int i = 0; i < Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails.Count; i++)
+        {
+            string BenifitName = "LstBenifitDetails[" + i + "].BenifitName";
+            string Val = "LstBenifitDetails[" + i + "].Suminsured." + "valueAsNumber";
+            string SilbID = "lblBenefitSI" + Model.SelectedQuote + MemberIndex + i;
+            string SitxtID = "txtBenefitSI" + Model.SelectedQuote + MemberIndex + i;
+            string ridtxtID = "txtBenefitPremium" + Model.SelectedQuote + MemberIndex + i;
+            string loadinglbID = "lblLoadingAmount" + Model.SelectedQuote + MemberIndex + i;
+            string tplbID = "lblTotalPremium" + Model.SelectedQuote + MemberIndex + i;
+            <div class="risk-info-div row col-lg-12 col-md-12 col-sm-12 col-12" id="BenifitRow_@i">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-6">
+                    <label>Benefit Name</label>
+                    <span>
                         @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "FAMILY HOSPITAL EXPENSE COVER")
-                        {
-                            <span>
-                                <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#HECModal_@Model.SelectedQuote" />
+                {
+                    <span>
+                        <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#HECModal_@Model.SelectedQuote" />
 
-                            </span>
-                            @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
-                        }
-                        
-                        else if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "HOSPITAL EXPENSE COVER")
-                        {
-                            <span>
-                                <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#EduHECModal_@Model.SelectedQuote" />
+                    </span>
+                    @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+                }
 
-                            </span>
-                            @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
-                        }
-                        else if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "FAMILY GLOBAL HOSPITALISATION CARE" || Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "GLOBAL HOSPITALISATION CARE")
-                        {
-                            <span>
-                                <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#HealthHECModal_@Model.SelectedQuote" />
+                else if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "HOSPITAL EXPENSE COVER")
+                {
+                    <span>
+                        <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#EduHECModal_@Model.SelectedQuote" />
 
-                            </span>
-                            @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
-                        }
-                        else
-                        {
-                            @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
-                        }
+                    </span>
+                    @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+                }
+                else if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "FAMILY GLOBAL HOSPITALISATION CARE" || Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "GLOBAL HOSPITALISATION CARE")
+                {
+                    <span>
+                        <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#HealthHECModal_@Model.SelectedQuote" />
+
+                    </span>
+                    @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+                }
+                else
+                {
+                    @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+                }
 
                         @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].Mandatory)
-                        {
-                            @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted })
-                        }
-                        else
-                        {
-                            @Html.CheckBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted, new { @id = "ChkBenifit" + i, @style = "float:right" })
-                        }
+                {
+                    @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted })
+                }
+                else
+                {
+                    @Html.CheckBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitOpted, new { @id = "ChkBenifit" + i, @class = "benefitchkbox", @style = "float:right" })
+                }
                         @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].Mandatory, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].Mandatory })
                         @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName })
                         @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenefitID })
@@ -104,47 +109,56 @@
                         @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium })
                         @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingPercentage, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingPercentage })
                         @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadinPerMille, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadinPerMille })
-                       
-                    </td>
-                    <th class="iGridHeader">Sum Assured(LKR)</th>
-                    <td>
-                        @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].CalType.ToUpper() == "CAL")
-                        {
-                            if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderID == 10)
-                            {                                
-                                @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured })
-                            }
-                            else
-                            {
-                                @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "label-type", @id = SitxtID, maxlength = "12" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+                    </span>
+                </div>
 
-                            }
-                        }
-                        else
-                        {
-                            @Html.CurrencyTextBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "form-control", @id = SitxtID, maxlength = "12", @onchange = "f1(id)", @onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)", @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, @style = "text-align: center;" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
-                        }
+                
+                    <div class="divhideshow col-lg-2 col-md-2 col-sm-4 col-6">
+                        <label>Sum Assured (LKR)</label>
+                        <span>
+                            @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].CalType.ToUpper() == "CAL")
+                {
+                    if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderID == 10)
+                    {
+                                    @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured })
+                    }
+                    else
+                    {
+                                    @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "label-type", @id = SitxtID, maxlength = "12" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
 
+                    }
+                }
+                else
+                {
+                                @Html.CurrencyTextBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "form-control", @id = SitxtID, maxlength = "12", @onchange = "f1(id)", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, @style = "text-align: center;" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+                }
+                        </span>
+                    </div>
 
-                    </td>
-                    <th class="iGridHeader">Premium(LKR)</th>
-                    <td>
-                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @class = "label-type", maxlength = "12", @id = ridtxtID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium)
-                    </td>
-                    <th class="iGridHeader">Loading(LKR)</th>
-                    <td>
-                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount, new { @class = "label-type", maxlength = "12", @id = loadinglbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount)
-                    </td>
-                    <th class="iGridHeader">Total Premium(LKR) </th>
-                    <td>
-                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium, new { @class = "label-type", maxlength = "12", @id = tplbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium)
-                    </td>
-                </tr>
-            }
-        </tbody>
+                    <div class="divhideshow col-lg-2 col-md-2 col-sm-4 col-6">
+                        <label>Premium (LKR)</label>
+                        <span>
+                            @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @class = "label-type", maxlength = "12", @id = ridtxtID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium)
+                        </span>
+                    </div>
 
-    </table>
+                    <div class="divhideshow col-lg-2 col-md-2 col-sm-4 col-6">
+                        <label>Loading (LKR)</label>
+                        <span>
+                            @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount, new { @class = "label-type", maxlength = "12", @id = loadinglbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingAmount)
+                        </span>
+                    </div>
 
+                    <div class="divhideshow col-lg-2 col-md-2 col-sm-4 col-8">
+                        <label>Total Premium (LKR)</label>
+                        <span>
+                            @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium, new { @class = "label-type", maxlength = "12", @id = tplbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium)
+                        </span>
+                    </div>
+                
+            </div>
+        }
+    </div>
 </div>
 <div class="modal fade" id="HECModal_@Model.SelectedQuote" role="dialog">
     <div class="modal-dialog">
@@ -231,6 +245,23 @@
 
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.benefitchkbox').click(function () {
+            debugger;
+            if ($(this).is(':checked')) {
+                $(this).parentsUntil('.risk-info-div').parent().find('.divhideshow').addClass('divhideshowactive');
+            }
+            else {
+                $(this).parentsUntil('.risk-info-div').parent().find('.divhideshow').removeClass('divhideshowactive');
+            }
+        });
+    });
+</script>
+
+
+
 @*<script>
         var el, newPoint, newPlace, offset;
 

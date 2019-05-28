@@ -25,7 +25,7 @@
     }
 
     .document-link-list i {
-        background-color: #B8123E;
+        background-color: #5a73ef;
         color: white;
         margin-left: 12px;
         padding: 4px;
@@ -68,8 +68,6 @@
                     string DoctypeID = "ddlDocumentType" + i;
                     string MemberTypeId = "ddlMemberType" + i;
                     string HdnFilePath = "hdnFilepath" + i;
-                    string HdnDocID = "hdnDocID" + i;
-                    string HdnDocumentID = "hdnDocumentID" + i;
                     string DocumentLink = "hdnFilepath" + i;
                     string ExistingFileName = "lnkExistingFileName" + i;
                     string UploadDoctd = "uploaddoctd" + i;
@@ -89,8 +87,6 @@
                                 <i class="fa fa-upload"></i>
                             </label>
                             <input type="file" name="@FileControlID" class='form-control' id="@FileControlID" onchange="Handlechange(id)" />
-                            @Html.Hidden("HiddenDocID", Model.objDocumentUpload[i].DOCID, new { @id = HdnDocumentID })
-
                         </td>
 
                         <td class="document-link-list" data-name='Link'>
@@ -99,7 +95,6 @@
                                     for (int j = 0; j < Model.objDocumentUpload[i].objlstDocuments.Count(); j++)
                                     {
                                         @Html.Hidden("HiddenFilePath", Model.objDocumentUpload[i].objlstDocuments[j].ExistingFileName, new { @id = HdnFilePath + j }) //HdnFilePath //"hdnFilepath" + Model.objDocumentUpload[i].DocIndex + j
-                                        @Html.Hidden("HiddenDocID", Model.objDocumentUpload[i].objlstDocuments[j].DOCID, new { @id = HdnDocID + j })
                                         <li>
                                             @{
                                                 if (Model.objDocumentUpload[i].objlstDocuments[j].FileName != null)
@@ -107,7 +102,7 @@
                                                     @Html.ActionLink(Model.objDocumentUpload[i].objlstDocuments[j].FileName, "DownloadPolicyDocument", "Utility", new { FilePath = Model.objDocumentUpload[i].objlstDocuments[j].ExistingFileName, @style = "margin-left:-40px" }, new { @id = deletelink + i })
                                                     if (Model.Underwriter != "UW")
                                                     {
-                                                        <span id="@Modifiedeletelink" onclick="deleteImage(id)"><i class="fa fa-close"></i></span> //"lnkExistingFileName" + Model.objDocumentUpload[i].DocIndex + k
+                                                        <span id="@Modifiedeletelink" onclick="fundeleteImage(id,@i)"><i class="fa fa-close"></i></span> //"lnkExistingFileName" + Model.objDocumentUpload[i].DocIndex + k
 
                                                     }
 
@@ -134,7 +129,7 @@
             </tbody>
         </table>
     </div>
-    <div class="clearfix"></div>
+   
     <div class="col-lg-3 col-sm-6 col-md-3 col-xl-12"><input type="button" class="btn btn-default btnhide" value="Add " id="btnAddDocument" onclick="AddNewDocumentUpload()" /></div>
 </div>
 
@@ -217,10 +212,9 @@
         var DoctypeID = 'ddlDocumentType' + DocGridLength;
         var DocumentLink = 'hdnFilepath' + DocGridLength;
         var  MemberTypeId ='ddlMemberType' + DocGridLength;
-        var  HdnDocumentID = "hdnDocumentID" + DocGridLength;
         newRow = "<tr  id='" + Row_ID + "'>" +
                "<td data-name='Document_Name' data-label='Doc_Name' ><select class='form-control'  id=\'" + DoctypeID + "\'><option>Select</option></select></td>" +
-              "<td class='upload-doc'  data-name='FileName' data-label='File Name' >  <label for='txtFileName_" + DocGridLength + "'> <i class='fa fa-upload'></i>  </label> <input name='txtFileName_" + DocGridLength + "' class='form-control' type='file'  id='txtFileName_" + DocGridLength + "'  onChange='Handlechange(id)' /><input id='"+HdnDocumentID+"' name='objDocumentUpload["+DocGridLength+"].DOCID' type='hidden' value='0'></td>" +
+              "<td class='upload-doc'  data-name='FileName' data-label='File Name' >  <label for='txtFileName_" + DocGridLength + "'> <i class='fa fa-upload'></i>  </label> <input name='txtFileName_" + DocGridLength + "' class='form-control' type='file'  id='txtFileName_" + DocGridLength + "'  onChange='Handlechange(id)' /></td>" +
                "<td class='document-link-list' data-name='Link' data-label='Link' ><ul id=\'" + DocumentLink + "\'></ul></td>" +
                 "<td  data-name='MemberType' data-label='Member Type'><select class='form-control'  id=\'" + MemberTypeId + "\'><option>Select</option></select></td>" +
                "<td ><input class='btn btn-default' id=\'" + DeleteId + "\' style='margin-top: 3px;' type='button' value='Delete' onclick='DeleteUploadRow(" + DocGridLength + ")'/></td></tr>";
@@ -262,10 +256,9 @@
         var Index = parseInt(index);
         var DoctypeID = $('#ddlDocumentType' + index).val();
         var  MemberTypeId =$('#ddlMemberType' + index).val();
-        var DocID = $('#hdnDocumentID'+ index).val();
         $.ajax({
             type: "POST",
-            url: "/Policy/DeletePolicyDocument?MemberType=" + MemberTypeId+"&DocumentType="+DoctypeID+"&DocID="+DocID,
+            url: "/Policy/DeletePolicyDocument?MemberType=" + MemberTypeId+"&DocumentType="+DoctypeID,
             contentType: false,
             processData: false,
             success: function (data) {
@@ -311,9 +304,9 @@
             $(this).find("[data-name=MemberType]").find("option:selected").prop("disabled", false);
             $(this).find("[data-name=Document_Name]").find("option:selected").prop("disabled", false);
             var Document_Name = $(this).find("[data-name=Document_Name]").find("option:selected").val();
-            var DocID = $(this).find("[data-name=FileName]").find("input[type=hidden]").val();
             var FileNameId = $(this).find("[data-name=FileName]").find("input[type=file]").val();
             var MemberType = $(this).find("[data-name=MemberType]").find("option:selected").val();
+
 
             var FilePath = '';
             if( $('#txtFileName_' + index).get(0) != undefined)
@@ -325,14 +318,14 @@
                     {
                         jsonDocumentUpload.push({
                             DocName: Document_Name, FileName: "",
-                            FilePath: null, Key: null, ItemType:'PolicyDocuments',MemberType:MemberType, DOCID:DocID });
+                            FilePath: null, Key: null, ItemType:'PolicyDocuments',MemberType:MemberType });
                     }
                     for( var i=0; i <files.length;i++)
                     {
                         data.append('file_' + index+i, $('input[id="txtFileName_' + index + '"]')[0].files[i]);
                         jsonDocumentUpload.push({
                             DocName: Document_Name, FileName: $('input[id="txtFileName_' + index + '"]')[0].files[i].name,
-                            FilePath: FilePath, Key: 'file_' + index+i, ItemType:'PolicyDocuments',MemberType:MemberType, DOCID:DocID });
+                            FilePath: FilePath, Key: 'file_' + index+i, ItemType:'PolicyDocuments',MemberType:MemberType });
                     }
                 }
                 else{
@@ -541,7 +534,7 @@
                                                     //$("#IsOCRSeleted" + index).val(true);
                                                     $("#hdnIsOCRSeleted" + index).val(true);
                                                     var Image="<img class='Img-align' src='../Images/checked1.png' />"
-                                                    var Message = '<br/><p> Entered NIC Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR NIC Number : '+NICNumber+' <span id="RightOCR' + UploadIndex + '"><i class="fa fa-check" style="color: green;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC is matched!</p>';
+                                                    var Message = '<br/><p> Entered SSN Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR SSN Number : '+NICNumber+' <span id="RightOCR' + UploadIndex + '"><i class="fa fa-check" style="color: green;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC is matched!</p>';
                                                     $('#OCROk').show();
                                                     $('#OCRYes').hide();
                                                     $('#OCRNo').hide();
@@ -555,7 +548,7 @@
                                                     $("#hdnIsOCRSeleted" + index).val(false);
                                                     $("#txtHdnOCRPath" + DocumentsUploadID).val(false);
                                                     var Image="<img class='Img-align' src='../Images/warning1.png' />"
-                                                    var Message = '<br/><p> Entered NIC Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR NIC Number : '+NICNumber+' <span id="WrongOCR' + UploadIndex + '"><i class="fa fa-close" style="color: red;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC image is mismatched. Do you want to proceed? </p>';
+                                                    var Message = '<br/><p> Entered SSN Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR SSN Number : '+NICNumber+' <span id="WrongOCR' + UploadIndex + '"><i class="fa fa-close" style="color: red;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC image is mismatched. Do you want to proceed? </p>';
                                                     $('#OCROk').hide();
                                                     $('#OCRYes').show();
                                                     $('#OCRNo').show();

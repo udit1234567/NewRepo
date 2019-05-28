@@ -40,12 +40,12 @@
     }
 
     .tab-content {
-        float: left;
+        float: none;
     }
 </style>
 
-
-<ul class="nav nav-pills list-add" id="tabsQuestionaries">
+<div class="tab">
+<ul class="nav list-add nav-tabs" id="tabsQuestionaries">
     
     @foreach (var item in Model.ListAssured)
     {
@@ -54,8 +54,8 @@
             if (count == 0)
             {
                 
-                    <li class="active width">
-                        <a class="collapsed" data-toggle="pill" href="#tab_6_@count">@Resources.GetLabelName(item)</a>
+                    <li class="width">
+                        <a class="collapsed active" data-toggle="pill" href="#tab_6_@count">@Resources.GetLabelName(item)</a>
                     </li>
                
 
@@ -72,7 +72,7 @@
         count++;
     }
 </ul>
-<div class="clearfix"></div>
+</div>
 <div class="tab-content" id="collapseQ">
 
     @foreach (var Assured in Model.ListAssured)
@@ -81,179 +81,223 @@
         Model.AssuredIndex = Model.objMemberDetails.FindIndex(a => a.AssuredName == Assured);
         if (tabCount == 0)
         {
-            <div class="tab-pane fade in active" id="tab_6_@tabCount">
-
-                <ul class="nav nav-pills nav-stacked col-lg-2 col-md-3 col-sm-3 col-xs-12">
-
-                    <li class="active"><a href=@PanleNavigatorheader data-toggle="pill">@Resources.GetLabelName("Life Style")</a></li>
-                    <li><a href=@medicalPanleNavigatorheader data-toggle="pill">@Resources.GetLabelName("Medical History")</a></li>
-                    <li><a href=@familyPanleNavigatorheader data-toggle="pill"> @Resources.GetLabelName("Family BackGround")</a></li>
-                    <li><a href=@additionalPanleNavigatorheader data-toggle="pill">@Resources.GetLabelName("Additional Questionnaire")</a></li>
-                    <li><a href=@previousPanleNavigatorheader data-toggle="pill">@Resources.GetLabelName("Previous And Current Life Insurance")</a></li>
-                </ul>
-
-                <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12 QuesBox-Space1">
-                    <div class="tab-content">
-
-                        @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].Basicpremium, new { })
-                        @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].BasicSumInsured, new { })
+            <div class="tab-pane fade in active show" id="tab_6_@tabCount">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href=@PanleNavigatorheader>
+                           @Resources.GetLabelName("Life Style")
+                        </a>
+                    </div>
+                    @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].Basicpremium, new { })
+                    @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].BasicSumInsured, new { })
 
 
-                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268" )
-                        {
-                        <div id=@PanleNavigator class="tab-pane fade in active row" role="tabpanel" aria-labelledby=@PanleID>
-                            @Html.Partial("~/Views/Policy/_PartialLifeStyle.cshtml", Model)
-                        </div>
-                        <div class="clearfix"></div>
+                    @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                    {
+                        <div id=@PanleNavigator class="collapse show" data-parent="#tab_6_@tabCount">
+                            <div class="card-body">
+                                @Html.Partial("~/Views/Policy/_PartialLifeStyle.cshtml", Model)
+                            </div>
+                            </div>
 
-                        }
 
-                        <div id=@medicalPanleNavigator class="tab-pane fade row" role="tabpanel" aria-labelledby=@medicalpanleID>
+                    }
+                    </div>
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link collapsed" data-toggle="collapse" href=@medicalPanleNavigatorheader>
+                           @Resources.GetLabelName("Medical History")
+                        </a>
+                    </div>
+                    <div id=@medicalPanleNavigator class="collapse" data-parent="#tab_6_@tabCount">
+                        <div class="card-body">
                             @Html.Partial("~/Views/Policy/PartialMedicalHistory.cshtml", Model)
                         </div>
-                        <div class="clearfix"></div>
-
-
-                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
-                        {
-                        <div id=@familyPanleNavigator class="tab-pane fade row" role="tabpanel" aria-labelledby=@familypanleID>
-                            @Html.Partial("~/Views/Policy/_PartialFamilyBackGround.cshtml", Model)
-
-                        </div>
-
-                        }
-
-                        <div class="clearfix"></div>
-                       @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
-                       {
-                        <div id=@additionalPanleNavigator class="tab-pane fade occupationquestions row" role="tabpanel" aria-labelledby=@additionalpanleID>
-                            @Html.Partial("~/Views/Policy/_PartialAdditionalQuestionnaire.cshtml", Model)
-                        </div>
-                       }
-                       
-                        <div class="clearfix"></div>
-                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
-                        {
-                        <div id=@previousPanleNavigator class="tab-pane fade row" role="tabpanel" aria-labelledby=@previouspanleID>
-                            @Html.Partial("~/Views/Policy/_PartialOtherInsurnceDetails.cshtml", Model)
-                        </div>
-                        }
-                        <div class="clearfix"></div>
                     </div>
                 </div>
-                <div class="clearfix"></div>
-            </div>
-                <div class="clearfix"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link collapsed" data-toggle="collapse" href=@familyPanleNavigatorheader>
+                            @Resources.GetLabelName("Family BackGround")
+                        </a>
+                    </div>
+
+                    @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                    {
+                    <div id=@familyPanleNavigator class="collapse" data-parent="#tab_6_@tabCount">
+                        <div class="card-body">
+                            @Html.Partial("~/Views/Policy/_PartialFamilyBackGround.cshtml", Model)
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link collapsed" data-toggle="collapse" href=@additionalPanleNavigatorheader>
+                            @Resources.GetLabelName("Additional Questionnaire")
+                        </a>
+                    </div>
+                    @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                    {
+                    <div id=@additionalPanleNavigator class="collapse" data-parent="#tab_6_@tabCount">
+                        <div class="card-body">
+                            @Html.Partial("~/Views/Policy/_PartialAdditionalQuestionnaire.cshtml", Model)
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link collapsed" data-toggle="collapse" href=@previousPanleNavigatorheader>
+                            @Resources.GetLabelName("Previous And Current Life Insurance")
+                        </a>
+                    </div>
+                    @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                    {
+                    <div id=@previousPanleNavigator class="collapse" data-parent="#tab_6_@tabCount">
+                        <div class="card-body">
+                            @Html.Partial("~/Views/Policy/_PartialOtherInsurnceDetails.cshtml", Model)
+                        </div>
+                    </div>
+                    }
+                </div>
+                       
+                    </div>
+
+
+
         }
         else
         {
-            <div class="tab-pane" id="tab_6_@tabCount">
-                <ul class="nav nav-pills nav-stacked col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                    <div class="tab-pane" id="tab_6_@tabCount">
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="card-link" data-toggle="collapse" href=@PanleNavigatorheader@tabCount>
+                                    @Resources.GetLabelName("Life Style")
+                                </a>
+                            </div>
+                @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].Basicpremium, new { })
+                @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].BasicSumInsured, new { })
+                @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                    {
 
-                    <li class="active"><a href=@PanleNavigatorheader@tabCount data-toggle="pill">@Resources.GetLabelName("Life Style")</a></li>
-                    <li><a href=@medicalPanleNavigatorheader@tabCount data-toggle="pill">@Resources.GetLabelName("Medical History")</a></li>
-                    <li><a href=@familyPanleNavigatorheader@tabCount data-toggle="pill"> @Resources.GetLabelName("Family BackGround")</a></li>
-                    <li><a href=@additionalPanleNavigatorheader@tabCount data-toggle="pill">@Resources.GetLabelName("Additional Questionnaire")</a></li>
-                    <li><a href=@previousPanleNavigatorheader@tabCount data-toggle="pill">@Resources.GetLabelName("Previous And Current Life Insurance")</a></li>
-                </ul>
-                <div class="col-lg-10 col-sm-9 col-md-9 col-xs-12 QuesBox-Space1">
-                    <div class="tab-content">
-                        @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].Basicpremium, new { })
-                        @Html.HiddenFor(a => a.objMemberDetails[Model.AssuredIndex].BasicSumInsured, new { })                    
-                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
-                        {
+                            <div id=@PanleNavigator@tabCount class="collapse show" data-parent="#tab_6_@tabCount">
+                                <div class="card-body">
+                                    @Html.Partial("~/Views/Policy/_PartialLifeStyle.cshtml", Model)
+                                </div>
+                            </div>
+                }
+                else
+                {
+                    <div id=@PanleNavigator@tabCount class="collapse show" data-parent="#tab_6_@tabCount">
+                        <div class="card-body">
                             
-                            <div id=@PanleNavigator@tabCount class="tab-pane fade in active row" role="tabpanel" aria-labelledby=@PanleID>
-                                @Html.Partial("~/Views/Policy/_PartialLifeStyle.cshtml", Model)
-                                <br />
-                                <br />
+                        </div>
+                    </div>
+                }
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="card-link collapsed" data-toggle="collapse" href=@medicalPanleNavigatorheader@tabCount>
+                                    @Resources.GetLabelName("Medical History")
+                                </a>
                             </div>
-                            <div class="clearfix"></div>
-                        }
-                        else
-                        {
-                            <div id=@PanleNavigator@tabCount class="tab-pane fade in active row" role="tabpanel" aria-labelledby=@PanleID>
-                               
-                            </div>
-                        }
                         @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "269" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "270")
                         {
-
-                            <div id=@medicalPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@medicalpanleID>
-
-                                @Html.Partial("~/Views/Policy/PartialMedicalHistory.cshtml", Model)
-                                <br />
-                                <br />
+                            <div id=@medicalPanleNavigator@tabCount class="collapse" data-parent="#tab_6_@tabCount">
+                                <div class="card-body">
+                                    @Html.Partial("~/Views/Policy/PartialMedicalHistory.cshtml", Model)
+                                </div>
                             </div>
-                            <div class="clearfix"></div>
                         }
                         else
                         {
-                            <div id=@medicalPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@medicalpanleID>
-
-                             
+                            <div id=@medicalPanleNavigator@tabCount class="collapse show" data-parent="#tab_6_@tabCount">
+                                <div class="card-body">
+                                   
+                                </div>
                             </div>
                         }
-                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
-                        {
-
-                            <div id=@familyPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@familypanleID>
-
-                                @Html.Partial("~/Views/Policy/_PartialFamilyBackGround.cshtml", Model)
-                                <br />
-                                <br />
-                            </div>
-
-                        }
-                        else
-                        {
-                            <div id=@familyPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@familypanleID>
-
-                               
-                            </div>
-                        }
-                        <div class="clearfix"></div>
-                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
-                        {
-                        <div id=@additionalPanleNavigator@tabCount class="tab-pane fade occupationquestionssub row" role="tabpanel" aria-labelledby=@additionalpanleID>
-                            @Html.Partial("~/Views/Policy/_PartialAdditionalQuestionnaire.cshtml", Model)
-                            <br />
-                            <br />
                         </div>
-
-                        }
-                        else
-                        {
-                            <div id=@additionalPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@additionalpanleID>
-                               
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="card-link collapsed" data-toggle="collapse" href=@familyPanleNavigatorheader@tabCount>
+                                   @Resources.GetLabelName("Family BackGround")
+                                </a>
                             </div>
-                        }
-                        <div class="clearfix"></div>
-                        @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
-                        {
-                           
-                        <div id=@previousPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@previouspanleID>
-                            @Html.Partial("~/Views/Policy/_PartialOtherInsurnceDetails.cshtml", Model)
+                            @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                            {
+                            <div id=@familyPanleNavigator@tabCount class="collapse" data-parent="#tab_6_@tabCount">
+                                <div class="card-body">
+                                    @Html.Partial("~/Views/Policy/_PartialFamilyBackGround.cshtml", Model)
+                                </div>
+                            </div>
+                            }
+                            else
+                            {
+                                <div id=@familyPanleNavigator@tabCount class="collapse" data-parent="#tab_6_@tabCount">
+                                    <div class="card-body">
+                                    </div>
+                                </div>
+                            }
                         </div>
-                        <div class="clearfix"></div>
-                        }
-                        else
-                        {
-                            <div id=@previousPanleNavigator@tabCount class="tab-pane fade row" role="tabpanel" aria-labelledby=@previouspanleID>
-                            
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="card-link collapsed" data-toggle="collapse" href=@additionalPanleNavigatorheader@tabCount>
+                                    @Resources.GetLabelName("Additional Questionnaire")
+                                </a>
                             </div>
-                        }
+                            @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                            {
+                            <div id=@additionalPanleNavigator@tabCount class="collapse" data-parent="#tab_6_@tabCount">
+                                <div class="card-body">
+                                    @Html.Partial("~/Views/Policy/_PartialAdditionalQuestionnaire.cshtml", Model)
+                                </div>
+                            </div>
+                            }
+                            else
+                            {
+                                <div id=@additionalPanleNavigator@tabCount class="collapse" data-parent="#tab_6_@tabCount">
+                                    <div class="card-body">
+                                       
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="card-link collapsed" data-toggle="collapse" href=@previousPanleNavigatorheader@tabCount>
+                                    @Resources.GetLabelName("Previous And Current Life Insurance")
+                                </a>
+                            </div>
+                            @if (Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "267" || Model.objMemberDetails[Model.AssuredIndex].RelationShipWithPropspect == "268")
+                            {
+                            <div id=@previousPanleNavigatorheader@tabCount class="collapse" data-parent="#tab_6_@tabCount">
+                                <div class="card-body">
+                                    @Html.Partial("~/Views/Policy/_PartialOtherInsurnceDetails.cshtml", Model)
+                                </div>
+                            </div>
+                            }
+                            else
+                            {
+                                <div id=@previousPanleNavigatorheader@tabCount class="collapse" data-parent="#tab_6_@tabCount">
+                                    <div class="card-body">
 
-                    </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                       </div>
+                    }
+
+                    tabCount++;
+                    }
+                   
                 </div>
-            </div>
-        }
-
-        tabCount++;
-    }
-    <div class="clearfix"></div>
+<div class="col-lg-12" style="text-align:center">
+    <button class="btn btn-primary previousBtn" type="button">Previous</button>
+    <button class="btn btn-primary nextBtn btn-lg" type="button">Next</button>
 </div>
-<div class="clearfix"></div>
 <script type="text/javascript">
     
 
@@ -561,12 +605,12 @@
         });
         if (IsvalidData) {
             writeMultipleMessage("error", "", 'ddlTypeSmoke' + MemberIndex + index);
-            newRow = "<tr id='" + _RowId + "' >" +
-                "<td><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].SmokeType' id=\'" + Type + "'/></td>" +
-                "<td><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].SmokeQuantity' id=\'" + Number + "'/></td>" +
-                "<td><input value='' class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].SmokeDuration' id=\'" + HowLong + "'/></td>" +
+            newRow = "<tr id='" + _RowId + "' class='grid-row'>" +
+                "<th class='grid-header'>Type</th><td class='grid-cell' data-name='Type' data-label='Type'><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].SmokeType' id=\'" + Type + "'/></td>" +
+                "<th class='grid-header'>How Many Sticks per Day?</th><td class='grid-cell' data-name='How Many Sticks per Day?' data-label='How Many Sticks per Day?'><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].SmokeQuantity' id=\'" + Number + "'/></td>" +
+                "<th class='grid-header'>How Long(Years)?</th><td class='grid-cell' data-name='How Long(Years)?' data-label='How Long(Years)?'><input value='' class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].SmokeDuration' id=\'" + HowLong + "'/></td>" +
                 "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objSmokeDetails[" + index + "].Isdeleted' id=\'" + IsDeleted + "' /></td>" +
-                "<td style='width:5%'><input value='-' type='button' style='margin-left:25%' onclick='DeleteLifeStyleQARow(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + index + "\")' id=\'" + Remove + "'/></td>" +
+                "<th class='grid-header'>Delete</th><td style='width:5%'><input value='-' type='button' style='margin-left:25%' onclick='DeleteLifeStyleQARow(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + index + "\")' id=\'" + Remove + "'/></td>" +
                 "</tr>";
 
             $('#' + DivID + ' tbody:last').append(newRow);
@@ -669,13 +713,13 @@
         var _RowId = "Alcohol" + MemberIndex + index;
         if (IsvalidData) {
             writeMultipleMessage("error", "", 'ddlAlcholType' + MemberIndex + index);
-            newRow = "<tr id='" + _RowId + "' >" +
-                "<td><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholType' id=\'" + Type + "'/></td>" +
-                "<td><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholQuantity' id=\'" + Number + "'/></td>" +
-                "<td><input value='' class='form-control' type ='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholPerDay' id=\'" + Per + "'/></td>" +
-                "<td><input value='' class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholDuration' id=\'" + HowLong + "'/></td>" +
+            newRow = "<tr id='" + _RowId + "' class='grid-row' >" +
+                "<th class='gird-header'>Type</th><td class='grid-cell' data-name='Type' data-label='Type'><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholType' id=\'" + Type + "'/></td>" +
+                "<th class='gird-header'>Number</th><td class='grid-cell' data-name='Number' data-label='Number'><input class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholQuantity' id=\'" + Number + "'/></td>" +
+                "<th class='gird-header'>Per</th><td class='grid-cell' data-name='Per' data-label='Per'><input value='' class='form-control' type ='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholPerDay' id=\'" + Per + "'/></td>" +
+                "<th class='gird-header'>How Long(Years)?</th><td class='grid-cell' data-name='How Long(Years)?' data-label='How Long(Years)?'><input value='' class='form-control' type='text' readonly='readonly' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].AlcholDuration' id=\'" + HowLong + "'/></td>" +
                 "<td style='display:none'><input value='' class='form-control' type='text' name='objMemberDetails[" + MemberIndex + "].objLifeStyleQuetions.objAlcoholDetails[" + index + "].Isdeleted' id=\'" + IsDeleted + "' /></td>" +
-                "<td style='width:5%'><input value='-' type='button' style='margin-left: 40%; width: 18%' onclick='DeleteLifeStyleAlcholRow(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + index + "\")' class='form-control' id=\'" + Remove + "'/></td>" +
+                "<th class='grid-header'>Delete</th><td style='width:5%'><input value='-' type='button' style='margin-left: 40%; width: 18%' onclick='DeleteLifeStyleAlcholRow(\"" + DivID + "\",\"" + MemberIndex + "\",\"" + index + "\")' class='form-control' id=\'" + Remove + "'/></td>" +
                 "</tr>";
             $('#' + DivID + ' tbody:last').append(newRow);
 

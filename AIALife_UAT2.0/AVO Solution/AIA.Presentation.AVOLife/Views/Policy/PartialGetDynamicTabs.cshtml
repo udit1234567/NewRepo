@@ -35,9 +35,9 @@
 @*<div id=@PanleNavigator class="panel-collapse" role="tabpanel" aria-labelledby=@PanleID>
     <div class="panel-body">*@
 
-
-<ul class="nav nav-pills">
-    @foreach (var item in Model.ListAssured)
+<div class="tab">
+    <ul class="nav nav-pills nav-tabs">
+        @foreach (var item in Model.ListAssured)
     {
         string TabId = Convert.ToString(count) + Model.AssuredIndex;
 
@@ -45,15 +45,15 @@
         {
             if (count == 1)
             {
-                
+
                     <li class="active width">
-                        <a data-toggle="pill" href="#tab_6_@TabId">@Resources.GetLabelName(item)</a>
+                        <a class="active" data-toggle="pill" href="#tab_6_@TabId">@Resources.GetLabelName(item)</a>
                     </li>
-                
+
             }
             else
             {
-                
+
                     <li class="width">
                         <a data-toggle="pill" href="#tab_6_@TabId">@Resources.GetLabelName(item)</a>
                     </li>
@@ -65,137 +65,138 @@
     }
 
 
-</ul>
-<div class="tab-content">
-    @foreach (var benifit in Model.objMemberDetails.ToList())
+    </ul>
+    <div class="tab-content product-tab">
+        @foreach (var benifit in Model.objMemberDetails.ToList())
     {
         string TabId = Convert.ToString(tabCount) + Model.AssuredIndex;
         if (tabCount == 1)
         {
-            <div class="tab-pane fade in active" id="tab_6_@TabId">
-                <div id="DivBenefitDetails_@TabId">
-                    <div style="display:none;">@(Model.SelectedPolicy = GlobalCount)</div>
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th style="font-weight: bold;text-align:center;width:30%;">Select Your Benifits</th>
-                                    <th style="font-weight: bold;text-align:center;width:20%;">Sum Assured (LKR)</th>
-                                    <th style="font-weight: bold;text-align:center;width:15%;">Premium (LKR)</th>
-                                    <th style="font-weight: bold;text-align:center;width:15%;">Loading (LKR)</th>
-                                    <th style="font-weight: bold;text-align:center;width:20%;">Total Premium (LKR)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (int i = 0; i < benifit.objBenifitDetails.Count(); i++)
-                                {
-                                    <tr id="tab_6_@TabId">
+                <div class="tab-pane fade in active show" id="tab_6_@TabId">
+                    <div id="DivBenefitDetails_@TabId">
+                        <div style="display:none;">@(Model.SelectedPolicy = GlobalCount)</div>
+                        <div id="divPremiumBenefitGrid">
+                        @for (int i = 0; i < benifit.objBenifitDetails.Count(); i++)
+                        { 
+                            <div class="divPremiumBenefitGridsec row col-lg-12 col-md-12 col-sm-12 col-12" id="tab_6_@TabId">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-6"><label>Select Your Benifits</label>
+                                <span>
+                                    @benifit.objBenifitDetails[i].BenifitName
+                                    @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].BenifitName, new { })
+                                    @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].BenefitID)
+                                    @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].MemberBenifitID)
+                                    @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].AssuredMember)
+                                    @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].RiderPremium)
+                                    @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].LoadingPercentage)
+                                </span>
+                                </div>
 
-                                        <td>
-                                            @benifit.objBenifitDetails[i].BenifitName
-                                            @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].BenifitName, new { })
-                                            @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].BenefitID)
-                                            @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].MemberBenifitID)
-                                            @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].AssuredMember)
-                                            @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].RiderPremium)
-                                            @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].LoadingPercentage )
-                                        </td>
-                                        <td style="height:50px;text-align:center">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-6"><label>Sum Assured (LKR)</label>
+                                <span>
+                                    @if (benifit.objBenifitDetails[i].BenifitName == "Waiver of Premium" || benifit.objBenifitDetails[i].BenifitName == "Premium Protection Benefit for 4 Pay" || benifit.objBenifitDetails[i].BenifitName == "Premium Protection Benefit for 6 Pay")
+                                    {
+                                        @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].RiderSuminsured, new { @Value = Model.LstBenifitDetails[GlobalCount].RiderSuminsured })
+                                        @*@Html.HiddenFor(m => m.objMemberDetails[Index].objBenifitDetails[i].RiderSuminsured, new { @Value = Model.objMemberDetails[Index].objBenifitDetails[i].RiderSuminsured })*@
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].RiderSuminsured))
+                                        </div>
+                                    }
 
-                                            @if (benifit.objBenifitDetails[i].BenifitName == "Waiver of Premium"  || benifit.objBenifitDetails[i].BenifitName == "Premium Protection Benefit for 4 Pay" || benifit.objBenifitDetails[i].BenifitName == "Premium Protection Benefit for 6 Pay")
-                                            {
-                                                @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].RiderSuminsured, new { @Value = Model.LstBenifitDetails[GlobalCount].RiderSuminsured })
-                                                @*@Html.HiddenFor(m => m.objMemberDetails[Index].objBenifitDetails[i].RiderSuminsured, new { @Value = Model.objMemberDetails[Index].objBenifitDetails[i].RiderSuminsured })*@
-                                            }
-                                            else
-                                            {
-                                                <div>
-                                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].RiderSuminsured))
-                                                </div>
-                                            }
+                                    @*@benifit.objBenifitDetails[i].RiderSuminsured*@
+                                    @*@Html.TextBoxFor(m => m.objMemberDetails[GlobalCount].objBenifitDetails[i].RiderSuminsured, new { @readonly = "readonly", @class = "form-control" })*@
+                                </span>
+                                </div>
 
-                                            @*@benifit.objBenifitDetails[i].RiderSuminsured*@
-                                            @*@Html.TextBoxFor(m => m.objMemberDetails[GlobalCount].objBenifitDetails[i].RiderSuminsured, new { @readonly = "readonly", @class = "form-control" })*@
-                                        </td>
-                                        <td>
-                                            @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].ActualRiderPremium))
-                                            @*@benifit.objBenifitDetails[i].RiderPremium*@
-                                            @*@Html.TextBoxFor(m => m.objMemberDetails[GlobalCount].objBenifitDetails[i].RiderPremium, new { @readonly = "readonly", @class = "form-control" })*@
-                                        </td>
-                                        <td>
-                                            @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].LoadingAmount))
-                                        </td>
-                                        <td>
-                                            @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].RiderPremium))
-                                        </td>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-6"><label>Premium (LKR)</label>
+                                <span>
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].ActualRiderPremium))
+                                    @*@benifit.objBenifitDetails[i].RiderPremium*@
+                                    @*@Html.TextBoxFor(m => m.objMemberDetails[GlobalCount].objBenifitDetails[i].RiderPremium, new { @readonly = "readonly", @class = "form-control" })*@
+                                </span>
+                                </div>
 
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-6"><label>Loading (LKR)</label>
+                                <span>
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].LoadingAmount))
+                                </span>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-6"><label>Total Premium (LKR)</label>
+                                <span>
+                                    @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].RiderPremium))
+                                </span>
+                                </div>
+                            </div>
+                        }
+                        </div>
                     </div>
                 </div>
-            </div>
         }
         else
         {
-            <div class="tab-pane" id="tab_6_@TabId">
-                <div id="DivBenefitDetails_@TabId">
-                    <div style="display:none;">@(Model.SelectedPolicy = GlobalCount)</div>
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th style="font-weight: bold;text-align:center;width:30%;">Select Your Benifits</th>
-                                    <th style="font-weight: bold;text-align:center;width:20%;">Sum Assured (LKR)</th>
-                                    <th style="font-weight: bold;text-align:center;width:15%;">Premium (LKR)</th>
-                                    <th style="font-weight: bold;text-align:center;width:15%;">Loading (LKR)</th>
-                                    <th style="font-weight: bold;text-align:center;width:20%;">Total Premium (LKR)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (int i = 0; i < benifit.objBenifitDetails.Count(); i++)
-                                {
-                                    <tr id="tab_6_@TabId">
-
-                                        <td>
+                <div class="tab-pane" id="tab_6_@TabId">
+                    <div id="DivBenefitDetails_@TabId">
+                        <div style="display:none;">@(Model.SelectedPolicy = GlobalCount)</div>
+                        <div id="divPremiumBenefitGrid">
+                            @for (int i = 0; i < benifit.objBenifitDetails.Count(); i++)
+                            {
+                                <div class="divPremiumBenefitGridsec row col-lg-12 col-md-12 col-sm-12 col-12" id="tab_6_@TabId">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-6">
+                                        <label>Select Your Benifits</label>
+                                        <span>
                                             @benifit.objBenifitDetails[i].BenifitName
                                             @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].BenifitName, new { })
                                             @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].BenefitID)
                                             @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].MemberBenifitID)
                                             @Html.HiddenFor(m => m.LstBenifitDetails[GlobalCount].AssuredMember)
-                                          
-                                        </td>
-                                        <td style="height:50px;text-align:center">
-                                            @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}",Convert.ToInt64(benifit.objBenifitDetails[i].RiderSuminsured))
-                                            @*@Html.TextBoxFor(m => m.objMemberDetails[GlobalCount].objBenifitDetails[i].RiderSuminsured, new { @readonly = "readonly", @class = "form-control" })*@
+                                        </span>
+                                    </div>
 
-                                        </td>
-                                        <td>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-6">
+                                        <label>Sum Assured (LKR)</label>
+                                        <span>
+                                            @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].RiderSuminsured))
+                                            @*@Html.TextBoxFor(m => m.objMemberDetails[GlobalCount].objBenifitDetails[i].RiderSuminsured, new { @readonly = "readonly", @class = "form-control" })*@
+                                        </span>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-6">
+                                        <label>Premium (LKR)</label>
+                                        <span>
                                             @*@benifit.objBenifitDetails[i].RiderPremium*@
                                             @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].ActualRiderPremium))
                                             @*@Html.TextBoxFor(m => m.objMemberDetails[GlobalCount].objBenifitDetails[i].RiderPremium, new { @readonly = "readonly", @class = "form-control" })*@
-                                        </td>
-                                        <td>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-6">
+                                        <label>Loading (LKR)</label>
+                                        <span>
                                             @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].LoadingAmount))
-                                        </td>
-                                        <td>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-6">
+                                        <label>Total Premium (LKR)</label>
+                                        <span>
                                             @string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(benifit.objBenifitDetails[i].RiderPremium))
-                                        </td>
-
-                                    </tr>
-
-                                }
-                            </tbody>
-                        </table>
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        
                     </div>
                 </div>
-            </div>
         }
         GlobalCount++;
         tabCount++;
     }
 
+    </div>
 </div>
 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group payablebtn-space" id="DivPremiumSection">
     <div class="col-md-6 col-sm-4 col-xs-12 col-lg-4 fna-final-count">

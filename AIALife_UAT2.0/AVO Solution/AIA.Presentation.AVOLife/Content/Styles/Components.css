@@ -1136,10 +1136,10 @@ Customized Bootstrap Buttons
 
 /* Bootstrap buttons */
 .btn-default {
-  color: #fff;
-  font-weight: 300;
-  background-color:#d31145;
-  border-color: #fff;
+    color: #fff;
+    font-weight: 300;
+    background-color: #1e308a;
+    border-color: #fff;
 }
 .btn-default1 {
   color: #fff;
@@ -1149,13 +1149,13 @@ Customized Bootstrap Buttons
   margin-left:0px;
 }
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {
-  color: #E86487;
+  color: #5a73ef;
   background-color: #fff;
-  border-color: #E86487;
+  border-color: #5a73ef;
 }
 .btn-default1:hover, .btn-default1:focus, .btn-default1:active, .btn-default1.active {
   color: #C21B17;
-  background-color: #E86487;
+  background-color: #5a73ef;
   border-color: #C21B17;
 }
 .open .btn-default.dropdown-toggle {
@@ -4077,7 +4077,7 @@ Dashboard Stats
   border-radius: 4px;
 }
 .dashboard-stat:before, .dashboard-stat:after {
-  content: " ";
+  content: none;
   display: table;
 }
 .dashboard-stat:after {
@@ -5040,7 +5040,7 @@ Customized Bootstrap Tabs
     .tabs-left.nav-tabs > li > a {
         display: block;
         margin-right: -1px;
-        background-color: #E86487;
+        background-color: #5a73ef;
     }
         .tabs-left.nav-tabs > li > a:hover, .tabs-left.nav-tabs > li > a:focus {
             -webkit-border-radius: 4px 0 0 4px;
@@ -5048,7 +5048,7 @@ Customized Bootstrap Tabs
             -ms-border-radius: 4px 0 0 4px;
             -o-border-radius: 4px 0 0 4px;
             border-radius: 4px 0 0 4px;
-            background-color: #D31145;
+            background-color: #1e308a;
             border-color: #eeeeee #dddddd #eeeeee #eeeeee;
         }
     .tabs-left.nav-tabs > li.active > a,
@@ -5059,7 +5059,7 @@ Customized Bootstrap Tabs
         -o-border-radius: 4px 0 0 4px;
         border-radius: 4px 0 0 4px;
         border-color: #ddd transparent #ddd #ddd;
-        background-color: #D31145;
+        background-color: #1e308a;
         *border-right-color: #ffffff;
     }
 

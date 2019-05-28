@@ -17,7 +17,7 @@
     {
         for (int c = 0; c < ChildCount; c++)
         {
-            <div>
+            <div class="row">
                 @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objChildDetials[c].CurrentAge, new { @id = "hdnChildCurrentage" + Model.SelectedQuote })
                 @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].ChildDeleteIndex, new { @id = "hdnChildDeleteIndex" + Model.SelectedQuote })
                 @if (Model.IsForCounterOffer)

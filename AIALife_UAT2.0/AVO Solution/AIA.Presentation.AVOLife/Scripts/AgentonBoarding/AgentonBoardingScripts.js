@@ -30,7 +30,7 @@
                     }
                     else if (data.IsProspectNICBlocked == true)
                     {
-                        var Message = '<p>NIC Number is Under Black List,Prospect ' + ProspectCode + " Code Moved to Audit/Finance/HRM Departments" + ' </p>';
+                        var Message = '<p>SSN Number is Under Black List,Prospect ' + ProspectCode + " Code Moved to Audit/Finance/HRM Departments" + ' </p>';
                     }
                     else {
                         var Message = '<p>Prospect ' + ProspectCode + " is created successfully" + ' </p>';
@@ -81,7 +81,7 @@
     //                    });
     //            }
     //            else {
-    //                writeMultipleMessage("error", "NIC Number already exist,you cannot create duplicate prospect code", "txtProspectNIC");
+    //                writeMultipleMessage("error", "SSN Number already exist,you cannot create duplicate prospect code", "txtProspectNIC");
     //                return false;
     //            }
     //        },
@@ -342,7 +342,7 @@ function ValidateProspectDetails() {
             //}
         }
         else {
-            writeMultipleMessage("error", "NIC Number Should be 12 or 9 Digits", "txtProspectNIC");
+            writeMultipleMessage("error", "SSN Number Should be 12 or 9 Digits", "txtProspectNIC");
             return false;
 
         }
@@ -488,7 +488,7 @@ function SaveAgetonBoardingPersonalDetails() {
         .done(function (data) {                
                 if (data.Message == 'Success') {
                     if (data.IsProspectNICBlocked == true) {
-                        var Message = '<p>'+"NIC Number is Under Black List,Prospect Code Moved to Audit/Finance/HRM Departments" + ' </p>';
+                        var Message = '<p>'+"SSN Number is Under Black List,Prospect Code Moved to Audit/Finance/HRM Departments" + ' </p>';
                         $("#tabCommunicationDetails").hide();
                         $("#tabEducationDetails").hide();
                         $("#tabReferenceDetails").hide();
@@ -1132,7 +1132,7 @@ function CheckNICNumberFormat(NIC, dob, gender) {
     }
     var NICNo = $('#' + NIC).val();
     if (NICNo == "") {
-        writeMultipleMessage("error", "Please Enter NIC Number", NIC);
+        writeMultipleMessage("error", "Please Enter SSN Number", NIC);
         return false;
     }
     var dob = $('#' + dob).val();
@@ -1184,7 +1184,7 @@ function CheckNICNumberFormat(NIC, dob, gender) {
         writeMultipleMessage("error", "", NIC);
         return true;
     } else {
-        writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", NIC);
+        writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", NIC);
         return false;
     }
     //}); 
@@ -1237,7 +1237,7 @@ function FetchDOBGenderfromNIC(e, dob, gender, Age) {
     var NICNo = $('#' + e.id).val();
     if (NICNo != null && NICNo != "") {
         if (NICNo == "") {
-            writeMultipleMessage("error", "Please Enter NIC Number", e.id);
+            writeMultipleMessage("error", "Please Enter SSN Number", e.id);
             return false;
         }
         if (NICNo.length == 12 || NICNo.length == 10) {
@@ -1276,13 +1276,13 @@ function FetchDOBGenderfromNIC(e, dob, gender, Age) {
                         return true;
                     }
                     else {
-                        writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", e.id);
+                        writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", e.id);
                         return false;
                     }
                 });
         }
         else {
-            writeMultipleMessage("error", "NIC Number should be 12 or 9 Digits", e.id);
+            writeMultipleMessage("error", "SSN Number should be 12 or 9 Digits", e.id);
             return false;
         }
     }
@@ -1309,7 +1309,7 @@ function NICNumberDuplicateCheckingLogic(NIC) {
                     return true;
                 }
                 else {
-                    writeMultipleMessage("error", "NIC Number already exist,you cannot create duplicate prospect code", NIC);
+                    writeMultipleMessage("error", "SSN Number already exist,you cannot create duplicate prospect code", NIC);
                     return false;
                 }
             },

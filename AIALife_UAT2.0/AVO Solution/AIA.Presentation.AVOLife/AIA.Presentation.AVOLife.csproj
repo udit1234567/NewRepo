@@ -1161,7 +1161,9 @@
     <Content Include="Content\Images\infoSearch.png" />
     <Content Include="Content\Images\inspection.png" />
     <Content Include="Content\Images\Insurance Details.png" />
+    <Content Include="Content\Images\inube.png" />
     <Content Include="Content\Images\iNubeLogo.png" />
+    <Content Include="Content\Images\iNubeLogo1.png" />
     <Content Include="Content\Images\janashakthi-inside.jpg" />
     <Content Include="Content\Images\janashakthi.png" />
     <Content Include="Content\Images\janashakti.jpg" />
@@ -1389,7 +1391,14 @@
     <Content Include="Content\Popup.css" />
     <Content Include="Content\Scripts\BootSideMenu.js" />
     <Content Include="Content\Scripts\bootstrap-multiselect.js" />
+    <Content Include="Content\Scripts\bootstrap.min.css" />
+    <Content Include="Content\Scripts\bootstrap.min.js" />
+    <Content Include="Content\Scripts\chosen.css" />
+    <Content Include="Content\Scripts\chosen.jquery.js" />
     <Content Include="Content\Scripts\css3-mediaqueries.js" />
+    <Content Include="Content\Scripts\font-awesome.min.css" />
+    <Content Include="Content\Scripts\jquery-2.2.4.min.js" />
+    <Content Include="Content\Scripts\jspdf.min.js" />
     <Content Include="Content\Scripts\layout.js" />
     <Content Include="Content\Scripts\metronic.js" />
     <Content Include="Content\Styles\BootSideMenu.css" />
@@ -1401,6 +1410,7 @@
     <Content Include="Content\Styles\Gridmvc.css" />
     <Content Include="Content\Styles\layout.css" />
     <Content Include="Content\Styles\main-styles.css" />
+    <Content Include="Content\Styles\Msite.css" />
     <Content Include="Content\Styles\NewLayout.css" />
     <Content Include="Content\Styles\simple-line-icons.css" />
     <Content Include="Content\Styles\under-writer.css" />
@@ -1484,6 +1494,7 @@
     <Content Include="Images\down-arrow1.png" />
     <Content Include="Images\dwn.png" />
     <Content Include="Images\edit.png" />
+    <Content Include="Images\error.png" />
     <Content Include="Images\ERS-Download.png" />
     <Content Include="Images\FeedBack.png" />
     <Content Include="Images\female.png" />
@@ -1503,11 +1514,14 @@
     <Content Include="Images\logout.png" />
     <Content Include="Images\Mail.png" />
     <Content Include="Images\male.png" />
+    <Content Include="Images\mCash2.png" />
     <Content Include="Images\MDMessage.png" />
     <Content Include="Images\memberstatus.png" />
     <Content Include="Images\minu-12x12.png" />
     <Content Include="Images\minu-18x18.png" />
     <Content Include="Images\minus.png" />
+    <Content Include="Images\Offline Payment Icon2.png" />
+    <Content Include="Images\OfflineImage.png" />
     <Content Include="Images\P-1.png" />
     <Content Include="Images\P-2.png" />
     <Content Include="Images\P-3.png" />
@@ -2544,6 +2558,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\ProductFlow\PropoalScript.js" />
+    <Content Include="Scripts\ProspectScript\ProspectFromValidation.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
@@ -2831,7 +2846,6 @@
     <Folder Include="Areas\Dashboard\Models\" />
     <Folder Include="Areas\Dashboard\Views\Shared\" />
     <Folder Include="ContentUpload\" />
-    <Folder Include="Scripts\ProspectScript\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

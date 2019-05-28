@@ -10,7 +10,7 @@
     </ul>*@
     <div class="sig sigWrapper" style="height:auto;">
         <div class="typed"></div>
-        <canvas class="pad" width="540" height="250" style="border: 1px solid #dbdad4;" id="QuoteSignatureID_@Model.SelectedQuote"></canvas>
+        <canvas class="pad" width="436" height="250" style="border: 1px solid #dbdad4;" id="QuoteSignatureID_@Model.SelectedQuote"></canvas>
         @*<input type="hidden" name="QuoteSignature" class="output" id="QuoteSignatureValue_@Model.SelectedQuote">*@
         @Html.HiddenFor(a=>a.objListQuote[Model.SelectedQuote].Signature, new { @id = "QuoteSignatureValue_" + Model.SelectedQuote ,@class= "output" })
     </div>

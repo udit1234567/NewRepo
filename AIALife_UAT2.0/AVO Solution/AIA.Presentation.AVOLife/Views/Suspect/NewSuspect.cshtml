@@ -23,9 +23,9 @@
         <div class="visible-lg-block">
             @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
         </div>
-        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
-       <a href="Suspect/Suspect" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Lead")</a>
-        <div class="btn btn-info"><b>@Resources.GetLabelName("New Lead")</b></div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #5a73ef;"></a>
+       <a href="Suspect/Suspect" class="btn visible-lg-block visible-md-block" style="max-width:80px">@Resources.GetLabelName("Lead")</a>
+        <div class="btn btn-info" style="max-width:120px"><b>@Resources.GetLabelName("New Lead")</b></div>
 
     </div>
 </div>
@@ -35,16 +35,20 @@
     @Html.HiddenFor(a => a.ClientCode, new { id = "hdnClientCode" })
     @Html.HiddenFor(a => a.AutoCompleteValue, new { id = "hdnAutoCompleteValue" })
 
-    <div class="form-group" style="margin-top:10px;">
+    <div class="form-group row" style="margin-top:10px;">
         <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-            <label>@Resources.GetLabelName("Do you know the NIC number ?")</label>
+            <label>@Resources.GetLabelName("Do you know the SSN Number ?")</label>
         </div>
-        <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
-            @Html.RadioButton("HaveNIC", true, new { @class = "med-radio-button", @onclick = "ShowHideFetchNIC(true)" })<label>@Resources.GetLabelName("Yes")</label>
-            @Html.RadioButton("HaveNIC", false, new { @class = "med-radio-button", @onclick = "ShowHideFetchNIC(false)" })<label>@Resources.GetLabelName("No")</label>
-        </div>
-        <div id="divFetchNIC">
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+            <div class="switch switch--horizontal">
+                @Html.RadioButton("HaveNIC", true, new { @class = "med-radio-button", @id = "radio-a", @onclick = "ShowHideFetchNIC(true)" })
+                <label for="radio-a">@Resources.GetLabelName("Yes")</label>
+                @Html.RadioButton("HaveNIC", false, new { @class = "med-radio-button", @id = "radio-b", @checked = "checked", @onclick = "ShowHideFetchNIC(false)" })
+               <label for="radio-b">@Resources.GetLabelName("No")</label><span class="toggle-outside"><span class="toggle-inside"></span></span>
+            </div>
+              </div>
+        <div id="divFetchNIC" class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-7">
                 <input type="text" class="form-control" maxlength="12" onkeypress="return isAlphaNumberKeyback(this)" id="txtFetchNIC" value="" onfocus="CheckTextNicifNull()" onblur="CheckTextNicifNull()" />
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3 btn-padding">
@@ -52,10 +56,10 @@
             </div>
         </div>
     </div>
-    <br /><br />
+   
     <div class="clearfix"></div>
     <div id="divSuspectDetails" onchange="SetMandatoryHighlightBlank('divSuspectDetails', false)">
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 form-group">
+        <div class="row form-group">
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label>@Resources.GetLabelName("Type")<span class="mandatory">*</span></label>
@@ -110,7 +114,7 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label id="">@Resources.GetLabelName("NIC")</label>
-                    @Html.TextBoxFor(a => a.NIC, null, new { @class = "form-control", @id = "txtSuspectNIC", @onkeypress = "return isAlphaNumberKeyback(this)", @maxlength = "12", @onchange = "ValidateNICSubmit()" })
+                    @Html.TextBoxFor(a => a.NIC, null, new { @class = "form-control", @id = "txtSuspectNIC", @onkeypress = "return isAlphaNumberKeyback(this)", @maxlength = "12", @onchange = "ValidateNICSubmit()", @readonly = "readonly" })
                 </div>
             </div>
 
@@ -118,7 +122,7 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label id="">@Resources.GetLabelName("Place")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.Place, null, new { @class = "form-control", @maxlength = "50", @id = "txtSuspectPlace",@onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)", @onkeypress = "return isAlphaNumberKeybackwithOutSymbol(event)" })
+                    @Html.TextBoxFor(a => a.Place, null, new { @class = "form-control", @maxlength = "50", @id = "txtSuspectPlace",@onkeyup = "return AlphabetsWithSpace(event)",@onkeypress = "return AlphabetsWithSpace(event)" })
                 </div>
             </div>
 
@@ -209,7 +213,7 @@
     }
     $(document).ready(function () {
         $("#divFetchNIC").hide();
-        $("#divSuspectDetails").hide();
+        //$("#divSuspectDetails").hide();
         SetMandatoryHighlightBlank("divSuspectDetails", true);
     });
 
@@ -286,7 +290,7 @@
     function ValidNICSubmit() {
         var NIC = $("#txtFetchNIC").val();
         if (NIC == "") {
-            writeMultipleMessage("error", "Please Enter NIC Number", "txtFetchNIC");
+            writeMultipleMessage("error", "Please Enter SSN Number", "txtFetchNIC");
             return false;
         } else {
             writeMultipleMessage("error", "", "txtFetchNIC");
@@ -295,25 +299,25 @@
 
             NicArray = NIC.split("");
             if (NIC.length != 10 && NIC.length != 12) {
-                writeMultipleMessage("error", "NIC Number must be 10 or 12 digits", "txtFetchNIC");
+                writeMultipleMessage("error", "SSN Number must be 10 or 12 digits", "txtFetchNIC");
                 return false;
             }
             else {
                 if (NIC.length == 10) {
                     var NICpart = NIC.substr(0, 9);
                     if (!$.isNumeric(NICpart)) {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtFetchNIC");
                         return false;
                     }
 
                     if (NicArray[9].toUpperCase() != "V" && NicArray[9].toUpperCase() != "X") {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtFetchNIC");
                         return false;
                     }
                 }
                 else if (NIC.length == 12) {
                     if (!$.isNumeric(NIC)) {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtFetchNIC");
                         return false;
                     }
                 }
@@ -334,33 +338,33 @@
             NicArray = NIC.split("");
 
             if (NicArray.length != 10 && NicArray.length != 12) {
-                writeMultipleMessage("error", "NIC Number must be 10 or 12 digits", "txtFetchNIC");
+                writeMultipleMessage("error", "SSN Number must be 10 or 12 digits", "txtFetchNIC");
                 return false;
             }
             else {
                 if (NIC.length == 10) {
                     var NICpart = NIC.substr(0, 9);
                     if (!$.isNumeric(NICpart)) {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtFetchNIC");
                         return false;
                     }
                     if (NicArray[9].toUpperCase() != "V" && NicArray[9].toUpperCase() != "X") {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtFetchNIC");
                         return false;
                     }
                     if ((NIC.substr(2, 3) > 366 && NIC.substr(2, 3) < 500) || NIC.substr(2, 3) > 866 || NIC.substr(2, 3) == 000) {
-                        writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", "txtFetchNIC");
+                        writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", "txtFetchNIC");
                         return false;
 
                     }
                 }
                 if (NIC.length == 12) {
                     if (!$.isNumeric(NIC)) {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtFetchNIC");
                         return false;
                     }
                     if ((NIC.substr(4, 3) > 366 && NIC.substr(4, 3) < 500) || NIC.substr(4, 3) > 866 || NIC.substr(4, 3) == 000) {
-                        writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", "txtFetchNIC");
+                        writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", "txtFetchNIC");
                         return false;
 
                     }
@@ -381,7 +385,7 @@
         var NIC = $("#txtFetchNIC").val();
         NIC = NIC.trim();
         if (NIC.length != 10 && NIC.length != 12) {
-            writeMultipleMessage("error", "NIC Number must be 10 or 12 digits", "txtFetchNIC");
+            writeMultipleMessage("error", "SSN Number must be 10 or 12 digits", "txtFetchNIC");
             return false;
         }
         else {
@@ -390,17 +394,17 @@
             if (NIC.length == 10) {
                 var NICpart = NIC.substr(0, 9);
                 if (!$.isNumeric(NICpart)) {
-                    writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                    writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtFetchNIC");
                     return false;
                 }
                 if (NicArray[9].toUpperCase() != "V" && NicArray[9].toUpperCase() != "X") {
-                    writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                    writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtFetchNIC");
                     return false;
                 }
             }
             else if (NIC.length == 12) {
                 if (!$.isNumeric(NIC)) {
-                    writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtFetchNIC");
+                    writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtFetchNIC");
                     return false;
                 }
             }
@@ -850,7 +854,7 @@
         if (NICNo == "") {
             //$('#ddlGender').prop("disabled", false);
             //$('#dtProspectDOB').prop("disabled", false);
-            // writeMultipleMessage("error", "Please Enter NIC Number", e);
+            // writeMultipleMessage("error", "Please Enter SSN Number", e);
             NicChecked = true;
         }
         //if (NICNo.toUpperCase() == "SLC") {
@@ -872,7 +876,7 @@
                         var dobyears = NICNo.substr(0, 2);
                     }
                     else {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                         NicChecked = false;
                         CreateSuspect();
 
@@ -900,7 +904,7 @@
                             //    $("#" + gender).prop('disabled', true);
                             //}
                             if (!ageProspectCount(data)) {
-                                //writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                                //writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                                 NicChecked = false;
                                 return false;
 
@@ -910,7 +914,7 @@
                             CreateSuspect()
                         }
                         else {
-                            writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                            writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                             NicChecked = false;
                             return false;
 
@@ -918,7 +922,7 @@
                     });
             }
             else {
-                writeMultipleMessage("error", "NIC Number should be 12 or 10 Digits", e);
+                writeMultipleMessage("error", "SSN Number should be 12 or 10 Digits", e);
                 NicChecked = false;
                 CreateSuspect();
 
@@ -929,7 +933,7 @@
     function InterviewrageCount() {
         var dob = $("#dtProspectDOB").val();
         if (dob != '' && !ValidateDOB("dtProspectDOB")) {
-            writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+            writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtNic");
             return false;
         }
         else {
@@ -1018,7 +1022,7 @@
         //}
         if (!ValidateDOB(data)) {
             $('#txtAge').val('');
-            writeMultipleMessage("error", "Please Enter Valid NIC Number", 'txtSuspectNIC');
+            writeMultipleMessage("error", "Please Enter Valid SSN Number", 'txtSuspectNIC');
             return false;
         }
         else {
@@ -1043,7 +1047,7 @@
                 var ProspectAge = calYear + 1;
 
                 if (ProspectAge.length > 2 || ProspectAge > 75 || ProspectAge < 18) {
-                    writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtSuspectNIC");
+                    writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtSuspectNIC");
                     return false;
 
                 }

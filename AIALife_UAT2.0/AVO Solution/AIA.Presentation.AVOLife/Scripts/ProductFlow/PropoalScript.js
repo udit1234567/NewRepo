@@ -81,7 +81,7 @@ function ValidateAssuredMemberGrid(index) {
     }
     //if ($("#ddlNationality option:selected").text() == "Sri lanka") {
     //    if ($("#txtNewNicNo").val() == "") {
-    //        writeMultipleMessage("error", "Please Enter New NIC Number.", "txtNewNicNo");
+    //        writeMultipleMessage("error", "Please Enter New SSN Number.", "txtNewNicNo");
     //        return false;
     //    }
     //    else {

@@ -150,7 +150,7 @@ border-radius: 10px;
     bottom:5px;
 }
 .UwTable thead tr th{
-    background-color:#e86487;
+    background-color:#5a73ef;
     color:#fff !important;
 }
 .UwTable tbody tr td{
@@ -247,10 +247,10 @@ border-color: #ccc;}
 }
 .uwbtn{color: #fff;
 font-weight: 300;
-background-color: #E86487;
+background-color: #5a73ef;
 border-color: #fff;}
 .UwMedical-table thead tr th,.UwNonMedical-table thead tr th,.uwtable thead tr th{
-    background-color:#e86487;
+    background-color:#5a73ef;
     border:1px solid #ececed;
     color:#fff !important;
     text-align:center;

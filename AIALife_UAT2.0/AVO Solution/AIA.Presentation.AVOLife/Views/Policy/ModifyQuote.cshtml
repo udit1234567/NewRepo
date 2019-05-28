@@ -93,7 +93,7 @@
 
     }
 </script>
-<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+<div class="row col-md-12 col-sm-12 col-xs-12 col-lg-12">
     <div class="panel panel-default" id="pnlProposerDetails">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -108,172 +108,186 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-default" id="pnlNeedAnalysis">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-target="#collapse2" href="#collapseTwo" class="collapsed">
-                    Need Analysis<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+
+    @*<div class="collapsable-content col-lg-12" id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-target="#collapse1" href="#collapseOne">
+                    Prospect Information<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> </span>
                 </a>
-            </h4>
-        </div>
-        <div id="collapse2" class="panel-collapse collapse">
-            <div class="panel-body">
-
-                @Html.Partial("~/Views/Prospect/PartialNeedAnalysis.cshtml", Model.objProspect)
-
-
+            </div>
+            <div id="collapse1" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    @Html.Partial("~/Views/Prospect/QuotationProspectScreen.cshtml", Model)
+                </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
-    <div class="panel panel-default" id="pnlProductDetails">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-target="#collapse3" href="#collapseThree" class="collapsed">
-                    Product Details<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
-                </a>
-            </h4>
+            <div id="pnlNeedAnalysis">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#collapse2" href="#collapseTwo" class="collapsed">
+                            Need Analysis<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        @Html.Partial("~/Views/Prospect/PartialNeedAnalysis.cshtml", Model.objProspect)
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" id="pnlProductDetails">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#collapse3" href="#collapseThree" class="collapsed">
+                            Product Details<img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" />
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Html.Partial("~/Views/Prospect/ProductDetails.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+
+
         </div>
-        <div id="collapse3" class="panel-collapse collapse">
-            <div class="panel-body">
-                @Html.Partial("~/Views/Prospect/ProductDetails.cshtml", Model)
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="QuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    @*<div class="modal-header">
+                            <h5 class="modal-title">Message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>*@
+                    <div class="modal-body" id="QuoteModalBody">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadQuotePool()">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
+        <script>
+            $(document).ready(function () {
+
+                $('#pnlProposerDetails').find('input, textarea, button, select').attr('disabled', 'disabled');
+                $('#pnlNeedAnalysis').find('input, textarea, button, select').attr('disabled', 'disabled');
+                $("#PanelBenefits0").addClass("in");
+                $('#buttonBenefitOverview_0').show();
+
+            });
+            //function ShowSpouseChildDetails(divid) {
+            //    $('#' + divid).show();
+            //}
+            function HideSpouseDetails(divid) {
+                $('#' + divid).hide();
+                var _index = divid.split('_')[1];
+                $('#ddlSpouseGender' + _index + '').val('');
+                $('#dtSpouseCoveredDOB' + _index + '').val('');
+                $('#txtSpouseCoveredAge' + _index + '').val('');
+                $('#ddlSpouseOccupation' + _index + '').val('');
+            }
+
+            //function HideChildDetails(divid) {
+            //    $('#' + divid).hide();
+
+            //}
 
 
-</div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="QuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            @*<div class="modal-header">
-                <h5 class="modal-title">Message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>*@
-            <div class="modal-body" id="QuoteModalBody">
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="LoadQuotePool()">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+            //function CalculateQuotePremium(index) {
 
-<script>
-    $(document).ready(function () {
-       
-        $('#pnlProposerDetails').find('input, textarea, button, select').attr('disabled', 'disabled');
-        $('#pnlNeedAnalysis').find('input, textarea, button, select').attr('disabled', 'disabled');
-        $( "#PanelBenefits0" ).addClass( "in" );
-        $('#buttonBenefitOverview_0').show();
+            //    $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
+            //    $('#HdnContactID'+index).attr('disabled',false);
+            //    $.post("/Policy/CalculateQuotePremium", $("#fromQuotePage"+index).serialize())
+            //   .done(function (data) {
 
-    });
-    //function ShowSpouseChildDetails(divid) {
-    //    $('#' + divid).show();
-    //}
-    function HideSpouseDetails(divid) {
-        $('#' + divid).hide();
-        var _index = divid.split('_')[1];
-        $('#ddlSpouseGender'+_index+'').val('');
-        $('#dtSpouseCoveredDOB'+_index+'').val('');
-        $('#txtSpouseCoveredAge'+_index+'').val('');
-        $('#ddlSpouseOccupation'+_index+'').val('');
-    }
+            //       if(data.Message =="Success")
+            //       {
+            //           $("#txtAnnualPremium" + index).val(data.AnnualPremium);
+            //           $("#txtHalfYearlyPremium" + index).val(data.HalfYearlyPremium);
+            //           $("#txtQuaterlyPremium" + index).val(data.QuaterlyPremium);
+            //           $("#txtMonthlyPremium" + index).val(data.MonthlyPremium);
+            //           $("#txtBasicPremium" + index).val(data.BasicPremium);
+            //           $("#txtCess" + index).val(data.Cess);
+            //           $("#txtVat" + index).val(data.VAT);
+            //           $("#hdnPolicyFee" + index).val(data.PolicyFee);
+            //           $('#divButtons_' + index).show();
+            //           $('#BenifitOvervieModelbody_'+index).html(data.STRHtml);
+            //           $('#divIllustration').html(data.STRPremiumHtml);
+            //           $('#buttonBenefitOverview_'+index).show();
+            //           // $('#buttonPremiumOverview_'+index).show();
+            //           $('#btnCalculate_'+index).hide();
 
-    //function HideChildDetails(divid) {
-    //    $('#' + divid).hide();
+            //           $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', true);
 
-    //}
- 
-
-  
+            //       }
+            //       else{
+            //       }
 
 
-    //function CalculateQuotePremium(index) {
+            //   }).
+            //   fail(function () {
 
-    //    $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
-    //    $('#HdnContactID'+index).attr('disabled',false);
-    //    $.post("/Policy/CalculateQuotePremium", $("#fromQuotePage"+index).serialize())
-    //   .done(function (data) {
-
-    //       if(data.Message =="Success")
-    //       {
-    //           $("#txtAnnualPremium" + index).val(data.AnnualPremium);
-    //           $("#txtHalfYearlyPremium" + index).val(data.HalfYearlyPremium);
-    //           $("#txtQuaterlyPremium" + index).val(data.QuaterlyPremium);
-    //           $("#txtMonthlyPremium" + index).val(data.MonthlyPremium);
-    //           $("#txtBasicPremium" + index).val(data.BasicPremium);
-    //           $("#txtCess" + index).val(data.Cess);
-    //           $("#txtVat" + index).val(data.VAT);
-    //           $("#hdnPolicyFee" + index).val(data.PolicyFee);
-    //           $('#divButtons_' + index).show();
-    //           $('#BenifitOvervieModelbody_'+index).html(data.STRHtml);
-    //           $('#divIllustration').html(data.STRPremiumHtml);
-    //           $('#buttonBenefitOverview_'+index).show();
-    //           // $('#buttonPremiumOverview_'+index).show();
-    //           $('#btnCalculate_'+index).hide();
-
-    //           $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', true);
-
-    //       }
-    //       else{
-    //       }
+            //   });
 
 
-    //   }).
-    //   fail(function () {
+            //}
+            function DisplayBenifitOverview(index) {
+                $("#BenifitOvervieModel_" + index).modal("show");
+            }
+            function ModifyQuote(index) {
+                $('#fromQuotePage' + index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
+                $('#buttonBenefitOverview_' + index).hide();
+                $('#divButtons_' + index).hide();
+                $('#btnCalculate_' + index).show();
 
-    //   });
+            }
 
+            //function SaveQuotation(index) {
 
-    //}
-    function DisplayBenifitOverview(index){
-        $("#BenifitOvervieModel_"+index).modal("show");
-    }
-    function ModifyQuote(index)
-    {
-        $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
-        $('#buttonBenefitOverview_'+index).hide();
-        $('#divButtons_'+index).hide();
-        $('#btnCalculate_'+index).show();
+            //    $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
+            //    $('#HdnContactID'+index).attr('disabled',false);
+            //    $.post("/Policy/SaveQuotation", $("#fromQuotePage" + index).serialize(), function (data) {
+            //        if (data.Message == 'Success') {
+            //            $("#hdnQuoteNo"+index).val(data.QuoteNo);
+            //            var Message = '<p> Data Saved Successfully. Quote No is ' + data.QuoteNo + ' </p>';
+            //            $('#QuoteModalBody').html(Message);
 
-    }
+            //            $("#QuoteModal").modal("show");
 
-    //function SaveQuotation(index) {
+            //        }
+            //        else {
 
-    //    $('#fromQuotePage'+index).find('input:not(.notdisb), textarea, select').attr('disabled', false);
-    //    $('#HdnContactID'+index).attr('disabled',false);
-    //    $.post("/Policy/SaveQuotation", $("#fromQuotePage" + index).serialize(), function (data) {
-    //        if (data.Message == 'Success') {
-    //            $("#hdnQuoteNo"+index).val(data.QuoteNo);
-    //            var Message = '<p> Data Saved Successfully. Quote No is ' + data.QuoteNo + ' </p>';
-    //            $('#QuoteModalBody').html(Message);
+            //            var Message = '<p> Some Error Occured</p>';
+            //            $('#QuoteModalBody').html(Message);
+            //            $("#QuoteModal").modal("show");
+            //        }
+            //    });
 
-    //            $("#QuoteModal").modal("show");
+            //}
 
-    //        }
-    //        else {
+            function LoadQuotePool() {
+                window.location.href = '/Policy/Quote';
+            }
+            function ClearQuotation() {
+                window.location.href = '/Prospect/Prospect';
+            }
 
-    //            var Message = '<p> Some Error Occured</p>';
-    //            $('#QuoteModalBody').html(Message);
-    //            $("#QuoteModal").modal("show");
-    //        }
-    //    });
-
-    //}
-
-    function LoadQuotePool() {
-        window.location.href = '/Policy/Quote';
-    }
-    function ClearQuotation()
-    {
-        window.location.href = '/Prospect/Prospect';
-    }
-
-</script>
+        </script>

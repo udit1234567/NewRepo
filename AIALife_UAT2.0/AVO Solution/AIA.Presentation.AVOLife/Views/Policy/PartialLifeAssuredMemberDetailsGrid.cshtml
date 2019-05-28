@@ -17,8 +17,8 @@ columns.Add(a => a.SAM, true).Titled("SAM").Encoded(false).Sanitized(false).SetW
 columns.Add(a => a.FirstName).Titled("First Name").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].FirstName", a.FirstName, new { @readonly = "readonly", @id = "txtFirstName" + a.Index, @class = "form-control" }));
 columns.Add(a => a.LastName).Titled("Last Name").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].LastName", a.LastName, new { @readonly = "readonly", @id = "txtLastName" + a.Index, @class = "form-control" }));
 columns.Add(a => a.RelationShipWithPropspectID, true).Titled("Relationship").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].RelationShipWithPropspectID", a.RelationShipWithPropspect, new { @id = "RelationShipWithPropspect" + a.Index, @class = "form-control" }));
-columns.Add(a => a.RelationShipWithPropspect).Titled("Relationship").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objMemberDetails[" + a.Index + "].RelationShipWithPropspect", new SelectList(Model.lstRelations, "ID", "Value", a.RelationShipWithPropspect), "Select", new { @readonly = "readonly", @id = "ddlRelationWithProposer" + a.Index, @class = "form-control" }));
-columns.Add(a => a.Age).Titled("Age Next Birthday").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Age", a.Age, new { @readonly = "readonly", @id = "txtAgeNextBirthday" + a.Index, @class = "form-control" }));
+columns.Add(a => a.RelationShipWithPropspect).Titled("Relationship").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objMemberDetails[" + a.Index + "].RelationShipWithPropspect", new SelectList(Model.lstRelations, "ID", "Value", a.RelationShipWithPropspect), "Select", new { @readonly = "readonly", @id = "ddlRelationWithProposer" + a.Index, @class = "form-control",@style="width:170px" }));
+columns.Add(a => a.Age).Titled("Age Next Birthday").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].Age", a.Age, new { @readonly = "readonly", @id = "txtAgeNextBirthday" + a.Index, @class = "form-control",@style="width:70px" }));
 columns.Add(a => a.GenderText, true).Titled("Gender").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].GenderText", a.GenderText, new { @readonly = "readonly", @id = "GenderText" + a.Index, @class = "form-control" }));
 columns.Add(a => a.Gender).Titled("Gender").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objMemberDetails[" + a.Index + "].Gender", new SelectList(Model.lstGender, "Value", "Text", a.Gender), "Select", new { @readonly = "readonly", @id = "ddlGender" + a.Index, @class = "form-control" }));
 
@@ -80,8 +80,7 @@ columns.Add(a => a.objPermenantAddress.Pincode, true).Titled("Pincode").Encoded(
 columns.Add(a => a.QuoteMemberID, true).Titled("QuoteMemberID").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].QuoteMemberID", a.QuoteMemberID, new { @class = "form-control" }));
 columns.Add(a => a.AssuredName, true).Titled("AssuredName").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].AssuredName", a.AssuredName, new { @class = "form-control", @id = "hdnAssuredName" + a.Index }));
 columns.Add(a => a.MemberID, true).Titled("MemberID").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].MemberID", a.MemberID, new { @class = "form-control" }));
-columns.Add(a => a.IsUpdate, true).Titled("IsUpdate").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].IsUpdate", a.IsUpdate, new { @id = "txtIsUpdate" + a.Index, @class = "form-control" }));
-columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(o => @<span class="fa fa-pencil" onclick="EditRow(@o.Index)" style="color:#e86487;"></span>);
+columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(o => @<span class="fa fa-pencil" onclick="EditRow(@o.Index)" style="color:#5a73ef;"></span>);
 })
 
 <style type="text/css">
@@ -586,18 +585,11 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
         }
 
         if (Relation=="268") {
-            var NewNicNo = $('#txtNewNicNo' + id).val();
-            $('#txtMemberNewNicNo').val(NewNicNo);
-            if (NewNicNo != "" && NewNicNo != null && NewNicNo != undefined) {
-                $('#txtMemberNewNicNo').attr('readonly', true);
-            }
-            else {
-                $('#txtMemberNewNicNo').attr('readonly', false);
-            }
             var Salutation = $('#TxtProposerSalutation' + id).val();
             var MaritalStatus = $('#ddlMaritalStatus' + id).val('M');
             var Nationality = $('#ddlNationality' + id).val();
             $('#TxtMemberSalutation').attr('readonly', false);
+            $('#txtMemberNewNicNo').attr('readonly', false);
             $('#txtMemberNameWithInitials').attr('readonly', false);
             $('#txtMemberFirstName').attr('readonly', false);
             $('#txtMemberLastName').attr('readonly', false);
@@ -1153,14 +1145,14 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
                 $("#DivMemberCitizenShip1").hide();
                 $("#DivMemberCitizenShip2").hide();
             }
-
+            
             if (MobileNo == '' || MobileNo == null) {
                 $("#txtMemberMobileNo").val($("#txtMobileNo").val());
-
+    
             }
             else {
                 $("#txtMemberMobileNo").val(MobileNo);
-
+        
             }
             $('#txtMemberOtherMobileNo').val(MobileNo1);
             $('#txtMemberHomeNo').val(HomeNo);
@@ -1359,13 +1351,12 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
         debugger
         $("#checkboxDeclaration").attr("class", "invisibledelc");
         var Relationship = $('#ddlMemberRelationWithProposer option:selected').text();
-        if (Relationship == 'Spouse' || Relationship == 'Self') {
+        if (Relationship == 'Spouse'||Relationship == 'Self') {
             if (CheckingNIC) {
-                FetchProposalDOBGenderfromNIC('txtMemberNewNicNo', 'txtMemberFillDateOfBirth', 'ddlMemberGender', 'txtMemberAgeNextBirthdayMember', 'ddlMemberRelationWithProposer', 'Update')
+                FetchProposalDOBGenderfromNIC('txtMemberNewNicNo','txtMemberFillDateOfBirth','ddlMemberGender','txtMemberAgeNextBirthdayMember','ddlMemberRelationWithProposer','Update')
             }
-
             if (NicChecked) {
-
+    
                 debugger;
                 $("#chkMemberAddrSameasProposerAdrr").prop("checked", false);
                 $("#chkMemberIsPermanentAddrSame").prop("checked", false);
@@ -1561,7 +1552,7 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
                 //var OccuID = $('#ddlOccupation' + updateID).val();
                 var ResidentialStatusID = $("#ddlResidentialStatus" + updateID).val();
                 if ($('#ddlRelationWithProposer' + updateID).val() == '267' || $('#ddlRelationWithProposer' + updateID).val() == '268') {
-
+                    //$.post("../Policy/ProposalResidentialStatusQuestions?ResidentialStatusID=" + ResidentialStatusID + "&OccuPationID=" + OccuID +"&MemberAssuredIndex=" + MemberAssuredIndex + "&MemberOccupationHazardousWork=" + MemberOccupationHazardousWork, $("#fromProposalPage").serialize(), function (data) {
                     $.post("../Policy/ProposalResidentialStatusQuestions?ResidentialStatusID=" + ResidentialStatusID + "&OccuPationID=" + OccuID +"&MemberAssuredIndex=" + MemberAssuredIndex + "&MemberOccupationHazardousWork=" + MemberOccupationHazardousWork+ "&SAR=" + SAR, $("#fromProposalPage").serialize(), function (data) {
                         debugger;
                         if ($('#ddlRelationWithProposer' + updateID).val() == '267') {
@@ -1578,28 +1569,13 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
                 $("#divBusyIndicator").hide();
 
                 IsSelfAndSpouseCoverd();
-                $('.invisiblemem').removeClass('checkboxactive');
-                $("#divMemberDetails tbody").find("tr").each(function (index) {
-                    
-                    if (index == updateID) {
-                        $('#txtIsUpdate' + index).val(true);
-                    }
-                    else {
-                        $('#txtIsUpdate' + index).val(false);
-                    }
-                });
-                EnableRiskInformation();
-                $.post("../Policy/InvokeILClientCreation", $("#fromProposalPage").serialize(), function (data) {
-                DisableRiskInformation();
-                    $("#divMemberDetails tbody").find("tr").each(function (index) {
-                    
-                    $('#hdnMemberClientCode' + index).val(data[index].ClientCode);
-                });
-                });
+                $('.invisiblemem').removeClass('checkboxactive')
             }
         }
         else
         {
+    
+            debugger;
             $("#chkMemberAddrSameasProposerAdrr").prop("checked", false);
             $("#chkMemberIsPermanentAddrSame").prop("checked", false);
             $('.invisiblecomadd').removeClass('checkboxactive')
@@ -1794,7 +1770,7 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
             //var OccuID = $('#ddlOccupation' + updateID).val();
             var ResidentialStatusID = $("#ddlResidentialStatus" + updateID).val();
             if ($('#ddlRelationWithProposer' + updateID).val() == '267' || $('#ddlRelationWithProposer' + updateID).val() == '268') {
-
+                //$.post("../Policy/ProposalResidentialStatusQuestions?ResidentialStatusID=" + ResidentialStatusID + "&OccuPationID=" + OccuID +"&MemberAssuredIndex=" + MemberAssuredIndex + "&MemberOccupationHazardousWork=" + MemberOccupationHazardousWork, $("#fromProposalPage").serialize(), function (data) {
                 $.post("../Policy/ProposalResidentialStatusQuestions?ResidentialStatusID=" + ResidentialStatusID + "&OccuPationID=" + OccuID +"&MemberAssuredIndex=" + MemberAssuredIndex + "&MemberOccupationHazardousWork=" + MemberOccupationHazardousWork+ "&SAR=" + SAR, $("#fromProposalPage").serialize(), function (data) {
                     debugger;
                     if ($('#ddlRelationWithProposer' + updateID).val() == '267') {
@@ -1811,27 +1787,11 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
             $("#divBusyIndicator").hide();
 
             IsSelfAndSpouseCoverd();
-            $('.invisiblemem').removeClass('checkboxactive');
-            $("#divMemberDetails tbody").find("tr").each(function (index) {
-                
-                    if (index == updateID) {
-                        $('#txtIsUpdate' + index).val(true);
-                    }
-                    else {
-                        $('#txtIsUpdate' + index).val(false);
-                    }
-            });
-            EnableRiskInformation();
-            $.post("../Policy/InvokeILClientCreation", $("#fromProposalPage").serialize(), function (data) {
-            $("#divMemberDetails tbody").find("tr").each(function (index) {
-                    DisableRiskInformation();
-                    $('#hdnMemberClientCode' + index).val(data[index].ClientCode);
-                });
-            });
+            $('.invisiblemem').removeClass('checkboxactive')
         }
-
+       
     }
-
+    
 
     function RefreshData() {
 
@@ -1966,7 +1926,7 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
         }
         if ($("#ddlMemberNationality option:selected").text() == "Sri lanka") {
             if ($("#txtMemberNewNicNo").val() == "") {
-                writeMultipleMessage("error", "Please Enter New NIC Number.", "txtMemberNewNicNo");
+                writeMultipleMessage("error", "Please Enter New SSN Number.", "txtMemberNewNicNo");
                 return false;
             }
             else {
@@ -2204,7 +2164,7 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
 
             if ($("#ddlMemberNationality option:selected").text() == "Sri lanka") {
                 if ($("#txtMemberNewNicNo").val() == "") {
-                    writeMultipleMessage("error", "Please Enter New NIC Number.", "txtMemberNewNicNo");
+                    writeMultipleMessage("error", "Please Enter New SSN Number.", "txtMemberNewNicNo");
                     return false;
                 }
                 else {

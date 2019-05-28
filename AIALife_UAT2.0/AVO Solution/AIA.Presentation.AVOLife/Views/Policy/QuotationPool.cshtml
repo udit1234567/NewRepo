@@ -33,16 +33,16 @@
         <div class="visible-lg-block">
             @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
         </div>
-        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #5a73ef;"></a>
         
-        <a href="/Policy/Quote" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Quotation")</a>
+        <a href="/Policy/Quote" class="btn visible-lg-block visible-md-block" style="max-width:145px">@Resources.GetLabelName("Quotation")</a>
        
-        <div class="btn btn-info"><b>@Resources.GetLabelName("Load Quotation")</b></div>
+        <div class="btn btn-info" style="max-width:190px"><b>@Resources.GetLabelName("Load Quotation")</b></div>
 
     </div>
 </div>
 <br />
-<div class="form-group" style="margin-left: 32%;">
+<div class="form-group" style="text-align: center;">
     <input type="button" class="btn btn-default" id="" value="View PDF" onclick="ViewPdf()" style="padding-left:20px;padding-right:20px;" />
     @*<input type="button" class="btn btn-default" id="" value="Print PDF" onclick="PrintPdf()" style="padding-left:20px;padding-right:20px;" />*@
     <input type="button" class="btn btn-default" id="" value="Email PDF" onclick="EmailPopup()" style="padding-left:20px;padding-right:20px;" />

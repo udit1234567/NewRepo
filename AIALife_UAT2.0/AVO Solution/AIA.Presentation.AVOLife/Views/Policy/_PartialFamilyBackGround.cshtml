@@ -69,8 +69,8 @@ foreach (var Questions in lstFamilyQuestions)
     {
         string ClassName = string.Empty;
         if (IsChild == "True" || IsSubChild == "True")
-        { ClassName = "Childfamilyquestions"; }
-        else { ClassName = "family-questions"; }
+        { ClassName = "row Childfamilyquestions"; }
+        else { ClassName = "row family-questions"; }
         <div class=@ClassName id=@ParentId>
 
             <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
@@ -137,8 +137,8 @@ foreach (var Questions in lstFamilyQuestions)
         {
             string ClassName = string.Empty;
             if (IsChild == "True" || IsSubChild == "True")
-            { ClassName = "Childfamilyquestions"; }
-            else { ClassName = "family-questions"; }
+            { ClassName = "row Childfamilyquestions"; }
+            else { ClassName = "row family-questions"; }
             <div class=@ClassName id=@ParentId>
 
                 <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11 QuesBox-Space">
@@ -233,7 +233,7 @@ foreach (var Questions in lstFamilyQuestions)
         </table>
     </div>
 </div>
-<div class="clearfix"></div>
+
 
 <script type="text/javascript">
 

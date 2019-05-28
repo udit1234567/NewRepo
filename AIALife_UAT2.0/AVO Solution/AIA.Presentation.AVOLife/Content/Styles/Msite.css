@@ -1,0 +1,812 @@
+﻿/*header style*/
+
+.top-menu ul li {
+    display: inline-block;
+}
+
+.page-header.navbar .page-top {
+    margin-left: auto;
+}
+
+.page-boxed .page-header.navbar {
+    background-color: #1068ac;
+}
+
+.navbar-nav .dropdown-menu {
+    position: absolute;
+}
+
+.page-header.navbar .page-top {
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.collapse:not(.show) {
+    display: block;
+}
+
+.collapsable-content .collapse:not(.show) {
+    display: none;
+}
+
+.page-sidebar.navbar-collapse.collapse.show {
+    display: block !important;
+}
+
+.LayoutBody {
+    margin: 1% 2%;
+}
+
+.landing-box {
+    margin: 5px !important;
+}
+
+.visible-md-block {
+    flex: 0 0 5.333333%;
+    max-width: 5.333%;
+}
+
+.navbar-fixed-bottom {
+    width: 100%;
+}
+
+.input-group-addon {
+    position: absolute;
+    right: 3px;
+    top: 6px;
+    background: none !important;
+    border: 0px;
+    border-left-color: transparent !important;
+}
+/*horizontal stepper*/
+.stepNotfilled {
+    background-color: #ddd;
+    border-radius: 50%;
+    padding: 5px 9px;
+    font-size: 14px;
+}
+
+.btnCurrentStep {
+    color: #fff;
+    background-color: #C21B17 !important;
+    border-color: #6f7072;
+    border-radius: 50%;
+    padding: 5px 9px;
+    font-size: 14px;
+}
+
+.stepFilled {
+    background-color: #76d013 !important;
+    color: #fff !important;
+}
+
+.stepwizard-step p {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.stepwizard-row {
+   overflow-x:auto;
+   overflow-y:hidden;
+}
+
+.stepwizard {
+    display:block;
+    width: 100%;
+    position: relative;
+}
+
+.stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+    top: 3px;
+    max-width:140px;
+    min-width:140px;
+}
+.nav-tabs li{
+    display:inline-block;
+    min-width:75px;
+}
+.previousBtn, .nextBtn, .btnSubmit, .btn-default {
+    padding: 6px 10px;
+    min-width: 200px;
+    color: #fff;
+    font-weight: 300;
+    background-color: #5a73ef;
+    border-color: #fff;
+    border-radius: 0;
+}
+
+    .previousBtn:hover, .nextBtn:hover, .btnSubmit:hover, .btn-default:hover {
+        background-color: #1d3192 !important;
+    }
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+#divNav .dropdown-toggle {
+    white-space: initial;
+} 
+
+/*field style*/
+.form-control {
+    height: calc(1.4em + 0.75rem + 0px);
+}
+/*accordion styles*/
+.card{border:none;margin:10px 0;width:100%;}
+.card-header{padding: 0.30rem 0.55rem;background-color: rgb(211, 17, 69);border-radius: 12px !important;}
+.card-header a{color:#fff;}
+.card-link::before{content:'-';width:10px;background-color: #fff;color: #d31145;border-radius: 13px;padding: 0px 5px;}
+.card-link.collapsed::before{content:'+';}
+.card-body{padding: 0.65rem 0.3rem;}
+.card-link:hover{
+    color:#fff !important;
+}
+.setup-content{padding: 5px 0;}
+/*tabs styles*/
+.need-analysis-list{margin-top:15px;}
+#divNav .dropdown-toggle{
+    white-space: initial;
+}
+
+.card-link:hover {
+    color: #fff !important;
+}
+
+.demo{ background: #ffded7; }
+
+a:hover, a:focus {
+    outline: none;
+    text-decoration: none;
+}
+
+.tab .nav-tabs {
+    padding-left: 15px;
+    border-bottom: 4px solid #d31145;
+    padding-bottom: 7px !important;
+}
+
+    .tab .nav-tabs li a {
+        color: #fff;
+        padding: 10px 20px !important;
+        margin-right: 10px;
+        background: #d31145;
+        text-shadow: 1px 1px 2px #000;
+        border: none;
+        border-radius: 0;
+        opacity: 0.5;
+        position: relative;
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+    .tab .nav-tabs li:hover a {
+        background: #d31145;
+        opacity: 0.8;
+        color: #fff;
+    }
+
+    .tab .nav-tabs li a.active {
+        opacity: 1;
+    }
+
+        .tab .nav-tabs li a.active,
+        .tab .nav-tabs li:hover a.active,
+        .tab .nav-tabs li a.active:focus {
+            color: #fff;
+            background: #d31145;
+            border: none;
+            border-radius: 0;
+        }
+
+    .tab .nav-tabs li a:before,
+    .tab .nav-tabs li a:after {
+        content: "";
+        border-top: 36px solid transparent;
+        position: absolute;
+        top: 0px;
+    }
+
+    .tab .nav-tabs li a:before {
+        border-right: 15px solid #d31145;
+        left: -15px;
+    }
+
+    .tab .nav-tabs li a:after {
+        border-left: 15px solid #d31145;
+        right: -11px;
+    }
+
+    .tab .nav-tabs li a i,
+    .tab .nav-tabs li a.active i {
+        display: inline-block;
+        padding-right: 5px;
+        font-size: 15px;
+        text-shadow: none;
+    }
+
+    .tab .nav-tabs li a span {
+        display: inline-block;
+        font-size: 14px;
+        letter-spacing: -9px;
+        opacity: 0;
+        transition: all 0.3s ease 0s;
+    }
+
+.tab .nav-tabs li:hover a span,
+.tab .nav-tabs li a.active span{
+    letter-spacing: 1px;
+    opacity: 1;
+    transition: all 0.3s ease 0s;
+    color:#fff;
+}
+
+.tab .tab-content{
+    padding: 30px;
+    background: #fff;
+    font-size: 16px;
+    color: #6c6c6c;
+    line-height: 25px;
+}
+
+    .tab .tab-content h3 {
+        font-size: 24px;
+        margin-top: 0;
+    }
+
+.PreviousStep, .NextStep {
+    display: none;
+    margin-top: 10px;
+    position: relative;
+    z-index: 10;
+}
+
+.PreviousStep {
+    position: absolute;
+    left: -3px;
+    top: 21%;
+}
+
+.NextStep {
+    position: absolute;
+    right: -3px;
+    top: 21%;
+}
+
+    .PreviousStep i, .NextStep i {
+        color: #d31145;
+    }
+
+.monthlyexp-section {
+    display: none;
+}
+
+.infoBtn {
+    margin-left: 5px;
+}
+
+.Healthquestions, .Healthquestions2 {
+    padding: 10px;
+    background-color: #eee;
+    margin: 24px 0;
+}
+
+.search-icon-placeholder {
+    padding-left: 60px !important
+}
+
+.stepWiseContent {
+    text-align: center;
+    position: relative
+}
+
+.contentinLine label {
+    width: 79%;
+    margin-top: 0 !important
+}
+
+.contentinLine input, .contentinLine label {
+    display: inline-block;
+    vertical-align: top
+}
+
+.search-icon-placeholder input {
+    margin: 0 !important;
+    margin-left: 0px;
+    display: inline-block;
+    margin-left: 27px !important;
+    vertical-align: top;  
+
+}
+/*toggle switch*/
+.switch {
+  margin: 4rem auto;
+}
+
+.switch {
+  width: 24rem;
+  position: relative;
+}
+
+.switch input {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.switch input:checked {
+  z-index: 1;
+}
+
+.switch input:checked + label {
+  opacity: 1;
+  cursor: default;
+  font-weight:bold;
+}
+
+.switch input:not(:checked) + label:hover {
+  opacity: 0.5;
+}
+
+    .switch label {
+        color: #1068ac;
+        opacity: 0.33;
+        transition: opacity 0.25s ease;
+        cursor: pointer;
+    }
+
+.switch .toggle-outside {
+  height: 100%;
+  border-radius: 2rem;
+  padding: 0.25rem;
+  overflow: hidden;
+  transition: 0.25s ease all;
+}
+
+.switch .toggle-inside {
+  border-radius: 5rem;
+  background: #fff;
+  position: absolute;
+  transition: 0.25s ease all;
+}
+
+.switch--horizontal {
+  margin: 0 auto;
+  font-size: 0;
+  margin-bottom: 1rem;
+}
+
+.switch--horizontal input {
+  height: 2rem;
+  width: 6rem;
+  margin: 0;
+}
+
+.switch--horizontal label {
+  font-size: 16px;
+  display: inline-block;
+  width: 7.2rem;
+  height: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.switch--horizontal label:last-of-type {
+  margin-left: -0.6rem;
+}
+
+    .switch--horizontal .toggle-outside {
+        background: #1068ac;
+        position: absolute;
+        width: 4rem;
+        left: 5rem;
+    }
+
+.switch--horizontal .toggle-inside {
+  height: 20px;
+  width: 20px;
+}
+
+.switch--horizontal input:checked ~ .toggle-outside .toggle-inside {
+  left: 0.25rem;
+}
+
+.switch--horizontal input ~ input:checked ~ .toggle-outside .toggle-inside {
+  left: 2.5rem;
+}
+.details-section{
+    margin-top:13px;
+}
+.summarySection{
+    width:100%;
+}
+.summaryTable .summarySection:nth-child(odd) .summary-title{
+    color:#5a73ef;
+    font-weight:bold;
+}
+.summaryTable .summarySection:nth-child(even) .summary-title{
+    color:#000;
+    font-weight:bold;
+}
+.summaryValueSec{
+    background-color: #ddd;
+    padding: 10px 0;
+    margin: 3px;
+}
+.summaryTable .summarySection:nth-child(even) .summaryValueSec{
+    background-color:#F6CCD7 !important
+}
+.financial_analysis_calculator_protectiondetails{
+    margin-top:26px;
+}
+.optionalSelection{width:100%;}
+.optionalSelection li{
+    list-style:none;
+    width:25%;
+    padding-right:25px;
+   
+}
+.financial_analysis_calculator_savingsdetails .optionalSelection li {
+    width:20%;
+}
+.benficiary-add{float: right;
+background-color: #ba1642;
+box-shadow: none;
+border: none;
+color: #fff;
+padding: 5px 18px;}
+.optionalSelection li:last-child{padding-right:0 !important;}
+.optionalContent{padding:5px;background-color:#fddbe4;min-height:initial !important;}
+.cardFloat{float:left;width:100%}
+.card{background-color:transparent}
+.tab-pane .collapse:not(.show){display:none;}
+.optionalSelection a{
+    background-color:#ddd !important;
+    padding: 10px 21px;
+    text-align:center;
+}
+#collapseTwo{width:100%;}
+.optionalSelection a.active{
+    background-color:#f2a9bd !important;
+}
+.optionalSelection a h5{
+    color:#000 !important;
+}
+.risk-info-div, .divPremiumBenefitGridsec {
+    background-color: #fddbe4;
+    margin: 0 0 10px 0;
+    padding: 10px 0px;
+}
+
+    .risk-info-div label, .divPremiumBenefitGridsec label {
+        font-weight: bold;
+        width: 100%;
+        font-size: 14px;
+        line-height: 1.2;
+        margin: 0;
+    }
+
+    .risk-info-div span, .divPremiumBenefitGridsec span {
+        margin-top: -7px;
+        display: block;
+    }
+
+        .risk-info-div span label {
+            font-weight: normal;
+        }
+
+.divhideshowactive {
+    display: block !important;
+}
+
+.illustrationbtn {
+    display: none;
+}
+
+.top-bar-header {
+    margin: 0;
+    padding:0;
+}
+
+.btn-breadcrumb a:hover {
+    text-decoration: none !important;
+    background-color: none !important;
+}
+
+/*responsive code*/
+@media screen and (min-width:320px) and (max-width:480px) {
+    .splitCol{width:32%;padding:0 10px !important}
+    .question_answer_button{width:100% !important}
+    .annualExpenseEducation{display: inline-block;width: 87%;}
+    .infoCol{width: 8%;display: inline-block;vertical-align: top;}
+    .txtAnnualEduExpense {
+        width: 100% !important;
+    }
+    .Healthquestions, .Healthquestions2{margin:47px 0 0 0;}
+    .fund_balance_total, .annaul_income_surplus_total,.finanacial_analysis_bal_label{font-size:12px !important}
+    .incomeCol,.incomeValueCol{width:50% !important;}
+    .fundLabel,.fundtotal{width:50% !important}
+    .financial_analysis_obligations .financial_obligation_item input {
+        width: 45% !important;
+    }
+    .Healthquestions, .Healthquestions2 {
+        margin: 47px 0 0 0;
+    }
+
+    .fund_balance_total, .annaul_income_surplus_total, .finanacial_analysis_bal_label {
+        font-size: 12px !important
+    }
+
+    .incomeCol, .incomeValueCol {
+        width: 50% !important;
+    }
+
+    .fundLabel, .fundtotal {
+        width: 50% !important
+    }
+
+    .financial_analysis_obligations .financial_obligation_item input {
+        width: 45% !important;
+    }
+
+    .financial_analysis_retirement_funds {
+        background-color: #ddd;
+    }
+
+    .search-icon-placeholder {
+        padding-left: 0 !important;
+    }
+
+    .financial_analysis_retirement_calculation .retirement_calculation_expense_table tbody tr td:first-child, .financial_analysis_retirement_funds .retirement_funds_expense_table tbody tr td:first-child {
+        padding: 8px 0px 8px 3px !important;
+    }
+
+    .financial_analysis_retirement_calculation .retirement_calculation_expense_table th,
+    .financial_analysis_retirement_funds .retirement_funds_expense_table th {
+        font-size: 11px !important
+    }
+
+    .retirement_calculation_fund_table_img {
+        width: 18px !important;
+        display:inline-block;
+    }
+
+    .retirement_calculation_fund_table_label {
+        font-size: 10px !important;
+        padding: 0px 0 0 2px !important;
+    }
+
+    .financial_analysis_retirement_calculation .retirement_calculation_expense_table tbody tr input, .financial_analysis_retirement_funds .retirement_funds_expense_table tbody tr input {
+        width: 100% !important;
+        font-size: 10px !important;
+    }
+
+    .search-icon-placeholder input {
+        margin-left: -1px !important;
+    }
+
+    .retirement_caculation_section1 label {
+        font-size: 14px !important;
+    }
+
+    .sub-ref-link a {
+        display: none;
+    }
+
+    .sub-ref-link p {
+        position: absolute;
+        bottom: -32px;
+        color: #fff !important;
+        top: 26px;
+        font-size: 11px !important;
+        width: 51px;
+        left: -25px;
+    }
+
+    .sub-ref-link > div img {
+        width: 30px;
+    }
+
+    .financial_analysis_calculator_retirement, .financial_analysis_calculator_education, .financial_analysis_calculator_health, .financial_analysis_calculator_protection, .financial_analysis_calculator_savings {
+        width: 13% !important;
+    }
+
+    .calculator-details-active p {
+        color: #fff !important;
+    }
+
+    .financial_analysis_calculator_section1_sub_icon {
+        height: 71px !important;
+    }
+
+    #navContainer {
+        padding-left: 0 !important;
+    }
+
+    .PreviousStep, .NextStep {
+        display: inline-block;
+    }
+
+    .need-identification-answer-value {
+        font-size: 13px;
+    }
+
+    #chartdiv {
+        top: -135px !important;
+    }
+
+    .need-identification-answer-subsec {
+        width: 46.4% !important;
+        margin-right: 8px !important;
+    }
+
+    .page-header-fixed .page-container {
+        margin-top: 95px !important;
+    }
+
+    #collapseBenefitOverView .nav-tabs > li > a, .nav-pills > li > a {
+        padding: 11px 5px !important;
+    }
+
+    .tab .nav-tabs li:hover a span {
+        letter-spacing: -7px;
+        opacity: 0;
+    }
+
+    .tab .nav-tabs li:hover a.active .tooltipLabel {
+        display: none !important;
+    }
+
+    .tab .nav-tabs li:hover a .tooltipLabel {
+        display: block !important;
+        background-color: #d31145;
+        color: #fff;
+        position: absolute;
+        letter-spacing: 1px;
+        opacity: 1;
+        top: -42px;
+        left: -3px;
+        padding: 4px 9px;
+        border-radius: 4px;
+    }
+}
+
+@media screen and (min-width:497px) and (max-width:765px) {
+    .nav-tabs > li > a, .nav-pills > li > a {
+        padding: 11px 13px !important;
+    }
+}
+.greyBgrd{
+    background-color: #eee;
+   padding: 20px;
+   margin: 10px;
+   text-align:center;
+}
+.greyBgrd h5{
+    font-weight:bold;
+}
+@media screen and (min-width:320px) and (max-width:765px) {
+    #illustration-grid {
+        display: none !important;
+    }
+
+    .illustrationbtn {
+        display: block !important;
+    }
+}
+
+        .risk-info-div span label {
+            font-weight: normal;
+        }
+        .optionalContent{
+            min-height:unset !important;
+        }
+#divGetChildren {
+    width: 100%;
+}
+.deleteLink{
+    margin-top: 33px;
+   text-align: right;
+   color: #d31145;
+}
+.deleteLink .fa{ color: #d31145;}
+#gridproposalpayment,#DivQuestionnaireDetails{width:100%;}
+.greyBgrd{
+    background-color: #eee;
+   padding: 20px;
+   margin: 10px;
+   text-align:center;
+}
+.greyBgrd h5{
+    font-weight:bold;
+}
+@media screen and (min-width:320px) and (max-width:1220px) {
+    .input-group-addon {
+        top: 0 !important;
+    }
+}
+
+@media screen and (min-width:768px) {
+    .pad {
+        width: 436px !important;
+    }
+}
+
+@media screen and (max-width:515px) {
+    .Chkboxspace {
+        margin-top: -7%;
+        margin-bottom: -5%;
+    }
+}
+
+@media screen and (min-width:481px) and (max-width:590px) {
+    .need-identification-answer-subsec {
+        width: 30% !important;
+        height: 230px !important;
+    }
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu{min-width:237px !important;}
+@media screen and (min-width:482px) and (max-width:768px){
+    .retirement_calculation_fund_table_label{
+        font-size: 14px !important;
+        max-width: 87px;
+    }
+}
+
+@media screen and (min-width:766px) and (max-width:991px) {
+    .financial_analysis_calculator_retirement, .financial_analysis_calculator_education, .financial_analysis_calculator_health, .financial_analysis_calculator_protection, .financial_analysis_calculator_savings {
+        width: 22% !important;
+        margin: 34px 18px 0 0 !important;
+    }
+
+        .financial_analysis_calculator_retirement p, .financial_analysis_calculator_education p, .financial_analysis_calculator_health p, .financial_analysis_calculator_protection p, .financial_analysis_calculator_savings p {
+            font-size: 16px !important;
+            margin-left: 35px !important;
+        }
+}
+
+@media screen and (min-width:992px) and (max-width:1060px) {
+    .financial_analysis_calculator_retirement, .financial_analysis_calculator_education, .financial_analysis_calculator_health, .financial_analysis_calculator_protection, .financial_analysis_calculator_savings {
+        width: 21% !important;
+        margin: 34px 22px 0 0 !important;
+    }
+
+        .financial_analysis_calculator_retirement p, .financial_analysis_calculator_education p, .financial_analysis_calculator_health p, .financial_analysis_calculator_protection p, .financial_analysis_calculator_savings p {
+            font-size: 16px !important;
+            margin-left: 37px !important;
+        }
+}
+
+.tab-content > .tab-pane {
+    display: none;
+}
+
+.tab-content > .active {
+    display: block !important;
+}
