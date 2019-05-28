@@ -1340,7 +1340,7 @@ namespace AIA.Life.Data.API.Controllers
             catch (Exception ex)
             {
                 objResp = new OCRResponse();
-                NicNumber = ex.Message + " Inner Exception: " + ex.InnerException;//Error in fetching NIC Number
+                NicNumber = ex.Message + " Inner Exception: " + ex.InnerException;//Error in fetching SSN Number
                 objResp.ErrorMessage = ex.Message + " Inner Exception: " + ex.InnerException;
             }
             return objResp;
@@ -1579,7 +1579,7 @@ namespace AIA.Life.Data.API.Controllers
         //    catch (Exception ex)
         //    {
         //        objResp = new OCRResponse();
-        //        NicNumber = ex.Message + " Inner Exception: " + ex.InnerException;//Error in fetching NIC Number
+        //        NicNumber = ex.Message + " Inner Exception: " + ex.InnerException;//Error in fetching SSN Number
         //        objResp.ErrorMessage = ex.Message + " Inner Exception: " + ex.InnerException;
         //    }
         //    return objResp;
