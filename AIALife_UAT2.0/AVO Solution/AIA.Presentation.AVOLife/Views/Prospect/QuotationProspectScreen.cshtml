@@ -9,11 +9,6 @@
         padding-left: 8%;
         padding-right: 4%;
     }*/
-
-    .prospectinfo-item {
-        padding: 0;
-        margin: 0;
-    }
 </style>
 
 @Html.HiddenFor(a => a.objProspect.ClientCode, new { id = "hdnClientCode" })
@@ -22,9 +17,9 @@
 @Html.HiddenFor(a => a.objProspect.SamsLeadNumber, new { id = "hdnSamsLeadNumber" })
 @Html.HiddenFor(a => a.objProspect.HdnAutOccupation, new { id = "hdnAutOccupation" })
 
-<div class="col-lg-12" id="DivProspectInformation" style="padding: 0;">
-    <p class="col-md-12 h4" style="font-weight:bold; padding: 0;">Prospect Information:</p>
-    <div class="row col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+<div class="col-lg-12" id="DivProspectInformation">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group">
                 <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
@@ -57,7 +52,7 @@
         </div>
 
     </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group">
                 <label><img src="~/Content/Images/quote-8.png" style="width: 20px;" />@Resources.GetLabelName("Given Name")<span class="mandatory">*</span></label>
@@ -82,7 +77,7 @@
         </div>
 
     </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group">
                 <label><img src="~/Content/Images/quote-7.png" style="width: 20px;" />@Resources.GetLabelName("Home")</label>
@@ -106,7 +101,7 @@
             </div>
         </div>
     </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group">
                 <label>@Resources.GetLabelName("Place")<span class="mandatory">*</span></label>
@@ -134,7 +129,7 @@
 
 
     </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group" style="width:100%">
                 <label>@Resources.GetLabelName("Date Of Birth")<span class="mandatory">*</span></label>
@@ -159,7 +154,7 @@
             </div>
         </div>
     </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
 
 
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -183,16 +178,16 @@
 
     @*Communication Address*@
 
-    <div class="row col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 prospectinfo-item">
         <div class="form-group">
-            <p class="col-md-12 h4" style="font-weight:bold; padding: 0;"><img src="~/Content/Images/quote-19.png" style="width: 20px;" />@Resources.GetLabelName("Communication Address"):</p>
+            <p class="col-md-12 h4" style="font-weight:bold;"><img src="~/Content/Images/quote-19.png" style="width: 20px;" />@Resources.GetLabelName("Communication Address"):</p>
             <div class="panel-body col-sm-12">
                 @Html.AddressForNewProspectScreen(a => a.objProspect.objAddress)
 
             </div>
         </div>
     </div>
-    
+
 </div>
 <div class="modal fade" id="NicPopUp" role="dialog">
     <div class="modal-dialog">
@@ -216,10 +211,6 @@
     </div>
 </div>
 <script type="text/javascript">
-
-   
-
-
     function ValidateSuspectType() {
 
         var Type = $("#ddlPropectInfoType").val();
@@ -329,7 +320,10 @@
                         $('#dtProspectDOB').val(data.DateofBirth);
                         $('#txtAge').val(data.Age);
                         $('#TxtOccupation').val(data.Occupation);
-                        $('#txtAverageMonthlyIncome').val(data.AvgMonthlyIncome);
+                        if (data.AvgMonthlyIncome != "" && data.AvgMonthlyIncome != null) {
+                            $('#hdntxtAverageMonthlyIncome').val(data.AvgMonthlyIncome);
+                            f2('txtAverageMonthlyIncome');
+                        }
                         $("#txtPassport").val(data.PassPort);
                         $('#objProspectobjAddressAddress1').val(data.objAddress.Address1);
                         $('#objProspectobjAddressAddress2').val(data.objAddress.Address2);
@@ -369,7 +363,10 @@
                              $('#dtProspectDOB').val(data.DateofBirth);
                              $('#txtAge').val(data.Age);
                              $('#TxtOccupation').val(data.Occupation);
-                             $('#txtAverageMonthlyIncome').val(data.AvgMonthlyIncome);
+                             if (data.AvgMonthlyIncome != "" && data.AvgMonthlyIncome != null) {
+                                 $('#hdntxtAverageMonthlyIncome').val(data.AvgMonthlyIncome);
+                                 f2('txtAverageMonthlyIncome');
+                             }
                              $("#txtPassport").val(data.PassPort);
                              $('#objProspectobjAddressAddress1').val(data.objAddress.Address1);
                              $('#objProspectobjAddressAddress2').val(data.objAddress.Address2);
@@ -751,7 +748,7 @@
         }
 
         if ($("#ddlMaritalStatus option:selected").text() == "Married") {
-            $("#PIspouseDetails").css("display", "flex");
+            $("#PIspouseDetails").css("display", "block");
             var SpouseAge = $('#txtSpouseAgeInfo').val();
             if (SpouseAge == "" || SpouseAge == null || SpouseAge == 0) {
                 $('#txtSpouseAgeInfo').addClass("blank-field-hightlight");

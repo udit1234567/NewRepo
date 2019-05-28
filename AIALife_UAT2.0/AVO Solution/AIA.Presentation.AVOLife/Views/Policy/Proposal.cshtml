@@ -65,7 +65,7 @@
     }
 
     .nav-pills > li.active > a {
-        /*background-color: #D31145 !important;*/
+        /*background-color: #1747a7 !important;*/
     }
 
     .nav > li > a:hover, .nav > li > a:focus {
@@ -75,7 +75,7 @@
 
     .nav-tabs > li > a, .nav-pills > li > a {
         font-size: 18px;
-        /*background-color: #D31145 !important;*/
+        /*background-color: #1747a7 !important;*/
         color: #fff;
     }
 
@@ -121,7 +121,7 @@
 
         .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
             /*background-color: #fff;*/
-            border: 1px solid #5a73ef;
+            border: 1px solid #5681d6;
         }
 
     .nav-tabs > li > a, .nav-pills > li > a {
@@ -155,6 +155,7 @@
 
         .style-table tr th {
             color: #fff;
+            background-color: #fbb055;
             border: 1px solid #eee;
             width: 20%;
         }
@@ -181,59 +182,27 @@
             <div>
                 @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
             </div>
-            <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #5a73ef;"></a>
+            <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #1747a7;"></a>
 
-            <a href="/Policy/proposalHome" class="btn visible-lg-block visible-md-block" style="max-width:100px">@Resources.GetLabelName("Proposal")</a>
+            <a href="/Policy/proposalHome" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Proposal")</a>
 
-            <div class="btn btn-info" style="max-width:200px"><b>@Resources.GetLabelName("Modify Proposal")</b></div>
-
-        </div>
-    </div>
-    <div class="stepwizard col-md-offset-3" style="margin:10px">
-        <div class="stepwizard-row setup-panel">
-            <div class="stepwizard-step">
-                <a href="#pnlProposalForm" type="button" class="firstTrigger stepNotfilled btnCurrentStep">1</a>
-                <p>@Resources.GetLabelName("Proposal Form")</p>
-            </div>
-            <div class="stepwizard-step">
-                <a href="#pnlProposalDetails" type="button" class="stepNotfilled" disabled="disabled">2</a>
-                <p>@Resources.GetLabelName("Policy Owner Details")</p>
-            </div>
-            <div class="stepwizard-step">
-                <a href="#pnlLifetobeAssuredDetails" type="button" class="stepNotfilled" disabled="disabled">3</a>
-                <p>@Resources.GetLabelName("Life to be Assured")</p>
-            </div>
-            <div class="stepwizard-step">
-                <a href="#pnlQuestionnaire" type="button" class="stepNotfilled" disabled="disabled">4</a>
-                <p>@Resources.GetLabelName("Questionnaires")</p>
-            </div>
-            <div class="stepwizard-step">
-                <a href="#pnlBenefitOverView" type="button" class="stepNotfilled" disabled="disabled">5</a>
-                <p>@Resources.GetLabelName("Premium and Benefit Coverage Details")</p>
-            </div>
-            <div class="stepwizard-step">
-                <a href="#pnlNomineeDetails" type="button" class="stepNotfilled" disabled="disabled">6</a>
-                <p>@Resources.GetLabelName("Beneficiary Details")</p>
-            </div>
-            <div class="stepwizard-step">
-                <a href="#pnldocumentupload" type="button" class="stepNotfilled" disabled="disabled">7</a>
-                <p>@Resources.GetLabelName("Declaration And Documents")</p>
-            </div>
+            <div class="btn btn-info"><b>@Resources.GetLabelName("Modify Proposal")</b></div>
 
         </div>
     </div>
+    <br />
     <div id="DivBasicDetails">
         @*Proposal Form*@
-        <div class="row setup-content" id="pnlProposalForm" onchange="SetMandatoryHighlightBlank('pnlProposalForm', false)">
-            @*<div class="panel-heading backgroundclr" role="tab" id="headingOne">
+        <div class="panel panel-default" id="pnlProposalForm" onchange="SetMandatoryHighlightBlank('pnlProposalForm', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingOne">
                 <h4 class="panel-title">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         @Resources.GetLabelName("Proposal Form")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
                     </a>
                 </h4>
-            </div>*@
-            @*<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">*@
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
                     @Html.HiddenFor(a => a.PolicyID, new { @id = "hdnPolicyID" })
                     @Html.HiddenFor(a => a.ProcceedToPayment, new { @id = "hdnProcceedToPayment" })
                     @Html.HiddenFor(a => a.ContactID, new { @id = "hdnContactID" })
@@ -246,103 +215,96 @@
                     @Html.HiddenFor(a => a.IsLoading, new { @id = "hdnIsApplyLoading" })
                     @Html.HiddenFor(a => a.IsClaGenerateQuote, new { @id = "hdnIsClaGenerateQuote" })
                     @Html.Partial("~/Views/Policy/_PartialProposalForm.cshtml", Model)
-            <div class="col-lg-12" style="text-align:center">
-                <button class="btn btn-primary nextBtn btn-lg" type="button">Next</button>
+                </div>
             </div>
-            </div>
-            @*</div>
-        </div>*@
+        </div>
 
         @*Proposer Details*@
-        <div class="row setup-content" id="pnlProposalDetails" onchange="SetMandatoryHighlightBlank('pnlProposalDetails', false)">
-            @*<div class="panel-heading backgroundclr" role="tab" id="headingTwo">
+        <div class="panel panel-default" id="pnlProposalDetails" onchange="SetMandatoryHighlightBlank('pnlProposalDetails', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingTwo">
                 <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         @Resources.GetLabelName("Policy Owner Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
                     </a>
                 </h4>
-            </div>*@
+            </div>
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
                     @Html.Partial("~/Views/Policy/_PartialProposerDetails.cshtml", Model)
                 </div>
             </div>
-            <div class="col-lg-12" style="text-align:center">
-                <button class="btn btn-primary previousBtn" type="button">Previous</button>
-                <button class="btn btn-primary nextBtn btn-lg" type="button">Next</button>
-                   </div>
         </div>
 
 
         @*Life to be Assured*@
-        <div class="row setup-content" id="pnlLifetobeAssuredDetails" onchange="SetMandatoryHighlightBlank('pnlLifetobeAssuredDetails', false)">
-            @*<div class="panel-heading backgroundclr" role="tab" id="headingN">
+        <div class="panel panel-default" id="pnlLifetobeAssuredDetails" onchange="SetMandatoryHighlightBlank('pnlLifetobeAssuredDetails', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingN">
                 <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseN" aria-expanded="false" aria-controls="collapseTwo">
                         @Resources.GetLabelName("Life to be Assured")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
                     </a>
                 </h4>
-            </div>*@
-            @*<div id="collapseN" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingN">
-                <div class="panel-body">*@
+            </div>
+            <div id="collapseN" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingN">
+                <div class="panel-body">
 
                     @Html.Partial("~/Views/Policy/_PartialMemberDetails.cshtml", Model)
-                   
-                @*</div>
-            </div>*@
+                    <div class="clearfix"></div>
+                </div>
+            </div>
         </div>
 
 
         @*Questionnaire*@
-        <div class="row setup-content" id="pnlQuestionnaire" onchange="SetMandatoryHighlightBlank('pnlQuestionnaire', false)">
-            @*<div class="panel-heading backgroundclr" role="tab" id="headingQuestionnaire">
+        <div class="panel panel-default" id="pnlQuestionnaire" onchange="SetMandatoryHighlightBlank('pnlQuestionnaire', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingQuestionnaire">
                 <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseQuestionnaire" aria-expanded="true" aria-controls="collapseBenefitOverView">
                         @Resources.GetLabelName("Questionnaires")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
                     </a>
                 </h4>
-            </div>*@
-            @*<div id="collapseQuestionnaire" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingQuestionnaire">
-                <div class="panel-body">*@
+            </div>
+            <div id="collapseQuestionnaire" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingQuestionnaire">
+                <div class="panel-body">
                     <div id="DivQuestionnaireDetails">
                         @Html.Partial("~/Views/Policy/_PartialQuestionnaire.cshtml", Model)
-                    @*</div>
-                </div>*@
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row setup-content" id="pnlBenefitOverView" onchange="SetMandatoryHighlightBlank('pnlBenefitOverView', false)">
-        @*<div class="panel-heading backgroundclr" role="tab" id="headingBenefitOverView">
+    <div class="panel panel-default" id="pnlBenefitOverView" onchange="SetMandatoryHighlightBlank('pnlBenefitOverView', false)">
+        <div class="panel-heading backgroundclr" role="tab" id="headingBenefitOverView">
             <h4 class="panel-title">
                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseBenefitOverView" aria-expanded="true" aria-controls="collapseBenefitOverView">
                     @Resources.GetLabelName("Premium and Benefit Coverage Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
                 </a>
             </h4>
-        </div>*@
-        @*<div id="collapseBenefitOverView" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBenefitOverView">
-            <div class="panel-body">*@
+        </div>
+        <div id="collapseBenefitOverView" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBenefitOverView">
+            <div class="panel-body">
 
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     @Html.Partial("~/Views/Policy/PartialGetDynamicTabs.cshtml", Model)
 
-                @*</div>
+                </div>
 
-            </div>*@
+            </div>
         </div>
     </div>
 
     <div id="DivOtherDetails">
-        <div class="row setup-content" id="pnlNomineeDetails" onchange="SetMandatoryHighlightBlank('pnlNomineeDetails', false)">
-            @*<div class="panel-heading backgroundclr" role="tab" id="headingFour">
+        <div class="panel panel-default" id="pnlNomineeDetails" onchange="SetMandatoryHighlightBlank('pnlNomineeDetails', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingFour">
                 <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
                         @Resources.GetLabelName("Beneficiary Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
                     </a>
                 </h4>
-            </div>*@
-            @*<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                <div class="panel-body" onchange="SetMandatoryHighlightBlank('DivNomineeDetailsGridView', false)">*@
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                <div class="panel-body" onchange="SetMandatoryHighlightBlank('DivNomineeDetailsGridView', false)">
 
                     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
                         <p>@Resources.GetLabelName("Beneficiary(s)Details: (Please indicate Date Of Birth if Beneficiary does not have NIC)")</p>
@@ -354,27 +316,27 @@
                         @Html.Partial("~/Views/Policy/PartialNomineeDetailsGrid.cshtml", Model)
                     </div>
 
-                @*</div>
-            </div>*@
+                </div>
+            </div>
         </div>
 
 
-        <div class="row setup-content" id="pnldocumentupload" onchange="SetMandatoryHighlightBlank('pnldocumentupload', false)">
-            @*<div class="panel-heading backgroundclr" role="tab" id="headingEight">
+        <div class="panel panel-default" id="pnldocumentupload" onchange="SetMandatoryHighlightBlank('pnldocumentupload', false)">
+            <div class="panel-heading backgroundclr" role="tab" id="headingEight">
                 <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
                         @Resources.GetLabelName("Declaration And Documents")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
                     </a>
                 </h4>
-            </div>*@
-            @*<div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
-                <div class="panel-body">*@
-                    <div class="form-group" style="width:100%">
+            </div>
+            <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                <div class="panel-body">
+                    <div class="form-group">
                         <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                             @Html.Partial("~/Views/Policy/DeclarationAndDocuments.cshtml", Model)
                         </div>
-                    @*</div>
-                </div>*@
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -388,6 +350,9 @@
             </div>
         }
 
+        <br />
+        <br />
+        <br />
     </div>
 
     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" style="text-align:center;margin-top:3%;" id="DivFinalbutton">
@@ -571,60 +536,6 @@
 
 <script src="~/Scripts/ProductFlow/PropoalScript.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        var navListItems = $('div.setup-panel div a'),
-                allWells = $('.setup-content'),
-                allNextBtn = $('.nextBtn');
-        allpreviousBtn=$('.previousBtn');
-        allWells.hide();
-
-        navListItems.click(function (e) {
-            e.preventDefault();
-            var $target = $($(this).attr('href')),
-                    $item = $(this);
-
-            if (!$item.hasClass('disabled')) {
-                navListItems.removeClass('btnCurrentStep').addClass('stepNotfilled');
-                $item.addClass('btnCurrentStep');
-                allWells.hide();
-                $target.show();
-                $target.find('input:eq(0)').focus();
-            }
-        });
-        allpreviousBtn.click(function(){
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-            previousStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-            previousStepWizard.removeAttr('disabled').trigger('click');
-        });
-        allNextBtn.click(function(){
-            debugger;
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                //curInputs = curStep.find("input[type='text'],input[type='url']"),
-                isValid = true;
-            $(".form-group").removeClass("has-error");
-         
-            //for(var i=0; i<curInputs.length; i++){
-            //    var status = curInputs[i].validity.valid;
-            //    validateProspect();//Added by sai for validation purpose..... 01/05/19
-                                
-            //    if (!status){
-            //        isValid = false;
-            //        $(curInputs[i]).closest(".form-group").addClass("has-error");
-            //    }
-           
-                            
-            if (isValid)
-                $('div.setup-panel div a[href="#' + curStepBtn + '"]').removeClass('stepNotfilled').addClass('stepFilled');
-
-            nextStepWizard.removeAttr('disabled').trigger('click');
-        });
-
-        $('div.setup-panel div a.firstTrigger').trigger('click');
-    });
     $(document).ready(function(){
         debugger;
         $('.reqFieldProposal').on("change",function(){
@@ -745,7 +656,7 @@
         {
 
             $('#DocAndDeclaration').find('input[type="button"][value="Delete"]').css({
-                "background-color":" #5a73ef"
+                "background-color":" #5681d6"
             });
             $('#DocAndDeclaration').find(':input','textarea','select').prop('disabled',true);
             $('#DocAndDeclaration').find('input[type="button"][value="Add "]').prop('disabled', false);
@@ -1140,6 +1051,7 @@
         debugger;
         if($('#checkboxDeclaration').hasClass('checkboxactive')){
             $('#checkboxDeclaration').attr("class", "invisibledelc");
+            $('#checkboxDeclaration').val("False");
             EnableProposalPage();
             DisableRiskInformation();
             if($("#ProposerSignPath").val()!="")
@@ -1178,6 +1090,7 @@
         }
         else{
             $('#checkboxDeclaration').addClass('checkboxactive');
+            $('#checkboxDeclaration').val("true");
 
         }
 
@@ -1189,6 +1102,7 @@
             if ($("#ddlProposalNeed").val() == "" || $('#ddlProposalNeed :selected').text() == "Select") {
                 writeMultipleMessage("error", "Please Select Proposer Need.", "ddlProposalNeed");
                 $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
                 return;
             }
             else {
@@ -1213,6 +1127,7 @@
             if (ProposerDetailsReturnValue == false)
             {
                 $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
                 //chkboxDeclaration()
                 return;
             }
@@ -1227,12 +1142,14 @@
                 if (LifeTobeAssuredReturnValue == false)
                 {
                     $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
                     return ;
                 }
                 // Validate Life Style Details
                 if(! ValidateLifeStyleDetails(i))
                 {
                     $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
                     return;
                 }
 
@@ -1240,6 +1157,7 @@
                 var LifeStyleQuestionsResult = lifestylequestionCheck(i);
                 if (LifeStyleQuestionsResult == false) {
                     $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
                     return;
                 }
 
@@ -1248,6 +1166,7 @@
                 var MedicalQuestionsResult = medquestionCheck(i);
                 if (MedicalQuestionsResult == false) {
                     $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
                     return;
                 }
 
@@ -1255,6 +1174,7 @@
                 var AdditionalQuestionsResult = addquestionCheck(i);
                 if (AdditionalQuestionsResult == false) {
                     $("#checkboxDeclaration").attr("class", "invisibledelc");
+                    $('#checkboxDeclaration').val("False");
                     return;
                 }
             }
@@ -1264,6 +1184,7 @@
             var FamiyHistoryDetailsQuestionsResult = ValidateFamiyHistoryDetails(i);
             if (FamiyHistoryDetailsQuestionsResult == false) {
                 $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
                 return;
                 //$("#checkboxDeclaration").prop("checked", false);
             }
@@ -1271,6 +1192,7 @@
             var ValidateInsuranceDetailsQuestionsResult = ValidateInsuranceDetails();
             if (ValidateInsuranceDetailsQuestionsResult == false) {
                 $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
                 return;
                 //$("#checkboxDeclaration").prop("checked", false);
             }
@@ -1279,6 +1201,7 @@
             var NomineeDetailsResult = validateNomineeDetails();
             if (NomineeDetailsResult == false) {
                 $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
                 return;
                 // $("#checkboxDeclaration").prop("checked", false);
             }
@@ -1287,6 +1210,7 @@
             var PremiumPayingDetailsResult = validatePremiumPayingDetails();
             if (PremiumPayingDetailsResult == false) {
                 $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
                 $("#divBusyIndicator").hide();
                 return;
                 // $("#checkboxDeclaration").prop("checked", false);
@@ -1296,6 +1220,7 @@
             var PreferredCommunicationMethodDetailsResult = PreferredCommunicationMethodDetails();
             if (PreferredCommunicationMethodDetailsResult == false) {
                 $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
                 return;
                 //$("#checkboxDeclaration").prop("checked", false);
             }
@@ -1303,12 +1228,14 @@
             //Documents uploading And Declaration Details Grid View
             if (ValidateDocumentUploads() == false) {
                 $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
                 return;
             }
 
             var uploadAccepted=localStorage.getItem('compare');
             if(uploadAccepted == "false"){
                 $("#checkboxDeclaration").attr("class", "invisibledelc");
+                $('#checkboxDeclaration').val("False");
                 writeMultipleMessage("error", "File Size should be less than 3 MB", "divDocumentUploads");
                 return;
             }

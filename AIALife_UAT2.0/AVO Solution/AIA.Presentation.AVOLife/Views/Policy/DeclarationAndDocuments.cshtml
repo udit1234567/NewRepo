@@ -33,6 +33,14 @@
     #ui-datepicker-div {
         z-index: 999999 !important;
     }
+    .btn-Modal:hover{
+            background-color: #708090 !important;
+            color: white;
+        }
+        .btn-Modal {
+          background-color: #2F4F4F !important; 
+          color: white; 
+        }
 </style>
 
 
@@ -200,200 +208,200 @@ foreach (var Questions in objLstWealthPlannerQuestions)
     QuestionIndex++;
 }
 }
-<div class="collapsable-content" id="declarartionContent">
-    @*Premium Paying Details Panel*@
-    <div class="card" id="pnlpremiumpayingDetails" onchange="SetMandatoryHighlightBlank('pnlpremiumpayingDetails', false)">
-        <div class="card-header" role="tab" id="headingPremiumpayingDetails">
-            <a class="card-link" data-toggle="collapse" href="#collapsePremiumpayingDetails" aria-expanded="false">
+
+@*Premium Paying Details Panel*@
+<div class="panel panel-default" id="pnlpremiumpayingDetails" onchange="SetMandatoryHighlightBlank('pnlpremiumpayingDetails', false)">
+    <div class="panel-heading backgroundclr" role="tab" id="headingPremiumpayingDetails">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePremiumpayingDetails" aria-expanded="false" aria-controls="collapsePremiumpayingDetails">
                 @Resources.GetLabelName("Premium Paying Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
             </a>
-       
-        </div>
-        <div id="collapsePremiumpayingDetails" class="collapse show" data-parent="#declarartionContent">
-            <div class="card-body">
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label style="margin-top:19px;">@Resources.GetLabelName("Premium Payment Method")<span class="mandatory">*</span></label>
-                        @Html.DropDownListFor(m => m.PaymentMethod, new SelectList(Model.LstPaymentMethod, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlPaymentMethod", })
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label style="margin-top:19px;">@Resources.GetLabelName("Payment Paid By")<span class="mandatory">*</span></label>
-                        @Html.DropDownListFor(m => m.PaymentPaidBy, new SelectList(Model.LstPaymentRelations, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlPaymentPaidBy", })
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("If other, please specify Name and Relationship with Proposer") </label>
-                        @Html.TextBoxFor(a => a.others, new { id = "txtOther", @class = "form-control", @onkeypress = "return onlyAlphabets(event)",@onkeyup = "return AlphabetsWithSpace(event)" })
-                    </div>
-
+        </h4>
+    </div>
+    <div id="collapsePremiumpayingDetails" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPremiumpayingDetails">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label style="margin-top:19px;">@Resources.GetLabelName("Premium Payment Method")<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(m => m.PaymentMethod, new SelectList(Model.LstPaymentMethod, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlPaymentMethod", })
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label style="margin-top:19px;">@Resources.GetLabelName("Payment Paid By")<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(m => m.PaymentPaidBy, new SelectList(Model.LstPaymentRelations, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlPaymentPaidBy", })
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label>@Resources.GetLabelName("If other, please specify Name and Relationship with Proposer") </label>
+                    @Html.TextBoxFor(a => a.others, new { id = "txtOther", @class = "form-control", @onkeypress = "return onlyAlphabets(event)",@onkeyup = "return AlphabetsWithSpace(event)" })
                 </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("Payment Receipt preferred By") </label>
-                        @Html.DropDownListFor(m => m.PaymentReceiptPrefferdBy, new SelectList(Model.LstPreferredReceipt, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlPaymentReceiptPrefferdBy", })
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("Total Annual Premium Contribution")</label>
-                        @Html.CurrencyTextBoxFor(a => a.TotalAnnualPremiumContribution, new { id = "txtProposalTotalAnnualPremiumContribution", @class = "form-control", onchange = "f1(id)" }, Model.TotalAnnualPremiumContribution)
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("Proposal Deposit Premium")</label>
-                        @Html.CurrencyTextBoxFor(a => a.ProposalDepositPremium, new { id = "txtProposalDepositPremium", @class = "form-control", onchange = "f1(id)",@onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)" }, Model.ProposalDepositPremium)
-                    </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label>@Resources.GetLabelName("Payment Receipt preferred By") </label>
+                    @Html.DropDownListFor(m => m.PaymentReceiptPrefferdBy, new SelectList(Model.LstPreferredReceipt, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlPaymentReceiptPrefferdBy", })
                 </div>
-                @if (Model.PolicyStageStatusID == AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer && Model.AdditionalPremium > 0)
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label>@Resources.GetLabelName("Total Annual Premium Contribution")</label>
+                    @Html.CurrencyTextBoxFor(a => a.TotalAnnualPremiumContribution, new { id = "txtProposalTotalAnnualPremiumContribution", @class = "form-control", onchange = "f1(id)" }, Model.TotalAnnualPremiumContribution)
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label>@Resources.GetLabelName("Proposal Deposit Premium")</label>
+                    @Html.CurrencyTextBoxFor(a => a.ProposalDepositPremium, new { id = "txtProposalDepositPremium", @class = "form-control", onchange = "f1(id)",@onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)" }, Model.ProposalDepositPremium)
+                </div>
+            </div>
+            @if (Model.PolicyStageStatusID == AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer && Model.AdditionalPremium > 0)
             {
-                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
-                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                            <label>@Resources.GetLabelName("Premium") </label>
-                            @Html.TextBoxFor(a => a.AnnualPremium, new { @class = "form-control", @id = "txtPremium", @readonly = "readonly" })
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                            <label>@Resources.GetLabelName("Revised Premium")</label>
-                            @Html.TextBox("RevisedPremium", null, new { @class = "form-control", @id = "txtRevisedPremium", @readonly = "readonly" })
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                            <label>@Resources.GetLabelName("Additional Premium")</label>
-                            @Html.TextBoxFor(a => a.AdditionalPremium, new { id = "hdnAdditionalPremium", @class = "form-control", @readonly = "readonly" })
-                        </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("Premium") </label>
+                        @Html.TextBoxFor(a => a.AnnualPremium, new { @class = "form-control", @id = "txtPremium", @readonly = "readonly" })
                     </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("Revised Premium")</label>
+                        @Html.TextBox("RevisedPremium", null, new { @class = "form-control", @id = "txtRevisedPremium", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("Additional Premium")</label>
+                        @Html.TextBoxFor(a => a.AdditionalPremium, new { id = "hdnAdditionalPremium", @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
             }
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group row">
-                    <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4" style="font-weight:bold">@Resources.GetLabelName("Your Bank Account and credit card details") </p>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4" style="font-weight:bold">@Resources.GetLabelName("Your Bank Account and credit card details") </p>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label>@Resources.GetLabelName("Bank Account No") </label>
+                    @Html.TextBoxFor(a => a.BankAccountNo, new { id = "txtProposalBankAccountNo", @class = "form-control",@onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)" })
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label>@Resources.GetLabelName("Name of the Bank/Branch") </label>
+                    @Html.TextBoxFor(a => a.BranchName, new { id = "txtProposalBankNameandBranch", @class = "form-control",@onkeypress = "return AlphabetsWithSpacecommaandslash(event)",@onkeyup = "return AlphabetsWithSpace(event)" })
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label>@Resources.GetLabelName("Credit Card No") </label>
+                    @Html.TextBoxFor(a => a.CreditCardNo, new { id = "txtProposalCreditCardNo", @class = "form-control", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label>@Resources.GetLabelName("Name of the bank") </label>
+                    @Html.TextBoxFor(a => a.BankName, new { id = "txtbankName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
                 </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("Bank Account No") </label>
-                        @Html.TextBoxFor(a => a.BankAccountNo, new { id = "txtProposalBankAccountNo", @class = "form-control",@onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)" })
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("Name of the Bank/Branch") </label>
-                        @Html.TextBoxFor(a => a.BranchName, new { id = "txtProposalBankNameandBranch", @class = "form-control",@onkeypress = "return AlphabetsWithSpacecommaandslash(event)",@onkeyup = "return AlphabetsWithSpace(event)" })
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("Credit Card No") </label>
-                        @Html.TextBoxFor(a => a.CreditCardNo, new { id = "txtProposalCreditCardNo", @class = "form-control", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
-                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Preffered Communication Method*@
+<div class="panel panel-default" id="pnlModeofCommunication" onchange="SetMandatoryHighlightBlank('pnlModeofCommunication',false)">
+    <div class="panel-heading backgroundclr" role="tab" id="headingModeofCommunication">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseModeofCommunication" aria-expanded="false" aria-controls="collapseModeofCommunication">
+                @Resources.GetLabelName("Preferred Communication Method")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+            </a>
+        </h4>
+    </div>
+    <div id="collapseModeofCommunication" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingModeofCommunication">
+        <div class="panel-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5 form-group">
+                    <label>@Resources.GetLabelName("Preferred language for Policy Document & Correspondence")<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(m => m.PreferredLanguage, new SelectList(Model.lstLanguage, "Value", "Text"), "Select", new { @class = "form-control reqFieldProposal", @id = "ddldocLanguage", })
                 </div>
-
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("Name of the bank") </label>
-                        @Html.TextBoxFor(a => a.BankName, new { id = "txtbankName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
-                    </div>
-
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label>@Resources.GetLabelName("Premium Method of Communication")<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(m => m.ModeOfCommunication, new SelectList(Model.LstModeofCommunication, "ID", "Value"), "Select", new { @class = "form-control reqFieldProposal", @id = "ddlmodeofcom", @onchange = "PremiumMethodofCommunicationepolicydocument();" })
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                    <label></label>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    @*Preffered Communication Method*@
-    <div class="card" id="pnlModeofCommunication" onchange="SetMandatoryHighlightBlank('pnlModeofCommunication',false)">
-        <div class="card-header" role="tab" id="headingModeofCommunication">
-           
-                <a class="card-link collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseModeofCommunication" aria-expanded="false" aria-controls="collapseModeofCommunication">
-                    @Resources.GetLabelName("Preferred Communication Method")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
-                </a>
-           
-        </div>
-        <div id="collapseModeofCommunication" class="collapse" role="tabpanel" data-parent="#declarartionContent">
-            <div class="card-body">
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
+@*Document Uploading And Declaration Panel*@
+<div class="panel panel-default" id="pnlDocAndDeclaration" onchange="SetMandatoryHighlightBlank('pnlDocAndDeclaration', false)">
+    <div class="panel-heading backgroundclr" role="tab" id="headingDocAndDeclaration">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#DocAndDeclaration" aria-expanded="false" aria-controls="DocAndDeclaration">
+                @Resources.GetLabelName("Documents uploading And Declaration")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
+            </a>
+        </h4>
+    </div>
+    <div id="DocAndDeclaration" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingDocAndDeclaration">
+        <div class="panel-body">
+            @if (Model.PolicyStageStatusID == AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusOutStandingReq)
+            {
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
                     <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5 form-group">
-                        <label>@Resources.GetLabelName("Preferred language for Policy Document & Correspondence")<span class="mandatory">*</span></label>
-                        @Html.DropDownListFor(m => m.PreferredLanguage, new SelectList(Model.lstLanguage, "Value", "Text"), "Select", new { @class = "form-control reqFieldProposal", @id = "ddldocLanguage", })
+                        <label>@Resources.GetLabelName("Please Select Medical Lab")</label>
+                        @Html.DropDownListFor(m => m.LabName, new SelectList(Model.lstLabNames, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMedicalLabs" })
                     </div>
+
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("Premium Method of Communication")<span class="mandatory">*</span></label>
-                        @Html.DropDownListFor(m => m.ModeOfCommunication, new SelectList(Model.LstModeofCommunication, "ID", "Value"), "Select", new { @class = "form-control reqFieldProposal", @id = "ddlmodeofcom", @onchange = "PremiumMethodofCommunicationepolicydocument();" })
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label></label>
+                        <input class="btn btn-default" id="btnGenMedLetter" type="button" onclick="GenerateMedicalLetter('@Model.QuoteNo','@Model.PlanCode')" value="Generate Medical Letter" style="padding-left:25px;padding-right:25px;margin-top:20px;">
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    @*Document Uploading And Declaration Panel*@
-    <div class="card" id="pnlDocAndDeclaration" onchange="SetMandatoryHighlightBlank('pnlDocAndDeclaration', false)">
-        <div class="card-header" role="tab" id="headingDocAndDeclaration">
-           
-                <a class="card-link collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#DocAndDeclaration" aria-expanded="false" aria-controls="DocAndDeclaration">
-                    @Resources.GetLabelName("Documents uploading And Declaration")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span><img src="~/Content/Images/portlet-expand-icon-white.png" style="float: right;" /></span>
-                </a>
-          
-        </div>
-        <div id="DocAndDeclaration" class="collapse" role="tabpanel" data-parent="#declarartionContent">
-            <div class="card-body">
-                @if (Model.PolicyStageStatusID == AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusOutStandingReq)
-            {
-                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group row">
-                        <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5 form-group">
-                            <label>@Resources.GetLabelName("Please Select Medical Lab")</label>
-                            @Html.DropDownListFor(m => m.LabName, new SelectList(Model.lstLabNames, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMedicalLabs" })
-                        </div>
-
-                        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                            <input class="btn btn-default" id="btnGenMedLetter" type="button" onclick="GenerateMedicalLetter('@Model.QuoteNo','@Model.PlanCode')" value="Generate Medical Letter" style="padding-left:25px;padding-right:25px;margin-top:20px;">
-                        </div>
-                    </div>
             }
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group row">
-                    @Html.Partial("~/Views/Policy/DocumentUpload.cshtml", Model)
-                </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                @Html.Partial("~/Views/Policy/DocumentUpload.cshtml", Model)
+            </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12  box_1 row">
-                    <p>
-                        <div>
-                            <label class="label-cbx" style="text-align:justify">
-                                @Html.CheckBoxFor(a => a.Declaration, new { @id = "checkboxDeclaration", @class = "invisibledelc", @onchange = "chkboxDeclaration()" })
-                                <div class="checkbox declarecheckbox">
-                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
-                                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
-                                        <polyline points="4 11 8 15 16 6"></polyline>
-                                    </svg>
-                                </div>
-                                <span>@Resources.GetLabelName("I/We DECLARE that the statements made in this proposal are true in every respect and that I/We have not withheld any information requested there in and that these statements and this declaration and any statement made to the medical examiner shall form the basis of the proposed contract and that if any untrue averment the said contract shall be absolutely null and void.")</span>
-                            </label>
-                        </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12  box_1">
+                <p>
+                    <div>
+                        <label class="label-cbx" style="text-align:justify">
+                            @Html.CheckBoxFor(a => a.Declaration, new { @id = "checkboxDeclaration", @class = "invisibledelc", @onchange = "chkboxDeclaration()" })
+                            <div class="checkbox declarecheckbox">
+                                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                    <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                                    <polyline points="4 11 8 15 16 6"></polyline>
+                                </svg>
+                            </div>
+                            <span>@Resources.GetLabelName("I/We DECLARE that the statements made in this proposal are true in every respect and that I/We have not withheld any information requested there in and that these statements and this declaration and any statement made to the medical examiner shall form the basis of the proposed contract and that if any untrue averment the said contract shall be absolutely null and void.")</span>
+                        </label></div>
                         @*</div>@Html.CheckBoxFor(a => a.Declaration, new { @id = "checkboxDeclaration", @class = "switch_1", @onchange = "chkboxDeclaration()" }) @Resources.GetLabelName("I/We DECLARE that the statements made in this proposal are true in every respect and that I/We have not withheld any information requested there in and that these statements and this declaration and any statement made to the medical examiner shall form the basis of the proposed contract and that if any untrue averment the said contract shall be absolutely null and void.")*@
-                    </p>
-                    <p>@Resources.GetLabelName("In the event the proposal is filled by the sales person or any other on my behalf. I confirm having verified the information/ statements/ answers and declare that those are true in every aspect and to the best of my Knowledge.")</p>
-                    <p>@Resources.GetLabelName("I/We consent to AIA Insurance Lanka PLC seeking from any doctor, clinic or hospital any medical information concerning anything which affects the physical or mental health or seeking information from any other insurer to whom a proposal has been made for life Insurance on the proposed Life Assured and I/We authorize the giving of such information.I/We agree to inform AIA Insurance Lanka PLC of any changes in health or occupation of the proposed Life Assured between the data of this proposal and date of acceptance.")</p>
-                    <p>@Resources.GetLabelName("I/We authorize and conseent to AIA Insurance Lanka PLC to use mylour use my/our mobile or other phone numbers for further communications with me/us and to obtain further information regarding any matter pertaining to the assessment and processing of this proposal regardless of whether this proposal is accepted or not. I/We understand that such telephone conversations may be recorded and any information given by me/us shall form part and parcel of this proposal and my/our duty of full disclosure of information.")</p>
-                    <p>
-                        @Resources.GetLabelName("I/We fully understand that the company and it's affiliates ('the Group')are subject to and required to, or has agreed to, comply with certain legal, regulatory and/or other requirements('the Reporting Requirements') As such, I/We Provide our express consent that the Company shall have the right to provide such information to any govermmental authorities, regulatory bodies and/or any other person(s) in respect of the Reporting Requirements. I/We understand that such discloseres may involve the cross border transfer of personal data outside the jurisdiction and that such disclosures may be with respect to i)the personal data of the Policy Owner, the Life Assured, and the beneficiaries('the Parties'), or any of them ii)any information relating to this policy;and iii)any information relating to any other policies held by the Parties or any of them. I/We understand that the Company will not be able to sell any insurance product to me/us and provide any service if I/We refuse to give the said express consent.I/We agree that should any of the Parties become a US citizen or resident while this Policy is in force, I/We shall promptly notify in writing to the Company, and in any event, no later than 30 days of me / us becoming US citizens or resident.")
-                    </p>
-                    <p>
-                        @Resources.GetLabelName("By purchasing this policy and sigining below, I/We hereby declare, agree and represent that I am/We are not a'U.S. person(s)' for U.S. federal income tax purposes and that I am /We are not acting for, on behalf of a U.S. person. Below paragraphapplies only to i) United States(U.S.) persons for U.S. federal income tax purposes; or ii) if your tax status changes and you become a U.S. person; or iii)You or your Beneficiaries in connection with this policy have indicated through inforamtion provided to us that you or such beneficiary may be in fact a U.S. person for U.S. federal income tax purposes(including for example a US address, a US telephone number A TIN etc).The term 'U.S. indicia' as used below refers to any one of the three circumstances described in(i) to (ii) above.")
-                    </p>
-                    <p>@Resources.GetLabelName("In the event you have U.S. Indicia and fall after request to provide such information,consent,and/or assistance as the Company may from time to time require to allow it to comply with its contractual,legal and/or regulatory obligations under the United States Foreign Account Tax Compliance Act,Including any required reporting to the internal Revenue Service of information relating to you or Nominees/Beneficiaries in connection with this proposed insurance policy,the Company reserves the right and shall be entitled to cancel the Insurance policy issued based on this Proposal Form.")</p>
-                    @*@Model.objProspectDetails.FirstName*@
+                </p>
+                <p>@Resources.GetLabelName("In the event the proposal is filled by the sales person or any other on my behalf. I confirm having verified the information/ statements/ answers and declare that those are true in every aspect and to the best of my Knowledge.")</p>
+                <p>@Resources.GetLabelName("I/We consent to AIA Insurance Lanka PLC seeking from any doctor, clinic or hospital any medical information concerning anything which affects the physical or mental health or seeking information from any other insurer to whom a proposal has been made for life Insurance on the proposed Life Assured and I/We authorize the giving of such information.I/We agree to inform AIA Insurance Lanka PLC of any changes in health or occupation of the proposed Life Assured between the data of this proposal and date of acceptance.")</p>
+                <p>@Resources.GetLabelName("I/We authorize and conseent to AIA Insurance Lanka PLC to use mylour use my/our mobile or other phone numbers for further communications with me/us and to obtain further information regarding any matter pertaining to the assessment and processing of this proposal regardless of whether this proposal is accepted or not. I/We understand that such telephone conversations may be recorded and any information given by me/us shall form part and parcel of this proposal and my/our duty of full disclosure of information.")</p>
+                <p>
+                    @Resources.GetLabelName("I/We fully understand that the company and it's affiliates ('the Group')are subject to and required to, or has agreed to, comply with certain legal, regulatory and/or other requirements('the Reporting Requirements') As such, I/We Provide our express consent that the Company shall have the right to provide such information to any govermmental authorities, regulatory bodies and/or any other person(s) in respect of the Reporting Requirements. I/We understand that such discloseres may involve the cross border transfer of personal data outside the jurisdiction and that such disclosures may be with respect to i)the personal data of the Policy Owner, the Life Assured, and the beneficiaries('the Parties'), or any of them ii)any information relating to this policy;and iii)any information relating to any other policies held by the Parties or any of them. I/We understand that the Company will not be able to sell any insurance product to me/us and provide any service if I/We refuse to give the said express consent.I/We agree that should any of the Parties become a US citizen or resident while this Policy is in force, I/We shall promptly notify in writing to the Company, and in any event, no later than 30 days of me / us becoming US citizens or resident.")
+                </p>
+                <p>
+                    @Resources.GetLabelName("By purchasing this policy and sigining below, I/We hereby declare, agree and represent that I am/We are not a'U.S. person(s)' for U.S. federal income tax purposes and that I am /We are not acting for, on behalf of a U.S. person. Below paragraphapplies only to i) United States(U.S.) persons for U.S. federal income tax purposes; or ii) if your tax status changes and you become a U.S. person; or iii)You or your Beneficiaries in connection with this policy have indicated through inforamtion provided to us that you or such beneficiary may be in fact a U.S. person for U.S. federal income tax purposes(including for example a US address, a US telephone number A TIN etc).The term 'U.S. indicia' as used below refers to any one of the three circumstances described in(i) to (ii) above.")
+                </p>
+                <p>@Resources.GetLabelName("In the event you have U.S. Indicia and fall after request to provide such information,consent,and/or assistance as the Company may from time to time require to allow it to comply with its contractual,legal and/or regulatory obligations under the United States Foreign Account Tax Compliance Act,Including any required reporting to the internal Revenue Service of information relating to you or Nominees/Beneficiaries in connection with this proposed insurance policy,the Company reserves the right and shall be entitled to cancel the Insurance policy issued based on this Proposal Form.")</p>
+                @*@Model.objProspectDetails.FirstName*@
 
-                    @if (Model.IsSpouseCovered == true)
+                @if (Model.IsSpouseCovered == true)
                 {
-                        <p id="pepolicydocument" style="display:none">@Resources.GetLabelName("I " + @Model.objMemberDetails[0].FirstName + " /we " + (Model.objMemberDetails.Count>=2 ? Model.objMemberDetails[1].FirstName : "") + " has/have agreed to receive the soft version of the policy document (e-policy document) instead of the printed policy document.")</p>
+                    <p id="pepolicydocument" style="display:none">@Resources.GetLabelName("I " + @Model.objMemberDetails[0].FirstName + " /we " + (Model.objMemberDetails.Count>=2 ? Model.objMemberDetails[1].FirstName : "") + " has/have agreed to receive the soft version of the policy document (e-policy document) instead of the printed policy document.")</p>
                 }
                 else
                 {
-                        <p id="pepolicydocument" style="display:none">@Resources.GetLabelName("I " + @Model.objMemberDetails[0].FirstName + "  has/have agreed to receive the soft version of the policy document (e-policy document) instead of the printed policy document.")</p>
+                    <p id="pepolicydocument" style="display:none">@Resources.GetLabelName("I " + @Model.objMemberDetails[0].FirstName + "  has/have agreed to receive the soft version of the policy document (e-policy document) instead of the printed policy document.")</p>
                 }
 
-                </div>
+            </div>
 
-                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6" id="DivProposerDeclartion" style="margin-top:2%;">
-                    <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4" style="margin-top: 10px; font-size:20px; font-weight:bold;">@Resources.GetLabelName("Proposer")</p>
+            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6" id="DivProposerDeclartion" style="margin-top:2%;">
+                <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4" style="margin-top: 10px; font-size:20px; font-weight:bold;">@Resources.GetLabelName("Proposer")</p>
 
-
+               
                     <div class="row" @*style="margin-top:7%"*@>
                         <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                             <div class="form-group">
                                 <label>@Resources.GetLabelName("Signature"):</label>
                                 @if (!string.IsNullOrEmpty(Model.ProposerSignPath))
                                 {
-                                    <img src="@Model.ProposerSignPath" style="width:250px;height:100px;" id="SignatureImgProposer" />
+                                    <img src="@Model.ProposerSignPath" style="width:250px;height:100px;"id="SignatureImgProposer" />
                                     @Html.HiddenFor(a => a.ProposerSignPath, new { })
                                     <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="PropserDigitalSign" data-target="#ProposerSignatureModal" style="display:none">
                                         Add Proposer Signature
@@ -409,105 +417,105 @@ foreach (var Questions in objLstWealthPlannerQuestions)
                             </div>
                         </div>
                     </div>
+                
 
-
-                    <div class="row" @*style="margin-top:7%"*@>
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                            <div class="form-group">
-                                <label>@Resources.GetLabelName("Proposer Date")<span class="mandatory">*</span></label>
-                                @Html.iNubeDatePickerFor(a => a.ProposerDate, new { @class = "form-control datepicker", @id = "txtProposerDate", @onblur = "ageCount()", @maxlength = "10", @Maxdate = DateTime.Now.ToString() })
-                            </div>
+                <div class="row" @*style="margin-top:7%"*@>
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                        <div class="form-group">
+                            <label>@Resources.GetLabelName("Proposer Date")<span class="mandatory">*</span></label>
+                            @Html.iNubeDatePickerFor(a => a.ProposerDate, new { @class = "form-control datepicker", @id = "txtProposerDate", @onblur = "ageCount()", @maxlength = "10", @Maxdate = DateTime.Now.ToString() })
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                            <div class="form-group">
-                                <label>@Resources.GetLabelName("Proposer Place")<span class="mandatory">*</span></label>
-                                @Html.TextBoxFor(a => a.ProposerPlace, new { @class = "form-control", @id = "txtProposerPlace",@onkeypress = "return AlphabetsWithSpace(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                        <div class="form-group">
+                            <label>@Resources.GetLabelName("Proposer Place")<span class="mandatory">*</span></label>
+                            @Html.TextBoxFor(a => a.ProposerPlace, new { @class = "form-control", @id = "txtProposerPlace",@onkeypress = "return isAlphaNumberKeybackwithOutSymbol(event)", @onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)" })
                         </div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                            <div class="form-group">
-                                <label>@Resources.GetLabelName("Proposer Country")<span class="mandatory">*</span></label>
-                                @Html.TextBoxFor(a => a.ProposerCountry, new { @class = "form-control", @id = "txtProposerCountry", @Value = "Sri Lanka" })
-                            </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                        <div class="form-group">
+                            <label>@Resources.GetLabelName("Proposer Country")<span class="mandatory">*</span></label>
+                            @Html.TextBoxFor(a => a.ProposerCountry, new { @class = "form-control", @id = "txtProposerCountry", @Value = "Sri Lanka" })
                         </div>
                     </div>
+                </div>
 
-                    @*<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
-                            <input class="btn btn-default" id="btnQuotePDF" type="button" onclick="QuotePDF()" value="Download Quotation PDF">
-                        </div>*@
+                @*<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <input class="btn btn-default" id="btnQuotePDF" type="button" onclick="QuotePDF()" value="Download Quotation PDF">
+                    </div>*@
 
-                    @if (Model.Underwriter == "UW")
+                @if (Model.Underwriter == "UW")
                 {
-                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
-                            <input class="btn btn-default" id="btnProposalPDF" type="button" onclick="ProposalPDF()" value="Download Proposal PDF">
-                        </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+                        <input class="btn btn-default" id="btnProposalPDF" type="button" onclick="ProposalPDF()" value="Download Proposal PDF">
+                    </div>
                 }
 
-                    <div class="modal fade" id="ProposerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">@Resources.GetLabelName("Wealth Planner’s Confidential Report")</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body" id="ProposerModalBody">
-                                    @*<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11" style="text-align:left">
-                                                <p>
-                                                    <span class="question-count">1. </span>
-                                                    <span class="question-text">@Resources.GetLabelName("Is there anything in the life to be insured’s health, occupation, life style, financial or social position or other circumstance that you feel the underwriter should be aware of ?")<span class="mandatory">*</span></span>
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 radiobtn-space">
-                                                <label class="radio-inline">
-                                                    @Html.RadioButtonFor(a => a.ProposerWealthPlanner, true, new { @id = "yesrbtnProposerWealthPlanner" })
-                                                    @Resources.GetLabelName("Yes")
-                                                </label>
-                                                <label class="radio-inline">
-                                                    @Html.RadioButtonFor(a => a.ProposerWealthPlanner, false, new { @id = "NorbtnProposerWealthPlanner" })
-                                                    @Resources.GetLabelName("No")
-                                                </label>
-                                            </div>
-
+                <div class="modal fade" id="ProposerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">@Resources.GetLabelName("Wealth Planner’s Confidential Report")</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="ProposerModalBody">
+                                @*<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11" style="text-align:left">
+                                            <p>
+                                                <span class="question-count">1. </span>
+                                                <span class="question-text">@Resources.GetLabelName("Is there anything in the life to be insured’s health, occupation, life style, financial or social position or other circumstance that you feel the underwriter should be aware of ?")<span class="mandatory">*</span></span>
+                                            </p>
                                         </div>
-                                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11" style="text-align:left">
-                                                <p>
-                                                    <span class="question-count">2. </span>
-                                                    <span class="question-text">@Resources.GetLabelName("Is policy back dating required ?")<span class="mandatory">*</span></span>
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 radiobtn-space">
-                                                <label class="radio-inline">
-                                                    @Html.RadioButtonFor(a => a.ProposerWealthPlannerPolicyDateing, true, new { @id = "yesrbtnProposerWealthPlannerPolicyDateing", @onclick = "showWealthPlannerPolicyDateFunction()" })
-                                                    @Resources.GetLabelName("Yes")
-                                                </label>
-                                                <label class="radio-inline">
-                                                    @Html.RadioButtonFor(a => a.ProposerWealthPlannerPolicyDateing, false, new { @id = "NorbtnProposerWealthPlannerPolicyDateing", @onclick = "hideWealthPlannerPolicyDateFunction()" })
-                                                    @Resources.GetLabelName("No")
-                                                </label>
-                                            </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 radiobtn-space">
+                                            <label class="radio-inline">
+                                                @Html.RadioButtonFor(a => a.ProposerWealthPlanner, true, new { @id = "yesrbtnProposerWealthPlanner" })
+                                                @Resources.GetLabelName("Yes")
+                                            </label>
+                                            <label class="radio-inline">
+                                                @Html.RadioButtonFor(a => a.ProposerWealthPlanner, false, new { @id = "NorbtnProposerWealthPlanner" })
+                                                @Resources.GetLabelName("No")
+                                            </label>
                                         </div>
-                                        <div class="" style="display:none" id="DivProposerWealthPlannerPolicyDate">
-                                            <div class="col-sm-8 col-md-8 col-xs-8 col-lg-10">
-                                                <label class="col-lg-2 col-sm-2 col-xs-2 col-md-2 control-label">@Resources.GetLabelName("Date")<span class="mandatory">*</span></label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                                    @Html.iNubeDatePicker1For(a => a.ProposerWealthPlannerPolicyDate, new { @class = "form-control datepicker", @id = "txtProposerWealthPlannerDate", @maxlength = "10", @Maxdate = DateTime.Now.ToString() })
-                                                </div>
-                                            </div>
-                                        </div>*@
 
-
+                                    </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                        <div>
-                                            @if (Model.objMemberDetails.Count != 0)
+                                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-11" style="text-align:left">
+                                            <p>
+                                                <span class="question-count">2. </span>
+                                                <span class="question-text">@Resources.GetLabelName("Is policy back dating required ?")<span class="mandatory">*</span></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 radiobtn-space">
+                                            <label class="radio-inline">
+                                                @Html.RadioButtonFor(a => a.ProposerWealthPlannerPolicyDateing, true, new { @id = "yesrbtnProposerWealthPlannerPolicyDateing", @onclick = "showWealthPlannerPolicyDateFunction()" })
+                                                @Resources.GetLabelName("Yes")
+                                            </label>
+                                            <label class="radio-inline">
+                                                @Html.RadioButtonFor(a => a.ProposerWealthPlannerPolicyDateing, false, new { @id = "NorbtnProposerWealthPlannerPolicyDateing", @onclick = "hideWealthPlannerPolicyDateFunction()" })
+                                                @Resources.GetLabelName("No")
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="" style="display:none" id="DivProposerWealthPlannerPolicyDate">
+                                        <div class="col-sm-8 col-md-8 col-xs-8 col-lg-10">
+                                            <label class="col-lg-2 col-sm-2 col-xs-2 col-md-2 control-label">@Resources.GetLabelName("Date")<span class="mandatory">*</span></label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                @Html.iNubeDatePicker1For(a => a.ProposerWealthPlannerPolicyDate, new { @class = "form-control datepicker", @id = "txtProposerWealthPlannerDate", @maxlength = "10", @Maxdate = DateTime.Now.ToString() })
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+
+                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                    <div>
+                                        @if (Model.objMemberDetails.Count != 0)
                                         {
                                             if (Model.objMemberDetails[0].RelationShipWithPropspect == "267")
                                             {
@@ -520,92 +528,92 @@ foreach (var Questions in objLstWealthPlannerQuestions)
                                                 }
                                             }
                                         }
-                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-top:5%">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                        <label class="control-label">@Resources.GetLabelName("Comments")</label>
+                                    </div>
+                                    <div class="col-lg-10 col-sm-10 col-xs-10 col-md-10" style="width:100%">
+                                        @Html.TextBoxFor(a => a.ProposerWealthPlannerComments, new { @class = "form-control", @id = "txtProposerComments", @maxlength = "500", })
                                     </div>
 
-                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-top:5%">
-                                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                            <label class="control-label">@Resources.GetLabelName("Comments")</label>
-                                        </div>
-                                        <div class="col-lg-10 col-sm-10 col-xs-10 col-md-10" style="width:100%">
-                                            @Html.TextBoxFor(a => a.ProposerWealthPlannerComments, new { @class = "form-control", @id = "txtProposerComments", @maxlength = "500", })
-                                        </div>
+                                </div>
 
+                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                    <div class="cntr">
+                                        <label class="label-cbx">
+                                            @Html.CheckBoxFor(a => a.WPDeclaration, new { @id = "checkboxWPDeclaration", @class = "invisible invisibledelcwp" })
+                                            <div class="checkbox">
+                                                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                                    <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                                                    <polyline points="4 11 8 15 16 6"></polyline>
+                                                </svg>
+                                            </div>
+                                            <span>@Resources.GetLabelName("I hereby confirm that the signature of the policy owner / life assured was placed in my presence on the date specified below.")</span>
+                                        </label>
                                     </div>
+                                    @*<p>@Html.CheckBoxFor(a => a.WPDeclaration, new { @id = "checkboxWPDeclaration", @class = "switch_1" }) @Resources.GetLabelName("I hereby confirm that the signature of the policy owner / life assured was placed in my presence on the date specified below.")</p>*@
+                                </div>
 
-                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                        <div class="cntr">
-                                            <label class="label-cbx">
-                                                @Html.CheckBoxFor(a => a.WPDeclaration, new { @id = "checkboxWPDeclaration", @class = "invisible invisibledelcwp" })
-                                                <div class="checkbox">
-                                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
-                                                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
-                                                        <polyline points="4 11 8 15 16 6"></polyline>
-                                                    </svg>
-                                                </div>
-                                                <span>@Resources.GetLabelName("I hereby confirm that the signature of the policy owner / life assured was placed in my presence on the date specified below.")</span>
-                                            </label>
-                                        </div>
-                                        @*<p>@Html.CheckBoxFor(a => a.WPDeclaration, new { @id = "checkboxWPDeclaration", @class = "switch_1" }) @Resources.GetLabelName("I hereby confirm that the signature of the policy owner / life assured was placed in my presence on the date specified below.")</p>*@
-                                    </div>
-
-                                   
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="DivProposerWealthPlannerSave">Save</button>@*onclick="ValidateCheck()"*@
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="DivProposerWealthPlannerPolicyDateClose">Close</button>
-                                    </div>
+                                <div class="clearfix"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="DivProposerWealthPlannerSave">Save</button>@*onclick="ValidateCheck()"*@
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="DivProposerWealthPlannerPolicyDateClose">Close</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6" id="DivSpouseDeclartion" style="border-left: 1px solid #dbdad4; margin-top:2%;">
-                    @if (Model.IsSpouseCovered)
-                {
-                        <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4" style="margin-top: 10px; font-size:20px;font-weight:bold;">@Resources.GetLabelName("Spouse")</p>
+            </div>
 
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                <div class="form-group">
-                                    <label>@Resources.GetLabelName("Signature"):</label>
-                                    @if (!string.IsNullOrEmpty(Model.SpouseSignPath))
+            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6" id="DivSpouseDeclartion" style="border-left: 1px solid #dbdad4; margin-top:2%;">
+                @if (Model.IsSpouseCovered)
+                {
+                    <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4" style="margin-top: 10px; font-size:20px;font-weight:bold;">@Resources.GetLabelName("Spouse")</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group">
+                                <label>@Resources.GetLabelName("Signature"):</label>
+                                @if (!string.IsNullOrEmpty(Model.SpouseSignPath))
                                 {
-                                        <img src="@Model.SpouseSignPath" style="width:250px;height:100px" id="SignatureImgSpouse" />
-                                        @Html.HiddenFor(a => a.SpouseSignPath, new { @id = "hdnSpouseSignPath" })
-                                        <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="SpouseSignatureUpload" data-target="#SpouseSignatureModal" style="display:none">
-                                            Add Spouse Signature
-                                        </button>
+                                <img src="@Model.SpouseSignPath" style="width:250px;height:100px" id="SignatureImgSpouse" />
+                                @Html.HiddenFor(a => a.SpouseSignPath, new { @id = "hdnSpouseSignPath" })
+                                    <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="SpouseSignatureUpload" data-target="#SpouseSignatureModal" style="display:none">
+                                        Add Spouse Signature
+                                    </button>
                                 }
                                 else
                                 {
 
-                                        <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="SpouseSignatureUpload" data-target="#SpouseSignatureModal" @*style="padding-left:25px;padding-right:25px;"*@>
-                                            Add Spouse Signature
-                                        </button>
+                                <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="SpouseSignatureUpload" data-target="#SpouseSignatureModal" @*style="padding-left:25px;padding-right:25px;"*@>
+                                    Add Spouse Signature
+                                </button>
                                 }
-                                </div>
                             </div>
                         </div>
+                    </div>
+               
 
-
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                <div class="form-group">
-                                    <label>@Resources.GetLabelName("Spouse Date")</label>
-                                    @Html.iNubeDatePickerFor(a => a.SpouseDate, new { @class = "form-control datepicker", @id = "txtSpouseDate", @onblur = "ageCount()", @maxlength = "10", @Maxdate = DateTime.Now.ToString() })
-                                </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group">
+                                <label>@Resources.GetLabelName("Spouse Date")</label>
+                                @Html.iNubeDatePickerFor(a => a.SpouseDate, new { @class = "form-control datepicker", @id = "txtSpouseDate", @onblur = "ageCount()", @maxlength = "10", @Maxdate = DateTime.Now.ToString() })
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                <div class="form-group">
-                                    <label>@Resources.GetLabelName("Spouse Place")</label>
-                                    @Html.TextBoxFor(a => a.SpousePlace, new { @class = "form-control", @id = "txtSpousePlace", @onkeypress = "return AlphabetsWithSpace(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
+                    </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                        <div class="form-group">
+                                            <label>@Resources.GetLabelName("Spouse Place")</label>
+                                            @Html.TextBoxFor(a => a.SpousePlace, new { @class = "form-control", @id = "txtSpousePlace", @onkeypress = "return isAlphaNumberKeybackwithOutSymbol(event)", @onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)" })
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
 
                                 <div class="row">
@@ -617,37 +625,37 @@ foreach (var Questions in objLstWealthPlannerQuestions)
                                     </div>
                                 </div>
                 }
-                </div>
+            </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="border-top: 1px solid #dbdad4;margin-top:2%;">
-                    <div class="form-group">
-                        @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                            <div class="form-group">*@
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="border-top: 1px solid #dbdad4;margin-top:2%;">
+                <div class="form-group">
+                    @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">*@
 
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                            <div class="form-group">
-                                <label style="margin-top: 10px; font-size:20px;font-weight:bold;">@Resources.GetLabelName("Wealth Planner")</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                            <div class="form-group">
-                                <input type="button" @*style="margin-top:5%;width:288px;"*@ value="WP/FPE Report" class="btn btn-default" data-toggle="modal" data-target="#ProposerModal" id="Proposerwealthplanner" />
-                                @*</div>
-                                    </div>*@
-                            </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                        <div class="form-group">
+                            <label style="margin-top: 10px; font-size:20px;font-weight:bold;">@Resources.GetLabelName("Wealth Planner")</label>
                         </div>
                     </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <div class="form-group">
+                            <input type="button" @*style="margin-top:5%;width:288px;"*@ value="WP/FPE Report" class="btn btn-default" data-toggle="modal" data-target="#ProposerModal" id="Proposerwealthplanner" />
+                            @*</div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
 
                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                         <div class="form-group">
                             <label>@Resources.GetLabelName("Signature"):</label>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                        <div class="form-group">
-                            @if (!string.IsNullOrEmpty(Model.WPProposerSignPath))
+                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                        <div class="form-group">
+                                            @if (!string.IsNullOrEmpty(Model.WPProposerSignPath))
                                             {
-                                <img src="@Model.WPProposerSignPath" style="width:250px;height:100px;" id="SignatureImgWp" />
+                                                <img src="@Model.WPProposerSignPath" style="width:250px;height:100px;" id="SignatureImgWp" />
                                                 @Html.HiddenFor(a => a.WPProposerSignPath, new { })
                                                 <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="WPPropserDigitalSign" data-target="#WPSignatureModal" style="display:none">
                                                     @Resources.GetLabelName("WP/FPE Signature")
@@ -655,25 +663,20 @@ foreach (var Questions in objLstWealthPlannerQuestions)
                                             }
                                             else
                                             {
-                                <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="WPPropserDigitalSign" data-target="#WPSignatureModal" @*style="padding-left:25px;padding-right:25px;"*@>
-                                    @Resources.GetLabelName("WP/FPE Signature")
-                                </button>
+                                                <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="WPPropserDigitalSign" data-target="#WPSignatureModal" @*style="padding-left:25px;padding-right:25px;"*@>
+                                                    @Resources.GetLabelName("WP/FPE Signature")
+                                                </button>
                                             }
-                        </div>
+                                        </div>
+                                    </div>
+                
+
+
+
                     </div>
-
-
-
-
-                </div>
-            </div>
         </div>
     </div>
-    <div class="col-lg-12" style="text-align:center">
-        <button class="btn btn-primary previousBtn" type="button">Previous</button>
-      
     </div>
-</div>
 <div class="modal fade" id="ModalMedical" tabindex="-2" role="dialog" aria-labelledby="WPProposerModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -694,7 +697,7 @@ foreach (var Questions in objLstWealthPlannerQuestions)
             </div>
             <div class="modal-footer">
                 @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>*@
-                    <button type="button" id="btnMedicalOK" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                <input type="button" class="btn btn-Modal" data-dismiss="modal" value="OK" />
             </div>
         </div>
     </div>

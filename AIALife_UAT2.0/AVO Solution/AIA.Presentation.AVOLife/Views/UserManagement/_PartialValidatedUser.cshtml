@@ -198,11 +198,11 @@
                 }
                 @if (Model.PageName == "UserSearch")
                 {
-                <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/UserAccess'" class="btn btn-default" style="width:100px">
+                <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/Users?Type=Agent'" class="btn btn-default" style="width:100px">
                 }
                 else
                 {
-                <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/UserAccess'"  class="btn btn-default" style="width:100px">
+                <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/Users?Type=Agent'"  class="btn btn-default" style="width:100px">
                 }
                 @if (Model.PageName == "UserSearch")
                 {
@@ -292,7 +292,7 @@
 
                     @*<input type="button" value="Submit" id="btnClientSubmit" onclick="ShowAssignedPrevilages()" class="btn btn-default" style="width:100px">*@
                     <input type="button" value="Submit" id="btnClientCreateUser" onclick="ModifyUser()" class="btn btn-default" style="width:130px">
-                    <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/UserAccess'"  class="btn btn-default" style="width:100px">
+                    <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/Users?Type=Agent'"  class="btn btn-default" style="width:100px">
                 }
                 else
                 {

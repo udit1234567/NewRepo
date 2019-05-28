@@ -67,7 +67,7 @@
     .inputfile-6 + label strong {
         height: 45%;
         color: #f1e5e6;
-        background-color: #d31145;
+        background-color: #1747a7;
         border-radius: 3px;
         display: inline-block;
         position: absolute;
@@ -89,20 +89,34 @@
     }
 
     .update-section {
-        border: 1px solid #d31145;
+        border: 1px solid #1747a7;
         padding: 30px;
     }
 </style>
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #1747a7;"></a>
+
+        <div class="btn btn-info"><b>@Resources.GetLabelName("App Notification")</b></div>
+    </div>
+</div>
+<br />
 @using (Html.BeginForm("", "", new { ReturnUrl = "" }, FormMethod.Post, new { role = "form", id = "frmAppNotification" }))
 {
     @Html.HiddenFor(x => x.HdnNodeID, new { @id = "hdnHdnNodeID" })
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <i style="color: white;" class="icon-user"></i>
+                <a style="color: white;" class="icon-user"></a>
                 <a data-toggle="collapse" data-target="#collapse3" href="#collapseone" class="collapsed">
-                    App Notification <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
+                    App Notification 
                 </a>
+                <img style="float: right;" src="~/Content/Images/portlet-expand-icon-white.png">
             </h4>
         </div>
     </div>

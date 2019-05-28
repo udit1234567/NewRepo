@@ -17,7 +17,7 @@
 
 @*Panel Benefit Details*@
 <div class="panel panel-default" id=@PanleID>
-    @*<div class="panel-heading backgroundclr" role="tab">
+    <div class="panel-heading backgroundclr" role="tab">
         <h4 class="panel-title">
             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=@PanleNavigatorheader aria-expanded="false" aria-controls="collapseTwo">
                 <i class="more-less glyphicon glyphicon-plus"></i>
@@ -25,19 +25,19 @@
 
             </a>
         </h4>
-    </div>*@
+    </div>
     <div id=@PanleNavigator class="panel-collapse" role="tabpanel" aria-labelledby=@PanleID>
-        <div class="tab">
-            <ul class="nav nav-pills nav-tabs">
+        <div class="panel-body">
+
+
+            <ul class="nav nav-pills">
                 @foreach (var item in Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails)
                 {
                     string TabId = Convert.ToString(count) + Model.SelectedQuote;
                     if (count == 1)
                     {
                         <li class="active width">
-                            <a data-toggle="pill" href="#tab_6_@TabId" class="collapsed active">
-                                @Resources.GetLabelName(item.Assured)
-                            </a>
+                            <a data-toggle="pill" href="#tab_6_@TabId">@Resources.GetLabelName(item.Assured)</a>
                         </li>
                     }
                     else
@@ -49,6 +49,7 @@
                     count++;
                 }
 
+
             </ul>
             <div class="tab-content product-tab">
 
@@ -57,7 +58,7 @@
                     string TabId = Convert.ToString(tabCount) + Model.SelectedQuote;
                     if (tabCount == 1)
                     {
-                        <div class="tab-pane fade in active show" id="tab_6_@TabId">
+                        <div class="tab-pane fade in active" id="tab_6_@TabId">
                             @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].Assured)
                             @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].Relationship)
                             @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[GlobalCount].AgeNextBirthDay)

@@ -34,197 +34,201 @@
     @Html.HiddenFor(a => a.LeadNo)
     @Html.HiddenFor(a => a.IntroducerCode)
     @Html.HiddenFor(a => a.Deductible)
-    <div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-            <label>@Resources.GetLabelName("Quotation No")<span class="mandatory">*</span></label>
-            @Html.TextBoxFor(a => a.QuoteNo, new { @readonly = "readonly", id = "QuoteNo", @class = "form-control" })
-            @Html.HiddenFor(a => a.QuoteNo, new { id = "hdnQuoteNo", @class = "form-control" })
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-            <label for="usr">@Resources.GetLabelName("Proposal No")<span class="mandatory">*</span></label>
-            @Html.TextBoxFor(a => a.ProposalNo, new { @readonly = "readonly", id = "txtProposalNo", @class = "form-control" })
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-            <label for="sel1">@Resources.GetLabelName("Plan Name")<span class="mandatory">*</span></label>
-            @Html.TextBoxFor(a => a.PlanName, new { id = "txtPlanName", @class = "form-control", @readonly = "readonly" })
-        </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label>@Resources.GetLabelName("Quotation No")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.QuoteNo, new { @readonly = "readonly", id = "QuoteNo", @class = "form-control" })
+        @Html.HiddenFor(a => a.QuoteNo, new { id = "hdnQuoteNo", @class = "form-control" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="usr">@Resources.GetLabelName("Proposal No")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.ProposalNo, new { @readonly = "readonly", id = "txtProposalNo", @class = "form-control" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="sel1">@Resources.GetLabelName("Plan Name")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.PlanName, new { id = "txtPlanName", @class = "form-control", @readonly = "readonly" })
+    </div>
 
-        @if (Model.PlanName == "Easy Pensions")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivEasyPesnsionPolicyTerm">
-                <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstEasyPensionPolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @readonly = "readonly", @id = "ddlEasyPesnsionPolicyTerm", @onchange = "ddlEasyPesnsionPolicyTerm()" })
-            </div>
+</div>
 
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivEasyPesnsionPremiumPaymentTerm">
-                <label for="sel1">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
-                @Html.TextBoxFor(a => a.PaymentTerm, new { @readonly = "readonly", id = "txtProposalPremiumTerm", @class = "form-control" })
-            </div>
-        }
-        @if (Model.PlanName == "Smart Pensions")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
-                @Html.TextBoxFor(a => a.PolicyTerm, new { id = "ddlProposalSmartPensionPolicyTerm", @class = "form-control", @onchange = "EducationPlanPolicyTerm();", @readonly = "readonly" })
-            </div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
-                @Html.TextBoxFor(a => a.PaymentTerm, new { id = "txtSmartPensionPremiumPaymentTerm", @class = "form-control", @readonly = "readonly" })
-            </div>
-        }
-        @if (Model.PlanName == "Education Plan")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
-                @Html.TextBoxFor(a => a.PolicyTerm, new { id = "txtEducationPlanPolicyTerm", @class = "form-control", @onchange = "EducationPlanPolicyTerm();", @readonly = "readonly" })
-            </div>
 
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
-                @Html.TextBoxFor(a => a.PaymentTerm, new { id = "txtEducationPlanPremiumPaymentTerm", @class = "form-control", @readonly = "readonly" })
-            </div>
-        }
-        @if (Model.PlanName == "Health Protector")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
-                @Html.TextBoxFor(a => a.PolicyTerm, new { @id = "txtHealthProtectorPolicyTerm", @class = "form-control", @onchange = "HealthProtectorPolicyTerm();", @readonly = "readonly" })
-            </div>
-
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
-                @Html.TextBoxFor(a => a.PaymentTerm, new { @id = "txtHealthProtectorPremiumPaymentTerm", @class = "form-control", @readonly = "readonly" })
-            </div>
-        }
-        @if (Model.PlanName == "Smart Builder")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivSmartBuilder">
-                <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstSmartBuilderPolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalSmartBuilderPolicyTerm", @readonly = "readonly" })
-            </div>
-
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.PaymentTerm, new SelectList(Model.LstSmartBuilderPaymentTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "txtSmartBuilderPremiumPaymentTerm", @readonly = "readonly" })
-            </div>
-        }
-        @if (Model.PlanName == "Smart Builder Gold")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivSmartBuilderGold">
-                <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstSmartBuilderGoldPolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalSmartBuilderGoldPolicyTerm", @readonly = "readonly" })
-
-            </div>
-
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.PaymentTerm, new SelectList(Model.LstSmartBuilderGoldPaymentTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "txtSmartBuilderGoldPremiumPaymentTerm", @readonly = "readonly" })
-            </div>
-        }
-        @if (Model.PlanName == "Priority Value")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivPriorityValue">
-                <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstPriorityValuePolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalPriorityValuePolicyTerm", @readonly = "readonly" })
-            </div>
-
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.PaymentTerm, new SelectList(Model.LstPriorityValuePaymentTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "txtPriorityValuePremiumPaymentTerm", @readonly = "readonly" })
-            </div>
-        }
-        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-            <label for="usr">@Resources.GetLabelName("Payment Frequent")<span class="mandatory">*</span></label>
-            @Html.DropDownListFor(m => m.PaymentFrequency, new SelectList(Model.LstPaymentfrequency, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstPaymentfrequency", @readonly = "readonly" })
+    @if (Model.PlanName == "Easy Pensions")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivEasyPesnsionPolicyTerm">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstEasyPensionPolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @readonly = "readonly", @id = "ddlEasyPesnsionPolicyTerm", @onchange = "ddlEasyPesnsionPolicyTerm()" })
         </div>
 
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivEasyPesnsionPremiumPaymentTerm">
+            <label for="sel1">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PaymentTerm, new { @readonly = "readonly", id = "txtProposalPremiumTerm", @class = "form-control" })
+       </div>
+    }
+    @if (Model.PlanName == "Smart Pensions")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PolicyTerm, new { id = "ddlProposalSmartPensionPolicyTerm", @class = "form-control", @onchange = "EducationPlanPolicyTerm();", @readonly = "readonly" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PaymentTerm, new { id = "txtSmartPensionPremiumPaymentTerm", @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Education Plan")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PolicyTerm, new { id = "txtEducationPlanPolicyTerm", @class = "form-control", @onchange = "EducationPlanPolicyTerm();", @readonly = "readonly" })
+         </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PaymentTerm, new { id = "txtEducationPlanPremiumPaymentTerm", @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Health Protector")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PolicyTerm, new { @id = "txtHealthProtectorPolicyTerm", @class = "form-control", @onchange = "HealthProtectorPolicyTerm();", @readonly = "readonly" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.PaymentTerm, new { @id = "txtHealthProtectorPremiumPaymentTerm", @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Smart Builder")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivSmartBuilder">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstSmartBuilderPolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalSmartBuilderPolicyTerm", @readonly = "readonly" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PaymentTerm, new SelectList(Model.LstSmartBuilderPaymentTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "txtSmartBuilderPremiumPaymentTerm", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Smart Builder Gold")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivSmartBuilderGold">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstSmartBuilderGoldPolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalSmartBuilderGoldPolicyTerm", @readonly = "readonly" })
+
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PaymentTerm, new SelectList(Model.LstSmartBuilderGoldPaymentTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "txtSmartBuilderGoldPremiumPaymentTerm", @readonly = "readonly" })
+       </div>
+    }
+    @if (Model.PlanName == "Priority Value")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivPriorityValue">
+            <label for="usr">@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PolicyTerm, new SelectList(Model.LstPriorityValuePolicyTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalPriorityValuePolicyTerm", @readonly = "readonly" })
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Premium Payment Term")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.PaymentTerm, new SelectList(Model.LstPriorityValuePaymentTerm, "Value", "Value"), "Select", new { @class = "form-control", @id = "txtPriorityValuePremiumPaymentTerm", @readonly = "readonly" })
+        </div>
+    }
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+        <label for="usr">@Resources.GetLabelName("Payment Frequent")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.PaymentFrequency, new SelectList(Model.LstPaymentfrequency, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstPaymentfrequency", @readonly = "readonly" })
+    </div>
+</div>
 
 
 
 
-        @if (Model.PlanName == "Easy Pensions")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstMaturityBenefit", @onchange = "MaturityBenefitFunction()" })
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormBenefitYears">
-                <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Text"), "Select", new { @class = "form-control blank-field-hightlight", @id = "ddlProposalFormBenefitYears" })
-            </div>
-        }
-        @if (Model.PlanName == "Smart Pensions")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Pension Receiving period")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.SmartPensionReceivingPeriod, new SelectList(Model.LstBenefitYears, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlProposalSmartPensionReceivingPeriod" })
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName("Monthly Saving Income")<span class="mandatory">*</span></label>
-                @Html.TextBoxFor(a => a.SmartPensionMonthlyIncome, new { id = "txtSmartPensionMonthlySavingIncome", @class = "form-control", @readonly = "readonly" })
-            </div>
-        }
-        @if (Model.PlanName == "Education Plan")
-        {
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" >
+    @if (Model.PlanName == "Easy Pensions")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstMaturityBenefit", @onchange = "MaturityBenefitFunction()" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormBenefitYears">
+            <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Text"), "Select", new { @class = "form-control blank-field-hightlight", @id = "ddlProposalFormBenefitYears" })
+        </div>
+    }
+    @if (Model.PlanName == "Smart Pensions")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Pension Receiving period")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.SmartPensionReceivingPeriod, new SelectList(Model.LstBenefitYears, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlProposalSmartPensionReceivingPeriod" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName("Monthly Saving Income")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(a => a.SmartPensionMonthlyIncome, new { id = "txtSmartPensionMonthlySavingIncome", @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+    @if (Model.PlanName == "Education Plan")
+    {
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 
-            </div>
-        }
+        </div>
+    }
 
-        @if (Model.PlanName == "Health Protector")
-        {
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    @if (Model.PlanName == "Health Protector")
+    {
+        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 
-            </div>
-        }
-        @if (Model.PlanName == "Smart Builder")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstSmartBuilderMaturityBenefit", @onchange = "SmartBuilderMaturityBenefitFunction();" })
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormSmartBuilderBenefitYears">
-                <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalFormSmartBuilderBenefitYears" })
-            </div>
-        }
-        @if (Model.PlanName == "Smart Builder Gold")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstSmartBuilderGoldMaturityBenefit", @onchange = "SmartBuilderGoldMaturityBenefitFunction();" })
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormSmartBuilderGoldBenefitYears">
-                <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalFormSmartBuilderGoldBenefitYears" })
-            </div>
-        }
-        @if (Model.PlanName == "Priority Value")
-        {
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstPriorityValueMaturityBenefit", @onchange = "PriorityValueMaturityBenefitFunction();" })
-            </div>
+        </div>
+    }
+    @if (Model.PlanName == "Smart Builder")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstSmartBuilderMaturityBenefit", @onchange = "SmartBuilderMaturityBenefitFunction();" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormSmartBuilderBenefitYears">
+            <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalFormSmartBuilderBenefitYears" })
+        </div>
+    }
+    @if (Model.PlanName == "Smart Builder Gold")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstSmartBuilderGoldMaturityBenefit", @onchange = "SmartBuilderGoldMaturityBenefitFunction();" })
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormSmartBuilderGoldBenefitYears">
+            <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalFormSmartBuilderGoldBenefitYears" })
+        </div>
+    }
+    @if (Model.PlanName == "Priority Value")
+    {
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.MaturityBenefits, new SelectList(Model.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstPriorityValueMaturityBenefit", @onchange = "PriorityValueMaturityBenefitFunction();" })
+        </div>
 
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormPriorityValueBenefitYears">
-                <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
-                @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalFormPriorityValueBenefitYears" })
-            </div>
-        }
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divProposalFormPriorityValueBenefitYears">
+            <label for="usr">@Resources.GetLabelName("For How Many Years")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.Years, new SelectList(Model.LstBenefitYears, "Value", "Value"), "Select", new { @class = "form-control", @id = "ddlProposalFormPriorityValueBenefitYears" })
+       </div>
+    }
+</div>
 
-
-
-        @*@if (Model.ProposalNeed == "Direct" || Model.ProposalNeed == "Lead" || Model.ProposalNeed == "2099" || Model.ProposalNeed == "2100" || Model.ProposalNeed == "2101" || Model.ProposalNeed == "2102" || Model.ProposalNeed == "2103" || Model.ProposalNeed == "2104" || Model.ProposalNeed == "2105" || Model.ProposalNeed == "2106" || Model.ProposalNeed == "2107" || Model.ProposalNeed == "2108" || Model.ProposalNeed == "2110")
-            {*@
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+    @*@if (Model.ProposalNeed == "Direct" || Model.ProposalNeed == "Lead" || Model.ProposalNeed == "2099" || Model.ProposalNeed == "2100" || Model.ProposalNeed == "2101" || Model.ProposalNeed == "2102" || Model.ProposalNeed == "2103" || Model.ProposalNeed == "2104" || Model.ProposalNeed == "2105" || Model.ProposalNeed == "2106" || Model.ProposalNeed == "2107" || Model.ProposalNeed == "2108" || Model.ProposalNeed == "2110")
+    {*@
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
             <label for="sel1">@Resources.GetLabelName("Need")</label>
             @Html.DropDownListFor(m => m.ProposalNeed, new SelectList(Model.lstProposalNeed, "ID", "Value"), "Select", new { @class = "form-control reqFieldProposal", @id = "ddlProposalNeed" })
         </div>
-        @*}*@
-    </div>
-
+    @*}*@
 </div>
+
 <script>
 
     $(document).ready(function () {

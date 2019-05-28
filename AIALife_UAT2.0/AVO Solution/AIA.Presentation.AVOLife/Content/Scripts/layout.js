@@ -14,7 +14,7 @@ var Layout = function() {
 
     // Set proper height for sidebar and content. The content and sidebar height must be synced always.
     var handleSidebarAndContentHeight = function () {
-        //debugger;
+        debugger;
         var content = $('.page-content');
         var sidebar = $('.page-sidebar');
         var body = $('body');

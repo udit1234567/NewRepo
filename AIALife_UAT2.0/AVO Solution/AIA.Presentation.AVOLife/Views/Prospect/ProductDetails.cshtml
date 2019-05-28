@@ -24,553 +24,564 @@
 <script src="~/Scripts/Common.js"></script>
 
 
-    <div class="modal fade" id="myProductModal" role="dialog">
-        <div class="modal-dialog">
+<div class="modal fade" id="myProductModal" role="dialog">
+    <div class="modal-dialog">
 
-            Modal content
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                </div>
-                <div class="modal-body">
-                    <p>Currently, we have X% of customers with same plan</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            <div class="modal-body">
+                <p>Currently, we have X% of customers with same plan</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="Quotation_@Model.SelectedQuote">
+
+
+    @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.CurrrentAge, new { @id = "hdnSpouseCurrentage" + Model.SelectedQuote })
+    @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.IsAfc, new { @id = "hdnAfc" + Model.SelectedQuote })
+    @if (IsModifyQuote)
+    {
+        @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].IsModifyQuote, new { @Value = true })
+        @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].QuoteNo, new { @id = "hdnQuoteNo" + Model.SelectedQuote, @Value = Model.objListQuote[Model.SelectedQuote].QuoteNo })
+        @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].QuoteVersion, new { })
+        @Html.HiddenFor(a => a.IsForCounterOffer, new { @id = "hdnCounterOffer" + Model.SelectedQuote })
+        @Html.HiddenFor(a => a.PrevQuoteNo, new { @id = "hdnPrevQuoteNo" + Model.SelectedQuote })
+        @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].TotalSumAssured, new { @id = "hdnTotalSumAssured" + Model.SelectedQuote })
+    }
+    else
+    {
+        @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].TotalSumAssured, new { @id = "hdnTotalSumAssured" + Model.SelectedQuote })
+        @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].QuoteVersion, new { })
+        @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].QuoteNo, new { @id = "hdnQuoteNo" + Model.SelectedQuote })
+        @Html.HiddenFor(a => a.IsForCounterOffer, new { @id = "hdnCounterOffer" + Model.SelectedQuote, @Value = false })
+    }
+    <div class="quotation-details">
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Product")<span class="mandatory">*</span></label>
+
+                @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.Plan, new SelectList(Model.objProspect.ListPlan, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlPlan_" + Model.SelectedQuote, @onchange = "GetVariant('" + Model.SelectedQuote + "',''), ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Plan")<span class="mandatory">*</span></label>
+
+                @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.Variant, new SelectList(Model.objProspect.ListVariant, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlVariant_" + Model.SelectedQuote, @onchange = "GetPlanCode('" + Model.SelectedQuote + "',''), ClearBenifitDetails(" + Model.SelectedQuote + "), GetSAM(" + Model.SelectedQuote + ",'','False','')" })
+
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Plan Code")</label>
+
+                @(Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.PlanCode, new { id = "txtPlanCode_" + Model.SelectedQuote, @class = "form-control", @readonly = "readonly" }))
+            </div>
+        </div>
+        <div id="divRetairemetAge_@Model.SelectedQuote" style="display:none">
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label>@Resources.GetLabelName("Retirement Age")<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.RetirementAge, new SelectList(Model.objProspect.LstRetirementAge, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlRetirementAge" + Model.SelectedQuote, @onchange = "GetPolicyTermSmartPension(" + Model.SelectedQuote + ","+ Model.objListQuote[Model.SelectedQuote].objProductDetials.RetirementAge + "), ClearBenifitDetails(" + Model.SelectedQuote + ")" })
                 </div>
             </div>
 
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
+                <div id="divPolicyTerm_@Model.SelectedQuote">
+                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PolicyTerm, new SelectList(Model.objListQuote[Model.SelectedQuote].LstPolicyTerm, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlPolicyTerm_" + Model.SelectedQuote, @onchange = "GetPremiumTerm(" + Model.SelectedQuote + ")" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Premium Term")<span class="mandatory">*</span></label>
+                <div id="divPremiumTerm_@Model.SelectedQuote">
+                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PremiumTerm, new SelectList(Model.objListQuote[Model.SelectedQuote].LstPremiumTerm, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlPremiumTerm_" + Model.SelectedQuote, @onblur = "ClearBenifitDetails(" + Model.SelectedQuote + ")"@*,@readonly ="readonly"*@ })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Preferred Language")</label>
+                @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PreferredLangauage, new SelectList(Model.objListQuote[Model.SelectedQuote].lstLanguage, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlPrefLangauage" + Model.SelectedQuote })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Preferred Mode")</label>
+            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PreferredMode, new SelectList(Model.objListQuote[Model.SelectedQuote].lstPrefMode, "Value", "Text"), new { @class = "form-control", @id = "ddlPrefMode" + Model.SelectedQuote, @onchange = "ClearModalPremium(" + Model.SelectedQuote + "),ClearBenifitDetails(" + Model.SelectedQuote + ")" })
         </div>
     </div>
-    <div id="Quotation_@Model.SelectedQuote">
 
-        <div id="DivQuotationDetails">
-            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.CurrrentAge, new { @id = "hdnSpouseCurrentage" + Model.SelectedQuote })
-            @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.IsAfc, new { @id = "hdnAfc" + Model.SelectedQuote })
-            @if (IsModifyQuote)
-            {
-                @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].IsModifyQuote, new { @Value = true })
-                @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].QuoteNo, new { @id = "hdnQuoteNo" + Model.SelectedQuote, @Value = Model.objListQuote[Model.SelectedQuote].QuoteNo })
-                @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].QuoteVersion, new { })
-                @Html.HiddenFor(a => a.IsForCounterOffer, new { @id = "hdnCounterOffer" + Model.SelectedQuote })
-                @Html.HiddenFor(a => a.PrevQuoteNo, new { @id = "hdnPrevQuoteNo" + Model.SelectedQuote })
-                @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].TotalSumAssured, new { @id = "hdnTotalSumAssured" + Model.SelectedQuote })
-            }
-            else
-            {
-                @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].TotalSumAssured, new { @id = "hdnTotalSumAssured" + Model.SelectedQuote })
-                @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].QuoteVersion, new { })
-                @Html.HiddenFor(a => a.objListQuote[Model.SelectedQuote].QuoteNo, new { @id = "hdnQuoteNo" + Model.SelectedQuote })
-                @Html.HiddenFor(a => a.IsForCounterOffer, new { @id = "hdnCounterOffer" + Model.SelectedQuote, @Value = false })
-            }
-            <div class="row quotation-details">
+    <div id="divPensionPeriod_@Model.SelectedQuote" style="display:none">
 
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label>@Resources.GetLabelName("Product")<span class="mandatory">*</span></label>
-
-                        @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.Plan, new SelectList(Model.objProspect.ListPlan, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlPlan_" + Model.SelectedQuote, @onchange = "GetVariant('" + Model.SelectedQuote + "',''), ClearBenifitDetails(" + Model.SelectedQuote + ")" })
-
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label>@Resources.GetLabelName("Plan")<span class="mandatory">*</span></label>
-
-                        @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.Variant, new SelectList(Model.objProspect.ListVariant, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlVariant_" + Model.SelectedQuote, @onchange = "GetPlanCode('" + Model.SelectedQuote + "',''), ClearBenifitDetails(" + Model.SelectedQuote + "), GetSAM(" + Model.SelectedQuote + ",'','False','')" })
-
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label>@Resources.GetLabelName("Plan Code")</label>
-
-                        @(Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.PlanCode, new { id = "txtPlanCode_" + Model.SelectedQuote, @class = "form-control", @readonly = "readonly" }))
-                    </div>
-                </div>
-                <div id="divRetairemetAge_@Model.SelectedQuote" class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="display:none">
-
-                    <div>
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Retirement Age")<span class="mandatory">*</span></label>
-                            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.RetirementAge, new SelectList(Model.objProspect.LstRetirementAge, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlRetirementAge" + Model.SelectedQuote, @onchange = "GetPolicyTermSmartPension(" + Model.SelectedQuote + "," + Model.objListQuote[Model.SelectedQuote].objProductDetials.RetirementAge + "), ClearBenifitDetails(" + Model.SelectedQuote + ")" })
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label>@Resources.GetLabelName("Policy Term")<span class="mandatory">*</span></label>
-                        <div id="divPolicyTerm_@Model.SelectedQuote">
-                            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PolicyTerm, new SelectList(Model.objListQuote[Model.SelectedQuote].LstPolicyTerm, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlPolicyTerm_" + Model.SelectedQuote, @onchange = "GetPremiumTerm(" + Model.SelectedQuote + ")" })
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label>@Resources.GetLabelName("Premium Term")<span class="mandatory">*</span></label>
-                        <div id="divPremiumTerm_@Model.SelectedQuote">
-                            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PremiumTerm, new SelectList(Model.objListQuote[Model.SelectedQuote].LstPremiumTerm, "Text", "Value"), "Select", new
-                   {
-                       @class = "form-control",
-                       @id = "ddlPremiumTerm_" + Model.SelectedQuote,
-                       @onblur = "ClearBenifitDetails(" + Model.SelectedQuote + ")"@*,@readonly ="readonly"*@ })
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label>@Resources.GetLabelName("Preferred Language")</label>
-                        @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PreferredLangauage, new SelectList(Model.objListQuote[Model.SelectedQuote].lstLanguage, "ID", "Value"), "Select", new { @class = "form-control", @id = "ddlPrefLangauage" + Model.SelectedQuote })
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="row">
-                <div class="form-group col-md-4 col-sm-4 col-lg-4 col-xs-12">
-                    <label>@Resources.GetLabelName("Preferred Mode")</label>
-                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PreferredMode, new SelectList(Model.objListQuote[Model.SelectedQuote].lstPrefMode, "Value", "Text"), new { @class = "form-control", @id = "ddlPrefMode" + Model.SelectedQuote, @onchange = "ClearModalPremium(" + Model.SelectedQuote + "),ClearBenifitDetails(" + Model.SelectedQuote + ")" })
-                </div>
-
-
-                <div id="divPensionPeriod_@Model.SelectedQuote" class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="display:none">
-
-                    <div>
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Pension Receiving Period")<span class="mandatory">*</span></label>
-                            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PensionPeriod, new SelectList(Model.objProspect.LstPensionPeriod, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlPensionPeriod" + Model.SelectedQuote })
-                        </div>
-                    </div>
-                </div>
-                @*<div id="divEasyPensionPeriod_@Model.SelectedQuote" style="display:none">
-
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Pension Receiving Period")<span class="mandatory">*</span></label>
-                            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PensionPeriod, new SelectList(Model.objProspect.LstPensionPeriod, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlEasyPensionPeriod" + Model.SelectedQuote })
-                        </div>
-                    </div>
-                </div>*@
-
-                @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divSelfPay_@Model.SelectedQuote" style="display:none">
-                    <div class="form-group" style="display:none">
-                        <label>@Resources.GetLabelName("Self-Pay")</label>
-                        <div>
-
-                            @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSelfPay, true, new { @id = "IsSelfPay" + Model.SelectedQuote, @class = "", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
-                            @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSelfPay, false, new { @id = "IsSelfPay" + Model.SelectedQuote, @class = "", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
-                        </div>
-                    </div>
-                </div>*@
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChkBoxHealthProtector_@Model.SelectedQuote" style="display:none">
-                    <div class="form-group">
-                        <div class="cntr">
-                            <label class="label-cbx">
-                                @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.IsFamilyFloater, new
-                   {
-                       @id = "chkIsFamilyFloater_" + Model.SelectedQuote,
-                       @class = "invisibleQuatation",
-                       @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + "),ChangeCheckBoxIFF(" + Model.SelectedQuote + ")"@*, @style = "width:40px;height:20px;margin-top:5px"*@ })
-                                <div class="checkbox">
-                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
-                                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
-                                        <polyline points="4 11 8 15 16 6"></polyline>
-                                    </svg>
-                                </div>
-                                <span>@Resources.GetLabelName("IsFamilyFloater")</span>
-                            </label>
-                        </div>
-                        @*<label>@Resources.GetLabelName("IsFamilyFloater")</label>
-                        <span>
-                            @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.IsFamilyFloater, new{@id = "chkIsFamilyFloater_" + Model.SelectedQuote,@onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")"@*, @style = "width:40px;height:20px;margin-top:5px" })
-                        </span>*@
-                    </div>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChkBoxHealthProtector2_@Model.SelectedQuote" style="display:none">
-                    <div class="form-group">
-                        <div class="cntr">
-                            <label class="label-cbx">
-                                @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.Deductable, new
-                       {
-                           @id = "chkDeductable",
-                           @class = "invisibleQuatation",
-                           @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + "),ChangeCheckBoxSP(" + Model.SelectedQuote + ")",
-                           @name = ""@*, @style = "width:40px;height:20px;margin-top:5px"*@ })
-                                <div class="checkbox">
-                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
-                                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
-                                        <polyline points="4 11 8 15 16 6"></polyline>
-                                    </svg>
-                                </div>
-                                <span>@Resources.GetLabelName("Self-Pay")</span>
-                            </label>
-                        </div>
-                        @*<label>@Resources.GetLabelName("Self-Pay")</label>
-                        <span>
-
-                            @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.Deductable, new{@id = "chkDeductable",@onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")", @name = ""@*, @style = "width:40px;height:20px;margin-top:5px" })
-                        </span>*@
-
-                    </div>
-                </div>
-                <div id="divDrawDownPeriod_@Model.SelectedQuote" style="display:none">
-
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Draw Down Period")<span class="mandatory">*</span></label>
-                            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.DrawDownPeriod, new SelectList(Model.objProspect.LstDrawDownPeriod, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlDrawDownPeriod" + Model.SelectedQuote, @onchange = "GetMaturityBenifit(" + Model.SelectedQuote + ")" })
-                        </div>
-                    </div>
-                </div>
-                <div id="divMaturityBenifit_@Model.SelectedQuote" style="display:none">
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory"></span></label>
-                            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.MaturityBenefits, new SelectList(Model.objProspect.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstdMaturityBenefit" + Model.SelectedQuote, @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" })
-                        </div>
-                    </div>
-                </div>
-                <div id="divMonthlyIncome_@Model.SelectedQuote" class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="display:none">
-
-                    <div>
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Monthly Survivor Income") (%)<span class="mandatory">*</span></label>
-                            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.MonthlySurvivorIncome, new { @class = "form-control", @maxLength = 3, @id = "txtMonthlySurvivorIncome" + Model.SelectedQuote, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label>@Resources.GetLabelName("Basic Sum Insured") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
-                        <div id="divBasicSum_@Model.SelectedQuote">
-                            @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.BasicSumInsured, new SelectList(Model.objListQuote[Model.SelectedQuote].lstSumInsured, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlBasicSumInsured" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")" })
-                        </div>
-                    </div>
-                </div>
-                <div style="display:none" id="divModalPremium_@Model.SelectedQuote" class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-
-                    <div>
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Modal Premium")<span class="mandatory">*</span></label>
-                            @Html.CurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.ModalPremium, new { @class = "form-control", @id = "txtModalPremium" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
-                        </div>
-                    </div>
-                </div>
-                <div style="display:none" id="divAPCP_@Model.SelectedQuote" class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-
-                    <div>
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Annual Compulsory Package")<span class="mandatory">*</span></label>
-                            @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.APCP, new { @class = "form-control", @id = "txtAPCP" + Model.SelectedQuote + "" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.APCP)
-                        </div>
-                    </div>
-                </div>
-                <div style="display:none" id="divSAM_@Model.SelectedQuote" class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-
-                    <div>
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Sum Assured Level")<span class="mandatory">*</span></label>
-                            @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.SAM, new SelectList(Model.objListQuote[Model.SelectedQuote].lstSAM, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlSAM" + Model.SelectedQuote + "", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
-                    <div class="form-group">
-                        <label>@Resources.GetLabelName("Annualize Premium") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
-                        @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium, new { @class = "form-control", @id = "txtAnnualizePremium" + Model.SelectedQuote + "", @readonly = "readonly", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium)
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div id="divSpouseCovered_@Model.SelectedQuote" class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="display:none">
-
-                    <div>
-                        <div class="form-group">
-                            <label style="font-size:16px">@Resources.GetLabelName("Spouse to be covered?")</label>
-                            <div>
-                                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSpouseCovered, true, new { @id = "IsSpouseCovered" + Model.SelectedQuote, @class = "", @onclick = "ShowSpouseChildDetails('" + "divSpousedetails_" + Model.SelectedQuote + "'),FetchDobOfSpouse(" + Model.SelectedQuote + ")", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
-                                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSpouseCovered, false, new { @id = "IsSpouseCovered" + Model.SelectedQuote, @class = "", @onclick = "HideSpouseChildDetails('" + "divSpousedetails_" + Model.SelectedQuote + "')", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="clearfix"></div>
-                <div id="divSpousedetails_@Model.SelectedQuote" class="row col-lg-12 col-md-12 col-sm-12 col-12" style="display:none; margin:0; padding:0;">
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Spouse Given Name")<span class="mandatory">*</span></label>
-                            @{
-                                if (Model.IsForCounterOffer)
-                                {
-                                    @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseName, new
-                           {
-                               @id = "txtSpouseName_" + Model.SelectedQuote,
-                               @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@ @maxlength = 60,
-                               @readonly = "readonly",
-                               @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",
-                               @onkeyup = "return AlphabetsWithSpace(event)"
-                           })
-                                }
-                                else
-                                {
-                                    @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseName, new
-                           {
-                               @id = "txtSpouseName_" + Model.SelectedQuote,
-                               @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@ @maxlength = 60,
-                               @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",
-                               @onkeyup = "return AlphabetsWithSpace(event)"
-                           })
-                                }
-                            }
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Gender")</label>
-
-                            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Gender, new SelectList(Model.objListQuote[Model.SelectedQuote].lstGender, "Value", "Text", (Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Gender != null ? Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Gender : "")), "Select", new { @class = "form-control", @id = "ddlSpouseGender" + Model.SelectedQuote, @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
-
-
-                        </div>
-                    </div>
-                    @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
-                            @(Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.NICNo, new { @id = "txtSpouseNic_" + Model.SelectedQuote, @class = "form-control", @onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")", @maxlength = 12 }))
-
-                        </div>
-                    </div>*@
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Date Of Birth")</label>
-                            @Html.iNubeDatePickerFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.DOB, new { @class = "form-control datepicker", @id = "dtSpouseCoveredDOB_" + Model.SelectedQuote, @onblur = "ageCountSpouse(" + Model.SelectedQuote + "),ClearBenifitDetails(" + Model.SelectedQuote + ")", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + "),ageCountSpouse(" + Model.SelectedQuote + ")" })
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Age at Next Birthday")</label>
-                            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.AgeNextBirthday, new { @class = "form-control", @id = "txtSpouseCoveredAge_" + Model.SelectedQuote, @maxlength = "2", @onkeypress = "return isNumberKey(event)", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Occupation")</label>
-                            @*@Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new SelectList(Model.objListQuote[Model.SelectedQuote].lstOccupation, "Value", "Text", Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation != null ? Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation : ""), "Select", new { @class = "form-control ui-autocomplete-input blank-field-hightlight", @id = "ddlSpouseOccupation" + Model.SelectedQuote, @onblur = "validateDropDown('ddlGender','Please Select Gender')", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })*@
-                            @*@Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation" })*@
-                            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation" })
-                        </div>
-                    </div>
-
-
-
-
-                </div>
-                <div class="clearfix"></div>
-                <div id="divChildCovered_@Model.SelectedQuote" class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="display:none">
-
-                    <div>
-                        <div class="form-group">
-                            <label style="font-size:16px">@Resources.GetLabelName("Children to be covered?")</label>
-                            <div>
-                                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsChildCovered, true, new { @id = "IsChildCovered" + Model.SelectedQuote, @class = "", @onclick = "ShowSpouseChildDetails('" + "divChilddetails_" + Model.SelectedQuote + "')", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
-
-                                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsChildCovered, false, new { @id = "IsChildCovered" + Model.SelectedQuote, @class = "", @onclick = "HideChildDetails(" + Model.SelectedQuote + ")", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-
-                </div>
-                <div id="divChilddetails_@Model.SelectedQuote" class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="display:none;">
-
-                    <div>
-                        <div class="form-group">
-                            <label>@Resources.GetLabelName("Number of Children")</label>
-
-                            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].NoofChilds, new { @class = "form-control", @id = "txtNoofChilds" + Model.SelectedQuote, @onblur = "ValidateNoofChild('" + Model.SelectedQuote + "')", @style = "display:inline-block;width:50%", @onkeypress = "return isNumberKey(event)", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
-
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="clearfix"></div>
-                <div id="divListChilddetails_@Model.SelectedQuote" class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="display:none;">
-                    <div class="form-group">
-                        @if (IsModifyQuote)
-            {
-                            @Html.Partial("~/Views/prospect/_PartialChildDetails.cshtml", Model)
-
-                        }
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-12  col-lg-12" style="text-align: center;margin-top: 2%;margin-bottom:2%;">
-                    <div class="form-group">
-                        <input type="button" class="btn btn-default notdisb" id="btngetriskinfo" value="Get Risk Info" data-toggle="modal" onclick="GetDynamicTabs('@Model.SelectedQuote','@Model.objListQuote[Model.SelectedQuote].IsModifyQuote')" style="padding-left:20px;padding-right:20px;" />
-                    </div>
-                </div>
-                <div class="clearfix"></div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("Pension Receiving Period")<span class="mandatory">*</span></label>
+                @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PensionPeriod, new SelectList(Model.objProspect.LstPensionPeriod, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlPensionPeriod" + Model.SelectedQuote })
             </div>
         </div>
+    </div>
+    @*<div id="divEasyPensionPeriod_@Model.SelectedQuote" style="display:none">
 
-        <!--Segregation-->
-        <div id="DivRiskInfoDetails">
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivDynamicInfo_@Model.SelectedQuote" style="padding: 0;">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
-                    @if (IsModifyQuote)
-            {
-                        @Html.Partial("~/Views/Policy/GetDynamicTabs.cshtml", Model)
-
-                    }
-                </div>
-
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" id="divCalMod_@Model.SelectedQuote" style="margin-top:3%; clear: both; text-align: center;margin-top: 20px;display:none">
-
-                <input type="button" class="btn btn-default notdisb" id="btnCalculate_@Model.SelectedQuote" value="Calculate" style="padding-left:20px;padding-right:20px;" onclick="CalculateQuotePremium('@Model.SelectedQuote')" />
-                <input type="button" style="display:none" value="Overview" id="buttonBenefitOverview_@Model.SelectedQuote" class="btn btn-default notdisb" onclick="DisplayBenifitOverview('@Model.SelectedQuote')" />
-                <input type="button" class="btn btn-default notdisb" id="btnModify_@Model.SelectedQuote" value="Modify" onclick="ModifyQuote('@Model.SelectedQuote')" style="padding-left:20px;padding-right:20px;" />
-            </div>
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group payablebtn-space" id="DivPremiumSection_@Model.SelectedQuote" style="display:none;">
-                <div class="col-md-6 col-sm-4 col-xs-12 col-lg-4 fna-final-count">
-                    <label class="fna-final-text">
-                        @Resources.GetLabelName("TOTAL PREMIUM") (LKR)
-                    </label>
-                    @(Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].AnnualPremium, new { id = "txtAnnualPremium" + Model.SelectedQuote, @class = "form-control", @readonly = "readonly", @style = "width:100%;text-align: center;font-size: xx-large;font-weight: bold;height: 10%;background-color: #e1e1e1;border-color: #E1E1E1;" }, Model.objListQuote[Model.SelectedQuote].AnnualPremium))
-
+                    <label>@Resources.GetLabelName("Pension Receiving Period")<span class="mandatory">*</span></label>
+                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PensionPeriod, new SelectList(Model.objProspect.LstPensionPeriod, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlEasyPensionPeriod" + Model.SelectedQuote })
                 </div>
             </div>
-            <div class="illustrationsec row col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" id="divIllustration_@Model.SelectedQuote" style="margin: 0;">
-                
-            </div>
-            
-            
+        </div>*@
 
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="text-align: center;">
-                    <div id="ProposerSignature_@Model.SelectedQuote" style="display:none;">
-                    @if (!string.IsNullOrEmpty(Model.QuoteProposerSignPath))
-                {
-                        <label>
-                            @Html.ActionLink("Proposer Signature", "DownloadPolicyDocument", "Utility", new { FilePath = Model.QuoteProposerSignPath }, new { target = "_blank" })
-                        </label>
-                        @Html.HiddenFor(a => a.QuoteProposerSignPath, new { })
-                }
-                else if (!Model.IsForCounterOffer) //Propser signature will be be not available for Counter Offer
-                {
-                        <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="QuotePropserDigitalSign_@Model.SelectedQuote" data-target="#QuatationProposerSignatureModal_@Model.SelectedQuote" style="padding-left:25px;padding-right:25px;">
-                            @Resources.GetLabelName("Customer Signature")
-                        </button>
-                }
+    @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divSelfPay_@Model.SelectedQuote" style="display:none">
+            <div class="form-group" style="display:none">
+                <label>@Resources.GetLabelName("Self-Pay")</label>
+                <div>
 
-                </div>
-                
-                <div id="WPSignature_@Model.SelectedQuote" style="display:none;">
-                    @if (!string.IsNullOrEmpty(Model.QuoteWPProposerSignPath))
-            {
-                        <label>
-                            @Html.ActionLink("WP Proposer Signature", "DownloadPolicyDocument", "Utility", new { FilePath = Model.QuoteWPProposerSignPath }, new { target = "_blank" })
-                        </label>
-                        @Html.HiddenFor(a => a.QuoteWPProposerSignPath, new { })
-                }
-                else if (!Model.IsForCounterOffer) // WP signature will be be not available for Counter Offer
-                {
-                        <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="QuoteWPPropserDigitalSign_@Model.SelectedQuote" data-target="#QuatationWPSignatureModal_@Model.SelectedQuote" style="padding-left:25px;padding-right:25px;">
-                            @Resources.GetLabelName("WP/FPE Signature")
-                        </button>
-                }
-
+                    @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSelfPay, true, new { @id = "IsSelfPay" + Model.SelectedQuote, @class = "", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
+                    @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSelfPay, false, new { @id = "IsSelfPay" + Model.SelectedQuote, @class = "", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
                 </div>
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="text-align: center;display:none" id="divButtons_@Model.SelectedQuote">
+        </div>*@
 
-                <input type="button" class="btn btn-default notdisb" id="btnSave" value="Save" onclick="MonthlyPopup('@Model.SelectedQuote')" style="padding-left:20px;padding-right:20px;" />
-                @if (Model.IsForCounterOffer)
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChkBoxHealthProtector_@Model.SelectedQuote" style="display:none">
+        <div class="form-group">
+            <div class="cntr">
+                <label class="label-cbx">
+                    @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.IsFamilyFloater, new
+               {
+                   @id = "chkIsFamilyFloater_" + Model.SelectedQuote,
+                   @class = "invisibleQuatation",
+                   @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + "),ChangeCheckBoxIFF(" + Model.SelectedQuote + ")"@*, @style = "width:40px;height:20px;margin-top:5px"*@ })
+                    <div class="checkbox">
+                        <svg width="20px" height="20px" viewBox="0 0 20 20">
+                            <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                            <polyline points="4 11 8 15 16 6"></polyline>
+                        </svg>
+                    </div>
+                    <span>@Resources.GetLabelName("IsFamilyFloater")</span>
+                </label>
+            </div>
+            @*<label>@Resources.GetLabelName("IsFamilyFloater")</label>
+                <span>
+                    @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.IsFamilyFloater, new{@id = "chkIsFamilyFloater_" + Model.SelectedQuote,@onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")"@*, @style = "width:40px;height:20px;margin-top:5px" })
+                </span>*@
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChkBoxHealthProtector2_@Model.SelectedQuote" style="display:none">
+    <div class="form-group">
+        <div class="cntr">
+            <label class="label-cbx">
+                @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.Deductable, new
+           {
+               @id = "chkDeductable",
+               @class = "invisibleQuatation",
+               @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + "),ChangeCheckBoxSP(" + Model.SelectedQuote + ")",
+               @name = ""@*, @style = "width:40px;height:20px;margin-top:5px"*@ })
+                <div class="checkbox">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                        <polyline points="4 11 8 15 16 6"></polyline>
+                    </svg>
+                </div>
+                <span>@Resources.GetLabelName("Self-Pay")</span>
+            </label>
+        </div>
+        @*<label>@Resources.GetLabelName("Self-Pay")</label>
+            <span>
+
+                @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.Deductable, new{@id = "chkDeductable",@onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")", @name = ""@*, @style = "width:40px;height:20px;margin-top:5px" })
+            </span>*@
+
+    </div>
+</div>
+
+<div id="divDrawDownPeriod_@Model.SelectedQuote" style="display:none">
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Draw Down Period")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.DrawDownPeriod, new SelectList(Model.objProspect.LstDrawDownPeriod, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlDrawDownPeriod" + Model.SelectedQuote, @onchange = "GetMaturityBenifit(" + Model.SelectedQuote + ")" })
+        </div>
+    </div>
+</div>
+<div id="divMaturityBenifit_@Model.SelectedQuote" style="display:none">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label for="usr">@Resources.GetLabelName(" How would you like to receive your maturity benefit")<span class="mandatory"></span></label>
+            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.MaturityBenefits, new SelectList(Model.objProspect.LstMaturityBenefits, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlLstdMaturityBenefit" + Model.SelectedQuote, @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+        </div>
+    </div>
+</div>
+
+
+<div id="divMonthlyIncome_@Model.SelectedQuote" style="display:none">
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Monthly Survivor Income") (%)<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.MonthlySurvivorIncome, new { @class = "form-control", @maxLength = 3, @id = "txtMonthlySurvivorIncome" + Model.SelectedQuote, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+    <div class="form-group">
+        <label>@Resources.GetLabelName("Basic Sum Insured") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
+        <div id="divBasicSum_@Model.SelectedQuote">
+            @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.BasicSumInsured, new SelectList(Model.objListQuote[Model.SelectedQuote].lstSumInsured, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlBasicSumInsured" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")" })
+        </div>
+    </div>
+</div>
+<div style="display:none" id="divModalPremium_@Model.SelectedQuote">
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Modal Premium")<span class="mandatory">*</span></label>
+            @Html.CurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.ModalPremium, new { @class = "form-control", @id = "txtModalPremium" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")",@onkeypress= "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)" })
+        </div>
+    </div>
+</div>
+<div style="display:none" id="divAPCP_@Model.SelectedQuote">
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Annual Compulsory Package")<span class="mandatory">*</span></label>
+            @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.APCP, new { @class = "form-control", @id = "txtAPCP" + Model.SelectedQuote + "" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.APCP)
+        </div>
+    </div>
+</div>
+<div style="display:none" id="divSAM_@Model.SelectedQuote">
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Sum Assured Level")<span class="mandatory">*</span></label>
+            @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.SAM, new SelectList(Model.objListQuote[Model.SelectedQuote].lstSAM, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlSAM" + Model.SelectedQuote + "", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")" })
+        </div>
+    </div>
+</div>
+<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
+    <div class="form-group">
+        <label>@Resources.GetLabelName("Annualize Premium") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
+        @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium, new { @class = "form-control", @id = "txtAnnualizePremium" + Model.SelectedQuote + "", @readonly = "readonly", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium)
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<div id="divSpouseCovered_@Model.SelectedQuote" style="display:none">
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label style="font-size:16px">@Resources.GetLabelName("Spouse to be covered?")</label>
+            <div>
+                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSpouseCovered, true, new { @id = "IsSpouseCovered" + Model.SelectedQuote, @class = "", @onclick = "ShowSpouseChildDetails('" + "divSpousedetails_" + Model.SelectedQuote + "'),FetchDobOfSpouse(" + Model.SelectedQuote + ")", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
+                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSpouseCovered, false, new { @id = "IsSpouseCovered" + Model.SelectedQuote, @class = "", @onclick = "HideSpouseChildDetails('" + "divSpousedetails_" + Model.SelectedQuote + "')", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<div id="divSpousedetails_@Model.SelectedQuote" style="display:none;">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Spouse Given Name")<span class="mandatory">*</span></label>
+            @{
+                if (Model.IsForCounterOffer)
                 {
-                    <input type="button" class="btn btn-default notdisb" id="btnCancel" value="Cancel" onclick="CancelCounterOfferQuote()" style="padding-left:20px;padding-right:20px;" />
+                    @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseName, new
+               {
+                   @id = "txtSpouseName_" + Model.SelectedQuote,
+                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@ @maxlength = 60,
+                   @readonly = "readonly", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)"
+               })
                 }
                 else
                 {
-                    <input type="button" class="btn btn-default notdisb" id="btnCancel" value="Cancel" onclick="ClearQuotation()" style="padding-left:20px;padding-right:20px;" />
+                    @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseName, new
+               {
+                   @id = "txtSpouseName_" + Model.SelectedQuote,
+                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@ @maxlength = 60,
+                   @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",@onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")",
+                   @onkeyup = "return AlphabetsWithSpace(event)"
+               })
                 }
-            </div>
-            <div class="modal fade" id="QuoteModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        @*<div class="modal-header">
-                        <h5 class="modal-title">Message</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>*@
-                        <div class="modal-body" id="MonthlyPopup">
+            }
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Spouse NIC")</label>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="SaveQuotation('@Model.SelectedQuote')">Ok</button>
-                        </div>
-                    </div>
-                </div>
+            @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseNIC, new
+       {
+           @id = "txtSpouseNIC_" + Model.SelectedQuote,
+           @class = "form-control", @onchange = "SpouseFetchDOBGenderfromNIC('txtSpouseNIC_" + Model.SelectedQuote+ "','dtSpouseCoveredDOB_"+ Model.SelectedQuote + "','ddlSpouseGender"+Model.SelectedQuote+ "','txtSpouseCoveredAge_"+ Model.SelectedQuote + "'),ClearBenifitDetails(" + Model.SelectedQuote + ")", @maxlength = 12,
+           @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",
+           @onkeyup = "return isAlphaNumberKeyback(event)"
+       })
+            
+
+
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Gender")</label>
+
+            @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Gender, new SelectList(Model.objListQuote[Model.SelectedQuote].lstGender, "Value", "Text", (Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Gender != null ? Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Gender : "")), "Select", new { @class = "form-control", @id = "ddlSpouseGender" + Model.SelectedQuote, @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+
+
+        </div>
+    </div>
+    @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
+                @(Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.NICNo, new { @id = "txtSpouseNic_" + Model.SelectedQuote, @class = "form-control", @onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")", @maxlength = 12 }))
+
             </div>
-            <div class="modal fade" id="QuatationProposerSignatureModal_@Model.SelectedQuote" tabindex="-2" role="dialog" aria-labelledby="ProposerModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="margin-top: 0px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="QuoteProposerModalLabel">@Resources.GetLabelName("Tap to add Customer Signature")</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                @Html.Partial("~/Views/Shared/QuoteAddSignature.cshtml", Model)
-                            </div>
-                        </div>
-                        @*<div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>*@
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="QuatationWPSignatureModal_@Model.SelectedQuote" tabindex="-2" role="dialog" aria-labelledby="WPProposerModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="QuoteWPProposerModalLabel">@Resources.GetLabelName("Tap to add WP/FPE Signature")</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                @Html.Partial("~/Views/Shared/QuoteAddWPSignature.cshtml", Model)
-                            </div>
-                        </div>
-                        @*<div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>*@
-                    </div>
-                </div>
+        </div>*@
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Date Of Birth")</label>
+            @Html.iNubeDatePickerFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.DOB, new { @class = "form-control datepicker", @id = "dtSpouseCoveredDOB_" + Model.SelectedQuote, @onblur = "ageCountSpouse(" + Model.SelectedQuote + "),ClearBenifitDetails(" + Model.SelectedQuote + ")", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + "),ageCountSpouse(" + Model.SelectedQuote + ")" })
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Age at Next Birthday")</label>
+            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.AgeNextBirthday, new { @class = "form-control", @id = "txtSpouseCoveredAge_" + Model.SelectedQuote, @maxlength = "2", @onkeypress = "return isNumberKey(event)", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+        </div>
+    </div>
+
+
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Occupation")</label>
+            @*@Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new SelectList(Model.objListQuote[Model.SelectedQuote].lstOccupation, "Value", "Text", Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation != null ? Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation : ""), "Select", new { @class = "form-control ui-autocomplete-input blank-field-hightlight", @id = "ddlSpouseOccupation" + Model.SelectedQuote, @onblur = "validateDropDown('ddlGender','Please Select Gender')", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })*@
+            @*@Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation" })*@
+            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation"+ Model.SelectedQuote, @onchange= "ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+        </div>
+    </div>
+
+
+
+
+</div>
+<div class="clearfix"></div>
+<div id="divChildCovered_@Model.SelectedQuote" style="display:none">
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label style="font-size:16px">@Resources.GetLabelName("Children to be covered?")</label>
+            <div>
+                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsChildCovered, true, new { @id = "IsChildCovered" + Model.SelectedQuote, @class = "", @onclick = "ShowSpouseChildDetails('" + "divChilddetails_" + Model.SelectedQuote + "')", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
+
+                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsChildCovered, false, new { @id = "IsChildCovered" + Model.SelectedQuote, @class = "", @onclick = "HideChildDetails(" + Model.SelectedQuote + ")", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
             </div>
         </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>
+<div id="divChilddetails_@Model.SelectedQuote" style="display:none;">
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("Number of Children")</label>
+
+            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].NoofChilds, new { @class = "form-control", @id = "txtNoofChilds" + Model.SelectedQuote, @onblur = "ValidateNoofChild('" + Model.SelectedQuote + "')", @style = "display:inline-block;width:50%", @onkeypress = "return isNumberKey(event)", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+
+        </div>
+    </div>
 
 
+</div>
+<div class="clearfix"></div>
+<div id="divListChilddetails_@Model.SelectedQuote" style="display:none;">
+    <div class="form-group">
+        @if (IsModifyQuote)
+        {
+            @Html.Partial("~/Views/prospect/_PartialChildDetails.cshtml", Model)
+
+        }
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12  col-lg-12" style="text-align: center;margin-top: 2%;margin-bottom:2%;">
+    <div class="form-group">
+        <input type="button" class="btn btn-default notdisb" id="btngetriskinfo" value="Get Risk Info" data-toggle="modal" onclick="GetDynamicTabs('@Model.SelectedQuote','@Model.objListQuote[Model.SelectedQuote].IsModifyQuote')" style="padding-left:20px;padding-right:20px;" />
+    </div>
+</div>
+<div class="clearfix"></div>
+
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="DivDynamicInfo_@Model.SelectedQuote">
+    <div class="form-group">
+        @if (IsModifyQuote)
+        {
+            @Html.Partial("~/Views/Policy/GetDynamicTabs.cshtml", Model)
+
+        }
+    </div>
+
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" id="divCalMod_@Model.SelectedQuote" style="margin-top:3%;text-align: center;margin-top: 20px;display:none">
+
+    <input type="button" class="btn btn-default notdisb" id="btnCalculate_@Model.SelectedQuote" value="Calculate" style="padding-left:20px;padding-right:20px;" onclick="CalculateQuotePremium('@Model.SelectedQuote')" />
+    <input type="button" style="display:none" value="Overview" id="buttonBenefitOverview_@Model.SelectedQuote" class="btn btn-default notdisb" onclick="DisplayBenifitOverview('@Model.SelectedQuote')" />
+    <input type="button" class="btn btn-default notdisb" id="btnModify_@Model.SelectedQuote" value="Modify" onclick="ModifyQuote('@Model.SelectedQuote')" style="padding-left:20px;padding-right:20px;" />
+</div>
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group payablebtn-space" id="DivPremiumSection_@Model.SelectedQuote" style="display:none;">
+    <div class="col-md-6 col-sm-4 col-xs-12 col-lg-4 fna-final-count">
+        <label class="fna-final-text">
+            @Resources.GetLabelName("TOTAL PREMIUM") (LKR)
+        </label>
+        @(Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].AnnualPremium, new { id = "txtAnnualPremium" + Model.SelectedQuote, @class = "form-control", @readonly = "readonly", @style = "width:100%;text-align: center;font-size: xx-large;font-weight: bold;height: 10%;background-color: #e1e1e1;border-color: #E1E1E1;" }, Model.objListQuote[Model.SelectedQuote].AnnualPremium))
+
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" id="divIllustration_@Model.SelectedQuote">
+
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" id="ProposerSignature_@Model.SelectedQuote" style="display:none;">
+    @if (!string.IsNullOrEmpty(Model.QuoteProposerSignPath))
+    {
+        <label>
+            @Html.ActionLink("Proposer Signature", "DownloadPolicyDocument", "Utility", new { FilePath = Model.QuoteProposerSignPath }, new { target = "_blank" })
+        </label>
+        @Html.HiddenFor(a => a.QuoteProposerSignPath, new { })
+    }
+    else if (!Model.IsForCounterOffer) //Propser signature will be be not available for Counter Offer
+    {
+        <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="QuotePropserDigitalSign_@Model.SelectedQuote" data-target="#QuatationProposerSignatureModal_@Model.SelectedQuote" style="padding-left:25px;padding-right:25px;">
+            @Resources.GetLabelName("Customer Signature")
+        </button>
+    }
+
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" id="WPSignature_@Model.SelectedQuote" style="display:none;">
+    @if (!string.IsNullOrEmpty(Model.QuoteWPProposerSignPath))
+            {
+        <label>
+            @Html.ActionLink("WP Proposer Signature", "DownloadPolicyDocument", "Utility", new { FilePath = Model.QuoteWPProposerSignPath }, new { target = "_blank" })
+        </label>
+        @Html.HiddenFor(a => a.QuoteWPProposerSignPath, new { })
+    }
+    else if (!Model.IsForCounterOffer) // WP signature will be be not available for Counter Offer
+    {
+        <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="QuoteWPPropserDigitalSign_@Model.SelectedQuote" data-target="#QuatationWPSignatureModal_@Model.SelectedQuote" style="padding-left:25px;padding-right:25px;">
+            @Resources.GetLabelName("WP/FPE Signature")
+        </button>
+    }
+
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" style="text-align: center;margin-top: 20px;display:none" id="divButtons_@Model.SelectedQuote">
+
+    <input type="button" class="btn btn-default notdisb" id="btnSave" value="Save" onclick="MonthlyPopup('@Model.SelectedQuote')" style="padding-left:20px;padding-right:20px;" />
+    @if (Model.IsForCounterOffer)
+    {
+        <input type="button" class="btn btn-default notdisb" id="btnCancel" value="Cancel" onclick="CancelCounterOfferQuote()" style="padding-left:20px;padding-right:20px;" />
+    }
+    else
+    {
+        <input type="button" class="btn btn-default notdisb" id="btnCancel" value="Cancel" onclick="ClearQuotation()" style="padding-left:20px;padding-right:20px;" />
+    }
+</div>
+
+<div class="modal fade" id="QuoteModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body" id="MonthlyPopup">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="SaveQuotation('@Model.SelectedQuote')">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="QuatationProposerSignatureModal_@Model.SelectedQuote" tabindex="-2" role="dialog" aria-labelledby="ProposerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="QuoteProposerModalLabel">@Resources.GetLabelName("Tap to add Customer Signature")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    @Html.Partial("~/Views/Shared/QuoteAddSignature.cshtml", Model)
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="QuatationWPSignatureModal_@Model.SelectedQuote" tabindex="-2" role="dialog" aria-labelledby="WPProposerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="QuoteWPProposerModalLabel">@Resources.GetLabelName("Tap to add WP/FPE Signature")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    @Html.Partial("~/Views/Shared/QuoteAddWPSignature.cshtml", Model)
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     $(document).ready(function () {
@@ -621,15 +632,6 @@
             }
         }
         $(".invisibleQuatation").removeClass('checkboxactive');
-        var count = $('.benefitchkbox').length;
-        for (var i = 0; i < count; i++) {
-            if ($('#ChkBenifit'+i).is(':checked')) {
-                $('#BenifitRow_'+i).find('.divhideshow').addClass('divhideshowactive');
-            }
-            else {
-                $('#BenifitRow_'+i).find('.divhideshow').removeClass('divhideshowactive');
-            }
-        }
     });
     function GetMaturityBenifit(index) {
 
@@ -735,7 +737,7 @@
 
     $(document).ready(function () {
         debugger
-        if ($('#chkIsFamilyFloater_@Model.SelectedQuote').is(":checked") == true) 
+        if ($('#chkIsFamilyFloater_@Model.SelectedQuote').is(":checked") == true)
         {
             $('#chkIsFamilyFloater_@Model.SelectedQuote').toggleClass("checkboxactive");
         }
@@ -791,6 +793,16 @@
             }
         }
         SetMandatoryHighlightBlank('pnlProductDetails', true);
+        if ($('#txtSpouseNIC_'+@Model.SelectedQuote).val() == "") {
+            $('#txtSpouseCoveredAge_'+@Model.SelectedQuote).prop('readonly',true)
+            $('#ddlSpouseGender'+@Model.SelectedQuote).prop('disabled',true)
+        }
+        else {
+            $('#txtSpouseCoveredAge_'+@Model.SelectedQuote).prop('readonly',true)
+            $('#ddlSpouseGender'+@Model.SelectedQuote).prop('disabled',true)
+            $('#dtSpouseCoveredDOB_'+@Model.SelectedQuote).prop('readonly',true)
+
+        }
     });
 
 
@@ -990,7 +1002,7 @@
         var NIC = $("#txtNic").val();
         var PassPort = $("#txtPassport").val();
         var Gender = $("#ddlGender").val();
-        var AnnualIncome = $("#txtAverageMonthlyIncome").val();
+        var AnnualIncome = $("#hdntxtAverageMonthlyIncome").val();
         var Occupation = $("#TxtOccupation").val();
         var Place = $("#txtPlace").val();
         var Name = $("#txtName").val();
@@ -1115,7 +1127,10 @@
 
             }
         }
-
+        if (AnnualIncome == "") {
+            writeMultipleMessage("error", "Please Enter Average Annual Income", "txtAverageMonthlyIncome");
+            return false;
+        }
         var Address1 = $("#objProspectobjAddressAddress1").val();
         var res = ValidateAddress(Address1)
         if (res == false) {
@@ -1887,7 +1902,8 @@
         var SpouseAge = parseInt($("#txtSpouseCoveredAge_" + index).val());
         var SpouseGender = $("#ddlSpouseGender" + index).val()
         var SpouseName = $("#txtSpouseName_" + index).val()
-        var SpouseOccupation = $("#ddlSpouseOccupation" + index).val();
+        var SpouseOccupation = $("#ddlSpouseOccupation"+ index).val();
+        var MainGender = $('#ddlGender').val();
         if ($("#IsSpouseCovered" + index).is(":checked") == true) {
             if (SpouseAge < 19 || SpouseAge > 61) {
                 writeMultipleMessage('error', ' Age at Next BirthDay of Spouse Should be between 19 to 61', 'txtSpouseCoveredAge_' + index);
@@ -1900,6 +1916,11 @@
             }
             if (SpouseGender == "") {
                 writeMultipleMessage('error', ' Please Select Spouse Gender', 'ddlSpouseGender' + index);
+                return false;
+            }
+            else if(SpouseGender == MainGender)
+            {
+                writeMultipleMessage('error', 'Please check MainLife and Spouse gender are same', 'ddlSpouseGender' + index);
                 return false;
             }
 
@@ -1916,7 +1937,7 @@
                 writeMultipleMessage("error", "", 'txtSpouseName_' + index);
 
             }
-            if (SpouseOccupation == "") {
+            if (SpouseOccupation == "" || SpouseOccupation == undefined) {
                 writeMultipleMessage('error', ' Please Select Spouse Occupation', 'ddlSpouseOccupation' + index);
                 return false;
             }
@@ -2076,8 +2097,13 @@
     }
     function GetDynamicTabs(index, isModifiedQuote) {
         debugger
-
+        $('#ddlSpouseGender'+index).prop('disabled',false);
+        $('#dtSpouseCoveredDOB_'+index).prop('disabled',false);
         if (!ValidateGenderSalutation()) {
+            $('#ddlSpouseGender'+index).prop('disabled',true);
+            if ($('#txtSpouseNIC_'+index).val() != "") {
+                $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
+            }
             return false;
         }
         clearAllErrors();
@@ -2085,11 +2111,19 @@
         //writeMultipleMessage("error", "", "pnlProposerDetails");
         if ('@Model.objListQuote[Model.SelectedQuote].QuotationType' == 'Direct') {
             if (!ValidateProspectInfoDirect()) {
+                $('#ddlSpouseGender'+index).prop('disabled',true);
+                if ($('#txtSpouseNIC_'+index).val() != "") {
+                    $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
+                }
                 return false;
             }
         }
         else {
             if (!ValidateProspectInfoIndirect()) {
+                $('#ddlSpouseGender'+index).prop('disabled',true);
+                if ($('#txtSpouseNIC_'+index).val() != "") {
+                    $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
+                }
                 return false;
             }
         }
@@ -2098,6 +2132,10 @@
         //    return false;
         //}
         if (!ValidateProductDetails(index)) {
+            $('#ddlSpouseGender'+index).prop('disabled',true);
+            if ($('#txtSpouseNIC_'+index).val() != "") {
+                $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
+            }
             return false;
         }
 
@@ -2110,6 +2148,8 @@
             }
             $.post("/Policy/GetDynamicTabs", $("#fromQuotePage").serialize(), function (data) {
                 debugger;
+                $('#ddlSpouseGender'+index).prop('disabled',true);
+                $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
                 $('#DivDynamicInfo_' + index).html(data);
                 $("#divCalMod_" + index).show();
                 $("#divCabtnCalculate_" + index).show();
@@ -2197,6 +2237,7 @@
 
     function CalculateQuotePremium(index) {
         debugger;
+
         writeMultipleMessage("error", "", "DivDynamicInfo_" + index);
         //Commented for removing the Border lines for Craete Quation sections
         //writeMultipleMessage("error", "", "pnlProductDetails");
@@ -2208,10 +2249,14 @@
         if (!ValidateProductDetails(index)) {
             return false;
         }
+        $('#ddlSpouseGender'+index).prop('disabled',false);
+        $('#dtSpouseCoveredDOB_'+index).prop('disabled',false);
         $.post("/Policy/CalculateQuotePremium", $("#fromQuotePage").serialize())
             .done(function (data) {
                 if (data.Message == "Success") {
                     debugger;
+                    $('#ddlSpouseGender'+index).prop('disabled',true);
+                    $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
                     var planCode = $("#txtPlanCode_" + index + "").val();
                     if (planCode == "HPA") {
                         $('#divAPCP_' + index).show();
@@ -2237,12 +2282,11 @@
                     $('#DivDynamicInfo_' + index).html(data.STRBenefitHtml);
                     $('#BenifitOvervieModelbody_' + index).html(data.STRHtml);
                     $('#divIllustration_' + index).html(data.STRPremiumHtml);
-
                     $("#DivPremiumSection_" + index).show();
                     $('#divIllustration_' + index).show();
                     $('#divCalMod_' + index).show();
-                    $('#ProposerSignature_' + index).css('display', 'inline-block');
-                    $('#WPSignature_' + index).css('display', 'inline-block');
+                    $('#ProposerSignature_' + index).show();
+                    $('#WPSignature_' + index).show();
 
                     // $('#buttonPremiumOverview_'+index).show();
                     $('#btnCalculate_' + index).hide();
@@ -2250,27 +2294,10 @@
                     $('#fromQuotePage' + index).find('input:not(.notdisb), textarea, select').attr('disabled', true);
                     writeMultipleMessage("error", "", "DivDynamicInfo_" + index);
                     EnablePopUp(index);
-
-                    var count = $('.benefitchkbox').length;
-                    for (var i = 0; i < count; i++) {
-                        if ($('#ChkBenifit'+i).is(':checked')) {
-                            $('#BenifitRow_'+i).find('.divhideshow').addClass('divhideshowactive');
-                            }
-                            else {
-                            $('#BenifitRow_'+i).find('.divhideshow').removeClass('divhideshowactive');
-                            }
-                    }
-                    //$('.benefitchkbox').each(function () {
-                    //    if ($(this).is(':checked')) {
-                    //        $(this).siblings('.divhideshow').addClass('divhideshowactive');
-                    //    }
-                    //    else {
-                    //        $(this).siblings('.divhideshow').removeClass('divhideshowactive');
-                    //    }
-                    //});
-
                 }
                 else {
+                    $('#ddlSpouseGender'+index).prop('disabled',true);
+                    $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
                     $("#DivPremiumSection_" + index).hide();
                     $('#divIllustration_' + index).hide();
                     writeMultipleMessage("error", data.Error.ErrorMessage, "DivDynamicInfo_" + index);
@@ -2308,8 +2335,11 @@
             res = validateQuoteSignatures(index)
         }
         if (res == true) {
-
+            $('#ddlSpouseGender'+index).prop('disabled',false);
+            $('#dtSpouseCoveredDOB_'+index).prop('disabled',false);
             $.post("/Policy/SaveQuotation", $("#fromQuotePage").serialize(), function (data) {
+                $('#ddlSpouseGender'+index).prop('disabled',true);
+                $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
                 if (data.Message == 'Success') {
                     $('#QuoteModalBody').empty();
                     var Image='<img class="Img-align" src="../Images/checked1.png" />'
@@ -2318,6 +2348,7 @@
                     var Message = '<p class="text-center"> Data Saved Successfully. Quote No is ' + data.QuoteNo + ' </p>';
                     $('#QuoteModalBody').append(Image);
                     $('#QuoteModalBody').append(Message);
+                    $('#btnCreateProposal').show();
                     $("#QuoteModal").modal("show");
                 }
                 else {
@@ -2326,6 +2357,7 @@
                     var Message = "<p class='text-center'>" + data.ErrorMessage + "</p>";
                     $('#QuoteModalBody').append(Image);
                     $('#QuoteModalBody').append(Message);
+                    $('#btnCreateProposal').hide();
                     $("#QuoteModal").modal("show");
                 }
                 if ('@Model.IsForCounterOffer' == 'True') {
@@ -2873,7 +2905,7 @@
         ClearBenifitDetails(index);
     }
 
-    $("#ddlSpouseOccupation").autocomplete({
+    $("#ddlSpouseOccupation"+@Model.SelectedQuote).autocomplete({
 
         source: function (request, response) {
             $.ajax({
@@ -2899,10 +2931,117 @@
     });
     var value = false;
     $("#hdnAutOccupation").val(value);
-    $("#ddlSpouseOccupation").on("autocompleteselect", function (event, u) {
+    $("#ddlSpouseOccupation"+@Model.SelectedQuote).on("autocompleteselect", function (event, u) {
 
         value = true;
         $("#hdnAutOccupation").val(value);
 
     })
+
+    function SpouseFetchDOBGenderfromNIC(e, dob, gender, Age) {
+        var NICNo = $('#' + e).val();
+        NICNo = NICNo.trim();
+        writeMultipleMessage("error", "", e)
+        if (NICNo == "") {
+            $('#'+gender).prop("disabled", false);
+            $('#'+gender).prop("readonly", false);
+            $('#'+dob).prop("disabled", false);
+            $('#'+dob).prop("readonly", false);
+            // writeMultipleMessage("error", "Please Enter SSN Number", e);
+            return false;
+        }
+        //if (NICNo.toUpperCase() == "SLC") {
+        //    $('#ddlGender').prop("disabled", false);
+        //    $('#dtProspectDOB').prop("disabled", false);
+        //    return true;
+        //}
+        if (NICNo != null && NICNo != "") {
+            if (NICNo.length == 12 || NICNo.length == 10) {
+                if (NICNo.length == 12) {
+                    var nofdays = NICNo.substr(4, 3);
+                    var dobyears = NICNo.substr(0, 4);
+                }
+                else if (NICNo.length == 10) {
+
+                    NICArray = NICNo.split("");
+                    if (NICArray[9].toUpperCase() == "X" || NICArray[9].toUpperCase() == "V") {
+                        var nofdays = NICNo.substr(2, 3);
+                        var dobyears = NICNo.substr(0, 2);
+                    }
+                    else {
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
+                        return false;
+
+                    }
+                }
+                $.post("../../AgentonBoarding/FetchDateMonth?NIC=" + NICNo)
+                    .done(function (data) {
+                        if (data != "Error") {
+                            $("#" + dob).val(data);
+                            $("#" + dob).prop("disabled", true);
+                            if (nofdays <= 366 && nofdays >= 0) {
+                                $("#" + gender).val("M");
+                                $("#" + gender).prop('disabled', true);
+                            }
+                            else if (nofdays > 500 && nofdays <= 866) {
+                                $("#" + gender).val("F");
+                                $("#" + gender).prop('disabled', true);
+                            }
+                            var dobvalue = $('#' + dob).val();
+                            var d = new Date();
+                            var month = d.getMonth() + 1;
+                            var day = d.getDate();
+                            var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+                            var arrDOB = dobvalue.split('/');
+                            var birthDay = arrDOB[0];
+                            var birthMonth = arrDOB[1];
+                            var birthYear = arrDOB[2];
+                            var arrCurrentDate = currentDate.split('/');
+                            var currentDay = arrCurrentDate[0];
+                            var currentMonth = arrCurrentDate[1];
+                            var currentYear = arrCurrentDate[2];
+                            var calYear = currentYear - birthYear;
+                            var CalMonth = currentMonth - birthMonth;
+                            if (birthYear <= currentYear) {
+                                if (birthMonth <= currentMonth) {
+                                    if (birthDay <= currentDay) {
+                                    }
+                                    else if (birthDay > currentDay && birthMonth < currentMonth) {
+                                    }
+                                    else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+                                    }
+                                    else {
+                                        writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
+                                    }
+                                }
+                                else if (birthMonth > currentMonth && birthYear < currentYear) {
+                                }
+                                else {
+                                    writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
+                                }
+                            }
+                            else {
+                                writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
+                            }
+                        }
+                        else {
+                            writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", e);
+                            //return false;
+                        }
+                        if (CalMonth < 0 || (CalMonth === 0 && currentDay < birthDay)) {
+                            calYear--;
+                        }
+                        $("#"+Age).val(calYear + 1);
+                        if ($("#"+gender).val() == $('#ddlGender').val()) {
+                            writeMultipleMessage("error", "Please Enter Correct NIC. It does not reflect same as per the gender", e);
+                        }
+                    });
+            }
+            else {
+                writeMultipleMessage("error", "SSN Number should be 12 or 10 Digits", e);
+                return false;
+            }
+        }
+        ClearBenifitDetails(@Model.SelectedQuote);
+    }
 </script>

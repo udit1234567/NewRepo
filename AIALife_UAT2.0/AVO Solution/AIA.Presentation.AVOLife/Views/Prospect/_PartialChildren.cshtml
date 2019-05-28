@@ -15,7 +15,7 @@
     }
     .from_to_year_datepicker_holder {
         width: 49%;
-        padding: 20px 20px 0 20px;
+        padding: 20px;
         text-align: center;
         display: inline-block;
         position: relative;
@@ -43,7 +43,7 @@
         .children-table thead tr th {
             color: #fff !important;
             text-align: center;
-            background-color: #d31145 !important;
+            background-color: #1747a7 !important;
             font-weight:900;
             font-size:13px;
             padding:11px;
@@ -114,33 +114,38 @@
 
     @if (Model.objNeedAnalysis.DependantCount > 0 || Model.objNeedAnalysis.DependantCount != null)
     {
+     
+      <table class="table children-table">
+                <thead>
+                    <tr>
+                        <th>@Resources.GetLabelName("Name")</th>
+                        <th>@Resources.GetLabelName("DOB")</th>
+                        <th>@Resources.GetLabelName("Age at Next Birthday")</th>
+                        <th>@Resources.GetLabelName("Relationship")</th>
+                    </tr>
+                </thead>
+          <tbody>
+              @for (int c = 0; c < Model.objNeedAnalysis.DependantCount; c++)
+              {
 
-      <div class="summaryTable children-table col-lg-12">
-            @for (int c = 0; c < Model.objNeedAnalysis.DependantCount; c++)
-            {
+                  <tr>
+                      <td>
+                          @Html.TextBoxFor(a => a.objNeedAnalysis.objDependants[c].Name, new { @id = "dtdependantName" + c, @class = "form-control childnamespace", @onchange = "ValidateName(id)", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",@onkeyup = "return AlphabetsWithSpace(event)" })
+                      </td>
+                      <td style="width:300px" >
+                          @Html.iNubeDatePickerFor(a => a.objNeedAnalysis.objDependants[c].DOB, new { @id = "dtdependantDOB" + c, @class = "form-control datepicker datepicker-hidekeypad", @onchange = "CalculateageInfo(" + c + ")", @onblur = "CalculateageInfo(" + c + ")", @placeholder = "DD/MM/YYYY"})
+                      </td>
+                      <td>
+                          @Html.TextBoxFor(a => a.objNeedAnalysis.objDependants[c].AgeNextBirthday, new { @id = "txtdependantAge" + c, @class = "form-control", @readonly = "readonly", @onkeypress = "return onlyAlphabets(event)" })
+                      </td>
+                      <td>
+                          @Html.DropDownListFor(a => a.objNeedAnalysis.objDependants[c].Relationship, new SelectList(Model.objNeedAnalysis.dllChildRelatioship.OrderBy(a => a.Text), "Text", "Text", Model.objNeedAnalysis.objDependants[c].Relationship), "Select", new { @id = "dtdependantRelation" + c, @class = "form-control" })
+                      </td>
+                  </tr>
 
-               <div class="summarySection">
-                   <div class="summaryValueSec row">
-                       <div class="col-lg-3 col-md-3 col-sm-3 col-6">
-                           <label>@Resources.GetLabelName("Name")</label>
-                           @Html.TextBoxFor(a => a.objNeedAnalysis.objDependants[c].Name, new { @id = "dtdependantName" + c, @class = "form-control childnamespace", @onchange = "ValidateName(id)", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
-                        </div>
-                       <div class="col-lg-3 col-md-3 col-sm-3 col-6">
-                           <label>@Resources.GetLabelName("DOB")</label>
-                           @Html.iNubeDatePickerFor(a => a.objNeedAnalysis.objDependants[c].DOB, new { @id = "dtdependantDOB" + c, @class = "form-control datepicker datepicker-hidekeypad", @onchange = "CalculateageInfo(" + c + ")", @onblur = "CalculateageInfo(" + c + ")", @placeholder = "DD/MM/YYYY" })
-                       </div>
-                       <div class="col-lg-3 col-md-3 col-sm-3 col-6">
-                           <label>@Resources.GetLabelName("Age at Next Birthday")</label>
-                           @Html.TextBoxFor(a => a.objNeedAnalysis.objDependants[c].AgeNextBirthday, new { @id = "txtdependantAge" + c, @class = "form-control", @readonly = "readonly", @onkeypress = "return onlyAlphabets(event)" })
-                       </div>
-                       <div class="col-lg-3 col-md-3 col-sm-3 col-6">
-                           <label>@Resources.GetLabelName("Relationship")</label>
-                           @Html.DropDownListFor(a => a.objNeedAnalysis.objDependants[c].Relationship, new SelectList(Model.objNeedAnalysis.dllChildRelatioship.OrderBy(a => a.Text), "Text", "Text", Model.objNeedAnalysis.objDependants[c].Relationship), "Select", new { @id = "dtdependantRelation" + c, @class = "form-control" })
-                       </div>
-                   </div>
-               </div>
-                }
-          </div>
+              }
+          </tbody>
+          </table>
 
         }
    

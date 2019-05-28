@@ -16,10 +16,9 @@
 
 <link href="~/Content/Styles/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/Content/Scripts/bootstrap-multiselect.js"></script>
-<link href="~/Content/Styles/Msite.css" rel="stylesheet" />
 <style>
     .nav-pills > li.active > a {
-        background-color: #D31145 !important;
+        background-color: #1747a7 !important;
     }
 
     .plan-desc {
@@ -38,7 +37,7 @@
 
     .nav-tabs > li > a, .nav-pills > li > a {
         font-size: 18px;
-        background-color: #B8123E!important;
+        background-color: #1747a7!important;
         color: #fff;
     }
 
@@ -67,157 +66,149 @@
     }
 </style>
 
-<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="padding: 0;">
-    <div class="tab col-lg-12 col-md-12 col-sm-12 col-12">
-        <ul class="nav nav-pills fixing-list-width need-analysis-list nav-tabs" style="padding:0 15px;">
-            @foreach (var item in Model.objListQuote)
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+    <ul class="nav nav-pills list-add">
+        @foreach (var item in Model.objListQuote)
+        {
+            string QuoteName = Resources.GetLabelName("Quotation") + count;
+            if (count == 1)
             {
-                string QuoteName = Resources.GetLabelName("Quotation") + count;
-                if (count == 1)
-                {
 
-                    <li class="active width">
-                        <a data-toggle="pill" href="#tab_Q_@count" class="collapsed active">
-                            <i class="fa fa-info"></i>
-                            <span>@QuoteName</span>
-                            
-                        </a>
-                        
-                    </li>
+                <li class="active width">
+                    <a data-toggle="pill" href="#tab_Q_@count">@QuoteName</a>
+                </li>
 
-                }
-                else
-                {
-                    <li class="width">
-                        <a data-toggle="pill" href="#tab_Q_@count" class="collapsed">
-                            <i class="fa fa-info"></i>
-                            <span>@QuoteName</span>
-                        </a>
-                    </li>
-
-                }
-
-                count++;
             }
-        </ul>
-        <div class="tab-content product-tab col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="modal fade" id="AFCModal" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"> </h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>@Resources.GetLabelName("Congratulations you are among AFC customers list")</p>
-                            <ul>
-                                <li>
-                                    <p>@Resources.GetLabelName("A dedicated Relationship Officer")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Personalized attention to claim requests")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Prioritized contact center assistance")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Dedicated email service (afc@aia.com)")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Priority service for new policy requests")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Second Medical Opinion service from “Med Net”")</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal fade" id="LessAFCModal" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"> </h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>@Resources.GetLabelName("You are currently short of X amt from being AFC customer")</p>
-                            <ul>
-                                <li>
-                                    <p>@Resources.GetLabelName("A dedicated Relationship Officer")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Personalized attention to claim requests")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Prioritized contact center assistance")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Dedicated email service (afc@aia.com)")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Priority service for new policy requests")</p>
-                                </li>
-                                <li>
-                                    <p>@Resources.GetLabelName("Second Medical Opinion service from “Med Net”")</p>
-                                </li>
-                            </ul>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-           
-                @foreach (var Assured in Model.objListQuote)
+            else
             {
-                Model.SelectedQuote = GlobalCount;
-                if (tabCount == 1)
-                {
-                        <div class="tab-pane fade in active show" id="tab_Q_@tabCount">
-                            <div>
+                <li class="width"><a data-toggle="pill" href="#tab_Q_@count">@QuoteName</a></li>
+
+            }
+
+            count++;
+        }
 
 
-                                @Html.Partial("~/Views/Prospect/ProductDetails.cshtml", Model)
+    </ul>
+    <div class="tab-content product-tab">
+        <div class="modal fade" id="AFCModal" role="dialog">
+            <div class="modal-dialog">
 
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>@Resources.GetLabelName("Congratulations you are among AFC customers list")</p>
+                        <ul>
+                            <li>
+                                <p>@Resources.GetLabelName("A dedicated Relationship Officer")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Personalized attention to claim requests")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Prioritized contact center assistance")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Dedicated email service (afc@aia.com)")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Priority service for new policy requests")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Second Medical Opinion service from “Med Net”")</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
 
-                            </div>
-
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="tab-pane" id="tab_Q_@tabCount">
-                            <div>
-
-
-                                @Html.Partial("~/Views/Prospect/ProductDetails.cshtml", Model)
-
-
-
-                            </div>
-                        </div>
-                    }
-                    tabCount++;
-                    GlobalCount++;
-
-                }
+            </div>
         </div>
+        <div class="modal fade" id="LessAFCModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>@Resources.GetLabelName("You are currently short of X amt from being AFC customer")</p>
+                        <ul>
+                            <li>
+                                <p>@Resources.GetLabelName("A dedicated Relationship Officer")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Personalized attention to claim requests")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Prioritized contact center assistance")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Dedicated email service (afc@aia.com)")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Priority service for new policy requests")</p>
+                            </li>
+                            <li>
+                                <p>@Resources.GetLabelName("Second Medical Opinion service from “Med Net”")</p>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @foreach (var Assured in Model.objListQuote)
+                    {
+                        Model.SelectedQuote = GlobalCount;
+                        if (tabCount == 1)
+                        {
+                <div class="tab-pane fade in active" id="tab_Q_@tabCount">
+                    <div>
+
+
+                        @Html.Partial("~/Views/Prospect/ProductDetails.cshtml", Model)
+
+
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane" id="tab_Q_@tabCount">
+                    <div>
+
+
+                        @Html.Partial("~/Views/Prospect/ProductDetails.cshtml", Model)
+
+
+
+                    </div>
+                </div>
+            }
+        tabCount++;
+            GlobalCount++;
+
+        }
+
+
+
+
     </div>
-   
-    
 
 </div>
 <!-- Modal -->
@@ -236,7 +227,7 @@
             <div class="modal-footer">
                  @if (!Model.IsForCounterOffer)
                  {
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CreateProposal()">Create Proposal</button>
+                     <button type="button" id="btnCreateProposal" class="btn btn-secondary" data-dismiss="modal" onclick="CreateProposal()">Create Proposal</button>
                  }
                  else
                  {

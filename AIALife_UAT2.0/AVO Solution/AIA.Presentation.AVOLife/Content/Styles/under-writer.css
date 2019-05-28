@@ -150,7 +150,7 @@ border-radius: 10px;
     bottom:5px;
 }
 .UwTable thead tr th{
-    background-color:#5a73ef;
+    background-color:#5681d6;
     color:#fff !important;
 }
 .UwTable tbody tr td{
@@ -247,10 +247,10 @@ border-color: #ccc;}
 }
 .uwbtn{color: #fff;
 font-weight: 300;
-background-color: #5a73ef;
+background-color: #5681d6;
 border-color: #fff;}
 .UwMedical-table thead tr th,.UwNonMedical-table thead tr th,.uwtable thead tr th{
-    background-color:#5a73ef;
+    background-color:#5681d6;
     border:1px solid #ececed;
     color:#fff !important;
     text-align:center;
@@ -395,7 +395,7 @@ caption{
     }
     .switch-slide .switch-label:after {
     	color: #FFFFFF;
-    	background: #d31145;
+    	background: #1747a7;
     	left: -100px;
     }
     .switch-slide .switch-label:before {
@@ -406,7 +406,7 @@ caption{
     }
     .switch-slide .switch-input:checked ~ .switch-label {
     	background: #FFF;
-    	border-color: #d31145;
+    	border-color: #1747a7;
     }
     .switch-slide .switch-input:checked ~ .switch-label:before {
     	left: 100px;

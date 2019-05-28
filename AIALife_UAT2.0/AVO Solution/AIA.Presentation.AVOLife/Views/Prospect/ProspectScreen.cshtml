@@ -27,7 +27,7 @@
     @Html.HiddenFor(a => a.IntroducerCode, new { id = "hdnIntroducerCode" })
     @Html.HiddenFor(a => a.CurrentAge, new { id = "hdnCurrentAge" })
     @Html.HiddenFor(a => a.HdnAutOccupation, new { id = "hdnAutOccupation" })
-    <div class="row">
+
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
@@ -65,8 +65,8 @@
             @(Html.TextBoxFor(a => a.Name, new { @id = "txtName", @class = "form-control", @maxlength = "60", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)", @onchange = "validTextBox('txtName','Please Enter Name.')" }))
         </div>
     </div>
-
-  
+</div>
+<div class="prospectinfo-item">
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><img src="~/Content/Images/quote-1.png" style="width: 20px;" />@Resources.GetLabelName("Surname")<span class="mandatory">*</span></label>
@@ -112,7 +112,7 @@
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label>@Resources.GetLabelName("Place")<span class="mandatory">*</span></label>
-            @Html.TextBoxFor(m => m.Place, new { @class = "form-control", @id = "txtPlace", @maxlength = "50",@onkeyup = "return AlphabetsWithSpace(event)",@onkeypress= "return AlphabetsWithSpace(event)" })
+            @Html.TextBoxFor(m => m.Place, new { @class = "form-control", @id = "txtPlace", @maxlength = "50",@onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)", @onkeypress= "return isAlphaNumberKeybackwithOutSymbol(event)" })
 
 
         </div>
@@ -132,7 +132,7 @@
             @Html.DropDownListFor(m => m.MaritalStatus, new SelectList(Model.MaritalStatuslist, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMaritalStatus", @onchange = "selectedMaritalStatus()" })
         </div>
     </div>
-    
+    <div class="clearfix"></div>
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group" style="width:100%">
             <label>@Resources.GetLabelName("Date Of Birth")<span class="mandatory">*</span></label>
@@ -176,9 +176,18 @@
     </div>
 
 </div>
+
+
+@*Communication Address*@
+
+
+<div class="form-group">
+    <p class="col-md-12 col-sm-12 col-xs-12 col-lg-12 h4" style="font-weight:bold;"><img src="~/Content/Images/quote-19.png" style="width: 20px;" />@Resources.GetLabelName("Communication Address"):</p>
+    <div class="">
+        @Html.AddressForNewProspectScreen(a => a.objAddress)
+
     </div>
-
-
+</div>
 <div class="modal fade" id="NicPopUp" role="dialog">
     <div class="modal-dialog">
 
@@ -728,7 +737,7 @@
 
         var Status = $("#ddlMaritalStatus").val();
         if (Status == 14||Status=='M') {
-            $("#PIspouseDetails").css('display','flex');
+            $("#PIspouseDetails").show();
             $('.spouse-details').show();
             $('.prospect-details').show();
             $("#DivSpouseMonthlyIncome").show();
@@ -757,7 +766,7 @@
         }
 
         if ($("#ddlMaritalStatus option:selected").text() == "Married") {
-            $("#PIspouseDetails").css("display", "flex");
+            $("#PIspouseDetails").css("display", "block");
             var SpouseAge = $('#txtSpouseAgeInfo').val();
             if (SpouseAge == "" || SpouseAge == null || SpouseAge == 0) {
                 $('#txtSpouseAgeInfo').addClass("blank-field-hightlight");

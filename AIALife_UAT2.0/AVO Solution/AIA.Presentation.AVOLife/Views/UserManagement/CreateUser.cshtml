@@ -104,6 +104,20 @@
         }
     }
 </script>
+<div>
+
+    <div class="btn-group btn-breadcrumb breadcrumb-default">
+
+        <div class="visible-lg-block">
+            @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
+        </div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #1747a7;"></a>
+
+        <div class="btn btn-info"><b>@Resources.GetLabelName("Create User")</b></div>
+    </div>
+</div>
+<br />
+
 @using (Html.BeginForm("", "", new { ReturnUrl = "" }, FormMethod.Post, new { role = "form", id = "fromCreateUser" }))
 {
    @Html.HiddenFor(a => a.PageName, new {@id="txtPageName"})
@@ -193,7 +207,7 @@
 
                 <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top:30px;display:block" id="divSearchButtons">
                     <input type="button" value="Submit" id="btnClientCreateUser" onclick="SaveUser()" class="btn btn-default" style="width:130px">
-                    <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/CreateUser'" class="btn btn-default" style="width:100px">
+                    <input type="button" value="Cancel" id="btnClientCancel" onclick="return location.href = '../UserManagement/Users?Type=Agent'" class="btn btn-default" style="width:100px">
                 </div>
             </div>
 

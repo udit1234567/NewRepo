@@ -3,7 +3,7 @@
 @using AIAResources;
 
 
-<div class="form-group row">
+<div class="form-group">
     
     @Html.HiddenFor(m => m.objProspectDetails.ClientCode, new { @id = "hdnProspectClientCode" })
     @Html.HiddenFor(m => m.objProspectDetails.SAM, new { @id = "hdnProspectSAM" })
@@ -33,408 +33,1219 @@
     </div>
 </div>
 <div class="clearfix"></div>
-<div class="form-group row collapsable-content" id="policyOwnerDetails">
-    <div class="card col-lg-12">
-        <div class="card-header">
-            <a class="card-link collapsed" data-toggle="collapse" href="#proposalDetails" aria-expanded="false">
-                Proposal Details
-            </a>
-        </div>
-        <div id="proposalDetails" class="collapse" data-parent="#policyOwnerDetails" style="">
-            <div class="card-body row">
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerSalutation">
-                    <label for="sel1">@Resources.GetLabelName("Salutation")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(m => m.objProspectDetails.Salutation, new { @class = "form-control", @id = "TxtSalutation" })
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerNameWithInitials">
-                    <label>@Resources.GetLabelName("Name With Initials")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.NameWithInitial, new { id = "txtNamewithInitials", @class = "form-control", @onkeypress = "return AlphabetsWithSpace(event)", @onkeyup = "return AlphabetsWithSpacecommaandslash(event)" })
-
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerGivenName">
-                    <label for="sel1">@Resources.GetLabelName("Given Name")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.FirstName, new { id = "txtFirstName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerLastName">
-                    <label>@Resources.GetLabelName("SurName")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.LastName, new { id = "txtLastName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
-
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerNICNumber">
-                    <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.NewNICNO, new { @id = "txtnewNic", @class = "form-control", @maxlength = "12", @minlength = "10", @readonly = "readonly", @onchange = "FetchProserDOBGenderfromNIC('txtnewNic','txtPropspectDOB','ddlGender','txtAgeNextBirthday')" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerDateofBirth">
-                    <label>@Resources.GetLabelName("Date of Birth")<span class="mandatory">*</span></label>
-                    @Html.iNubeDatePickerFor(a => a.objProspectDetails.DateOfBirth, new { @class = "form-control datepicker", @id = "txtPropspectDOB", @onblur = "ProposerageCount('txtPropspectDOB')", @onchange = "ProposerageCount('txtPropspectDOB')", @maxlength = "10", @readonly = "readonly" })
-
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerAgeNextBirthday">
-                    <label for="usr">@Resources.GetLabelName("Age at Next Birthday")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.Age, new { id = "txtAgeNextBirthday", @class = "form-control", @readonly = "readonly" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerGender">
-                    <label for="sel1">@Resources.GetLabelName("Gender")<span class="mandatory">*</span></label>
-                    @Html.DropDownListFor(m => m.objProspectDetails.Gender, new SelectList(Model.lstGender, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlGender" })
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerMaritalStatus">
-                    <label for="sel1">@Resources.GetLabelName("Marital Status")<span class="mandatory">*</span></label>
-                    @Html.DropDownListFor(m => m.objProspectDetails.MaritialStatus, new SelectList(Model.MaritalStatuslist, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMaritalStatus" })
-                </div>
-
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerOccupation">
-                    <label>@Resources.GetLabelName("Occupation")<span class="mandatory">*</span></label>
-                    @Html.DropDownListFor(m => m.objProspectDetails.OccupationID, new SelectList(Model.lstOccupation, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlOccupation" })
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerAnnualIncome">
-                    <label>@Resources.GetLabelName("Annual Income")<span class="mandatory">*</span></label>
-                    @Html.CurrencyTextBoxFor(a => a.objProspectDetails.MonthlyIncome, new { @id = "ddlMonthlyIncome", @class = "form-control", @onkeyup = "return isNumberTabkey(event)", @onkeypress = "return isNumberKey(event)", onchange = "f1(id)" }, Model.objProspectDetails.MonthlyIncome)
-
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerPassportNumber">
-                    <label>@Resources.GetLabelName("Passport Number")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.PassportNumber, new { id = "txtPassportNumber", @class = "form-control", @maxlength = "16", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)", @onkeyup = "return isAlphaNumberKeyback(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerCompanyName">
-                    @*<label id="lblInstitutionName" style="display:none;">@Resources.GetLabelName("Institution Name")<span class="mandatory" id="mandatoryProposerCompanyName">*</span></label>*@
-                    <label id="lblEmployerName">@Resources.GetLabelName("Name of the employer")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.CompanyName, new { @id = "txtCompanyName", @class = "form-control", @onkeypress = "return AlphabetsWithSpace(event)", @onkeyup = "return AlphabetsWithSpacecommaandslash(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerCorporateCompanyName" style="display:none;">
-                    <label id="lblInstitutionName">@Resources.GetLabelName("Institution Name")<span class="mandatory" id="mandatoryProposerCompanyName">*</span></label>
-
-                    @Html.TextBoxFor(a => a.objProspectDetails.CorporateName, new { @id = "txtCorporateName", @class = "form-control", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)", @onkeyup = "return isAlphaNumberKeyback(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divNationality">
-                    <label>@Resources.GetLabelName("Nationality")<span class="mandatory" id="Nationalitymandatory">*</span></label>
-                    @Html.DropDownListFor(m => m.objProspectDetails.Nationality, new SelectList(Model.Nationalities, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlNationality", @onchange = "NationalityFunction();" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divNationalityStatus" style="display:none">
-                    <label>@Resources.GetLabelName("Please Specify")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.SpecifyNationality, new { @id = "txtNationalitySpecify", @class = "form-control" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divUSTaxpayerId" style="display:none;">
-                    <label>@Resources.GetLabelName("Please Specify U.S Tax payer I.D")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.USTaxpayerId, new { id = "txtUSTaxpayerId", @class = "form-control" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="AnivarsaryDate" style="display:none;">
-                    <label>@Resources.GetLabelName("Wedding Anniversary Date")</label>
-                    @Html.iNubeDatePickerFor(a => a.objProspectDetails.WeddingAnniversaryDate, new { id = "txtWeddingAnniversaryDate", @class = "form-control datepicker" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divResidentialNationalityStatus">
-                    <label>@Resources.GetLabelName("Country of Residence")<span class="mandatory">*</span></label>
-                    @Html.DropDownListFor(m => m.objProspectDetails.ResidentialStatus, new SelectList(Model.LstResidentialStatus, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlResidentialStatus", @onchange = "ResidentialStatusFunction();" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divResidentialStatus" style="display:none">
-                    <label>@Resources.GetLabelName("Specify Residential")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.Residential, new { id = "txtResidential", @class = "form-control" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerDrivingLicense">
-                    <label>@Resources.GetLabelName("Age Proof")<span class="mandatory">*</span></label>
-                    @Html.DropDownListFor(m => m.objProspectDetails.DrivingLicense, new SelectList(Model.LstAgeProof, "Value", "Text"), "Select", new { @class = "form-control reqFieldProposal", @id = "txtDrivingLicense" })
-                    @*@Html.TextBoxFor(a => a.objProspectDetails.DrivingLicense, new { id = "txtDrivingLicense", @class = "form-control", @maxlength = "16" })*@
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerOccupationHazardousWork">
-                    <label>@Resources.GetLabelName("Occupation require any Hazardous work ?")</label> <br />
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(a => a.objProspectDetails.OccupationHazardousWork, true, new { @id = "yesbtnOccupation", @name = "Hazardouswork" })
-                        @Resources.GetLabelName("Yes")
-                    </label>
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(a => a.objProspectDetails.OccupationHazardousWork, false, new { @id = "NobtnOccupation", @name = "Hazardouswork" })
-                        @Resources.GetLabelName("No")
-                    </label>
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivOccupationHazardousWork" style="display:none">
-                    <label>@Resources.GetLabelName("Specify Occupation Work")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.SpecifiyOccupationHazardousWork, new { id = "txtProposerOccupationHazardousWork", @class = "form-control" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivCountryofOccupation">
-                    <label>@Resources.GetLabelName("Country of Occupation")<span class="mandatory">*</span></label>
-                    @Html.DropDownListFor(m => m.objProspectDetails.CountryofOccupation, new SelectList(Model.LstFillMemberCountryofOccupation, "Value", "Text", Model.objProspectDetails.CountryofOccupation), "Select", new { @class = "form-control", @id = "ddlProposerCountryofOccupation" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerCitizenShip">
-                    @*citizen-chk*@
-                    <div class="cntr">
-                        <label class="label-cbx">
-                            @Html.CheckBoxFor(a => a.objProspectDetails.CitizenShip, new { @id = "chkDueyouhaveCitizenShip", @class = "invisible invisiblememmod", @name = "DueyouhaveCitizenShip", @style = "width:40px;height:20px;margin-top:5px" })
-                            <div class="checkbox">
-                                <svg width="20px" height="20px" viewBox="0 0 20 20">
-                                    <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
-                                    <polyline points="4 11 8 15 16 6"></polyline>
-                                </svg>
-                            </div>
-                            <span>@Resources.GetLabelName("Do You have Dual CitizenShip")</span>
-                        </label>
-                    </div>
-                    @*<div class="switch_box box_1">
-                            <label>@Resources.GetLabelName("Do You have Dual CitizenShip")</label>&nbsp;&nbsp;
-                            <span>
-                                @Html.CheckBoxFor(a => a.objProspectDetails.CitizenShip, new { @id = "chkDueyouhaveCitizenShip",@class= "switch_1", @name = "DueyouhaveCitizenShip", @style = "width:40px;height:20px;margin-top:5px" })
-                            </span>
-                        </div>*@
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none;" id="DivCitizenShip1">
-                    <label>@Resources.GetLabelName("CitizenShip1")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.Citizenship1, new { id = "txtCitizenship1", @class = "form-control" })
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none;" id="DivCitizenShip2">
-                    <label>@Resources.GetLabelName("CitizenShip2")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.Citizenship2, new { id = "txtCitizenship2", @class = "form-control" })
-                </div>
-            </div>
-        </div>
+<div class="form-group">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerSalutation">
+        <label for="sel1">@Resources.GetLabelName("Salutation")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(m => m.objProspectDetails.Salutation, new { @class = "form-control", @id = "TxtSalutation" })
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group card" id="divProposerContactDetails">
-        <div class="card-header">
-            <a class="card-link collapsed" data-toggle="collapse" href="#contactDetails" aria-expanded="false">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerNameWithInitials">
+        <label>@Resources.GetLabelName("Name With Initials")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.NameWithInitial, new { id = "txtNamewithInitials", @class = "form-control", @onkeypress = "return AlphabetsWithSpace(event)", @onkeyup = "return AlphabetsWithSpacecommaandslash(event)" })
 
-                <img src="~/Content/Images/quote-contact.png" style="width:20px;" />
-                @Resources.GetLabelName("Contact Details")
-            </a>
-        </div>
-
-        <div id="contactDetails" class="collapse" data-parent="#policyOwnerDetails" style="">
-            <div class="card-body row">
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsMobileNo1">
-                    <label>@Resources.GetLabelName("Mobile No")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.MobileNo, new { id = "txtMobileNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
-                </div>
-                @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsMobileNo2">
-                    <label>@Resources.GetLabelName("Mobile No 2")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.OtherMobileNo, new { id = "txtOtherMobileNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)" })
-                    </div>*@
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsHome">
-                    <label for="usr">@Resources.GetLabelName("Home")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.HomeNumber, new { id = "txtHomeNumber", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsOfficeNumber">
-                    @*<label id = "lblProposerTelephoneNumber" style="display:none;">@Resources.GetLabelName("Telephone No")</label>*@
-                    <label id="lblProposerOfficeNumber"> @Resources.GetLabelName("Office") </label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.WorkNumber, new { id = "txtproposerOfficeNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerOfficeNumberContactDetails" style="display:none;">
-                    @*<label id = "lblProposerTelephoneNumber" style="display:none;">@Resources.GetLabelName("Telephone No")</label>*@
-                    <label id="lblProposerOfficeNumber"> @Resources.GetLabelName("Telephone No") </label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.ProposerMobileNo, new { id = "txtproposerContactDetailsOfficeNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerEmailDetails" style="display:none;">
-                    <label>@Resources.GetLabelName("Email")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.ProposerEmailID, new { id = "txtproposerEmailID", @class = "form-control", @style = "text-transform:none", @onkeyup = "return isAlphaNumberKeyback(event)", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsEmail">
-                    <label>@Resources.GetLabelName("Email")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.Email, new { id = "txtproposerEmail", @class = "form-control", @style = "text-transform:none", @onkeypress = " return isSpace(event)", @onkeyup = " return isSpace(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactPersonDetails" style="display:none;">
-                    <label>@Resources.GetLabelName("Contact Person")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.ContactPerson, new { id = "txtproposerContactPerson", @class = "form-control", maxlength = 30, @onkeypress = "return onlyAlphabets(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerDesignationDetails" style="display:none;">
-                    <label>@Resources.GetLabelName("Designation")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.Designation, new { id = "txtproposerDesignation", @class = "form-control", maxlength = 30, @onkeypress = "return onlyAlphabets(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerBusinessRegistrationNo" style="display:none;">
-                    <label>@Resources.GetLabelName("Business Registration No")</label>
-                    @Html.TextBoxFor(a => a.objProspectDetails.BusinessRegistrationNo, new { id = "txtproposerBusinessRegistrationNo", @class = "form-control", @maxlength = "16", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)", @onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)" })
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group card" id="divProposerCommunicationAddress">
-        <div class="card-header">
-            <a class="card-link collapsed" data-toggle="collapse" href="#communicationDetails" aria-expanded="false">
-                <img src="/Content/Images/quote-19.png" style="width: 20px;">
-                @Resources.GetLabelName("Communication Address")
-            </a>
-        </div>
-
-        <div id="communicationDetails" class="collapse" data-parent="#policyOwnerDetails" style="">
-            <div class="card-body">
-                @Html.AddressForNewProspectScreen(a => a.objProspectDetails.objCommunicationAddress)
-            </div>
-        </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerGivenName">
+        <label for="sel1">@Resources.GetLabelName("Given Name")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.FirstName, new { id = "txtFirstName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
     </div>
 
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 card" id="divProposerPermanentAddress">
-        <div class="card-header">
-            <a class="card-link" data-toggle="collapse" href="#clientAddress" aria-expanded="false">
-             <img src="/Content/Images/quote-19.png" style="width: 20px;">
-                @Resources.GetLabelName("Permanant Address")</a>
-        </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerLastName">
+        <label>@Resources.GetLabelName("SurName")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.LastName, new { id = "txtLastName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
 
-        <div id="clientAddress" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group collapse" data-parent="#policyOwnerDetails" style="">
-            <div class="card-body">
-                <div class="cntr">
-                    <label class="label-cbx">
-                        @Html.CheckBoxFor(a => a.objProspectDetails.IsRegAsCommunication, new { @id = "chkIsPermanentAddrSame", @class = "invisibleperaddmod reqFieldProposal", @onclick = "FetchproposerPermAddressToRegAddr()" })
-                        <div class="checkbox">
-                            <svg width="20px" height="20px" viewBox="0 0 20 20">
-                                <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
-                                <polyline points="4 11 8 15 16 6"></polyline>
-                            </svg>
-                        </div>
-                        <span>@Resources.GetLabelName("Is Permanent Address same as Communication Address ?")</span>
-                    </label>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerNICNumber">
+        <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.NewNICNO, new { @id = "txtnewNic", @class = "form-control", @maxlength = "12", @minlength = "10", @readonly = "readonly", @onchange = "FetchProserDOBGenderfromNIC('txtnewNic','txtPropspectDOB','ddlGender','txtAgeNextBirthday')" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerDateofBirth">
+        <label>@Resources.GetLabelName("Date of Birth")<span class="mandatory">*</span></label>
+        @Html.iNubeDatePickerFor(a => a.objProspectDetails.DateOfBirth, new { @class = "form-control datepicker", @id = "txtPropspectDOB", @onblur = "ProposerageCount('txtPropspectDOB')", @onchange = "ProposerageCount('txtPropspectDOB')", @maxlength = "10", @readonly = "readonly" })
+
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerAgeNextBirthday">
+        <label for="usr">@Resources.GetLabelName("Age at Next Birthday")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.Age, new { id = "txtAgeNextBirthday", @class = "form-control", @readonly = "readonly" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerGender">
+        <label for="sel1">@Resources.GetLabelName("Gender")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objProspectDetails.Gender, new SelectList(Model.lstGender, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlGender" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerMaritalStatus">
+        <label for="sel1">@Resources.GetLabelName("Marital Status")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objProspectDetails.MaritialStatus, new SelectList(Model.MaritalStatuslist, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMaritalStatus" })
+    </div>
+    
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerOccupation">
+        <label>@Resources.GetLabelName("Occupation")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objProspectDetails.OccupationID, new SelectList(Model.lstOccupation, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlOccupation" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerAnnualIncome">
+        <label>@Resources.GetLabelName("Annual Income")<span class="mandatory">*</span></label>
+        @Html.CurrencyTextBoxFor(a => a.objProspectDetails.MonthlyIncome, new { @id = "ddlMonthlyIncome", @class = "form-control", @onkeyup = "return isNumberTabkey(event)", @onkeypress = "return isNumberKey(event)", onchange = "f1(id)" }, Model.objProspectDetails.MonthlyIncome)
+
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerPassportNumber">
+        <label>@Resources.GetLabelName("Passport Number")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.PassportNumber, new { id = "txtPassportNumber", @class = "form-control", @maxlength = "16", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)", @onkeyup = "return isAlphaNumberKeyback(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerCompanyName">
+        @*<label id="lblInstitutionName" style="display:none;">@Resources.GetLabelName("Institution Name")<span class="mandatory" id="mandatoryProposerCompanyName">*</span></label>*@
+        <label id="lblEmployerName">@Resources.GetLabelName("Name of the employer")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.CompanyName, new { @id = "txtCompanyName", @class = "form-control", @onkeypress = "return AlphabetsWithSpace(event)", @onkeyup = "return AlphabetsWithSpacecommaandslash(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerCorporateCompanyName" style="display:none;" >
+        <label id="lblInstitutionName" >@Resources.GetLabelName("Institution Name")<span class="mandatory" id="mandatoryProposerCompanyName">*</span></label>
+        
+        @Html.TextBoxFor(a => a.objProspectDetails.CorporateName, new { @id = "txtCorporateName", @class = "form-control", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)", @onkeyup = "return isAlphaNumberKeyback(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divNationality">
+        <label>@Resources.GetLabelName("Nationality")<span class="mandatory" id="Nationalitymandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objProspectDetails.Nationality, new SelectList(Model.Nationalities, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlNationality", @onchange = "NationalityFunction();" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divNationalityStatus" style="display:none">
+        <label>@Resources.GetLabelName("Please Specify")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.SpecifyNationality, new { @id = "txtNationalitySpecify", @class = "form-control" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divUSTaxpayerId" style="display:none;">
+        <label>@Resources.GetLabelName("Please Specify U.S Tax payer I.D")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.USTaxpayerId, new { id = "txtUSTaxpayerId", @class = "form-control" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="AnivarsaryDate" style="display:none;">
+        <label>@Resources.GetLabelName("Wedding Anniversary Date")</label>
+        @Html.iNubeDatePickerFor(a => a.objProspectDetails.WeddingAnniversaryDate, new { id = "txtWeddingAnniversaryDate", @class = "form-control datepicker" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divResidentialNationalityStatus">
+        <label>@Resources.GetLabelName("Country of Residence")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objProspectDetails.ResidentialStatus, new SelectList(Model.LstResidentialStatus, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlResidentialStatus", @onchange = "ResidentialStatusFunction();" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divResidentialStatus" style="display:none">
+        <label>@Resources.GetLabelName("Specify Residential")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.Residential, new { id = "txtResidential", @class = "form-control" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerDrivingLicense">
+        <label>@Resources.GetLabelName("Age Proof")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objProspectDetails.DrivingLicense, new SelectList(Model.LstAgeProof, "Value", "Text"), "Select", new { @class = "form-control reqFieldProposal", @id = "txtDrivingLicense" })
+        @*@Html.TextBoxFor(a => a.objProspectDetails.DrivingLicense, new { id = "txtDrivingLicense", @class = "form-control", @maxlength = "16" })*@
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group"  id="divProposerOccupationHazardousWork">
+        <label>@Resources.GetLabelName("Occupation require any Hazardous work ?")</label> <br />
+        <label class="radio-inline">
+            @Html.RadioButtonFor(a => a.objProspectDetails.OccupationHazardousWork, true, new { @id = "yesbtnOccupation", @name = "Hazardouswork" })
+            @Resources.GetLabelName("Yes")
+        </label>
+        <label class="radio-inline">
+            @Html.RadioButtonFor(a => a.objProspectDetails.OccupationHazardousWork, false, new { @id = "NobtnOccupation", @name = "Hazardouswork" })
+            @Resources.GetLabelName("No")
+        </label>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivOccupationHazardousWork" style="display:none">
+        <label>@Resources.GetLabelName("Specify Occupation Work")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.SpecifiyOccupationHazardousWork, new { id = "txtProposerOccupationHazardousWork", @class = "form-control" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivCountryofOccupation">
+        <label>@Resources.GetLabelName("Country of Occupation")<span class="mandatory">*</span></label>
+        @Html.DropDownListFor(m => m.objProspectDetails.CountryofOccupation, new SelectList(Model.LstFillMemberCountryofOccupation, "Value", "Text", Model.objProspectDetails.CountryofOccupation), "Select", new { @class = "form-control", @id = "ddlProposerCountryofOccupation" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerCitizenShip">@*citizen-chk*@
+        <div class="cntr">
+            <label class="label-cbx">
+                @Html.CheckBoxFor(a => a.objProspectDetails.CitizenShip, new { @id = "chkDueyouhaveCitizenShip", @class = "invisible invisiblememmod", @name = "DueyouhaveCitizenShip", @style = "width:40px;height:20px;margin-top:5px" })
+                <div class="checkbox">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                        <polyline points="4 11 8 15 16 6"></polyline>
+                    </svg>
                 </div>
-                @*<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group switch_box box_1">
+                <span>@Resources.GetLabelName("Do You have Dual CitizenShip")</span>
+            </label>
+        </div>
+        @*<div class="switch_box box_1">
+            <label>@Resources.GetLabelName("Do You have Dual CitizenShip")</label>&nbsp;&nbsp;
+            <span>
+                @Html.CheckBoxFor(a => a.objProspectDetails.CitizenShip, new { @id = "chkDueyouhaveCitizenShip",@class= "switch_1", @name = "DueyouhaveCitizenShip", @style = "width:40px;height:20px;margin-top:5px" })
+            </span>
+        </div>*@
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none;" id="DivCitizenShip1">
+        <label>@Resources.GetLabelName("CitizenShip1")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.Citizenship1, new { id = "txtCitizenship1", @class = "form-control" })
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none;" id="DivCitizenShip2">
+        <label>@Resources.GetLabelName("CitizenShip2")<span class="mandatory">*</span></label>
+        @Html.TextBoxFor(a => a.objProspectDetails.Citizenship2, new { id = "txtCitizenship2", @class = "form-control" })
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" id="divProposerContactDetails">
+        <p class="h4" style="font-weight:bold;">
+        <img src="~/Content/Images/quote-contact.png" style="width:20px;"/>
+        @Resources.GetLabelName("Contact Details")</p>
+    </div >
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsMobileNo1">
+        <label>@Resources.GetLabelName("Mobile No")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.MobileNo, new { id = "txtMobileNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+    </div>
+    @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsMobileNo2">
+        <label>@Resources.GetLabelName("Mobile No 2")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.OtherMobileNo, new { id = "txtOtherMobileNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)" })
+    </div>*@
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsHome">
+        <label for="usr">@Resources.GetLabelName("Home")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.HomeNumber, new { id = "txtHomeNumber", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)",@onkeyup="return isNumberTabkey(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsOfficeNumber">
+        @*<label id = "lblProposerTelephoneNumber" style="display:none;">@Resources.GetLabelName("Telephone No")</label>*@
+        <label id = "lblProposerOfficeNumber" > @Resources.GetLabelName("Office") </label >
+        @Html.TextBoxFor(a => a.objProspectDetails.WorkNumber, new { id = "txtproposerOfficeNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerOfficeNumberContactDetails" style="display:none;">
+        @*<label id = "lblProposerTelephoneNumber" style="display:none;">@Resources.GetLabelName("Telephone No")</label>*@
+        <label id="lblProposerOfficeNumber"> @Resources.GetLabelName("Telephone No") </label>
+        @Html.TextBoxFor(a => a.objProspectDetails.ProposerMobileNo, new { id = "txtproposerContactDetailsOfficeNo", @class = "form-control", maxlength = 16, minlength = 10, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerEmailDetails" style="display:none;">
+        <label>@Resources.GetLabelName("Email")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.ProposerEmailID, new { id = "txtproposerEmailID", @class = "form-control", @style = "text-transform:none", @onkeyup = "return isAlphaNumberKeyback(event)",@onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactDetailsEmail">
+        <label>@Resources.GetLabelName("Email")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.Email, new { id = "txtproposerEmail", @class = "form-control", @style = "text-transform:none", @onkeypress = " return isSpace(event)", @onkeyup = " return isSpace(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerContactPersonDetails" style="display:none;">
+        <label>@Resources.GetLabelName("Contact Person")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.ContactPerson, new { id = "txtproposerContactPerson", @class = "form-control", maxlength = 30 , @onkeypress = "return onlyAlphabets(event)",@onkeyup = "return AlphabetsWithSpace(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerDesignationDetails" style="display:none;">
+        <label>@Resources.GetLabelName("Designation")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.Designation, new { id = "txtproposerDesignation", @class = "form-control", maxlength = 30, @onkeypress = "return onlyAlphabets(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerBusinessRegistrationNo" style="display:none;">
+        <label>@Resources.GetLabelName("Business Registration No")</label>
+        @Html.TextBoxFor(a => a.objProspectDetails.BusinessRegistrationNo, new { id = "txtproposerBusinessRegistrationNo", @class = "form-control", @maxlength = "16", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",@onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)" })
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" id="divProposerCommunicationAddress">
+        <p class="h4" style="font-weight:bold;"><img src="/Content/Images/quote-19.png" style="width: 20px;">@Resources.GetLabelName("Communication Address")</p>
+    </div>
+    @Html.AddressForNewProspectScreen(a => a.objProspectDetails.objCommunicationAddress)
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divProposerPermanentAddress">
+        <p class="h4" style="font-weight:bold"><img src="/Content/Images/quote-19.png" style="width: 20px;">@Resources.GetLabelName("Permanant Address")</p>
+    </div>
+
+    <div id="clientAddress" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group">
+        <div class="cntr">
+            <label class="label-cbx">
+                @Html.CheckBoxFor(a => a.objProspectDetails.IsRegAsCommunication, new { @id = "chkIsPermanentAddrSame", @class = "invisibleperaddmod reqFieldProposal", @onclick = "FetchproposerPermAddressToRegAddr()" })
+                <div class="checkbox">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                        <polyline points="4 11 8 15 16 6"></polyline>
+                    </svg>
+                </div>
+                <span>@Resources.GetLabelName("Is Permanent Address same as Communication Address ?")</span>
+            </label>
+        </div>
+        @*<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group switch_box box_1">
             @Html.CheckBoxFor(a => a.objProspectDetails.IsRegAsCommunication, new { @id = "chkIsPermanentAddrSame",@class= "switch_1", @onclick = "FetchproposerPermAddressToRegAddr()" })
             <span>
-            <label id="lblRegisteredaddress" style="text-align:left;">
-            @Resources.GetLabelName("Is Permanent Address same as Communication Address ?")
-            </label>
+                <label id="lblRegisteredaddress" style="text-align:left;">
+                  @Resources.GetLabelName("Is Permanent Address same as Communication Address ?")
+                </label>
             </span>
-            </div>*@
-                <div id="divAddress">
-                    @Html.AddressForNewProspectScreen(a => a.objProspectDetails.objPermenantAddress)
-                </div>
-            </div>
+        </div>*@
+        <div id = "divAddress">
+            @Html.AddressForNewProspectScreen(a => a.objProspectDetails.objPermenantAddress)
         </div>
-
-        <br />
-    </div>
     </div>
 
-        <script type="text/javascript">
-            function FillPostalCodeCommAddress(e) {
+    <br />
+</div>
 
-                var CityCode = $("#" + e).val();
-                if (CityCode != '') {
-                    $.post("../AgentonBoarding/FetchPostalCode?CityCode=" + CityCode)
-                    .done(function (data) {
 
-                        if (data != null) {
-                            if (e == "objProspectDetailsobjCommunicationAddressPincode") {
-                                textId = e.substring(0, 10);
-                            }
-                            else {
-                                textId = e.substring(0, 10);
-                            }
-                            $('#' + textId + 'ddlProvince').val(data.Provience);
-                            $('#' + textId + 'ddlDistrict').val(data.Distric);
-                        }
-                    });
-                }
-                else {
-                    $('#' + textId + 'ddlProvince').val("");
-                    $('#' + textId + 'ddlDistrict').val("");
-                }
-            }
-            $("#TxtSalutation").autocomplete({
+<script type="text/javascript">
+    function FillPostalCodeCommAddress(e) {
 
-                source: function (request, response) {
-                    $.ajax({
-                        url: "../Suspect/GetSalutation",
-                        type: "POST",
-                        dataType: "json",
-                        data: { Prefix: request.term },
-                        success: function (data) {
-                            response($.map(data, function (item) {
-                                return { label: item, value: item };
-                            }))
-                        }
-                    })
-                },
-                minLength: 1,
-                messages: {
-                    noResults: "",
-                    results: function (count) {
-                        return count + (count > 1 ? ' results' : ' result ') + ' found';
-                    }
-                }
-            });
-            var value = false;
-            $("#hdnAutoCompleteValue").val(value);
-            $("#TxtSalutation").on("autocompleteselect", function (event, u) {
+        var CityCode = $("#" + e).val();
+        if (CityCode != '') {
+            $.post("../AgentonBoarding/FetchPostalCode?CityCode=" + CityCode)
+            .done(function (data) {
 
-                value = true;
-                $("#hdnAutoCompleteValue").val(value);
-
-            })
-
-            $(document).ready(function () {
-                $('#ddlMonthlyIncome').prop('readonly', true);
-                GetProposerRelationship();
-                ResidentialStatusFunction();
-                NationalityFunction();
-
-                var ProposerFirstName = $('#txtFirstName').val();
-                var ProposerLastName = $('#txtLastName').val();
-                var names = "";
-                var name = ProposerFirstName.split(" ");
-                for (var i = 0; i < name.length; i++) {
-                    if (name.length > 1) {
-                        names = names + " " + name[i].charAt(0);
+                if (data != null) {
+                    if (e == "objProspectDetailsobjCommunicationAddressPincode") {
+                        textId = e.substring(0, 10);
                     }
                     else {
-                        names = names + name[i].charAt(0);
+                        textId = e.substring(0, 10);
+                    }
+                    $('#' + textId + 'ddlProvince').val(data.Provience);
+                    $('#' + textId + 'ddlDistrict').val(data.Distric);
+                }
+            });
+        }
+        else {
+            $('#' + textId + 'ddlProvince').val("");
+            $('#' + textId + 'ddlDistrict').val("");
+        }
+    }
+    $("#TxtSalutation").autocomplete({
+
+        source: function (request, response) {
+            $.ajax({
+                url: "../Suspect/GetSalutation",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item, value: item };
+                    }))
+                }
+            })
+        },
+        minLength: 1,
+        messages: {
+            noResults: "",
+            results: function (count) {
+                return count + (count > 1 ? ' results' : ' result ') + ' found';
+            }
+        }
+    });
+    var value = false;
+    $("#hdnAutoCompleteValue").val(value);
+    $("#TxtSalutation").on("autocompleteselect", function (event, u) {
+
+        value = true;
+        $("#hdnAutoCompleteValue").val(value);
+
+    })
+
+    $(document).ready(function () {
+        $('#ddlMonthlyIncome').prop('readonly', true);
+        GetProposerRelationship();
+        ResidentialStatusFunction();
+        NationalityFunction();
+        
+        var ProposerFirstName = $('#txtFirstName').val();
+        var ProposerLastName = $('#txtLastName').val();
+        var names = "";
+        var name = ProposerFirstName.split(" ");
+        for (var i = 0; i < name.length; i++) {
+            if (name.length > 1) {
+                names = names + " " + name[i].charAt(0);
+            }
+            else {
+                names = names + name[i].charAt(0);
+            }
+        }
+        var ProposerNameWithInitials = names + " " + ProposerLastName;
+        $("#txtNamewithInitials").val(ProposerNameWithInitials);
+
+        var IsProposerLifeAssured = '@Model.objProspectDetails.IsproposerlifeAssured';
+        if (IsProposerLifeAssured == 'False') {
+            $("#pnlNomineeDetails").hide();
+        }
+       
+        var LifetobeAssured = '@Model.objProspectDetails.IsproposerlifeAssured';
+        if (LifetobeAssured == "False") {
+            var ProposerFirstName = $('#txtFirstName').val();
+            var ProposerLastName = $('#txtLastName').val();
+
+            var Proposernames = "";
+            var Proposername = ProposerFirstName.split(" ");
+            for (var i = 0; i < Proposername.length; i++) {
+                if (Proposername.length > 1) {
+                    Proposernames = Proposernames + " " + Proposername[i].charAt(0);
+                }
+                else {
+                    Proposernames = Proposernames + Proposername[i].charAt(0);
+                }
+            }
+
+            var ProserNameWithInitials = Proposernames + " " + ProposerLastName;
+           
+
+            $("#txtProposerRelationship").val(ProserNameWithInitials);
+
+            $("#DivRadioRelationship").show();
+            $("#divNomineeDetailsGrid").hide();
+        }
+        
+        var HazardousWork = '@Model.objProspectDetails.OccupationHazardousWork';
+        if (HazardousWork == "True") {
+            $("#yesbtnOccupation").prop("checked", true);
+            $("#DivOccupationHazardousWork").show();
+        }
+        if (HazardousWork == "False") {
+            $("#yesbtnOccupation").prop("checked", false);
+            $("#DivOccupationHazardousWork").hide();
+        }
+        $("input[id='yesbtnOccupation']").click(function () {
+            var test = $(this).val();
+            if (test == "True") {
+                $("#DivOccupationHazardousWork").show();
+            }
+            else if (test == "False") {
+                $("#DivOccupationHazardousWork").hide();
+            }
+        });
+        $("input[id='NobtnOccupation']").click(function () {
+            var test = $(this).val();
+            if (test == "False") {
+                $("#DivOccupationHazardousWork").hide();
+            }
+        });
+
+        var CitizenShip = '@Model.objProspectDetails.CitizenShip';
+        if (CitizenShip == "True") {
+            $("#chkDueyouhaveCitizenShip").prop("checked", true);
+            $('.invisiblememmod').addClass('checkboxactive');
+            $("#DivCitizenShip1").show();
+            $("#DivCitizenShip2").show();
+        }
+        if (CitizenShip == "False") {
+            $("#chkDueyouhaveCitizenShip").prop("checked", false);
+            $('.invisiblememmod').removeClass('checkboxactive');
+            $("#DivCitizenShip1").hide();
+            $("#DivCitizenShip2").hide();
+        }
+        $("#chkDueyouhaveCitizenShip").click(function () {
+            if (this.checked) {
+                $("#DivCitizenShip1").show();
+                $("#DivCitizenShip2").show();
+            }
+            else {
+                $("#DivCitizenShip1").hide();
+                $("#DivCitizenShip2").hide();
+            }
+        });
+        $('#ddlMemberRelationWithProposer').prop('disabled', true);
+        var prospectComState = '@Model.objProspectDetails.objCommunicationAddress.State';
+        var prospectComDistrict = '@Model.objProspectDetails.objCommunicationAddress.District';
+        var prospectComCity = '@Model.objProspectDetails.objCommunicationAddress.City';
+        if (prospectComState != '' && prospectComState != null) {
+            if (prospectComDistrict != '' && prospectComDistrict != null) {
+                FillDistrictCommadd(prospectComState, prospectComDistrict, "objProspectDetailsobjCommunicationAddress");
+            }
+        }
+
+        if (prospectComState != '' && prospectComState != null) {
+            if (prospectComCity != '' && prospectComCity != null) {
+                FillCityCommadd(prospectComDistrict, prospectComCity, "objProspectDetailsobjCommunicationAddress");
+            }
+        }
+
+        $('#objProspectDetailsobjCommunicationAddressAddress1').val('@Model.objProspectDetails.objCommunicationAddress.Address1');
+        $('#objProspectDetailsobjCommunicationAddressAddress2').val('@Model.objProspectDetails.objCommunicationAddress.Address2');
+        $('#objProspectDetailsobjCommunicationAddressddlProvince').val(prospectComState);
+        $('#objProspectDetailsobjCommunicationAddressddlProvince option[value="' + prospectComState + '"]').attr("selected", true);
+        $('#objProspectDetailsobjCommunicationAddressddlDistrict option[value="' + prospectComDistrict + '"]').attr("selected", true);
+        $('#objProspectDetailsobjCommunicationAddressddlCity option[value="' + prospectComCity + '"]').attr("selected", true);
+        $('#objProspectDetailsobjCommunicationAddressPincode').val('@Model.objProspectDetails.objCommunicationAddress.Pincode');
+
+        if ('@Model.objProspectDetails.IsRegAsCommunication' == 'true' || '@Model.objProspectDetails.IsRegAsCommunication' == 'True') {
+            var prospectPremState = '@Model.objProspectDetails.objCommunicationAddress.State';
+            var prospectPermDistrict = '@Model.objProspectDetails.objCommunicationAddress.District';
+            var prospectPrmCity = '@Model.objProspectDetails.objCommunicationAddress.City';
+            if (prospectPremState != '' && prospectPremState != null) {
+                if (prospectPermDistrict != '' && prospectPermDistrict != null) {
+                    FillDistrictCommadd(prospectPremState, prospectPermDistrict , "objProspectDetailsobjPermenantAddress");
+                }
+            }
+
+            if (prospectPremState != '' && prospectPermDistrict != null) {
+                if (prospectPrmCity != '' && prospectPrmCity != null) {
+                    FillCityCommadd(prospectPermDistrict, prospectPermDistrict, "objProspectDetailsobjPermenantAddress");
+                }
+            }
+            FetchproposerPermAddressToRegAddr();
+        }
+        else {
+
+            var prospectPremState = '@Model.objProspectDetails.objCommunicationAddress.State';
+            var prospectPermDistrict = '@Model.objProspectDetails.objCommunicationAddress.District';
+            var prospectPrmCity = '@Model.objProspectDetails.objCommunicationAddress.City';
+            if (prospectPremState != '' && prospectPremState != null) {
+                if (prospectPermDistrict != '' && prospectPermDistrict != null) {
+                    FillDistrictCommadd(prospectPremState, prospectPermDistrict, "objProspectDetailsobjPermenantAddress");
+                }
+            }
+
+            if (prospectPremState != '' && prospectPermDistrict != null) {
+                if (prospectPrmCity != '' && prospectPrmCity != null) {
+                    FillCityCommadd(prospectPermDistrict, prospectPermDistrict, "objProspectDetailsobjPermenantAddress");
+                }
+            }
+
+        }
+    });
+
+    function FetchproposerPermAddressToRegAddr() {
+        $('#objProspectDetailsobjPermenantAddressddlProvince').prop('readonly', true);
+        $('#objProspectDetailsobjPermenantAddressddlDistrict').prop('readonly', true);
+        $('#objProspectDetailsobjPermenantAddressddlCity').prop('readyonly', true);
+        if ($("#chkIsPermanentAddrSame").is(':checked')) {
+            var IsComAddrValidate = ValidateCommunicationAddr();
+            
+            CopyAddressesControlToControlNew('objProspectDetailsobjPermenantAddress', 'objProspectDetailsobjCommunicationAddress');
+            var prospectPremState = '@Model.objProspectDetails.objCommunicationAddress.State';
+            var prospectPermDistrict = '@Model.objProspectDetails.objCommunicationAddress.District';
+            var prospectPrmCity = '@Model.objProspectDetails.objCommunicationAddress.City';
+            $('#objProspectDetailsobjPermenantAddressddlDistrict option[value="' + prospectPermDistrict + '"]').attr("selected", true);
+            $('#objProspectDetailsobjPermenantAddressddlCity option[value="' + prospectPrmCity + '"]').attr("selected", true);
+            $('#objProspectDetailsobjPermenantAddressddlProvince option[value="' + prospectPremState + '"]').attr("selected", true);
+            $("#chkIsPermanentAddrSame").attr('checked', true);
+            $('.invisibleperaddmod').addClass('checkboxactive');
+            return false;
+        }
+        else {
+            RemoveAddressDetailsNew('objProspectDetailsobjPermenantAddress');
+            $("#chkIsPermanentAddrSame").attr('readyonly', false);
+            $('.invisibleperaddmod').removeClass('checkboxactive');
+        }
+    }
+
+    var textId;
+    function FillDistrictCommadd(ProvinceCode, distct, ID) {
+
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.ajaxSetup({ async: false });
+
+            $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    $('#' + textName + 'ddlDistrict').html(""); // clear before appending new list
+                    $('#' + textName + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textName + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
+                    });
+
+                    $('#' + textName + 'ddlDistrict').val(distct);
+                    $('#' + textName + 'ddlDistrict' + 'option[value="' + distct + '"]').attr("selected", true);
+                }
+            });
+            $.ajaxSetup({ async: true });
+
+        }
+    }
+
+    function FillCityCommadd(ProvinceCode, distct, ID) {
+        var textName = ID;
+        if (ProvinceCode != '') {
+            $.ajaxSetup({ async: false });
+
+            $.post("../AgentonBoarding/FetchCity?DistrictCode=" + ProvinceCode)
+            .done(function (data) {
+                if (data != null) {
+                    $('#' + textName + 'ddlCity').html(""); // clear before appending new list
+                    $('#' + textName + 'ddlCity').append($('<option value=\'\'>Select</option>'));
+                    $.each(data, function (ID, option) {
+                        $('#' + textName + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
+                    });
+                    $('#' + textName + 'ddlCity').val(distct);
+                    $('#' + textName + 'ddlCity' + 'option[value="' + distct + '"]').attr("selected", true);
+                }
+            });
+            $.ajaxSetup({ async: true });
+
+        }
+    }
+
+    function ValidateProposerDetails() {
+        debugger;
+        writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
+        writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress2");
+        writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress3");
+        writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress1");
+        writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress2");
+        writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress3");
+        writeMultipleMessage("error", "", "txtMobileNo");
+        var Mobile = $('#txtMobileNo').val();
+        var Relationship = $('#ddlProposerRelationship').val();
+        if (Relationship != "" && Relationship != "CORP") {
+            if (Mobile == null || Mobile == '') {
+                writeMultipleMessage("error", "Please Enter Mobile Number", "txtMobileNo");
+                return false;
+            }
+        }
+        var Address1 = $('#objProspectDetailsobjCommunicationAddressAddress1').val();
+        var res = ValidateAddress(Address1)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address1 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjCommunicationAddressAddress1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
+        }
+        var Address2 = $('#objProspectDetailsobjCommunicationAddressAddress2').val();
+        var res = ValidateAddress(Address2)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address2 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjCommunicationAddressAddress2");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress2");
+        }
+        var Address3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val();
+        var res = ValidateAddress(Address3)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address3 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjCommunicationAddressAddress3");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress3");
+        }
+        var Address1 = $('#objProspectDetailsobjPermenantAddressAddress1').val();
+        var res = ValidateAddress(Address1)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address1 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjPermenantAddressAddress1");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress1");
+        }
+        var Address2 = $('#objProspectDetailsobjPermenantAddressAddress2').val();
+        var res = ValidateAddress(Address2)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address2 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjPermenantAddressAddress2");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress2");
+        }
+        var Address3 = $('#objProspectDetailsobjPermenantAddressAddress3').val();
+        var res = ValidateAddress(Address3)
+        if (res == false) {
+            writeMultipleMessage("error", "“Please Enter Valid Address3 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjPermenantAddressAddress3");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress3");
+        }
+        var Status = $("#ddlProposerRelationship option:selected").text();
+        if (Status == "Holding Company (Corporation)") {
+            if ($("#txtCorporateName").val() == "") {
+                writeMultipleMessage("error", "Please Enter Institution Name.", "txtCompanyName");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtCompanyName");
+            }
+            // Communication Address
+            if ($("#objProspectDetailsobjCommunicationAddressAddress1").val() == "") {
+                writeMultipleMessage("error", "Please Enter Address1", "objProspectDetailsobjCommunicationAddressAddress1");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
+            }
+
+            if ($("#objProspectDetailsobjCommunicationAddressAddress2").val() == "") {
+                writeMultipleMessage("error", "Please Enter Address2", "objProspectDetailsobjCommunicationAddressAddress2");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress2");
+            }
+            var pincodeValue = $("#objProspectDetailsobjCommunicationAddressPincode").val();
+            if ($("#objProspectDetailsobjCommunicationAddressPincode").val() == "") {
+                writeMultipleMessage("error", "Please Enter Pincode.", "objProspectDetailsobjCommunicationAddressPincode");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressPincode");
+            }
+            if (pincodeValue != "YYYYY|") {
+                if ($("#objProspectDetailsobjCommunicationAddressddlProvince").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Province.", "objProspectDetailsobjCommunicationAddressddlProvince");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlProvince");
+                }
+
+                if ($("#objProspectDetailsobjCommunicationAddressddlDistrict").val() == "") {
+                    writeMultipleMessage("error", "Please Enter District.", "objProspectDetailsobjCommunicationAddressddlDistrict");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlDistrict");
+                }
+            }
+            
+        }
+        else {
+            if ($('#ddlSalutation option:selected').text() == "Select") {
+                writeMultipleMessage("error", "Please Select Salutation.", "ddlSalutation");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlSalutation");
+            }
+            
+            if ($("#txtFirstName").val() == "") {
+                writeMultipleMessage("error", "Please Enter Given Name.", "txtFirstName");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtFirstName");
+            }
+            if ($("#txtLastName").val() == "") {
+                writeMultipleMessage("error", "Please Enter SurName.", "txtLastName");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtLastName");
+            }
+
+            if ($("#txtPropspectDOB").val() == "") {
+                writeMultipleMessage("error", "Please Enter Date of Birth.", "txtPropspectDOB");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtPropspectDOB");
+            }
+            if ($("#txtAgeNextBirthday").val() == "") {
+                writeMultipleMessage("error", "Please Enter Age Next Birthday.", "txtAgeNextBirthday");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtAgeNextBirthday");
+            }
+
+            if ($("#ddlGender option:selected").text() == "Select") {
+                writeMultipleMessage("error", "Please Select Gender.", "ddlGender");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlGender");
+            }
+
+            if ($("#ddlMaritalStatus option:selected").text() == "Select") {
+                writeMultipleMessage("error", "Please Select Marital Status.", "ddlMaritalStatus");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlMaritalStatus");
+            }
+
+            if ($("#ddlMonthlyIncome").val() == "") {
+                writeMultipleMessage("error", "Please Select  Annual Income.", "ddlMonthlyIncome");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlMonthlyIncome");
+            }
+
+            if ($("#ddlNationality option:selected").text() == "Select") {
+                writeMultipleMessage("error", "Please Select Nationality.", "ddlNationality");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlNationality");
+            }
+            if ($("#ddlProposerCountryofOccupation option:selected").text() == "Select") {
+                writeMultipleMessage("error", "Please Select Policy Owner CountryofOccupation.", "ddlProposerCountryofOccupation");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlProposerCountryofOccupation");
+            }
+
+            if ($('#txtDrivingLicense option:selected').text() == "Select") {
+                writeMultipleMessage("error", "Please Select Age Proof.", "txtDrivingLicense");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "txtDrivingLicense");
+            }
+            
+            if ($("#ddlNationality option:selected").text() == "Srilankan") {
+                if ($("#txtnewNic").val() == "") {
+                    writeMultipleMessage("error", "Please Enter New SSN Number.", "txtnewNic");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtnewNic");
+                }
+            }
+
+            if ($("#ddlNationality option:selected").text() == "Others") {
+                if ($("#txtPassportNumber").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Passport Number.", "txtPassportNumber");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtPassportNumber");
+                }
+            }
+            if ($("#ddlNationality option:selected").text() == "US") {
+                if ($("#txtPassportNumber").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Passport Number.", "txtPassportNumber");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtPassportNumber");
+                }
+            } 
+
+
+            if ($("#ddlNationality option:selected").text() == "Others") {
+                if ($("#txtNationalitySpecify").val() == "") {
+                    writeMultipleMessage("error", "Please Specify Nationality .", "txtNationalitySpecify");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtNationalitySpecify");
+                }
+            }
+
+            if ($("#ddlNationality option:selected").text() == "US") {
+                if ($("#txtUSTaxpayerId").val() == "") {
+                    writeMultipleMessage("error", "Please Specify USTaxpayerId.", "txtUSTaxpayerId");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtUSTaxpayerId");
+                }
+            }
+
+            if ($("#ddlResidentialStatus option:selected").text() == "Select") {
+                writeMultipleMessage("error", "Please Enter Residential Status.", "ddlResidentialStatus");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "ddlResidentialStatus");
+            }
+
+            if ($("#ddlResidentialStatus option:selected").text() == "NonSriLanka") {
+                if ($("#txtResidential").val() == "") {
+                    writeMultipleMessage("error", "Please Specify Residential .", "txtResidential");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtResidential");
+                }
+            }
+
+            if ($("#ddlResidentialStatus option:selected").text() == "Others") {
+                if ($("#txtResidential").val() == "") {
+                    writeMultipleMessage("error", "Please Specify Residential .", "txtResidential");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtResidential");
+                }
+            }
+
+
+            if ($("input[id='chkDueyouhaveCitizenShip']").is(':checked') == true) {
+                if ($("#txtCitizenship1").val() == "") {
+                    writeMultipleMessage("error", "Please Specify CitizenShip1.", "txtCitizenship1");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    $('.invisiblememmod').removeClass('checkboxactive');
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtCitizenship1");
+                }
+                if ($("#txtCitizenship2").val() == "") {
+                    writeMultipleMessage("error", "Please Specify CitizenShip2.", "txtCitizenship2");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtCitizenship2");
+                }
+            }
+
+            if ($("input[id='yesbtnOccupation']").is(':checked') == true) {
+                if ($("#txtProposerOccupationHazardousWork").val() == "") {
+                    writeMultipleMessage("error", "Please Specify OccupationHazardousWork.", "txtProposerOccupationHazardousWork");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "txtProposerOccupationHazardousWork");
+                }
+            }
+
+            // Communication Address
+            if ($("#objProspectDetailsobjCommunicationAddressAddress1").val() == "") {
+                writeMultipleMessage("error", "Please Enter Address1", "objProspectDetailsobjCommunicationAddressAddress1");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
+            }
+
+            if ($("#objProspectDetailsobjCommunicationAddressAddress2").val() == "") {
+                writeMultipleMessage("error", "Please Enter Address2", "objProspectDetailsobjCommunicationAddressAddress2");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress2");
+            }
+            if ($("#objProspectDetailsobjCommunicationAddressPincode").val() == "") {
+                writeMultipleMessage("error", "Please Enter Pincode.", "objProspectDetailsobjCommunicationAddressPincode");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressPincode");
+            }
+            
+            var pincodeValue = $("#objProspectDetailsobjCommunicationAddressPincode").val();
+            if (pincodeValue != "YYYYY|") {
+                if ($("#objProspectDetailsobjCommunicationAddressddlProvince").val() == "" ) {
+                    writeMultipleMessage("error", "Please Enter Province.", "objProspectDetailsobjCommunicationAddressddlProvince");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlProvince");
+                }
+
+                if ($("#objProspectDetailsobjCommunicationAddressddlDistrict").val() == "" || $("#objProspectDetailsobjCommunicationAddressddlDistrict").val() == "0") {
+                    writeMultipleMessage("error", "Please Enter District.", "objProspectDetailsobjCommunicationAddressddlDistrict");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlDistrict");
+                }
+            }
+           
+            // permanent Address
+
+            if ($("#objProspectDetailsobjPermenantAddressAddress1").val() == "") {
+                writeMultipleMessage("error", "Please Enter Address1", "objProspectDetailsobjPermenantAddressAddress1");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress1");
+            }
+
+            if ($("#objProspectDetailsobjPermenantAddressAddress2").val() == "") {
+                writeMultipleMessage("error", "Please Enter Address2", "objProspectDetailsobjPermenantAddressAddress2");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress2");
+            }
+
+            if ($("#objProspectDetailsobjPermenantAddressPincode").val() == "") {
+                writeMultipleMessage("error", "Please Enter Pincode.", "objProspectDetailsobjPermenantAddressPincode");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+            else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressPincode");
+                return true;
+            }
+            var pincodeValue = $("#objProspectDetailsobjPermenantAddressPincode").val();
+
+            if (pincodeValue != "YYYYY|") {
+                if ($("#objProspectDetailsobjPermenantAddressddlProvince").val() == "") {
+                    writeMultipleMessage("error", "Please Enter Province.", "objProspectDetailsobjPermenantAddressddlProvince");
+                    $("#checkboxDeclaration").prop("checked", false);
+                    return false;
+                }
+                else {
+                    writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressddlProvince");
+                }
+            
+            
+                if ($("#objProspectDetailsobjPermenantAddressddlDistrict").val() == "" || $("#objProspectDetailsobjPermenantAddressddlDistrict").val() == "0") {
+                writeMultipleMessage("error", "Please Enter District.", "objProspectDetailsobjPermenantAddressddlDistrict");
+                $("#checkboxDeclaration").prop("checked", false);
+                return false;
+            }
+                else {
+                writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressddlDistrict");
+            }
+           }
+            
+        }
+        
+    }
+
+    function ValidateCommunicationAddr() {
+        if ($("#objProspectDetailsobjCommunicationAddressAddress1").val() == "") {
+            writeMultipleMessage("error", "Please Enter Address1", "objProspectDetailsobjCommunicationAddressAddress1");
+            $("#checkboxDeclaration").prop("checked", false);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
+        }
+        if ($("#objProspectDetailsobjCommunicationAddressPincode").val() == "") {
+            writeMultipleMessage("error", "Please Enter Pincode.", "objProspectDetailsobjCommunicationAddressPincode");
+            $("#checkboxDeclaration").prop("checked", false);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressPincode");
+            return true;
+        }
+
+        if ($("#objProspectDetailsobjCommunicationAddressddlProvince").val() == "") {
+            writeMultipleMessage("error", "Please Enter Province.", "objProspectDetailsobjCommunicationAddressddlProvince");
+            $("#checkboxDeclaration").prop("checked", false);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlProvince");
+        }
+        if ($("#objProspectDetailsobjCommunicationAddressddlDistrict").val() == "") {
+            writeMultipleMessage("error", "Please Enter District.", "objProspectDetailsobjCommunicationAddressddlDistrict");
+            $("#checkboxDeclaration").prop("checked", false);
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlDistrict");
+        }
+    }
+    $('#ddlMaritalStatus').change(function () {
+
+        var MaritalStaus = $(this).val();
+        if (MaritalStaus == "14") {
+            $('#AnivarsaryDate').show();
+        }
+        else {
+            $('#AnivarsaryDate').hide();
+            $('#txtWeddingAnniversaryDate').val("");
+        }
+    });
+
+    function ResidentialStatusFunction() {
+        var Status = $("#ddlResidentialStatus option:selected").text();
+        if (Status == "Select" || Status == "Sri lanka") {
+            $("#divResidentialStatus").hide();
+        }
+        if (Status == "Non Sri Lanka" || Status == "Others") {
+            $("#divResidentialStatus").show();
+        }
+    }
+
+    function NationalityFunction() {
+        var Status = $("#ddlNationality option:selected").text();
+        if (Status == "Select" || Status != "United States of America") {
+            $("#divNationalityStatus").hide();
+            $("#divUSTaxpayerId").hide();
+        }
+        if (Status == "Others") {
+            $("#divNationalityStatus").show();
+            $("#divUSTaxpayerId").hide();
+        }
+        if (Status == "United States of America") {
+            $("#divUSTaxpayerId").show();
+            $("#divNationalityStatus").hide();
+        }
+    }
+
+    var QuoteNo = '';
+    function YesFetchProposerLifeAssured() {
+        if ($("#yesbtnProposerLifeAssured").is(':checked')) {
+            $("#lblProposerOfficeNumber").show();
+            $("#divProposerOfficeNumberContactDetails").hide();
+            $("#divProposerContactDetailsOfficeNumber").show();
+            $("#divProposerCorporateCompanyName").hide();
+            $("#divProposerEmailDetails").hide();
+            $("#divProposerContactDetailsEmail").show();
+            $("#lblEmployerName").show();
+            $("#divProposerCompanyName").show();
+            $("#divNationality").show();
+            $("#ddlNationality").val('SL');
+            $("#divResidentialNationalityStatus").show();
+            $("#ddlResidentialStatus").val('SL');
+            $("#DivCountryofOccupation").show();
+            $('#ddlProposerCountryofOccupation').val("SL");
+            //$("#divNationalityStatus").show();
+            //$("#divUSTaxpayerId").show();
+            //$("#divResidentialNationalityStatus").show();
+            NationalityFunction();
+       
+            $("#divProposerContactPersonDetails").hide();
+            $("#divProposerDesignationDetails").hide();
+            $("#divProposerBusinessRegistrationNo").hide();
+           
+            $("#DivOccupationHazardousWork").hide();
+            $("#divProposerDrivingLicense").show();
+            $("#divProposerOccupationHazardousWork").show();
+            $("#divProposerCitizenShip").show();
+            $("#divProposerContactDetails").show();
+            $("#divProposerContactDetailsMobileNo1").show();
+            $("#divProposerContactDetailsMobileNo2").show();
+            $("#divProposerContactDetailsHome").show();
+            $("#divProposerContactDetails").show();
+            $("#divProposerCommunicationAddress").show();
+            $("#divProposerPermanentAddress").show();
+            $("#clientAddress").show();
+            $("#divAddress").show();
+            $("#Nationalitymandatory").show();
+            $("#mandatorylblAddress1").show();
+            $("#mandatorylblAddress2").show();
+            $("#mandatorylblPincode").show();
+            $("#mandatorylblProvince").show();
+            $("#mandatorylblddlDistrict").show();
+            $("#divProposerSalutation").show();
+            $("#divProposerNameWithInitials").show();
+            $("#divProposerGivenName").show();
+            $("#divProposerLastName").show();
+            $("#divProposerDateofBirth").show();
+            $("#divProposerAgeNextBirthday").show();
+            $("#divProposerGender").show();
+            $("#divProposerMaritalStatus").show();
+            $("#divProposerNICNumber").show();
+            $("#divProposerOccupation").show();
+            $("#divProposerAnnualIncome").show();
+            $("#divProposerPassportNumber").show();
+            
+            $("#mandatorylblProvince").show();
+            $("#mandatorylblddlDistrict").show();
+            $("#mandatorylblPincode").show();
+            $("#mandatoryAddress2").show();
+            $("#mandatoryAddress1").show();
+            $("#mandatoryProposerCompanyName").hide();
+            DisableRiskInformation();
+            $('#txtFirstName').prop("readonly", true);
+            $('#txtLastName').prop('readonly', true);
+            $('#TxtSalutation').prop('readonly', true);
+            $('#txtPropspectDOB').prop('readonly', true);
+            $('#txtnewNic').prop('readonly', true);
+            $('#ddlMonthlyIncome').prop('readonly', true);
+            $.post("../Policy/ProposalLifeAssuredDetails", $("#fromProposalPage").serialize()).done(function (data) {
+
+                $('#txtFirstName').val(data.FirstName);
+                $('#txtLastName').val(data.LastName);
+                var firstname = data.FirstName;
+                var lastname = data.LastName;
+
+                var namewithintialnames = "";
+                var proposerfirstname = firstname.split(" ");
+                for (var i = 0; i < proposerfirstname.length; i++) {
+                    if (proposerfirstname.length > 1) {
+                        namewithintialnames = namewithintialnames + " " + proposerfirstname[i].charAt(0);
+                    }
+                    else {
+                        namewithintialnames = namewithintialnames + proposerfirstname[i].charAt(0);
                     }
                 }
-                var ProposerNameWithInitials = names + " " + ProposerLastName;
-                $("#txtNamewithInitials").val(ProposerNameWithInitials);
+                var ProposerNameWithInitials = namewithintialnames + " " + lastname;
 
-                var IsProposerLifeAssured = '@Model.objProspectDetails.IsproposerlifeAssured';
-                if (IsProposerLifeAssured == 'False') {
-                    $("#pnlNomineeDetails").hide();
+                $('#txtNamewithInitials').val(ProposerNameWithInitials);
+                var lastmodified = new Date(parseInt(data.DateOfBirth.substr(6)));
+
+                $('#txtPropspectDOB').val(lastmodified.toLocaleDateString());
+                $('#txtAgeNextBirthday').val(data.Age);
+                $('#TxtSalutation').val(data.Salutation);
+                $('#ddlGender').val(data.Gender);
+                $('#ddlMaritalStatus').val(data.MaritialStatus);
+                $('#txtnewNic').val(data.NewNICNO);
+                $('#ddlOccupation').val(data.OccupationID);
+                $('#hdnddlMonthlyIncome').val(data.MonthlyIncome);
+                $('#txtCompanyName').val(data.CompanyName);
+                $('#txtPassportNumber').val(data.PassportNumber);
+                var NationalityValue = data.Nationality;
+                if (NationalityValue != null) {
+                    $('#ddlNationality').val(data.Nationality);
+                } else {
+                    $('#ddlNationality').val('SL');
+                 }
+               
+                //var Status = data.Nationality;
+                //if (Status == "Select" || Status == "SLK") {
+                //    $("#divNationalityStatus").hide();
+                //    $("#divUSTaxpayerId").hide();
+                //}
+                //if (Status == "Others") {
+                //    $("#divNationalityStatus").show();
+                //    $("#divUSTaxpayerId").hide();
+                //}
+                //if (Status == "US") {
+                //    $("#divUSTaxpayerId").show();
+                //    $("#divNationalityStatus").hide();
+                //}
+                $('#txtUSTaxpayerId').val(data.USTaxpayerId);
+                $('#txtNationalitySpecify').val(data.USTaxpayerId);
+                var ResidentialNationalityValue = data.ResidentialStatus;
+                if (ResidentialNationalityValue != null) {
+                    $('#ddlResidentialStatus').val(data.ResidentialStatus);
+                } else {
+                    $('#ddlResidentialStatus').val('SL');
                 }
-
-                var LifetobeAssured = '@Model.objProspectDetails.IsproposerlifeAssured';
-                if (LifetobeAssured == "False") {
-                    var ProposerFirstName = $('#txtFirstName').val();
-                    var ProposerLastName = $('#txtLastName').val();
-
-                    var Proposernames = "";
-                    var Proposername = ProposerFirstName.split(" ");
-                    for (var i = 0; i < Proposername.length; i++) {
-                        if (Proposername.length > 1) {
-                            Proposernames = Proposernames + " " + Proposername[i].charAt(0);
-                        }
-                        else {
-                            Proposernames = Proposernames + Proposername[i].charAt(0);
-                        }
-                    }
-
-                    var ProserNameWithInitials = Proposernames + " " + ProposerLastName;
-
-
-                    $("#txtProposerRelationship").val(ProserNameWithInitials);
-
-                    $("#DivRadioRelationship").show();
-                    $("#divNomineeDetailsGrid").hide();
-                }
-
-                var HazardousWork = '@Model.objProspectDetails.OccupationHazardousWork';
-                if (HazardousWork == "True") {
+               
+                //$('#txtResidential').val(data.Residential);
+                //var Status = data.Residential;
+                //if (Status == "Select" || Status == "SL") {
+                //    $("#divResidentialStatus").hide();
+                //}
+                //if (Status == "NSLK" || Status == "Others") {
+                //    $("#divResidentialStatus").show();
+                //}
+                $('#txtDrivingLicense').val(data.DrivingLicense);
+                var ProposerHazardousWork = '@Model.objProspectDetails.OccupationHazardousWork';
+                $('#yesbtnOccupation').val(data.OccupationHazardousWork);
+                if (ProposerHazardousWork == "True") {
                     $("#yesbtnOccupation").prop("checked", true);
                     $("#DivOccupationHazardousWork").show();
                 }
-                if (HazardousWork == "False") {
+                if (ProposerHazardousWork == "False") {
                     $("#yesbtnOccupation").prop("checked", false);
                     $("#DivOccupationHazardousWork").hide();
                 }
@@ -454,1289 +1265,444 @@
                     }
                 });
 
-                var CitizenShip = '@Model.objProspectDetails.CitizenShip';
-                if (CitizenShip == "True") {
+                var ProposerCitizenShip = '@Model.objProspectDetails.CitizenShip';
+                $('#chkDueyouhaveCitizenShip').val(data.CitizenShip);
+                if (ProposerCitizenShip == "True") {
                     $("#chkDueyouhaveCitizenShip").prop("checked", true);
                     $('.invisiblememmod').addClass('checkboxactive');
+
                     $("#DivCitizenShip1").show();
                     $("#DivCitizenShip2").show();
                 }
-                if (CitizenShip == "False") {
+                if (ProposerCitizenShip == "False") {
                     $("#chkDueyouhaveCitizenShip").prop("checked", false);
                     $('.invisiblememmod').removeClass('checkboxactive');
                     $("#DivCitizenShip1").hide();
                     $("#DivCitizenShip2").hide();
                 }
-                $("#chkDueyouhaveCitizenShip").click(function () {
-                    if (this.checked) {
-                        $("#DivCitizenShip1").show();
-                        $("#DivCitizenShip2").show();
-                    }
-                    else {
-                        $("#DivCitizenShip1").hide();
-                        $("#DivCitizenShip2").hide();
-                    }
-                });
-                $('#ddlMemberRelationWithProposer').prop('disabled', true);
-                var prospectComState = '@Model.objProspectDetails.objCommunicationAddress.State';
-                var prospectComDistrict = '@Model.objProspectDetails.objCommunicationAddress.District';
-                var prospectComCity = '@Model.objProspectDetails.objCommunicationAddress.City';
-                if (prospectComState != '' && prospectComState != null) {
-                    if (prospectComDistrict != '' && prospectComDistrict != null) {
-                        FillDistrictCommadd(prospectComState, prospectComDistrict, "objProspectDetailsobjCommunicationAddress");
-                    }
-                }
+               
+                $('#txtProposerOccupationHazardousWork').val(data.SpecifiyOccupationHazardousWork);
+                $('#txtCitizenship1').val(data.Citizenship1);
+                $('#txtCitizenship2').val(data.Citizenship2);
+                $('#txtMobileNo').val(data.MobileNo);
+                $('#txtOtherMobileNo').val(data.OtherMobileNo);
+                $('#txtHomeNumber').val(data.HomeNumber);
+                $('#txtproposerOfficeNo').val(data.WorkNumber);
+                $('#txtproposerEmail').val(data.Email);
+                $('#objProspectDetailsobjCommunicationAddressAddress1').val(data.objCommunicationAddress.Address1);
+                $('#objProspectDetailsobjCommunicationAddressAddress2').val(data.objCommunicationAddress.Address2);
+                $('#objProspectDetailsobjCommunicationAddressAddress3').val(data.objCommunicationAddress.Address3);
+                $('#objProspectDetailsobjCommunicationAddressPincode').val(data.objCommunicationAddress.Pincode);
+                $('#objProspectDetailsobjCommunicationAddressddlDistrict').val(data.objCommunicationAddress.District);
+                $('#objProspectDetailsobjCommunicationAddressddlProvince').val(data.objCommunicationAddress.Province);
 
-                if (prospectComState != '' && prospectComState != null) {
-                    if (prospectComCity != '' && prospectComCity != null) {
-                        FillCityCommadd(prospectComDistrict, prospectComCity, "objProspectDetailsobjCommunicationAddress");
-                    }
-                }
-
-                $('#objProspectDetailsobjCommunicationAddressAddress1').val('@Model.objProspectDetails.objCommunicationAddress.Address1');
-                $('#objProspectDetailsobjCommunicationAddressAddress2').val('@Model.objProspectDetails.objCommunicationAddress.Address2');
-                $('#objProspectDetailsobjCommunicationAddressddlProvince').val(prospectComState);
-                $('#objProspectDetailsobjCommunicationAddressddlProvince option[value="' + prospectComState + '"]').attr("selected", true);
-                $('#objProspectDetailsobjCommunicationAddressddlDistrict option[value="' + prospectComDistrict + '"]').attr("selected", true);
-                $('#objProspectDetailsobjCommunicationAddressddlCity option[value="' + prospectComCity + '"]').attr("selected", true);
-                $('#objProspectDetailsobjCommunicationAddressPincode').val('@Model.objProspectDetails.objCommunicationAddress.Pincode');
-
-                if ('@Model.objProspectDetails.IsRegAsCommunication' == 'true' || '@Model.objProspectDetails.IsRegAsCommunication' == 'True') {
-                    var prospectPremState = '@Model.objProspectDetails.objCommunicationAddress.State';
-                    var prospectPermDistrict = '@Model.objProspectDetails.objCommunicationAddress.District';
-                    var prospectPrmCity = '@Model.objProspectDetails.objCommunicationAddress.City';
-                    if (prospectPremState != '' && prospectPremState != null) {
-                        if (prospectPermDistrict != '' && prospectPermDistrict != null) {
-                            FillDistrictCommadd(prospectPremState, prospectPermDistrict, "objProspectDetailsobjPermenantAddress");
-                        }
-                    }
-
-                    if (prospectPremState != '' && prospectPermDistrict != null) {
-                        if (prospectPrmCity != '' && prospectPrmCity != null) {
-                            FillCityCommadd(prospectPermDistrict, prospectPermDistrict, "objProspectDetailsobjPermenantAddress");
-                        }
-                    }
-                    FetchproposerPermAddressToRegAddr();
-                }
-                else {
-
-                    var prospectPremState = '@Model.objProspectDetails.objCommunicationAddress.State';
-                    var prospectPermDistrict = '@Model.objProspectDetails.objCommunicationAddress.District';
-                    var prospectPrmCity = '@Model.objProspectDetails.objCommunicationAddress.City';
-                    if (prospectPremState != '' && prospectPremState != null) {
-                        if (prospectPermDistrict != '' && prospectPermDistrict != null) {
-                            FillDistrictCommadd(prospectPremState, prospectPermDistrict, "objProspectDetailsobjPermenantAddress");
-                        }
-                    }
-
-                    if (prospectPremState != '' && prospectPermDistrict != null) {
-                        if (prospectPrmCity != '' && prospectPrmCity != null) {
-                            FillCityCommadd(prospectPermDistrict, prospectPermDistrict, "objProspectDetailsobjPermenantAddress");
-                        }
-                    }
-
-                }
+                f2("ddlMonthlyIncome");
             });
 
-            function FetchproposerPermAddressToRegAddr() {
-                $('#objProspectDetailsobjPermenantAddressddlProvince').prop('readonly', true);
-                $('#objProspectDetailsobjPermenantAddressddlDistrict').prop('readonly', true);
-                $('#objProspectDetailsobjPermenantAddressddlCity').prop('readyonly', true);
-                if ($("#chkIsPermanentAddrSame").is(':checked')) {
-                    var IsComAddrValidate = ValidateCommunicationAddr();
+            $("#DivRadioRelationship").hide();
+            $("#pnlNomineeDetails").show();
+        }
+        else {
+            $("#DivRadioRelationship").hide();
+        }
+    }
 
-                    CopyAddressesControlToControlNew('objProspectDetailsobjPermenantAddress', 'objProspectDetailsobjCommunicationAddress');
-                    var prospectPremState = '@Model.objProspectDetails.objCommunicationAddress.State';
-                    var prospectPermDistrict = '@Model.objProspectDetails.objCommunicationAddress.District';
-                    var prospectPrmCity = '@Model.objProspectDetails.objCommunicationAddress.City';
-                    $('#objProspectDetailsobjPermenantAddressddlDistrict option[value="' + prospectPermDistrict + '"]').attr("selected", true);
-                    $('#objProspectDetailsobjPermenantAddressddlCity option[value="' + prospectPrmCity + '"]').attr("selected", true);
-                    $('#objProspectDetailsobjPermenantAddressddlProvince option[value="' + prospectPremState + '"]').attr("selected", true);
-                    $("#chkIsPermanentAddrSame").attr('checked', true);
-                    $('.invisibleperaddmod').addClass('checkboxactive');
-                    return false;
+
+    function ProposerageCount() {
+        var dob = $('#txtPropspectDOB').val();
+
+        if (dob != '') {
+            var d = new Date();
+            var currentYear = d.getFullYear();
+            var arr = dob.split('/');
+            var birthYear = arr[2];
+            var calcAge = currentYear - birthYear;
+            $('#txtAgeNextBirthday').val(calcAge);
+        }
+    }
+
+
+    function NoFetchProposerLifeAssured() {
+
+        if ($("#NobtnProposerLifeAssured").is(':checked')) {
+            EnableRiskInformation();
+            $('#txtFirstName').prop("readonly", false);
+            $('#txtLastName').prop('readonly', false);
+            $('#txtPropspectDOB').prop('readonly', false);
+            $('#TxtSalutation').prop('readyonly', false);
+            $('#ddlGender').prop('disabled', false);
+            $('#ddlMaritalStatus').prop('disabled', false);
+            $('#txtnewNic').prop('readonly', false);
+            $('#ddlOccupation').prop('disabled', false);
+            $('#ddlMonthlyIncome').prop('readonly', false);
+
+            $('#TxtSalutation').val('');
+            $('#txtNamewithInitials').val('');
+            $('#txtFirstName').val('');
+            $('#txtLastName').val('');
+            $('#txtPropspectDOB').val('');
+            $('#txtAgeNextBirthday').val('');
+            $('#ddlGender').val('');
+            
+            $('#ddlNationality').val("SL");
+            $('#ddlResidentialStatus').val("SL");
+            $('#ddlProposerCountryofOccupation').val("SL");
+
+            $('#ddlMaritalStatus').val('');
+            $('#txtnewNic').val('');
+            $('#ddlOccupation').val('');
+            $('#ddlMonthlyIncome').val('');
+            $('#txtCompanyName').val('');
+            $('#txtPassportNumber').val('');
+           // $('#ddlNationality').val('');
+            //$('#ddlResidentialStatus').val('');
+            $('#objProspectDetailsobjCommunicationAddressAddress1').val('');
+            $('#objProspectDetailsobjCommunicationAddressAddress2').val('');
+            $('#objProspectDetailsobjCommunicationAddressAddress3').val('');
+            $('#objProspectDetailsobjCommunicationAddressPincode').val('');
+            $('#objProspectDetailsobjCommunicationAddressddlDistrict').val('');
+            $('#objProspectDetailsobjCommunicationAddressddlProvince').val('');
+
+            $("#yesbtnOccupation").prop("checked", false);
+            $("#NobtnOccupation").prop("checked", false);
+            $('#txtProposerOccupationHazardousWork').val('');
+            $("#chkDueyouhaveCitizenShip").prop("checked", false);
+            $('.invisiblememmod').removeClass('checkboxactive');
+            $('#txtCitizenship1').val('');
+            $('#txtCitizenship2').val('');
+            $('#txtMobileNo').val('');
+            $('#txtOtherMobileNo').val('');
+            $('#txtHomeNumber').val('');
+            $('#txtproposerOfficeNo').val('');
+            $('#txtproposerEmail').val('');
+            $("#DivRadioRelationship").show();
+            $("#pnlNomineeDetails").hide();
+
+        }
+        else {
+            $("#DivRadioRelationship").hide();
+            $("#pnlNomineeDetails").show();
+        }
+    }
+
+
+    $("#txtProposerRelationship").autocomplete({
+
+        source: function (request, response) {
+
+            $.ajax({
+                url: "../Policy/GetAutoRelationShip",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+
+                    response($.map(data, function (item) {
+                        return { label: item, value: item };
+                    }))
                 }
-                else {
-                    RemoveAddressDetailsNew('objProspectDetailsobjPermenantAddress');
-                    $("#chkIsPermanentAddrSame").attr('readyonly', false);
-                    $('.invisibleperaddmod').removeClass('checkboxactive');
-                }
+            })
+        },
+        minLength: 1,
+        messages: {
+            noResults: "",
+            results: function (count) {
+                return count + (count > 1 ? ' results' : ' result ') + ' found';
             }
+        }
+    });
 
-            var textId;
-            function FillDistrictCommadd(ProvinceCode, distct, ID) {
 
-                var textName = ID;
-                if (ProvinceCode != '') {
-                    $.ajaxSetup({ async: false });
+    function GetProposerRelationship() {
+        var Status = $("#ddlProposerRelationship option:selected").text();
+        if (Status == "Holding Company (Corporation)") {
+            $("#divProposerOfficeNumberContactDetails").show();
+            $("#divProposerContactDetailsOfficeNumber").hide();
+            $("#lblProposerOfficeNumber").hide();
+            $("#divProposerContactPersonDetails").show();
+            $("#divProposerDesignationDetails").show();
+            $("#divProposerBusinessRegistrationNo").show();
+            $("#lblInstitutionName").show();
+            $("#divProposerCorporateCompanyName").show();
+            $("#divProposerEmailDetails").show();
+            $("#divProposerContactDetailsEmail").hide();
+            //$("#").hide();
+            $("#divProposerCompanyName").hide();
+            $("#divNationality").hide();
+            $("#DivCountryofOccupation").hide();
+            $("#divNationalityStatus").hide();
+            $("#divUSTaxpayerId").hide();
+            $("#divResidentialNationalityStatus").hide();
+            $("#divResidentialStatus").hide();
+            $("#divProposerDrivingLicense").hide();
+            $("#divProposerOccupationHazardousWork").hide();
+            $("#divProposerCitizenShip").hide();
+            $("#DivCitizenShip1").hide();
+            $("#DivCitizenShip2").hide();
+            $("#divProposerContactDetails").hide();
+            $("#divProposerContactDetailsMobileNo1").hide();
+            $("#divProposerContactDetailsMobileNo2").hide();
+            $("#divProposerContactDetailsHome").hide();
+            $("#divProposerContactDetails").hide();
+            $("#divProposerCommunicationAddress").hide();
+            $("#divProposerPermanentAddress").hide();
+            $("#clientAddress").hide();
+            $("#divAddress").hide();
+            $("#divProposerSalutation").hide();
+            $("#divProposerNameWithInitials").hide();
+            $("#divProposerGivenName").hide();
+            $("#divProposerLastName").hide();
+            $("#divProposerDateofBirth").hide();
+            $("#divProposerAgeNextBirthday").hide();
+            $("#divProposerGender").hide();
+            $("#divProposerMaritalStatus").hide();
+            $("#DivOccupationHazardousWork").hide();
+            $("#divProposerNICNumber").hide();
+            $("#divProposerOccupation").hide();
+            $("#divProposerAnnualIncome").hide();
+            $("#divProposerPassportNumber").hide();
+            $("#mandatorylblProvince").show();
+            $("#mandatorylblddlDistrict").show();
+            $("#mandatorylblPincode").show();
+            $("#mandatoryAddress2").show();
+            $("#mandatoryAddress1").show();
 
-                    $.post("../AgentonBoarding/FetchDistrict?ProvinceCode=" + ProvinceCode)
+            $("#mandatoryProposerCompanyName").show();
+            $("#txtCompanyName").val('');
+            $("#txtproposerOfficeNo").val('');
+            $("#txtproposerEmail").val('');
+      
+        }
+        else {
+            $("#lblInstitutionName").hide();
+            $("#divProposerCorporateCompanyName").hide();
+            $("#divProposerEmailDetails").hide();
+            //$("#").hide();
+            $("#divProposerCompanyName").show();
+            $("#divNationality").show();
+            $("#DivCountryofOccupation").show();
+            $("#divResidentialNationalityStatus").show();
+            $("#lblProposerOfficeNumber").show();
+            $("#divProposerDrivingLicense").show();
+            $("#divProposerOccupationHazardousWork").show();
+            $("#divProposerCitizenShip").show();
+            $("#divProposerContactDetails").show();
+            $("#divProposerContactDetailsMobileNo1").show();
+            $("#divProposerContactDetailsMobileNo2").show();
+            $("#divProposerContactDetailsHome").show();
+            $("#divProposerContactDetails").show();
+            $("#divProposerCommunicationAddress").show();
+            $("#divProposerPermanentAddress").show();
+            $("#clientAddress").show();
+            $("#divAddress").show();
+            $("#Nationalitymandatory").show();
+            $("#mandatorylblAddress1").show();
+            $("#mandatorylblAddress2").show();
+            $("#mandatorylblPincode").show();
+            $("#mandatorylblProvince").show();
+            $("#mandatorylblddlDistrict").show();
+            $("#divProposerSalutation").show();
+            $("#divProposerNameWithInitials").show();
+            $("#divProposerGivenName").show();
+            $("#divProposerLastName").show();
+            $("#divProposerDateofBirth").show();
+            $("#divProposerAgeNextBirthday").show();
+            $("#divProposerGender").show();
+            $("#divProposerMaritalStatus").show();
+            $("#divProposerNICNumber").show();
+            $("#divProposerOccupation").show();
+            $("#divProposerAnnualIncome").show();
+            $("#divProposerPassportNumber").show();
+            $("#mandatorylblProvince").show();
+            $("#mandatorylblddlDistrict").show();
+            $("#mandatorylblPincode").show();
+            $("#mandatoryAddress2").show();
+            $("#mandatoryAddress1").show();
+            $("#mandatoryProposerCompanyName").hide();
+            $("#divProposerContactPersonDetails").hide();
+            $("#divProposerDesignationDetails").hide();
+            $("#divProposerBusinessRegistrationNo").hide();
+        }
+    }
+
+
+    function FetchProserDOBGenderfromNIC(e, dob, gender, Age) {
+        var NICNo = $('#' + e).val();
+        if (NICNo == "") {
+            $('#ddlGender').prop("disabled", false);
+            $('#txtPropspectDOB').prop("disabled", false);
+            return false;
+        }
+        if (NICNo != null && NICNo != "") {
+            if (NICNo.length == 12 || NICNo.length == 10) {
+                if (NICNo.length == 12) {
+                    var nofdays = NICNo.substr(4, 3);
+                    var dobyears = NICNo.substr(0, 4);
+                }
+                else if (NICNo.length == 10) {
+                    NICArray = NICNo.split("");
+                    if (NICArray[9].toUpperCase() == "X" || NICArray[9].toUpperCase() == "V") {
+                        var nofdays = NICNo.substr(2, 3);
+                        var dobyears = NICNo.substr(0, 2);
+                    }
+                    else {
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
+                        return false;
+
+                    }
+                }
+                $.post("../../AgentonBoarding/FetchDateMonth?NIC=" + NICNo)
                     .done(function (data) {
-                        if (data != null) {
-                            $('#' + textName + 'ddlDistrict').html(""); // clear before appending new list
-                            $('#' + textName + 'ddlDistrict').append($('<option value=\'\'>Select</option>'));
-                            $.each(data, function (ID, option) {
-                                $('#' + textName + 'ddlDistrict').append($('<option value=\'' + option.DistrictCode + '\'>' + option.District + '</option>'));
-                            });
+                        if (data != "Error") {
 
-                            $('#' + textName + 'ddlDistrict').val(distct);
-                            $('#' + textName + 'ddlDistrict' + 'option[value="' + distct + '"]').attr("selected", true);
+                            if (dob == "txtPropspectDOB") {
+                                $("#" + dob).prop("disabled", false);
+                                $("#" + dob).val(data);
+                                $("#" + dob).prop("disabled", true);
+                                $('#ProspectDOB').val(data);
+                            }
+                            else {
+                                $("#" + dob).val(data);
+                            }
+                            if (nofdays <= 366 && nofdays >= 0) {
+                                $("#" + gender).val("M");
+                                $("#" + gender).prop("disabled", true);
+                            }
+                            else if (nofdays > 500 && nofdays <= 866) {
+                                $("#" + gender).val("F");
+                                $("#" + gender).prop("disabled", true);
+                            }
+                            if (dob != "txtPropspectDOB") {
+                                ProserageProspectCount();
+                            }
+                            else {
+                                ProserInterviewrageCount();
+                            }
+                        }
+                        else {
+                            writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", e);
+                            return false;
                         }
                     });
-                    $.ajaxSetup({ async: true });
-
-                }
             }
-
-            function FillCityCommadd(ProvinceCode, distct, ID) {
-                var textName = ID;
-                if (ProvinceCode != '') {
-                    $.ajaxSetup({ async: false });
-
-                    $.post("../AgentonBoarding/FetchCity?DistrictCode=" + ProvinceCode)
-                    .done(function (data) {
-                        if (data != null) {
-                            $('#' + textName + 'ddlCity').html(""); // clear before appending new list
-                            $('#' + textName + 'ddlCity').append($('<option value=\'\'>Select</option>'));
-                            $.each(data, function (ID, option) {
-                                $('#' + textName + 'ddlCity').append($('<option value=\'' + option.CityCode + '\'>' + option.City + '</option>'));
-                            });
-                            $('#' + textName + 'ddlCity').val(distct);
-                            $('#' + textName + 'ddlCity' + 'option[value="' + distct + '"]').attr("selected", true);
-                        }
-                    });
-                    $.ajaxSetup({ async: true });
-
-                }
+            else {
+                writeMultipleMessage("error", "SSN Number should be 12 or 10 Digits", e);
+                return false;
             }
+        }
+    }
 
-            function ValidateProposerDetails() {
-                debugger;
-                writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
-                writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress2");
-                writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress3");
-                writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress1");
-                writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress2");
-                writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress3");
-                writeMultipleMessage("error", "", "txtMobileNo");
-                var Mobile = $('#txtMobileNo').val();
-                var Relationship = $('#ddlProposerRelationship').val();
-                if (Relationship != "" && Relationship != "CORP") {
-                    if (Mobile == null || Mobile == '') {
-                        writeMultipleMessage("error", "Please Enter Mobile Number", "txtMobileNo");
-                        return false;
-                    }
+    function ProserInterviewrageCount() {
+        writeMultipleMessage("error", "", "txtnewNic");
+
+        var dob = $("#txtPropspectDOB").val();
+        if (dob != '' && !ProserValidateDOB("txtPropspectDOB")) {
+            writeMultipleMessage("error", "Please Enter Valid NIC", "txtnewNic");
+            return false;
+        }
+        else {
+            writeMultipleMessage("error", "", "txtPropspectDOB");
+            if (dob != '') {
+                //
+                var d = new Date();
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
                 }
-                var Address1 = $('#objProspectDetailsobjCommunicationAddressAddress1').val();
-                var res = ValidateAddress(Address1)
-                if (res == false) {
-                    writeMultipleMessage("error", "“Please Enter Valid Address1 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjCommunicationAddressAddress1");
+                $("#txtAgeNextBirthday").val(calYear + 1);
+                var ProspectAge = $('#txtAgeNextBirthday').val();
+                if (ProspectAge > 61 || ProspectAge < 19) {
+                    writeMultipleMessage("error", "Age at Next Birthday should be between 19 to 61", "txtnewNic");
                     return false;
                 }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
-                }
-                var Address2 = $('#objProspectDetailsobjCommunicationAddressAddress2').val();
-                var res = ValidateAddress(Address2)
-                if (res == false) {
-                    writeMultipleMessage("error", "“Please Enter Valid Address2 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjCommunicationAddressAddress2");
-                    return false;
-                }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress2");
-                }
-                var Address3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val();
-                var res = ValidateAddress(Address3)
-                if (res == false) {
-                    writeMultipleMessage("error", "“Please Enter Valid Address3 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjCommunicationAddressAddress3");
-                    return false;
-                }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress3");
-                }
-                var Address1 = $('#objProspectDetailsobjPermenantAddressAddress1').val();
-                var res = ValidateAddress(Address1)
-                if (res == false) {
-                    writeMultipleMessage("error", "“Please Enter Valid Address1 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjPermenantAddressAddress1");
-                    return false;
-                }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress1");
-                }
-                var Address2 = $('#objProspectDetailsobjPermenantAddressAddress2').val();
-                var res = ValidateAddress(Address2)
-                if (res == false) {
-                    writeMultipleMessage("error", "“Please Enter Valid Address2 – Following formats are not allowed –<br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjPermenantAddressAddress2");
-                    return false;
-                }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress2");
-                }
-                var Address3 = $('#objProspectDetailsobjPermenantAddressAddress3').val();
-                var res = ValidateAddress(Address3)
-                if (res == false) {
-                    writeMultipleMessage("error", "“Please Enter Valid Address3 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘),is not allowed after space", "objProspectDetailsobjPermenantAddressAddress3");
-                    return false;
-                }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress3");
-                }
-                var Status = $("#ddlProposerRelationship option:selected").text();
-                if (Status == "Holding Company (Corporation)") {
-                    if ($("#txtCorporateName").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Institution Name.", "txtCompanyName");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "txtCompanyName");
-                    }
-                    // Communication Address
-                    if ($("#objProspectDetailsobjCommunicationAddressAddress1").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Address1", "objProspectDetailsobjCommunicationAddressAddress1");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
-                    }
-
-                    if ($("#objProspectDetailsobjCommunicationAddressAddress2").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Address2", "objProspectDetailsobjCommunicationAddressAddress2");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress2");
-                    }
-                    var pincodeValue = $("#objProspectDetailsobjCommunicationAddressPincode").val();
-                    if ($("#objProspectDetailsobjCommunicationAddressPincode").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Pincode.", "objProspectDetailsobjCommunicationAddressPincode");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressPincode");
-                    }
-                    if (pincodeValue != "YYYYY|") {
-                        if ($("#objProspectDetailsobjCommunicationAddressddlProvince").val() == "") {
-                            writeMultipleMessage("error", "Please Enter Province.", "objProspectDetailsobjCommunicationAddressddlProvince");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlProvince");
-                        }
-
-                        if ($("#objProspectDetailsobjCommunicationAddressddlDistrict").val() == "") {
-                            writeMultipleMessage("error", "Please Enter District.", "objProspectDetailsobjCommunicationAddressddlDistrict");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlDistrict");
-                        }
-                    }
-
-                }
-                else {
-                    if ($('#ddlSalutation option:selected').text() == "Select") {
-                        writeMultipleMessage("error", "Please Select Salutation.", "ddlSalutation");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "ddlSalutation");
-                    }
-
-                    if ($("#txtFirstName").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Given Name.", "txtFirstName");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "txtFirstName");
-                    }
-                    if ($("#txtLastName").val() == "") {
-                        writeMultipleMessage("error", "Please Enter SurName.", "txtLastName");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "txtLastName");
-                    }
-
-                    if ($("#txtPropspectDOB").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Date of Birth.", "txtPropspectDOB");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "txtPropspectDOB");
-                    }
-                    if ($("#txtAgeNextBirthday").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Age Next Birthday.", "txtAgeNextBirthday");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "txtAgeNextBirthday");
-                    }
-
-                    if ($("#ddlGender option:selected").text() == "Select") {
-                        writeMultipleMessage("error", "Please Select Gender.", "ddlGender");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "ddlGender");
-                    }
-
-                    if ($("#ddlMaritalStatus option:selected").text() == "Select") {
-                        writeMultipleMessage("error", "Please Select Marital Status.", "ddlMaritalStatus");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "ddlMaritalStatus");
-                    }
-
-                    if ($("#ddlMonthlyIncome").val() == "") {
-                        writeMultipleMessage("error", "Please Select  Annual Income.", "ddlMonthlyIncome");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "ddlMonthlyIncome");
-                    }
-
-                    if ($("#ddlNationality option:selected").text() == "Select") {
-                        writeMultipleMessage("error", "Please Select Nationality.", "ddlNationality");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "ddlNationality");
-                    }
-                    if ($("#ddlProposerCountryofOccupation option:selected").text() == "Select") {
-                        writeMultipleMessage("error", "Please Select Policy Owner CountryofOccupation.", "ddlProposerCountryofOccupation");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "ddlProposerCountryofOccupation");
-                    }
-
-                    if ($('#txtDrivingLicense option:selected').text() == "Select") {
-                        writeMultipleMessage("error", "Please Select Age Proof.", "txtDrivingLicense");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "txtDrivingLicense");
-                    }
-
-                    if ($("#ddlNationality option:selected").text() == "Srilankan") {
-                        if ($("#txtnewNic").val() == "") {
-                            writeMultipleMessage("error", "Please Enter New SSN Number.", "txtnewNic");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtnewNic");
-                        }
-                    }
-
-                    if ($("#ddlNationality option:selected").text() == "Others") {
-                        if ($("#txtPassportNumber").val() == "") {
-                            writeMultipleMessage("error", "Please Enter Passport Number.", "txtPassportNumber");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtPassportNumber");
-                        }
-                    }
-                    if ($("#ddlNationality option:selected").text() == "US") {
-                        if ($("#txtPassportNumber").val() == "") {
-                            writeMultipleMessage("error", "Please Enter Passport Number.", "txtPassportNumber");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtPassportNumber");
-                        }
-                    }
-
-
-                    if ($("#ddlNationality option:selected").text() == "Others") {
-                        if ($("#txtNationalitySpecify").val() == "") {
-                            writeMultipleMessage("error", "Please Specify Nationality .", "txtNationalitySpecify");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtNationalitySpecify");
-                        }
-                    }
-
-                    if ($("#ddlNationality option:selected").text() == "US") {
-                        if ($("#txtUSTaxpayerId").val() == "") {
-                            writeMultipleMessage("error", "Please Specify USTaxpayerId.", "txtUSTaxpayerId");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtUSTaxpayerId");
-                        }
-                    }
-
-                    if ($("#ddlResidentialStatus option:selected").text() == "Select") {
-                        writeMultipleMessage("error", "Please Enter Residential Status.", "ddlResidentialStatus");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "ddlResidentialStatus");
-                    }
-
-                    if ($("#ddlResidentialStatus option:selected").text() == "NonSriLanka") {
-                        if ($("#txtResidential").val() == "") {
-                            writeMultipleMessage("error", "Please Specify Residential .", "txtResidential");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtResidential");
-                        }
-                    }
-
-                    if ($("#ddlResidentialStatus option:selected").text() == "Others") {
-                        if ($("#txtResidential").val() == "") {
-                            writeMultipleMessage("error", "Please Specify Residential .", "txtResidential");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtResidential");
-                        }
-                    }
-
-
-                    if ($("input[id='chkDueyouhaveCitizenShip']").is(':checked') == true) {
-                        if ($("#txtCitizenship1").val() == "") {
-                            writeMultipleMessage("error", "Please Specify CitizenShip1.", "txtCitizenship1");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            $('.invisiblememmod').removeClass('checkboxactive');
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtCitizenship1");
-                        }
-                        if ($("#txtCitizenship2").val() == "") {
-                            writeMultipleMessage("error", "Please Specify CitizenShip2.", "txtCitizenship2");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtCitizenship2");
-                        }
-                    }
-
-                    if ($("input[id='yesbtnOccupation']").is(':checked') == true) {
-                        if ($("#txtProposerOccupationHazardousWork").val() == "") {
-                            writeMultipleMessage("error", "Please Specify OccupationHazardousWork.", "txtProposerOccupationHazardousWork");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "txtProposerOccupationHazardousWork");
-                        }
-                    }
-
-                    // Communication Address
-                    if ($("#objProspectDetailsobjCommunicationAddressAddress1").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Address1", "objProspectDetailsobjCommunicationAddressAddress1");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
-                    }
-
-                    if ($("#objProspectDetailsobjCommunicationAddressAddress2").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Address2", "objProspectDetailsobjCommunicationAddressAddress2");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress2");
-                    }
-                    if ($("#objProspectDetailsobjCommunicationAddressPincode").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Pincode.", "objProspectDetailsobjCommunicationAddressPincode");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressPincode");
-                    }
-
-                    var pincodeValue = $("#objProspectDetailsobjCommunicationAddressPincode").val();
-                    if (pincodeValue != "YYYYY|") {
-                        if ($("#objProspectDetailsobjCommunicationAddressddlProvince").val() == "") {
-                            writeMultipleMessage("error", "Please Enter Province.", "objProspectDetailsobjCommunicationAddressddlProvince");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlProvince");
-                        }
-
-                        if ($("#objProspectDetailsobjCommunicationAddressddlDistrict").val() == "" || $("#objProspectDetailsobjCommunicationAddressddlDistrict").val() == "0") {
-                            writeMultipleMessage("error", "Please Enter District.", "objProspectDetailsobjCommunicationAddressddlDistrict");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlDistrict");
-                        }
-                    }
-
-                    // permanent Address
-
-                    if ($("#objProspectDetailsobjPermenantAddressAddress1").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Address1", "objProspectDetailsobjPermenantAddressAddress1");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress1");
-                    }
-
-                    if ($("#objProspectDetailsobjPermenantAddressAddress2").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Address2", "objProspectDetailsobjPermenantAddressAddress2");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressAddress2");
-                    }
-
-                    if ($("#objProspectDetailsobjPermenantAddressPincode").val() == "") {
-                        writeMultipleMessage("error", "Please Enter Pincode.", "objProspectDetailsobjPermenantAddressPincode");
-                        $("#checkboxDeclaration").prop("checked", false);
-                        return false;
-                    }
-                    else {
-                        writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressPincode");
-                        return true;
-                    }
-                    var pincodeValue = $("#objProspectDetailsobjPermenantAddressPincode").val();
-
-                    if (pincodeValue != "YYYYY|") {
-                        if ($("#objProspectDetailsobjPermenantAddressddlProvince").val() == "") {
-                            writeMultipleMessage("error", "Please Enter Province.", "objProspectDetailsobjPermenantAddressddlProvince");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressddlProvince");
-                        }
-
-
-                        if ($("#objProspectDetailsobjPermenantAddressddlDistrict").val() == "" || $("#objProspectDetailsobjPermenantAddressddlDistrict").val() == "0") {
-                            writeMultipleMessage("error", "Please Enter District.", "objProspectDetailsobjPermenantAddressddlDistrict");
-                            $("#checkboxDeclaration").prop("checked", false);
-                            return false;
-                        }
-                        else {
-                            writeMultipleMessage("error", "", "objProspectDetailsobjPermenantAddressddlDistrict");
-                        }
-                    }
-
-                }
-
+                return true;
             }
+        }
+    }
 
-            function ValidateCommunicationAddr() {
-                if ($("#objProspectDetailsobjCommunicationAddressAddress1").val() == "") {
-                    writeMultipleMessage("error", "Please Enter Address1", "objProspectDetailsobjCommunicationAddressAddress1");
-                    $("#checkboxDeclaration").prop("checked", false);
-                    return false;
-                }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressAddress1");
-                }
-                if ($("#objProspectDetailsobjCommunicationAddressPincode").val() == "") {
-                    writeMultipleMessage("error", "Please Enter Pincode.", "objProspectDetailsobjCommunicationAddressPincode");
-                    $("#checkboxDeclaration").prop("checked", false);
-                    return false;
-                }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressPincode");
+    function ProserValidateDOB(datepickerId) {
+        var dob = $('#' + datepickerId).val();
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
+        var arrDOB = dob.split('/');
+        var birthDay = arrDOB[0];
+        var birthMonth = arrDOB[1];
+        var birthYear = arrDOB[2];
+        var arrCurrentDate = currentDate.split('/');
+        var currentDay = arrCurrentDate[0];
+        var currentMonth = arrCurrentDate[1];
+        var currentYear = arrCurrentDate[2];
+        if (birthYear <= currentYear) {
+            if (birthMonth <= currentMonth) {
+                if (birthDay <= currentDay) {
                     return true;
                 }
-
-                if ($("#objProspectDetailsobjCommunicationAddressddlProvince").val() == "") {
-                    writeMultipleMessage("error", "Please Enter Province.", "objProspectDetailsobjCommunicationAddressddlProvince");
-                    $("#checkboxDeclaration").prop("checked", false);
+                else if (birthDay > currentDay && birthMonth < currentMonth) {
+                    return true;
+                }
+                else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
+                    return true;
+                }
+                else {
                     return false;
                 }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlProvince");
-                }
-                if ($("#objProspectDetailsobjCommunicationAddressddlDistrict").val() == "") {
-                    writeMultipleMessage("error", "Please Enter District.", "objProspectDetailsobjCommunicationAddressddlDistrict");
-                    $("#checkboxDeclaration").prop("checked", false);
-                    return false;
-                }
-                else {
-                    writeMultipleMessage("error", "", "objProspectDetailsobjCommunicationAddressddlDistrict");
-                }
             }
-            $('#ddlMaritalStatus').change(function () {
-
-                var MaritalStaus = $(this).val();
-                if (MaritalStaus == "14") {
-                    $('#AnivarsaryDate').show();
-                }
-                else {
-                    $('#AnivarsaryDate').hide();
-                    $('#txtWeddingAnniversaryDate').val("");
-                }
-            });
-
-            function ResidentialStatusFunction() {
-                var Status = $("#ddlResidentialStatus option:selected").text();
-                if (Status == "Select" || Status == "Sri lanka") {
-                    $("#divResidentialStatus").hide();
-                }
-                if (Status == "Non Sri Lanka" || Status == "Others") {
-                    $("#divResidentialStatus").show();
-                }
+            else if (birthMonth > currentMonth && birthYear < currentYear) {
+                return true;
             }
-
-            function NationalityFunction() {
-                var Status = $("#ddlNationality option:selected").text();
-                if (Status == "Select" || Status != "United States of America") {
-                    $("#divNationalityStatus").hide();
-                    $("#divUSTaxpayerId").hide();
-                }
-                if (Status == "Others") {
-                    $("#divNationalityStatus").show();
-                    $("#divUSTaxpayerId").hide();
-                }
-                if (Status == "United States of America") {
-                    $("#divUSTaxpayerId").show();
-                    $("#divNationalityStatus").hide();
-                }
+            else {
+                return false;
             }
+        }
+        else {
+            return false;
+        }
+    }
 
-            var QuoteNo = '';
-            function YesFetchProposerLifeAssured() {
-                if ($("#yesbtnProposerLifeAssured").is(':checked')) {
-                    $("#lblProposerOfficeNumber").show();
-                    $("#divProposerOfficeNumberContactDetails").hide();
-                    $("#divProposerContactDetailsOfficeNumber").show();
-                    $("#divProposerCorporateCompanyName").hide();
-                    $("#divProposerEmailDetails").hide();
-                    $("#divProposerContactDetailsEmail").show();
-                    $("#lblEmployerName").show();
-                    $("#divProposerCompanyName").show();
-                    $("#divNationality").show();
-                    $("#ddlNationality").val('SL');
-                    $("#divResidentialNationalityStatus").show();
-                    $("#ddlResidentialStatus").val('SL');
-                    $("#DivCountryofOccupation").show();
-                    $('#ddlProposerCountryofOccupation').val("SL");
-                    //$("#divNationalityStatus").show();
-                    //$("#divUSTaxpayerId").show();
-                    //$("#divResidentialNationalityStatus").show();
-                    NationalityFunction();
+    function ProserageProspectCount() {
 
-                    $("#divProposerContactPersonDetails").hide();
-                    $("#divProposerDesignationDetails").hide();
-                    $("#divProposerBusinessRegistrationNo").hide();
-
-                    $("#DivOccupationHazardousWork").hide();
-                    $("#divProposerDrivingLicense").show();
-                    $("#divProposerOccupationHazardousWork").show();
-                    $("#divProposerCitizenShip").show();
-                    $("#divProposerContactDetails").show();
-                    $("#divProposerContactDetailsMobileNo1").show();
-                    $("#divProposerContactDetailsMobileNo2").show();
-                    $("#divProposerContactDetailsHome").show();
-                    $("#divProposerContactDetails").show();
-                    $("#divProposerCommunicationAddress").show();
-                    $("#divProposerPermanentAddress").show();
-                    $("#clientAddress").show();
-                    $("#divAddress").show();
-                    $("#Nationalitymandatory").show();
-                    $("#mandatorylblAddress1").show();
-                    $("#mandatorylblAddress2").show();
-                    $("#mandatorylblPincode").show();
-                    $("#mandatorylblProvince").show();
-                    $("#mandatorylblddlDistrict").show();
-                    $("#divProposerSalutation").show();
-                    $("#divProposerNameWithInitials").show();
-                    $("#divProposerGivenName").show();
-                    $("#divProposerLastName").show();
-                    $("#divProposerDateofBirth").show();
-                    $("#divProposerAgeNextBirthday").show();
-                    $("#divProposerGender").show();
-                    $("#divProposerMaritalStatus").show();
-                    $("#divProposerNICNumber").show();
-                    $("#divProposerOccupation").show();
-                    $("#divProposerAnnualIncome").show();
-                    $("#divProposerPassportNumber").show();
-
-                    $("#mandatorylblProvince").show();
-                    $("#mandatorylblddlDistrict").show();
-                    $("#mandatorylblPincode").show();
-                    $("#mandatoryAddress2").show();
-                    $("#mandatoryAddress1").show();
-                    $("#mandatoryProposerCompanyName").hide();
-                    DisableRiskInformation();
-                    $('#txtFirstName').prop("readonly", true);
-                    $('#txtLastName').prop('readonly', true);
-                    $('#TxtSalutation').prop('readonly', true);
-                    $('#txtPropspectDOB').prop('readonly', true);
-                    $('#txtnewNic').prop('readonly', true);
-                    $('#ddlMonthlyIncome').prop('readonly', true);
-                    $.post("../Policy/ProposalLifeAssuredDetails", $("#fromProposalPage").serialize()).done(function (data) {
-
-                        $('#txtFirstName').val(data.FirstName);
-                        $('#txtLastName').val(data.LastName);
-                        var firstname = data.FirstName;
-                        var lastname = data.LastName;
-
-                        var namewithintialnames = "";
-                        var proposerfirstname = firstname.split(" ");
-                        for (var i = 0; i < proposerfirstname.length; i++) {
-                            if (proposerfirstname.length > 1) {
-                                namewithintialnames = namewithintialnames + " " + proposerfirstname[i].charAt(0);
-                            }
-                            else {
-                                namewithintialnames = namewithintialnames + proposerfirstname[i].charAt(0);
-                            }
-                        }
-                        var ProposerNameWithInitials = namewithintialnames + " " + lastname;
-
-                        $('#txtNamewithInitials').val(ProposerNameWithInitials);
-                        var lastmodified = new Date(parseInt(data.DateOfBirth.substr(6)));
-
-                        $('#txtPropspectDOB').val(lastmodified.toLocaleDateString());
-                        $('#txtAgeNextBirthday').val(data.Age);
-                        $('#TxtSalutation').val(data.Salutation);
-                        $('#ddlGender').val(data.Gender);
-                        $('#ddlMaritalStatus').val(data.MaritialStatus);
-                        $('#txtnewNic').val(data.NewNICNO);
-                        $('#ddlOccupation').val(data.OccupationID);
-                        $('#hdnddlMonthlyIncome').val(data.MonthlyIncome);
-                        $('#txtCompanyName').val(data.CompanyName);
-                        $('#txtPassportNumber').val(data.PassportNumber);
-                        var NationalityValue = data.Nationality;
-                        if (NationalityValue != null) {
-                            $('#ddlNationality').val(data.Nationality);
-                        } else {
-                            $('#ddlNationality').val('SL');
-                        }
-
-                        //var Status = data.Nationality;
-                        //if (Status == "Select" || Status == "SLK") {
-                        //    $("#divNationalityStatus").hide();
-                        //    $("#divUSTaxpayerId").hide();
-                        //}
-                        //if (Status == "Others") {
-                        //    $("#divNationalityStatus").show();
-                        //    $("#divUSTaxpayerId").hide();
-                        //}
-                        //if (Status == "US") {
-                        //    $("#divUSTaxpayerId").show();
-                        //    $("#divNationalityStatus").hide();
-                        //}
-                        $('#txtUSTaxpayerId').val(data.USTaxpayerId);
-                        $('#txtNationalitySpecify').val(data.USTaxpayerId);
-                        var ResidentialNationalityValue = data.ResidentialStatus;
-                        if (ResidentialNationalityValue != null) {
-                            $('#ddlResidentialStatus').val(data.ResidentialStatus);
-                        } else {
-                            $('#ddlResidentialStatus').val('SL');
-                        }
-
-                        //$('#txtResidential').val(data.Residential);
-                        //var Status = data.Residential;
-                        //if (Status == "Select" || Status == "SL") {
-                        //    $("#divResidentialStatus").hide();
-                        //}
-                        //if (Status == "NSLK" || Status == "Others") {
-                        //    $("#divResidentialStatus").show();
-                        //}
-                        $('#txtDrivingLicense').val(data.DrivingLicense);
-                        var ProposerHazardousWork = '@Model.objProspectDetails.OccupationHazardousWork';
-                        $('#yesbtnOccupation').val(data.OccupationHazardousWork);
-                        if (ProposerHazardousWork == "True") {
-                            $("#yesbtnOccupation").prop("checked", true);
-                            $("#DivOccupationHazardousWork").show();
-                        }
-                        if (ProposerHazardousWork == "False") {
-                            $("#yesbtnOccupation").prop("checked", false);
-                            $("#DivOccupationHazardousWork").hide();
-                        }
-                        $("input[id='yesbtnOccupation']").click(function () {
-                            var test = $(this).val();
-                            if (test == "True") {
-                                $("#DivOccupationHazardousWork").show();
-                            }
-                            else if (test == "False") {
-                                $("#DivOccupationHazardousWork").hide();
-                            }
-                        });
-                        $("input[id='NobtnOccupation']").click(function () {
-                            var test = $(this).val();
-                            if (test == "False") {
-                                $("#DivOccupationHazardousWork").hide();
-                            }
-                        });
-
-                        var ProposerCitizenShip = '@Model.objProspectDetails.CitizenShip';
-                        $('#chkDueyouhaveCitizenShip').val(data.CitizenShip);
-                        if (ProposerCitizenShip == "True") {
-                            $("#chkDueyouhaveCitizenShip").prop("checked", true);
-                            $('.invisiblememmod').addClass('checkboxactive');
-
-                            $("#DivCitizenShip1").show();
-                            $("#DivCitizenShip2").show();
-                        }
-                        if (ProposerCitizenShip == "False") {
-                            $("#chkDueyouhaveCitizenShip").prop("checked", false);
-                            $('.invisiblememmod').removeClass('checkboxactive');
-                            $("#DivCitizenShip1").hide();
-                            $("#DivCitizenShip2").hide();
-                        }
-
-                        $('#txtProposerOccupationHazardousWork').val(data.SpecifiyOccupationHazardousWork);
-                        $('#txtCitizenship1').val(data.Citizenship1);
-                        $('#txtCitizenship2').val(data.Citizenship2);
-                        $('#txtMobileNo').val(data.MobileNo);
-                        $('#txtOtherMobileNo').val(data.OtherMobileNo);
-                        $('#txtHomeNumber').val(data.HomeNumber);
-                        $('#txtproposerOfficeNo').val(data.WorkNumber);
-                        $('#txtproposerEmail').val(data.Email);
-                        $('#objProspectDetailsobjCommunicationAddressAddress1').val(data.objCommunicationAddress.Address1);
-                        $('#objProspectDetailsobjCommunicationAddressAddress2').val(data.objCommunicationAddress.Address2);
-                        $('#objProspectDetailsobjCommunicationAddressAddress3').val(data.objCommunicationAddress.Address3);
-                        $('#objProspectDetailsobjCommunicationAddressPincode').val(data.objCommunicationAddress.Pincode);
-                        $('#objProspectDetailsobjCommunicationAddressddlDistrict').val(data.objCommunicationAddress.District);
-                        $('#objProspectDetailsobjCommunicationAddressddlProvince').val(data.objCommunicationAddress.Province);
-
-                        f2("ddlMonthlyIncome");
-                    });
-
-                    $("#DivRadioRelationship").hide();
-                    $("#pnlNomineeDetails").show();
-                }
-                else {
-                    $("#DivRadioRelationship").hide();
-                }
-            }
-
-
-            function ProposerageCount() {
-                var dob = $('#txtPropspectDOB').val();
-
-                if (dob != '') {
-                    var d = new Date();
-                    var currentYear = d.getFullYear();
-                    var arr = dob.split('/');
-                    var birthYear = arr[2];
-                    var calcAge = currentYear - birthYear;
-                    $('#txtAgeNextBirthday').val(calcAge);
-                }
-            }
-
-
-            function NoFetchProposerLifeAssured() {
-
-                if ($("#NobtnProposerLifeAssured").is(':checked')) {
-                    EnableRiskInformation();
-                    $('#txtFirstName').prop("readonly", false);
-                    $('#txtLastName').prop('readonly', false);
-                    $('#txtPropspectDOB').prop('readonly', false);
-                    $('#TxtSalutation').prop('readyonly', false);
-                    $('#ddlGender').prop('disabled', false);
-                    $('#ddlMaritalStatus').prop('disabled', false);
-                    $('#txtnewNic').prop('readonly', false);
-                    $('#ddlOccupation').prop('disabled', false);
-                    $('#ddlMonthlyIncome').prop('readonly', false);
-
-                    $('#TxtSalutation').val('');
-                    $('#txtNamewithInitials').val('');
-                    $('#txtFirstName').val('');
-                    $('#txtLastName').val('');
-                    $('#txtPropspectDOB').val('');
-                    $('#txtAgeNextBirthday').val('');
-                    $('#ddlGender').val('');
-
-                    $('#ddlNationality').val("SL");
-                    $('#ddlResidentialStatus').val("SL");
-                    $('#ddlProposerCountryofOccupation').val("SL");
-
-                    $('#ddlMaritalStatus').val('');
-                    $('#txtnewNic').val('');
-                    $('#ddlOccupation').val('');
-                    $('#ddlMonthlyIncome').val('');
-                    $('#txtCompanyName').val('');
-                    $('#txtPassportNumber').val('');
-                    // $('#ddlNationality').val('');
-                    //$('#ddlResidentialStatus').val('');
-                    $('#objProspectDetailsobjCommunicationAddressAddress1').val('');
-                    $('#objProspectDetailsobjCommunicationAddressAddress2').val('');
-                    $('#objProspectDetailsobjCommunicationAddressAddress3').val('');
-                    $('#objProspectDetailsobjCommunicationAddressPincode').val('');
-                    $('#objProspectDetailsobjCommunicationAddressddlDistrict').val('');
-                    $('#objProspectDetailsobjCommunicationAddressddlProvince').val('');
-
-                    $("#yesbtnOccupation").prop("checked", false);
-                    $("#NobtnOccupation").prop("checked", false);
-                    $('#txtProposerOccupationHazardousWork').val('');
-                    $("#chkDueyouhaveCitizenShip").prop("checked", false);
-                    $('.invisiblememmod').removeClass('checkboxactive');
-                    $('#txtCitizenship1').val('');
-                    $('#txtCitizenship2').val('');
-                    $('#txtMobileNo').val('');
-                    $('#txtOtherMobileNo').val('');
-                    $('#txtHomeNumber').val('');
-                    $('#txtproposerOfficeNo').val('');
-                    $('#txtproposerEmail').val('');
-                    $("#DivRadioRelationship").show();
-                    $("#pnlNomineeDetails").hide();
-
-                }
-                else {
-                    $("#DivRadioRelationship").hide();
-                    $("#pnlNomineeDetails").show();
-                }
-            }
-
-
-            $("#txtProposerRelationship").autocomplete({
-
-                source: function (request, response) {
-
-                    $.ajax({
-                        url: "../Policy/GetAutoRelationShip",
-                        type: "POST",
-                        dataType: "json",
-                        data: { Prefix: request.term },
-                        success: function (data) {
-
-                            response($.map(data, function (item) {
-                                return { label: item, value: item };
-                            }))
-                        }
-                    })
-                },
-                minLength: 1,
-                messages: {
-                    noResults: "",
-                    results: function (count) {
-                        return count + (count > 1 ? ' results' : ' result ') + ' found';
-                    }
-                }
-            });
-
-
-            function GetProposerRelationship() {
-                var Status = $("#ddlProposerRelationship option:selected").text();
-                if (Status == "Holding Company (Corporation)") {
-                    $("#divProposerOfficeNumberContactDetails").show();
-                    $("#divProposerContactDetailsOfficeNumber").hide();
-                    $("#lblProposerOfficeNumber").hide();
-                    $("#divProposerContactPersonDetails").show();
-                    $("#divProposerDesignationDetails").show();
-                    $("#divProposerBusinessRegistrationNo").show();
-                    $("#lblInstitutionName").show();
-                    $("#divProposerCorporateCompanyName").show();
-                    $("#divProposerEmailDetails").show();
-                    $("#divProposerContactDetailsEmail").hide();
-                    //$("#").hide();
-                    $("#divProposerCompanyName").hide();
-                    $("#divNationality").hide();
-                    $("#DivCountryofOccupation").hide();
-                    $("#divNationalityStatus").hide();
-                    $("#divUSTaxpayerId").hide();
-                    $("#divResidentialNationalityStatus").hide();
-                    $("#divResidentialStatus").hide();
-                    $("#divProposerDrivingLicense").hide();
-                    $("#divProposerOccupationHazardousWork").hide();
-                    $("#divProposerCitizenShip").hide();
-                    $("#DivCitizenShip1").hide();
-                    $("#DivCitizenShip2").hide();
-                    $("#divProposerContactDetails").hide();
-                    $("#divProposerContactDetailsMobileNo1").hide();
-                    $("#divProposerContactDetailsMobileNo2").hide();
-                    $("#divProposerContactDetailsHome").hide();
-                    $("#divProposerContactDetails").hide();
-                    $("#divProposerCommunicationAddress").hide();
-                    $("#divProposerPermanentAddress").hide();
-                    $("#clientAddress").hide();
-                    $("#divAddress").hide();
-                    $("#divProposerSalutation").hide();
-                    $("#divProposerNameWithInitials").hide();
-                    $("#divProposerGivenName").hide();
-                    $("#divProposerLastName").hide();
-                    $("#divProposerDateofBirth").hide();
-                    $("#divProposerAgeNextBirthday").hide();
-                    $("#divProposerGender").hide();
-                    $("#divProposerMaritalStatus").hide();
-                    $("#DivOccupationHazardousWork").hide();
-                    $("#divProposerNICNumber").hide();
-                    $("#divProposerOccupation").hide();
-                    $("#divProposerAnnualIncome").hide();
-                    $("#divProposerPassportNumber").hide();
-                    $("#mandatorylblProvince").show();
-                    $("#mandatorylblddlDistrict").show();
-                    $("#mandatorylblPincode").show();
-                    $("#mandatoryAddress2").show();
-                    $("#mandatoryAddress1").show();
-
-                    $("#mandatoryProposerCompanyName").show();
-                    $("#txtCompanyName").val('');
-                    $("#txtproposerOfficeNo").val('');
-                    $("#txtproposerEmail").val('');
-
-                }
-                else {
-                    $("#lblInstitutionName").hide();
-                    $("#divProposerCorporateCompanyName").hide();
-                    $("#divProposerEmailDetails").hide();
-                    //$("#").hide();
-                    $("#divProposerCompanyName").show();
-                    $("#divNationality").show();
-                    $("#DivCountryofOccupation").show();
-                    $("#divResidentialNationalityStatus").show();
-                    $("#lblProposerOfficeNumber").show();
-                    $("#divProposerDrivingLicense").show();
-                    $("#divProposerOccupationHazardousWork").show();
-                    $("#divProposerCitizenShip").show();
-                    $("#divProposerContactDetails").show();
-                    $("#divProposerContactDetailsMobileNo1").show();
-                    $("#divProposerContactDetailsMobileNo2").show();
-                    $("#divProposerContactDetailsHome").show();
-                    $("#divProposerContactDetails").show();
-                    $("#divProposerCommunicationAddress").show();
-                    $("#divProposerPermanentAddress").show();
-                    $("#clientAddress").show();
-                    $("#divAddress").show();
-                    $("#Nationalitymandatory").show();
-                    $("#mandatorylblAddress1").show();
-                    $("#mandatorylblAddress2").show();
-                    $("#mandatorylblPincode").show();
-                    $("#mandatorylblProvince").show();
-                    $("#mandatorylblddlDistrict").show();
-                    $("#divProposerSalutation").show();
-                    $("#divProposerNameWithInitials").show();
-                    $("#divProposerGivenName").show();
-                    $("#divProposerLastName").show();
-                    $("#divProposerDateofBirth").show();
-                    $("#divProposerAgeNextBirthday").show();
-                    $("#divProposerGender").show();
-                    $("#divProposerMaritalStatus").show();
-                    $("#divProposerNICNumber").show();
-                    $("#divProposerOccupation").show();
-                    $("#divProposerAnnualIncome").show();
-                    $("#divProposerPassportNumber").show();
-                    $("#mandatorylblProvince").show();
-                    $("#mandatorylblddlDistrict").show();
-                    $("#mandatorylblPincode").show();
-                    $("#mandatoryAddress2").show();
-                    $("#mandatoryAddress1").show();
-                    $("#mandatoryProposerCompanyName").hide();
-                    $("#divProposerContactPersonDetails").hide();
-                    $("#divProposerDesignationDetails").hide();
-                    $("#divProposerBusinessRegistrationNo").hide();
-                }
-            }
-
-
-            function FetchProserDOBGenderfromNIC(e, dob, gender, Age) {
-                var NICNo = $('#' + e).val();
-                if (NICNo == "") {
-                    $('#ddlGender').prop("disabled", false);
-                    $('#txtPropspectDOB').prop("disabled", false);
-                    return false;
-                }
-                if (NICNo != null && NICNo != "") {
-                    if (NICNo.length == 12 || NICNo.length == 10) {
-                        if (NICNo.length == 12) {
-                            var nofdays = NICNo.substr(4, 3);
-                            var dobyears = NICNo.substr(0, 4);
-                        }
-                        else if (NICNo.length == 10) {
-                            NICArray = NICNo.split("");
-                            if (NICArray[9].toUpperCase() == "X" || NICArray[9].toUpperCase() == "V") {
-                                var nofdays = NICNo.substr(2, 3);
-                                var dobyears = NICNo.substr(0, 2);
-                            }
-                            else {
-                                writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
-                                return false;
-
-                            }
-                        }
-                        $.post("../../AgentonBoarding/FetchDateMonth?NIC=" + NICNo)
-                            .done(function (data) {
-                                if (data != "Error") {
-
-                                    if (dob == "txtPropspectDOB") {
-                                        $("#" + dob).prop("disabled", false);
-                                        $("#" + dob).val(data);
-                                        $("#" + dob).prop("disabled", true);
-                                        $('#ProspectDOB').val(data);
-                                    }
-                                    else {
-                                        $("#" + dob).val(data);
-                                    }
-                                    if (nofdays <= 366 && nofdays >= 0) {
-                                        $("#" + gender).val("M");
-                                        $("#" + gender).prop("disabled", true);
-                                    }
-                                    else if (nofdays > 500 && nofdays <= 866) {
-                                        $("#" + gender).val("F");
-                                        $("#" + gender).prop("disabled", true);
-                                    }
-                                    if (dob != "txtPropspectDOB") {
-                                        ProserageProspectCount();
-                                    }
-                                    else {
-                                        ProserInterviewrageCount();
-                                    }
-                                }
-                                else {
-                                    writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", e);
-                                    return false;
-                                }
-                            });
-                    }
-                    else {
-                        writeMultipleMessage("error", "SSN Number should be 12 or 10 Digits", e);
-                        return false;
-                    }
-                }
-            }
-
-            function ProserInterviewrageCount() {
-                writeMultipleMessage("error", "", "txtnewNic");
-
-                var dob = $("#txtPropspectDOB").val();
-                if (dob != '' && !ProserValidateDOB("txtPropspectDOB")) {
-                    writeMultipleMessage("error", "Please Enter Valid NIC", "txtnewNic");
-                    return false;
-                }
-                else {
-                    writeMultipleMessage("error", "", "txtPropspectDOB");
-                    if (dob != '') {
-                        //
-                        var d = new Date();
-                        var currentYear = d.getFullYear();
-                        var currentMonth = d.getMonth() + 1;
-                        var currentDate = d.getDate();
-                        var arr = dob.split('/');
-                        var birthYear = arr[2];
-                        var birthMonth = arr[1];
-                        var birthdate = arr[0];
-                        var calYear = currentYear - birthYear;
-                        var CalMonth = currentMonth - birthMonth;
-                        var calcAge = 0;
-                        if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
-                            calYear--;
-                        }
-                        $("#txtAgeNextBirthday").val(calYear + 1);
-                        var ProspectAge = $('#txtAgeNextBirthday').val();
-                        if (ProspectAge > 61 || ProspectAge < 19) {
-                            writeMultipleMessage("error", "Age at Next Birthday should be between 19 to 61", "txtnewNic");
-                            return false;
-                        }
-                        return true;
-                    }
-                }
-            }
-
-            function ProserValidateDOB(datepickerId) {
-                var dob = $('#' + datepickerId).val();
+        var dob = $('#txtPropspectDOB').val();
+        var controlid = 'txtPropspectDOB';
+        writeMultipleMessage("error", "", controlid);
+        if (dob == "") {
+            $('#txtAgeNextBirthday').val('');
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth.", controlid);
+            return false;
+        }
+        if (!ValidateDOB(controlid)) {
+            $('#txtAgeNextBirthday').val('');
+            writeMultipleMessage("error", "Please Enter Valid Date Of Birth. It Cannot be Future Date.", controlid);
+            return false;
+        }
+        else {
+            if (dob != '') {
                 var d = new Date();
-                var month = d.getMonth() + 1;
-                var day = d.getDate();
-                var currentDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + d.getFullYear();
-                var arrDOB = dob.split('/');
-                var birthDay = arrDOB[0];
-                var birthMonth = arrDOB[1];
-                var birthYear = arrDOB[2];
-                var arrCurrentDate = currentDate.split('/');
-                var currentDay = arrCurrentDate[0];
-                var currentMonth = arrCurrentDate[1];
-                var currentYear = arrCurrentDate[2];
-                if (birthYear <= currentYear) {
-                    if (birthMonth <= currentMonth) {
-                        if (birthDay <= currentDay) {
-                            return true;
-                        }
-                        else if (birthDay > currentDay && birthMonth < currentMonth) {
-                            return true;
-                        }
-                        else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    }
-                    else if (birthMonth > currentMonth && birthYear < currentYear) {
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
+                var currentYear = d.getFullYear();
+                var currentMonth = d.getMonth() + 1;
+                var currentDate = d.getDate();
+                var arr = dob.split('/');
+                var birthYear = arr[2];
+                var birthMonth = arr[1];
+                var birthdate = arr[0];
+                var calYear = currentYear - birthYear;
+                var CalMonth = currentMonth - birthMonth;
+                var calcAge = 0;
+                if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
+                    calYear--;
                 }
-                else {
-                    return false;
-                }
+                $('#txtAgeNextBirthday').val(calYear + 1);
             }
-
-            function ProserageProspectCount() {
-
-                var dob = $('#txtPropspectDOB').val();
-                var controlid = 'txtPropspectDOB';
-                writeMultipleMessage("error", "", controlid);
-                if (dob == "") {
-                    $('#txtAgeNextBirthday').val('');
-                    writeMultipleMessage("error", "Please Enter Valid Date Of Birth.", controlid);
-                    return false;
-                }
-                if (!ValidateDOB(controlid)) {
-                    $('#txtAgeNextBirthday').val('');
-                    writeMultipleMessage("error", "Please Enter Valid Date Of Birth. It Cannot be Future Date.", controlid);
-                    return false;
-                }
-                else {
-                    if (dob != '') {
-                        var d = new Date();
-                        var currentYear = d.getFullYear();
-                        var currentMonth = d.getMonth() + 1;
-                        var currentDate = d.getDate();
-                        var arr = dob.split('/');
-                        var birthYear = arr[2];
-                        var birthMonth = arr[1];
-                        var birthdate = arr[0];
-                        var calYear = currentYear - birthYear;
-                        var CalMonth = currentMonth - birthMonth;
-                        var calcAge = 0;
-                        if (CalMonth < 0 || (CalMonth === 0 && currentDate < birthdate)) {
-                            calYear--;
-                        }
-                        $('#txtAgeNextBirthday').val(calYear + 1);
-                    }
-                }
-            }
-        </script>
+        }
+    }
+</script>

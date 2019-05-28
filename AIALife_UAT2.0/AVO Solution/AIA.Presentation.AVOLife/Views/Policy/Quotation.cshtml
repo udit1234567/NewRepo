@@ -18,7 +18,6 @@
         width: 100%;
     }
 </style>
-
 @using (Html.BeginForm("", "", FormMethod.Post, new { id = "fromQuotePage" }))
 {
     @Html.HiddenFor(a => a.objProspect.objNeedAnalysis.objSpouseDetails.DateOfBirth, new { @id = "HdnSpouseDateOfBirth" })
@@ -45,109 +44,101 @@
                 <div class="visible-lg-block">
                     @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
                 </div>
-                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #5a73ef;"></a>
-                <div class="btn btn-info" style="max-width:130px"><b>@Resources.GetLabelName("Quotation")</b></div>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #1747a7;"></a>
+             
+                <div class="btn btn-info"><b>@Resources.GetLabelName("Quotation")</b></div>
+
             </div>
         </div>
     }
     else
     {
         <div>
+
             <div class="btn-group btn-breadcrumb breadcrumb-default">
+
                 <div class="visible-lg-block">
                     @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
                 </div>
-                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #5a73ef;"></a>
-                <div class="btn btn-info" style="max-width:210px"><b>@Resources.GetLabelName("Generate Quotation")</b></div>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #1747a7;"></a>
+         
+                <div class="btn btn-info"><b>@Resources.GetLabelName("Generate Quotation")</b></div>
             </div>
         </div>
     }
     <br />
-    <div class="stepwizard col-md-offset-3">
-        <div class="stepwizard-row setup-panel">
-            <div class="stepwizard-step">
-                <a href="#step-1" type="button" class="btnCurrentStep firstTrigger">1</a>
-                <p>Prospect Information</p>
-            </div>
-            @if (Model.objListQuote[Model.SelectedQuote].QuotationType != "Direct" && Model.IsForCounterOffer != true)
-            {
-                <div class="stepwizard-step">
-                    <a href="#step-2" type="button" class="stepNotfilled" disabled="disabled">2</a>
-                    <p>Need Analysis</p>
-                </div>
-                <div class="stepwizard-step">
-                    <a href="#step-3" type="button" class="stepNotfilled" disabled="disabled">3</a>
-                    <p>Previous Insurance Details</p>
-                </div>
-                <div class="stepwizard-step">
-                    <a href="#step-4" type="button" class="stepNotfilled" disabled="disabled">4</a>
-                    <p>Product Details</p>
-                </div>
-            }
-            else
-            {
-            <div class="stepwizard-step">
-                <a href="#step-3" type="button" class="stepNotfilled" disabled="disabled">2</a>
-                <p>Previous Insurance Details</p>
-            </div>
-            <div class="stepwizard-step">
-                <a href="#step-4" type="button" class="stepNotfilled" disabled="disabled">3</a>
-                <p>Product Details</p>
-            </div>
-            }
-        </div>
-    </div>
     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-            <div class="row setup-content" id="step-1" style="display:block">
-                @Html.Partial("~/Views/Prospect/QuotationProspectScreen.cshtml", Model)
-                <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
-                    <button class="btn btn-primary nextBtn btn-lg" type="button">Next</button>
+        <div class="panel panel-default" id="pnlProposerDetails" onchange="SetMandatoryHighlightBlank('pnlProposerDetails', false)">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse1" href="#collapseOne" class="collapsed">
+                        <img src="~/Content/Images/prospect.png" style="width:30px" />@Resources.GetLabelName("Prospect Information")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Prospect/QuotationProspectScreen.cshtml", Model)
                 </div>
             </div>
-            
-            @if (Model.objListQuote[Model.SelectedQuote].QuotationType != "Direct" && Model.IsForCounterOffer != true)
-            {
-                <div class="row setup-content" id="step-2">
-                    <div class="panel panel-default" id="pnlNeedAnalysis" @*onchange="SetMandatoryHighlightBlank('pnlProposerDetails', false)"*@>
-                        @*<div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-target="#collapse2" href="#collapseTwo" class="collapsed">
-                                    <img src="~/Content/Images/need.png" style="width:30px" /> @Resources.GetLabelName("Need Analysis")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
-                                </a>
-                            </h4>
-                        </div>*@
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                @Html.Partial("~/Views/Prospect/PartialNeedAnalysis.cshtml", Model.objProspect)
-                                <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
-                                    <button class="btn btn-primary previousBtn" type="button">Previous</button>
-                                    <button class="btn btn-primary nextBtn btn-lg" type="button">Next</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    }
-                
-
-            <div class="row setup-content" id="step-3">
-
-                @Html.Partial("~/Views/Prospect/_PartialPreviousInsuranceDetails.cshtml", Model)
-                <div class="iGrid" id="divPreviousDetailsGrid"></div>
-                <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
-                    <button class="btn btn-primary previousBtn" type="button">Previous</button>
-                    <button class="btn btn-primary nextBtn btn-lg" type="button">Next</button>
-                </div>
-            </div>
-
-            <div class="row setup-content" id="step-4">
-                @Html.Partial("~/Views/Policy/QuickQuoteDetails.cshtml", Model)
-                <div class="col-md-12 col-sm-12  col-lg-12 form-group" style="text-align: center;margin-top: 20px;">
-                    <button class="btn btn-primary previousBtn" type="button">Previous</button>
-                </div>
-            </div>
-
         </div>
+        @if (Model.objListQuote[Model.SelectedQuote].QuotationType != "Direct" && Model.IsForCounterOffer != true)
+        {
+            <div class="panel panel-default" id="pnlNeedAnalysis" @*onchange="SetMandatoryHighlightBlank('pnlProposerDetails', false)"*@>
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#collapse2" href="#collapseTwo" class="collapsed">
+                            <img src="~/Content/Images/need.png" style="width:30px" /> @Resources.GetLabelName("Need Analysis")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        @Html.Partial("~/Views/Prospect/PartialNeedAnalysis.cshtml", Model.objProspect)
+
+
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="panel panel-default" id="pnlPreviousInsuranceDetails" onchange="SetMandatoryHighlightBlank('pnlPreviousInsuranceDetails', false)">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse7" href="#collapseThree" class="collapsed">
+                        <img src="~/Content/Images/Insurance Details.png" style="width:30px" />@Resources.GetLabelName("Previous Insurance Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    @*@Html.Partial("~/Views/Prospect/_PartialPreviousInsuranceDetails.cshtml", Model)*@
+                    <div class="iGrid" id="divPreviousDetailsGrid"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default" id="pnlProductDetails" onchange="SetMandatoryHighlightBlank('pnlProductDetails', false)">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse3" href="#collapseThree" class="collapsed">
+                        <img src="~/Content/Images/Product Details.png" /> @Resources.GetLabelName("Product Details")<span class="fields-count"><span id="spnActualCnt"></span>/<span id="spnTotalCnt"></span> <img src="~/Content/Images/portlet-expand-icon-white.png" /></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    @Html.Partial("~/Views/Policy/QuickQuoteDetails.cshtml", Model)
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 }
 <div class="modal fade" id="QuoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -189,129 +180,6 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        var navListItems = $('div.setup-panel div a'),
-            allWells = $('.setup-content'),
-            allNextBtn = $('.nextBtn');
-        allpreviousBtn = $('.previousBtn');
-        allWells.hide();
-
-        navListItems.click(function (e) {
-            e.preventDefault();
-            var $target = $($(this).attr('href')),
-                $item = $(this);
-
-            if (!$item.hasClass('disabled')) {
-                navListItems.removeClass('btnCurrentStep').addClass('stepNotfilled');
-                $item.addClass('btnCurrentStep');
-                allWells.hide();
-                $target.show();
-                $target.find('input:eq(0)').focus();
-            }
-        });
-        allpreviousBtn.click(function () {
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                previousStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-            previousStepWizard.removeAttr('disabled').trigger('click');
-        });
-        allNextBtn.click(function () {
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                //curInputs = curStep.find("input[type='text'],input[type='url']"),
-                isValid = true;
-            $(".form-group").removeClass("has-error");
-            var emailStatus = validateEmailID();
-            if (emailStatus == false) {
-                $(".form-group").addClass("has-error");
-                return false;
-            }
-            var status = validateQuotation();
-            if (!status) {
-                isValid = false;
-                $(".form-group").addClass("has-error");
-                return false;
-            }
-            //for (var i = 0; i < curInputs.length; i++) {
-            //    if (!curInputs[i].validity.valid) {
-            //        isValid = false;
-            //        $(curInputs[i]).closest(".form-group").addClass("has-error");
-            //    }
-            //}
-
-            if (isValid)
-                $('div.setup-panel div a[href="#' + curStepBtn + '"]').removeClass('stepNotfilled').addClass('stepFilled');
-
-            nextStepWizard.removeAttr('disabled').trigger('click');
-        });
-
-        $('div.setup-panel div a.firstTrigger').trigger('click');
-    });
-
-    $(document).ready(function () {
-        var navListItems = $('div.setup-panel div a'),
-            allWells = $('.setup-content'),
-            allNextBtn = $('.nextBtn');
-        allpreviousBtn = $('.previousBtn');
-        allWells.hide();
-
-        navListItems.click(function (e) {
-            e.preventDefault();
-            var $target = $($(this).attr('href')),
-                $item = $(this);
-
-            if (!$item.hasClass('disabled')) {
-                navListItems.removeClass('btnCurrentStep').addClass('stepNotfilled');
-                $item.addClass('btnCurrentStep');
-                allWells.hide();
-                $target.show();
-                $target.find('input:eq(0)').focus();
-            }
-        });
-        allpreviousBtn.click(function () {
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                previousStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-            previousStepWizard.removeAttr('disabled').trigger('click');
-        });
-        allNextBtn.click(function () {
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                //curInputs = curStep.find("input[type='text'],input[type='url']"),
-                isValid = true;
-            $(".form-group").removeClass("has-error");
-            var emailStatus = validateEmailID();
-            if (emailStatus == false) {
-                $(".form-group").addClass("has-error");
-                return false;
-            }
-            var status = validateQuotation();
-            if (!status) {
-                isValid = false;
-                $(".form-group").addClass("has-error");
-                return false;
-            }
-            //$(".form-group").removeClass("has-error");
-            //for (var i = 0; i < curInputs.length; i++) {
-            //    if (!curInputs[i].validity.valid) {
-            //        isValid = false;
-            //        $(curInputs[i]).closest(".form-group").addClass("has-error");
-            //    }
-            //}
-
-            if (isValid)
-                $('div.setup-panel div a[href="#' + curStepBtn + '"]').removeClass('stepNotfilled').addClass('stepFilled');
-
-            nextStepWizard.removeAttr('disabled').trigger('click');
-        });
-
-        $('div.setup-panel div a.firstTrigger').trigger('click');
-    });
-
-    $(document).ready(function () {
         SetMandatoryHighlightBlank('pnlProposerDetails', true);
         SetMandatoryHighlightBlank('pnlNeedAnalysis', true);
 
@@ -323,6 +191,38 @@
             LoadPreviousInsuranceGrid();
 
         }
+        var Date = $('#dtProspectDOB').val();
+        var newDate = Date.replace(/-/g, "/");
+        $('#dtProspectDOB').val(newDate);
+        var SpouseDate = $('#dtSpouseCoveredDOB_0').val();
+        var NewSpouseDate = SpouseDate.replace(/-/g, "/");
+        $('#dtSpouseCoveredDOB_0').val(NewSpouseDate);
+        var SpouseDate = $('#dtSpouseCoveredDOB_1').val();
+        var NewSpouseDate = SpouseDate.replace(/-/g, "/");
+        $('#dtSpouseCoveredDOB_1').val(NewSpouseDate);
+        var SpouseDate = $('#dtSpouseCoveredDOB_2').val();
+        var NewSpouseDate = SpouseDate.replace(/-/g, "/");
+        $('#dtSpouseCoveredDOB_2').val(NewSpouseDate);
+
+        var ChildDate00 = $('#dtChildDOB00').val();
+        var ChildNewDate00 = ChildDate00.replace(/-/g, "/");
+        $('#dtChildDOB00').val(ChildNewDate00);
+        var ChildDate01 = $('#dtChildDOB01').val();
+        var ChildNewDate01 = ChildDate01.replace(/-/g, "/");
+        $('#dtChildDOB01').val(ChildNewDate01);
+        var ChildDate02 = $('#dtChildDOB02').val();
+        var ChildNewDate02 = ChildDate02.replace(/-/g, "/");
+        $('#dtChildDOB02').val(ChildNewDate02);
+        var ChildDate03 = $('#dtChildDOB03').val();
+        var ChildNewDate03 = ChildDate00.replace(/-/g, "/");
+        $('#dtChildDOB03').val(ChildNewDate03);
+        var ChildDate04 = $('#dtChildDOB04').val();
+        var ChildNewDate04 = ChildDate00.replace(/-/g, "/");
+        $('#dtChildDOB04').val(ChildNewDate04);
+        var ChildDate05 = $('#dtChildDOB05').val();
+        var ChildNewDate05 = ChildDate05.replace(/-/g, "/");
+        $('#dtChildDOB05').val(ChildNewDate05);
+
     });
 
     function ModifyQuote(index) {
@@ -446,172 +346,5 @@
             $("#divPreviousDetailsGrid").hide();
 
         }
-    }
-    function validateQuotation() {
-        if ($("#txtNic").val() == "" || $("#txtNic").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter SSN Number", "txtNic");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "txtNic");
-        }
-
-        if ($("#ddlPropectInfoType").val() == "" || $("#ddlPropectInfoType").val() == "Select" || $("#ddlPropectInfoType").val() == undefined) {
-            writeMultipleMessage("error", "Please Select Type", "ddlPropectInfoType");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "ddlPropectInfoType");
-        }
-
-        if ($("#TxtSalutation").val() == "" || $("#TxtSalutation").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter The Salutation", "TxtSalutation");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "TxtSalutation");
-        }
-
-        if ($("#txtName").val() == "" || $("#txtName").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Given Name", "txtName");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "txtName");
-        }
-
-        if ($("#txtLastName").val() == "" || $("#txtLastName").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Surname", "txtLastName");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "txtLastName");
-        }
-
-        if ($("#txtMobile").val() == "" || $("#txtMobile").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Mobile Number", "txtMobile");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "txtMobile");
-        }
-
-        if ($("#txtEmail").val() == "" || $("#txtEmail").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Email", "txtEmail");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "txtEmail");
-        }
-
-        if ($("#txtPlace").val() == "" || $("#txtPlace").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Place", "txtPlace");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "txtPlace");
-        }
-
-        if ($("#ddlGender").val() == "Select" || $("#ddlGender").val() == "" || $("#ddlGender").val() == undefined) {
-            writeMultipleMessage("error", "Please Select Gender", "ddlGender");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "ddlGender");
-        }
-
-        if ($("#ddlMaritalStatus").val() == "Select" || $("#ddlMaritalStatus").val() == "" || $("#ddlMaritalStatus").val() == undefined) {
-            writeMultipleMessage("error", "Please Select Marital Status", "ddlMaritalStatus");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "ddlMaritalStatus");
-        }
-
-        if ($("#dtProspectDOB").val() == "" || $("#dtProspectDOB").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Date of Birth", "dtProspectDOB");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "dtProspectDOB");
-        }
-
-        if ($("#txtAge").val() < 18 || $("txtAge").val() > 61) {
-            writeMultipleMessage("error", "Please Enter Age at Next BirthDay Should be between 19 to 61", "txtAge");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "txtAge");
-        }
-
-        if ($("#TxtOccupation").val() == "" || $("#TxtOccupation").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Occupation", "ddlOccupation")
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "TxtOccupation");
-        }
-
-        if ($("#txtAverageMonthlyIncome").val() == "" || $("#txtAverageMonthlyIncome").val() == "0" || $("#txtAverageMonthlyIncome").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Average Annual Income", "txtAverageMonthlyIncome")
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "txtAverageMonthlyIncome");
-        }
-
-        var Address1 = $('#objProspectobjAddressAddress1').val();
-        var res = ValidateAddress(Address1)
-        if (res == false) {
-            writeMultipleMessage("error", "“Please Enter Valid Address1 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘), is not allowed after space", "objProspectobjAddressAddress1");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "objProspectobjAddressAddress1");
-        }
-
-        var Address2 = $('#objProspectobjAddressAddress2').val();
-        var res = ValidateAddress(Address2)
-        if (res == false) {
-            writeMultipleMessage("error", "“Please Enter Valid Address2 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘), is not allowed after space", "objProspectobjAddressAddress2");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "objProspectobjAddressAddress3");
-        }
-
-        var Address3 = $('#objProspectobjAddressAddress3').val();
-        var res = ValidateAddress(Address2)
-        if (res == false) {
-            writeMultipleMessage("error", "“Please Enter Valid Address3 – Following formats are not allowed – <br>-First Character cannot be ‘Space’ or ‘special character’ <br>-There cannot be 3 consecutive letters in name <br>-Two or consecutive space are not allowed <br>-After space, ‘comma’ or ‘-’ are not allowed <br>-Apostrophe (‘), is not allowed after space", "objProspectobjAddressAddress2");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "objProspectobjAddressAddress3");
-        }
-        if ($("#objProspectobjAddressAddress1").val() == "" || $("#objProspectobjAddressAddress1").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Communication Address1", "objProspectobjAddressAddress1");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "objProspectobjAddressAddress1");
-        }
-
-        if ($("#objProspectobjAddressAddress2").val() == "" || $("#objProspectobjAddressAddress2").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Communication Address2", "objProspectobjAddressAddress2");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "objProspectobjAddressAddress2");
-        }
-
-        if ($("#objProspectobjAddressPincode").val() == "" || $("#objProspectobjAddressPincode").val() == undefined) {
-            writeMultipleMessage("error", "Please Enter Pincode", "objProspectobjAddressPincode");
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", "objProspectobjAddressPincode");
-        }
-        return true;
     }
 </script>

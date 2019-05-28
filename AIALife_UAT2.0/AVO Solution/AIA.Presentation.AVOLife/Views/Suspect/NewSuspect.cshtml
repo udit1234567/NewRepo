@@ -13,7 +13,7 @@
     }
 
     .panel {
-        background-color: #B8123E !important;
+        background-color: #1747a7 !important;
     }
 </style>
 <div>
@@ -23,9 +23,9 @@
         <div class="visible-lg-block">
             @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
         </div>
-        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #5a73ef;"></a>
-       <a href="Suspect/Suspect" class="btn visible-lg-block visible-md-block" style="max-width:80px">@Resources.GetLabelName("Lead")</a>
-        <div class="btn btn-info" style="max-width:120px"><b>@Resources.GetLabelName("New Lead")</b></div>
+        <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #1747a7;"></a>
+       <a href="Suspect/Suspect" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Lead")</a>
+        <div class="btn btn-info"><b>@Resources.GetLabelName("New Lead")</b></div>
 
     </div>
 </div>
@@ -35,20 +35,16 @@
     @Html.HiddenFor(a => a.ClientCode, new { id = "hdnClientCode" })
     @Html.HiddenFor(a => a.AutoCompleteValue, new { id = "hdnAutoCompleteValue" })
 
-    <div class="form-group row" style="margin-top:10px;">
+    <div class="form-group" style="margin-top:10px;">
         <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
             <label>@Resources.GetLabelName("Do you know the SSN Number ?")</label>
         </div>
-        <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-            <div class="switch switch--horizontal">
-                @Html.RadioButton("HaveNIC", true, new { @class = "med-radio-button", @id = "radio-a", @onclick = "ShowHideFetchNIC(true)" })
-                <label for="radio-a">@Resources.GetLabelName("Yes")</label>
-                @Html.RadioButton("HaveNIC", false, new { @class = "med-radio-button", @id = "radio-b", @checked = "checked", @onclick = "ShowHideFetchNIC(false)" })
-               <label for="radio-b">@Resources.GetLabelName("No")</label><span class="toggle-outside"><span class="toggle-inside"></span></span>
-            </div>
-              </div>
-        <div id="divFetchNIC" class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-7">
+        <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+            @Html.RadioButton("HaveNIC", true, new { @class = "med-radio-button", @onclick = "ShowHideFetchNIC(true)" })<label>@Resources.GetLabelName("Yes")</label>
+            @Html.RadioButton("HaveNIC", false, new { @class = "med-radio-button", @onclick = "ShowHideFetchNIC(false)" })<label>@Resources.GetLabelName("No")</label>
+        </div>
+        <div id="divFetchNIC">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <input type="text" class="form-control" maxlength="12" onkeypress="return isAlphaNumberKeyback(this)" id="txtFetchNIC" value="" onfocus="CheckTextNicifNull()" onblur="CheckTextNicifNull()" />
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3 btn-padding">
@@ -56,10 +52,10 @@
             </div>
         </div>
     </div>
-   
+    <br /><br />
     <div class="clearfix"></div>
     <div id="divSuspectDetails" onchange="SetMandatoryHighlightBlank('divSuspectDetails', false)">
-        <div class="row form-group">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 form-group">
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label>@Resources.GetLabelName("Type")<span class="mandatory">*</span></label>
@@ -114,7 +110,7 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label id="">@Resources.GetLabelName("NIC")</label>
-                    @Html.TextBoxFor(a => a.NIC, null, new { @class = "form-control", @id = "txtSuspectNIC", @onkeypress = "return isAlphaNumberKeyback(this)", @maxlength = "12", @onchange = "ValidateNICSubmit()", @readonly = "readonly" })
+                    @Html.TextBoxFor(a => a.NIC, null, new { @class = "form-control", @id = "txtSuspectNIC", @onkeypress = "return isAlphaNumberKeyback(this)", @maxlength = "12", @onchange = "ValidateNICSubmit()" })
                 </div>
             </div>
 
@@ -122,7 +118,7 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label id="">@Resources.GetLabelName("Place")<span class="mandatory">*</span></label>
-                    @Html.TextBoxFor(a => a.Place, null, new { @class = "form-control", @maxlength = "50", @id = "txtSuspectPlace",@onkeyup = "return AlphabetsWithSpace(event)",@onkeypress = "return AlphabetsWithSpace(event)" })
+                    @Html.TextBoxFor(a => a.Place, null, new { @class = "form-control", @maxlength = "50", @id = "txtSuspectPlace",@onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)", @onkeypress = "return isAlphaNumberKeybackwithOutSymbol(event)" })
                 </div>
             </div>
 
@@ -213,7 +209,7 @@
     }
     $(document).ready(function () {
         $("#divFetchNIC").hide();
-        //$("#divSuspectDetails").hide();
+        $("#divSuspectDetails").hide();
         SetMandatoryHighlightBlank("divSuspectDetails", true);
     });
 

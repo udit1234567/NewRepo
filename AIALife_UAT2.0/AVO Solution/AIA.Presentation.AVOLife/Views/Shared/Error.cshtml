@@ -3,22 +3,33 @@
 @{
     ViewBag.Title = "Error";
 }
+<style>
+    .btn-Modal:hover{
+            background-color: #708090 !important;
+            color: white;
+        }
+        .btn-Modal {
+          background-color: #2F4F4F !important; 
+          color: white; 
+        }
+</style>
 
 @if (Model != null && !string.IsNullOrEmpty(Model.ErrorMessage))
 {
     <br /><br /> <br /><br />
     <div style="display: flex; justify-content: center;">
-        <img src="../Content/Images/error.jpg" style="max-height: 100px; max-width: 100px;" />
+        @*<img src="~/Images/cancel.png" style="max-height: 100px; max-width: 100px;" />*@
+        <img src="~/Images/error.png" style="max-height: 100px; max-width: 100px;"/>
         <br />
     </div>
     <br />
-    <div style="display: flex; justify-content: center;text-align: center;">
-        <h2 class="text-danger">@Model.ErrorMessage</h2>
+    <div style="display: flex; justify-content: center;text-align: center">
+        <h2 class="text-danger" style="color:darkslategrey">@Model.ErrorMessage</h2>
 
     </div>
     <br />
-    <div style="display: flex; justify-content: center;text-align: center;">
-        <input type="button" class="btn btn-default" id="" value="OK" onclick="gotoQuote()" style="padding-left:20px;padding-right:20px;" />
+    <div style="display: flex; justify-content: center;text-align: center; color:grey">
+        <input type="button" class="btn btn-Modal" id="" value="OK" onclick="gotoQuote()" style="padding-left:20px;padding-right:20px;width:120px" />
 
     </div>
 
