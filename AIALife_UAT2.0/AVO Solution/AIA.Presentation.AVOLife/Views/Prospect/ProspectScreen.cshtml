@@ -453,13 +453,13 @@
         //            $('#ddlGender').val('F')
         //        }
         //        else {
-        //            writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+        //            writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtNic");
 
         //        }
         //    }
         //    else
         //    {
-        //        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+        //        writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtNic");
 
         //    }
         //}
@@ -473,13 +473,13 @@
         //            $('#ddlGender').val('F')
         //        }
         //        else {
-        //            writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+        //            writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtNic");
 
         //        }
         //    }
         //    else
         //    {
-        //        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+        //        writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtNic");
         //    }
         //}
         $('#objAddressddlProvince').val('@Model.objAddress.State');
@@ -528,7 +528,7 @@
         if (NICNo == "") {
             $('#ddlGender').prop("disabled", false);
             $('#dtProspectDOB').prop("disabled", false);
-            // writeMultipleMessage("error", "Please Enter NIC Number", e);
+            // writeMultipleMessage("error", "Please Enter SSN Number", e);
             return false;
         }
         //if (NICNo.toUpperCase() == "SLC") {
@@ -550,7 +550,7 @@
                         var dobyears = NICNo.substr(0, 2);
                     }
                     else {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                         return false;
 
                     }
@@ -581,7 +581,7 @@
                             }
                             else {
                                 if (!InterviewrageCount()) {
-                                    //writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                                    //writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                                     return false;
 
                                 }
@@ -590,13 +590,13 @@
                             return true;
                         }
                         else {
-                            writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", e);
+                            writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", e);
                             //return false;
                         }
                     });
             }
             else {
-                writeMultipleMessage("error", "NIC Number should be 12 or 10 Digits", e);
+                writeMultipleMessage("error", "SSN Number should be 12 or 10 Digits", e);
                 return false;
             }
         }
@@ -605,7 +605,7 @@
     function InterviewrageCount() {
         var dob = $("#dtProspectDOB").val();
         if (dob != '' && !ValidateDOB("dtProspectDOB")) {
-            writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+            writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtNic");
             return false;
         }
         else {
@@ -1026,7 +1026,7 @@
     //    if (NICNo == "") {
     //        $('#ddlGender').removeAttr('disabled');
     //        $('#dtProspectDOB').removeAttr('readonly');
-    //        writeMultipleMessage("error", "Please Enter NIC Number", e);
+    //        writeMultipleMessage("error", "Please Enter SSN Number", e);
     //        return false;
     //    }
     //    if (NICNo != null && NICNo != "") {
@@ -1037,7 +1037,7 @@
     //                }
     //                else {
     //                    $('#' + e).val('');
-    //                    writeMultipleMessage("error", "Please enter a valid NIC Number.", e);
+    //                    writeMultipleMessage("error", "Please enter a valid SSN Number.", e);
     //                    return false;
     //                }
     //                var nofdays = NICNo.substr(4, 3);
@@ -1053,13 +1053,13 @@
     //                    }
     //                    else {
     //                        $('#' + e).val('');
-    //                        writeMultipleMessage("error", "Please enter a valid NIC Number.", e);
+    //                        writeMultipleMessage("error", "Please enter a valid SSN Number.", e);
     //                        return false;
     //                    }
 
     //                } else {
     //                    $('#' + e).val('');
-    //                    writeMultipleMessage("error", "Please enter a valid NIC Number.", e);
+    //                    writeMultipleMessage("error", "Please enter a valid SSN Number.", e);
     //                    return false;
     //                }
 
@@ -1099,7 +1099,7 @@
     //                    }
     //                    else {
     //                        $('#' + e).val('');
-    //                        writeMultipleMessage("error", "Please enter a valid NIC Number.", e);
+    //                        writeMultipleMessage("error", "Please enter a valid SSN Number.", e);
     //                        return false;
     //                    }
     //                });

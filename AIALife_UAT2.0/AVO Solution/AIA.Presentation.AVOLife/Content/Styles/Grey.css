@@ -162,8 +162,8 @@ Page Header
 /* Page sidebar */
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover,
 .page-sidebar {
-  background-color: #D31145;
-  /* Default sidebar */
+    background-color: #1747a7;
+    /* Default sidebar */
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu,
 .page-sidebar .page-sidebar-menu {
@@ -201,7 +201,7 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
 .page-sidebar .page-sidebar-menu > li:hover > a,
 .page-sidebar .page-sidebar-menu > li.open > a {
-  background: #E86487;
+  background: #5681d6;
   color: #fff;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a > i,
@@ -286,7 +286,7 @@ Page Header
 .page-sidebar .page-sidebar-menu .sub-menu > li.open > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
     color: #fff;
-  background: #E86487 !important;
+  background: #5681d6 !important;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a > i,
 .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a > i,
@@ -378,7 +378,7 @@ Page Footer
     border-left: 8px solid #404c57;
   }
   .page-sidebar-menu-hover-submenu li:hover > .sub-menu {
-    background: #D31145 !important;
+    background: #1747a7 !important;
   }
 }
 @media (max-width: 991px) {
@@ -393,7 +393,7 @@ Page Footer
     /* Top menu */
   }
   .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:hover {
-    background-color:#D31145;
+    background-color:#1747a7;
   }
   .page-header.navbar .page-top {
     box-shadow: none;
@@ -478,7 +478,7 @@ form field colour
 Calander icon colour
 ****/
 .glyphicon {
-    color: #E86487;
+    color: #5681d6;
 }
 .panel-title {
     color: white;

@@ -634,7 +634,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
 
             $('.'+dob).attr("disabled", true);
 
-            writeMultipleMessage("error", "Please Enter NIC Number", e + Index);
+            writeMultipleMessage("error", "Please Enter SSN Number", e + Index);
             return false;
         }
         if (NICNo != null && NICNo != "") {
@@ -669,13 +669,13 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
                             return true;
                         }
                         else {
-                            writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", e + Index);
+                            writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", e + Index);
                             return false;
                         }
                     });
             }
             else {
-                writeMultipleMessage("error", "Please enter valid NIC Number", e + Index);
+                writeMultipleMessage("error", "Please enter valid SSN Number", e + Index);
                 return false;
             }
         }

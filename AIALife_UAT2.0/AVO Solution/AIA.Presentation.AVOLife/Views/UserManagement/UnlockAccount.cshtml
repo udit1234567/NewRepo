@@ -66,7 +66,7 @@
                             <div style="text-align:center">If there is any problem in Password reset please contact AVO support </div>
                             <label class="col-lg-3 col-sm-3 control-label"></label>
                             <div class="col-lg-7 col-sm-7 radio-inline" style="top: 7px;text-align:center;display:block">
-                                <div class="col-lg-3 col-sm-6 text-center">@(Html.RadioButtonFor(a => a.NICAnswer, true, new { @id = "btnNICNumber", @class = "", @onclick = "ShowNICForm()" }))NIC Number</div>
+                                <div class="col-lg-3 col-sm-6 text-center">@(Html.RadioButtonFor(a => a.NICAnswer, true, new { @id = "btnNICNumber", @class = "", @onclick = "ShowNICForm()" }))SSN Number</div>
 
                                 <div class="col-lg-3 col-sm-6 text-center">@(Html.RadioButtonFor(a => a.OTPOrAnswer, true, new { @id = "btnOTP", @class = "", @onclick = "ShowmobileNumber()" })) Register Mobile Number</div>
 
@@ -85,7 +85,7 @@
                                         <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                                             <div class="form-group">
                                                 <label>
-                                                    Enter NIC Number
+                                                    Enter SSN Number
                                                 </label>
                                                 @(Html.TextBoxFor(a => a.NICNumber, new { @class = "form-control", @id = "txtNicNumber" }))
                                             </div>
@@ -228,7 +228,7 @@
             var NICNumber = $("#txtNicNumber").val();
             if (NICNumber == null || NICNumber == "")
             {
-                writeMultipleMessage("error", 'please provide nic number', "txtNicNumber");
+                writeMultipleMessage("error", 'please provide SSN Number', "txtNicNumber");
                 result = false;
                 return false;
             }
@@ -359,10 +359,10 @@
             beforeSend: function () { /* do nothing */ },
             success: function (data) {
                 if (data == "true") {
-                    writeSuccessMessage("success", "NIC Number Validation is success", "hgy");
+                    writeSuccessMessage("success", "SSN Number Validation is success", "hgy");
                 }
                 else {
-                    writeMultipleMessage("error", "NIC Number is not matched", "txtNicNumber");
+                    writeMultipleMessage("error", "SSN Number is not matched", "txtNicNumber");
                     return false;
                 }
             },

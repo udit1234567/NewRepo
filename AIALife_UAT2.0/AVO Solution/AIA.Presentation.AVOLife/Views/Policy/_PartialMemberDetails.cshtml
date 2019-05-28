@@ -826,7 +826,7 @@
                                 writeMultipleMessage("error", "", e);
                             }
                             else {
-                                writeMultipleMessage("error", "Spouse NIC Number & Salutation & Date of Birth & Gender Mismatched", e);
+                                writeMultipleMessage("error", "Spouse SSN Number & Salutation & Date of Birth & Gender Mismatched", e);
                                 if (status == 'Update') {
                                     CheckingNIC = false;
                                     NicChecked = false;
@@ -876,7 +876,7 @@
                                 writeMultipleMessage("error", "", e);
                             }
                             else {
-                                writeMultipleMessage("error", "Child NIC Number & Salutation & Date of Birth & Gender Mismatched", e);
+                                writeMultipleMessage("error", "Child SSN Number & Salutation & Date of Birth & Gender Mismatched", e);
                                 if (status == 'Update') {
                                     CheckingNIC = false;
                                     NicChecked = false;
@@ -901,7 +901,7 @@
                         }
                     }
                     else {
-                        writeMultipleMessage("error", "NIC Number should be 12 or 10 Digits", e);
+                        writeMultipleMessage("error", "SSN Number should be 12 or 10 Digits", e);
                         if (status == 'Update') {
                             CheckingNIC = false;
                             NicChecked = false;

@@ -518,7 +518,7 @@
         if (NICNo == "") {
             $('#ddlGender').prop("disabled", false);
             $('#dtProspectDOB').prop("disabled", false);
-            //writeMultipleMessage("error", "Please Enter NIC Number", e);
+            //writeMultipleMessage("error", "Please Enter SSN Number", e);
             return false;
         }
         if (NICNo != null && NICNo != "") {
@@ -538,7 +538,7 @@
                         var dobyears = NICNo.substr(0, 2);
                     }
                     else {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                         return false;
 
                     }
@@ -574,13 +574,13 @@
                             // return true;
                         }
                         else {
-                            writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", e);
+                            writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", e);
                             return false;
                         }
                     });
             }
             else {
-                writeMultipleMessage("error", "NIC Number should be 12 or 10 Digits", e);
+                writeMultipleMessage("error", "SSN Number should be 12 or 10 Digits", e);
                 return false;
             }
         }

@@ -403,7 +403,7 @@
         padding: 6px;
         border-radius: 2px;
         display: inline-block;
-        background-color: #e86487;
+        background-color: #5681d6;
     }
 
     .btn-block {
@@ -439,7 +439,7 @@
         background-color: #dbdbd3;
         padding: 10px;
         margin: 0 20px 0 0;
-        box-shadow: 5px 6px 5px -1px rgb(211, 17, 69) !important;
+        box-shadow: 5px 6px 5px -1px rgb(51, 28, 220) !important;
         position: relative;
     }
 
@@ -488,7 +488,7 @@
         position: absolute;
         width: 55px;
         height: 55px;
-        background: #d31145;
+        background: #1747a7;
         border-radius: 7px;
         top: -15px;
         left: -10px;
@@ -532,7 +532,7 @@
 
     .plus_minus_count_icon {
         color: #000;
-        background: #e86487;
+        background: #5681d6;
         padding: 5px 9px;
         font-size: 10px;
         border-radius: 5px;
@@ -541,7 +541,7 @@
     }
 
     .search_icon {
-        color: #e86487;
+        color: #5681d6;
         font-size: 10px;
         border-radius: 5px;
         vertical-align: top;
@@ -691,7 +691,7 @@
     }
 
     .financial_analysis_fund_balance_heading, .fnancial_analysis_annual_income_surplus_gap_heading {
-        background: #d31145;
+        background: #1747a7;
         color: #fff;
         padding: 10px;
     }
@@ -737,9 +737,9 @@
         .selectBox select {
             width: 85%;
             font-weight: bold;
-            border: 1px solid #D31145;
+            border: 1px solid #1747a7;
             border-radius: 6px;
-            color: #D31145;
+            color: #1747a7;
             padding: 5px;
         }
 
@@ -1009,7 +1009,7 @@
     }
 
         .dependents-table thead tr th {
-            background-color: #e86487;
+            background-color: #5681d6;
             color: #fff !important;
             text-align: center;
         }
@@ -1021,7 +1021,7 @@
     }
 
     .fna-content-box-title {
-        /*background-color: #d31145;*/
+        /*background-color: #1747a7;*/
         color: #fff;
         padding: 8px 0 8px 15px;
     }
@@ -1194,11 +1194,11 @@
     }
 
     .calculator-details-active {
-        box-shadow: 5px 6px 5px -1px rgb(211, 17, 69) !important;
+        box-shadow: 5px 6px 5px -1px rgb(51, 28, 220) !important;
     }
 
         .calculator-details-active p {
-            color: #d31145 !important;
+            color: #1747a7 !important;
         }
 
     .calculator-details-filled {
@@ -1420,7 +1420,7 @@ margin-left: 15px;">
                 <div class="form-group">
                     <label>@Resources.GetLabelName("Spouse Name")<span class="mandatory">*</span></label>
                     @(Html.TextBoxFor(a => a.objNeedAnalysis.objSpouseDetails.FullName, new { @id = "txtSpouseNameInfo", @class = "form-control", @onkeypress = "return AlphabetsWithSpace(event)", @onkeyup = "return AlphabetsWithSpace(event)", @onchange = "ValidateName(id)", @maxlength = "60" }))
-                    @*<label>Spouse Name<span style="color:#d31145">*</span></label>
+                    @*<label>Spouse Name<span style="color:#1747a7">*</span></label>
                         <input type="text" class="form-control" />*@
                 </div>
             </div>
@@ -4748,14 +4748,25 @@ margin-left: 15px;">
 
         <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divMultiProduct">
 
-            @foreach (var item in Model.ListPlan)
+            @*@foreach (var item in Model.ListPlan)
             {
                 <div class="product-types">
                     <img src="~/Content/Images/AIA_Pink.png" />
                     <p>@item.Text</p>
                 </div>
 
-            }
+            }*@
+
+            
+        <div class="product-types">
+            <img src="~/Content/Images/AIA_Pink.png" />
+            <p>MetLife</p>
+        </div>
+            
+            <div class="product-types">
+            <img src="~/Content/Images/AIA_Pink.png" />
+            <p>Smart Pension</p>
+        </div>
 
 
             @*<div class="product-types">
@@ -5076,7 +5087,7 @@ margin-left: 15px;">
 
                 //    if(img==src){
                 //        $(this).find('img').attr('src','/Content/Images/AIA_White.png');
-                //        $(this).css({'background-color':'#d31145','color':'#fff'})
+                //        $(this).css({'background-color':'#1747a7','color':'#fff'})
                 //        selectedProducts.push(product);
                 //    }
                 //    else{
@@ -5131,7 +5142,7 @@ margin-left: 15px;">
             @*<input id="filename" class="form-control col-md-3 col-sm-3 col-xs-12 col-lg-3" readonly="true" type="text" style="width:25%">*@
             @*@(Html.TextBoxFor(a => a.Upload, new { @id = "filename", @class = "form-control col-md-3 col-sm-3 col-xs-12 col-lg-3", @readonly = "readonly", @style = "width:25%" }))*@
             @*<input class="btn btn-default" value="Upload" id="Browse" onclick="HandleBrowseClick();" type="button" style="width:10%;margin-left:10px">*@
-            <div class="clearfix"></div>'
+            <div class="clearfix"></div>
             @if (Model.objNeedAnalysis.Stage != "Quotation")
             {
                 <button type="button" class="btn btn-default signaturePad" data-toggle="modal" id="DigitalSign" data-target="#NeedIdentificationProductSelectionSignatureModal" style="padding-left:25px;padding-right:25px;">
@@ -5331,7 +5342,7 @@ margin-left: 15px;">
     //        $(".financial_analysis_calculator_section1_sub div p").css("color","#000")
     //        $(".financial_analysis_calculator_section1_sub div").css("box-shadow","5px 6px 5px -1px rgba(153,153,153,1)");
     //        $(this).css("box-shadow","5px 6px 5px -1px rgb(211, 17, 69)");
-    //        $(this).find("p").css("color","#d31145");
+    //        $(this).find("p").css("color","#1747a7");
     //        $(".from_to_year_datepicker").show();
     //        $(".inflation_plan_interest_rate_holder").show();
     //        $(".financial_analysis_retirement_calculation").show();
@@ -5407,7 +5418,7 @@ margin-left: 15px;">
 
                 if(img==src && productcounter < 3){
                     $(this).find('img').attr('src','/Content/Images/AIA_White.png');
-                    $(this).css({'background-color':'#d31145','color':'#fff'})
+                    $(this).css({'background-color':'#1747a7','color':'#fff'})
                     selectedProducts.push(product);
                     productcounter++;
                 }
@@ -7447,7 +7458,7 @@ margin-left: 15px;">
 
     //            if(img==src && productcounter <= 3){
     //                $(this).find('img').attr('src','/Content/Images/AIA_White.png');
-    //                $(this).css({'background-color':'#d31145','color':'#fff'})
+    //                $(this).css({'background-color':'#1747a7','color':'#fff'})
     //                selectedProducts.push(product);
     //                productcounter++;
     //            }

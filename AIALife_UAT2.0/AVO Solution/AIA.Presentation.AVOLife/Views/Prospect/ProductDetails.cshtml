@@ -2947,7 +2947,7 @@
             $('#'+gender).prop("readonly", false);
             $('#'+dob).prop("disabled", false);
             $('#'+dob).prop("readonly", false);
-            // writeMultipleMessage("error", "Please Enter NIC Number", e);
+            // writeMultipleMessage("error", "Please Enter SSN Number", e);
             return false;
         }
         //if (NICNo.toUpperCase() == "SLC") {
@@ -2969,7 +2969,7 @@
                         var dobyears = NICNo.substr(0, 2);
                     }
                     else {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                         return false;
 
                     }
@@ -3011,21 +3011,21 @@
                                     else if (birthDay > currentDay && birthMonth >= currentMonth && birthYear < currentYear) {
                                     }
                                     else {
-                                        writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                                        writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                                     }
                                 }
                                 else if (birthMonth > currentMonth && birthYear < currentYear) {
                                 }
                                 else {
-                                    writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                                    writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                                 }
                             }
                             else {
-                                writeMultipleMessage("error", "Please Enter Valid NIC Number", e);
+                                writeMultipleMessage("error", "Please Enter Valid SSN Number", e);
                             }
                         }
                         else {
-                            writeMultipleMessage("error", "Your NIC Number, Gender or Date of Birth Invalid", e);
+                            writeMultipleMessage("error", "Your SSN Number, Gender or Date of Birth Invalid", e);
                             //return false;
                         }
                         if (CalMonth < 0 || (CalMonth === 0 && currentDay < birthDay)) {
@@ -3038,7 +3038,7 @@
                     });
             }
             else {
-                writeMultipleMessage("error", "NIC Number should be 12 or 10 Digits", e);
+                writeMultipleMessage("error", "SSN Number should be 12 or 10 Digits", e);
                 return false;
             }
         }

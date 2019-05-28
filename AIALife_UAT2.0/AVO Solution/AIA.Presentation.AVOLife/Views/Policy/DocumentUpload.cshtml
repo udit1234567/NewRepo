@@ -25,7 +25,7 @@
     }
 
     .document-link-list i {
-        background-color: #B8123E;
+        background-color: #1747a7;
         color: white;
         margin-left: 12px;
         padding: 4px;
@@ -541,7 +541,7 @@
                                                     //$("#IsOCRSeleted" + index).val(true);
                                                     $("#hdnIsOCRSeleted" + index).val(true);
                                                     var Image="<img class='Img-align' src='../Images/checked1.png' />"
-                                                    var Message = '<br/><p> Entered NIC Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR NIC Number : '+NICNumber+' <span id="RightOCR' + UploadIndex + '"><i class="fa fa-check" style="color: green;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC is matched!</p>';
+                                                    var Message = '<br/><p> Entered SSN Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR SSN Number : '+NICNumber+' <span id="RightOCR' + UploadIndex + '"><i class="fa fa-check" style="color: green;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC is matched!</p>';
                                                     $('#OCROk').show();
                                                     $('#OCRYes').hide();
                                                     $('#OCRNo').hide();
@@ -555,7 +555,7 @@
                                                     $("#hdnIsOCRSeleted" + index).val(false);
                                                     $("#txtHdnOCRPath" + DocumentsUploadID).val(false);
                                                     var Image="<img class='Img-align' src='../Images/warning1.png' />"
-                                                    var Message = '<br/><p> Entered NIC Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR NIC Number : '+NICNumber+' <span id="WrongOCR' + UploadIndex + '"><i class="fa fa-close" style="color: red;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC image is mismatched. Do you want to proceed? </p>';
+                                                    var Message = '<br/><p> Entered SSN Number : '+LifeAssuredNIC+' <span ><i class="fa fa-check" style="color: green;  font-size: 25px;margin-left: 25px;"></i></span></p> <br/>  <p>OCR SSN Number : '+NICNumber+' <span id="WrongOCR' + UploadIndex + '"><i class="fa fa-close" style="color: red;  font-size: 25px; margin-left: 47px;"></i></span></p> <br/> <p>The entered NIC and the uploaded NIC image is mismatched. Do you want to proceed? </p>';
                                                     $('#OCROk').hide();
                                                     $('#OCRYes').show();
                                                     $('#OCRNo').show();

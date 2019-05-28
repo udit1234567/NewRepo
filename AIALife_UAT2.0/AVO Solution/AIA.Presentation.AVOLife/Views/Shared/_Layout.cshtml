@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>AIA</title>
+    <title>iNube</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer" />
     <meta http-equiv="X-UA-Compatible" content="IE=8">
@@ -173,7 +173,7 @@
             <div class="page-header-inner container">
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
-                    <img src="~/Content/Images/AIA-inside.png" alt="logo" class="logo-default" height="46px" />
+                    <img src="~/Content/Images/iNubeLogo1.png" alt="logo" class="logo-default" height="30px" />
 
 
                 </div>
@@ -291,12 +291,12 @@
 
     }
     <div class="clearfix"></div>
-    <footer>
+    @*<footer>
         @*<div class="content-wrapper mainDiv">
                 <div id="containerMain" class="containerMain">
                 </div>
             </div>*@
-        @*navbar-fixed-bottom*@
+        @*navbar-fixed-bottom
         <div class="navbar navbar-fixed-bottom" id="containerMain">
             <div>
             </div>
@@ -309,7 +309,7 @@
             </div>
 
         </div>
-    </footer>
+    </footer>*@
 
 
 
@@ -470,8 +470,8 @@
         $(document).ready(function () {
             $('.sidebar-toggler').click(function () {
                 $('.page-content-wrapper .page-content').toggleClass('page-content-width1');
-                var src1 = "/Content/Images/AIA-inside.png";
-                var src2 = "/Content/Images/aia-logo-collapse.png";
+                var src1 = "/Content/Images/iNubeLogo1.png";
+                var src2 = "/Content/Images/inube.png";
                 var src = $('.logo-default').attr('src');
                if(src == src1){$('.logo-default').attr('src',src2);}
                 else{$('.logo-default').attr('src',src1);}

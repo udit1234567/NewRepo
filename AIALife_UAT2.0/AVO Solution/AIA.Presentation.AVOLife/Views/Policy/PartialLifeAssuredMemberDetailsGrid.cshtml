@@ -81,7 +81,7 @@ columns.Add(a => a.QuoteMemberID, true).Titled("QuoteMemberID").Encoded(false).S
 columns.Add(a => a.AssuredName, true).Titled("AssuredName").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].AssuredName", a.AssuredName, new { @class = "form-control", @id = "hdnAssuredName" + a.Index }));
 columns.Add(a => a.MemberID, true).Titled("MemberID").Encoded(false).Sanitized(false).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].MemberID", a.MemberID, new { @class = "form-control" }));
 columns.Add(a => a.IsUpdate, true).Titled("IsUpdate").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(a => Html.TextBox("objMemberDetails[" + a.Index + "].IsUpdate", a.IsUpdate, new { @id = "txtIsUpdate" + a.Index, @class = "form-control" }));
-columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(o => @<span class="fa fa-pencil" onclick="EditRow(@o.Index)" style="color:#e86487;"></span>);
+columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(o => @<span class="fa fa-pencil" onclick="EditRow(@o.Index)" style="color:#5681d6;"></span>);
 })
 
 <style type="text/css">
@@ -1966,7 +1966,7 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
         }
         if ($("#ddlMemberNationality option:selected").text() == "Sri lanka") {
             if ($("#txtMemberNewNicNo").val() == "") {
-                writeMultipleMessage("error", "Please Enter New NIC Number.", "txtMemberNewNicNo");
+                writeMultipleMessage("error", "Please Enter New SSN Number.", "txtMemberNewNicNo");
                 return false;
             }
             else {
@@ -2204,7 +2204,7 @@ columns.Add().Titled("Edit").Encoded(false).Sanitized(false).SetWidth(20).Render
 
             if ($("#ddlMemberNationality option:selected").text() == "Sri lanka") {
                 if ($("#txtMemberNewNicNo").val() == "") {
-                    writeMultipleMessage("error", "Please Enter New NIC Number.", "txtMemberNewNicNo");
+                    writeMultipleMessage("error", "Please Enter New SSN Number.", "txtMemberNewNicNo");
                     return false;
                 }
                 else {

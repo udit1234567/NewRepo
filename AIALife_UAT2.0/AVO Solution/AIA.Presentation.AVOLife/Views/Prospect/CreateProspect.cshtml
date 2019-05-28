@@ -71,7 +71,7 @@
                 <div class="visible-lg-block">
                     @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
                 </div>
-                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #1747a7;"></a>
 
                 <a href="Suspect/Suspect" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Lead")</a>
 
@@ -90,7 +90,7 @@
                 <div class="visible-lg-block">
                     @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
                 </div>
-                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #1747a7;"></a>
 
                 <a href="/Prospect/ProspectPool" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Confirmed Prospect")</a>
 
@@ -108,7 +108,7 @@
                 <div class="visible-lg-block">
                     @*<div class="btn btn-info btn-derecha">Reference Number</div>*@
                 </div>
-                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #B8123E;"></a>
+                <a href="/Home/AgentHome" class="btn visible-lg-block visible-md-block"><img src="/Content/Images/home-white.png" class="pull-left" style="height:25px;margin-right:10px;background-color: #1747a7;"></a>
 
                 <a href="/Prospect/NeedAnalysisCompleted" class="btn visible-lg-block visible-md-block">@Resources.GetLabelName("Need Analysis Completed")</a>
 
@@ -1825,14 +1825,14 @@ else
             ////}
 
             //if (NIC == "") {
-            //    writeMultipleMessage("error", "Please Enter Valid NIC Number.", 'txtNic');
+            //    writeMultipleMessage("error", "Please Enter Valid SSN Number.", 'txtNic');
             //    return false;
             //}
             //if (NIC.length == 10 || NIC.Length == 12) {
             //    writeMultipleMessage("error", "", 'txtNic');
             //}
             //else {
-            //    writeMultipleMessage("error", "Please Enter Valid NIC Number.", 'txtNic');
+            //    writeMultipleMessage("error", "Please Enter Valid SSN Number.", 'txtNic');
             //    return false;
             //}
             //if (NIC.toUpperCase() == "SLC") {
@@ -2047,7 +2047,7 @@ else
             var dob = $("#dtProspectDOB").val();
             //if (NICNo.toUpperCase() != "SLC") {
             if (dob != '' && !ValidateDOB("dtProspectDOB")) {
-                writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+                writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtNic");
                 return false;
             }
             else {
@@ -2070,14 +2070,14 @@ else
                     $("#txtAge").val(calYear);
                     var ProspectAge = $('#txtAge').val();
                     if ( ProspectAge > 60 || ProspectAge < 18) {
-                        writeMultipleMessage("error", "Please Enter Valid NIC Number", "txtNic");
+                        writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtNic");
                         return false;
 
                     }
                     return true;
                 }
                 else {
-                    writeMultipleMessage("error", "Please Enter Valid NIC number", "txtNic");
+                    writeMultipleMessage("error", "Please Enter Valid SSN Number", "txtNic");
                     return false;
 
                 }
