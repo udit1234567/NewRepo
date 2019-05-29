@@ -2185,7 +2185,7 @@
 
         ClearBenifitDetails(index);
         var txtAnnualizePremium ="";
-        if(Plan=='Easy Pensions')
+        if(Plan=='Easy Pensions' || Plan=='Live Life Product')
         {
             var ddlBasicSumInsured = $("#ddlBasicSumInsured" + index + " option:selected").val()
             txtAnnualizePremium = ddlBasicSumInsured / 20;
@@ -2476,16 +2476,16 @@
 
                     }
                     if (selectedvalue == null || selectedvalue == '' || selectedvalue == undefined) {
-                        if(Plan=="Easy Pensions" || Plan=="Health Protector" || Plan=="Smart Pensions"|| Plan=="Education Plan")
-                        {
+                        //if(Plan=="Easy Pensions" || Plan=="Health Protector" || Plan=="Smart Pensions"|| Plan=="Education Plan")
+                        //{
                             $.each(data.ObjLifeQuote.objProspect.ListVariant, function (key, value) {
                                 $("#ddlVariant_" + index).append($("<option></option>").val(value.ID).html(value.Text));
                             });
 
                             GetPlanCode(index, 'False');
                             ClearBenifitDetails(index);
-                            GetSAM(index,'','False',$("#ddlVariant_" + index).val())
-                        }
+                        GetSAM(index, '', 'False', $("#ddlVariant_" + index).val());
+                        //}
                     }
                     else{
                         $("#ddlVariant_" + index).append($('<option value=\'\'>Select</option>'));
@@ -2517,7 +2517,7 @@
 
                     if (planCode == 'PPG' || planCode == 'SBE' || planCode == 'SBF' ||
                     planCode == 'PPH' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD' ||
-                    planCode == 'SBG' || planCode == 'SBH') {
+                    planCode == 'SBG' || planCode == 'SBH'|| planCode == 'LLP') {
                         $("#divPolicyTerm_" + index).html("");
                         $('#divPolicyTerm_' + index).html("<select class='form-control' id='ddlPolicyTerm_" + index + "' name='objListQuote[" + index + "].objProductDetials.PolicyTerm' onchange='GetPremiumTerm(" + index + ")'></select>");
                         $("#ddlPolicyTerm_" + index).append("<option value=\'\'>Select</option>");
@@ -2554,7 +2554,7 @@
 
 
                     if (planCode == 'PPG' || planCode == 'HPA'
-                        || planCode == 'PPH' || planCode == 'EPB') {
+                        || planCode == 'PPH' || planCode == 'EPB'|| planCode == 'LLP') {
                         $("#divPremiumTerm_" + index + "").html("");
                         $("#divPremiumTerm_" + index + "").html("<input class='form-control valid' id='TxtPremiumTerm_" + index + "' name='objListQuote[" + index + "].objProductDetials.PremiumTerm' value='' aria-invalid='false' type='text'  , onkeypress = 'return isNumberKey(event)', onkeyup ='return isNumberTabkey(event)'>");
                         if (IsModifyQuote == "True") {
@@ -2587,7 +2587,7 @@
                             $("#ddlPensionPeriod" + index + "").val(_PensionPeriod);
                         }
                     }
-                    if (planCode == 'PPG') {
+                    if (planCode == 'PPG' || planCode == 'LLP') {
                         debugger;
                         $('#divPensionPeriod_' + index + '').show();
                         $('#divDrawDownPeriod_' + index + '').hide();
@@ -2621,7 +2621,7 @@
                             $("#ddlLstdMaturityBenefit" + index + "").val(_MaturityBenefit);
                         }
                     }
-                    if (planCode == 'SBG' || planCode == 'SBH' || planCode == 'PPH' || planCode == 'PSP' || planCode == 'PPG' || planCode == 'HPA' || planCode == 'EPB') {
+                    if (planCode == 'SBG' || planCode == 'SBH' || planCode == 'PPH' || planCode == 'PSP' || planCode == 'PPG' || planCode == 'HPA' || planCode == 'EPB'|| planCode == 'LLP') {
                         $("#divMaturityBenifit_" + index + "").hide();
                     }
 
@@ -2671,7 +2671,7 @@
                         }
 
                     }
-                    if (planCode == 'SBE' || planCode == 'SBF' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD' || planCode == 'PPG' || planCode == 'SBG' || planCode == 'SBH') {
+                    if (planCode == 'SBE' || planCode == 'SBF' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD' || planCode == 'PPG' || planCode == 'SBG' || planCode == 'SBH'|| planCode == 'LLP') {
                         $('#divSpouseCovered_' + index + '').hide();
                         $('#divChildCovered_' + index + '').hide();
                         $('#divChilddetails_' + index + '').hide();
@@ -2679,7 +2679,7 @@
                         $('#divSpousedetails_' + index + '').hide();
 
                     }
-                    if (planCode == "PPG") {
+                    if (planCode == "PPG"|| planCode == 'LLP') {
                         $('#divAnnualizePremium_' + index).show();
                         $('#divChkBoxHealthProtector_' + index + '').hide();
                         $('#divBasicSum_' + index).html("");
