@@ -1,17 +1,17 @@
 ﻿/*@font-face {
   font-family: 'AIAEverest-Bold';
-  src:url('../fonts/AIAEverest-Bold.ttf') format('truetype'),
+  src:url('/Content/fonts/AIAEverest-Bold.ttf') format('truetype'),
   }*/
 @font-face {
     font-family: 'AIAEverest-Regular';
-    src: url('../fonts/AIAEverest-Regular.eot') format('embedded-opentype'), url('../fonts/AIAEverest-Regular.svg') format('svg'), url('../fonts/AIAEverest-Regular.ttf') format('truetype'), url('../fonts/AIAEverest-Regular.woff') format('woff'), url('../fonts/AIAEverest-Regular.woff2') format('woff2');
+    src: url('/Content/fonts/AIAEverest-Regular.eot') format('embedded-opentype'), url('/Content/fonts/AIAEverest-Regular.svg') format('svg'), url('/Content/fonts/AIAEverest-Regular.ttf') format('truetype'), url('/Content/fonts/AIAEverest-Regular.woff') format('woff'), url('/Content/fonts/AIAEverest-Regular.woff2') format('woff2');
 }
 body{
     font-family:AIAEverest-Regular !important;
 }
 /*@font-face{
     font-family:'Everest';
-    src:url('../fonts/everest.ttf');
+    src:url('/Content/fonts/everest.ttf');
 }
 body{
     font-family:Everest !important;
@@ -188,7 +188,7 @@ Page Header
   height: 20px;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url(../Images/sidebar-toggler.png);
+  background-image: url(/Content/Images/sidebar-toggler.png);
 }
 .page-header.navbar .menu-toggler:hover {
   filter: alpha(opacity=100);
@@ -206,7 +206,7 @@ Page Header
     float: right;
     margin: 24px 14px 0 6px;
     /*background-image: url(/Content/Images/sidebar-toggler-red.png);*/
-     background-image: url('../Images/menu-icon(2).png');
+     background-image: url('/Content/Images/menu-icon(2).png');
 }
 .page-header.navbar .page-actions {
   margin: 17px 0 15px 15px;
@@ -2245,57 +2245,56 @@ color: #fff;
 }
 /*Icon css*/
 .admin_menuicon{
-    background-image: url("../Images/admin.png");
+    background-image: url("/Content/Images/admin.png");
 }
 
 .recruitment_menuicon {
-    background-image: url("../Images/Recruitment.png");
-    
+    background-image: url("/Content/Images/Recruitment.png");
 }
 .hierarchy_menuicon {
-    background-image: url("../Images/hierarchy.png");
+    background-image: url("/Content/Images/hierarchy.png");
 }
 .task_menuicon {
-    background-image: url("../Images/task-list.png");
+    background-image: url("/Content/Images/task-list.png");
     background-size: 20px 20px;
 }
 
 .search_menuicon {
-    background-image: url("../Images/search.png");
+    background-image: url("/Content/Images/search.png");
     background-size: 20px 20px;
 }
 .createSuspect_menuicon {
-    background-image: url("../Images/create-suspect.png");
+    background-image: url("/Content/Images/create-suspect.png");
     background-size: 20px 20px;
 }
 
 .createProspect_menuicon {
-    background-image: url("../Images/create-prospect.png");
+    background-image: url("/Content/Images/create-prospect.png");
     background-size: 20px 20px;
 }
 
 .createEmployee_menuicon {
-    background-image: url("../Images/create-employee.png");
+    background-image: url("/Content/Images/create-employee.png");
     background-size: 20px 20px;
 }
 
 .createHierarchy_menuicon {
-    background-image: url("../Images/create-hierarchy.png");
+    background-image: url("/Content/Images/create-hierarchy.png");
     background-size: 20px 20px;
 }
 
 .createConfiguration_menuicon {
-    background-image: url("../Images/config-create.png");
+    background-image: url("/Content/Images/config-create.png");
     background-size: 20px 20px;
 }
 
 .createUserId_menuicon {
-    background-image: url("../Images/create-user.png");
+    background-image: url("/Content/Images/create-user.png");
     background-size: 20px 20px;
 }
 
 .assignPrevilege_menuicon {
-    background-image: url("../Images/assign-previlage.png");
+    background-image: url("/Content/Images/assign-previlage.png");
     background-size: 20px 20px;
 }
 
@@ -2647,7 +2646,7 @@ border-right: 34px solid #1747a7;
     margin-bottom:20px;
 }
     .history-timeline>li::before {
-        content: url(../Images/Circle.png);
+        content: url(/Content/Images/Circle.png);
         position: absolute;
        left: -58px;
       height: 100px;
@@ -4857,9 +4856,9 @@ body {
        /*margin-top: 12% !important;*/
 }
 .page-content {
-    /*background-image: url('../Images/AIA-BG.png') !important;*/
-    /*background-image: url('../Images/AIA-BG-1.png') !important;*/
-    background-image: url('../Images/AIA-BG-2.png')!important;
+    /*background-image: url('/Content/Images/AIA-BG.png') !important;*/
+    /*background-image: url('/Content/Images/AIA-BG-1.png') !important;*/
+    background-image: url('/Content/Images/AIA-BG-2.png')!important;
     /*background-repeat: repeat-y !important;
       background-position: center !important;*/
     background-repeat: no-repeat !important;

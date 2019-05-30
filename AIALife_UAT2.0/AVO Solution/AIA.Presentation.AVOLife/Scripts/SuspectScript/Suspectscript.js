@@ -3643,23 +3643,23 @@ function RenderProtectionChart(e) {
     ProtectionChart.dataChanged = true;
     var ProtectionTimer = setInterval(function () {
        
-        ProtectionChart["export"].capture({delay:3}, function () {
-        this.toPNG({
-                multiplier: 2,
-                "fit": [523.28, 769.89]
-            }, function (data) {
+        //ProtectionChart["export"].capture({delay:3}, function () {
+        //this.toPNG({
+        //        multiplier: 2,
+        //        "fit": [523.28, 769.89]
+        //    }, function (data) {
                
-                if (data.length > 10) {
+        //        if (data.length > 10) {
                   
-                $("#HdnProtectionGraphByteArray").val(data);
+        //        $("#HdnProtectionGraphByteArray").val(data);
 
-                }
-                 //  this.download(data, "image/jpg", "Protectionharts.jpg");
-                //HumanValueReport(1);
-                // alert(data.length);
-            });
-        });
-        clearInterval(ProtectionTimer);
+        //        }
+        //         //  this.download(data, "image/jpg", "Protectionharts.jpg");
+        //        //HumanValueReport(1);
+        //        // alert(data.length);
+        //    });
+        //});
+        //clearInterval(ProtectionTimer);
     }, 3000);
     $('#divBusyIndicator').hide();
 }
@@ -3671,28 +3671,28 @@ function RenderHealthChart(e) {
     HealthChart.dataChanged = true;
     var HealthTimer = setInterval(function () {
        
-        HealthChart["export"].capture({delay:3}, function () {
-            this.toPNG({
-                multiplier: 2,
-                "fit": [523.28, 769.89],
-            }, function (data) {
+        //HealthChart["export"].capture({delay:3}, function () {
+        //    this.toPNG({
+        //        multiplier: 2,
+        //        "fit": [523.28, 769.89],
+        //    }, function (data) {
                
-                if (data.length > 10) {
-                    $("#HdnHealthGraphByteArray").val(data);
-                }
-                // this.download(data, "image/png", "Healthharts.png");
-                //HealthCalcPDF(1);
-                // alert(data.length);
-            });
-        }); clearInterval(HealthTimer);
+        //        if (data.length > 10) {
+        //            $("#HdnHealthGraphByteArray").val(data);
+        //        }
+        //        // this.download(data, "image/png", "Healthharts.png");
+        //        //HealthCalcPDF(1);
+        //        // alert(data.length);
+        //    });
+        //}); clearInterval(HealthTimer);
     }, 3000);
     $('#divBusyIndicator').hide();
 }
 
-$(document).ajaxComplete(function () {
-    RenderProtectionChart();
-    RenderHealthChart();
-});
+//$(document).ajaxComplete(function () {
+   // RenderProtectionChart();
+   // RenderHealthChart();
+//});
 function Handlechange(id) {
     
     //var fileinput = document.getElementById("browse");
