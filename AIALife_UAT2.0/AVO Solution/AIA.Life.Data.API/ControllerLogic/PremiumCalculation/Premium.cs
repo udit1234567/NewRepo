@@ -96,7 +96,7 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
             ProposalDetails proposalDetails = new ProposalDetails();
             proposalDetails.Product = new Product();
             proposalDetails.Product.BasicSumAssured = objLifeQuote.objProductDetials.BasicSumInsured.ToString();
-            if (objLifeQuote.objProductDetials.Plan != "1" && objLifeQuote.objProductDetials.Plan != "3")
+            if (objLifeQuote.objProductDetials.Plan != "1" && objLifeQuote.objProductDetials.Plan != "3" && objLifeQuote.objProductDetials.Plan != "43")
                 proposalDetails.Product.BasicSumAssured = "";
             if (objLifeQuote.objProductDetials.Plan == "1")
             {
