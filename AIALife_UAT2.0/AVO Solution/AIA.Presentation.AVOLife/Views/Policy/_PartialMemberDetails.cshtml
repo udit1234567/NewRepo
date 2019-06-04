@@ -32,7 +32,7 @@
         @Html.TextBoxFor(a => a.objFillMemberDetials.LastName, new { id = "txtMemberLastName", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @onkeyup = "return AlphabetsWithSpace(event)" })
     </div >
     <div id = "NICNumber" class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-        <label>@Resources.GetLabelName("NIC")<span class="mandatory" id="mandatoryNicNumber">*</span></label>
+        <label>@Resources.GetLabelName("Emirates ID")<span class="mandatory" id="mandatoryNicNumber">*</span></label>
         @Html.TextBoxFor(a => a.objFillMemberDetials.NewNICNO, new { id = "txtMemberNewNicNo", @class = "form-control", @maxlength = "12", @onchange = "FetchProposalDOBGenderfromNIC('txtMemberNewNicNo','txtMemberFillDateOfBirth','ddlMemberGender','txtMemberAgeNextBirthdayMember','ddlMemberRelationWithProposer','Direct')", @onkeypress = "return isAlphaNumberKeyback(event)", @onkeyup = "return isAlphaNumberKeybackwithOutSymbolSpace(event)" })
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
@@ -41,7 +41,7 @@
     </div>
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-        <label for="usr">@Resources.GetLabelName("Age at Next Birthday")</label>
+        <label for="usr">@Resources.GetLabelName("Age")</label>
         @Html.TextBoxFor(a => a.objFillMemberDetials.Age, new { id = "txtMemberAgeNextBirthdayMember", @class = "form-control", @readonly = "readonly" })
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">

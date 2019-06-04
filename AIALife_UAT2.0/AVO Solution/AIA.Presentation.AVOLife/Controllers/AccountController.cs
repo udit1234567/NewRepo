@@ -615,84 +615,62 @@ namespace AIA.Presentation.AVOLife.Controllers
                 }
                 string role = Entities.usp_GetCurrentUserRole(model.UserName).FirstOrDefault();
                 bool loginStat = false;
+              //  loginStat = true;
                 //var userActiveStatus = Entities.tblUserDetails.Where(u => u.LoginID == model.UserName).Select(s=>s.Status).FirstOrDefault();                       
                 //if (role == "UW User" || role == "SUPADMIN" || System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT")
                 //{
-                    //if (role == "UW User")
-                    //{
-                    //    if (userActiveStatus == false)
-                    //    {
-                    //        ViewBag.Status = "InActive";
-                    //        return View("~/Views/Home/UnAuthorized.cshtml");
-                    //    }
-                    //}
+                //if (role == "UW User")
+                //{
+                //    if (userActiveStatus == false)
+                //    {
+                //        ViewBag.Status = "InActive";
+                //        return View("~/Views/Home/UnAuthorized.cshtml");
+                //    }
+                //}
 
-                    var base64EncodedBytes = System.Convert.FromBase64String(model.Password);
-                    string pwd = System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-                    string ldapDomain = System.Web.Configuration.WebConfigurationManager.AppSettings["LDAPDomain"];
-                    string ldapBase = System.Web.Configuration.WebConfigurationManager.AppSettings["LDAPBase"];
-                    Boolean bAuthenticateUser = AuthenticateUser("LDAP://" + ldapDomain + "/" + ldapBase, model.UserName, pwd);
-                    if (bAuthenticateUser == true || System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT")
+                var base64EncodedBytes = System.Convert.FromBase64String(model.Password);
+                string pwd = System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+                string ldapDomain = System.Web.Configuration.WebConfigurationManager.AppSettings["LDAPDomain"];
+                string ldapBase = System.Web.Configuration.WebConfigurationManager.AppSettings["LDAPBase"];
+                Boolean bAuthenticateUser = AuthenticateUser("LDAP://" + ldapDomain + "/" + ldapBase, model.UserName, pwd);
+
+               // bAuthenticateUser = true;
+
+                if (bAuthenticateUser == true || System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT")
+                {
+                    if (System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT")
                     {
-                        if (System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT")
-                        {
-                            //if(System.Web.Configuration.WebConfigurationManager.AppSettings["SITPassword"] == pwd)
-                            //{
-                            loginStat = true;
-                            //}
-                        }
-                        else
-                        {
-                            loginStat = true;
-                        }
+                        //if(System.Web.Configuration.WebConfigurationManager.AppSettings["SITPassword"] == pwd)
+                        //{
+                        loginStat = true;
+                        //}
                     }
                     else
                     {
-                        var userActiveStatus1 = UserManagementController.CheckADUserStatus(model.UserName);
-                        if (userActiveStatus1 != "Success" && role == "UW User")
+                        loginStat = true;
+                    }
+                }
+                else
+                {
+                    var userActiveStatus1 = UserManagementController.CheckADUserStatus(model.UserName);
+                    if (userActiveStatus1 != "Success" && role == "UW User")
+                    {
+                        if (userActiveStatus1 == "User is Disabled/Terminated")
                         {
-                            if (userActiveStatus1 == "User is Disabled/Terminated")
-                            {
-                                ViewBag.Credentials = "UnAuthorized";
-                                return View("~/Views/Home/UnAuthorized.cshtml");
-                            }
-                            else
-                            {
-                                ViewBag.Credentials = "UnAuthorized";
-                                return View("~/Views/Home/UnAuthorized.cshtml");
-                            }
-
+                            ViewBag.Credentials = "UnAuthorized";
+                            return View("~/Views/Home/UnAuthorized.cshtml");
                         }
                         else
                         {
-
-                        var result = SignInManager.PasswordSignIn(model.UserName, pwd, false, shouldLockout: true);
-                            if (result == SignInStatus.Success)
-                            {
-                                return RedirectToLocal(returnUrl);
-                            }
-                           if(result == SignInStatus.LockedOut)
-                            {
-
-                                ViewBag.Credentials = "LockOut";
-                                return View("~/Views/Home/UnAuthorized.cshtml");
-
-                            }
-                            else
-                            {
-                                ViewBag.Credentials = "Invalid";
-                                return View("~/Views/Home/UnAuthorized.cshtml");
-                            }
-
+                            ViewBag.Credentials = "UnAuthorized";
+                            return View("~/Views/Home/UnAuthorized.cshtml");
                         }
+
                     }
-                    if (loginStat)
+                    else
                     {
-                        if (System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT" && System.Web.Configuration.WebConfigurationManager.AppSettings["SITPassword"] == pwd)
-                            pwd = "Pass@123";
 
                         var result = SignInManager.PasswordSignIn(model.UserName, pwd, false, shouldLockout: true);
-
                         if (result == SignInStatus.Success)
                         {
                             return RedirectToLocal(returnUrl);
@@ -700,7 +678,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                         if (result == SignInStatus.LockedOut)
                         {
 
-                            ViewBag.Credentials = "UnAuthorized";
+                            ViewBag.Credentials = "LockOut";
                             return View("~/Views/Home/UnAuthorized.cshtml");
 
                         }
@@ -709,10 +687,36 @@ namespace AIA.Presentation.AVOLife.Controllers
                             ViewBag.Credentials = "Invalid";
                             return View("~/Views/Home/UnAuthorized.cshtml");
                         }
+
+                    }
+                }
+                if (loginStat)
+                {
+                    if (System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT" && System.Web.Configuration.WebConfigurationManager.AppSettings["SITPassword"] == pwd)
+                        pwd = "Pass@123";
+
+                    var result = SignInManager.PasswordSignIn(model.UserName, pwd, false, shouldLockout: true);
+
+                    if (result == SignInStatus.Success)
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                    if (result == SignInStatus.LockedOut)
+                    {
+
+                        ViewBag.Credentials = "UnAuthorized";
+                        return View("~/Views/Home/UnAuthorized.cshtml");
+
                     }
                     else
+                    {
                         ViewBag.Credentials = "Invalid";
-                    return View("~/Views/Home/UnAuthorized.cshtml");
+                        return View("~/Views/Home/UnAuthorized.cshtml");
+                    }
+                }
+                else
+                    ViewBag.Credentials = "Invalid";
+                return View("~/Views/Home/UnAuthorized.cshtml");
                 //}
                 //else
                 //{

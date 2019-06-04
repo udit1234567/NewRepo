@@ -55,7 +55,7 @@
     </div>
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerNICNumber">
-        <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
+        <label>@Resources.GetLabelName("Emirates ID")<span class="mandatory">*</span></label>
         @Html.TextBoxFor(a => a.objProspectDetails.NewNICNO, new { @id = "txtnewNic", @class = "form-control", @maxlength = "12", @minlength = "10", @readonly = "readonly", @onchange = "FetchProserDOBGenderfromNIC('txtnewNic','txtPropspectDOB','ddlGender','txtAgeNextBirthday')" })
     </div>
 
@@ -65,7 +65,7 @@
 
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerAgeNextBirthday">
-        <label for="usr">@Resources.GetLabelName("Age at Next Birthday")<span class="mandatory">*</span></label>
+        <label for="usr">@Resources.GetLabelName("Age")<span class="mandatory">*</span></label>
         @Html.TextBoxFor(a => a.objProspectDetails.Age, new { id = "txtAgeNextBirthday", @class = "form-control", @readonly = "readonly" })
     </div>
 
@@ -107,7 +107,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divNationality">
         <label>@Resources.GetLabelName("Nationality")<span class="mandatory" id="Nationalitymandatory">*</span></label>
-        @Html.DropDownListFor(m => m.objProspectDetails.Nationality, new SelectList(Model.Nationalities, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlNationality", @onchange = "NationalityFunction();" })
+        @Html.DropDownListFor(m => m.objProspectDetails.Nationality, new SelectList(Model.Nationalities, "Value", "Text",1), "Select", new { @class = "form-control", @id = "ddlNationality", @onchange = "NationalityFunction();" })
     </div>
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divNationalityStatus" style="display:none">

@@ -359,7 +359,8 @@
         @{
             if (Model.PolicyStageStatusID == AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusOutStandingReq)
             {
-                <input class="btn btn-default" id="btnSaveProposal" type="button" onclick="SubmitPolicyDocuments()" value="Submit" style="padding-left:25px;padding-right:25px;">
+                        
+            <input class="btn btn-default" id="btnSaveProposal" type="button" onclick="SubmitPolicyDocuments()" value="Submit" style="padding-left:25px;padding-right:25px;">
             }
             else if (Model.PolicyStageStatusID == AIA.CrossCutting.CrossCuttingConstants.PolicyStageStatusCounterOffer && Model.AdditionalPremium > 0)
             {
@@ -1617,6 +1618,7 @@
         });
     }
     function SaveProposal() {
+        debugger;
         $("#divBusyIndicator").show();
         $('#ddlMemberRelationWithProposer').removeAttr('disabled');
         clearAllErrors();

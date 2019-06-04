@@ -1049,7 +1049,7 @@ namespace AIA.Presentation.AVOLife.Controllers
             return (byte[])converter.ConvertTo(img, typeof(byte[]));
         }
 
-
+        [HttpPost]
         public ActionResult SaveProposal(AIA.Life.Models.Policy.Policy objPolicy)
         {
             try
