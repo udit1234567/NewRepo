@@ -2965,12 +2965,15 @@
     <EmbeddedResource Include="Reports\QuotationforEducationplan%28Tamil%29.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforEducationplan.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforHealthprotector.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforLiveLife.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforPriorityvalue.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforSmartBuilder.rdlc">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\QuotationforSmartbuildergold.rdlc" />
-    <EmbeddedResource Include="Reports\QuotationforSmartpensions.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforSmartpensions.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\QuotationinTamilforEducationplan.rdlc" />
     <EmbeddedResource Include="Reports\Salesillustrationforeasypensions.rdlc" />
     <EmbeddedResource Include="Reports\SmartbuildergoldpolicyscheduleinSinhala.rdlc" />
