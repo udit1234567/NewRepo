@@ -24,11 +24,13 @@
             <div class="form-group">
                 <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
                 @(Html.TextBoxFor(a => a.objProspect.NIC, new
-            {
-                @id = "txtNic",
-                @class = "form-control", @*@onchange = "FoundNIC_Loaddata(),FetchDOBGenderfromNIC('txtNic','dtProspectDOB','ddlGender','txtAge')"*@@onchange = "ValidateNICPopup()",
-                @maxlength = 12,@onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",@onkeyup = "return isAlphaNumberKeyback(event)"
-            }))
+                    {
+                        @id = "txtNic",
+                        @class = "form-control", @*@onchange = "FoundNIC_Loaddata(),FetchDOBGenderfromNIC('txtNic','dtProspectDOB','ddlGender','txtAge')"*@@onchange = "ValidateNICPopup()",
+                        @maxlength = 12,
+                        @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",
+                        @onkeyup = "return isAlphaNumberKeyback(event)"
+                    }))
 
             </div>
         </div>
@@ -40,13 +42,14 @@
             </div>
         </div>
 
+        
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group">
                 <label><img src="~/Content/Images/quote-2.png" style="width: 20px;" />@Resources.GetLabelName("Salutation")<span class="mandatory">*</span></label>
                 @Html.TextBoxFor(m => m.objProspect.Salutation, new
            {
                @class = "form-control",
-               @id = "TxtSalutation"@*, @onchange = "AutoPopulateMaritalStatus()"*@ })
+               @id = "TxtSalutation"@*, @onchange = "AutoPopulateMaritalStatus()"*@})
 
             </div>
         </div>
@@ -160,7 +163,7 @@
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group">
                 <label>@Resources.GetLabelName("Average Annual Income")<span class="mandatory">*</span></label>
-                @Html.CurrencyTextBoxFor(m => m.objProspect.AvgMonthlyIncome, new { @class = "form-control", @id = "txtAverageMonthlyIncome", @maxlength = "12", @onchange = "f1(id)", @onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)"}, Model.objProspect.AvgMonthlyIncome)
+                @Html.CurrencyTextBoxFor(m => m.objProspect.AvgMonthlyIncome, new { @class = "form-control", @id = "txtAverageMonthlyIncome", @maxlength = "12", @onchange = "f1(id)", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" }, Model.objProspect.AvgMonthlyIncome)
 
             </div>
         </div>
@@ -173,6 +176,18 @@
                 @Html.TextBoxFor(m => m.objProspect.PassPort, new { @class = "form-control", @id = "txtPassport", @maxlength = "16", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)" })
             </div>
         </div>
+        @*Added by Udit*@
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label style="font-size:16px">@Resources.GetLabelName("Do You Smoke?")</label>
+                <div>
+                    @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSpouseCovered, true, new { @id = "IsSpouseCovered" + Model.SelectedQuote, @class = "", @onclick = "ShowSpouseChildDetails('" + "divSpousedetails_" + Model.SelectedQuote + "'),FetchDobOfSpouse(" + Model.SelectedQuote + ")", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
+                    @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSpouseCovered, false, new { @id = "IsSpouseCovered" + Model.SelectedQuote, @class = "", @onclick = "HideSpouseChildDetails('" + "divSpousedetails_" + Model.SelectedQuote + "')", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
+                </div>
+            </div>
+        </div>
+
+
 
     </div>
 

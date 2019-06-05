@@ -289,7 +289,7 @@
 </div>
 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
     <div class="form-group">
-        <label>@Resources.GetLabelName("Annualize Premium") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
+        <label>@Resources.GetLabelName("Annualize Premium") (@Resources.GetLabelName("LKR"))@*<span class="mandatory">*</span>*@</label>
         @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium, new { @class = "form-control", @id = "txtAnnualizePremium" + Model.SelectedQuote + "", @readonly = "readonly", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium)
     </div>
 </div>
@@ -1703,7 +1703,7 @@
 
             }
         }
-        if (planCode != 'HPA') {
+        if (planCode != 'HPA' && planCode != 'LLP') {
             if ($("#txtAnnualizePremium" + index + "").val() == "") {
                 writeMultipleMessage("error", 'Please Enter The Annualize Premium', 'txtAnnualizePremium' + index + '')
                 return false;
@@ -2589,7 +2589,7 @@
                     }
                     if (planCode == 'PPG' || planCode == 'LLP') {
                         debugger;
-                        $('#divPensionPeriod_' + index + '').show();
+                        $('#divPensionPeriod_' + index + '').hide();
                         $('#divDrawDownPeriod_' + index + '').hide();
                         $('#divRetairemetAge_' + index + '').hide();
                         $('#divMonthlyIncome_' + index + '').hide();
@@ -2679,22 +2679,14 @@
                         $('#divSpousedetails_' + index + '').hide();
 
                     }
-                    if (planCode == "PPG"|| planCode == 'LLP') {
-                        $('#divAnnualizePremium_' + index).show();
+                    if (planCode == "PPG" || planCode == 'LLP') {
+                        $('#divAnnualizePremium_' + index).hide();
                         $('#divChkBoxHealthProtector_' + index + '').hide();
                         $('#divBasicSum_' + index).html("");
-                        $('#divBasicSum_' + index).html("<select class='form-control' data-val='true' data-val-number='The field BasicSumInsured must be a number.' data-val-required='The BasicSumInsured field is required.' id='ddlBasicSumInsured" + index + "'' name='objListQuote[0].objProductDetials.BasicSumInsured' onchange='GetAnnualPremium(" + index + ")'>"
-                            + "<option value= '' > Select</option>"
-                            + "<option value='360000'>360,000</option>"
-                            + "<option value='480000'>480,000</option>"
-                            + "<option value='600000'>600,000</option>"
-                            + "<option value='720000'>720,000</option></select >");
+                        $('#divBasicSum_' + index).html("<input type='text' id='txtBasicSumInsured_" + index + "' class='form-control' maxlength='12'name='objListQuote[" + index + "].objProductDetials.BasicSumInsured'/>");
                         $('#ddlSAM' + index).val("");
                         $('#divSAM_' + index).hide();
-                        if (IsModifyQuote == "True") {
-                            $('#ddlBasicSumInsured' + index).val(_BasicSumInsured);
-
-                        }
+                        
                     }
 
                     if (planCode == "PPH"||planCode == "EPB") {
