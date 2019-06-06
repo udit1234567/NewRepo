@@ -30,7 +30,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
-            <label>@Resources.GetLabelName("NIC")<span class="mandatory">*</span></label>
+            <label>@Resources.GetLabelName("Emirates Id")<span class="mandatory">*</span></label>
             @(Html.TextBoxFor(a => a.NIC, new
         {
             @id = "txtNic",
@@ -143,7 +143,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
-            <label><img src="~/Content/Images/quote-11.png" style="width: 20px;" />@Resources.GetLabelName("Age at Next Birthday")<span class="mandatory">*</span></label>
+            <label><img src="~/Content/Images/quote-11.png" style="width: 20px;" />@Resources.GetLabelName("Age")<span class="mandatory">*</span></label>
             @Html.TextBoxFor(m => m.AgeNextBdy, new { @class = "form-control", @id = "txtAge", @readonly = "readonly", @maxlength = "2", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabKey(event)" })
 
         </div>
@@ -159,7 +159,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
-            <label>@Resources.GetLabelName("Average Annual Income") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
+            <label>@Resources.GetLabelName("Average Annual Income") (@Resources.GetLabelName("Dh"))<span class="mandatory">*</span></label>
             @Html.CurrencyTextBoxFor(m => m.AvgMonthlyIncome, new { @class = "form-control", @id = "txtAverageMonthlyIncome", @onkeyup = "return isNumberTabkey(event)", @onkeypress = "return isNumberKey(event)", @maxlength = "12", onchange = "f1(id)" }, Model.AvgMonthlyIncome)
 
         </div>

@@ -91,16 +91,16 @@
                 @(Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.PlanCode, new { id = "txtPlanCode_" + Model.SelectedQuote, @class = "form-control", @readonly = "readonly" }))
             </div>
         </div>
-        <div id="divRetairemetAge_@Model.SelectedQuote" style="display:none">
+        @*<div id="divRetairemetAge_@Model.SelectedQuote" style="display:none">
 
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label>@Resources.GetLabelName("Retirement Age")<span class="mandatory">*</span></label>
-                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.RetirementAge, new SelectList(Model.objProspect.LstRetirementAge, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlRetirementAge" + Model.SelectedQuote, @onchange = "GetPolicyTermSmartPension(" + Model.SelectedQuote + ","+ Model.objListQuote[Model.SelectedQuote].objProductDetials.RetirementAge + "), ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.RetirementAge, new SelectList(Model.objProspect.LstRetirementAge, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlRetirementAge" + Model.SelectedQuote, @onchange = "GetPolicyTermSmartPension(" + Model.SelectedQuote + "," + Model.objListQuote[Model.SelectedQuote].objProductDetials.RetirementAge + "), ClearBenifitDetails(" + Model.SelectedQuote + ")" })
                 </div>
             </div>
 
-        </div>
+        </div>*@
 
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group">
@@ -115,7 +115,7 @@
             <div class="form-group">
                 <label>@Resources.GetLabelName("Premium Term")<span class="mandatory">*</span></label>
                 <div id="divPremiumTerm_@Model.SelectedQuote">
-                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PremiumTerm, new SelectList(Model.objListQuote[Model.SelectedQuote].LstPremiumTerm, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlPremiumTerm_" + Model.SelectedQuote, @onblur = "ClearBenifitDetails(" + Model.SelectedQuote + ")"@*,@readonly ="readonly"*@ })
+                    @Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.PremiumTerm, new SelectList(Model.objListQuote[Model.SelectedQuote].LstPremiumTerm, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlPremiumTerm_" + Model.SelectedQuote, @onblur = "ClearBenifitDetails(" + Model.SelectedQuote + ")"@*,@readonly ="readonly"*@})
                 </div>
             </div>
         </div>
@@ -166,30 +166,7 @@
             </div>
         </div>*@
 
-    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChkBoxHealthProtector_@Model.SelectedQuote" style="display:none">
-        <div class="form-group">
-            <div class="cntr">
-                <label class="label-cbx">
-                    @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.IsFamilyFloater, new
-               {
-                   @id = "chkIsFamilyFloater_" + Model.SelectedQuote,
-                   @class = "invisibleQuatation",
-                   @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + "),ChangeCheckBoxIFF(" + Model.SelectedQuote + ")"@*, @style = "width:40px;height:20px;margin-top:5px"*@ })
-                    <div class="checkbox">
-                        <svg width="20px" height="20px" viewBox="0 0 20 20">
-                            <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
-                            <polyline points="4 11 8 15 16 6"></polyline>
-                        </svg>
-                    </div>
-                    <span>@Resources.GetLabelName("IsFamilyFloater")</span>
-                </label>
-            </div>
-            @*<label>@Resources.GetLabelName("IsFamilyFloater")</label>
-                <span>
-                    @Html.CheckBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.IsFamilyFloater, new{@id = "chkIsFamilyFloater_" + Model.SelectedQuote,@onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")"@*, @style = "width:40px;height:20px;margin-top:5px" })
-                </span>*@
-        </div>
-    </div>
+    
 </div>
 
 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divChkBoxHealthProtector2_@Model.SelectedQuote" style="display:none">
@@ -201,7 +178,7 @@
                @id = "chkDeductable",
                @class = "invisibleQuatation",
                @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + "),ChangeCheckBoxSP(" + Model.SelectedQuote + ")",
-               @name = ""@*, @style = "width:40px;height:20px;margin-top:5px"*@ })
+               @name = ""@*, @style = "width:40px;height:20px;margin-top:5px"*@})
                 <div class="checkbox">
                     <svg width="20px" height="20px" viewBox="0 0 20 20">
                         <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
@@ -239,7 +216,7 @@
 </div>
 
 
-<div id="divMonthlyIncome_@Model.SelectedQuote" style="display:none">
+@*<div id="divMonthlyIncome_@Model.SelectedQuote" style="display:none">
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
@@ -248,27 +225,27 @@
         </div>
 
     </div>
-</div>
+</div>*@
 
-
+@*(@Resources.GetLabelName("LKR"))*@
 
 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
     <div class="form-group">
-        <label>@Resources.GetLabelName("Basic Sum Insured") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
+        <label>@Resources.GetLabelName("Basic Sum Insured")<span class="mandatory">*</span></label>
         <div id="divBasicSum_@Model.SelectedQuote">
             @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.BasicSumInsured, new SelectList(Model.objListQuote[Model.SelectedQuote].lstSumInsured, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlBasicSumInsured" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")" })
         </div>
     </div>
 </div>
-<div style="display:none" id="divModalPremium_@Model.SelectedQuote">
+@*<div style="display:none" id="divModalPremium_@Model.SelectedQuote">
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label>@Resources.GetLabelName("Modal Premium")<span class="mandatory">*</span></label>
-            @Html.CurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.ModalPremium, new { @class = "form-control", @id = "txtModalPremium" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")",@onkeypress= "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)" })
+            @Html.CurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.ModalPremium, new { @class = "form-control", @id = "txtModalPremium" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
         </div>
     </div>
-</div>
+</div>*@
 <div style="display:none" id="divAPCP_@Model.SelectedQuote">
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -278,7 +255,7 @@
         </div>
     </div>
 </div>
-<div style="display:none" id="divSAM_@Model.SelectedQuote">
+@*<div style="display:none" id="divSAM_@Model.SelectedQuote">
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
@@ -286,13 +263,15 @@
             @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.SAM, new SelectList(Model.objListQuote[Model.SelectedQuote].lstSAM, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlSAM" + Model.SelectedQuote + "", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")" })
         </div>
     </div>
-</div>
-<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
+</div>*@
+
+@*(@Resources.GetLabelName("LKR"))*@
+@*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
     <div class="form-group">
-        <label>@Resources.GetLabelName("Annualize Premium") (@Resources.GetLabelName("LKR"))@*<span class="mandatory">*</span>*@</label>
+        <label>@Resources.GetLabelName("Annualize Premium") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
         @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium, new { @class = "form-control", @id = "txtAnnualizePremium" + Model.SelectedQuote + "", @readonly = "readonly", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium)
     </div>
-</div>
+</div>*@
 
 <div class="clearfix"></div>
 <div id="divSpouseCovered_@Model.SelectedQuote" style="display:none">
@@ -319,19 +298,22 @@
                     @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseName, new
                {
                    @id = "txtSpouseName_" + Model.SelectedQuote,
-                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@ @maxlength = 60,
-                   @readonly = "readonly", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)"
-               })
+                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@@maxlength = 60,
+                @readonly = "readonly",
+                @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",
+                @onkeyup = "return AlphabetsWithSpace(event)"
+            })
                 }
                 else
                 {
                     @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseName, new
                {
                    @id = "txtSpouseName_" + Model.SelectedQuote,
-                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@ @maxlength = 60,
-                   @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",@onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")",
-                   @onkeyup = "return AlphabetsWithSpace(event)"
-               })
+                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@@maxlength = 60,
+                @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",
+                @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")",
+                @onkeyup = "return AlphabetsWithSpace(event)"
+            })
                 }
             }
         </div>
@@ -347,7 +329,7 @@
            @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",
            @onkeyup = "return isAlphaNumberKeyback(event)"
        })
-            
+
 
 
         </div>
@@ -389,7 +371,7 @@
             <label>@Resources.GetLabelName("Occupation")</label>
             @*@Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new SelectList(Model.objListQuote[Model.SelectedQuote].lstOccupation, "Value", "Text", Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation != null ? Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation : ""), "Select", new { @class = "form-control ui-autocomplete-input blank-field-hightlight", @id = "ddlSpouseOccupation" + Model.SelectedQuote, @onblur = "validateDropDown('ddlGender','Please Select Gender')", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })*@
             @*@Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation" })*@
-            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation"+ Model.SelectedQuote, @onchange= "ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation" + Model.SelectedQuote, @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" })
         </div>
     </div>
 
@@ -398,7 +380,7 @@
 
 </div>
 <div class="clearfix"></div>
-<div id="divChildCovered_@Model.SelectedQuote" style="display:none">
+@*<div id="divChildCovered_@Model.SelectedQuote" style="display:none">
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
@@ -412,7 +394,7 @@
     </div>
     <div class="clearfix"></div>
 
-</div>
+</div>*@
 <div id="divChilddetails_@Model.SelectedQuote" style="display:none;">
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -496,7 +478,7 @@
 <div class="clearfix"></div>
 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group" id="WPSignature_@Model.SelectedQuote" style="display:none;">
     @if (!string.IsNullOrEmpty(Model.QuoteWPProposerSignPath))
-            {
+    {
         <label>
             @Html.ActionLink("WP Proposer Signature", "DownloadPolicyDocument", "Utility", new { FilePath = Model.QuoteWPProposerSignPath }, new { target = "_blank" })
         </label>
@@ -2686,7 +2668,10 @@
                         $('#divBasicSum_' + index).html("<input type='text' id='txtBasicSumInsured_" + index + "' class='form-control' maxlength='12'name='objListQuote[" + index + "].objProductDetials.BasicSumInsured'/>");
                         $('#ddlSAM' + index).val("");
                         $('#divSAM_' + index).hide();
-                        
+                        if (IsModifyQuote == "True") {
+                            $('#ddlBasicSumInsured' + index).val(_BasicSumInsured);
+
+                        }
                     }
 
                     if (planCode == "PPH"||planCode == "EPB") {
