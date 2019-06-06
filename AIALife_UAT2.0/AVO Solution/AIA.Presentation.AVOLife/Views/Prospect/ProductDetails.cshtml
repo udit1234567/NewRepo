@@ -268,7 +268,7 @@
 @*(@Resources.GetLabelName("LKR"))*@
 @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
     <div class="form-group">
-        <label>@Resources.GetLabelName("Annualize Premium")</label>
+        <label>@Resources.GetLabelName("Annualize Premium") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
         @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium, new { @class = "form-control", @id = "txtAnnualizePremium" + Model.SelectedQuote + "", @readonly = "readonly", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium)
     </div>
 </div>*@
@@ -2668,7 +2668,10 @@
                         $('#divBasicSum_' + index).html("<input type='text' id='txtBasicSumInsured_" + index + "' class='form-control' maxlength='12'name='objListQuote[" + index + "].objProductDetials.BasicSumInsured'/>");
                         $('#ddlSAM' + index).val("");
                         $('#divSAM_' + index).hide();
+                        if (IsModifyQuote == "True") {
+                            $('#ddlBasicSumInsured' + index).val(_BasicSumInsured);
 
+                        }
                     }
 
                     if (planCode == "PPH"||planCode == "EPB") {
