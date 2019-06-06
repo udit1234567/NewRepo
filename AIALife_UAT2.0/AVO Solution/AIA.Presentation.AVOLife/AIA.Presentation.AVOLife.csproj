@@ -528,7 +528,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2583,19 +2582,6 @@
     <Content Include="signatureimage\signatureQL-BBB-17-000000030-01.png" />
     <Content Include="signatureimage\signatureQL-BBB-17-000000035-01.png" />
     <Content Include="signatureimage\signatureQL-BBB-17-000000036-01.png" />
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr100.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr100.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2965,7 +2951,9 @@
     <EmbeddedResource Include="Reports\QuotationforEducationplan%28Tamil%29.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforEducationplan.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforHealthprotector.rdlc" />
-    <EmbeddedResource Include="Reports\QuotationforLiveLife.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforLiveLife.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\QuotationforPriorityvalue.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforSmartBuilder.rdlc">
       <SubType>Designer</SubType>
