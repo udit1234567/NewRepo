@@ -130,7 +130,7 @@
                             </div>
 
                             <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
-                                <label class="col-lg-5 col-sm-5 control-label">@Resources.GetLabelName("Payable Amount") (LKR):<span class="mandatory"> *</span></label>
+                                <label class="col-lg-5 col-sm-5 control-label">@Resources.GetLabelName("Payable Amount") (Dh):<span class="mandatory"> *</span></label>
                                 <div class="col-lg-7 col-sm-7">
                                     @Html.ReadCurrencyTextBoxFor(a => a.PayableAmount, new { @readonly = "readonly", @class = "form-control", @id = "txtPayableAmount" }, Model.PayableAmount)
                                 </div>
@@ -240,7 +240,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divOfflineField2" style="display:none">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-group">
-                                    <label class="paylabel">@Resources.GetLabelName("Amount") (LKR)<span class="mandatory">*</span></label>
+                                    <label class="paylabel">@Resources.GetLabelName("Amount") (Dh)<span class="mandatory">*</span></label>
                                     @Html.CurrencyTextBoxFor(a => a.CheqAmount, new { @class = "form-control", @id = "txtCheqAmount", @onkeypress = "return isNumberKey(event)", @onchange = "f1(id)", @pattern = "[0-9]*" }, Model.CheqAmount)
                                 </div>
                             </div>

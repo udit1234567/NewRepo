@@ -978,6 +978,14 @@ namespace AIA.Presentation.AVOLife.Controllers
                                 RenderReports(bytes, QuoteNo);
                             }
                             break;
+
+                        case "LLP":
+                            {
+
+                                byte[] bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforEasypension.rdlc");
+                                RenderReports(bytes, QuoteNo);
+                            }
+                            break;
                         case "PPH":
                         case "PSP":
                             {
