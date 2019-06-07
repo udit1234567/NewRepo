@@ -250,12 +250,24 @@
     </div>
 </div>
 
+<div id="divIPP_@Model.SelectedQuote" style="display:none">
+
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("IPP")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.MonthlySurvivorIncome, new { @class = "form-control", @maxLength = 3, @id = "txtIPP" + Model.SelectedQuote, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+        </div>
+
+    </div>
+</div>
 
 
-<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+
+<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divBasicSumLabel_@Model.SelectedQuote">
     <div class="form-group">
         <label>@Resources.GetLabelName("Basic Sum Insured") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
         <div id="divBasicSum_@Model.SelectedQuote">
+            
             @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.BasicSumInsured, new SelectList(Model.objListQuote[Model.SelectedQuote].lstSumInsured, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlBasicSumInsured" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")" })
         </div>
     </div>
@@ -319,19 +331,22 @@
                     @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseName, new
                {
                    @id = "txtSpouseName_" + Model.SelectedQuote,
-                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@ @maxlength = 60,
-                   @readonly = "readonly", @onkeypress = "return AlphabetsWithSpacecommaandslash(event)", @onkeyup = "return AlphabetsWithSpace(event)"
-               })
+                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@@maxlength = 60,
+                @readonly = "readonly",
+                @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",
+                @onkeyup = "return AlphabetsWithSpace(event)"
+            })
                 }
                 else
                 {
                     @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseName, new
                {
                    @id = "txtSpouseName_" + Model.SelectedQuote,
-                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@ @maxlength = 60,
-                   @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",@onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")",
-                   @onkeyup = "return AlphabetsWithSpace(event)"
-               })
+                   @class = "form-control", @*@onchange = "FetchDOBGenderfromNICForSpouse('txtSpouseNic_" + Model.SelectedQuote + "','dtSpouseCoveredDOB_" + Model.SelectedQuote + "','txtSpouseCoveredAge_" + Model.SelectedQuote + "'," + Model.SelectedQuote + ")",*@@maxlength = 60,
+                @onkeypress = "return AlphabetsWithSpacecommaandslash(event)",
+                @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")",
+                @onkeyup = "return AlphabetsWithSpace(event)"
+            })
                 }
             }
         </div>
@@ -347,7 +362,7 @@
            @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",
            @onkeyup = "return isAlphaNumberKeyback(event)"
        })
-            
+
 
 
         </div>
@@ -389,11 +404,20 @@
             <label>@Resources.GetLabelName("Occupation")</label>
             @*@Html.DropDownListFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new SelectList(Model.objListQuote[Model.SelectedQuote].lstOccupation, "Value", "Text", Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation != null ? Model.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation : ""), "Select", new { @class = "form-control ui-autocomplete-input blank-field-hightlight", @id = "ddlSpouseOccupation" + Model.SelectedQuote, @onblur = "validateDropDown('ddlGender','Please Select Gender')", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })*@
             @*@Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation" })*@
-            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation"+ Model.SelectedQuote, @onchange= "ClearBenifitDetails(" + Model.SelectedQuote + ")" })
+            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.Occupation, new { @class = "form-control", @id = "ddlSpouseOccupation" + Model.SelectedQuote, @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" })
         </div>
     </div>
 
-
+    @*Added by Udit*@
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label style="font-size:16px">@Resources.GetLabelName("Do You Smoke?")</label>
+            <div>
+                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSelfPay, true, new { @id = "IsSelfPay" + Model.SelectedQuote, @class = "", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
+                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSelfPay, false, new { @id = "IsSelfPay" + Model.SelectedQuote, @class = "", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
+            </div>
+        </div>
+    </div>
 
 
 </div>
@@ -2258,6 +2282,7 @@
                     $('#ddlSpouseGender'+index).prop('disabled',true);
                     $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
                     var planCode = $("#txtPlanCode_" + index + "").val();
+                   
                     if (planCode == "HPA") {
                         $('#divAPCP_' + index).show();
                         $('#hdntxtAPCP' + index).val(data.objProductDetials.APCP);
@@ -2281,7 +2306,10 @@
                     $('#DivDynamicInfo_' + index).html("");
                     $('#DivDynamicInfo_' + index).html(data.STRBenefitHtml);
                     $('#BenifitOvervieModelbody_' + index).html(data.STRHtml);
-                    $('#divIllustration_' + index).html(data.STRPremiumHtml);
+                    if (planCode != "LLP") 
+                        {
+                            $('#divIllustration_' + index).html(data.STRPremiumHtml);
+                        }
                     $("#DivPremiumSection_" + index).show();
                     $('#divIllustration_' + index).show();
                     $('#divCalMod_' + index).show();
@@ -2507,17 +2535,19 @@
     function GetPlanCode(index, IsModifyQuote) {
         var Variant = $("#ddlVariant_" + index).val();
         if (Variant != '') {
+           
             $.post("../Policy/GetPlanCode?plan=" + Variant)
 
             .done(function (data) {
                 if (data != null) {
                     var planCode = data.ObjLifeQuote.objProductDetials.PlanCode;
+                    debugger;
                     $("#txtPlanCode_" + index + "").val(planCode);
 
 
                     if (planCode == 'PPG' || planCode == 'SBE' || planCode == 'SBF' ||
-                    planCode == 'PPH' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD' ||
-                    planCode == 'SBG' || planCode == 'SBH'|| planCode == 'LLP') {
+                            planCode == 'PPH' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD' ||
+                        planCode == 'SBG' || planCode == 'SBH' || planCode == 'LLP' || planCode == 'JLF' || planCode == 'SLP' || planCode == 'JLB') {
                         $("#divPolicyTerm_" + index).html("");
                         $('#divPolicyTerm_' + index).html("<select class='form-control' id='ddlPolicyTerm_" + index + "' name='objListQuote[" + index + "].objProductDetials.PolicyTerm' onchange='GetPremiumTerm(" + index + ")'></select>");
                         $("#ddlPolicyTerm_" + index).append("<option value=\'\'>Select</option>");
@@ -2554,7 +2584,7 @@
 
 
                     if (planCode == 'PPG' || planCode == 'HPA'
-                        || planCode == 'PPH' || planCode == 'EPB'|| planCode == 'LLP') {
+                        || planCode == 'PPH' || planCode == 'EPB' || planCode == 'LLP' || planCode == 'SLP' || planCode == 'JLF' || planCode == 'JLB') {
                         $("#divPremiumTerm_" + index + "").html("");
                         $("#divPremiumTerm_" + index + "").html("<input class='form-control valid' id='TxtPremiumTerm_" + index + "' name='objListQuote[" + index + "].objProductDetials.PremiumTerm' value='' aria-invalid='false' type='text'  , onkeypress = 'return isNumberKey(event)', onkeyup ='return isNumberTabkey(event)'>");
                         if (IsModifyQuote == "True") {
@@ -2573,6 +2603,27 @@
                     if (planCode == 'EPB') {
                         $('#divChkBoxHealthProtector_' + index + '').hide();
                     }
+
+                    //added by Udit for making visible for Future Protect
+                    if (planCode == 'SLP' || planCode == 'JLF' || planCode == 'JLB') {
+
+                        $('#divAnnualizePremium_' + index).show();
+                        $('#txtAnnualizePremium' + index).attr("readonly", false);
+                        $('#divPensionPeriod_' + index + '').show();
+                        $("#ddlPensionPeriod_" + index + "").val(_PensionPeriod);
+                        $('#divSAM_' + index).hide();
+                        $('#divBasicSumLabel_' + index).hide();
+                        if (planCode != 'SLP')
+                            $('#divSpouseCovered_' + index).show();
+                        $('#divIPP_' + index).show();
+
+
+                    }
+
+                    else { $('#divIPP_' + index).hide();}
+
+
+
                     if (planCode == 'PPH') {
 
                         $('#divPensionPeriod_' + index + '').show();
@@ -2615,17 +2666,21 @@
                         }
                     }
                     if (planCode == 'SBE' || planCode == 'SBF' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD') {
-
+                        
                         $("#divMaturityBenifit_" + index + "").show();
                         if (IsModifyQuote == "True") {
                             $("#ddlLstdMaturityBenefit" + index + "").val(_MaturityBenefit);
                         }
                     }
-                    if (planCode == 'SBG' || planCode == 'SBH' || planCode == 'PPH' || planCode == 'PSP' || planCode == 'PPG' || planCode == 'HPA' || planCode == 'EPB'|| planCode == 'LLP') {
+                    if (planCode == 'SBG' || planCode == 'SBH' || planCode == 'PPH' || planCode == 'PSP' || planCode == 'PPG' || planCode == 'HPA' || planCode == 'EPB' || planCode == 'LLP') {
+                        
                         $("#divMaturityBenifit_" + index + "").hide();
                     }
 
+                    
+
                     if (planCode == 'PPH' || planCode == 'PSP') {
+                        debugger;
                         $('#divRetairemetAge_' + index + '').show();
                         $('#divMonthlyIncome_' + index + '').show();
                         $('#divChkBoxHealthProtector_' + index + '').show();
@@ -2640,7 +2695,6 @@
                             GetPolicyTermSmartPension(index,_RetirementAge);
 
                         }
-
                     }
                     if (planCode == 'HPA') {
                         $('#divSelfPay_' + index + '').show();
@@ -2658,8 +2712,6 @@
                             $("#chkDeductable" + index + "").val(_Deductable);
 
                         }
-
-
                     }
                     if (planCode == 'PPH' || planCode == 'HPA' || planCode == 'EPB') {
 
@@ -2669,7 +2721,6 @@
                             //$("#IsSpouseCovered" + index + "").val(_IsSpouseCovered);
                             //$("#IsChildCovered" + index + "").val(_IsChildCovered);
                         }
-
                     }
                     if (planCode == 'SBE' || planCode == 'SBF' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD' || planCode == 'PPG' || planCode == 'SBG' || planCode == 'SBH'|| planCode == 'LLP') {
                         $('#divSpouseCovered_' + index + '').hide();

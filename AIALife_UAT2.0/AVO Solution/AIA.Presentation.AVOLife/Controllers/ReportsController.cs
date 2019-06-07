@@ -978,6 +978,14 @@ namespace AIA.Presentation.AVOLife.Controllers
                                 RenderReports(bytes, QuoteNo);
                             }
                             break;
+
+                        case "LLP":
+                            {
+
+                                byte[] bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforEasypension.rdlc");
+                                RenderReports(bytes, QuoteNo);
+                            }
+                            break;
                         case "PPH":
                         case "PSP":
                             {
@@ -1276,7 +1284,13 @@ namespace AIA.Presentation.AVOLife.Controllers
                                     bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforEasypension.rdlc");
                                 }
                                 break;
-                            case "PSP":
+                        case "LLP":
+                            {
+
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforEasypension.rdlc");
+                            }
+                            break;
+                        case "PSP":
                             case "PPH":
                                 {
                                     bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforSmartpensions.rdlc");
