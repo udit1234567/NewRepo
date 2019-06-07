@@ -7,11 +7,11 @@
 {
     columns.Add(a => a.NameOfTheComp).Titled("Name Of The Insured Comapany").Encoded(false).Sanitized(false);
     columns.Add(a => a.PolicyNumber).Titled("Policy/Proposal Number").Encoded(false).Sanitized(false).Filterable(true);
-    columns.Add(a => a.SumAssured).Titled("Sum Assured").Encoded(false).Sanitized(false).Filterable(true);
-    columns.Add(a => a.AnnualPremium).Titled("Annual Premium").Encoded(false).Sanitized(false).Filterable(true); 
-    columns.Add(a => a.Deathbenifit).Titled("Accidental Death Benefit").Encoded(false).Sanitized(false).Filterable(true);
-    columns.Add(a => a.IllNessBenifit).Titled("Critical Illness Benefit").Encoded(false).Sanitized(false).Filterable(true);
-    columns.Add(a => a.PermanentDisability).Titled("Total Permanent Disability/Waiver Of Premium").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.SumAssured).Titled("Sum Assured(Dh)").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.AnnualPremium).Titled("Annual Premium(Dh)").Encoded(false).Sanitized(false).Filterable(true); 
+    columns.Add(a => a.Deathbenifit).Titled("Accidental Death Benefit(Dh)").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.IllNessBenifit).Titled("Critical Illness Benefit(Dh)").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.PermanentDisability).Titled("Total Permanent Disability/Waiver Of Premium(Dh)").Encoded(false).Sanitized(false).Filterable(true);
    // columns.Add(a => a.HospitalizationPerDay).Titled("Hospitalization Daily Benefits").Encoded(false).Sanitized(false).Filterable(true);
     columns.Add(a => a.status).Titled("Status").Encoded(false).Sanitized(false).Filterable(true);
 }).Selectable(false).WithMultipleFilters()
