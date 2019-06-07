@@ -1049,7 +1049,7 @@ namespace AIA.Presentation.AVOLife.Controllers
             return (byte[])converter.ConvertTo(img, typeof(byte[]));
         }
 
-        [HttpPost]
+
         public ActionResult SaveProposal(AIA.Life.Models.Policy.Policy objPolicy)
         {
             try
@@ -1774,6 +1774,7 @@ namespace AIA.Presentation.AVOLife.Controllers
         {
             try
             {
+                
                 // Html = RenderPartialViewToString("~/Views/Policy/PartialIllustration.cshtml", grid);
                 if (string.IsNullOrEmpty(viewName))
                     viewName = ControllerContext.RouteData.GetRequiredString("action");
