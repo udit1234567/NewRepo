@@ -1287,7 +1287,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                         case "LLP":
                             {
 
-                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforEasypension.rdlc");
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforLiveLife.rdlc");
                             }
                             break;
                         case "PSP":

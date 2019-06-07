@@ -83,7 +83,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
         <label>@Resources.GetLabelName("Nationality")<span class="mandatory">*</span></label>
-        @Html.DropDownListFor(m => m.objFillMemberDetials.Nationality, new SelectList(Model.Nationalities, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlMemberNationality", @onchange = "MemberNationalityFunction();" })
+        @Html.DropDownListFor(m => m.objFillMemberDetials.Nationality, new SelectList(Model.Nationalities, "Value", "Text", "UAE"), "Select", new { @class = "form-control", @id = "ddlMemberNationality", @onchange = "MemberNationalityFunction();" })
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" style="display:none" id="divFillMember">
         <label>@Resources.GetLabelName("Specify Nationality")<span class="mandatory">*</span></label>
@@ -96,7 +96,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
         <label>@Resources.GetLabelName("Country of Residence")<span class="mandatory">*</span></label>
-        @Html.DropDownListFor(m => m.objFillMemberDetials.ResidentialStatus, new SelectList(Model.LstResidentialStatus, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlFillMemberResidentialStatus", @onchange = "FillMemberResidentialStatusFunction();" })
+        @Html.DropDownListFor(m => m.objFillMemberDetials.ResidentialStatus, new SelectList(Model.LstResidentialStatus, "Value", "Text","UAE"), "Select", new { @class = "form-control", @id = "ddlFillMemberResidentialStatus", @onchange = "FillMemberResidentialStatusFunction();" })
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divFillMemberResidentialStatus" style="display:none">
         <label>@Resources.GetLabelName("Specify Residential")<span class="mandatory">*</span></label>
@@ -105,7 +105,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
         <label>@Resources.GetLabelName("Age Proof")<span class="mandatory">*</span></label>
-        @Html.DropDownListFor(m => m.objFillMemberDetials.DrivingLicense, new SelectList(Model.LstAgeProof, "Value", "Text"), "Select", new { @class = "form-control", @id = "txtFillMemberDrivingLicense" })
+        @Html.DropDownListFor(m => m.objFillMemberDetials.DrivingLicense, new SelectList(Model.LstAgeProof, "Value", "Text","UAE"), "Select", new { @class = "form-control", @id = "txtFillMemberDrivingLicense" })
         @*@Html.TextBoxFor(a => a.objFillMemberDetials.DrivingLicense, new SelectList(Model.LstAgeProof, "Value", "Text"), "Select", new { id = "txtFillMemberDrivingLicense", @class = "form-control", @maxlength = "16" })*@
     </div>
 
@@ -127,7 +127,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivMemberCountryofOccupation">
         <label>@Resources.GetLabelName("Country of Occupation")<span class="mandatory">*</span></label>
-        @Html.DropDownListFor(m => m.objFillMemberDetials.CountryofOccupation, new SelectList(Model.LstFillMemberCountryofOccupation, "Value", "Text", Model.objFillMemberDetials.CountryofOccupation), "Select", new { @class = "form-control", @id = "ddlFillMemberCountryofOccupation" })
+        @Html.DropDownListFor(m => m.objFillMemberDetials.CountryofOccupation, new SelectList(Model.LstFillMemberCountryofOccupation, "Value", "Text", "UAE"), "Select", new { @class = "form-control", @id = "ddlFillMemberCountryofOccupation" })
     </div>
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">

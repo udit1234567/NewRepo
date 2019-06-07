@@ -262,3 +262,5 @@ __pycache__/
 /AIALife_UAT2.0/AVO Solution/AIA.Life.Data.API/Properties/PublishProfiles
 /AIALife_UAT2.0/AVO Solution/AIA.Presentation.AVOLife/Properties/PublishProfiles
 *.json
+/AIALife_UAT2.0/AVO Solution/AIA.Presentation.AVOLife/Reports/QuotationforEasypension - Backup.rdlc
+/AIALife_UAT2.0/AVO Solution/AIA.Presentation.AVOLife/SqlServerTypes

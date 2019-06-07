@@ -107,7 +107,8 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divNationality">
         <label>@Resources.GetLabelName("Nationality")<span class="mandatory" id="Nationalitymandatory">*</span></label>
-        @Html.DropDownListFor(m => m.objProspectDetails.Nationality, new SelectList(Model.Nationalities, "Value", "Text",1), "Select", new { @class = "form-control", @id = "ddlNationality", @onchange = "NationalityFunction();" })
+        @Html.DropDownListFor(m => m.objFillMemberDetials.Nationality, new SelectList(Model.Nationalities, "Value", "Text", "UAE"), "Select", new { @class = "form-control", @id = "ddlNationality", @onchange = "NationalityFunction();" })
+       
     </div>
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divNationalityStatus" style="display:none">
@@ -127,7 +128,9 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divResidentialNationalityStatus">
         <label>@Resources.GetLabelName("Country of Residence")<span class="mandatory">*</span></label>
-        @Html.DropDownListFor(m => m.objProspectDetails.ResidentialStatus, new SelectList(Model.LstResidentialStatus, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlResidentialStatus", @onchange = "ResidentialStatusFunction();" })
+        @*@Html.DropDownListFor(m => m.objProspectDetails.ResidentialStatus, new SelectList(Model.LstResidentialStatus, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlResidentialStatus", @onchange = "ResidentialStatusFunction();" })*@
+        @Html.DropDownListFor(m => m.objFillMemberDetials.ResidentialStatus, new SelectList(Model.LstResidentialStatus, "Value", "Text","UAE"), "Select", new { @class = "form-control", @id = "ddlResidentialStatus", @onchange = "ResidentialStatusFunction();" })
+       
     </div>
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divResidentialStatus" style="display:none">
@@ -160,7 +163,8 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="DivCountryofOccupation">
         <label>@Resources.GetLabelName("Country of Occupation")<span class="mandatory">*</span></label>
-        @Html.DropDownListFor(m => m.objProspectDetails.CountryofOccupation, new SelectList(Model.LstFillMemberCountryofOccupation, "Value", "Text", Model.objProspectDetails.CountryofOccupation), "Select", new { @class = "form-control", @id = "ddlProposerCountryofOccupation" })
+        @*@Html.DropDownListFor(m => m.objProspectDetails.CountryofOccupation, new SelectList(Model.LstFillMemberCountryofOccupation, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlProposerCountryofOccupation" })*@
+        @Html.DropDownListFor(m => m.objFillMemberDetials.CountryofOccupation, new SelectList(Model.LstFillMemberCountryofOccupation, "Value", "Text", "UAE"), "Select", new { @class = "form-control", @id = "ddlProposerCountryofOccupation" })
     </div>
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group" id="divProposerCitizenShip">@*citizen-chk*@
