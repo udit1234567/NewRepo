@@ -2,6 +2,16 @@
 @using AIA.Presentation.Helpers
 @using AIAResources;
 @{
+    List<SelectListItem> CurrancyList = new List<SelectListItem>();
+    var data = new[]{
+         new SelectListItem{ Value="",Text="Select"},
+                 new SelectListItem{ Value="1",Text="USD"},
+                 new SelectListItem{ Value="2",Text="EUR"},
+                 new SelectListItem{ Value="3",Text="AED"},
+                 new SelectListItem{ Value="4",Text="GBP"},
+             };
+    CurrancyList = data.ToList(); 
+
     Layout = null;
 }
 <script src="~/Scripts/Common.js"></script>
@@ -104,7 +114,7 @@
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><img src="~/Content/Images/quote-9.png" style="width: 20px;" />@Resources.GetLabelName("Email Id")<span class="mandatory">*</label>
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "txtEmail", @maxlength = "50", @onblur = "validateEmailID('txtEmail','Please Enter Valid Email Id.')", @style = "text-transform:none",@onkeypress = " return isSpace(event)", @onkeyup = " return isSpace(event)" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "txtEmail", @maxlength = "50", @onblur = "validateEmailID('txtEmail','Please Enter Valid Email Id.')", @style = "text-transform:none", @onkeypress = " return isSpace(event)", @onkeyup = " return isSpace(event)" })
         </div>
     </div>
 
@@ -112,7 +122,7 @@
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label>@Resources.GetLabelName("Place")<span class="mandatory">*</span></label>
-            @Html.TextBoxFor(m => m.Place, new { @class = "form-control", @id = "txtPlace", @maxlength = "50",@onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)", @onkeypress= "return isAlphaNumberKeybackwithOutSymbol(event)" })
+            @Html.TextBoxFor(m => m.Place, new { @class = "form-control", @id = "txtPlace", @maxlength = "50", @onkeyup = "return isAlphaNumberKeybackwithOutSymbol(event)", @onkeypress = "return isAlphaNumberKeybackwithOutSymbol(event)" })
 
 
         </div>
@@ -165,13 +175,18 @@
         </div>
     </div>
 
-
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>Currency</label>
+            @Html.DropDownList("ddlcurrency", new SelectList(CurrancyList, "Value", "Text"), new { @class = "form-control", @id = "ddlcurrency" })
+        </div>
+    </div>
 
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label>@Resources.GetLabelName("Passport")</label>
-            @Html.TextBoxFor(m => m.PassPort, new { @class = "form-control", @id = "txtPassport", @maxlength = "16", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)",@onkeyup = "return isAlphaNumberKeyback(event)" })
+            @Html.TextBoxFor(m => m.PassPort, new { @class = "form-control", @id = "txtPassport", @maxlength = "16", @onkeypress = "return isAlphaNumberKeybackwithOutSymbolSpace(event)", @onkeyup = "return isAlphaNumberKeyback(event)" })
         </div>
     </div>
 
