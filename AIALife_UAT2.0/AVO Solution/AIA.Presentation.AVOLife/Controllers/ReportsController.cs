@@ -982,10 +982,18 @@ namespace AIA.Presentation.AVOLife.Controllers
                         case "LLP":
                             {
 
-                                byte[] bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforEasypension.rdlc");
+                                byte[] bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforLiveLife.rdlc");
                                 RenderReports(bytes, QuoteNo);
                             }
                             break;
+                        case "SLP":
+                            {
+
+                                byte[] bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
+                                RenderReports(bytes, QuoteNo);
+                            }
+                            break;
+
                         case "PPH":
                         case "PSP":
                             {
@@ -1290,6 +1298,17 @@ namespace AIA.Presentation.AVOLife.Controllers
                                 bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforLiveLife.rdlc");
                             }
                             break;
+                      
+
+
+                        case "JLF":
+                        case "JLB":
+                        case "SLP":
+                            {
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
+                             
+                            }
+                            break;
                         case "PSP":
                             case "PPH":
                                 {
@@ -1341,7 +1360,24 @@ namespace AIA.Presentation.AVOLife.Controllers
                     {
                         switch (ProductCode)
                         {
-                            case "PPG":
+
+                        case "LLP":
+                            {
+
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforLiveLife.rdlc");
+                            }
+                            break;
+
+                        case "JLF":
+                        case "JLB":
+                        case "SLP":
+                            {
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
+
+                            }
+                            break;
+
+                        case "PPG":
                                 {
                                     bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/EasypensionquotationinTamil.rdlc");
                                 }
@@ -1398,7 +1434,22 @@ namespace AIA.Presentation.AVOLife.Controllers
 
                         switch (ProductCode)
                         {
-                            case "PPG":
+                        case "LLP":
+                            {
+
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforLiveLife.rdlc");
+                            }
+                            break;
+
+                        case "JLF":
+                        case "JLB":
+                        case "SLP":
+                            {
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
+
+                            }
+                            break;
+                        case "PPG":
                                 {
                                     bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/EasypensionquotationinSinhala.rdlc");
                                 }
