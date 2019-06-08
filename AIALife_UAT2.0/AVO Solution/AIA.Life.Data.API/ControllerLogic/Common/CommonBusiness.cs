@@ -1209,7 +1209,8 @@ namespace AIA.Life.Data.API.ControllerLogic.Common
                 lstOccupation = (from occupation in Context.tblMasLifeOccupations
                                  select new MasterListItem
                                  {
-                                     Text = string.Concat(occupation.OccupationCode, "|", occupation.SinhalaDesc, "|", occupation.TamilDesc),
+                                     // Text = string.Concat(occupation.OccupationCode, "|", occupation.SinhalaDesc, "|", occupation.TamilDesc),
+                                     Text = occupation.OccupationCode,
                                      Value = occupation.CompanyCode
                                  }).OrderBy(a => a.Text).ToList();
             else
@@ -1217,7 +1218,7 @@ namespace AIA.Life.Data.API.ControllerLogic.Common
                                  where occupation.OccupationCode.StartsWith(Prefix) || occupation.TanglishDesc.StartsWith(Prefix) || occupation.SinglishDesc.StartsWith(Prefix)
                                  select new MasterListItem
                                  {
-                                     Text = string.Concat(occupation.OccupationCode, "|", occupation.SinhalaDesc, "|", occupation.TamilDesc),
+                                     Text = occupation.OccupationCode,
                                      Value = occupation.CompanyCode
                                  }).OrderBy(a => a.Text).ToList();
             return lstOccupation;
