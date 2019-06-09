@@ -166,7 +166,7 @@
                     <label>@Resources.GetLabelName("Medical Fee Paid by")</label>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1">
-                    @(Html.RadioButtonFor(a => a.objMemberDetails[Index].ObjUwDecision.MedicalFeePaidBy, MedicalFeePaidBy.PaidByAIA, new { @id = "MedicalFeePaidByAIA" + Index }))@Resources.GetLabelName("By AIA")
+                    @(Html.RadioButtonFor(a => a.objMemberDetails[Index].ObjUwDecision.MedicalFeePaidBy, MedicalFeePaidBy.PaidByAIA, new { @id = "MedicalFeePaidByAIA" + Index }))@Resources.GetLabelName("By Metlife")
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2">
                     @(Html.RadioButtonFor(a => a.objMemberDetails[Index].ObjUwDecision.MedicalFeePaidBy, MedicalFeePaidBy.PaidByCustomer, new { @id = "MedicalFeePaidByCustomer" + Index }))@Resources.GetLabelName("By Customer")
@@ -556,7 +556,7 @@
             enableCaseInsensitiveFiltering: true,
             filterPlaceholder: 'Search for something...',
             onChange: function (option, checked) {
-                debugger;
+                
                 // Get selected options.
                 var selectedOptions = $('.multiselect-ui_@Index option:selected');
                 var ln = $('#dates-field2').children('option').length;

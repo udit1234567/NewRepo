@@ -8,7 +8,7 @@
 }*@
 
 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 iGrid form-group">
-    <input class="btn btn-default" id="btnPolicySchedulePDF" type="button" onclick="TestPolicy()" value="Download Policy Schedule PDF">
+    @*<input class="btn btn-default" id="btnPolicySchedulePDF" type="button" onclick="TestPolicy()" value="Download Policy Schedule PDF">*@
 </div>
 <div class="clearfix"></div>
 
@@ -49,7 +49,7 @@
         $('#gridproposalpayment').find('.grid-scroll').addClass('col-lg-12');
     })
     function TestPolicy() {
-        debugger;
+        
     var checkboxcount = $('#gridproposalpayment').find('input[type=checkbox]:checked').length;
     if (checkboxcount > 0) {
         var ProductCode="";
