@@ -1484,6 +1484,7 @@
     <Content Include="Images\calculator.png" />
     <Content Include="Images\Car-1.png" />
     <Content Include="Images\car.png" />
+    <Content Include="Images\checked1.png" />
     <Content Include="Images\chin-1.png" />
     <Content Include="Images\chin-2.png" />
     <Content Include="Images\ChoiceChinnappa.jpg" />
@@ -1550,6 +1551,7 @@
     <Content Include="Images\Up-Black.png" />
     <Content Include="Images\Up-Blue.png" />
     <Content Include="Images\Up-Red.png" />
+    <Content Include="Images\warning1.png" />
     <Content Include="Policy\ContactID_103\Spousesignature.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\AgentonBoarding\AgentonBoardingScripts.js" />

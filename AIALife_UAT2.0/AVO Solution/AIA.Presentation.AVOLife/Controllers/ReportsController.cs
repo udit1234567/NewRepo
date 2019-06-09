@@ -986,6 +986,8 @@ namespace AIA.Presentation.AVOLife.Controllers
                                 RenderReports(bytes, QuoteNo);
                             }
                             break;
+                        case "JLF":
+                        case "JLB":
                         case "SLP":
                             {
 
@@ -1304,6 +1306,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                         case "JLF":
                         case "JLB":
                         case "SLP":
+                        case "FLP":
                             {
                                 bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
                              
@@ -1371,6 +1374,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                         case "JLF":
                         case "JLB":
                         case "SLP":
+                        case "FLP":
                             {
                                 bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
 
@@ -1444,6 +1448,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                         case "JLF":
                         case "JLB":
                         case "SLP":
+                        case "FLP":
                             {
                                 bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
 
