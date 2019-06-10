@@ -469,7 +469,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group payablebtn-space" id="DivPremiumSection_@Model.SelectedQuote" style="display:none;">
     <div class="col-md-6 col-sm-4 col-xs-12 col-lg-4 fna-final-count">
         <label class="fna-final-text">
-            @Resources.GetLabelName("TOTAL PREMIUM") (Dh)
+            @Resources.GetLabelName("TOTAL PREMIUM")
         </label>
         @(Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].AnnualPremium, new { id = "txtAnnualPremium" + Model.SelectedQuote, @class = "form-control", @readonly = "readonly", @style = "width:100%;text-align: center;font-size: xx-large;font-weight: bold;height: 10%;background-color: #e1e1e1;border-color: #E1E1E1;" }, Model.objListQuote[Model.SelectedQuote].AnnualPremium))
 
