@@ -29,6 +29,19 @@ namespace AIA.Life.Integration.Services.EmailandSMS
                 string FilePath = string.Empty;
                 FilePath = Convert.ToString(ConfigurationManager.AppSettings["EmailTempleteImage"]);
 
+                var credential = new NetworkCredential
+                {
+                    UserName = ConfigurationManager.AppSettings["LocalfromEmailAddress"],
+                    Password = ConfigurationManager.AppSettings["LOcalEmailPassword"]
+                };
+
+                objClient.Credentials = credential;
+                objClient.Host = ConfigurationManager.AppSettings["SmtpHost"];
+                objClient.Port = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
+                objClient.EnableSsl = true;
+
+                message.From = new MailAddress(ConfigurationManager.AppSettings["LocalfromEmailAddress"]);
+
                 message.To.Add(emailObj.EmailID);
 
 

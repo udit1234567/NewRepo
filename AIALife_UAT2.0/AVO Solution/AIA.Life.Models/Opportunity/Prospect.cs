@@ -39,6 +39,8 @@ namespace AIA.Life.Models.Opportunity
             LstMaturityBenefits = new List<MasterListItem>();
             Error = new Error();
             objPreviousInsuranceList = new List<Opportunity.PreviousInsuranceList>();
+
+            
         }
         public string WPName { get; set; }
         public string WPCode { get; set; }
@@ -86,6 +88,7 @@ namespace AIA.Life.Models.Opportunity
         public int? CurrentAge { get; set; }
         public DateTime? DateofBirth { get; set; }
         public string Occupation { get; set; }
+       
         
         public string Nationality { get; set; }
         public string EmployerName { get; set; }
@@ -93,6 +96,8 @@ namespace AIA.Life.Models.Opportunity
         public bool BMI_Exceed { get; set; }
         public bool NICAVAIL { get; set; }
         public string Gender { get; set; }
+        //Added by Udit for Smoke Radio button on Create Quotation Page
+        public bool IsSmoke { get; set; }
         public string MaritalStatus { get; set; }
         public string DisplayMaritalStatus { get; set; }
         public string AvgMonthlyIncome { get; set; }
@@ -103,6 +108,8 @@ namespace AIA.Life.Models.Opportunity
         public NeedAnalysis.NeedAnalysis objNeedAnalysis { get; set; }
         public List<NeedAnalysis.FutureFinancial> objFutureFinancial { get; set; }  
         public string Upload { get; set; }
+
+        public string Currency { get; set; }
 
         public string Signature { get; set; }
         public string NotePad { get; set; }

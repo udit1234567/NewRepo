@@ -179,10 +179,12 @@
         @*Added by Udit*@
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group">
-                <label style="font-size:16px">@Resources.GetLabelName("Do You Smoke?")</label>
+                <label>@Resources.GetLabelName("Do You Smoke?")</label>
                 <div>
-                    @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSpouseCovered, true, new { @id = "IsSpouseCovered" + Model.SelectedQuote, @class = "", @onclick = "ShowSpouseChildDetails('" + "divSpousedetails_" + Model.SelectedQuote + "'),FetchDobOfSpouse(" + Model.SelectedQuote + ")", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
-                    @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSpouseCovered, false, new { @id = "IsSpouseCovered" + Model.SelectedQuote, @class = "", @onclick = "HideSpouseChildDetails('" + "divSpousedetails_" + Model.SelectedQuote + "')", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
+                    @(Html.RadioButtonFor(m => m.objProspect.IsSmoke, true, new { @class = "med-radio-button", @id = "IsSmokeCovered", value = "1" }))
+                    <label>@Resources.GetLabelName("Yes")</label>
+                    @(Html.RadioButtonFor(m => m.objProspect.IsSmoke, false, new { @class = "med-radio-button", @id = "IsSmokeCovered", value = "0" }))
+                    <label>@Resources.GetLabelName("No")</label>
                 </div>
             </div>
         </div>

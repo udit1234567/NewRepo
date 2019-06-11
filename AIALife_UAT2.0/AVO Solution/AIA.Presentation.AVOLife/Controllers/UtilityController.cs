@@ -221,6 +221,11 @@ namespace AIA.Presentation.AVOLife.Controllers
         {
             try
             {
+                string StrWriteException = string.Empty;
+                List<DocumentUploadFile> LstDocumentUpload = new List<DocumentUploadFile>();
+                string JsonData = JsonConvert.SerializeObject(LstDocumentUpload);
+                var objRes = new { DocData = JsonData, StrWriteException = StrWriteException };
+                return Json(objRes, JsonRequestBehavior.AllowGet);
                 AVOAIALifeEntities Context = new AVOAIALifeEntities();
                 //string objLstDoc = "";
                 string DepartmentCode = "", AgentCode = "", DocumentCode = "";
@@ -233,13 +238,13 @@ namespace AIA.Presentation.AVOLife.Controllers
                 AgentCode = Context.tblMasIMOUsers.Where(a => a.UserID == UserName).Select(a => a.AgentCode).FirstOrDefault();
 
                 //DepartmentCode = GetMaritialStatus();
-                List<DocumentUploadFile> LstDocumentUpload = new List<DocumentUploadFile>();
+               // List<DocumentUploadFile> LstDocumentUpload = new List<DocumentUploadFile>();
                 List<DocumentUploadFile> RequestDoc = new List<DocumentUploadFile>();
                 string FileName = "";
                 Newtonsoft.Json.JsonSerializerSettings settings = new Newtonsoft.Json.JsonSerializerSettings();
                 RequestDoc = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DocumentUploadFile>>(objLstDoc, settings);
                 byte[] fileData = null;
-                string StrWriteException = string.Empty;
+               
                 string directryPath = ConfigurationManager.AppSettings["FileUpload"] + "\\" + AgentCode + "\\" + ProposalNo;
                 string _DepartmentCode = Convert.ToString(DepartmentCode);
                 string _AgentCode = Convert.ToString(AgentCode);
@@ -375,8 +380,8 @@ namespace AIA.Presentation.AVOLife.Controllers
                     objUpload.FileData = null;
                 }
 
-                string JsonData = JsonConvert.SerializeObject(LstDocumentUpload);
-                var objRes = new { DocData = JsonData, StrWriteException = StrWriteException };
+               // string JsonData = JsonConvert.SerializeObject(LstDocumentUpload);
+               // var objRes = new { DocData = JsonData, StrWriteException = StrWriteException };
                 return Json(objRes, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

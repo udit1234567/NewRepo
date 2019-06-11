@@ -277,12 +277,12 @@
 </div>*@
 
 @*(@Resources.GetLabelName("LKR"))*@
-@*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
+<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
     <div class="form-group">
-        <label>@Resources.GetLabelName("Annualize Premium") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
+        <label>@Resources.GetLabelName("Annualize Premium") @*(@Resources.GetLabelName(""))*@<span class="mandatory">*</span></label>
         @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium, new { @class = "form-control", @id = "txtAnnualizePremium" + Model.SelectedQuote + "", @readonly = "readonly", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium)
     </div>
-</div>*@
+</div>
 
 <div class="clearfix"></div>
 <div id="divSpouseCovered_@Model.SelectedQuote" style="display:none">
@@ -331,7 +331,7 @@
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
-            <label>@Resources.GetLabelName("Spouse NIC")</label>
+            <label>@Resources.GetLabelName("Spouse Emirate Id")</label>
 
             @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseNIC, new
        {
@@ -370,7 +370,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
-            <label>@Resources.GetLabelName("Age at Next Birthday")</label>
+            <label>@Resources.GetLabelName("Age")</label>
             @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.AgeNextBirthday, new { @class = "form-control", @id = "txtSpouseCoveredAge_" + Model.SelectedQuote, @maxlength = "2", @onkeypress = "return isNumberKey(event)", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
         </div>
     </div>
@@ -441,7 +441,7 @@
 
 <div class="col-md-12 col-sm-12  col-lg-12" style="text-align: center;margin-top: 2%;margin-bottom:2%;">
     <div class="form-group">
-        <input type="button" class="btn btn-default notdisb" id="btngetriskinfo" value="Get Risk Info" data-toggle="modal" onclick="GetDynamicTabs('@Model.SelectedQuote','@Model.objListQuote[Model.SelectedQuote].IsModifyQuote')" style="padding-left:20px;padding-right:20px;" />
+        <input type="button" class="btn btn-default notdisb" id="btngetriskinfo" value="Get Risk Benefit" data-toggle="modal" onclick="GetDynamicTabs('@Model.SelectedQuote','@Model.objListQuote[Model.SelectedQuote].IsModifyQuote')" style="padding-left:20px;padding-right:20px;" />
     </div>
 </div>
 <div class="clearfix"></div>
@@ -469,7 +469,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group payablebtn-space" id="DivPremiumSection_@Model.SelectedQuote" style="display:none;">
     <div class="col-md-6 col-sm-4 col-xs-12 col-lg-4 fna-final-count">
         <label class="fna-final-text">
-            @Resources.GetLabelName("TOTAL PREMIUM") (LKR)
+            @Resources.GetLabelName("TOTAL PREMIUM")
         </label>
         @(Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].AnnualPremium, new { id = "txtAnnualPremium" + Model.SelectedQuote, @class = "form-control", @readonly = "readonly", @style = "width:100%;text-align: center;font-size: xx-large;font-weight: bold;height: 10%;background-color: #e1e1e1;border-color: #E1E1E1;" }, Model.objListQuote[Model.SelectedQuote].AnnualPremium))
 
@@ -1685,15 +1685,15 @@
 
             }
         }
+       
+        //if ($("#ddlBasicSumInsured" + index + "").val() == "") {
+        //    writeMultipleMessage("error", 'Please Select The Basic SumInsured', 'ddlBasicSumInsured' + index + '')
+        //    return false;
+        //}
+        //else {
+        //    writeMultipleMessage("error", "", 'ddlBasicSumInsured' + index + '');
 
-        if ($("#ddlBasicSumInsured" + index + "").val() == "") {
-            writeMultipleMessage("error", 'Please Select The Basic SumInsured', 'ddlBasicSumInsured' + index + '')
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", 'ddlBasicSumInsured' + index + '');
-
-        }
+        //}
         if (planCode == 'PPH') {
 
             if ($("#txtMonthlySurvivorIncome" + index + "").val() > 100) {

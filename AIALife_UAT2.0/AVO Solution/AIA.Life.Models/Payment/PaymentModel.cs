@@ -19,6 +19,8 @@ namespace AIA.Life.Models.Payment
             LstInstrumentType = new List<MasterListItem>();
             Error = new Error();
             PreIssueValidations = new List<string>();
+
+            lstPayableCurrency = new List<MasterListItem>();
         }
         public string Mobile { get; set; }
         public string BranchName { get; set; }
@@ -39,6 +41,10 @@ namespace AIA.Life.Models.Payment
         public List<PaymentItems> lstPaymentItems { get; set; }
         public string PayableAmount { get; set; }
         public decimal PayingAmount { get; set; }
+
+        public string PayableCurrency { get; set; }
+        public string TotalPayableAmount { get; set; }
+        public List<MasterListItem> lstPayableCurrency { get; set; }
 
         public string PaymentOption { get; set; }
         public DateTime? Instrumentdate { get; set; }

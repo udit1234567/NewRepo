@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
@@ -11,7 +11,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Sales Illustration of Easy Pensions Plan customized for </Value>
+                    <Value>Sales Illustration of Live Life Plan customized for </Value>
                     <Style>
                       <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -86,7 +86,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>YOUR EASY PENSIONS PLAN CHOICES</Value>
+                    <Value>YOUR LIVE LIFE PLAN CHOICES</Value>
                     <Style>
                       <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -741,7 +741,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Illustrated lump sum pension savings (LKR)</Value>
+                                  <Value>Illustrated lump sum pension savings</Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -909,7 +909,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>YOUR BENEFITS WITH EASY PENSIONS</Value>
+                    <Value>YOUR BENEFITS WITH LIVE LIFE</Value>
                     <Style>
                       <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -956,7 +956,7 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> years, in LKR</Value>
+                    <Value> years</Value>
                     <Style>
                       <FontSize>9.5pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -1158,7 +1158,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If you pass away early, LKR </Value>
+                                  <Value>If you pass away early</Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -1267,7 +1267,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>In case of death due to an accident ,your beneficiaries will receive LKR </Value>
+                                  <Value>In case of death due to an accident ,your beneficiaries will receive</Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -1365,7 +1365,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>AIA will pay the premium to continue your policy and no further premium payments will be required from your beneficiaries.This will ensure that your beneficiaries will receive the Pension as you planned.
+                                  <Value>Premium will be paid to continue your policy and no further premium payments will be required from your beneficiaries.This will ensure that your beneficiaries will receive the Pension as you planned.
 </Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
@@ -1545,7 +1545,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>In the unfortunate event of Total Permanent Disability due to an accident, LKR </Value>
+                                  <Value>In the unfortunate event of Total Permanent Disability due to an accident</Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -1656,7 +1656,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>In the event of Total Permanent Disability due to accident or sickness AIA will pay the premiums on your behalf ensuring you will receive the Pension benefit as planned. </Value>
+                                  <Value>In the event of Total Permanent Disability due to accident or sickness we will pay the premiums on your behalf ensuring you will receive the Pension benefit as planned. </Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -2825,7 +2825,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Age next birthday</Value>
+                                  <Value>Age</Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3002,7 +3002,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>If you are diagnosed with any one of the 22 covered critical illnesses, LKR </Value>
+                                      <Value>If you are diagnosed with any one of the 22 covered critical illnesses</Value>
                                       <Style>
                                         <FontSize>9.5pt</FontSize>
                                       </Style>
@@ -3091,7 +3091,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>If you are hospitalized for more than 3 days, AIA will pay you LKR </Value>
+                                      <Value>If you are hospitalized for more than 3 days, you get </Value>
                                       <Style>
                                         <FontSize>9.5pt</FontSize>
                                       </Style>
@@ -3104,7 +3104,7 @@
                                     </TextRun>
                                     <TextRun>
                                       <Value> for each day of hospitalization (government hospitals included) 
-If you are admitted to the ICU the amount paid will be LKR </Value>
+If you are admitted to the ICU the amount paid will be</Value>
                                       <Style>
                                         <FontSize>9.5pt</FontSize>
                                       </Style>
@@ -4155,7 +4155,7 @@ If you are admitted to the ICU the amount paid will be LKR </Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>ILLUSTRATION OF YOUR PENSION FUND BUILD UP (LKR)</Value>
+                    <Value>ILLUSTRATION OF YOUR PENSION FUND BUILD UP</Value>
                     <Style>
                       <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -4204,7 +4204,7 @@ If you are admitted to the ICU the amount paid will be LKR </Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> years, in LKR </Value>
+                    <Value> years</Value>
                     <Style>
                       <FontSize>9.5pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -5913,7 +5913,7 @@ premium payable</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Premium (LKR)</Value>
+                                  <Value>Premium</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>arial</FontFamily>
@@ -5968,7 +5968,7 @@ premium payable</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>(LKR)</Value>
+                                  <Value> </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9.5pt</FontSize>
@@ -6022,7 +6022,7 @@ premium payable</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>(LKR)</Value>
+                                  <Value> </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9.5pt</FontSize>
@@ -6059,7 +6059,7 @@ premium payable</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Net Premium (LKR)</Value>
+                                  <Value>Net Premium</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9.5pt</FontSize>
@@ -6096,7 +6096,7 @@ premium payable</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Net Premium (LKR)</Value>
+                                  <Value>Net Premium</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9.5pt</FontSize>
@@ -6906,7 +6906,7 @@ premium payable</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>ILLUSTRATED PENSION FUND (INVESTMENT ACCOUNT VALUE) BASED ON PREMIUM PAYING MODE (LKR)</Value>
+                    <Value>ILLUSTRATED PENSION FUND (INVESTMENT ACCOUNT VALUE) BASED ON PREMIUM PAYING MODE</Value>
                     <Style>
                       <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -9279,7 +9279,7 @@ premium payable</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Policy Administration charge: LKR 287.50 for the year 2018, increasing at the rate of 15% p.a. each                               subsequent year from 1st January</Value>
+                    <Value>Policy Administration charge: 287.50 for the year 2018, increasing at the rate of 15% p.a. each                               subsequent year from 1st January</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontWeight>Normal</FontWeight>
