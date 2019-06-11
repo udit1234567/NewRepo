@@ -670,7 +670,7 @@ function ValidateInsuranceDetails(MI) {
 }
 
 function validateNomineeDetails() {
- debugger
+// debugger
     var index = 0;
     if ($('#divNomineeDetailsGrid tr.grid-empty-text').length > 0) {
         $('#divNomineeDetailsGrid tr.grid-empty-text').remove();
@@ -746,14 +746,14 @@ function validateNomineeDetails() {
                     writeMultipleMessage("error", "Please Enter Nominee Marital Status.", "ddlNomineeMaritalStatus" + index);
                          IsValid = false;
                      }            
-                else if ($("#NomineeAddress" + index).val() == "" || $("#NomineeAddress" + index).val() == null) {
-                        writeMultipleMessage("error", "Please Enter Nominee Address.", "NomineeAddress" + index);
-                         IsValid = false;
-                     }
-                    else if ($("#NomineeTelephone" + index).val() == "" || $("#NomineeTelephone" + index).val() == null) {
-                        writeMultipleMessage("error", "Please Enter Nominee Telephone.", "NomineeTelephone" +index);
-                        IsValid = false;
-                    }
+                //else if ($("#NomineeAddress" + index).val() == "" || $("#NomineeAddress" + index).val() == null) {
+                //        writeMultipleMessage("error", "Please Enter Nominee Address.", "NomineeAddress" + index);
+                //         IsValid = false;
+                //     }
+                    //else if ($("#NomineeTelephone" + index).val() == "" || $("#NomineeTelephone" + index).val() == null) {
+                    //    writeMultipleMessage("error", "Please Enter Nominee Telephone.", "NomineeTelephone" +index);
+                    //    IsValid = false;
+                    //}
                 else if ($("#NomineePercentage" + index).val() == "" || $("#NomineePercentage" + index).val() == "0") {
                     writeMultipleMessage("error", "Please Enter Nominee Percentage.", "NomineePercentage" + index);
                     $("#checkboxDeclaration").prop("checked", false);

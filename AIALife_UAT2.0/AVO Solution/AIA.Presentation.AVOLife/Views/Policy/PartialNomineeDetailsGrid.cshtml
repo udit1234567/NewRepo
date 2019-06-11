@@ -44,32 +44,32 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
     }).Selectable(true)
 <script type="text/javascript">
     function CheckBoxUncheck()
-    {
-        debugger;
-        $("#checkboxDeclaration").prop("checked", false);
-        $("#checkboxDeclaration").removeClass('checkboxactive');
-    }
-
-    $(document).ready(function () {
+    {ady(function () {
         $("#divNomineeDetailsGrid   tbody").find("tr").each(function (index) {
 
-            var MainLifeAddress1 = $('#objProspectDetailsobjCommunicationAddressAddress1').val(); //txtComAddress10
-            var MainLifeAddress2 = $('#objProspectDetailsobjCommunicationAddressAddress2').val(); //txtComAddress20
-            var MainLifeAddress3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val(); //txtComAddress30
-            var MainLifeState = $('#txtComState0').val(); //txtComState0
-            var MainLifePostalCode = $('#objProspectDetailsobjCommunicationAddressPincode').val(); //txtComPincode0
-            var MainLifeDistrict =   $('#objProspectDetailsobjCommunicationAddressddlDistrict').val(); //txtComDistrict0
-            var MainLifeProvince = $('#objProspectDetailsobjCommunicationAddressddlProvince').val(); //txtComCity0
+            debugger;
+            $("#checkboxDeclaration").prop("checked", false);
+            $("#checkboxDeclaration").removeClass('checkboxactive');
+        }
 
-            //var MainLifeAddress1 = $('#txtComAddress10').val();   //txtComAddress10
-            //var MainLifeAddress2 = $('#txtComAddress20').val();   //txtComAddress20
-            //var MainLifeAddress3 = $('#txtComAddress30').val();   //txtComAddress30
-            //var MainLifeState = $('#txtComState0').val();         //txtComState0
-            //var MainLifePostalCode = $('#txtComPincode0').val();  //txtComPincode0
-            //var MainLifeDistrict =   $('#txtComDistrict0').val(); //txtComDistrict0
-            //var MainLifeProvince = $('#txtComCity0').val();       //txtComCity0
-            var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince + ','+MainLifeState ;
-            $("#NomineeAddress" + index).val(MainLifeAddress);
+    //$(document).re
+    //        var MainLifeAddress1 = $('#objProspectDetailsobjCommunicationAddressAddress1').val(); //txtComAddress10
+    //        var MainLifeAddress2 = $('#objProspectDetailsobjCommunicationAddressAddress2').val(); //txtComAddress20
+    //        var MainLifeAddress3 = $('#objProspectDetailsobjCommunicationAddressAddress3').val(); //txtComAddress30
+    //        var MainLifeState = $('#txtComState0').val(); //txtComState0
+    //        var MainLifePostalCode = $('#objProspectDetailsobjCommunicationAddressPincode').val(); //txtComPincode0
+    //        var MainLifeDistrict =   $('#objProspectDetailsobjCommunicationAddressddlDistrict').val(); //txtComDistrict0
+    //        var MainLifeProvince = $('#objProspectDetailsobjCommunicationAddressddlProvince').val(); //txtComCity0
+
+    //        //var MainLifeAddress1 = $('#txtComAddress10').val();   //txtComAddress10
+    //        //var MainLifeAddress2 = $('#txtComAddress20').val();   //txtComAddress20
+    //        //var MainLifeAddress3 = $('#txtComAddress30').val();   //txtComAddress30
+    //        //var MainLifeState = $('#txtComState0').val();         //txtComState0
+    //        //var MainLifePostalCode = $('#txtComPincode0').val();  //txtComPincode0
+    //        //var MainLifeDistrict =   $('#txtComDistrict0').val(); //txtComDistrict0
+    //        //var MainLifeProvince = $('#txtComCity0').val();       //txtComCity0
+    //        var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince + ','+MainLifeState ;
+    //        $("#NomineeAddress" + index).val(MainLifeAddress);
         });
     });
     @*var NomineeIndex = parseInt('@NomineeCount');*@
@@ -176,7 +176,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
         var MainLifeDistrict =   $('#txtComDistrict0').val();
         var MainLifeProvince = $('#txtComCity0').val();
         var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifeState + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince ;
-        $("#NomineeAddress" + NomineeIndex).val(MainLifeAddress);
+        //$("#NomineeAddress" + NomineeIndex).val(MainLifeAddress);
         //$("#divNomineeDetailsGrid   tbody").find("tr").each(function (index){
 
         //});
@@ -199,7 +199,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
             //var MainLifeDistrict =   $('#txtComDistrict0').val(); //txtComDistrict0
             //var MainLifeProvince = $('#txtComCity0').val();       //txtComCity0
             var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince + ','+MainLifeState ;
-            $("#NomineeAddress" + NomineeIndex).val(MainLifeAddress);
+           // $("#NomineeAddress" + NomineeIndex).val(MainLifeAddress);
 
         }
 
@@ -372,7 +372,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
         $('#NomineeName' + index).val('');
         $('#NomineeNICNo' + index).val('');
         $('#NomineeSurname' + index).val('');
-        $('#NomineeAddress' + index).val('');
+       // $('#NomineeAddress' + index).val('');
         $('#NomineeTelephone' + index).val('');
         $('#NomineeDOB' + index).val('');
         $('#ddlNomineeMaritalStatus' + index).val('');
@@ -488,7 +488,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
         var MainLifeDistrict =   $('#txtComDistrict0').val();
         var MainLifeProvince = $('#txtComCity0').val();
         var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifeState + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince ;
-        $("#NomineeAddress" + index).val(MainLifeAddress);
+       // $("#NomineeAddress" + index).val(MainLifeAddress);
         //$("#divNomineeDetailsGrid   tbody").find("tr").each(function (index){
 
         //});
@@ -511,7 +511,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
             //var MainLifeDistrict =   $('#txtComDistrict0').val(); //txtComDistrict0
             //var MainLifeProvince = $('#txtComCity0').val();       //txtComCity0
             var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince + ','+MainLifeState ;
-            $("#NomineeAddress" + index).val(MainLifeAddress);
+           // $("#NomineeAddress" + index).val(MainLifeAddress);
 
         }
     }
@@ -553,7 +553,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
             var MainLifeDistrict = $('#txtComDistrict0').val();
             var MainLifeProvince = $('#txtComCity0').val();
             var MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifeState + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince;
-            $("#NomineeAddress" + NomineeDetailsID).val(MainLifeAddress);
+          //  $("#NomineeAddress" + NomineeDetailsID).val(MainLifeAddress);
             var PolicyID = '@Model.PolicyID';
             if (PolicyID > 0) {
 
@@ -565,7 +565,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
                 MainLifeDistrict =   $('#objProspectDetailsobjCommunicationAddressddlDistrict').val(); //txtComDistrict0
                 MainLifeProvince = $('#objProspectDetailsobjCommunicationAddressddlProvince').val(); //txtComCity0
                 MainLifeAddress = MainLifeAddress1 + ',' + MainLifeAddress2 + ',' + MainLifeAddress3 + ',' + MainLifePostalCode + ',' + MainLifeDistrict + ',' + MainLifeProvince + ','+MainLifeState ;
-                $("#NomineeAddress" + NomineeDetailsID).val(MainLifeAddress);
+              //  $("#NomineeAddress" + NomineeDetailsID).val(MainLifeAddress);
 
             }
             $("#divMemberDetails tbody").find("tr").each(function (index) {
@@ -604,7 +604,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
                         $("#DDLNomineeGender"+id).val(data.Gender);
                         $("#ddlNomineeMaritalStatus"+id).val(data.MaritalStatus);
                         var Address = data.objAddress.Address1 + "," + data.objAddress.Address2 + "," + data.objAddress.Address3 +","+ data.objAddress.Pincode +","+ data.objAddress.District +","+data.objAddress.Province;
-                        $("#NomineeAddress"+id).val(Address);
+                     //   $("#NomineeAddress"+id).val(Address);
                         $("#NomineeTelephone"+id).val(data.Mobile);
                     }
                 }
@@ -620,7 +620,7 @@ columns.Add().Titled("Delete").Encoded(false).Sanitized(false).Css("text-center"
                                              $("#DDLNomineeGender"+id).val(data.Gender);
                                              $("#ddlNomineeMaritalStatus"+id).val(data.MaritalStatus);
                                              var Address = data.objAddress.Address1 + "," + data.objAddress.Address2 + "," + data.objAddress.Address3 +","+ data.objAddress.Pincode +","+ data.objAddress.District +","+data.objAddress.Province;
-                                             $("#NomineeAddress"+id).val(Address);
+                                           //  $("#NomineeAddress"+id).val(Address);
                                              $("#NomineeTelephone"+id).val(data.Mobile);
                                          }
                                      });
