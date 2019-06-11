@@ -380,6 +380,10 @@ namespace AIA.Life.Data.API.ControllerLogic.Prospect
                 objContact.PhoneNo = objSuspect.Home;
                 objContact.EmailID = objSuspect.Email;
                 objContact.NICNO = objSuspect.NIC;
+
+                var lLeadNo = Context.usp_GetNextSequenceNumber("LeadNo").ToList<int?>();
+                objContact.LeadNo = lLeadNo[0].ToString();
+
                 if (!string.IsNullOrEmpty(objSuspect.SamsLeadNumber))
                 {
                     objContact.ContactType = Context.tblMasCommonTypes.Where(a => a.Code == objSuspect.Type && (a.MasterType == "Type")).Select(a => a.Description).FirstOrDefault();

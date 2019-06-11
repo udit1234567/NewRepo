@@ -88,6 +88,7 @@ namespace AIA.Life.Models.Opportunity
         public int? CurrentAge { get; set; }
         public DateTime? DateofBirth { get; set; }
         public string Occupation { get; set; }
+       
         
         public string Nationality { get; set; }
         public string EmployerName { get; set; }
@@ -95,6 +96,8 @@ namespace AIA.Life.Models.Opportunity
         public bool BMI_Exceed { get; set; }
         public bool NICAVAIL { get; set; }
         public string Gender { get; set; }
+        //Added by Udit for Smoke Radio button on Create Quotation Page
+        public bool IsSmoke { get; set; }
         public string MaritalStatus { get; set; }
         public string DisplayMaritalStatus { get; set; }
         public string AvgMonthlyIncome { get; set; }
