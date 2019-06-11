@@ -19,6 +19,9 @@ namespace AIA.Life.Models.NeedAnalysis
             dlladversities = new List<MasterListItem>();
             dllcoverage = new List<MasterListItem>();
             dllannualamount = new List<MasterListItem>();
+
+            CurrencyList = new List<MasterListItem>();
+
             dlladequacy = new List<MasterListItem>();
             objGCEAL = new List<Models.NeedAnalysis.GCEAL>();
             objLocal = new List<Models.NeedAnalysis.LocalStudies>();
@@ -122,7 +125,8 @@ namespace AIA.Life.Models.NeedAnalysis
         public List<MasterListItem> dllannualamount { get; set; }
         public List<MasterListItem> dllChildRelatioship { get; set; }
         public List<MasterListItem> dlladequacy { get; set; }
-        public List<MasterListItem> dllRelationship { get; set; }  
+        public List<MasterListItem> dllRelationship { get; set; }
+        public List<MasterListItem> CurrencyList { get; set; }
         public List<SaveRow> objSaveRow { get; set; }
         public string[] objadversities { get; set; }
         public string adversities { get; set; }

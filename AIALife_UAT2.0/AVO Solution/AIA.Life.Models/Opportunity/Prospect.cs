@@ -39,6 +39,8 @@ namespace AIA.Life.Models.Opportunity
             LstMaturityBenefits = new List<MasterListItem>();
             Error = new Error();
             objPreviousInsuranceList = new List<Opportunity.PreviousInsuranceList>();
+
+            
         }
         public string WPName { get; set; }
         public string WPCode { get; set; }
@@ -103,6 +105,8 @@ namespace AIA.Life.Models.Opportunity
         public NeedAnalysis.NeedAnalysis objNeedAnalysis { get; set; }
         public List<NeedAnalysis.FutureFinancial> objFutureFinancial { get; set; }  
         public string Upload { get; set; }
+
+        public string Currency { get; set; }
 
         public string Signature { get; set; }
         public string NotePad { get; set; }
