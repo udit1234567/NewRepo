@@ -2088,29 +2088,29 @@ margin-left: 15px;">
                                     </div>
                                     <div id="assetscheckboxes">
                                         <div>
-                                            <input type="checkbox" id="one" /><label>@Resources.GetLabelName("Land,Building & House") (@Resources.GetLabelName("Dh"))</label>
+                                            <input type="checkbox" id="one" /><label>@Resources.GetLabelName("Land,Building & House") </label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="two" /><label>@Resources.GetLabelName("Fixed Deposit") (@Resources.GetLabelName("Dh"))</label>
+                                            <input type="checkbox" id="two" /><label>@Resources.GetLabelName("Fixed Deposit") </label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="three" /><label>@Resources.GetLabelName("Shares") (@Resources.GetLabelName("Dh"))</label>
-                                        </div>
-
-                                        <div>
-                                            <input type="checkbox" id="four" /><label>@Resources.GetLabelName("Vehicles") (@Resources.GetLabelName("Dh"))</label>
+                                            <input type="checkbox" id="three" /><label>@Resources.GetLabelName("Shares")</label>
                                         </div>
 
                                         <div>
-                                            <input type="checkbox" id="five" /><label>@Resources.GetLabelName("Gold & Jewellery") (@Resources.GetLabelName("Dh"))</label>
+                                            <input type="checkbox" id="four" /><label>@Resources.GetLabelName("Vehicles")</label>
+                                        </div>
+
+                                        <div>
+                                            <input type="checkbox" id="five" /><label>@Resources.GetLabelName("Gold & Jewellery")</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="six" /><label>@Resources.GetLabelName("Other") (@Resources.GetLabelName("Dh"))</label>
+                                            <input type="checkbox" id="six" /><label>@Resources.GetLabelName("Other")</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-7 col-sm-7 col-xs-12 col-lg-6"></div>
-                                <div class="col-md-7 col-sm-7 col-xs-12 col-lg-6" style="font-size: 12px;font-weight: bold;padding-left: 11%;">@Resources.GetLabelName("Amount (Dh)")</div>
+                                <div class="col-md-7 col-sm-7 col-xs-12 col-lg-6" style="font-size: 12px;font-weight: bold;padding-left: 11%;"></div>
                                 @if (Model.objNeedAnalysis.Assets0 != null && Model.objNeedAnalysis.Assets0 != 0)
                                 {
                                     <div class="financial_current_item" id="currentassets">
@@ -2154,7 +2154,7 @@ margin-left: 15px;">
                                 @if (Model.objNeedAnalysis.Assets5 != null && Model.objNeedAnalysis.Assets5 != 0)
                                 {
                                     <div class="financial_current_item" id="currentassets">
-                                        <label><img src="/Content/Images/FnaIcons/Other@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;min-width:132px">@Resources.GetLabelName("Other") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label><img src="/Content/Images/FnaIcons/Other@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;min-width:132px">@Resources.GetLabelName("Other")</span></label>
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Assets4, new { @id = "txtAssets6", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onchange = "CurrentTotal(id)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Assets4)
                                         @* <input type="text" class="form-control" onchange="CurrentTotal()" id="txtAssets0" onkeypress="return isNumberKeyandBackSpacekey(event)" name="objNeedAnalysis.Assets0">*@
                                     </div>
@@ -2163,7 +2163,7 @@ margin-left: 15px;">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6">
                                     <p class="fna-sum-text">
-                                        @Resources.GetLabelName("Total") (@Resources.GetLabelName("Dh"))
+                                        @Resources.GetLabelName("Total")
                                     </p>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6" style="padding-left: 7px;padding-top:10px;padding-bottom:10px;padding-right:26px">
@@ -2191,28 +2191,28 @@ margin-left: 15px;">
                                     </div>
                                     <div id="liabilitycheckboxes">
                                         <div>
-                                            <input type="checkbox" id="one" /><label>@Resources.GetLabelName("Bank Loans") (@Resources.GetLabelName("Dh"))</label>
+                                            <input type="checkbox" id="one" /><label>@Resources.GetLabelName("Bank Loans")</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="two" /><label>@Resources.GetLabelName("Credit card") (@Resources.GetLabelName("Dh"))</label>
+                                            <input type="checkbox" id="two" /><label>@Resources.GetLabelName("Credit card")</label>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="three" /><label>@Resources.GetLabelName("Lease") (@Resources.GetLabelName("Dh"))</label>
+                                            <input type="checkbox" id="three" /><label>@Resources.GetLabelName("Lease")</label>
                                         </div>
 
                                         <div>
-                                            <input type="checkbox" id="four" /><label>@Resources.GetLabelName("Other") (@Resources.GetLabelName("Dh"))</label>
+                                            <input type="checkbox" id="four" /><label>@Resources.GetLabelName("Other")</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="font-size: 12px;font-weight: bold;">@Resources.GetLabelName("Amount (Dh)")</div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="font-size: 12px;font-weight: bold;">@Resources.GetLabelName("Insured Amount (Dh)")</div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="font-size: 12px;font-weight: bold;">@Resources.GetLabelName("Amount")</div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="font-size: 12px;font-weight: bold;">@Resources.GetLabelName("Insured Amount")</div>
 
                                 @if ((Model.objNeedAnalysis.Liabilityone0 != null && Model.objNeedAnalysis.Liabilityone0 != 0) || (Model.objNeedAnalysis.Liabilitytwo0 != null && Model.objNeedAnalysis.Liabilitytwo0 != 0))
                                 {
                                     <div class="financial_liability_item" id="currentliability">
-                                        <label class="col-md-4 col-sm-4 col-xs-12 col-lg-4"><img src="/Content/Images/FnaIcons/Bank loans@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Bank Loans") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label class="col-md-4 col-sm-4 col-xs-12 col-lg-4"><img src="/Content/Images/FnaIcons/Bank loans@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Bank Loans")</span></label>
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Liabilityone0, new { @id = "txtliabilityone0", @onchange = "LiabilityTotal1(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Liabilityone0)
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Liabilitytwo0, new { @id = "txtliabilitytwo0", @onchange = "LiabilityTotal2(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Liabilitytwo0)
                                     </div>
@@ -2220,7 +2220,7 @@ margin-left: 15px;">
                                 @if ((Model.objNeedAnalysis.Liabilityone1 != null && Model.objNeedAnalysis.Liabilityone1 != 0) || (Model.objNeedAnalysis.Liabilitytwo1 != null && Model.objNeedAnalysis.Liabilitytwo1 != 0))
                                 {
                                     <div class="financial_liability_item" id="currentliability">
-                                        <label class="col-md-4 col-sm-4 col-xs-12 col-lg-4"><img src="/Content/Images/FnaIcons/Credit card@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Credit Card") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label class="col-md-4 col-sm-4 col-xs-12 col-lg-4"><img src="/Content/Images/FnaIcons/Credit card@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Credit Card")</span></label>
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Liabilityone1, new { @id = "txtliabilityone1", @onchange = "LiabilityTotal1(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Liabilityone1)
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Liabilitytwo1, new { @id = "txtliabilitytwo1", @onchange = "LiabilityTotal2(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Liabilitytwo1)
                                     </div>
@@ -2228,7 +2228,7 @@ margin-left: 15px;">
                                 @if ((Model.objNeedAnalysis.Liabilityone2 != null && Model.objNeedAnalysis.Liabilityone2 != 0) || (Model.objNeedAnalysis.Liabilitytwo2 != null && Model.objNeedAnalysis.Liabilitytwo2 != 0))
                                 {
                                     <div class="financial_liability_item" id="currentliability">
-                                        <label class="col-md-4 col-sm-4 col-xs-12 col-lg-4"><img src="/Content/Images/FnaIcons/Lease_Installment@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Lease") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label class="col-md-4 col-sm-4 col-xs-12 col-lg-4"><img src="/Content/Images/FnaIcons/Lease_Installment@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Lease")</span></label>
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Liabilityone2, new { @id = "txtliabilityone2", @onchange = "LiabilityTotal1(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Liabilityone2)
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Liabilitytwo2, new { @id = "txtliabilitytwo2", @onchange = "LiabilityTotal2(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Liabilitytwo2)
                                     </div>
@@ -2236,7 +2236,7 @@ margin-left: 15px;">
                                 @if ((Model.objNeedAnalysis.Liabilityone3 != null && Model.objNeedAnalysis.Liabilityone3 != 0) || (Model.objNeedAnalysis.Liabilitytwo3 != null && Model.objNeedAnalysis.Liabilitytwo3 != 0))
                                 {
                                     <div class="financial_liability_item" id="currentliability">
-                                        <label class="col-md-4 col-sm-4 col-xs-12 col-lg-4"><img src="/Content/Images/FnaIcons/Other@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Others") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label class="col-md-4 col-sm-4 col-xs-12 col-lg-4"><img src="/Content/Images/FnaIcons/Other@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Others")</span></label>
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Liabilityone3, new { @id = "txtliabilityone3", @onchange = "LiabilityTotal1(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Liabilityone3)
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Liabilitytwo3, new { @id = "txtliabilitytwo3", @onchange = "LiabilityTotal2(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Liabilitytwo3)
                                     </div>
@@ -2245,7 +2245,7 @@ margin-left: 15px;">
 
                             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="padding-top:10px">
                                 <p class="fna-sum-text">
-                                    @Resources.GetLabelName("Total") (@Resources.GetLabelName("Dh"))
+                                    @Resources.GetLabelName("Total")
                                 </p>
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="padding-top:10px;padding-right:5px">
@@ -2260,13 +2260,13 @@ margin-left: 15px;">
                             <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2"> </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 fna-final-count">
 
-                                <p class="fna-final-text">@Resources.GetLabelName("Net Assets (Dh)")</p>
+                                <p class="fna-final-text">@Resources.GetLabelName("Net Assets")</p>
 
                                 @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.objAssetsAndLiabilities.NetAssests, new { @id = "txtNetAssests", @class = "form-control", @readonly = "readonly", @onchange = "compareAssest()", @style = "width:100%;text-align: center;font-size: xx-large;font-weight: bold;height: 10%;background-color: #e1e1e1;border-color: #E1E1E1;", @maxlength = "12" }, Model.objNeedAnalysis.objAssetsAndLiabilities.NetAssests))
 
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 fna-final-count">
-                                <p class="fna-final-text">@Resources.GetLabelName("Fund Requirement for Asset Protection (Dh)")</p>
+                                <p class="fna-final-text">@Resources.GetLabelName("Fund Requirement for Asset Protection")</p>
                                 @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.objAssetsAndLiabilities.LumpsumRequirement, new { @id = "txtLumpsumRequirement", @class = "form-control", @readonly = "readonly", @style = "width:100%;text-align: center;font-size: xx-large;font-weight: bold;height: 10%;background-color: #e1e1e1;border-color: #E1E1E1;", @maxlength = "12" }, Model.objNeedAnalysis.objAssetsAndLiabilities.LumpsumRequirement))
                             </div>
                             <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2"> </div>
@@ -2459,22 +2459,22 @@ margin-left: 15px;">
                                 </div>
                                 <div id="incomecheckboxes">
                                     <div>
-                                        <input type="checkbox" id="one" /><label>@Resources.GetLabelName("Salary or income") (@Resources.GetLabelName("Dh"))</label>
+                                        <input type="checkbox" id="one" /><label>@Resources.GetLabelName("Salary or income")</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="two" /><label>@Resources.GetLabelName("Interest") (@Resources.GetLabelName("Dh"))</label>
+                                        <input type="checkbox" id="two" /><label>@Resources.GetLabelName("Interest")</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="three" /><label>@Resources.GetLabelName("Rent") (@Resources.GetLabelName("Dh"))</label>
+                                        <input type="checkbox" id="three" /><label>@Resources.GetLabelName("Rent")</label>
                                     </div>
 
                                     <div>
-                                        <input type="checkbox" id="four" /><label>@Resources.GetLabelName("Other") (@Resources.GetLabelName("Dh"))</label>
+                                        <input type="checkbox" id="four" /><label>@Resources.GetLabelName("Other")</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-7 col-sm-7 col-xs-12 col-lg-6"></div>
-                            <div class="col-md-7 col-sm-7 col-xs-12 col-lg-6" style="font-size: 12px;font-weight: bold;padding-left: 7%;padding-bottom:10px">@Resources.GetLabelName("Amount (Dh)")</div>
+                            <div class="col-md-7 col-sm-7 col-xs-12 col-lg-6" style="font-size: 12px;font-weight: bold;padding-left: 7%;padding-bottom:10px">@Resources.GetLabelName("Amount")</div>
                             @if (Model.objNeedAnalysis.Income0 != null && Model.objNeedAnalysis.Income0 != 0)
                             {
                                 <div class="financial_income_item" id="incomeassets">
@@ -2512,7 +2512,7 @@ margin-left: 15px;">
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                 <p class="fna-sum-text">
-                                    @Resources.GetLabelName("Total") (@Resources.GetLabelName("Dh"))
+                                    @Resources.GetLabelName("Total")
                                 </p>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
@@ -2540,29 +2540,29 @@ margin-left: 15px;">
                                 </div>
                                 <div id="expensecheckboxes">
                                     <div>
-                                        <input type="checkbox" id="one" /><label>@Resources.GetLabelName("Annual Living Expense") (@Resources.GetLabelName("Dh"))</label>
+                                        <input type="checkbox" id="one" /><label>@Resources.GetLabelName("Annual Living Expense")</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="two" /><label>@Resources.GetLabelName("Annual Vacation") (@Resources.GetLabelName("Dh"))</label>
+                                        <input type="checkbox" id="two" /><label>@Resources.GetLabelName("Annual Vacation")</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="three" /><label>@Resources.GetLabelName("Vehicles Installments") (@Resources.GetLabelName("Dh"))</label>
+                                        <input type="checkbox" id="three" /><label>@Resources.GetLabelName("Vehicles Installments")</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="five" /><label>@Resources.GetLabelName("Loan Payment") (@Resources.GetLabelName("Dh"))</label>
+                                        <input type="checkbox" id="five" /><label>@Resources.GetLabelName("Loan Payment")</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="six" /><label>@Resources.GetLabelName("Other") (@Resources.GetLabelName("Dh"))</label>
+                                        <input type="checkbox" id="six" /><label>@Resources.GetLabelName("Other")</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-7 col-sm-7 col-xs-12 col-lg-6"></div>
-                            <div class="col-md-7 col-sm-7 col-xs-12 col-lg-6" style="font-size: 12px;font-weight: bold;">@Resources.GetLabelName("Amount (Dh)")</div>
+                            <div class="col-md-7 col-sm-7 col-xs-12 col-lg-6" style="font-size: 12px;font-weight: bold;">@Resources.GetLabelName("Amount")</div>
                             @if (Model.objNeedAnalysis.Expense0 != null && Model.objNeedAnalysis.Expense0 != 0)
                             {
                                 <div class="financial_expense_item" id="expenseassets" style="padding-top:4%">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                        <label> <img src="/Content/Images/FnaIcons/Living expenses@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Annual Expenses") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label> <img src="/Content/Images/FnaIcons/Living expenses@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Annual Expenses")</span></label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6" style="padding-bottom:15px">
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Expense0, new { @id = "txtexpense0", @class = "form-control", @onchange = "LivingAnnualExpensesTotal(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Expense0)
@@ -2573,7 +2573,7 @@ margin-left: 15px;">
                             {
                                 <div class="financial_expense_item" id="expenseassets" style="padding-top:4%">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                        <label> <img src="/Content/Images/FnaIcons/Vacation@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Annual Vacation") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label> <img src="/Content/Images/FnaIcons/Vacation@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Annual Vacation")</span></label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6" style="padding-bottom:15px">
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Expense1, new { @id = "txtexpense1", @class = "form-control", @onchange = "LivingAnnualExpensesTotal(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Expense1)
@@ -2585,7 +2585,7 @@ margin-left: 15px;">
                             {
                                 <div class="financial_expense_item" id="expenseassets" style="padding-top:4%">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                        <label> <img src="/Content/Images/FnaIcons/Lease_Installment@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Installments") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label> <img src="/Content/Images/FnaIcons/Lease_Installment@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Installments")</span></label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6" style="padding-bottom:15px">
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Expense2, new { @id = "txtexpense2", @class = "form-control", @onchange = "LivingAnnualExpensesTotal(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Expense2)
@@ -2596,7 +2596,7 @@ margin-left: 15px;">
                             {
                                 <div class="financial_expense_item" id="expenseassets" style="padding-top:4%">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                        <label> <img src="/Content/Images/FnaIcons/Vehicles@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Vehicles") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label> <img src="/Content/Images/FnaIcons/Vehicles@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;">@Resources.GetLabelName("Vehicles")</span></label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6" style="padding-bottom:15px">
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Expense3, new { @id = "txtexpense3", @class = "form-control", @onchange = "LivingAnnualExpensesTotal(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Expense3)
@@ -2619,7 +2619,7 @@ margin-left: 15px;">
                             {
                                 <div class="financial_expense_item" id="expenseassets" style="padding-top:4%">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                        <label> <img src="/Content/Images/FnaIcons/Other@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;min-width:132px">@Resources.GetLabelName("Other") (@Resources.GetLabelName("Dh"))</span></label>
+                                        <label> <img src="/Content/Images/FnaIcons/Other@0,25x.png" class="retirement_calculation_fund_table_img"><span style="padding-left:5px;min-width:132px">@Resources.GetLabelName("Other")</span></label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6" style="padding-bottom:15px">
                                         @Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.Expense5, new { @id = "txtexpense5", @class = "form-control", @onchange = "LivingAnnualExpensesTotal(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.Expense5)
@@ -2632,7 +2632,7 @@ margin-left: 15px;">
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                 <p class="fna-sum-text">
-                                    @Resources.GetLabelName("Total") (@Resources.GetLabelName("Dh"))
+                                    @Resources.GetLabelName("Total")
                                 </p>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
@@ -2708,11 +2708,11 @@ margin-left: 15px;">
                     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                         <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2"> </div>
                         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 fna-final-count">
-                            <p class="fna-final-text"> @Resources.GetLabelName("Fund Requirement for Income Protection (Dh)")</p>
+                            <p class="fna-final-text"> @Resources.GetLabelName("Fund Requirement for Income Protection")</p>
                             @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.objFamilyIncome.IncomeLumpsumRequirement, new { @id = "txtAnnualLumpsumRequirement", @class = "form-control", @readonly = "readonly", @style = "width:100%;text-align: center;font-size: xx-large;font-weight: bold;height: 10%;background-color: #e1e1e1;border-color: #E1E1E1;" }, Model.objNeedAnalysis.objFamilyIncome.IncomeLumpsumRequirement))
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 fna-final-count">
-                            <p class="fna-final-text">@Resources.GetLabelName("SurPlus/Deficit (Dh)")</p>
+                            <p class="fna-final-text">@Resources.GetLabelName("SurPlus/Deficit")</p>
                             @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.objAssetsAndLiabilities.SurPlusAssets, new { @id = "txtSurPlusDeficit", @class = "form-control", @readonly = "readonly", @style = "width:100%;text-align: center;font-size: xx-large;font-weight: bold;height: 10%;background-color: #e1e1e1;border-color: #E1E1E1;" }, Model.objNeedAnalysis.objAssetsAndLiabilities.SurPlusAssets))
                         </div>
                         <div class="clearfix"></div>
@@ -2732,9 +2732,9 @@ margin-left: 15px;">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Current Requirement (Dh)</th>
-                                <th>Available Fund (Dh)</th>
-                                <th>Gap (Dh)</th>
+                                <th>Current Requirement</th>
+                                <th>Available Fund</th>
+                                <th>Gap</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -2840,10 +2840,10 @@ margin-left: 15px;">
                                 <tr>
                                     <th scope="col">Future financial needs</th>
                                     <th scope="col">Beneficiary</th>
-                                    <th scope="col">Current requirement (Dh)</th>
-                                    <th scope="col">Estimated Amount (Dh)</th>
-                                    <th scope="col">Available Fund (Dh)</th>
-                                    <th scope="col">Gap (Dh)</th>
+                                    <th scope="col">Current requirement</th>
+                                    <th scope="col">Estimated Amount</th>
+                                    <th scope="col">Available Fund</th>
+                                    <th scope="col">Gap</th>
                                 </tr>
                             </thead>
                             <tbody class="selectrow">
@@ -2988,7 +2988,7 @@ margin-left: 15px;">
                                 <tr id="dreamsTable-footer">
                                     <th scope="row">
 
-                                        <span><b></b>@Resources.GetLabelName("Total") (@Resources.GetLabelName("Dh"))</span>
+                                        <span><b></b>@Resources.GetLabelName("Total")</span>
                                     </th>
                                     <td></td>
                                     <td>
@@ -3021,8 +3021,8 @@ margin-left: 15px;">
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Lump sum requirement any given time (Dh)</th>
-                                    <th>Lump sum requirement at Maturity (Dh)</th>
+                                    <th>Lump sum requirement any given time</th>
+                                    <th>Lump sum requirement at Maturity</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -3055,7 +3055,7 @@ margin-left: 15px;">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><b>@Resources.GetLabelName("Total") (@Resources.GetLabelName("Dh"))</b></th>
+                                    <th scope="row"><b>@Resources.GetLabelName("Total")</b></th>
                                     <td>
                                         @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.TotalExpense, new { @id = "txtTotal1Dream", @class = "form-control", @readonly = "readonly" }, Model.objNeedAnalysis.TotalExpense))
                                     </td>
@@ -3071,8 +3071,8 @@ margin-left: 15px;">
                             <thead>
                                 <tr>
                                     <th scope="col"></th>
-                                    <th scope="col">Emergency Funds requirement Due to Death or Permeant Disability (Dh)</th>
-                                    <th scope="col">Maturity Funds (Dh)</th>
+                                    <th scope="col">Emergency Funds requirement Due to Death or Permeant Disability </th>
+                                    <th scope="col">Maturity Funds</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -3228,7 +3228,7 @@ margin-left: 15px;">
                             <div class="retirement_caculation_section1">
                                 <div class="retirement_calculation_total_expense col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 form-group">
-                                        <label>@Resources.GetLabelName("Total Current Monthly Living Expenses") (@Resources.GetLabelName("Dh"))<span class="mandatory">*</span></label>
+                                        <label>@Resources.GetLabelName("Total Current Monthly Living Expenses")<span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 form-group">
                                         @(Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.objCalculator.TotalMonthlyExpense, new { @id = "txtTotalmonthlyexpenses", @class = "form-control", @onchange = "DirectEstimatemonthlyexpensescomma(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @maxlength = "12", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)" }, Model.objNeedAnalysis.objCalculator.TotalMonthlyExpense))
@@ -3238,7 +3238,7 @@ margin-left: 15px;">
 
                                 <div class="retirement_calculation_estimate_expense col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 form-group">
-                                        <label>@Resources.GetLabelName("Total Estimated Monthly Living Expenses") (@Resources.GetLabelName("Dh"))<span class="mandatory">*</span></label>
+                                        <label>@Resources.GetLabelName("Total Estimated Monthly Living Expenses")<span class="mandatory">*</span></label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 form-group">
                                         @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.objCalculator.EstimatedTotalMonthlyExpense, new { @id = "txtEstimatemonthlyexpenses", @class = "form-control", @readonly = "readonly" }, Model.objNeedAnalysis.objCalculator.EstimatedTotalMonthlyExpense))
@@ -3254,8 +3254,8 @@ margin-left: 15px;">
                                     <thead>
                                         <tr>
                                             <th>Category</th>
-                                            <th>Current Monthly Expenses (@Resources.GetLabelName("Dh"))</th>
-                                            <th>Estimated Monthly Expenses (@Resources.GetLabelName("Dh"))</th>
+                                            <th>Current Monthly Expenses</th>
+                                            <th>Estimated Monthly Expenses</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -3422,8 +3422,8 @@ margin-left: 15px;">
                                     <thead>
                                         <tr>
                                             <th>Category</th>
-                                            <th>Available  Funds (Dh)</th>
-                                            <th>Estimated Funds (Dh)</th>
+                                            <th>Available  Funds</th>
+                                            <th>Estimated Funds</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -3625,7 +3625,7 @@ margin-left: 15px;">
                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="padding-top:10px">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                         <p class="fund_balance_total">
-                                            @Resources.GetLabelName("Fund Balance ") (@Resources.GetLabelName("Dh"))@*<span>*@
+                                            @Resources.GetLabelName("Fund Balance ")@*<span>*@
                                         </p>
                                     </div>
                                     <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5 fundtotal">
@@ -3677,7 +3677,7 @@ margin-left: 15px;">
 
                                 <div class="finanacial_analysis_living_expense">
                                     <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
-                                        <label class="finanacial_analysis_bal_label" style="width: 80%;">@Resources.GetLabelName("Estimated Annual living Expenses") (@Resources.GetLabelName("Dh"))</label>
+                                        <label class="finanacial_analysis_bal_label" style="width: 80%;">@Resources.GetLabelName("Estimated Annual living Expenses")</label>
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                                         @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.objCalculator.EstimatedAnnuallivingExpenses, new { @id = "txtEstimatedAnnuallivingExpenses", @class = "form-control", @readonly = "readonly" }, Model.objNeedAnalysis.objCalculator.EstimatedAnnuallivingExpenses))
@@ -3686,7 +3686,7 @@ margin-left: 15px;">
                                 </div>
                                 <div class="finanacial_analysis_interest_income">
                                     <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
-                                        <label class="finanacial_analysis_bal_label" style="width: 80%;">@Resources.GetLabelName("Per Annum Interest Income") (@Resources.GetLabelName("Dh"))</label>
+                                        <label class="finanacial_analysis_bal_label" style="width: 80%;">@Resources.GetLabelName("Per Annum Interest Income")</label>
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                                         @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.objCalculator.PerAnnumIncome, new { @id = "txtPerAnnumIncome", @class = "form-control", @readonly = "readonly" }, Model.objNeedAnalysis.objCalculator.PerAnnumIncome))
@@ -3700,7 +3700,7 @@ margin-left: 15px;">
                                             <img src="~/Content/Images/infoSearch.png" data-toggle="modal" data-target="#IncomeModal" />
 
                                         </span>
-                                        <label class="finanacial_analysis_bal_label" style="width: 80%;">@Resources.GetLabelName("Exisiting Income Sources") (@Resources.GetLabelName("Dh"))</label>
+                                        <label class="finanacial_analysis_bal_label" style="width: 80%;">@Resources.GetLabelName("Exisiting Income Sources")</label>
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                                         @(Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.objCalculator.Exsitingotherincome, new { @id = "txtExsitingotherincome", @class = "form-control", @onchange = "AnnualIncomeSurplusTotalcomma(id)", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = "12" }, Model.objNeedAnalysis.objCalculator.Exsitingotherincome))
@@ -3711,7 +3711,7 @@ margin-left: 15px;">
                                 <div class="finanacial_analysis_living_expense">
                                     <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
                                         <label class="finanacial_analysis_bal_label" style="width: 80%;">
-                                            @Resources.GetLabelName("Total") (@Resources.GetLabelName("Dh"))@*<span>*@
+                                            @Resources.GetLabelName("Total")@*<span>*@
                                         </label>
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -3866,9 +3866,9 @@ margin-left: 15px;">
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Current Requirement (Dh)</th>
-                                        <th>Available Fund (Dh)</th>
-                                        <th>Gap (Dh)</th>
+                                        <th>Current Requirement</th>
+                                        <th>Available Fund</th>
+                                        <th>Gap</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -4004,7 +4004,7 @@ margin-left: 15px;">
                         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12" style="padding-top:5%;padding-bottom:5% ">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                    @Resources.GetLabelName("Monthly Education Expenses") (@Resources.GetLabelName("Dh"))
+                                    @Resources.GetLabelName("Monthly Education Expenses")
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 
@@ -4014,7 +4014,7 @@ margin-left: 15px;">
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                    @Resources.GetLabelName("Annual Education Expenses") (@Resources.GetLabelName("Dh"))
+                                    @Resources.GetLabelName("Annual Education Expenses") 
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
@@ -4104,12 +4104,12 @@ margin-left: 15px;">
                                             <th scope="col">Type</th>
                                             <th scope="col">Beneficiary</th>
                                             <th scope="col">Age at Next Birthday</th>
-                                            <th scope="col">Current Requirement (Dh)</th>
+                                            <th scope="col">Current Requirement</th>
                                             <th scope="col">Term</th>
                                             <th scope="col">Age At Maturity</th>
-                                            <th scope="col">Estimated Amount (Dh)</th>
-                                            <th scope="col">Available Fund (Dh)</th>
-                                            <th scope="col">Gap (Dh)</th>
+                                            <th scope="col">Estimated Amount</th>
+                                            <th scope="col">Available Fund</th>
+                                            <th scope="col">Gap</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -4284,7 +4284,7 @@ margin-left: 15px;">
                                 <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2"></div>
                                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                        <h5>@Resources.GetLabelName("Maturity Value and Protection Gap") (@Resources.GetLabelName("Dh"))</h5>
+                                        <h5>@Resources.GetLabelName("Maturity Value and Protection Gap")</h5>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                         @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.EduMaturity, new { @id = "txtEduMaturity", @class = "form-control", @readonly = "readonly", @style = "width: 90%" }, Model.objNeedAnalysis.EduMaturity))
@@ -4292,7 +4292,7 @@ margin-left: 15px;">
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                        <h5>@Resources.GetLabelName("Annual Education Expenses Protection Fund") (@Resources.GetLabelName("Dh"))</h5>
+                                        <h5>@Resources.GetLabelName("Annual Education Expenses Protection Fund")</h5>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                         @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.EduLumpSum, new { @id = "txtEduLumpSum", @class = "form-control", @readonly = "readonly", @style = "width: 90%" }, Model.objNeedAnalysis.EduLumpSum))
@@ -4326,7 +4326,7 @@ margin-left: 15px;">
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 field-space">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                    @Resources.GetLabelName("Monthly Saving Amount") (@Resources.GetLabelName("Dh"))
+                                    @Resources.GetLabelName("Monthly Saving Amount"))
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     @(Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.MonthlySaveExpense, new { @id = "txtMonthlySaveExpense", @class = "form-control", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @style = "width: 90%", @onchange = "SavingAmount(id)", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)", @maxlength = 12 }, Model.objNeedAnalysis.MonthlySaveExpense))
@@ -4334,7 +4334,7 @@ margin-left: 15px;">
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 field-space">
                                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" style="padding-right: unset;">
-                                    @Resources.GetLabelName("Annual Saving Amount") (@Resources.GetLabelName("Dh"))
+                                    @Resources.GetLabelName("Annual Saving Amount"))
                                 </div>
                                 <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
                                     @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.AnnualSaveExpense, new { @id = "txtAnnualSaveExpense", @class = "form-control", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @readonly = "readonly" }, Model.objNeedAnalysis.AnnualSaveExpense))
@@ -4391,12 +4391,12 @@ margin-left: 15px;">
                                             <th scope="col">Type</th>
                                             <th scope="col">Beneficiary</th>
                                             <th scope="col">Age at Next Birthday</th>
-                                            <th scope="col">Current Requirement (Dh)</th>
+                                            <th scope="col">Current Requirement</th>
                                             <th scope="col">Term</th>
                                             <th scope="col">Age At Maturity</th>
-                                            <th scope="col">Estimated Amount (Dh)</th>
-                                            <th scope="col">Available Fund (Dh)</th>
-                                            <th scope="col">Gap (Dh)</th>
+                                            <th scope="col">Estimated Amount</th>
+                                            <th scope="col">Available Fund</th>
+                                            <th scope="col">Gap</th>
                                             <th scope="col"></th>
                                             @*<th scope="col">Type</th>
                                                 <th scope="col">Current Requirement (LKR)</th>
@@ -4627,7 +4627,7 @@ margin-left: 15px;">
                                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3"></div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     <div class="col-md-7 col-sm-7 col-xs-12 col-lg-7">
-                                        <h5 style="font-size: unset;">@Resources.GetLabelName("Saving Fund & Protection Gap") (@Resources.GetLabelName("Dh"))</h5>
+                                        <h5 style="font-size: unset;">@Resources.GetLabelName("Saving Fund & Protection Gap")</h5>
                                     </div>
                                     <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                                         @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.SavingTarget, new { @id = "txtSavingTarget", @class = "form-control", @readonly = "readonly", @style = "width: 90%" }, Model.objNeedAnalysis.SavingTarget))
@@ -4678,7 +4678,7 @@ margin-left: 15px;">
                         <div>
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 field-space">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                    <h4 class="finanacial_analysis_health_label" id="MonthlyEarningLabel">@Resources.GetLabelName("Monthly Earning") (@Resources.GetLabelName("Dh"))</h4>
+                                    <h4 class="finanacial_analysis_health_label" id="MonthlyEarningLabel">@Resources.GetLabelName("Monthly Earning")</h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     @(Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.MonthlyEarning, new { @id = "txtMonthlyEarning", @class = "form-control", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @style = "width: 90%", @onchange = "EstMonthIncomecomma(id)", @maxlength = "12", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)" }, Model.objNeedAnalysis.MonthlyEarning))
@@ -4686,7 +4686,7 @@ margin-left: 15px;">
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 field-space">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                    <h4 class="finanacial_analysis_health_label" id="EstimatedIncomeLabel">@Resources.GetLabelName("Estimated Earnings") (@Resources.GetLabelName("Dh"))</h4>
+                                    <h4 class="finanacial_analysis_health_label" id="EstimatedIncomeLabel">@Resources.GetLabelName("Estimated Earnings")</h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.EstimatedIncome, new { @id = "txtEstimatedIncome", @class = "form-control", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @style = "width: 90%", @readonly = "readonly" }, Model.objNeedAnalysis.EstimatedIncome))
@@ -4698,7 +4698,7 @@ margin-left: 15px;">
                         <div>
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 field-space">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                    <h4 class="finanacial_analysis_health_label" id="FutureFundLabel">@Resources.GetLabelName("Fund Value to Protect Your Future Income") (@Resources.GetLabelName("Dh"))</h4>
+                                    <h4 class="finanacial_analysis_health_label" id="FutureFundLabel">@Resources.GetLabelName("Fund Value to Protect Your Future Income")</h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.FutureFund, new { @id = "txtFutureFund", @class = "form-control", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @style = "width: 90%", @readonly = "readonly" }, Model.objNeedAnalysis.FutureFund))
@@ -4707,7 +4707,7 @@ margin-left: 15px;">
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 field-space">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                    <h4 class="finanacial_analysis_health_label" id="AvailableFundLabel">@Resources.GetLabelName("Available Fund") (@Resources.GetLabelName("Dh"))</h4>
+                                    <h4 class="finanacial_analysis_health_label" id="AvailableFundLabel">@Resources.GetLabelName("Available Fund")</h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     @(Html.CurrencyTextBoxFor(a => a.objNeedAnalysis.AvailableFund, new { @id = "txtAvailableFund", @class = "form-control", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @style = "width: 90%", @onchange = "EstMonthIncomecomma(id)", @maxlength = "12", @onfocus = "RemoveZero(id)", @onblur = "AddComma(id)" }, Model.objNeedAnalysis.AvailableFund))
@@ -4719,7 +4719,7 @@ margin-left: 15px;">
                         <div>
                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6 field-space">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                    <h4 class="finanacial_analysis_health_label" id="EmergencyFundLabel">@Resources.GetLabelName("Emergency Fund Requirement") (@Resources.GetLabelName("Dh"))</h4>
+                                    <h4 class="finanacial_analysis_health_label" id="EmergencyFundLabel">@Resources.GetLabelName("Emergency Fund Requirement")</h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                     @(Html.ReadCurrencyTextBoxFor(a => a.objNeedAnalysis.EmergencyFund, new { @id = "txtEmergencyFund", @class = "form-control", @onkeypress = "return isNumberKeyandBackSpacekey(event)", @onkeyup = "return isNumberTabkey(event)", @style = "width: 90%", @readonly = "readonly" }, Model.objNeedAnalysis.EmergencyFund))

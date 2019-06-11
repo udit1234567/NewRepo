@@ -169,7 +169,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
-            <label>@Resources.GetLabelName("Average Annual Income") (@Resources.GetLabelName("Dh"))<span class="mandatory">*</span></label>
+            <label>@Resources.GetLabelName("Average Annual Income")<span class="mandatory">*</span></label>
             @Html.CurrencyTextBoxFor(m => m.AvgMonthlyIncome, new { @class = "form-control", @id = "txtAverageMonthlyIncome", @onkeyup = "return isNumberTabkey(event)", @onkeypress = "return isNumberKey(event)", @maxlength = "12", onchange = "f1(id)" }, Model.AvgMonthlyIncome)
 
         </div>

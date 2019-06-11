@@ -10,8 +10,8 @@
     columns.Add(a => a.QuoteNo).Titled("Quote No").Encoded(false).Sanitized(false).Filterable(true);
     columns.Add(a => a.InsuredName).Titled("PROPOSER NAME").Encoded(false).Sanitized(false).Filterable(true);
     columns.Add(a => a.PlanName).Titled("Plan Name").Encoded(false).Sanitized(false).Filterable(true);
-    columns.Add(a => a.Premium,true).Titled("Premium (Dh)").Encoded(false).Sanitized(false).Filterable(true);
-    columns.Add(a => a.Premiumlkr).Titled("Premium (Dh)").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.Premium,true).Titled("Premium").Encoded(false).Sanitized(false).Filterable(true);
+    columns.Add(a => a.Premiumlkr).Titled("Premium").Encoded(false).Sanitized(false).Filterable(true);
     columns.Add(a => a.IssuedDate).Titled("Issue Date").Encoded(false).Sanitized(false).Filterable(true);
 
 }).WithPaging(5).WithMultipleFilters()
