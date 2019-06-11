@@ -189,22 +189,57 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="abc" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
           &lt;/table&gt;
           &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
             &lt;tr&gt;&lt;td class="introTitle"&gt;Dear txtSurName txtName,&lt;/td&gt;&lt;/tr&gt;
-            &lt;tr&gt;&lt;td class="introContent"&gt; Thank you for the opportunity provided in analysing your insurance needs and to recommend some solutions!
-			&lt;br /&gt;&lt;br /&gt;Need analysis is attached herewith for your reference and kind consideration. We expect you to go through this carefully and take the best decision in the interest of your loved ones.
-			
-               
-              
-            &lt;tr&gt;&lt;td class="introContent"&gt;You could always contact our Wealth Planner on  txtWPMobileNo or directly our Head Office on 0112310310 in case you need more clarity on this!&lt;br&gt; 
+            &lt;tr&gt;&lt;td class="introContent"&gt;
+			Thank you for the opportunity provided in analysing your insurance needs and  recommending  the best suited solution for you and your loved ones!
 
-&lt;br&gt;All the best and take care!&lt;br&gt;
-           &lt;br&gt;&lt;strong style="font-size: 18px"&gt;Metlife Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;br&gt;&lt;br&gt;Quotation generated after analysing your needs is attached here with for your reference and kind consideration. We expect you to go through this carefully and take the best decision in the interest of your loved ones. 
+
+
+			&lt;br&gt;&lt;/td&gt;&lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td class="introContent"&gt;
+                &lt;table border="0" cellpadding="0" cellspacing="0" width="600" align="center" summary=""&gt;
+                 &lt;tr style="background-color:#dddddd; border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Quote Number&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtQuoteNo&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Product Name&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtProductName&lt;/td&gt;
+                &lt;/tr&gt;
+
+                 &lt;tr style="background-color:#dddddd;border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Premium (Dh)&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPremium/-&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Policy Term&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPolicyTerm years&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr style="background-color:#dddddd;border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;
+                  &lt;th&gt;Premium Paying Term&lt;/th&gt;
+                  &lt;td style="border: 1px solid #dddddd;text-align: center;padding: 8px;"&gt;txtPPTerm years&lt;/td&gt;
+                &lt;/tr&gt;
+
+              &lt;/table&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;&lt;td class="introContent"&gt;You could always contact our Wealth Planner on  txtWPMobileNo or directly our Head Office on 0112310310 in case you need more clarity on this!
+&lt;br&gt;&lt;br&gt; All the best and Take care !&lt;br&gt;&lt;br&gt;
+
+            &lt;strong style="font-size: 18px"&gt;Metlife Team&lt;/strong&gt; &lt;/td&gt;&lt;/tr&gt;
           &lt;/table&gt;
            &lt;table border="0" cellpadding="0" cellspacing="0" width="640px" align="center" summary=""&gt;
             &lt;tr&gt;&lt;td class="footer"&gt;&lt;b&gt;&lt;u&gt;IMPORTANT NOTICE:&lt;/u&gt;&lt;/b&gt; The information in this txtEnvronment email (and any attachments) is confidential. If you are not the intended recipient, you must not use or disseminate the information. If you have received this email in error, please immediately notify me by "Reply" command and permanently delete the original and any copies or printouts thereof. Although this email and any attachments are believed to be free of any virus or other defect that might affect any computer system into which it is received and opened, it is the responsibility of the recipient to ensure that it is virus free and no responsibility is accepted by Metlife Group Limited or its subsidiaries or affiliates either jointly or severally, for any loss or damage arising in any way from its use.&lt;/td&gt;&lt;/tr&gt;
@@ -287,7 +322,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -359,7 +394,7 @@
     @font-face
     {
       font-family:'AIAEverest-Regular';
-      src:url('../Font/AIAEverest-Regular.otf');
+      src:url('../Font/MetlifeEverest-Regular.otf');
     }
       /* Default CSS */
       body,#body_style {margin: 0; padding: 0; background-color: #ffffff; font-family: "AIAEverest-Regular","Calibri",sans-serif; font-size: 14px; color: #313a42;}
@@ -420,7 +455,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -555,7 +590,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -696,7 +731,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -798,7 +833,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -901,7 +936,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -1006,7 +1041,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -1115,7 +1150,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -1222,7 +1257,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -1326,7 +1361,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="abc" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -1428,7 +1463,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="abc" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -1532,7 +1567,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -1635,7 +1670,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -1738,7 +1773,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -1848,7 +1883,7 @@
             &lt;tr&gt;
               &lt;td&gt;
                 &lt;table border="0" cellpadding="0" cellspacing="0" width="640" align="center" summary=""&gt;
-                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;img src="txtImage2/Images/big-header.jpg" width="640" alt="" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                  &lt;tr&gt;&lt;td class="bigHeader"&gt;&lt;/td&gt;&lt;/tr&gt;
                 &lt;/table&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
