@@ -5337,7 +5337,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LKR 1,000</Value>
+                                  <Value>Dh 1,000</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Times New Roman</FontFamily>
@@ -5946,7 +5946,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>: LKR </Value>
+                    <Value>: Dh </Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>
@@ -6249,7 +6249,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf((Fields!RelationId.Value=1 or Fields!RelationId.Value=6) ,"LKR "+Format(Cint(Fields!SumAssured.Value),"#,###,###"),"")</Value>
+                                  <Value>=IIf((Fields!RelationId.Value=1 or Fields!RelationId.Value=6) ,"Dh "+Format(Cint(Fields!SumAssured.Value),"#,###,###"),"")</Value>
                                   <Style>
                                     <FontFamily>times New Roman</FontFamily>
                                   </Style>
@@ -6396,7 +6396,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf((Fields!RelationId.Value &lt;&gt; 1 and Fields!RelationId.Value &lt;&gt; 6), "LKR " + Format(Cint(Fields!SumAssured.Value), "#,###,###"), "")</Value>
+                                  <Value>=IIf((Fields!RelationId.Value &lt;&gt; 1 and Fields!RelationId.Value &lt;&gt; 6), "Dh " + Format(Cint(Fields!SumAssured.Value), "#,###,###"), "")</Value>
                                   <Style>
                                     <FontFamily>times New Roman</FontFamily>
                                   </Style>

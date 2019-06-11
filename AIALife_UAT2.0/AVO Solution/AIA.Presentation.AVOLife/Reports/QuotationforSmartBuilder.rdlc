@@ -7290,7 +7290,7 @@ CInt(Max(IIF(Fields!DisplayName.Value="Premium for Accident Benefit (D)",Fields!
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>:  LKR 760.43 for the year 2018, increasing at the rate of 15% p.a. each                               subsequent year from</Value>
+                                  <Value>:  Dh 760.43 for the year 2018, increasing at the rate of 15% p.a. each                               subsequent year from</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -7776,7 +7776,7 @@ CInt(Max(IIF(Fields!DisplayName.Value="Premium for Accident Benefit (D)",Fields!
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>="LKR " + CStr(FormatNumber((Sum(Fields!SAM.Value, "DataSet1")*Sum(Fields!AnnualizePremium.Value, "DataSet1")),0))</Value>
+                    <Value>="Dh " + CStr(FormatNumber((Sum(Fields!SAM.Value, "DataSet1")*Sum(Fields!AnnualizePremium.Value, "DataSet1")),0))</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>
@@ -7909,7 +7909,7 @@ CInt(Max(IIF(Fields!DisplayName.Value="Premium for Accident Benefit (D)",Fields!
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>=IIf(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")&gt;0,"LKR "+CStr(FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")),0)),"")</Value>
+                    <Value>=IIf(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")&gt;0,"Dh "+CStr(FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")),0)),"")</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>
@@ -7969,7 +7969,7 @@ CInt(Max(IIF(Fields!DisplayName.Value="Premium for Accident Benefit (D)",Fields!
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>=IIf(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")&gt;0,"LKR "+CStr(FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")),0)),"")</Value>
+                    <Value>=IIf(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")&gt;0,"Dh "+CStr(FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")),0)),"")</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>
@@ -8014,7 +8014,7 @@ CInt(Max(IIF(Fields!DisplayName.Value="Premium for Accident Benefit (D)",Fields!
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>=IIf(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")&gt;0,"LKR " +CStr(FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")),0)),"")</Value>
+                    <Value>=IIf(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")&gt;0,"Dh " +CStr(FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")),0)),"")</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>

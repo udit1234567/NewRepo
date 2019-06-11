@@ -2700,7 +2700,7 @@ The Mortality Charge will be made from the Date of Commencement.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LKR 690 for the year 2018, increasing at the rate of 15% p.a. each subsequent year from 1st January **</Value>
+                                  <Value>Dh 690 for the year 2018, increasing at the rate of 15% p.a. each subsequent year from 1st January **</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -2848,7 +2848,7 @@ Deducted as a percentage of the policy funds. From year 4 the penalty linearly s
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LKR 1000.</Value>
+                                  <Value>Dh 1000.</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -3503,7 +3503,7 @@ Reinstatement, Surrender and Emergency Withdrawal</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="LKR "+ Cstr(First(Fields!AccidentBenefit.Value,"DataSet2"))</Value>
+                    <Value>="Dh "+ Cstr(First(Fields!AccidentBenefit.Value,"DataSet2"))</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>

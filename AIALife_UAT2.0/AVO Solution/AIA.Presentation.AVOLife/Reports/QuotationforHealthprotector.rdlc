@@ -489,7 +489,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="LKR "+Cstr(Fields!DrawDownDiv4.Value)</Value>
+                                  <Value>="Dh "+Cstr(Fields!DrawDownDiv4.Value)</Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -522,7 +522,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="LKR "+Cstr(Fields!DrawDownDiv8.Value)</Value>
+                                  <Value>="Dh "+Cstr(Fields!DrawDownDiv8.Value)</Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -555,7 +555,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="LKR "+Cstr(Fields!DrawDownDiv12.Value)</Value>
+                                  <Value>="Dh "+Cstr(Fields!DrawDownDiv12.Value)</Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -1114,7 +1114,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Switch(Last(Fields!InvestmentACBalance5.Value)&gt;0,"LKR "+Cstr(Last(Fields!InvestmentACBalance5.Value)))</Value>
+                                  <Value>=Switch(Last(Fields!InvestmentACBalance5.Value)&gt;0,"Dh "+Cstr(Last(Fields!InvestmentACBalance5.Value)))</Value>
                                   <Style>
                                     <FontSize>8.5pt</FontSize>
                                   </Style>
@@ -1147,7 +1147,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Switch(Last(Fields!InvestmentACBalance6.Value)&gt;0, "LKR "+Cstr(Last(Fields!InvestmentACBalance6.Value)))</Value>
+                                  <Value>=Switch(Last(Fields!InvestmentACBalance6.Value)&gt;0, "Dh "+Cstr(Last(Fields!InvestmentACBalance6.Value)))</Value>
                                   <Style>
                                     <FontSize>8.5pt</FontSize>
                                   </Style>
@@ -1180,7 +1180,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Switch(Last(Fields!InvestmentACBalance7.Value)&gt;0, "LKR "+Cstr(Last(Fields!InvestmentACBalance7.Value)))</Value>
+                                  <Value>=Switch(Last(Fields!InvestmentACBalance7.Value)&gt;0, "Dh "+Cstr(Last(Fields!InvestmentACBalance7.Value)))</Value>
                                   <Style>
                                     <FontSize>8.5pt</FontSize>
                                   </Style>
@@ -1213,7 +1213,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Switch(Last(Fields!InvestmentACBalance9.Value)&gt;0, "LKR "+Cstr(Last(Fields!InvestmentACBalance9.Value)))</Value>
+                                  <Value>=Switch(Last(Fields!InvestmentACBalance9.Value)&gt;0, "Dh "+Cstr(Last(Fields!InvestmentACBalance9.Value)))</Value>
                                   <Style>
                                     <FontSize>8.5pt</FontSize>
                                   </Style>
@@ -1246,7 +1246,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Switch(Last(Fields!InvestmentACBalance10.Value)&gt;0, "LKR "+Cstr(Last(Fields!InvestmentACBalance10.Value)))</Value>
+                                  <Value>=Switch(Last(Fields!InvestmentACBalance10.Value)&gt;0, "Dh "+Cstr(Last(Fields!InvestmentACBalance10.Value)))</Value>
                                   <Style>
                                     <FontSize>8.5pt</FontSize>
                                   </Style>
@@ -1279,7 +1279,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Switch(Last(Fields!InvestmentACBalance11.Value)&gt;0, "LKR "+Cstr(Last(Fields!InvestmentACBalance11.Value)))</Value>
+                                  <Value>=Switch(Last(Fields!InvestmentACBalance11.Value)&gt;0, "Dh "+Cstr(Last(Fields!InvestmentACBalance11.Value)))</Value>
                                   <Style>
                                     <FontSize>8.5pt</FontSize>
                                   </Style>
@@ -1674,7 +1674,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="LKR "+Cstr(Fields!dividendrate4.Value)</Value>
+                                  <Value>="Dh "+Cstr(Fields!dividendrate4.Value)</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -1707,7 +1707,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="LKR "+Cstr(Fields!dividendrate8.Value)</Value>
+                                  <Value>="Dh "+Cstr(Fields!dividendrate8.Value)</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -1740,7 +1740,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="LKR "+Cstr(Fields!dividendrate12.Value)</Value>
+                                  <Value>="Dh "+Cstr(Fields!dividendrate12.Value)</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -1966,7 +1966,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=iif(Fields!RiderId.Value=10,"Yes",iif(Format(Cint(IIF((Fields!MainSA.Value)= "-","0",Fields!MainSA.Value)),"#,###,###")="","-",
-"LKR "+ Format(Cint(IIF((Fields!MainSA.Value)= "-","0",Fields!MainSA.Value)),"#,###,###")
+"Dh "+ Format(Cint(IIF((Fields!MainSA.Value)= "-","0",Fields!MainSA.Value)),"#,###,###")
 +" "+Fields!RiderUnit.Value
 ))</Value>
                                   <Style>
@@ -2005,7 +2005,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=iif(Fields!RiderId.Value=15,"",iif(Format(Cint(IIF((Fields!SpouseSA.Value)= "-","0",Fields!SpouseSA.Value)),"#,###,###")="","-",
-"LKR "+ Format(Cint(IIF((Fields!SpouseSA.Value)= "-","0",Fields!SpouseSA.Value)),"#,###,###")
+"Dh "+ Format(Cint(IIF((Fields!SpouseSA.Value)= "-","0",Fields!SpouseSA.Value)),"#,###,###")
 +" "+Fields!SpouseRiderUnit.Value
 ))</Value>
                                   <Style>
@@ -2134,7 +2134,7 @@
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>="LKR "+ First(Fields!AnnualPremium.Value, "DataSet1")</Value>
+                                      <Value>="Dh "+ First(Fields!AnnualPremium.Value, "DataSet1")</Value>
                                       <Style>
                                         <FontSize>9.5pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
@@ -2225,7 +2225,7 @@
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>="LKR "+Fields!TotalAnnualModePremium.Value</Value>
+                                      <Value>="Dh "+Fields!TotalAnnualModePremium.Value</Value>
                                       <Style>
                                         <FontSize>9.5pt</FontSize>
                                       </Style>
@@ -2249,7 +2249,7 @@
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>="LKR "+Fields!TotalAnnualPremium.Value</Value>
+                                      <Value>="Dh "+Fields!TotalAnnualPremium.Value</Value>
                                       <Style>
                                         <FontSize>9.5pt</FontSize>
                                       </Style>
@@ -2565,7 +2565,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=iif(Fields!RiderId.Value=15,"Yes",iif((CInt(Fields!Child1SA.Value)&gt;0 Or CInt(Fields!Child2SA.Value)&gt;0 or CInt(Fields!Child3SA.Value)&gt;0 or CInt(Fields!Child4SA.Value)&gt;0 or CInt(Fields!Child5SA.Value)&gt;0),"LKR "+Cstr(FormatNumber(CInt(Fields!Child1SA.Value),0))+" "+Cstr(Fields!RiderUnit.Value),""))</Value>
+                                  <Value>=iif(Fields!RiderId.Value=15,"Yes",iif((CInt(Fields!Child1SA.Value)&gt;0 Or CInt(Fields!Child2SA.Value)&gt;0 or CInt(Fields!Child3SA.Value)&gt;0 or CInt(Fields!Child4SA.Value)&gt;0 or CInt(Fields!Child5SA.Value)&gt;0),"Dh "+Cstr(FormatNumber(CInt(Fields!Child1SA.Value),0))+" "+Cstr(Fields!RiderUnit.Value),""))</Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -5397,8 +5397,8 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>=Switch(CInt(First(Fields!Family_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")) &lt; 2000000, "LKR "+ FormatNumber(First(Fields!Family_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1"),0),CInt(First(Fields!Family_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")) &gt;= 2000000,
-"LKR "+ FormatNumber(Cint(First(Fields!Family_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")),0))</Value>
+                        <Value>=Switch(CInt(First(Fields!Family_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")) &lt; 2000000, "Dh "+ FormatNumber(First(Fields!Family_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1"),0),CInt(First(Fields!Family_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")) &gt;= 2000000,
+"Dh "+ FormatNumber(Cint(First(Fields!Family_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")),0))</Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontSize>9.5pt</FontSize>
@@ -5460,7 +5460,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>="LKR " + CStr(Format(CInt(First(Fields!Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")),"#,##,###"))</Value>
+                        <Value>="Dh " + CStr(Format(CInt(First(Fields!Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")),"#,##,###"))</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -5515,7 +5515,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>="LKR " + CStr(Format(CInt(First(Fields!Spouse_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")),"#,##,###"))</Value>
+                        <Value>="Dh " + CStr(Format(CInt(First(Fields!Spouse_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")),"#,##,###"))</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -5570,7 +5570,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>=Switch(not(isnothing(First(Fields!Child_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1"))), "LKR " + CStr(FormatNumber(CInt(First(Fields!Child_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")),0)))</Value>
+                        <Value>=Switch(not(isnothing(First(Fields!Child_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1"))), "Dh " + CStr(FormatNumber(CInt(First(Fields!Child_Global_Hospitalisation_Care_SumInsured.Value, "DataSet1")),0)))</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -5707,7 +5707,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>="LKR " + FormatNumber(CInt(First(Fields!Women_Health_Benefi_SumInsured.Value, "DataSet1") or First(Fields!Spouse_Women_Health_Benefit_SumInsured.Value, "DataSet1")),0)</Value>
+                        <Value>="Dh " + FormatNumber(CInt(First(Fields!Women_Health_Benefi_SumInsured.Value, "DataSet1") or First(Fields!Spouse_Women_Health_Benefit_SumInsured.Value, "DataSet1")),0)</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -5956,7 +5956,7 @@
                             </Style>
                           </TextRun>
                           <TextRun>
-                            <Value>="LKR " + Format(CInt(First(Fields!Critical_Illness_Plus_SumInsured.Value, "DataSet1")),"#,##,###")</Value>
+                            <Value>="Dh " + Format(CInt(First(Fields!Critical_Illness_Plus_SumInsured.Value, "DataSet1")),"#,##,###")</Value>
                             <Style>
                               <FontSize>9.5pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -6005,7 +6005,7 @@
                             </Style>
                           </TextRun>
                           <TextRun>
-                            <Value>="LKR " + Format(CInt(First(Fields!Spouse_Critical_Illness_Plus_SumInsured.Value, "DataSet1")),"#,##,###")</Value>
+                            <Value>="Dh " + Format(CInt(First(Fields!Spouse_Critical_Illness_Plus_SumInsured.Value, "DataSet1")),"#,##,###")</Value>
                             <Style>
                               <FontSize>9.5pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -6115,7 +6115,7 @@
                             </Style>
                           </TextRun>
                           <TextRun>
-                            <Value>="LKR " + CStr(FormatNumber(CInt(First(Fields!Global_Surgery_Care_SumInsured.Value, "DataSet1")),0))</Value>
+                            <Value>="Dh " + CStr(FormatNumber(CInt(First(Fields!Global_Surgery_Care_SumInsured.Value, "DataSet1")),0))</Value>
                             <Style>
                               <FontSize>9.5pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -6176,7 +6176,7 @@
                             </Style>
                           </TextRun>
                           <TextRun>
-                            <Value>="LKR " + CStr(FormatNumber(CInt(First(Fields!Spouse_Global_Surgery_Care_SumInsured.Value, "DataSet1")),0))</Value>
+                            <Value>="Dh " + CStr(FormatNumber(CInt(First(Fields!Spouse_Global_Surgery_Care_SumInsured.Value, "DataSet1")),0))</Value>
                             <Style>
                               <FontSize>9.5pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -6241,7 +6241,7 @@
                             </Style>
                           </TextRun>
                           <TextRun>
-                            <Value>=Switch(not(isnothing(First(Fields!Child_Health_Care_Benefit_SumInsured.Value, "DataSet1"))), "LKR " + CStr(FormatNumber(CInt(First(Fields!Child_Health_Care_Benefit_SumInsured.Value, "DataSet1")),0)))</Value>
+                            <Value>=Switch(not(isnothing(First(Fields!Child_Health_Care_Benefit_SumInsured.Value, "DataSet1"))), "Dh " + CStr(FormatNumber(CInt(First(Fields!Child_Health_Care_Benefit_SumInsured.Value, "DataSet1")),0)))</Value>
                             <Style>
                               <FontSize>9.5pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -6309,7 +6309,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>=Switch(not(isnothing(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1"))), "LKR " + CStr(FormatNumber(CInt(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0)))</Value>
+                        <Value>=Switch(not(isnothing(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1"))), "Dh " + CStr(FormatNumber(CInt(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0)))</Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontSize>9.5pt</FontSize>
@@ -6329,7 +6329,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>=Switch(not(isnothing(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1"))), "LKR " + CStr(FormatNumber(CInt(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0)))</Value>
+                        <Value>=Switch(not(isnothing(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1"))), "Dh " + CStr(FormatNumber(CInt(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0)))</Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontSize>9.5pt</FontSize>
@@ -6349,7 +6349,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>="LKR " +Cstr(FormatNumber(2*(cint(Switch(not(isnothing(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1"))), Cint(FormatNumber(CInt(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0))))),0))</Value>
+                        <Value>="Dh " +Cstr(FormatNumber(2*(cint(Switch(not(isnothing(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1"))), Cint(FormatNumber(CInt(First(Fields!Child_Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0))))),0))</Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontSize>9.5pt</FontSize>
@@ -6405,7 +6405,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>="LKR " + CStr(FormatNumber(CInt(First(Fields!Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0))</Value>
+                        <Value>="Dh " + CStr(FormatNumber(CInt(First(Fields!Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0))</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -6476,7 +6476,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>LKR </Value>
+                        <Value>Dh </Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -6539,7 +6539,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>="LKR " + CStr(FormatNumber(CInt(First(Fields!Spouse_Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0))</Value>
+                        <Value>="Dh " + CStr(FormatNumber(CInt(First(Fields!Spouse_Hospital_Income_Benefit_SumInsured.Value, "DataSet1")),0))</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -6745,7 +6745,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>="LKR " + Cstr(FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")),0))</Value>
+                        <Value>="Dh " + Cstr(FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1")),0))</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -6807,7 +6807,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>="LKR " + CStr(FormatNumber(CInt(First(Fields!Spouse_Accident_Benefit_SumInsured.Value, "DataSet1")),0))</Value>
+                        <Value>="Dh " + CStr(FormatNumber(CInt(First(Fields!Spouse_Accident_Benefit_SumInsured.Value, "DataSet1")),0))</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -6975,7 +6975,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>="LKR " + CStr(FormatNumber(CInt(First(Fields!BASIC_LIFE_COVER_SumInsured.Value, "DataSet1")),0))</Value>
+                        <Value>="Dh " + CStr(FormatNumber(CInt(First(Fields!BASIC_LIFE_COVER_SumInsured.Value, "DataSet1")),0))</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -7049,7 +7049,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>="LKR "+ FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1") + Cint(First(Fields!BASIC_LIFE_COVER_SumInsured.Value, "DataSet1"))),0)</Value>
+                        <Value>="Dh "+ FormatNumber(CInt(First(Fields!ACCIDENT_BENEFIT_SumInsured.Value, "DataSet1") + Cint(First(Fields!BASIC_LIFE_COVER_SumInsured.Value, "DataSet1"))),0)</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -7152,7 +7152,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>="LKR " + CStr(Format(CInt(First(Fields!Spouse_Life_Benefit_SumInsured.Value, "DataSet1")),"#,##,###"))</Value>
+                        <Value>="Dh " + CStr(Format(CInt(First(Fields!Spouse_Life_Benefit_SumInsured.Value, "DataSet1")),"#,##,###"))</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -7225,7 +7225,7 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value>="LKR "+FormatNumber(Cint((First(Fields!Spouse_Life_Benefit_SumInsured.Value, "DataSet1")+Cint(First(Fields!Spouse_Accident_Benefit_SumInsured.Value, "DataSet1")))),0)</Value>
+                        <Value>="Dh "+FormatNumber(Cint((First(Fields!Spouse_Life_Benefit_SumInsured.Value, "DataSet1")+Cint(First(Fields!Spouse_Accident_Benefit_SumInsured.Value, "DataSet1")))),0)</Value>
                         <Style>
                           <FontSize>9.5pt</FontSize>
                           <FontWeight>Bold</FontWeight>
@@ -7455,7 +7455,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>LKR 1,000 per annum in 2018 which will increase each year from 1st January at the rate of 10%</Value>
+                            <Value>Dh 1,000 per annum in 2018 which will increase each year from 1st January at the rate of 10%</Value>
                             <Style>
                               <FontSize>9.5pt</FontSize>
                             </Style>
@@ -8377,7 +8377,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>LKR 1,000</Value>
+                            <Value>Dh 1,000</Value>
                             <Style>
                               <FontSize>9.5pt</FontSize>
                             </Style>
@@ -8569,7 +8569,7 @@
                             </Style>
                           </TextRun>
                           <TextRun>
-                            <Value>="LKR "+FormatNumber(CInt(First(Fields!LoyaltyAmount.Value, "DataSet18")),0)</Value>
+                            <Value>="Dh "+FormatNumber(CInt(First(Fields!LoyaltyAmount.Value, "DataSet18")),0)</Value>
                             <Style>
                               <FontSize>9.5pt</FontSize>
                               <FontWeight>Bold</FontWeight>
@@ -11160,7 +11160,7 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>the first LKR 50,000 </Value>
+                    <Value>the first Dh 50,000 </Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontSize>9.5pt</FontSize>

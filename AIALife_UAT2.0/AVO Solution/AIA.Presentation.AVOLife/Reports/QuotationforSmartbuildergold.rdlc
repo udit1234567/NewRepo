@@ -2389,7 +2389,7 @@ e.g. if there are applicable extra charges due to medical, occupational etc reas
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Policy Administration charge: LKR 805 for the year 2018, increasing at the rate of 15% p.a. each subsequent  year from 1st January. </Value>
+                    <Value>Policy Administration charge: Dh 805 for the year 2018, increasing at the rate of 15% p.a. each subsequent  year from 1st January. </Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                     </Style>
@@ -7697,7 +7697,7 @@ e.g. if there are applicable extra charges due to medical, occupational etc reas
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If you pass away due to natural circumstances in the first policy year your beneficiaries will receive LKR </Value>
+                                  <Value>If you pass away due to natural circumstances in the first policy year your beneficiaries will receive Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7802,7 +7802,7 @@ e.g. if there are applicable extra charges due to medical, occupational etc reas
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>In case of death due to an accident, your beneficiaries will receive LKR </Value>
+                                  <Value>In case of death due to an accident, your beneficiaries will receive Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -8132,7 +8132,7 @@ e.g. if there are applicable extra charges due to medical, occupational etc reas
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value> due to natural circumstances after the first policy year, your beneficiaries will receive LKR </Value>
+                                  <Value> due to natural circumstances after the first policy year, your beneficiaries will receive Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -8241,7 +8241,7 @@ e.g. if there are applicable extra charges due to medical, occupational etc reas
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>In case of death due to an accident, your beneficiaries will receive LKR </Value>
+                                  <Value>In case of death due to an accident, your beneficiaries will receive Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -8695,7 +8695,7 @@ e.g. if there are applicable extra charges due to medical, occupational etc reas
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>In the unfortunate event of Total Permanent Disability due to an accident, LKR </Value>
+                                      <Value>In the unfortunate event of Total Permanent Disability due to an accident, Dh </Value>
                                       <Style>
                                         <FontSize>9pt</FontSize>
                                         <FontWeight>Normal</FontWeight>

@@ -5561,7 +5561,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>If the Life Assured passes away during Pension Receiving Period, the beneficiaries will receive a Funeral Expense Benefit of LKR </Value>
+                                  <Value>If the Life Assured passes away during Pension Receiving Period, the beneficiaries will receive a Funeral Expense Benefit of Dh </Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -5864,7 +5864,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LKR </Value>
+                                  <Value>Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
@@ -5877,7 +5877,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value> will be immediately paid to the beneficiaries. This is  after allocating the Survivor Income Benefit of  LKR </Value>
+                                  <Value> will be immediately paid to the beneficiaries. This is  after allocating the Survivor Income Benefit of  Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
@@ -5978,7 +5978,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>In case of death due to an accident, the beneficiaries will also receive LKR </Value>
+                                  <Value>In case of death due to an accident, the beneficiaries will also receive Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
@@ -6250,7 +6250,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LKR </Value>
+                                  <Value>Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6393,7 +6393,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>In the unfortunate event of Permanent Disability due to an accident, up to LKR </Value>
+                                  <Value>In the unfortunate event of Permanent Disability due to an accident, up to Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6610,7 +6610,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If you are diagnosed with any one of the 22 covered critical illnesses, LKR </Value>
+                                  <Value>If you are diagnosed with any one of the 22 covered critical illnesses, Dh </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6700,7 +6700,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If your spouse is diagnosed with any one of the 22 covered critical illnesses, LKR </Value>
+                                  <Value>If your spouse is diagnosed with any one of the 22 covered critical illnesses, Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6860,7 +6860,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If you are hospitalized for more than 3 days, we will pay you LKR </Value>
+                                  <Value>If you are hospitalized for more than 3 days, we will pay you Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6885,7 +6885,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If you are admitted to the ICU the amount paid will be LKR </Value>
+                                  <Value>If you are admitted to the ICU the amount paid will be Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6974,7 +6974,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If your spouse is hospitalized for more than 3 days, we will pay you LKR </Value>
+                                  <Value>If your spouse is hospitalized for more than 3 days, we will pay you Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6999,7 +6999,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If your spouse is admitted to the ICU the amount paid will be LKR </Value>
+                                  <Value>If your spouse is admitted to the ICU the amount paid will be Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7082,7 +7082,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If your child is hospitalized for more than 3 days, we will pay you LKR </Value>
+                                  <Value>If your child is hospitalized for more than 3 days, we will pay you Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7095,7 +7095,7 @@
                                 </TextRun>
                                 <TextRun>
                                   <Value> for each day of hospitalization.
-If your child is admitted to the ICU the amount paid will be LKR </Value>
+If your child is admitted to the ICU the amount paid will be Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7185,7 +7185,7 @@ If your child is admitted to the ICU the amount paid will be LKR </Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>You can get your medical expenses incurred in Sri Lanka reimbursed up to a maximum of LKR </Value>
+                                  <Value>You can get your medical expenses incurred in Sri Lanka reimbursed up to a maximum of Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7275,7 +7275,7 @@ If your child is admitted to the ICU the amount paid will be LKR </Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>You can get your spouse’s medical expenses incurred in Sri Lanka reimbursed up to a maximum of LKR </Value>
+                                  <Value>You can get your spouse’s medical expenses incurred in Sri Lanka reimbursed up to a maximum of Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7359,7 +7359,7 @@ If your child is admitted to the ICU the amount paid will be LKR </Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>You can get your child’s medical expenses incurred in Sri Lanka reimbursed up to a maximum of LKR </Value>
+                                  <Value>You can get your child’s medical expenses incurred in Sri Lanka reimbursed up to a maximum of Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7468,7 +7468,7 @@ If your child is admitted to the ICU the amount paid will be LKR </Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>You can get your family’s medical expenses incurred in Sri Lanka reimbursed. The maximum you can claim for a year for all members relating to hospital expenses will be limited to LKR </Value>
+                                  <Value>You can get your family’s medical expenses incurred in Sri Lanka reimbursed. The maximum you can claim for a year for all members relating to hospital expenses will be limited to Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7481,7 +7481,7 @@ If your child is admitted to the ICU the amount paid will be LKR </Value>
                                 </TextRun>
                                 <TextRun>
                                   <Value>.  
-For the entire policy term you will be able to claim up to a total of LKR </Value>
+For the entire policy term you will be able to claim up to a total of Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7571,7 +7571,7 @@ For the entire policy term you will be able to claim up to a total of LKR </Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>You will receive up to LKR </Value>
+                                  <Value>You will receive up to Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7661,7 +7661,7 @@ For the entire policy term you will be able to claim up to a total of LKR </Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>You will receive up to LKR </Value>
+                                  <Value>You will receive up to Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7745,7 +7745,7 @@ For the entire policy term you will be able to claim up to a total of LKR </Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Covers your child for 250 listed surgeries in Sri Lanka, India, Singapore, Malaysia or Thailand up to LKR </Value>
+                                  <Value>Covers your child for 250 listed surgeries in Sri Lanka, India, Singapore, Malaysia or Thailand up to Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -7758,7 +7758,7 @@ For the entire policy term you will be able to claim up to a total of LKR </Valu
                                 </TextRun>
                                 <TextRun>
                                   <Value>
-In addition should your Child be hospitalized you will receive a per day benefit of LKR </Value>
+In addition should your Child be hospitalized you will receive a per day benefit of Dh</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -11339,7 +11339,7 @@ In addition should your Child be hospitalized you will receive a per day benefit
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>LKR </Value>
+                    <Value>Dh</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                     </Style>
@@ -11393,7 +11393,7 @@ In addition should your Child be hospitalized you will receive a per day benefit
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>LKR </Value>
+                    <Value>Dh</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                     </Style>
@@ -12100,7 +12100,7 @@ In addition should your Child be hospitalized you will receive a per day benefit
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> years, in LKR .</Value>
+                    <Value> years, in Dh.</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -17399,7 +17399,7 @@ In addition should your Child be hospitalized you will receive a per day benefit
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Policy Administration charge: LKR 345 for the year 2019, increasing at the rate of 15% p.a. each subsequent year from  </Value>
+                    <Value>Policy Administration charge: Dh345 for the year 2019, increasing at the rate of 15% p.a. each subsequent year from  </Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontSize>9pt</FontSize>

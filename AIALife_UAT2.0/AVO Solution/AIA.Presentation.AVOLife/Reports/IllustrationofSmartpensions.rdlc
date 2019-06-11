@@ -2366,7 +2366,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="LKR "+Cstr(Format(Cint((Fields!AnnualizePremium.Value*Fields!SAM.Value)),"#,###,###"))</Value>
+                                  <Value>="Dh "+Cstr(Format(Cint((Fields!AnnualizePremium.Value*Fields!SAM.Value)),"#,###,###"))</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>8pt</FontSize>
@@ -2449,7 +2449,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="LKR "+Cstr(Format(Cint((Fields!AnnualizePremium.Value*Fields!SAM.Value*Fields!MonthlySurvivorIncome.Value)/100),"#,###,###"))</Value>
+                                  <Value>="Dh "+Cstr(Format(Cint((Fields!AnnualizePremium.Value*Fields!SAM.Value*Fields!MonthlySurvivorIncome.Value)/100),"#,###,###"))</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>8pt</FontSize>
