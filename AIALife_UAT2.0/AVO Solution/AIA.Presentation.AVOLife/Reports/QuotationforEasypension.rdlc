@@ -1159,7 +1159,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>If you pass away early, LKR </Value>
+                                  <Value>If you pass away early, Dh </Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -1268,7 +1268,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>In case of death due to an accident ,your beneficiaries will receive LKR </Value>
+                                  <Value>In case of death due to an accident ,your beneficiaries will receive Dh </Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -1546,7 +1546,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>In the unfortunate event of Total Permanent Disability due to an accident, LKR </Value>
+                                  <Value>In the unfortunate event of Total Permanent Disability due to an accident, Dh </Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                   </Style>
@@ -3003,7 +3003,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>If you are diagnosed with any one of the 22 covered critical illnesses, LKR </Value>
+                                      <Value>If you are diagnosed with any one of the 22 covered critical illnesses, Dh </Value>
                                       <Style>
                                         <FontSize>9.5pt</FontSize>
                                       </Style>
@@ -3092,7 +3092,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>If you are hospitalized for more than 3 days, AIA will pay you LKR </Value>
+                                      <Value>If you are hospitalized for more than 3 days, AIA will pay you Dh </Value>
                                       <Style>
                                         <FontSize>9.5pt</FontSize>
                                       </Style>
@@ -3105,7 +3105,7 @@
                                     </TextRun>
                                     <TextRun>
                                       <Value> for each day of hospitalization (government hospitals included) 
-If you are admitted to the ICU the amount paid will be LKR </Value>
+If you are admitted to the ICU the amount paid will be Dh </Value>
                                       <Style>
                                         <FontSize>9.5pt</FontSize>
                                       </Style>
@@ -4248,7 +4248,7 @@ If you are admitted to the ICU the amount paid will be LKR </Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> years, in LKR </Value>
+                    <Value> years, in Dh </Value>
                     <Style>
                       <FontSize>9.5pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -9323,7 +9323,7 @@ premium payable</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Policy Administration charge: LKR 287.50 for the year 2018, increasing at the rate of 15% p.a. each                               subsequent year from 1st January</Value>
+                    <Value>Policy Administration charge: Dh 287.50 for the year 2018, increasing at the rate of 15% p.a. each                               subsequent year from 1st January</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontWeight>Normal</FontWeight>

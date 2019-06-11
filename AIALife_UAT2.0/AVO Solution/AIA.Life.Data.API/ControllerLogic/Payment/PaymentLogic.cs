@@ -98,6 +98,9 @@ namespace AIA.Life.Data.API.ControllerLogic.Payment
 
             Common.CommonBusiness objCommonBusiness = new Common.CommonBusiness();
             objPaymentModel.LstInstrumentType = objCommonBusiness.GetInstrumentType();
+
+            objPaymentModel.lstPayableCurrency = objCommonBusiness.GetCurrency();
+
             return objPaymentModel;
         }
 
@@ -304,7 +307,7 @@ namespace AIA.Life.Data.API.ControllerLogic.Payment
             UWRuleLogic objLogic = new UWRuleLogic();
             PolicyLogic objPolicyLogic = new PolicyLogic();
             objPaymentModel.Message = string.Empty;
-
+            
 
             //bool dataUpdated = false;
             //var ilData = Context.tblLogILUpdates.Where(a => a.ProposalNo == objPaymentModel.ProposalNo).FirstOrDefault();

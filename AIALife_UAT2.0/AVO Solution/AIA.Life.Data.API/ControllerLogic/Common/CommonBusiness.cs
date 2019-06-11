@@ -1264,6 +1264,21 @@ namespace AIA.Life.Data.API.ControllerLogic.Common
             return lstType;
 
         }
+        
+        public List<MasterListItem> GetCurrency()
+        {
+
+            List<MasterListItem> lstType = (from s in Context.tblMasCommonTypes
+                                            where s.MasterType == "Currency" && s.isDeleted == 0
+                                            select new MasterListItem
+                                            {
+                                                Text = s.Description,
+                                                Value = s.Code
+
+                                            }).OrderByDescending(a => a.Text).ToList();
+            return lstType;
+
+        }
         public List<MasterListItem> GetAdequacyFNA()
         {
 

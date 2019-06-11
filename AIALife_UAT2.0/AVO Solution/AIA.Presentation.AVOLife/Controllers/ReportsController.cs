@@ -5573,7 +5573,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                     string mainSAValue = "";
                     if (!MainSA.InnerText.Equals("-"))
                     {
-                        mainSAValue = "LKR " + FormatCurrency(MainSA.InnerText);
+                        mainSAValue = "Dh " + FormatCurrency(MainSA.InnerText);
                         if (RiderUnit.Value != null)
                         {
                             mainSAValue += (" " + RiderUnit.Value);
@@ -5591,7 +5591,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                     string spouseSAValue = "";
                     if (!SpouseSA.InnerText.Equals("-"))
                     {
-                        spouseSAValue = "LKR " + FormatCurrency(SpouseSA.InnerText);
+                        spouseSAValue = "Dh " + FormatCurrency(SpouseSA.InnerText);
                         if (RiderUnit.Value != null)
                         {
                             spouseSAValue += (" " + RiderUnit.Value);
@@ -5622,7 +5622,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                     }
                     else
                     {
-                        childSAValue = "LKR " + FormatCurrency(TotalChildSA + "");
+                        childSAValue = "Dh " + FormatCurrency(TotalChildSA + "");
                     }
 
                     XmlElement TotalChildSA_elem = doc.CreateElement("TotalChildSA");

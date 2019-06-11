@@ -1,7 +1,7 @@
 ﻿@model  AIA.Life.Models.Opportunity.Prospect
 @using AIA.Presentation.Helpers
 @using AIAResources;
-@{
+@*@{
     List<SelectListItem> CurrancyList = new List<SelectListItem>();
     var data = new[]{
          new SelectListItem{ Value="",Text="Select"},
@@ -13,7 +13,7 @@
     CurrancyList = data.ToList(); 
 
     Layout = null;
-}
+}*@
 <script src="~/Scripts/Common.js"></script>
 
 <style>
@@ -175,14 +175,20 @@
         </div>
     </div>
 
+    @*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label>Currency</label>
+                @Html.DropDownList("ddlcurrency", new SelectList(CurrancyList, "Value", "Text"), new { @class = "form-control", @id = "ddlcurrency" })
+            </div>
+        </div>*@
+
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
-            <label>Currency</label>
-            @Html.DropDownList("ddlcurrency", new SelectList(CurrancyList, "Value", "Text"), new { @class = "form-control", @id = "ddlcurrency" })
+            <label>@Resources.GetLabelName("Currency")</label>
+            @Html.DropDownListFor(m => m.Currency, new SelectList(Model.objNeedAnalysis.CurrencyList, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlGender" })
+
         </div>
     </div>
-
-
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label>@Resources.GetLabelName("Passport")</label>

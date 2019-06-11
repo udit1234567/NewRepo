@@ -2062,6 +2062,9 @@ namespace AIA.Life.Data.API.ControllerLogic.Prospect
             objQuoteList.objProspect.lstCurrentStatus = objCommonBusiness.GetMasCommonTypeMasterListItem("PrevInsurenceCurrentStatus");
             objQuoteList.objProspect.lstNeedsPriority = objCommonBusiness.GetMasCommonTypeMasterListItem("NeedPriorityValue");
             objQuoteList.objProspect.lstPurposeOfMeeting = objCommonBusiness.GetMasCommonTypeMasterListItem("PurposeOfNextMeeting");
+
+           
+
             objQuoteList.objProspect.ListPlan = objCommonBusiness.ListProducts();
             objQuoteList.objProspect.objNeedAnalysis.objFamilyIncome.RateOfInterest = Convert.ToInt32(ConfigurationManager.AppSettings["RateOfInterest"]);
             objQuoteList.LstPremiumTerm = objCommonBusiness.GetPensionPeriod();
@@ -2808,6 +2811,7 @@ namespace AIA.Life.Data.API.ControllerLogic.Prospect
                 objProspect.objNeedAnalysis.dlladversities = objCommonBusiness.GetHealthAdversitiesFNA();
                 objProspect.objNeedAnalysis.dlladequacy = objCommonBusiness.GetAdequacyFNA();
                 objProspect.objNeedAnalysis.dllcoverage = objCommonBusiness.GetCoverageFNA();
+                objProspect.objNeedAnalysis.CurrencyList = objCommonBusiness.GetCurrency();
                 objProspect.lstSalutation = objCommonBusiness.GetSalutation();
                 objProspect.lstOccupation = objCommonBusiness.GetOccupation();
                 objProspect.lstGender = objCommonBusiness.GetGender();
@@ -2819,6 +2823,9 @@ namespace AIA.Life.Data.API.ControllerLogic.Prospect
                 objProspect.lstCurrentStatus = objCommonBusiness.GetMasCommonTypeMasterListItem("PrevInsurenceCurrentStatus");
                 objProspect.lstNeedsPriority = objCommonBusiness.GetMasCommonTypeMasterListItem("NeedPriorityValue");
                 objProspect.lstPurposeOfMeeting = objCommonBusiness.GetMasCommonTypeMasterListItem("PurposeOfNextMeeting");
+
+                
+
                 objProspect.ListPlan = objCommonBusiness.ListProducts();
                 string CreatedBy = objProspect.CreatedBy;
                 string role = Context.GetRoleByUserName(CreatedBy).FirstOrDefault();

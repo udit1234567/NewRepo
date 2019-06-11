@@ -19,7 +19,7 @@ namespace AIA.Life.Integration.Services.EmailandSMS {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class SMSIntegrationTemplete {
@@ -181,7 +181,7 @@ namespace AIA.Life.Integration.Services.EmailandSMS {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ///iPoS Notice: The premium amount of LKR txtPremium is needed to accept the Proposal (No: txtProposalNo) - Life Ops
+        ///iPoS Notice: The premium amount of Dh txtPremium is needed to accept the Proposal (No: txtProposalNo) - Life Ops
         ///txtSMSEnvironment.
         /// </summary>
         internal static string S012 {

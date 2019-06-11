@@ -8932,7 +8932,7 @@ Cint(Max(IIf(Fields!DisplayName.Value Like "*Waiver of Premium*",Format(Cint(Fie
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LKR  </Value>
+                                  <Value>Dh  </Value>
                                   <Style>
                                     <FontSize>9.5pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
@@ -10663,7 +10663,7 @@ Cint(Max(IIf(Fields!DisplayName.Value Like "*Additional Life Benefit*",Fields!Su
                     <Value>Allocation Charge (on Basic Premium)         : Policy Year 1: 80% , Policy Year 2: 45% , Policy Year 3 onwards: 0%
 Mortality Charge                                              : This is the cost of providing cover for the Basic Sum Assured 
 Fund Management Charge                             : 0.75% p.a. of Investment Account 
-Policy Administration Charge                        : LKR  346.96 for the year </Value>
+Policy Administration Charge                        : Dh  346.96 for the year </Value>
                     <Style>
                       <FontSize>9.5pt</FontSize>
                       <FontWeight>Bold</FontWeight>

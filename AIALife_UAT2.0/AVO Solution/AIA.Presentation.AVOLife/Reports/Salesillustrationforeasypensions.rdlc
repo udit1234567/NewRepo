@@ -730,7 +730,7 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> Monthly pension you will start receiving when you reach your selected retirement age of 65 years, in LKR </Value>
+                    <Value> Monthly pension you will start receiving when you reach your selected retirement age of 65 years, in Dh </Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -1987,7 +1987,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>- If you pass away early, LKR 720,000 will be immediately paid to your beneficiaries as the Life Benefit. </Value>
+                    <Value>- If you pass away early, Dh 720,000 will be immediately paid to your beneficiaries as the Life Benefit. </Value>
                     <Style>
                       <FontSize>8pt</FontSize>
                     </Style>
@@ -1998,7 +1998,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>- In case of death due to an accident, Your beneficiaries will receive LKR 1,800,000. </Value>
+                    <Value>- In case of death due to an accident, Your beneficiaries will receive Dh 1,800,000. </Value>
                     <Style>
                       <FontSize>8pt</FontSize>
                     </Style>
@@ -2149,7 +2149,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>- In the unfortunate event of Total Permanent Disability due to an accident, LKR 1,080,000 will be paid to you. </Value>
+                    <Value>- In the unfortunate event of Total Permanent Disability due to an accident, Dh 1,080,000 will be paid to you. </Value>
                     <Style>
                       <FontSize>8pt</FontSize>
                     </Style>
@@ -5444,7 +5444,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Detailed year-on-year monthly pension you will start receiving when you reach your selected retirement age of 65 years, in LKR </Value>
+                    <Value>Detailed year-on-year monthly pension you will start receiving when you reach your selected retirement age of 65 years, in Dh </Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -5917,7 +5917,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>      d. Policy Administration charge: LKR 250 for the year 2017, increasing at the rate of 15% p.a. each subsequent year from 1st </Value>
+                    <Value>      d. Policy Administration charge: Dh 250 for the year 2017, increasing at the rate of 15% p.a. each subsequent year from 1st </Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                     </Style>

@@ -130,12 +130,29 @@
                             </div>
 
                             <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
-                                <label class="col-lg-5 col-sm-5 control-label">@Resources.GetLabelName("Payable Amount") (Dh):<span class="mandatory"> *</span></label>
+                                <label class="col-lg-5 col-sm-5 control-label">@Resources.GetLabelName("Payable Amount") :<span class="mandatory"> *</span></label>
                                 <div class="col-lg-7 col-sm-7">
                                     @Html.ReadCurrencyTextBoxFor(a => a.PayableAmount, new { @readonly = "readonly", @class = "form-control", @id = "txtPayableAmount" }, Model.PayableAmount)
                                 </div>
                             </div>
                         </div>
+                        
+                        <div>
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                <div class="form-group">
+                                    <label>@Resources.GetLabelName("Payable Currency")</label>
+                                    @Html.DropDownListFor(a => a.PayableCurrency, new SelectList(Model.lstPayableCurrency, "Value", "Text"), "Select", new { @class = "form-control", @id = "ddlCurrency",  @onchange = "CurrencyChange()" })
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                                <div class="form-group">
+                                    <label>@Resources.GetLabelName("Total Payable Amount"):<span class="mandatory"> *</span></label>
+                                    @Html.ReadCurrencyTextBoxFor(a => a.TotalPayableAmount, new { @readonly = "readonly", @class = "form-control", @id = "txtTotalPayableAmount" }, Model.PayableAmount)
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
                             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 btn-res">
@@ -240,7 +257,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" id="divOfflineField2" style="display:none">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-group">
-                                    <label class="paylabel">@Resources.GetLabelName("Amount") (Dh)<span class="mandatory">*</span></label>
+                                    <label class="paylabel">@Resources.GetLabelName("Amount")<span class="mandatory">*</span></label>
                                     @Html.CurrencyTextBoxFor(a => a.CheqAmount, new { @class = "form-control", @id = "txtCheqAmount", @onkeypress = "return isNumberKey(event)", @onchange = "f1(id)", @pattern = "[0-9]*" }, Model.CheqAmount)
                                 </div>
                             </div>
@@ -350,6 +367,9 @@
             GetTransationNumber();
             //$('.transaction-details').show();
         })
+
+
+
     })
 
 
@@ -430,6 +450,30 @@
         })
     }
 
+    function CurrencyChange(){
+    debugger;
+    var currency = $('#ddlCurrency').val();
+    var amount = $('#txtPayableAmount').val();
+    if(currency == "EUR"){
+    var exchange = (amount * 0.8);
+    $('#txtTotalPayableAmount').val(exchange);
+    }
+    else if (currency == "AED"){
+    var exchange = (amount * 3.67);
+    $('#txtTotalPayableAmount').val(exchange);
+    }
+    else if (currency == "GBP"){
+    var exchange = (amount * 0.6);
+    $('#txtTotalPayableAmount').val(exchange);
+    }
+    else if (currency == "USD"){
+    $('#txtTotalPayableAmount').val(amount);
+    }
+    else{
+     $('#txtTotalPayableAmount').val('');
+    }
+
+    }
     function SubmitPaymentInfo() {
 
         var TotalPayableAmount = $('#PayableAmount').val();
