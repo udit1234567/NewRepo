@@ -306,80 +306,80 @@ namespace AIA.Life.Data.API.ControllerLogic.Payment
             objPaymentModel.Message = string.Empty;
 
 
-            //bool dataUpdated = false;
-            //var ilData = Context.tblLogILUpdates.Where(a => a.ProposalNo == objPaymentModel.ProposalNo).FirstOrDefault();
-            //if (ilData != null)
-            //{
-            //    if (ilData.ServiceStatus == "SUCC" && ilData.ServiceName == "ModifyProposal")
-            //        dataUpdated = true;
-            //}
-            //if (dataUpdated)
-            //{
-            //    //S003
-            //    var CustomerDetails=objtblpolicy.tblPolicyRelationships.FirstOrDefault().tblPolicyClient;
-            //    //var Title = Context.tblMasCommonTypes.Where(a => a.Code == CustomerDetails.Title).Select(a => a.ShortDesc).FirstOrDefault();
-            //    //objSMSDetails.Salutation = objCommonBusiness.ConverttoTitlecase(Title);
-            //    string Sal = CustomerDetails.Title;
-            //    var Salutation = Context.tblMasCommonTypes.Where(a => a.Code == Sal && a.MasterType == "Salutation").Select(a => a.ShortDesc).FirstOrDefault();
-            //    var Salu = Context.tblMasCommonTypes.Where(a => a.Description == Sal && a.MasterType == "Salutation").Select(a => a.ShortDesc).FirstOrDefault();
-            //    if (!String.IsNullOrEmpty(Salutation))
-            //    {
-            //        objSMSDetails.Salutation = Salutation;
-            //    }
-            //    else if (!String.IsNullOrEmpty(Salu))
-            //    {
-            //        objSMSDetails.Salutation = Salu;
-            //    }
-            //    else
-            //    {
-            //        objSMSDetails.Salutation = Sal;
-            //    }
-            //    var Name = "";
-            //    if (CustomerDetails.FullName == "CORP")
-            //    {
-            //        Name = CustomerDetails.CorporateName;
-            //    }
-            //    else
-            //    {
-            //        Name = CustomerDetails.LastName;
-            //    }
-            //    objSMSDetails.Name = objCommonBusiness.ConverttoTitlecase(Name);
-            //    objSMSDetails.SMSTemplate = "S003";
-            //    objSMSDetails.ProposalNumber = objPaymentModel.ProposalNo;
-            //    objSMSDetails.MobileNumber = CustomerDetails.MobileNo;
-            //    objSMSDetails.SMSEnvironment = Convert.ToString(ConfigurationManager.AppSettings["SMSEnvironment"]);
-            //    if (!String.IsNullOrEmpty(objSMSDetails.MobileNumber))
-            //    {
-            //        objSMSIntegration.SMSNotification(objSMSDetails);
-            //    }
-            //  //  objPaymentModel = (PaymentModel)IL.RecieptEnquiry(objPaymentModel);
-            //}
-            //if ((objPaymentModel.PayingAmount) >= (Convert.ToDecimal(objPaymentModel.PayableAmount) - 100) || System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT")
-            //{
+            bool dataUpdated = false;
+            var ilData = Context.tblLogILUpdates.Where(a => a.ProposalNo == objPaymentModel.ProposalNo).FirstOrDefault();
+            if (ilData != null)
+            {
+                if (ilData.ServiceStatus == "SUCC" && ilData.ServiceName == "ModifyProposal")
+                    dataUpdated = true;
+            }
+            if (dataUpdated)
+            {
+                //S003
+                var CustomerDetails=objtblpolicy.tblPolicyRelationships.FirstOrDefault().tblPolicyClient;
+                //var Title = Context.tblMasCommonTypes.Where(a => a.Code == CustomerDetails.Title).Select(a => a.ShortDesc).FirstOrDefault();
+                //objSMSDetails.Salutation = objCommonBusiness.ConverttoTitlecase(Title);
+                string Sal = CustomerDetails.Title;
+                var Salutation = Context.tblMasCommonTypes.Where(a => a.Code == Sal && a.MasterType == "Salutation").Select(a => a.ShortDesc).FirstOrDefault();
+                var Salu = Context.tblMasCommonTypes.Where(a => a.Description == Sal && a.MasterType == "Salutation").Select(a => a.ShortDesc).FirstOrDefault();
+                if (!String.IsNullOrEmpty(Salutation))
+                {
+                    objSMSDetails.Salutation = Salutation;
+                }
+                else if (!String.IsNullOrEmpty(Salu))
+                {
+                    objSMSDetails.Salutation = Salu;
+                }
+                else
+                {
+                    objSMSDetails.Salutation = Sal;
+                }
+                var Name = "";
+                if (CustomerDetails.FullName == "CORP")
+                {
+                    Name = CustomerDetails.CorporateName;
+                }
+                else
+                {
+                    Name = CustomerDetails.LastName;
+                }
+                objSMSDetails.Name = objCommonBusiness.ConverttoTitlecase(Name);
+                objSMSDetails.SMSTemplate = "S003";
+                objSMSDetails.ProposalNumber = objPaymentModel.ProposalNo;
+                objSMSDetails.MobileNumber = CustomerDetails.MobileNo;
+                objSMSDetails.SMSEnvironment = Convert.ToString(ConfigurationManager.AppSettings["SMSEnvironment"]);
+                if (!String.IsNullOrEmpty(objSMSDetails.MobileNumber))
+                {
+                    objSMSIntegration.SMSNotification(objSMSDetails);
+                }
+              //  objPaymentModel = (PaymentModel)IL.RecieptEnquiry(objPaymentModel);
+            }
+            if ((objPaymentModel.PayingAmount) >= (Convert.ToDecimal(objPaymentModel.PayableAmount) - 100) || System.Web.Configuration.WebConfigurationManager.AppSettings["PublishEnvironment"] == "SIT")
+            {
                 AIA.Life.Models.Policy.Policy objPolicy = new AIA.Life.Models.Policy.Policy();
                 objPolicy.ProposalFetch = true;
                 objPolicy.ProposalNo = objPaymentModel.ProposalNo;
                 objPolicy.QuoteNo = objtblpolicy.QuoteNo;
                 objPolicy = objPolicyLogic.FetchProposalInfo(objPolicy);
                 // //S012
-                //if (objPaymentModel.SelectedPayment == "othertypes")
-                //{
-                //    var createdBy = Context.tblPolicies.Where(a => a.ProposalNo == objPolicy.ProposalNo).Select(a => a.Createdby).FirstOrDefault();
-                //    objSMSDetails.MobileNumber = Context.tblUserDetails.Where(a => a.UserID.ToString() == createdBy).Select(a => a.ContactNo).FirstOrDefault();
-                //    //objSMSDetails.MobileNumber = Context.tblMasIMOUsers.Where(a => a.UserID == objPolicy.AgentCode).Select(a => a.MobileNo).FirstOrDefault();
-                //    objSMSDetails.SMSTemplate = "S012";
-                //    objSMSDetails.PolicyNo= objPaymentModel.ProposalNo;
-                //    objSMSDetails.Premium = String.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", objPolicy.AnnualPremium); //Convert.ToString(objPolicy.AnnualPremium);
-                //    objSMSDetails.SMSEnvironment = Convert.ToString(ConfigurationManager.AppSettings["SMSEnvironment"]);
-                //    objSMSIntegration.SMSNotification(objSMSDetails);
-                //}
+                if (objPaymentModel.SelectedPayment == "othertypes")
+                {
+                    var createdBy = Context.tblPolicies.Where(a => a.ProposalNo == objPolicy.ProposalNo).Select(a => a.Createdby).FirstOrDefault();
+                    objSMSDetails.MobileNumber = Context.tblUserDetails.Where(a => a.UserID.ToString() == createdBy).Select(a => a.ContactNo).FirstOrDefault();
+                    //objSMSDetails.MobileNumber = Context.tblMasIMOUsers.Where(a => a.UserID == objPolicy.AgentCode).Select(a => a.MobileNo).FirstOrDefault();
+                    objSMSDetails.SMSTemplate = "S012";
+                    objSMSDetails.PolicyNo= objPaymentModel.ProposalNo;
+                    objSMSDetails.Premium = String.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", objPolicy.AnnualPremium); //Convert.ToString(objPolicy.AnnualPremium);
+                    objSMSDetails.SMSEnvironment = Convert.ToString(ConfigurationManager.AppSettings["SMSEnvironment"]);
+                    objSMSIntegration.SMSNotification(objSMSDetails);
+                }
                 string Message = string.Empty;
                 Message = objLogic.ValidateDeviation(objPolicy);
                 
-                //tblPayment tblPayment = objtblpolicy.tblPolicyPaymentMaps.OrderByDescending(a => a.PolicyPaymentMapID).FirstOrDefault().tblPayment;
-                //tblPayment.ChequeSubmission = true;
-                //tblPayment.ReceiptNo = "ACK";
-                //string leadNo = Context.tblLifeQQs.Where(a => a.QuoteNo == objtblpolicy.QuoteNo).Select(a => a.tblContact).FirstOrDefault().LeadNo;
+                tblPayment tblPayment = objtblpolicy.tblPolicyPaymentMaps.OrderByDescending(a => a.PolicyPaymentMapID).FirstOrDefault().tblPayment;
+                tblPayment.ChequeSubmission = true;
+                tblPayment.ReceiptNo = "ACK";
+                string leadNo = Context.tblLifeQQs.Where(a => a.QuoteNo == objtblpolicy.QuoteNo).Select(a => a.tblContact).FirstOrDefault().LeadNo;
                // if (dataUpdated)
                    // objPaymentModel = (PaymentModel)IL.ProposalPreIssueValidation(objPaymentModel);
 
@@ -393,11 +393,11 @@ namespace AIA.Life.Data.API.ControllerLogic.Payment
                         objtblpolicy.PolicyStageStatusID = 193;// UW
                         objtblpolicy.IsAllocated = false; // Pending for Allocation
                         objtblpolicy.ProposalSubmitDate = DateTime.Now;
-                        //if (!string.IsNullOrEmpty(leadNo))
-                        //{
-                        //   // SamsClient samsClient = new SamsClient();
-                        //   // samsClient.UpdateLeadStatus(Context, Convert.ToInt32(leadNo), 9);
-                        //}
+                        if (!string.IsNullOrEmpty(leadNo))
+                        {
+                           // SamsClient samsClient = new SamsClient();
+                           // samsClient.UpdateLeadStatus(Context, Convert.ToInt32(leadNo), 9);
+                        }
                         //SMS S005
                         var createdBy = Context.tblPolicies.Where(a => a.ProposalNo == objPolicy.ProposalNo).Select(a => a.Createdby).FirstOrDefault();
                         objSMSDetails.MobileNumber = Context.tblUserDetails.Where(a => a.UserID.ToString() == createdBy).Select(a => a.ContactNo).FirstOrDefault();
@@ -411,87 +411,74 @@ namespace AIA.Life.Data.API.ControllerLogic.Payment
                     objPaymentModel.UWMessage = "" + Message;
                     Context.SaveChanges();
 
-                }
-                else
-                {
-                    objtblpolicy.PolicyNo = objPaymentModel.ProposalNo = objPolicy.ProposalNo;
-                    objtblpolicy.PolicyStageStatusID = 192;// Issued
-                    DateTime today = DateTime.Now;
-                    int[] exceptionDays = new int[3] { 29, 30, 31 };
-                    if (exceptionDays.Contains(today.Day))
-                        today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 28);
-                    objtblpolicy.PolicyIssueDate = today;
-                    objtblpolicy.PolicyStartDate = today;
-                    objtblpolicy.PolicyEndDate = today.AddYears(Convert.ToInt32(objtblpolicy.PolicyTerm));
-                    Context.SaveChanges();
-                    objPaymentModel.Message = "Success";
+                    return objPaymentModel;
                 }
                 #endregion
 
 
 
-                //if (!string.IsNullOrEmpty(objPaymentModel.ProposalNo) && dataUpdated)
-                //{
-                //    //objPaymentModel = (PaymentModel)IL.ProposalPreIssueValidation(objPaymentModel);
-                //    if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage) && (objPaymentModel.PreIssueValidations.Count <= 1))
-                //    {
+                if (!string.IsNullOrEmpty(objPaymentModel.ProposalNo) && dataUpdated)
+                {
+                    //objPaymentModel = (PaymentModel)IL.ProposalPreIssueValidation(objPaymentModel);
+                    if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage) && (objPaymentModel.PreIssueValidations.Count <= 1))
+                    {
 
-                //        if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage))
-                //        {
-                //            Thread.Sleep(5000);
-                //           // objPaymentModel = (PaymentModel)IL.ProposalUWApproval(objPaymentModel);
-                //            if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage))
-                //            {
-                //                //objPaymentModel = (PaymentModel)IL.QualityControl(objPaymentModel);
-                //                if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage))
-                //                {
-                //                    //objPaymentModel = (PaymentModel)IL.ProposalIssuance(objPaymentModel);
-                //                    if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage))
-                //                    {
-                //                        objtblpolicy.PolicyNo = objPaymentModel.ProposalNo = objPolicy.ProposalNo;
-                //                        objtblpolicy.PolicyStageStatusID = 192;// Issued
-                //                        DateTime today = DateTime.Now;
-                //                        int[] exceptionDays = new int[3] { 29, 30, 31 };
-                //                        if (exceptionDays.Contains(today.Day))
-                //                            today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 28);
-                //                        objtblpolicy.PolicyIssueDate = today;
-                //                        objtblpolicy.PolicyStartDate = today;
-                //                        objtblpolicy.PolicyEndDate = today.AddYears(Convert.ToInt32(objtblpolicy.PolicyTerm));
-                //                        objPaymentModel.Message = "Success";
-                //                    }
-                //                }
-                //            }
-                //        }
-                //    }
-                //    else
-                //    {
-                //        if (dataUpdated)
-                //        {
-                //            if (!string.IsNullOrEmpty(leadNo))
-                //            {
-                //               // SamsClient samsClient = new SamsClient();
-                //                //samsClient.UpdateLeadStatus(Context, Convert.ToInt32(leadNo), 9);
-                //            }
-                //            objtblpolicy.PolicyStageStatusID = 193;// UW
-                //            objtblpolicy.IsAllocated = false;
-                //            objtblpolicy.ProposalSubmitDate = DateTime.Now;
-                //            objPaymentModel.UWMessage = "Your proposal has been forwarded to the underwriter for further processing.";
-                //        }
-                //        else
-                //        {
-                //            objPaymentModel.UWMessage = "Payment is Successful. Your proposal is under processing, you will be notified soon.";
-                //        }
-                //    }
-                //    Context.SaveChanges();
-                //}
-            //}
-            //else
-            //{
-            //    if(objPaymentModel.PayingAmount==0)
-            //        objPaymentModel.UWMessage = "Payment is Successful. Your proposal is under processing, you will be notified soon.";
-            //    else
-            //        objPaymentModel.UWMessage = "Your payment is successful. Payment reference number is " + objPaymentModel.TransactionNo;
-            //}
+                        if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage))
+                        {
+                            Thread.Sleep(5000);
+                           // objPaymentModel = (PaymentModel)IL.ProposalUWApproval(objPaymentModel);
+                            if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage))
+                            {
+                                //objPaymentModel = (PaymentModel)IL.QualityControl(objPaymentModel);
+                                if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage))
+                                {
+                                    //objPaymentModel = (PaymentModel)IL.ProposalIssuance(objPaymentModel);
+                                    if (string.IsNullOrEmpty(objPaymentModel.Error.ErrorMessage))
+                                    {
+                                        objtblpolicy.PolicyNo = objPaymentModel.ProposalNo = objPolicy.ProposalNo;
+                                        objtblpolicy.PolicyStageStatusID = 192;// Issued
+                                        DateTime today = DateTime.Now;
+                                        int[] exceptionDays = new int[3] { 29, 30, 31 };
+                                        if (exceptionDays.Contains(today.Day))
+                                            today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 28);
+                                        objtblpolicy.PolicyIssueDate = today;
+                                        objtblpolicy.PolicyStartDate = today;
+                                        objtblpolicy.PolicyEndDate = today.AddYears(Convert.ToInt32(objtblpolicy.PolicyTerm));
+                                        objPaymentModel.Message = "Success";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (dataUpdated)
+                        {
+                            if (!string.IsNullOrEmpty(leadNo))
+                            {
+                               // SamsClient samsClient = new SamsClient();
+                                //samsClient.UpdateLeadStatus(Context, Convert.ToInt32(leadNo), 9);
+                            }
+                            objtblpolicy.PolicyStageStatusID = 193;// UW
+                            objtblpolicy.IsAllocated = false;
+                            objtblpolicy.ProposalSubmitDate = DateTime.Now;
+                            objPaymentModel.UWMessage = "Your proposal has been forwarded to the underwriter for further processing.";
+                        }
+                        else
+                        {
+                            objPaymentModel.UWMessage = "Payment is Successful. Your proposal is under processing, you will be notified soon.";
+                        }
+                    }
+                    Context.SaveChanges();
+                }
+            }
+            else
+            {
+                if(objPaymentModel.PayingAmount==0)
+                    objPaymentModel.UWMessage = "Payment is Successful. Your proposal is under processing, you will be notified soon.";
+                else
+                    objPaymentModel.UWMessage = "Your payment is successful. Payment reference number is " + objPaymentModel.TransactionNo;
+            }
             return objPaymentModel;
         }
 
