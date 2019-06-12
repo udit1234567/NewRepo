@@ -24,28 +24,28 @@
                 <colgroup span="2"></colgroup>
                 <tr>
                     <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Policy Year")</th>
-                    <th colspan=2 scope="colgroup" class="textAlign">@Resources.GetLabelName("Aggregate Premium")</th>
-                    <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Premiums for additional Benefits")</th>
-                    <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Total Annual Premium")</th>
-                    <th colspan=3 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Rate of 4% p.a.")</th>
-                    <th colspan=3 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Rate of 8% p.a.")</th>
-                    <th colspan=3 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Rate of 12% p.a.")</th>
+                    <th colspan=1 scope="colgroup" class="textAlign">@Resources.GetLabelName("Annual Planned Premium")</th>
+                    @*<th scope="colgroup" class="textAlign">@Resources.GetLabelName("Premiums for additional Benefits")</th>
+                    <th scope="colgroup" class="textAlign">@Resources.GetLabelName("Total Annual Premium")</th>*@
+                    <th colspan=2 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Rate of 4% p.a.")</th>
+                    <th colspan=2 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Rate of 8% p.a.")</th>
+                    <th colspan=2 scope="colgroup" class="textAlign">@Resources.GetLabelName("Assumed Dividend Rate of 12% p.a.")</th>
                 </tr>
                 <tr>
                     <th scope="col"></th>
-                    <th scope="col">@Resources.GetLabelName("Annual Basic Premium")</th>
-                    <th scope="col">@Resources.GetLabelName("Premium for main Benefits")</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col">@Resources.GetLabelName("Investment Account Balance (at year end)")</th>
+                    <th scope="col">@*@Resources.GetLabelName("")*@</th>
+                    @*<th scope="col">@Resources.GetLabelName("Premium for main Benefits")</th>*@
+                    @*<th scope="col"></th>
+                    <th scope="col"></th>*@
+                    <th scope="col">@Resources.GetLabelName("Account Value (at year end)")</th>
                     <th scope="col">@Resources.GetLabelName("Surrender Value (at year end)")</th>
-                    <th scope="col">@Resources.GetLabelName("Monthly Draw Down (at yearly start)")</th>
-                    <th scope="col">@Resources.GetLabelName("Investment Account Balance (at year end)")</th>
+                    @*<th scope="col">@Resources.GetLabelName("Monthly Draw Down (at yearly start)")</th>*@
+                    <th scope="col">@Resources.GetLabelName("Account Value (at year end)")</th>
                     <th scope="col">@Resources.GetLabelName("Surrender Value (at year end)")</th>
-                    <th scope="col">@Resources.GetLabelName("Monthly Draw Down (at yearly start)")</th>
-                    <th scope="col">@Resources.GetLabelName("Investment Account Balance (at year end)")</th>
+                    @*<th scope="col">@Resources.GetLabelName("Monthly Draw Down (at yearly start)")</th>*@
+                    <th scope="col">@Resources.GetLabelName("Account Value (at year end)")</th>
                     <th scope="col">@Resources.GetLabelName("Surrender Value (at year end)")</th>
-                    <th scope="col">@Resources.GetLabelName("Monthly Draw Down (at yearly start)")</th>
+                   @*<th scope="col">@Resources.GetLabelName("Monthly Draw Down (at yearly start)")</th>*@
                 </tr>
 
                 @{
@@ -58,18 +58,18 @@
                 <tr>
                     <td class="textAlign">@item.PolicyYear</td>
                     <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.BasicPremium))</td>
-                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.MainBenefitsPremium))</td>
-                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.AdditionalBenefitsPremiums))</td>
-                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.TotalPremium))</td>
+                    @*<td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.MainBenefitsPremium))</td>*@
+                    @*<td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.AdditionalBenefitsPremiums))</td>
+                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.TotalPremium))</td>*@
                     <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.FundBalanceDiv4))</td>
                     <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.SurrenderValueDiv4))</td>
-                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.DrawDownDiv4))</td>
+                    @*<td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.DrawDownDiv4))</td>*@
                     <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.FundBalanceDiv8))</td>
                     <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.SurrenderValueDiv8))</td>
-                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.DrawDownDiv8))</td>
+                    @*<td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.DrawDownDiv8))</td>*@
                     <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.FundBalanceDiv12))</td>
                     <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.SurrenderValueDiv12))</td>
-                    <td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.DrawDownDiv12))</td>
+                    @*<td class="textAlign">@string.Format(CultureInfo.GetCultureInfo(1033), "{0:n0}", Convert.ToInt64(item.DrawDownDiv12))</td>*@
                 </tr>
                             }
 

@@ -288,7 +288,7 @@
 @*(@Resources.GetLabelName("LKR"))*@
 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
     <div class="form-group">
-        <label>@Resources.GetLabelName("Annualize Premium") @*(@Resources.GetLabelName(""))*@<span class="mandatory">*</span></label>
+        <label>@Resources.GetLabelName("Annual Planned Premium") @*(@Resources.GetLabelName(""))*@<span class="mandatory">*</span></label>
         @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium, new { @class = "form-control", @id = "txtAnnualizePremium" + Model.SelectedQuote + "", @readonly = "readonly", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium)
     </div>
 </div>
@@ -599,7 +599,7 @@
         // Layout.init(); // init layout
         // wireUpEvents();
         $(document).ready(function () {
-            debugger;
+            
             if ('@Model.objListQuote[Model.SelectedQuote].objProductDetials.PreferredLangauage'!='' && '@Model.objListQuote[Model.SelectedQuote].objProductDetials.PreferredLangauage'!=null) {
                 $('#ddlPrefLangauage' + @Model.SelectedQuote).val('@Model.objListQuote[Model.SelectedQuote].objProductDetials.PreferredLangauage')
 
@@ -621,14 +621,14 @@
                 $(".pad").attr('width', '540');
             }
             $('.signaturePad').click(function () {
-                //debugger;
+                
                 $(document).load($(window).bind("resize", checkPadsize));
             })
         })
         //$(document).load($(window).bind("resize", checkPosition));
 
         function checkPadsize() {
-            //debugger;
+            
             if ($(window).width() < 370) {
                 $(".pad").attr('width', '240');
             }
@@ -659,7 +659,7 @@
         }
     }
     function ageCountSpouse(e) {
-        debugger;
+        
         var dob = $("#dtSpouseCoveredDOB_" + e).val();
         var controlid = 'dtSpouseCoveredDOB_' + e;
         writeMultipleMessage("error", "", controlid);
@@ -1898,7 +1898,7 @@
                 writeMultipleMessage("error", "", 'ddlSAM' + index + '');
             }
         }
-        debugger;
+        
         if (planCode == 'PPH')
         {
             if ($("#txtMonthlySurvivorIncome" + index).val() == "") {
@@ -2087,7 +2087,6 @@
         $('#chkDeductable').toggleClass("checkboxactive");
     }
     function ValidateGenderSalutation() {
-        debugger;
         var Salutation = $('#TxtSalutation').val();
         var Gender = $('#ddlGender').val();
         if (Salutation == "Al Haj" || Salutation == "Ayur Dr Mr" || Salutation == "Father" || Salutation == "Master" || Salutation == "Mr" || Salutation == "Rector" || Salutation == "Reverent" || Salutation == "Reverent Father" || Salutation == "Sir") {
@@ -2158,7 +2157,7 @@
                 EnableControlsInCounterOfferCase();
             }
             $.post("/Policy/GetDynamicTabs", $("#fromQuotePage").serialize(), function (data) {
-                debugger;
+                
                 $('#ddlSpouseGender'+index).prop('disabled',true);
                 $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
                 $('#DivDynamicInfo_' + index).html(data);
@@ -2247,7 +2246,7 @@
 
 
     function CalculateQuotePremium(index) {
-        debugger;
+        
 
         writeMultipleMessage("error", "", "DivDynamicInfo_" + index);
         //Commented for removing the Border lines for Craete Quation sections
@@ -2265,7 +2264,7 @@
         $.post("/Policy/CalculateQuotePremium", $("#fromQuotePage").serialize())
             .done(function (data) {
                 if (data.Message == "Success") {
-                    debugger;
+                    
                     $('#ddlSpouseGender'+index).prop('disabled',true);
                     $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
                     var planCode = $("#txtPlanCode_" + index + "").val();
@@ -2385,7 +2384,7 @@
     }
 
     function validateQuoteSignatures(index) {
-        //debugger;
+        
          
         //if ($('#txtAnnualPremium').val() < $('#txtAnnualizePremium').val()) {
         //    // writeMultipleMessage("error", "Annualize premium should be greater than total premium");
@@ -2537,7 +2536,7 @@
             .done(function (data) {
                 if (data != null) {
                     var planCode = data.ObjLifeQuote.objProductDetials.PlanCode;
-                    debugger;
+                    
                     $("#txtPlanCode_" + index + "").val(planCode);
 
 
@@ -2638,7 +2637,7 @@
                         }
                     }
                     if (planCode == 'LLP') {
-                        debugger;
+                        
                         $('#divPensionPeriod_' + index + '').hide();
                         $('#divDrawDownPeriod_' + index + '').hide();
                         $('#divRetairemetAge_' + index + '').hide();
@@ -2683,7 +2682,7 @@
                     
 
                     if (planCode == 'PPH' || planCode == 'PSP') {
-                        debugger;
+                       
                         $('#divRetairemetAge_' + index + '').show();
                         $('#divMonthlyIncome_' + index + '').show();
                         $('#divChkBoxHealthProtector_' + index + '').show();
@@ -2868,7 +2867,7 @@
         }
     }
     function EnablePopUp(index) {
-        debugger;
+        
         var BasicPremium = parseInt($('#hdntxtBenefitPremium' + index + '00').val());
         var PrevPremium = parseInt($('*[data-name="AnnualPremium"]').text());
         if (isNaN(PrevPremium)) {
@@ -2886,7 +2885,8 @@
         }
         var Premium = BasicPremium + PrevPremium;
         if (Premium >= 250000) {
-            $('#AFCModal').modal('show');
+            // Udit - Chnage for Pop message hide
+            //$('#AFCModal').modal('show');
             $('#hdnAfc'+index).val('True');
         }
         else if (Premium < 250000 && Premium >= 200000) {
@@ -2894,7 +2894,7 @@
         }
     }
     function MonthlyPopup(index) {
-        //debugger;
+        
         //var AnnualizePremium = $("#txtAnnualizePremium" + index).val();
         //var annualplandprem = $("#txtAnnualPremium" + index).val();
         var PreferedMode = $("#ddlPrefMode" + index).val();
