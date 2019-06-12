@@ -35,7 +35,7 @@ namespace AIAResources.Abstract
                 culture = "en-IN";
             }
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Resource name cannot be null or empty.");
+                //throw new ArgumentException("Resource name cannot be null or empty.");
 
             if (string.IsNullOrWhiteSpace(culture))
                 throw new ArgumentException("Culture name cannot be null or empty.");

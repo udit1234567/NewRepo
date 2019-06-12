@@ -125,6 +125,7 @@
         }
     }
     function ViewPdf() {
+       
         var checkcount1 = $('#divQuotationPoolGrid').find('input[type=radio]:checked').length;
         if (checkcount1 > 0) {
 
@@ -137,12 +138,13 @@
         }
     }
     function EmailPopup() {
+        debugger;
         var checkcount1 = $('#divQuotationPoolGrid').find('input[type=radio]:checked').length;
         if (checkcount1 > 0) {
             writeMultipleMessage("error", "", "IsSelected");
             $.post("../Policy/FetchEmailAddress?QuoteNo=" + QuoteNo)
-            .done(function (data) {
-             
+                .done(function (data) {
+                    debugger;
                 $("#Txtemailaddress").val(data);
                 $("#SendEmailModal").modal("show");
             })

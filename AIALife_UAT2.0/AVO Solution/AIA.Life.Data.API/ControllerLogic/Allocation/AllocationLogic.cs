@@ -308,15 +308,17 @@ namespace AIA.Life.Data.API.ControllerLogic.Allocation
                         {
 
                             DateTime Date = DateTime.Now;
+
                             var policy = Context.tblPolicies.Where(a => a.ProposalNo == Item.ProposalNo).FirstOrDefault();
                             if (policy != null)
                             {
+                            
                                 decimal PolicyID = policy.PolicyID;
                                 var PolicyAllocation = Context.tblPolicyUWAllocations.Where(a => a.PolicyID == PolicyID).FirstOrDefault();
                                 if (PolicyAllocation != null)
                                 {
                                     PolicyAllocation.AllocatedFrom = PolicyAllocation.AllocatedTo;
-                                    PolicyAllocation.AllocatedTo = Item.AssignTo;
+                                    PolicyAllocation.AllocatedTo = Item.AssignTo.ToUpper();
                                     PolicyAllocation.AllocatedDate = Date;
                                     policy.IsAllocated = true;
                                     policy.ModifiedDate = Date;

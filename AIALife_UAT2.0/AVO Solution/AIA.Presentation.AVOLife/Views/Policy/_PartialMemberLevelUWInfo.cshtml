@@ -61,12 +61,14 @@
                         @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.SAR, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("FAL")</label>
-                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.FAL, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        @*<label>@Resources.GetLabelName("FAL")</label>
+                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.FAL, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })*@
                         <label>@Resources.GetLabelName("Total Annual Premium")</label>
                         @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.TotalAnnualPremium, new { id = "txtMemberNameWithInitials", @class = "form-control", @onkeypress = "return onlyAlphabets(event)", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
+                        <label>@Resources.GetLabelName("BMI Value")</label>
+                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.BMIValue, new { id = "txtMemberBMIValue", @class = "form-control", @readonly = "readonly" })
                     </div>
 
 
@@ -74,12 +76,11 @@
 
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("BMI Value")</label>
-                        @Html.TextBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.BMIValue, new { id = "txtMemberBMIValue", @class = "form-control", @readonly = "readonly" })
+                       
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4 form-group">
-                        <label>@Resources.GetLabelName("AFC")</label>
-                        @Html.CheckBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.AFC, new { id = "txtMemberNameWithInitials", @onkeypress = "return onlyAlphabets(event)", @disabled = "disabled" })
+                        @*<label>@Resources.GetLabelName("AFC")</label>
+                        @Html.CheckBoxFor(a => a.objMemberDetails[Index].ObjUwDecision.objMemberSummary.AFC, new { id = "txtMemberNameWithInitials", @onkeypress = "return onlyAlphabets(event)", @disabled = "disabled" })*@
                     </div>
 
 
@@ -136,13 +137,15 @@
                     <label> @Resources.GetLabelName("Document Type")  </label>
                     @Html.DropDownListFor(a => a.objMemberDetails[Index].ObjUwDecision.DocumentType, new SelectList(Model.LstDocument, "Value", "Text"), "Select", new { @id = "ddlDocument" + Index, @class = "form-control", @onchange = "LoadAdditionalDocument('" + Index + "')" })
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3" id="DivMultiSelect_@Index">
+                <div class="col-lg-4 col-md-4 col-sm-4" id="DivMultiSelect_@Index">
                     <label> @Resources.GetLabelName("Select Additional Document")</label>
+                    <input type="submit" id="btnAdd" value="Add" class="btn btns" onclick="AddDocuments('@Index')" style="height:25px;font-size:small;" />
                     <select id="multiAdditionalDocument_@Index" multiple="multiple" style="width:600px;"></select>
 
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3" style="display:none" id="divMedicalDocument_@Index">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="display:none" id="divMedicalDocument_@Index">
                     <label> @Resources.GetLabelName("Select Additional Document")</label>
+                    <input type="submit" id="btnAdd" value="Add" class="btn btns" onclick="AddDocuments('@Index')" style="height:25px;font-size:small;" />
                     <select id="multiAdditionalDocument1_@Index" multiple="multiple" class="form-control btn-blo" style="width:600px;">
                         @foreach (var item in Model.LstAdditionalMedicalDocument)
                         {
@@ -150,8 +153,9 @@
                         }
                     </select>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3" style="display:none" id="divNonMedicalDocument_@Index">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="display:none" id="divNonMedicalDocument_@Index">
                     <label> @Resources.GetLabelName("Select Additional Document")</label>
+                    <input type="submit" id="btnAdd" value="Add" class="btn btns" onclick="AddDocuments('@Index')" style="height:25px;font-size:small;" />
                     <select id="multiAdditionalDocument2_@Index" multiple="multiple" class="form-control btn-blo" style="width:600px;">
                         @foreach (var item in Model.LstAdditionalNonMedicalDocument)
                         {
@@ -159,18 +163,20 @@
                         }
                     </select>
                 </div>
-                <div class="col-lg-1 col-md-1 col-sm-1">
-                    <input type="submit" id="btnAdd" value="Add" class="btn btns" onclick="AddDocuments('@Index')" />
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2">
-                    <label>@Resources.GetLabelName("Medical Fee Paid by")</label>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-1">
-                    @(Html.RadioButtonFor(a => a.objMemberDetails[Index].ObjUwDecision.MedicalFeePaidBy, MedicalFeePaidBy.PaidByAIA, new { @id = "MedicalFeePaidByAIA" + Index }))@Resources.GetLabelName("By AIA")
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2">
+                @*<div class="col-lg-1 col-md-1 col-sm-1" style="text-align:left;">
+                   
+                </div>*@
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <label>@Resources.GetLabelName("Medical Fee Paid by:")</label>
+                    @(Html.RadioButtonFor(a => a.objMemberDetails[Index].ObjUwDecision.MedicalFeePaidBy, MedicalFeePaidBy.PaidByAIA, new { @id = "MedicalFeePaidByAIA" + Index }))@Resources.GetLabelName("By Company")
                     @(Html.RadioButtonFor(a => a.objMemberDetails[Index].ObjUwDecision.MedicalFeePaidBy, MedicalFeePaidBy.PaidByCustomer, new { @id = "MedicalFeePaidByCustomer" + Index }))@Resources.GetLabelName("By Customer")
-                    </div>
+                </div>
+                @*<div class="col-lg-2 col-md-2 col-sm-2">
+                   
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                   
+                    </div>*@
 
 
 
@@ -556,7 +562,7 @@
             enableCaseInsensitiveFiltering: true,
             filterPlaceholder: 'Search for something...',
             onChange: function (option, checked) {
-                debugger;
+                
                 // Get selected options.
                 var selectedOptions = $('.multiselect-ui_@Index option:selected');
                 var ln = $('#dates-field2').children('option').length;

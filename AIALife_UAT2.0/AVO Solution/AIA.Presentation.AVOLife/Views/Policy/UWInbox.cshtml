@@ -10,7 +10,7 @@
     columns.Add(a => a.ProposalNo).Titled("Proposal No").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true).RenderValueAs(c => @Html.ActionLink(c.ProposalNo, "ModifyProposal", "Policy", new { PolicyID =AIA.CrossCutting.CrossCutting_EncryptDecrypt.Encrypt(c.PolicyId.ToString()), userType="UW" }, null));
     columns.Add(a => a.QuoteNo).Titled("Quote No").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
     columns.Add(a => a.InsuredName).Titled("Last Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
-    columns.Add(a => a.NIC).Titled("NIC").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
+    columns.Add(a => a.NIC).Titled(" Emirate Id").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
     columns.Add(a => a.PlanName).Titled("Plan Name").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
     //columns.Add(a => a.PolicyTerm).Titled("PolicyTerm").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);
     columns.Add(a => a.Premium).Titled("Premium").Encoded(false).Sanitized(false).SetWidth(20).Filterable(true);

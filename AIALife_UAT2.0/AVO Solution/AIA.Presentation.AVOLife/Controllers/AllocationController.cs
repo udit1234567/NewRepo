@@ -155,8 +155,8 @@ namespace AIA.Presentation.AVOLife.Controllers
             for (int i = 0; i < SelectedArray.Count(); i++)
             {
                 var Combined = SelectedArray[i].Split('-');
-                var ProposalNo = Combined[0];
-                var LoginID = Combined[1];
+                var ProposalNo = Combined[0]+ "-" + Combined[1];
+                var LoginID = Combined[2];
                 var UserID = Context.tblUserDetails.Where(a => a.LoginID == LoginID).Select(a => a.UserID).FirstOrDefault();
                 AllocationProposals obj = new AllocationProposals();
                 obj.ISSelected = true;

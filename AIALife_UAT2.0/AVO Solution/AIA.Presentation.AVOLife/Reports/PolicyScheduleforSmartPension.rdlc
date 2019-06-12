@@ -5660,7 +5660,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LKR 1,000.</Value>
+                                  <Value>Dh 1,000.</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -6207,7 +6207,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf(Fields!ProductPlanRiderId.Value&lt;&gt;23 and Fields!ProductPlanRiderId.Value&lt;&gt;25 and Fields!ProductPlanRiderId.Value&lt;&gt;33, "LKR " + Format(Cint(Fields!SumAssured.Value), "#,###,###"), "")</Value>
+                                  <Value>=IIf(Fields!ProductPlanRiderId.Value&lt;&gt;23 and Fields!ProductPlanRiderId.Value&lt;&gt;25 and Fields!ProductPlanRiderId.Value&lt;&gt;33, "Dh " + Format(Cint(Fields!SumAssured.Value), "#,###,###"), "")</Value>
                                   <Style>
                                     <FontFamily>times New Roman</FontFamily>
                                   </Style>
@@ -6358,7 +6358,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>= "LKR " + Format(Cint(Fields!SumAssured.Value), "#,###,###")</Value>
+                                  <Value>= "Dh " + Format(Cint(Fields!SumAssured.Value), "#,###,###")</Value>
                                   <Style>
                                     <FontFamily>times New Roman</FontFamily>
                                   </Style>
@@ -6528,7 +6528,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="LKR "+ Format(Cint(First(Fields!Basic_Premium.Value, "DataSet6")), "#,###,###")</Value>
+                    <Value>="Dh "+ Format(Cint(First(Fields!Basic_Premium.Value, "DataSet6")), "#,###,###")</Value>
                     <Style>
                       <FontFamily>times New Roman</FontFamily>
                     </Style>
@@ -6597,7 +6597,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="LKR "+ Format(Cint(First(Fields!Additional_Benefits_Premium.Value, "DataSet6")), "#,###,###")</Value>
+                    <Value>="Dh "+ Format(Cint(First(Fields!Additional_Benefits_Premium.Value, "DataSet6")), "#,###,###")</Value>
                     <Style>
                       <FontFamily>times New Roman</FontFamily>
                     </Style>
@@ -6666,7 +6666,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="LKR "+ Format(Cint(First(Fields!WOP_Premium.Value, "DataSet6")), "#,###,###")</Value>
+                    <Value>="Dh "+ Format(Cint(First(Fields!WOP_Premium.Value, "DataSet6")), "#,###,###")</Value>
                     <Style>
                       <FontFamily>times New Roman</FontFamily>
                     </Style>
@@ -6735,7 +6735,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="LKR "+ Format(Cint(First(Fields!Aggregate_Premium.Value, "DataSet6")), "#,###,###")</Value>
+                    <Value>="Dh "+ Format(Cint(First(Fields!Aggregate_Premium.Value, "DataSet6")), "#,###,###")</Value>
                     <Style>
                       <FontFamily>times New Roman</FontFamily>
                     </Style>
@@ -6804,7 +6804,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="LKR "+ iif(First(Fields!Additional_Premium.Value, "DataSet6")=0,"0", Format(Cint(First(Fields!Additional_Premium.Value, "DataSet6")), "#,###,###"))</Value>
+                    <Value>="Dh "+ iif(First(Fields!Additional_Premium.Value, "DataSet6")=0,"0", Format(Cint(First(Fields!Additional_Premium.Value, "DataSet6")), "#,###,###"))</Value>
                     <Style>
                       <FontFamily>times New Roman</FontFamily>
                     </Style>
@@ -6873,7 +6873,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="LKR "+ Format(Sum(Fields!Aggregate_Premium.Value, "DataSet6")+Sum(Fields!Additional_Premium.Value, "DataSet6"), "#,###,###")</Value>
+                    <Value>="Dh "+ Format(Sum(Fields!Aggregate_Premium.Value, "DataSet6")+Sum(Fields!Additional_Premium.Value, "DataSet6"), "#,###,###")</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>
@@ -7062,7 +7062,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>= iif(Fields!ProductPlanRiderId.Value=23,"LKR "+ Cstr(Format(sum(cint(Fields!SumAssured.Value)), "#,###,###")),"")</Value>
+                                  <Value>= iif(Fields!ProductPlanRiderId.Value=23,"Dh "+ Cstr(Format(sum(cint(Fields!SumAssured.Value)), "#,###,###")),"")</Value>
                                   <Style>
                                     <FontFamily>times New Roman</FontFamily>
                                   </Style>

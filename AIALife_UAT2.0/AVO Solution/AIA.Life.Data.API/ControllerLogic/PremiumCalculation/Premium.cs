@@ -84,8 +84,12 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
         public string OccupationId { get; set; }
         [XmlAttribute(AttributeName = "Gender")]
         public string Gender { get; set; }
+        [XmlAttribute(AttributeName = "Smoker")]
+        public int IsSmoke { get; set; }
         [XmlElement(ElementName = "Rider")]
         public List<Rider> Rider { get; set; }
+       
+
     }
     #endregion
 
@@ -134,7 +138,8 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
             {
 
                 Member member = new Member();
-                member.Age = (objLifeQuote.objQuoteMemberDetails[i].AgeNextBirthDay - 1).ToString();
+               member.Age = (objLifeQuote.objQuoteMemberDetails[i].AgeNextBirthDay - 1).ToString();
+               // member.Age = (objLifeQuote.objQuoteMemberDetails[i].AgeNextBirthDay).ToString();
                 member.Id = objLifeQuote.objQuoteMemberDetails[i].TabIndex = (i + 1).ToString();
 
                 if (objLifeQuote.objQuoteMemberDetails[i].Relationship == "267" || objLifeQuote.objQuoteMemberDetails[i].Relationship == "268")
@@ -146,11 +151,13 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                     {
                         OccupationStr = objLifeQuote.objProspect.Occupation;
                         member.Gender = objLifeQuote.objProspect.Gender;
+                        member.IsSmoke = (objLifeQuote.objProspect.IsSmoke)?1:0;
                     }
                     else if (objLifeQuote.objQuoteMemberDetails[i].Relationship == "268")
                     {
                         OccupationStr = objLifeQuote.objSpouseDetials.Occupation;
                         member.Gender = objLifeQuote.objSpouseDetials.Gender;
+                        member.IsSmoke =  (objLifeQuote.IsSelfPay)?1:0;
                     }
 
                     if (!string.IsNullOrEmpty(OccupationStr))

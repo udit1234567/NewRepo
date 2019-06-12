@@ -757,7 +757,7 @@ Monthly Income you will start receiving after policy maturity, in LKR</Value>
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value> In the unfortunate event of Total Permanent Disability due to an accident, LKR </Value>
+                        <Value> In the unfortunate event of Total Permanent Disability due to an accident, Dh </Value>
                         <Style>
                           <FontSize>7pt</FontSize>
                         </Style>
@@ -891,7 +891,7 @@ Monthly Income you will start receiving after policy maturity, in LKR</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>- If you pass away due to natural circumstances your beneficiaries will receive LKR </Value>
+                    <Value>- If you pass away due to natural circumstances your beneficiaries will receive Dh </Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>
@@ -919,7 +919,7 @@ Monthly Income you will start receiving after policy maturity, in LKR</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>- IIn case of death due to an accident, your beneficiaries will receive LKR </Value>
+                    <Value>- IIn case of death due to an accident, your beneficiaries will receive Dh </Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>
@@ -7881,7 +7881,7 @@ Monthly Income you will start receiving after policy maturity, in LKR</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>       e.    Policy Administration charge: LKR 600 for the year 2018, increasing at the rate of 15% p.a. each subsequent year from 1st January </Value>
+                    <Value>       e.    Policy Administration charge: Dh 600 for the year 2018, increasing at the rate of 15% p.a. each subsequent year from 1st January </Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>

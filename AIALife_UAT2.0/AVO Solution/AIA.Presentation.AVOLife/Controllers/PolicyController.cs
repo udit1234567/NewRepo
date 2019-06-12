@@ -403,7 +403,11 @@ namespace AIA.Presentation.AVOLife.Controllers
                     objQuote.objProspect.AgeNextBdy = objProspect.AgeNextBdy;
                     objQuote.objProspect.DateofBirth = objProspect.DateofBirth;
                     objQuote.objProspect.Occupation = objProspect.Occupation;
+                  
                     objQuote.objProspect.Gender = objProspect.Gender;
+                    //Added by Udit for Smoke
+                    objQuote.objProspect.IsSmoke = objProspect.IsSmoke;
+                    // objQuote.objProspect.
                     #region Fill Spouse Details
 
 
@@ -636,6 +640,7 @@ namespace AIA.Presentation.AVOLife.Controllers
             obj.Relationship = "267";
             obj.Assured = "MainLife";
             obj.AgeNextBirthDay = objQuote.objProspect.AgeNextBdy ?? 0;
+           //  objQuote.objProspect.IsSmoke;
             AIA.Life.Business.Prospect.ProspectBusiness objProspectBusiness = new AIA.Life.Business.Prospect.ProspectBusiness();
             objQuote = objProspectBusiness.LoadQuoteMaster(objQuote);
 
@@ -1049,7 +1054,7 @@ namespace AIA.Presentation.AVOLife.Controllers
             return (byte[])converter.ConvertTo(img, typeof(byte[]));
         }
 
-        [HttpPost]
+
         public ActionResult SaveProposal(AIA.Life.Models.Policy.Policy objPolicy)
         {
             try
@@ -1774,6 +1779,7 @@ namespace AIA.Presentation.AVOLife.Controllers
         {
             try
             {
+                
                 // Html = RenderPartialViewToString("~/Views/Policy/PartialIllustration.cshtml", grid);
                 if (string.IsNullOrEmpty(viewName))
                     viewName = ControllerContext.RouteData.GetRequiredString("action");

@@ -978,6 +978,24 @@ namespace AIA.Presentation.AVOLife.Controllers
                                 RenderReports(bytes, QuoteNo);
                             }
                             break;
+
+                        case "LLP":
+                            {
+
+                                byte[] bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforLiveLife.rdlc");
+                                RenderReports(bytes, QuoteNo);
+                            }
+                            break;
+                        case "JLF":
+                        case "JLB":
+                        case "SLP":
+                            {
+
+                                byte[] bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
+                                RenderReports(bytes, QuoteNo);
+                            }
+                            break;
+
                         case "PPH":
                         case "PSP":
                             {
@@ -1282,6 +1300,18 @@ namespace AIA.Presentation.AVOLife.Controllers
                                 bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforLiveLife.rdlc");
                             }
                             break;
+                      
+
+
+                        case "JLF":
+                        case "JLB":
+                        case "SLP":
+                        case "FLP":
+                            {
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
+                             
+                            }
+                            break;
                         case "PSP":
                             case "PPH":
                                 {
@@ -1333,7 +1363,25 @@ namespace AIA.Presentation.AVOLife.Controllers
                     {
                         switch (ProductCode)
                         {
-                            case "PPG":
+
+                        case "LLP":
+                            {
+
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforLiveLife.rdlc");
+                            }
+                            break;
+
+                        case "JLF":
+                        case "JLB":
+                        case "SLP":
+                        case "FLP":
+                            {
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
+
+                            }
+                            break;
+
+                        case "PPG":
                                 {
                                     bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/EasypensionquotationinTamil.rdlc");
                                 }
@@ -1390,7 +1438,23 @@ namespace AIA.Presentation.AVOLife.Controllers
 
                         switch (ProductCode)
                         {
-                            case "PPG":
+                        case "LLP":
+                            {
+
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforLiveLife.rdlc");
+                            }
+                            break;
+
+                        case "JLF":
+                        case "JLB":
+                        case "SLP":
+                        case "FLP":
+                            {
+                                bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/QuotationforFutureProtect.rdlc");
+
+                            }
+                            break;
+                        case "PPG":
                                 {
                                     bytes = GenerateRDLCReports(dslst, parameters, @"~/Reports/EasypensionquotationinSinhala.rdlc");
                                 }
@@ -5509,7 +5573,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                     string mainSAValue = "";
                     if (!MainSA.InnerText.Equals("-"))
                     {
-                        mainSAValue = "LKR " + FormatCurrency(MainSA.InnerText);
+                        mainSAValue = "Dh " + FormatCurrency(MainSA.InnerText);
                         if (RiderUnit.Value != null)
                         {
                             mainSAValue += (" " + RiderUnit.Value);
@@ -5527,7 +5591,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                     string spouseSAValue = "";
                     if (!SpouseSA.InnerText.Equals("-"))
                     {
-                        spouseSAValue = "LKR " + FormatCurrency(SpouseSA.InnerText);
+                        spouseSAValue = "Dh " + FormatCurrency(SpouseSA.InnerText);
                         if (RiderUnit.Value != null)
                         {
                             spouseSAValue += (" " + RiderUnit.Value);
@@ -5558,7 +5622,7 @@ namespace AIA.Presentation.AVOLife.Controllers
                     }
                     else
                     {
-                        childSAValue = "LKR " + FormatCurrency(TotalChildSA + "");
+                        childSAValue = "Dh " + FormatCurrency(TotalChildSA + "");
                     }
 
                     XmlElement TotalChildSA_elem = doc.CreateElement("TotalChildSA");

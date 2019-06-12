@@ -1209,7 +1209,8 @@ namespace AIA.Life.Data.API.ControllerLogic.Common
                 lstOccupation = (from occupation in Context.tblMasLifeOccupations
                                  select new MasterListItem
                                  {
-                                     Text = string.Concat(occupation.OccupationCode, "|", occupation.SinhalaDesc, "|", occupation.TamilDesc),
+                                     // Text = string.Concat(occupation.OccupationCode, "|", occupation.SinhalaDesc, "|", occupation.TamilDesc),
+                                     Text = occupation.OccupationCode,
                                      Value = occupation.CompanyCode
                                  }).OrderBy(a => a.Text).ToList();
             else
@@ -1217,7 +1218,7 @@ namespace AIA.Life.Data.API.ControllerLogic.Common
                                  where occupation.OccupationCode.StartsWith(Prefix) || occupation.TanglishDesc.StartsWith(Prefix) || occupation.SinglishDesc.StartsWith(Prefix)
                                  select new MasterListItem
                                  {
-                                     Text = string.Concat(occupation.OccupationCode, "|", occupation.SinhalaDesc, "|", occupation.TamilDesc),
+                                     Text = occupation.OccupationCode,
                                      Value = occupation.CompanyCode
                                  }).OrderBy(a => a.Text).ToList();
             return lstOccupation;
@@ -1254,6 +1255,21 @@ namespace AIA.Life.Data.API.ControllerLogic.Common
 
             List<MasterListItem> lstType = (from s in Context.tblMasCommonTypes
                                             where s.MasterType == "CoverageFNA" && s.isDeleted == 0
+                                            select new MasterListItem
+                                            {
+                                                Text = s.Description,
+                                                Value = s.Code
+
+                                            }).OrderByDescending(a => a.Text).ToList();
+            return lstType;
+
+        }
+        
+        public List<MasterListItem> GetCurrency()
+        {
+
+            List<MasterListItem> lstType = (from s in Context.tblMasCommonTypes
+                                            where s.MasterType == "Currency" && s.isDeleted == 0
                                             select new MasterListItem
                                             {
                                                 Text = s.Description,

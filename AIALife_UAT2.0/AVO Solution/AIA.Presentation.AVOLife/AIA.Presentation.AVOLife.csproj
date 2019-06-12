@@ -1484,6 +1484,7 @@
     <Content Include="Images\calculator.png" />
     <Content Include="Images\Car-1.png" />
     <Content Include="Images\car.png" />
+    <Content Include="Images\checked1.png" />
     <Content Include="Images\chin-1.png" />
     <Content Include="Images\chin-2.png" />
     <Content Include="Images\ChoiceChinnappa.jpg" />
@@ -1550,6 +1551,7 @@
     <Content Include="Images\Up-Black.png" />
     <Content Include="Images\Up-Blue.png" />
     <Content Include="Images\Up-Red.png" />
+    <Content Include="Images\warning1.png" />
     <Content Include="Policy\ContactID_103\Spousesignature.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\AgentonBoarding\AgentonBoardingScripts.js" />
@@ -2561,7 +2563,6 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\ProductFlow\PropoalScript.js" />
-    <Content Include="Scripts\ProspectScript\ProspectFromValidation.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
@@ -2849,6 +2850,7 @@
     <Folder Include="Areas\Dashboard\Models\" />
     <Folder Include="Areas\Dashboard\Views\Shared\" />
     <Folder Include="ContentUpload\" />
+    <Folder Include="Scripts\ProspectScript\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -2950,6 +2952,7 @@
     <EmbeddedResource Include="Reports\QuotationforEducationplan%28Sinhala%29.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforEducationplan%28Tamil%29.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforEducationplan.rdlc" />
+    <EmbeddedResource Include="Reports\QuotationforFutureProtect.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforHealthprotector.rdlc" />
     <EmbeddedResource Include="Reports\QuotationforLiveLife.rdlc">
       <SubType>Designer</SubType>

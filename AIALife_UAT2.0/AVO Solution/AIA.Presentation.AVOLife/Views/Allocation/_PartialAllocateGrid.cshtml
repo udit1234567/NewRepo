@@ -15,10 +15,10 @@
 
 @Html.Grid(Model).Named("GridAllocateProposals").Columns(columns =>
 {
-    columns.Add(a => a.ISSelected).Titled("Select").Encoded(false).SetWidth(1).Sanitized(false).Filterable(false).RenderValueAs(a => Html.CheckBox("objLstAllocationProposals[" + (a.Index - FirstIndex) + "].IsSelected", a.ISSelected, new { @id = "AllocatechkIsSelected" + (a.Index - FirstIndex), Style = "height:14px;width:14px", @onchange = "FunctionDropDown('checkbox',"+a.ProposalNo+ ",'" + (a.Index - FirstIndex) + "')" }));
+    columns.Add(a => a.ISSelected).Titled("Select").Encoded(false).SetWidth(1).Sanitized(false).Filterable(false).RenderValueAs(a => Html.CheckBox("objLstAllocationProposals[" + (a.Index - FirstIndex) + "].IsSelected", a.ISSelected, new { @id = "AllocatechkIsSelected" + (a.Index - FirstIndex), Style = "height:14px;width:14px", @onchange = "FunctionDropDown('checkbox','"+a.ProposalNo+ "','" + (a.Index - FirstIndex) + "')" }));
     columns.Add(a => a.ProposalNoDisplay).Titled("ProposalNo").Encoded(false).Sanitized(false).Filterable(true);
     columns.Add(a => a.ProposalNo, true).Titled("ProposalNoHidden").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.TextBox("objLstAllocationProposals[" + (a.Index - FirstIndex) + "].ProposalNo", a.ProposalNo, new { @id = "txtProposalNo" + (a.Index - FirstIndex), @class = "form-control", @style = "width:100%" }));
-    columns.Add(a => a.AssignTo).Titled("Assign").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objLstAllocationProposals[" + (a.Index - FirstIndex) + "].AssignTo", new SelectList(ViewBag.AllocateUWDetails, "Value", "Text", a.AssignTo), "Select", new { @id = "DDLAssignTo" + (a.Index - FirstIndex), @class = "form-control", @style = "width:100%", @onchange = "FunctionDropDown('Dropdown'," + a.ProposalNo + ",'"+(a.Index- FirstIndex) + "')" }));
+    columns.Add(a => a.AssignTo).Titled("Assign").Encoded(false).Sanitized(false).SetWidth(20).RenderValueAs(a => Html.DropDownList("objLstAllocationProposals[" + (a.Index - FirstIndex) + "].AssignTo", new SelectList(ViewBag.AllocateUWDetails, "Value", "Text", a.AssignTo), "Select", new { @id = "DDLAssignTo" + (a.Index - FirstIndex), @class = "form-control", @style = "width:100%", @onchange = "FunctionDropDown('Dropdown','" + a.ProposalNo + "','"+(a.Index- FirstIndex) + "')" }));
 }).WithPaging(PageSize).WithMultipleFilters()
 
 

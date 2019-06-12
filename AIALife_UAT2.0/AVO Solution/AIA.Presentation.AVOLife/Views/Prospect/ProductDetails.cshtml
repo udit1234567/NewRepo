@@ -226,16 +226,36 @@
 
     </div>
 </div>*@
+<div id="divIPP_@Model.SelectedQuote" style="display:none">
 
-@*(@Resources.GetLabelName("LKR"))*@
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label>@Resources.GetLabelName("IPP")<span class="mandatory">*</span></label>
+            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.MonthlySurvivorIncome, new { @class = "form-control", @maxLength = 3, @id = "txtIPP" + Model.SelectedQuote, @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)" })
+        </div>
 
-<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+    </div>
+</div>
+
+
+
+<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divBasicSumLabel_@Model.SelectedQuote">
+    @*<div class="form-group">
+            <label>@Resources.GetLabelName("Basic Sum Insured") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
+            <div id="divBasicSum_@Model.SelectedQuote">
+
+                @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.BasicSumInsured, new SelectList(Model.objListQuote[Model.SelectedQuote].lstSumInsured, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlBasicSumInsured" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")" })
+            </div>
+        </div>*@
+
     <div class="form-group">
         <label>@Resources.GetLabelName("Basic Sum Insured")<span class="mandatory">*</span></label>
         <div id="divBasicSum_@Model.SelectedQuote">
-            @Html.DropDownListFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.BasicSumInsured, new SelectList(Model.objListQuote[Model.SelectedQuote].lstSumInsured, "Text", "Value"), "Select", new { @class = "form-control", @id = "ddlBasicSumInsured" + Model.SelectedQuote + "", @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")" })
+            @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objProductDetials.BasicSumInsured, new { @class = "form-control", @id = "txtBasicSumInsured" + Model.SelectedQuote, @onchange = "GetAnnualPremium(" + Model.SelectedQuote + ")" })
+
         </div>
     </div>
+
 </div>
 @*<div style="display:none" id="divModalPremium_@Model.SelectedQuote">
 
@@ -266,12 +286,12 @@
 </div>*@
 
 @*(@Resources.GetLabelName("LKR"))*@
-@*<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
+<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4" id="divAnnualizePremium_@Model.SelectedQuote">
     <div class="form-group">
-        <label>@Resources.GetLabelName("Annualize Premium") (@Resources.GetLabelName("LKR"))<span class="mandatory">*</span></label>
+        <label>@Resources.GetLabelName("Annualize Premium") @*(@Resources.GetLabelName(""))*@<span class="mandatory">*</span></label>
         @Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium, new { @class = "form-control", @id = "txtAnnualizePremium" + Model.SelectedQuote + "", @readonly = "readonly", @onchange = "GetBasicSumInsured(" + Model.SelectedQuote + ")", @onkeypress = "return isNumberKey(event)" }, Model.objListQuote[Model.SelectedQuote].objProductDetials.AnnualPremium)
     </div>
-</div>*@
+</div>
 
 <div class="clearfix"></div>
 <div id="divSpouseCovered_@Model.SelectedQuote" style="display:none">
@@ -320,7 +340,7 @@
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
-            <label>@Resources.GetLabelName("Spouse NIC")</label>
+            <label>@Resources.GetLabelName("Spouse Emirate Id")</label>
 
             @Html.TextBoxFor(a => a.objListQuote[Model.SelectedQuote].objSpouseDetials.SpouseNIC, new
        {
@@ -359,7 +379,7 @@
 
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
-            <label>@Resources.GetLabelName("Age at Next Birthday")</label>
+            <label>@Resources.GetLabelName("Age")</label>
             @Html.TextBoxFor(m => m.objListQuote[Model.SelectedQuote].objSpouseDetials.AgeNextBirthday, new { @class = "form-control", @id = "txtSpouseCoveredAge_" + Model.SelectedQuote, @maxlength = "2", @onkeypress = "return isNumberKey(event)", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" })
         </div>
     </div>
@@ -375,7 +395,16 @@
         </div>
     </div>
 
-
+    @*Added by Udit*@
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+        <div class="form-group">
+            <label style="font-size:16px">@Resources.GetLabelName("Do You Smoke?")</label>
+            <div>
+                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSelfPay, true, new { @id = "IsSelfPay" + Model.SelectedQuote, @class = "", @onchange = " ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("Yes")
+                @(Html.RadioButtonFor(a => a.objListQuote[Model.SelectedQuote].IsSelfPay, false, new { @id = "IsSelfPay" + Model.SelectedQuote, @class = "", @onchange = "ClearBenifitDetails(" + Model.SelectedQuote + ")" }))@Resources.GetLabelName("No")
+            </div>
+        </div>
+    </div>
 
 
 </div>
@@ -421,7 +450,7 @@
 
 <div class="col-md-12 col-sm-12  col-lg-12" style="text-align: center;margin-top: 2%;margin-bottom:2%;">
     <div class="form-group">
-        <input type="button" class="btn btn-default notdisb" id="btngetriskinfo" value="Get Risk Info" data-toggle="modal" onclick="GetDynamicTabs('@Model.SelectedQuote','@Model.objListQuote[Model.SelectedQuote].IsModifyQuote')" style="padding-left:20px;padding-right:20px;" />
+        <input type="button" class="btn btn-default notdisb" id="btngetriskinfo" value="Get Risk Benefit" data-toggle="modal" onclick="GetDynamicTabs('@Model.SelectedQuote','@Model.objListQuote[Model.SelectedQuote].IsModifyQuote')" style="padding-left:20px;padding-right:20px;" />
     </div>
 </div>
 <div class="clearfix"></div>
@@ -449,7 +478,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 form-group payablebtn-space" id="DivPremiumSection_@Model.SelectedQuote" style="display:none;">
     <div class="col-md-6 col-sm-4 col-xs-12 col-lg-4 fna-final-count">
         <label class="fna-final-text">
-            @Resources.GetLabelName("TOTAL PREMIUM") (LKR)
+            @Resources.GetLabelName("TOTAL PREMIUM")
         </label>
         @(Html.ReadCurrencyTextBoxFor(a => a.objListQuote[Model.SelectedQuote].AnnualPremium, new { id = "txtAnnualPremium" + Model.SelectedQuote, @class = "form-control", @readonly = "readonly", @style = "width:100%;text-align: center;font-size: xx-large;font-weight: bold;height: 10%;background-color: #e1e1e1;border-color: #E1E1E1;" }, Model.objListQuote[Model.SelectedQuote].AnnualPremium))
 
@@ -1665,15 +1694,15 @@
 
             }
         }
+       
+        //if ($("#ddlBasicSumInsured" + index + "").val() == "") {
+        //    writeMultipleMessage("error", 'Please Select The Basic SumInsured', 'ddlBasicSumInsured' + index + '')
+        //    return false;
+        //}
+        //else {
+        //    writeMultipleMessage("error", "", 'ddlBasicSumInsured' + index + '');
 
-        if ($("#ddlBasicSumInsured" + index + "").val() == "") {
-            writeMultipleMessage("error", 'Please Select The Basic SumInsured', 'ddlBasicSumInsured' + index + '')
-            return false;
-        }
-        else {
-            writeMultipleMessage("error", "", 'ddlBasicSumInsured' + index + '');
-
-        }
+        //}
         if (planCode == 'PPH') {
 
             if ($("#txtMonthlySurvivorIncome" + index + "").val() > 100) {
@@ -2240,6 +2269,7 @@
                     $('#ddlSpouseGender'+index).prop('disabled',true);
                     $('#dtSpouseCoveredDOB_'+index).prop('disabled',true);
                     var planCode = $("#txtPlanCode_" + index + "").val();
+                   
                     if (planCode == "HPA") {
                         $('#divAPCP_' + index).show();
                         $('#hdntxtAPCP' + index).val(data.objProductDetials.APCP);
@@ -2263,7 +2293,10 @@
                     $('#DivDynamicInfo_' + index).html("");
                     $('#DivDynamicInfo_' + index).html(data.STRBenefitHtml);
                     $('#BenifitOvervieModelbody_' + index).html(data.STRHtml);
-                    $('#divIllustration_' + index).html(data.STRPremiumHtml);
+                    if (planCode != "LLP") 
+                        {
+                            $('#divIllustration_' + index).html(data.STRPremiumHtml);
+                        }
                     $("#DivPremiumSection_" + index).show();
                     $('#divIllustration_' + index).show();
                     $('#divCalMod_' + index).show();
@@ -2353,6 +2386,14 @@
 
     function validateQuoteSignatures(index) {
         //debugger;
+         
+        //if ($('#txtAnnualPremium').val() < $('#txtAnnualizePremium').val()) {
+        //    // writeMultipleMessage("error", "Annualize premium should be greater than total premium");
+        //    writeMultipleMessage("error", "Annualize Premium Should be greater than total premium");
+        //    return false;
+          
+        //}
+       
         if ($('#QuoteSignatureValue_'+index).val() == "") {  //$('#UploadSignature').val()=="" && && $('#HdnUploadSignPath').val()==""
             writeMultipleMessage("error", "Please Add Customer Signature", "QuoteSignatureID_@Model.SelectedQuote");
             return false;
@@ -2370,6 +2411,7 @@
             return true;
 
         }
+
 
     }
     function ModifyQuote(index) {
@@ -2489,17 +2531,19 @@
     function GetPlanCode(index, IsModifyQuote) {
         var Variant = $("#ddlVariant_" + index).val();
         if (Variant != '') {
+           
             $.post("../Policy/GetPlanCode?plan=" + Variant)
 
             .done(function (data) {
                 if (data != null) {
                     var planCode = data.ObjLifeQuote.objProductDetials.PlanCode;
+                    debugger;
                     $("#txtPlanCode_" + index + "").val(planCode);
 
 
                     if (planCode == 'PPG' || planCode == 'SBE' || planCode == 'SBF' ||
-                    planCode == 'PPH' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD' ||
-                    planCode == 'SBG' || planCode == 'SBH'|| planCode == 'LLP') {
+                            planCode == 'PPH' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD' ||
+                        planCode == 'SBG' || planCode == 'SBH' || planCode == 'LLP' || planCode == 'JLF' || planCode == 'SLP' || planCode == 'JLB') {
                         $("#divPolicyTerm_" + index).html("");
                         $('#divPolicyTerm_' + index).html("<select class='form-control' id='ddlPolicyTerm_" + index + "' name='objListQuote[" + index + "].objProductDetials.PolicyTerm' onchange='GetPremiumTerm(" + index + ")'></select>");
                         $("#ddlPolicyTerm_" + index).append("<option value=\'\'>Select</option>");
@@ -2536,7 +2580,7 @@
 
 
                     if (planCode == 'PPG' || planCode == 'HPA'
-                        || planCode == 'PPH' || planCode == 'EPB'|| planCode == 'LLP') {
+                        || planCode == 'PPH' || planCode == 'EPB' || planCode == 'LLP' || planCode == 'SLP' || planCode == 'JLF' || planCode == 'JLB') {
                         $("#divPremiumTerm_" + index + "").html("");
                         $("#divPremiumTerm_" + index + "").html("<input class='form-control valid' id='TxtPremiumTerm_" + index + "' name='objListQuote[" + index + "].objProductDetials.PremiumTerm' value='' aria-invalid='false' type='text'  , onkeypress = 'return isNumberKey(event)', onkeyup ='return isNumberTabkey(event)'>");
                         if (IsModifyQuote == "True") {
@@ -2555,6 +2599,30 @@
                     if (planCode == 'EPB') {
                         $('#divChkBoxHealthProtector_' + index + '').hide();
                     }
+
+                    //added by Udit for making visible for Future Protect
+                    if (planCode == 'SLP' || planCode == 'JLF' || planCode == 'JLB') {
+
+                        $('#divAnnualizePremium_' + index).show();
+                        $('#txtAnnualizePremium' + index).attr("readonly", false);
+                        $('#divPensionPeriod_' + index + '').show();
+                        $("#ddlPensionPeriod_" + index + "").val(_PensionPeriod);
+                        $('#divSAM_' + index).hide();
+                        $('#divBasicSumLabel_' + index).hide();
+                        if (planCode != 'SLP')
+                            $('#divSpouseCovered_' + index).show();
+                        $('#divIPP_' + index).show();
+
+
+                    }
+
+                    else {
+                        $('#divIPP_' + index).hide();
+                       // $('#divBasicSum_' + index).show();
+                    }
+
+
+
                     if (planCode == 'PPH') {
 
                         $('#divPensionPeriod_' + index + '').show();
@@ -2569,7 +2637,7 @@
                             $("#ddlPensionPeriod" + index + "").val(_PensionPeriod);
                         }
                     }
-                    if (planCode == 'PPG' || planCode == 'LLP') {
+                    if (planCode == 'LLP') {
                         debugger;
                         $('#divPensionPeriod_' + index + '').hide();
                         $('#divDrawDownPeriod_' + index + '').hide();
@@ -2577,6 +2645,10 @@
                         $('#divMonthlyIncome_' + index + '').hide();
                         $('#divSelfPay_' + index + '').hide();
 
+                        $('#divBasicSum_' + index + '').html("");
+                        $('#divBasicSum_' + index).html("<input type='text' id='txtBasicSumInsured_" + index + "' class='form-control' maxlength='12'name='objListQuote[" + index + "].objProductDetials.BasicSumInsured'/>");
+                        $('#divBasicSum_' + index + '').show();
+                        //$('#txtBasicSumInsured' + index + '').show();
                         $('#divChkBoxHealthProtector2_' + index + '').hide();
                         if (IsModifyQuote == "True") {
                             $("#ddlPensionPeriod" + index + "").val(_PensionPeriod);
@@ -2597,17 +2669,21 @@
                         }
                     }
                     if (planCode == 'SBE' || planCode == 'SBF' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD') {
-
+                        
                         $("#divMaturityBenifit_" + index + "").show();
                         if (IsModifyQuote == "True") {
                             $("#ddlLstdMaturityBenefit" + index + "").val(_MaturityBenefit);
                         }
                     }
-                    if (planCode == 'SBG' || planCode == 'SBH' || planCode == 'PPH' || planCode == 'PSP' || planCode == 'PPG' || planCode == 'HPA' || planCode == 'EPB'|| planCode == 'LLP') {
+                    if (planCode == 'SBG' || planCode == 'SBH' || planCode == 'PPH' || planCode == 'PSP' || planCode == 'PPG' || planCode == 'HPA' || planCode == 'EPB' || planCode == 'LLP') {
+                        
                         $("#divMaturityBenifit_" + index + "").hide();
                     }
 
+                    
+
                     if (planCode == 'PPH' || planCode == 'PSP') {
+                        debugger;
                         $('#divRetairemetAge_' + index + '').show();
                         $('#divMonthlyIncome_' + index + '').show();
                         $('#divChkBoxHealthProtector_' + index + '').show();
@@ -2622,7 +2698,6 @@
                             GetPolicyTermSmartPension(index,_RetirementAge);
 
                         }
-
                     }
                     if (planCode == 'HPA') {
                         $('#divSelfPay_' + index + '').show();
@@ -2640,8 +2715,6 @@
                             $("#chkDeductable" + index + "").val(_Deductable);
 
                         }
-
-
                     }
                     if (planCode == 'PPH' || planCode == 'HPA' || planCode == 'EPB') {
 
@@ -2651,7 +2724,6 @@
                             //$("#IsSpouseCovered" + index + "").val(_IsSpouseCovered);
                             //$("#IsChildCovered" + index + "").val(_IsChildCovered);
                         }
-
                     }
                     if (planCode == 'SBE' || planCode == 'SBF' || planCode == 'SBA' || planCode == 'SBB' || planCode == 'SBC' || planCode == 'SBD' || planCode == 'PPG' || planCode == 'SBG' || planCode == 'SBH'|| planCode == 'LLP') {
                         $('#divSpouseCovered_' + index + '').hide();
@@ -2666,6 +2738,8 @@
                         $('#divChkBoxHealthProtector_' + index + '').hide();
                         $('#divBasicSum_' + index).html("");
                         $('#divBasicSum_' + index).html("<input type='text' id='txtBasicSumInsured_" + index + "' class='form-control' maxlength='12'name='objListQuote[" + index + "].objProductDetials.BasicSumInsured'/>");
+                        //$('#divBasicSum_' + index).show();
+                        $('#divBasicSumLabel_' + index).show();
                         $('#ddlSAM' + index).val("");
                         $('#divSAM_' + index).hide();
                         if (IsModifyQuote == "True") {
@@ -2727,6 +2801,8 @@
                         f2("txtAnnualizePremium" + index);
 
                     }
+
+
                     //}
 
                 }
@@ -2817,12 +2893,16 @@
             $('#LessAFCModal').modal('show');
         }
     }
-    function MonthlyPopup(index){
-
+    function MonthlyPopup(index) {
+        //debugger;
+        //var AnnualizePremium = $("#txtAnnualizePremium" + index).val();
+        //var annualplandprem = $("#txtAnnualPremium" + index).val();
         var PreferedMode = $("#ddlPrefMode" + index).val();
         var Plancode = $("#txtPlanCode_" + index).val();
         var Premium = parseInt($("#hdntxtAnnualPremium" + index).val());
         var Message = "";
+
+       
         if (PreferedMode == "12") {
 
             if (Plancode == "PPG" || Plancode == "SBF") {
@@ -2843,11 +2923,12 @@
             else {
                 SaveQuotation(index);
             }
-
+           
         }
         else {
             SaveQuotation(index);
         }
+    
 
     }
     function DeleteChild(index, childIndex) {
