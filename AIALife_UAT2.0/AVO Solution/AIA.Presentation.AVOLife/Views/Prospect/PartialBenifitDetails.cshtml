@@ -63,6 +63,7 @@
 
                             </span>
                             @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
+
                         }
                         else if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "FAMILY GLOBAL HOSPITALISATION CARE" || Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "GLOBAL HOSPITALISATION CARE")
                         {
@@ -129,7 +130,11 @@
                     </td>
                     <th class="iGridHeader">Premium</th>
                     <td>
+
                         @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @class = "label-type", maxlength = "12", @id = ridtxtID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium)
+
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @class = "label-type", maxlength = "12", @id = ridtxtID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium)
+
                     </td>
                     <th class="iGridHeader">Loading</th>
                     <td>

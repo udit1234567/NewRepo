@@ -88,7 +88,7 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
         public int IsSmoke { get; set; }
         [XmlElement(ElementName = "Rider")]
         public List<Rider> Rider { get; set; }
-       
+
 
     }
     #endregion
@@ -123,7 +123,7 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
             }
             else if ((objLifeQuote.objProductDetials.PlanCode != "HPA"))
             {
-                proposalDetails.Product.Premium = objLifeQuote.objProductDetials.AnnualPremium;
+                proposalDetails.Product.Premium = "";//objLifeQuote.objProductDetials.AnnualPremium;
             }
             proposalDetails.Product.SumAssuredLevel = objLifeQuote.objProductDetials.SAM == 0 ? "" : objLifeQuote.objProductDetials.SAM.ToString();
             proposalDetails.Product.HIRDeductible = objLifeQuote.objProductDetials.Deductable == true ? "1" : "0";
@@ -138,8 +138,8 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
             {
 
                 Member member = new Member();
-               member.Age = (objLifeQuote.objQuoteMemberDetails[i].AgeNextBirthDay - 1).ToString();
-               // member.Age = (objLifeQuote.objQuoteMemberDetails[i].AgeNextBirthDay).ToString();
+                member.Age = (objLifeQuote.objQuoteMemberDetails[i].AgeNextBirthDay - 1).ToString();
+                // member.Age = (objLifeQuote.objQuoteMemberDetails[i].AgeNextBirthDay).ToString();
                 member.Id = objLifeQuote.objQuoteMemberDetails[i].TabIndex = (i + 1).ToString();
 
                 if (objLifeQuote.objQuoteMemberDetails[i].Relationship == "267" || objLifeQuote.objQuoteMemberDetails[i].Relationship == "268")
@@ -151,13 +151,13 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                     {
                         OccupationStr = objLifeQuote.objProspect.Occupation;
                         member.Gender = objLifeQuote.objProspect.Gender;
-                        member.IsSmoke = (objLifeQuote.objProspect.IsSmoke)?1:0;
+                        member.IsSmoke = (objLifeQuote.objProspect.IsSmoke) ? 1 : 0;
                     }
                     else if (objLifeQuote.objQuoteMemberDetails[i].Relationship == "268")
                     {
                         OccupationStr = objLifeQuote.objSpouseDetials.Occupation;
                         member.Gender = objLifeQuote.objSpouseDetials.Gender;
-                        member.IsSmoke =  (objLifeQuote.IsSelfPay)?1:0;
+                        member.IsSmoke = (objLifeQuote.IsSelfPay) ? 1 : 0;
                     }
 
                     if (!string.IsNullOrEmpty(OccupationStr))
@@ -193,6 +193,10 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                 {
                     Rider rider = new Rider();
                     rider.RiderId = item.BenefitID.ToString();
+                    if (item.RiderID == 1 && (proposalDetails.Product.BasicSumAssured == "" || proposalDetails.Product.BasicSumAssured == "0"))
+                    {
+                        proposalDetails.Product.BasicSumAssured = item.RiderSuminsured == null ? "" : item.RiderSuminsured.ToString();
+                    }
                     if (item.RiderID == 10 || item.CalType == "Cal")
                     {
                         rider.SumAssured = "";
@@ -200,6 +204,15 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                     else
                     {
                         rider.SumAssured = item.RiderSuminsured == null ? "" : item.RiderSuminsured.ToString();
+                    }
+                    if (item.RiderID == 10)
+                    {
+                        var BasicRiderSI = Convert.ToInt64(selectedRiders.Where(a => a.RiderID == 1).Select(a => a.RiderSuminsured).FirstOrDefault());
+                        var PermanentyRiderSI = Convert.ToInt64(selectedRiders.Where(a => a.RiderID == 18).Select(a => a.RiderSuminsured).FirstOrDefault());
+                        if (BasicRiderSI > PermanentyRiderSI)
+                            rider.SumAssured = Convert.ToString(PermanentyRiderSI);
+                        else
+                            rider.SumAssured = Convert.ToString(BasicRiderSI);
                     }
                     if (item.RiderID == 5 && item.CalType == "Cal")
                     {
@@ -394,7 +407,10 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                             {
                                 objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].AssuredMember = prem.AssuredMember;
                                 objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].ActualRiderPremium = (Convert.ToInt64(prem.RiderPremium) - Convert.ToInt64(prem.LoadingAmount)).ToString();
-                                objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].RiderSuminsured = prem.RiderSuminsured;
+                                if (Convert.ToInt32(prem.BenefitID) == 305 || Convert.ToInt32(prem.BenefitID) == 312)
+                                    objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].RiderSuminsured = "";
+                                else
+                                    objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].RiderSuminsured = prem.RiderSuminsured;
                                 objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].LoadingAmount = prem.LoadingAmount;
                                 objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].RiderPremium = prem.RiderPremium;
                                 objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].DiscountAmount = prem.DiscountAmount;
@@ -522,7 +538,7 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                 if (!string.IsNullOrEmpty(objLifeQuote.objProspect.Occupation))
                 {
                     occupation = objLifeQuote.objProspect.Occupation.Split('|')[0];
-                }             
+                }
                 var occId = entity.tblMasLifeOccupations.Where(a => a.OccupationCode == occupation).Select(a => a.ID).FirstOrDefault();
 
                 var spouseOccId = entity.tblMasLifeOccupations.Where(a => a.CompanyCode == objLifeQuote.objSpouseDetials.Occupation).Select(a => a.ID).FirstOrDefault();
@@ -782,7 +798,7 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                                     //...............................
                                     if (objLifeQuote.objQuoteMemberDetails[i].Assured.StartsWith("Child"))
                                     {
-                                       
+
                                         if (objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].RiderCode == "TCMB")
 
                                         {
@@ -1125,7 +1141,7 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
 
                                         {
                                             SpouseHECSA = Convert.ToDecimal(objLifeQuote.objQuoteMemberDetails[i].ObjBenefitDetails[j].RiderSuminsured);
-                                           
+
                                         }
                                     }
                                     //...............................
@@ -1501,28 +1517,28 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                     objLifeQuote.Error.ErrorMessage += "<br />" + "All children must have same Sum Assured for Child Hospital Income Cover";
 
                 }
-                
 
-               var type = (from occ in entity.tblProductPlanRiderOccupationCharts
+
+                var type = (from occ in entity.tblProductPlanRiderOccupationCharts
                             join rider in listMainlifeRiders
                             on occ.ProductPlanRiderId equals rider
                             where occ.OccupationId == occId
                             select occ.Type).ToList();
                 List<int?> lstriderid = (from occ in entity.tblProductPlanRiderOccupationCharts
-                                       join rider in listMainlifeRiders
-                                       on occ.ProductPlanRiderId equals rider
-                                       where occ.OccupationId == occId && occ.Type== "DECLINE"
+                                         join rider in listMainlifeRiders
+                                         on occ.ProductPlanRiderId equals rider
+                                         where occ.OccupationId == occId && occ.Type == "DECLINE"
                                          select occ.ProductPlanRiderId).ToList();
                 List<string> ridename = (from R in entity.tblProductPlanRiders
                                          join rider in lstriderid
-                                         on R.ProductPlanRiderId equals rider                                       
+                                         on R.ProductPlanRiderId equals rider
                                          select R.DisplayName).ToList();
                 string MainlifeRider = "";
                 if (ridename.Count != 0)
                 {
                     for (int i = 0; i < ridename.Count; i++)
                     {
-                        MainlifeRider +=  ridename[i]+"," ;
+                        MainlifeRider += ridename[i] + ",";
                     }
 
                 }
@@ -1533,22 +1549,22 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                                   where occ.OccupationId == spouseOccId
                                   select occ.Type).ToList();
                 List<int?> lstrideridspouse = (from occ in entity.tblProductPlanRiderOccupationCharts
-                                         join rider in listSpouseRiders
-                                         on occ.ProductPlanRiderId equals rider
-                                         where occ.OccupationId == spouseOccId && occ.Type == "DECLINE"
+                                               join rider in listSpouseRiders
+                                               on occ.ProductPlanRiderId equals rider
+                                               where occ.OccupationId == spouseOccId && occ.Type == "DECLINE"
                                                select occ.ProductPlanRiderId).ToList();
                 List<string> ridenamespouse = (from R in entity.tblProductPlanRiders
-                                         join rider in lstrideridspouse
-                                         on R.ProductPlanRiderId equals rider
-                                         select R.DisplayName).ToList();
-                
+                                               join rider in lstrideridspouse
+                                               on R.ProductPlanRiderId equals rider
+                                               select R.DisplayName).ToList();
+
                 string SpouseRider = "";
                 if (ridenamespouse.Count != 0)
                 {
                     for (int i = 0; i < ridenamespouse.Count; i++)
                     {
 
-                        SpouseRider += ridenamespouse[i]+",";
+                        SpouseRider += ridenamespouse[i] + ",";
                     }
                 }
 
@@ -2322,7 +2338,7 @@ namespace AIA.Life.Data.API.ControllerLogic.PremiumCalculation
                 {
                     objLifeQuote.Error.ErrorMessage += "<br />" + "FHEC rider cannot be selected as the spouse is not within the acceptable range - 19 to 55";
                 }
-                
+
             }
             if (objLifeQuote.objProductDetials.PlanCode == "HPA")
             {
