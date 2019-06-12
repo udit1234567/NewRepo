@@ -46,7 +46,7 @@
                 <tr>
                     <th class="iGridHeader">Select your Benefit</th>
                     <td>
-                        
+
                         @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "FAMILY HOSPITAL EXPENSE COVER")
                         {
                             <span>
@@ -55,7 +55,7 @@
                             </span>
                             @Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName
                         }
-                        
+
                         else if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].BenifitName.ToUpper() == "HOSPITAL EXPENSE COVER")
                         {
                             <span>
@@ -104,14 +104,14 @@
                         @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium })
                         @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingPercentage, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadingPercentage })
                         @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadinPerMille, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].LoadinPerMille })
-                       
+
                     </td>
                     <th class="iGridHeader">Sum Assured</th>
                     <td>
                         @if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].CalType.ToUpper() == "CAL")
                         {
                             if (Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderID == 10)
-                            {                                
+                            {
                                 @Html.HiddenFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured })
                             }
                             else
@@ -122,14 +122,14 @@
                         }
                         else
                         {
-                            @Html.CurrencyTextBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "form-control", @id = SitxtID, maxlength = "12", @onchange = "f1(id)", @onkeypress = "return isNumberKey(event)",@onkeyup = "return isNumberTabkey(event)", @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, @style = "text-align: center;" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+                            @Html.CurrencyTextBoxFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "form-control", @id = SitxtID, maxlength = "12", @onchange = "f1(id)", @onkeypress = "return isNumberKey(event)", @onkeyup = "return isNumberTabkey(event)", @Value = Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, @style = "text-align: center;" }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
                         }
 
 
                     </td>
                     <th class="iGridHeader">Premium</th>
                     <td>
-                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "label-type", maxlength = "12", @id = ridtxtID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @class = "label-type", maxlength = "12", @id = ridtxtID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].AnnualRiderPremium)
                     </td>
                     <th class="iGridHeader">Loading</th>
                     <td>
@@ -137,7 +137,7 @@
                     </td>
                     <th class="iGridHeader">Total Premium </th>
                     <td>
-                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "label-type", maxlength = "12", @id = tplbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium, new { @class = "label-type", maxlength = "12", @id = tplbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium)
                     </td>
                 </tr>
             }
@@ -156,9 +156,9 @@
             </div>
             <div class="modal-body">
                 <p>
-                Max HEC/FHEC rider Sum Assured limit is ‘Annualized Basic Premium * 5’ times. User can select only following Sum Assureds subjected to Limits below i.e. the chosen Sum assured cannot be more than ‘Annualized Basic Premium * 5’ times
+                    Max HEC/FHEC rider Sum Assured limit is ‘Annualized Basic Premium * 5’ times. User can select only following Sum Assureds subjected to Limits below i.e. the chosen Sum assured cannot be more than ‘Annualized Basic Premium * 5’ times
                 </p>
-               
+
                 <br />
                 <p>
                     The allowed Sum Assureds are: “100,000, 200,000, 300,000, 400,000, 500,000, 750,000 & 1,000,000”
@@ -182,11 +182,11 @@
             </div>
             <div class="modal-body">
                 <p>
-                Max HEC rider Sum Assured limit is ‘Annualized Basic Premium * 5’ times. User can select only following Sum Assureds subjected to Limits below i.e. the chosen Sum assured cannot be more than ‘Annualized Basic Premium * 5’ times
-                </p>                 
+                    Max HEC rider Sum Assured limit is ‘Annualized Basic Premium * 5’ times. User can select only following Sum Assureds subjected to Limits below i.e. the chosen Sum assured cannot be more than ‘Annualized Basic Premium * 5’ times
+                </p>
                 <br />
                 <p>
-                The allowed Sum Assureds are: “100,000, 200,000, 300,000, 400,000, 500,000, 750,000 & 1,000,000”
+                    The allowed Sum Assureds are: “100,000, 200,000, 300,000, 400,000, 500,000, 750,000 & 1,000,000”
                 </p>
             </div>
             <div class="modal-footer">
@@ -206,13 +206,13 @@
             </div>
             <div class="modal-body">
                 <p>
-                   If Annual Compulsory Premium is less than 100,000 then Max Sum Assured of GHC/FGHC is 250,000, 500,000, 750,000, 1,000,000
+                    If Annual Compulsory Premium is less than 100,000 then Max Sum Assured of GHC/FGHC is 250,000, 500,000, 750,000, 1,000,000
                 </p>
                 <br />
                 <p>
                     If Annual Compulsory Premium is from 100,000 to 300,000 then Max Sum Assured of GHC/FGHC can be selected from following Sum Assured list subjected to Max of “Annual Compulsory Premium x 20”
                 </p>
-              
+
                 <p>
                     250,000, 500,000, 750,000, 1,000,000, 2,000,000, 3,000,000, 4,000,000, 5,000,000
                 </p>
