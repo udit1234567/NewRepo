@@ -129,7 +129,7 @@
                     </td>
                     <th class="iGridHeader">Premium</th>
                     <td>
-                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "label-type", maxlength = "12", @id = ridtxtID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium, new { @class = "label-type", maxlength = "12", @id = ridtxtID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].ActualRiderPremium)
                     </td>
                     <th class="iGridHeader">Loading</th>
                     <td>
@@ -137,7 +137,7 @@
                     </td>
                     <th class="iGridHeader">Total Premium </th>
                     <td>
-                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured, new { @class = "label-type", maxlength = "12", @id = tplbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderSuminsured)
+                        @Html.CurrencyLabelFor(m => m.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium, new { @class = "label-type", maxlength = "12", @id = tplbID }, Model.objListQuote[Model.SelectedQuote].objQuoteMemberDetails[MemberIndex].ObjBenefitDetails[i].RiderPremium)
                     </td>
                 </tr>
             }
