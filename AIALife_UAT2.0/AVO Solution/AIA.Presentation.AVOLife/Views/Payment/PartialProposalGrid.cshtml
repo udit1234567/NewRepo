@@ -24,7 +24,7 @@
     columns.Add(a => a.PlanName).Titled("Plan Name").Encoded(false).Sanitized(false);
     columns.Add(a => a.PolicyTerm).Titled("Policy Term").Encoded(false).Sanitized(false);
     columns.Add(a => a.IssueDate).Format("{0:dd/MM/yyyy}").Titled("Issue Date").Encoded(false).Sanitized(false);
-    columns.Add(a => a.Premium).Titled("Premium (Dh)").Encoded(false).Sanitized(false);
+    columns.Add(a => a.Premium).Titled("Premium").Encoded(false).Sanitized(false);
     columns.Add(a => a.CustomerMobile).Titled("Mobile").Encoded(false).Sanitized(false);
     columns.Add(a => a.Mobile,true).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].ProductCode)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].Email)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].PrefferedMode)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].PreferredLanguage)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].Salutation)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].PolicyStartDate)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].PolicyEndDate)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].ProductName)).RenderValueAs(a => Html.HiddenFor(b => b.lstPaymentItems[a.Index].IsAfc));
 }).WithPaging(5))
